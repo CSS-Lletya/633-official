@@ -1,0 +1,802 @@
+177 - at Varrock Palace.
+50 - at Al Kharid.
+102 - at the Ice Mountain and Monastery north of Falador.
+90 - at Shilo Village.
+36 - in the Kharidian Desert.
+123 - at Al Kharid mine.
+124 - at the desert entrance to the Kalphite Lair.
+19 - at the hellhounds in Taverley Dungeon.
+160 - at the Dark Warrior's Fortress.
+186 - at the gem trader in Falador.
+24 - at the Battlefield north of Tree Gnome Village.
+25 - at Elvarg's lair or during Grand Tree Quest.
+26 - to the north of the Lava Maze.
+27 - at the Fight Arena.
+28 - at the King Black Dragon.
+29 - at Gu'Tanoth Ogre Enclave.
+2 - at Lumbridge farm.
+180 - at the coastline below Rimmington.
+152 - at the Monastery.
+324 - on Entrana.
+100 - in the Dwarven tunnel under Wolf Mountain.
+99 - in Ardougne.
+64 - at Lumbridge Swamp.
+83 - to the west of Yanille.
+325 - at the Dwarven Mine or the Gamers' Grotto.
+104 - at Camelot Castle.
+63 - during Temple of Ikov.
+68 - at Yanille Agility Dungeon.
+169 - at the Wilderness, north of Varrock.
+181 - at Zanaris market.
+326 - in the south-east of the Wilderness.
+182 - to the north of Edgeville.
+56 - to the north of the Grand Exchange.
+327 - on the path between Lumbridge and Draynor.
+37 - in the north-west of the Wilderness.
+174 - around the Desert Mining Camp.
+148 - in the Tree Gnome Village maze.
+138 - in Melzar's Maze.
+173 - in Taverley Dungeon.
+69 - at Shantay Pass.
+153 - in the caverns below the Observatory.
+118 - at Zanaris.
+106 - at the stone circle in Varrock.
+41 - at the unholy altar north of the Observatory.
+119 - at Catherby beach.
+163 - at the Lumbridge windmill area.
+72 - at Falador Castle.
+167 - at Port Khazard.
+22 - at the Tree Gnome Stronghold.
+125 - at Varrock city centre.
+159 - at Gu'Tanoth.
+98 - at Edgeville.
+313 - at Goblin Village.
+101 - to the south-west of the Tree Gnome Stronghold.
+33 - at the Tree Gnome Stronghold's Agility Training Area.
+310 - at the Dwarven Mine.
+55 - at Brimhaven.
+76 - at Lumbridge Castle.
+116 - at the Champions' Guild.
+112 - at the Gnome Ball Field.
+96 - at the area north of the Black Knights' Fortress.
+188 - at the ogre island, west of Yanille.
+1 - at Iban's lair in the Underground Pass.
+18 - in Taverley.
+115 - to the north-west of Brimhaven.
+117 - at Tai Bwo Wannai Village.
+191 - at Ardougne Castle.
+60 - at Hemenster.
+95 - in the Underground Pass caverns.
+6 - at the north dock of Brimhaven.
+172 - on Karamja.
+114 - at Cairn Isle.
+12 - at Rimmington.
+20 - at the area south-west of Rellekka.
+13 - at the Mage Arena.
+185 - in the east of Yanille.
+66 - at the Barbarian Outpost.
+113 - to the north of Edgeville.
+74 - at Keep Le Faye.
+161 - at Hazelmere's island East of Yanille 
+65 - at the Mind Altar.
+107 - at the Crafting Guild.
+10 - at the entrance to the Underground Pass.
+21 - at the Sinclair Mansion.
+328 - at King Lathas's Combat Training Camp.
+184 - at the Sorcerer's Tower.
+193 - at the Fishing Guild.
+157 - to the west of the Dig Site.
+93 - at the Jolly Boar Inn.
+7 - at Seers' Village.
+329 - at the Rogues' Castle.
+158 - at the Fire Altar.
+62 - automatically.
+155 - to the south of Tree Gnome Village.
+103 - in the Waterfall Dungeon, East of Shilo Village.
+127 - at the north of Rimmington.
+144 - in Varrock Sewers.
+400 - automatically.
+57 - at the rune essence mine.
+5 - at West Ardougne.
+91 - to the west of Tyras Camp.
+53 - at the Black Knight base in Taverley Dungeon.
+78 - to the south-east of the Kharazi Jungle.
+89 - to the east of Karamja Jungle.
+122 - at the Duel Arena hospital.
+80 - at the Feldip Hills glider area.
+110 - at the Observatory.
+52 - at the Air Altar.
+92 - at Karamja port.
+35 - at Port Sarim.
+331 - at the Demonic Ruins in the Wilderness.
+332 - in the Wilderness.
+140 - at McGrubor's Wood.
+111 - at the Mining area south-east of Varrock.
+151 - at Draynor Village.
+108 - at the Asgarnian Ice Dungeon north of Mudskipper Point.
+129 - to the south-west of Karamja.
+333 - at Draynor Manor.
+77 - at the Heroes' Guild.
+175 - at the Cooks' Guild.
+162 - in the south-east Kharazi Jungle.
+130 - to the west of the Tree Gnome Stronghold.
+51 - during Fishing Trawler.
+38 - during Fishing Trawler.
+109 - at the Coal Trucks.
+133 - to the north-west of Ardougne.
+170 - on Crandor.
+79 - to the west of the Kharidian Desert.
+85 - at the Wizards' Tower.
+75 - at the Dig Site.
+32 - at the top of Baxtorian Falls.
+30 - at the cave under the Kharazi Jungle.
+82 - at Baxtorian Falls.
+49 - at the farm area south of Falador.
+42 - to the south of the Lava Maze in the Wilderness.
+435 - in the Wilderness.
+94 - at the gnome glider on Karamja.
+165 - to the east of Tai Bwo Wannai Village.
+183 - to the west of the Bandit Camp in the Wilderness.
+192 - at the Legends' Guild.
+3 - at Draynor Market.
+179 - at the dramen tree in Entrana Dungeon.
+70 - at the tower of the Necromancer.
+323 - during Underground Pass.
+321 - automatically.
+547 - automatically.
+189 - in a Christmas holiday event (2007 onwards).
+468 - during As a First Resort...
+492 - at the Stronghold of Player Safety.
+429 - during Back to my Roots.
+494 - at the Stronghold of Player Safety.
+54 - to the north of Falador.
+43 - at the Forgotten Cemetery in the Wilderness.
+14 - on the east side of the Wilderness.
+34 - to the north-west of the Black Knights' Fortress.
+81 - near the Legends' Guild.
+15 - at the Mining Guild in Falador.
+168 - at the Desert Mining Camp.
+16 - automatically.
+466 - automatically.
+58 - to the east of the Bedabin Camp.
+176 - in the Wilderness south-west of Daemonheim.
+164 - to the west of Brimhaven.
+45 - during Dig Site.
+67 - to the west of the Dark Warriors' Fortress in the Wilderness.
+190 - at the Body Altar.
+330 - at the bank vault west of Varrock.
+146 - at the Water Altar.
+105 - at the coastline south of Port Sarim.
+166 - at the Shipyard on Karamja.
+145 - to the east of Lumbridge Swamp.
+120 - in the Wilderness north of the Graveyard.
+46 - in Lumbridge Castle's basement.
+449 - to the south of Red Dragon Isle in the Wilderness.
+87 - at White Wolf Mountain.
+47 - at the Duel Arena.
+59 - during Underground Pass.
+131 - at the Nature Altar.
+156 - under Paterdomus.
+121 - to the north of the Lumber Yard.
+9 - on the way to Death Plateau.
+97 - at the hermit's cave north-west of Burthorpe.
+149 - at Burthorpe's training ground.
+187 - during Death Plateau.
+71 - at the chompy hunt area near Rantz the ogre.
+88 - during Elemental Workshop.
+17 - at the perfect gold mine under Ardougne.
+128 - at the swamp toad pond in the Feldip Hills.
+61 - at Canifis in Morytania.
+154 - to the west of Mort'ton.
+48 - to the east of Paterdomus.
+84 - to the north of the Mort Myre area.
+254 - at the area around Tyras Camp in Isafdar.
+253 - at the Poison Waste in south Isafdar.
+256 - at Arandar, east of Tirannwn.
+255 - at the Elf Camp in Tirannwn.
+248 - at the Brimhaven Agility Arena.
+247 - during the Mime random event.
+251 - to the south-east of Isafdar.
+252 - at the exit of the Underground Pass.
+245 - at the nature spirit's island in Mort Myre Swamp.
+242 - during the Maze random event.
+244 - to the south of Canifis.
+246 - at the nature spirit's grotto in Mort Myre Swamp.
+241 - at the Hollows in the Mort Myre Swamp.
+134 - at the Death Altar.
+243 - at the Cosmic Altar.
+132 - at Isafdar near the Underground Pass.
+270 - to the south of Tyras Camp in Isafdar.
+271 - in the passage between Iban's Temple and Isafdar.
+277 - at the boss area of the Haunted Mine.
+262 - at the Law Altar.
+266 - in the smoky well near Pollnivneach.
+269 - at Burthorpe Games Room.
+11 - at the entrance to the Haunted Mine.
+268 - to the south-west of Prifddinas.
+260 - at the Kalphite Queen.
+264 - at Eadgar's cave atop Trollheim.
+263 - at the Bandit Camp in the Kharidian Desert.
+267 - in the desert north of Jaldraocht Pyramid.
+258 - in Trollheim.
+257 - at the troll champion arena.
+259 - to the south-east of Prifddinas.
+261 - at the Trollheim cave.
+303 - on Ape Atoll.
+296 - at the gnome glider hangar.
+295 - during Fremennik Trials.
+294 - at the Ice Path north of Trollheim.
+293 - to the south-east of Rellekka.
+292 - at the gate to the Ice Path, north of Trollheim.
+291 - to the east of Rellekka.
+290 - to the south of Rellekka.
+289 - at Rellekka.
+288 - at the Haunted Woods of Morytania.
+287 - at the shade catacombs below Mort'ton.
+286 - to the east of Mort'ton.
+285 - on Etceteria.
+284 - on Miscellania.
+282 - on the middle floor of the Haunted Mine.
+278 - on the bottom floor of the Haunted Mine.
+4 - during the Troll Romance quest.
+316 - during Fremennik Trials.
+346 - at the goblin cave near the Fishing Guild.
+322 - at the dagannoth cave under the Lighthouse.
+319 - at the Myreque area under Mort Myre.
+320 - at the Lighthouse.
+317 - during Castle Wars.
+318 - during Castle Wars.
+312 - at the gnome tunnel in Monkey Madness.
+314 - during Castle Wars, fighting for Saradomin.
+308 - during Monkey Madness.
+311 - during the boss fight in Monkey Madness.
+306 - at the southern part of Ape Atoll.
+307 - on Ape Atoll.
+305 - at Marim's main gate.
+304 - on Crash Island during Monkey Madness.
+351 - at the town of Pollnivneach.
+345 - at the Werewolf Agility Course.
+347 - at the Fishing Platform.
+343 - at the H.A.M. cave.
+356 - at the Mountain Camp.
+355 - at Port Phasmatys.
+354 - at the pool of ectoplasm underneath the Ectofuntus.
+353 - at the shipwreck on the north coast of Morytania.
+359 - inside Jaldraocht, the pyramid visited in Desert Treasure.
+352 - at Jaldraocht, the pyramid visited in Desert Treasure.
+358 - on Dragontooth Island.
+357 - during Mountain Daughter.
+364 - at Brimhaven Dungeon's entrance.
+362 - at the dragon area of Brimhaven Dungeon.
+363 - at Brimhaven Dungeon.
+361 - at the dungeon below Draynor Village.
+142 - at the Chaos Altar.
+143 - at the Earth Altar.
+8 - to the west of Stealing Creation in the Wilderness.
+141 - at Barbarian Village.
+334 - at the Pirates' Hideout in the Wilderness.
+336 - at the caves below Crandor.
+178 - at Taverley Dungeon.
+265 - at the cave below the Kharazi Jungle.
+338 - at Draynor Manor's cellar.
+339 - at the Slayer Tower.
+335 - during the Troll Romance quest.
+337 - at the Chaos Temple in the Wilderness.
+342 - at the dungeon south-east of Fenkenstrain's Castle.
+344 - at Fenkenstrain's Castle.
+340 - on the west side of the Fremennik Slayer Dungeon.
+341 - on the east side of the Fremennik Slayer Dungeon.
+474 - during As a First Resort...
+389 - at the caves beneath Lumbridge Swamp.
+393 - in Damis's Shadow Dungeon.
+392 - at the zogre area.
+395 - on the east side of Keldagrim.
+394 - at the zogre Dungeon.
+397 - during Tears of Guthix.
+396 - on the west side of Keldagrim.
+402 - at the Rogues' Den.
+390 - at the ogre area south of Castle Wars.
+407 - at the Dorgesh-Kaan mine.
+403 - at the Rogues' Den training area.
+412 - in abyssal space.
+411 - during the Evil Bob random event.
+398 - during the Tears of Guthix quest.
+413 - during the Quiz Master random event.
+366 - during Eagles' Peak.
+369 - during Between a Rock...
+370 - during Between a Rock...
+373 - during Between a Rock...
+372 - at Lletya.
+375 - at the slave mine under West Ardougne.
+376 - during Mourning's Ends Part II.
+377 - at the Ruins of Uzer.
+378 - during the Golem.
+379 - during Shadow of the Storm.
+380 - at the Barrows.
+381 - beneath the Barrows.
+383 - to the north of (and at) Menaphos.
+384 - during Icthlarin's Little Helper.
+387 - to the north of Sophanem.
+388 - during Icthlarin's Little Helper.
+479 - in the jungle of north-east Karamja.
+478 - during the Hazeel Cult.
+476 - in the Graveyard of Shadows in the Wilderness.
+475 - to the north of the Lava Maze in the Wilderness.
+473 - in the TzHaar Fight Caves.
+471 - at Port Phasmatys brewery.
+470 - during A Tail of Two Cats.
+409 - during the Frog random event.
+497 - on Braindeath Island.
+621 - automatically.
+491 - during Rat Catchers.
+490 - at Port Sarim Rat Pits.
+489 - at the Keldagrim Rat Pits.
+485 - during Rat Catchers.
+482 - at the Varrock Rat Pits.
+481 - at the Ardougne Rat Pits.
+436 - during Forgettable Tale...
+44 - during Forgettable Tale...
+425 - during Recruitment Drive.
+434 - during Blast Furnace.
+420 - at the goblin mines under Lumbridge.
+418 - during the Drill Demon random event.
+419 - during the Freaky Forester random event.
+463 - in the TzHaar Fight Pits.
+469 - in TzHaar.
+464 - at the genie's cave west of Nardah.
+465 - in the desert north of Nardah.
+461 - on Waterbirth Island.
+462 - during the Spirits of Elid.
+447 - at Nardah.
+448 - in Waterbirth Island Dungeon.
+534 - at the Mage Training Arena's Telekinetic Theatre.
+533 - at the Mage Training Arena's Creature Graveyard.
+535 - at the Mage Training Arena's Alchemists' Playground.
+529 - at the Asgarnian Ice Dungeon's wyvern area.
+528 - at the Champion's Challenge arena.
+532 - at Diango's Christmas workshop.
+530 - at The Other Inn on Mos Le'Harmless.
+542 - during Enakhra's Lament.
+546 - during Swan Song.
+455 - during Dealing with Scabaras.
+548 - at the Trollweiss and Rellekka Hunter area.
+207 - automatically.
+541 - at the Mage Training Arena's Enchanting Chamber.
+545 - during Cabin Fever.
+544 - during Swan Song.
+506 - during Royal Trouble.
+508 - during Royal Trouble.
+509 - during Royal Trouble.
+510 - at the sea snake cave in Royal Trouble.
+498 - on Braindeath Island's mountain.
+501 - at Burgh de Rott.
+504 - during In Aid of the Myreque.
+505 - at the Agility Pyramid.
+520 - during Shadow of the Storm.
+198 - in Waterbirth Island Dungeon.
+524 - in Waterbirth Island Dungeon.
+525 - at the Champion's Challenge underground area.
+511 - during the Prison Pete random event.
+515 - at Mudskipper Point.
+517 - in Waterbirth Island Dungeon.
+519 - during Shadow of the Storm.
+611 - during Trouble Brewing.
+612 - during the Evil Twin random event.
+606 - during Contact!
+610 - at Trouble Brewing's distillery.
+616 - during Contact!
+213 - during Contact!
+614 - during the Pinball random event.
+615 - during Contact!
+591 - during Pyramid Plunder.
+594 - at the hopelessness room of Tolna's rift area.
+587 - at the Pest Control landing area.
+588 - during Pest Control.
+603 - in an Easter holiday event (2006 onwards).
+604 - during Barbarian Assault.
+600 - at the confusion room of Tolna's rift area.
+602 - at the fear room of Tolna's rift area.
+575 - at the Evil Chicken's lair.
+576 - during Recipe for Disaster.
+573 - at Falador Mole Lair.
+568 - at the killerwatt plane.
+583 - during Recipe for Disaster.
+964 - during Recipe for Disaster.
+577 - during Recipe for Disaster.
+477 - during As a First Resort...
+537 - at the Vault of War in the Stronghold of Security.
+460 - at the Feldip Hunter area cave.
+454 - at your player-owned house.
+453 - at the Feldip Hunter area.
+565 - at the anger room of Tolna's rift.
+560 - at the Sepulchre of Death in the Stronghold of Security.
+559 - at the Pit of Pestilence in the Stronghold of Security.
+558 - at the Catacomb of Famine in the Stronghold of Security.
+225 - during Fremennik Isles.
+220 - during Fremennik Isles.
+211 - during Barbarian Assault.
+194 - at Brimstail's cave.
+203 - during My Arm's Big Adventure.
+201 - during the Slug Menace Quest.
+202 - during Elemental Workshop II.
+274 - during Olaf's Quest.
+643 - during the Darkness of Hallowvale.
+646 - during the Darkness of Hallowvale.
+126 - on the cosmic entity plane during Fairy Tale Part II.
+86 - on the gorak plane in Fairy Tale Part II.
+73 - at the fairy resistance hideout in Fairy Tale Part II.
+222 - during Fremennik Isles.
+221 - during Fremennik Isles.
+223 - during Fremennik Isles.
+633 - at the Falconer Area, north-east of Eagles' Peak.
+631 - at the coastal area of Mos Le'Harmless.
+200 - during Slug Menace.
+632 - in the cave horror dungeon beneath Mos Le'Harmless.
+638 - during Death to the Dorgeshuun.
+630 - during Lunar Diplomacy.
+640 - during Death to the Dorgeshuun.
+197 - during the Darkness of Hallowvale.
+586 - in the north-east corner of the Wilderness.
+493 - at the Stronghold of Player Safety.
+623 - during your dream in Lunar Diplomacy.
+622 - during your dream in Lunar Diplomacy.
+627 - on the east coast of Lunar Isle.
+625 - at Lunar Isle.
+634 - at the Warriors' Guild.
+626 - in the dungeon beneath Lunar Isle.
+276 - during Another Slice of H.A.M..
+450 - at the Scorpion Pit in the Wilderness.
+279 - during Another Slice of H.A.M..
+281 - during Another Slice of H.A.M..
+349 - during Impetuous Impulses.
+273 - in an Easter holiday event (2007 onwards).
+275 - during Another Slice of H.A.M..
+367 - while learning barbarian skills.
+216 - during Cold War.
+214 - in Tarn's Lair.
+234 - during Tower of Life.
+272 - during What Lies Below.
+217 - during Cold War.
+238 - during The Great Brain Robbery.
+231 - during Sorceress's Garden.
+228 - during Sorceress's Garden.
+229 - during Sorceress's Garden.
+230 - during Sorceress's Garden.
+209 - in a Christmas holiday event (2006 onwards).
+210 - in a Christmas holiday event (2006 onwards).
+208 - in a Christmas holiday event (2006 onwards).
+309 - at Varrock Museum.
+205 - in a Halloween holiday event (2006 onwards).
+204 - during My Arm's Big Adventure.
+206 - during An Enlightened Journey.
+249 - at the Dorgesh-Kaan caves.
+240 - at Dorgesh-Kaan.
+236 - during Tower of Life.
+235 - during Tower of Life.
+237 - during Tower of Life.
+224 - during Fremennik Isles.
+620 - during Eagles' Peak.
+433 - during Land of the Goblins.
+432 - in a Halloween holiday event (2007 onwards).
+451 - during Dealing with Scabaras.
+472 - during As a First Resort...
+456 - during Wolf Whistle.
+440 - during Land of the Goblins.
+439 - during Land of the Goblins.
+437 - during Land of the Goblins.
+417 - during Path of Glouphrie.
+428 - at Ourania Altar.
+427 - during Path of Glouphrie.
+416 - during Path of Glouphrie.
+414 - during Path of Glouphrie.
+426 - during Path of Glouphrie.
+374 - at the Black Knights' Fortress.
+382 - during King's Ransom.
+404 - in the God Wars Dungeon.
+386 - in the God Wars Dungeon.
+421 - during Path of Glouphrie.
+399 - in the God Wars Dungeon.
+365 - during Dragon Slayer.
+302 - during Dream Mentor.
+408 - in the God Wars Dungeon.
+391 - in the God Wars Dungeon.
+283 - during Dream Mentor.
+298 - during Dream Mentor.
+301 - during Dream Mentor.
+300 - during Dream Mentor.
+23 - during Grim Tales.
+150 - during Grim Tales.
+299 - during Dream Mentor.
+371 - during the Pattern Recognition random event.
+523 - during the Perils of Ice Mountain.
+522 - during the Perils of Ice Mountain.
+483 - to the north of Tai Bwo Wannai Village.
+496 - at the Grand Exchange.
+487 - during Vinesweeper.
+444 - automatically.
+443 - automatically.
+445 - automatically.
+452 - during Dealing with Scabaras.
+348 - beneath the Grand Tree.
+441 - automatically.
+442 - during Clan Wars.
+401 - automatically.
+499 - during Kennith's Concerns.
+500 - during Kennith's Concerns.
+239 - on completion of The Great Brain Robbery.
+250 - on completion of What Lies Below.
+567 - during Defender of Varrock.
+552 - automatically.
+566 - during Defender of Varrock.
+570 - during Defender of Varrock.
+553 - during Spirit of Summer.
+543 - during Smoking Kills.
+555 - during Meeting History.
+563 - during Summer's End.
+554 - during Spirit of Summer.
+564 - during Summer's End.
+579 - during the While Guthix Sleeps Quest.
+585 - during the While Guthix Sleeps Quest.
+578 - during Stealing Creation.
+562 - during the Circus.
+589 - during the While Guthix Sleeps Quest.
+572 - during the Swept Away Quest.
+571 - in a Halloween holiday event (2008 onwards).
+668 - during Mobilising Armies.
+596 - during the In Pyre Need quest.
+669 - at the Command Centre of Mobilising Armies.
+584 - during the While Guthix Sleeps Quest.
+595 - during Myths of the White Lands.
+593 - in a Christmas holiday event (2008 onwards).
+581 - during the While Guthix Sleeps Quest.
+639 - during Glorious Memories.
+641 - during Glorious Memories.
+670 - during Mobilising Armies.
+592 - during Myths of the White Lands.
+501 - at Burgh de Rott.
+314 - during Castle Wars, fighting for Saradomin.
+588 - during Pest Control.
+269 - at Burthorpe Games Room.
+548 - at the Trollweiss and Rellekka Hunter area.
+372 - at Lletya.
+4 - during the Troll Romance quest.
+512 - at the Blood Altar.
+459 - in the Chaos Tunnels.
+467 - in the Chaos Tunnels.
+488 - in the Chaos Tunnels.
+514 - during Legacy of Seergaze.
+518 - during Legacy of Seergaze.
+521 - during Legacy of Seergaze.
+527 - during TokTz-Ket-Dill.
+531 - during TokTz-Ket-Dill.
+526 - during TokTz-Ket-Dill.
+502 - in an Easter holiday event (2008 onwards).
+549 - during Rocking Out.
+539 - during Smoking Kills.
+550 - during Rocking Out.
+551 - during Rocking Out.
+540 - during Smoking Kills.
+516 - during Legacy of Seergaze.
+513 - during Legacy of Seergaze.
+507 - during Fist of Guthix.
+457 - automatically.
+536 - during Smoking Kills.
+503 - in the Fist of Guthix waiting room.
+569 - during Defender of Varrock.
+561 - at the Runecrafting Guild.
+644 - in an Easter holiday event (2009 onwards).
+608 - during The Chosen Commander.
+642 - in an Easter holiday event (2009 onwards).
+693 - during The Temple at Senntisten Quest.
+609 - during The Chosen Commander.
+699 - during The Temple at Senntisten Quest.
+597 - during Soul Wars.
+598 - during Soul Wars.
+601 - during Evil Tree.
+647 - during The Tale of the Muspah.
+672 - during The Curse of Arrav.
+673 - during The Curse of Arrav.
+599 - during the Sandwich Lady Random Event.
+649 - during Missing My Mummy.
+648 - during Missing My Mummy.
+645 - during The Tale of the Muspah.
+650 - at the Iceberg Hunter area.
+613 - during The Chosen Commander.
+617 - during The Chosen Commander.
+651 - during Hunt for Red Raktuber.
+655 - during Hunt for Red Raktuber.
+618 - during The Chosen Commander.
+652 - during Hunt for Red Raktuber.
+624 - during The Chosen Commander.
+605 - during The Chosen Commander.
+737 - in an Easter holiday event (2010 onwards).
+736 - during a Fish Flingers competition.
+735 - during a Fish Flingers competition.
+734 - during a Fish Flingers competition.
+838 - in the Thieves' Guild.
+839 - in the Thieves' Guild.
+842 - in the Thieves' Guild.
+727 - during Nomad's Requiem.
+722 - during a Christmas holiday event (2009 onwards).
+725 - during a Christmas holiday event (2009 onwards).
+732 - during The Blood Pact.
+731 - in the Lumbridge Catacombs.
+730 - during the Familiarisation event.
+729 - in the basement of the Mage Training Arena.
+848 - during Quiet Before the Swarm.
+849 - during Quiet Before the Swarm.
+847 - during Quiet Before the Swarm.
+803 - during Dungeoneering.
+846 - during a court case.
+851 - during Love Story.
+840 - in the Thieves' Guild.
+844 - during Elemental Workshop III
+845 - during Castle Wars, fighting for Zamorak.
+855 - during Love Story.
+854 - during Love Story.
+677 - during Forgiveness of a Chaos Dwarf.
+710 - in Kuradal's Slayer Dungeon.
+679 - automatically.
+680 - during Within the Light.
+718 - in The Rising Sun Inn, Falador.
+716 - in The Blue Moon Inn, Varrock.
+667 - at the Wilderness volcano.
+666 - at the pyramid south of the Ruins of Uzer.
+717 - during Vampyre Slayer.
+674 - when confronting the Odd Old Man's 'Exhibit'.
+678 - in the Living Rock Caverns.
+719 - in The Rusty Anchor Inn, Port Sarim.
+720 - in The Boar's Head Tavern, northeast of Varrock.
+715 - during Blood Runs Deep.
+843 - during Fairy Tale Part III.
+728 - during Nomad's Requiem.
+724 - during a Christmas holiday event (2009 onwards).
+681 - in a Halloween holiday event (2009 onwards).
+683 - in a Halloween holiday event (2009 onwards).
+682 - in a Halloween holiday event (2009 onwards).
+721 - in The Dancing Donkey Inn, Varrock.
+714 - during Blood Runs Deep.
+684 - on the upper floors of Lumbridge Castle.
+713 - during Blood Runs Deep.
+780 - during Dungeoneering.
+794 - during Dungeoneering.
+790 - during Dungeoneering.
+771 - during Dungeoneering.
+781 - during Dungeoneering.
+779 - during Dungeoneering.
+802 - during Dungeoneering.
+799 - during Dungeoneering.
+783 - during Dungeoneering.
+787 - during Dungeoneering.
+782 - during Dungeoneering.
+784 - during Dungeoneering.
+801 - during Dungeoneering.
+775 - during Dungeoneering.
+785 - during Dungeoneering.
+786 - during Dungeoneering.
+810 - during Dungeoneering.
+831 - during Dungeoneering.
+808 - during Dungeoneering.
+824 - during Dungeoneering.
+811 - during Dungeoneering.
+827 - during Dungeoneering.
+834 - during Dungeoneering.
+832 - during Dungeoneering.
+819 - during Dungeoneering.
+817 - during Dungeoneering.
+818 - during Dungeoneering.
+815 - during Dungeoneering.
+820 - during Dungeoneering.
+816 - during Dungeoneering.
+837 - during Dungeoneering.
+833 - during Dungeoneering.
+739 - during Dungeoneering.
+741 - during Dungeoneering.
+769 - during Dungeoneering.
+748 - during Dungeoneering.
+757 - during Dungeoneering.
+761 - during Dungeoneering.
+753 - during Dungeoneering.
+742 - during Dungeoneering.
+738 - during Dungeoneering.
+767 - during Dungeoneering.
+756 - during Dungeoneering.
+747 - during Dungeoneering.
+743 - during Dungeoneering.
+746 - during Dungeoneering.
+768 - during Dungeoneering.
+759 - during Dungeoneering.
+944 - during Do No Evil.
+953 - in a Christmas holiday event (2010 onwards).
+951 - in a Christmas holiday event (2010 onwards).
+941 - by completing 350 Tasks.
+906 - during The Void Stares Back.
+582 - in the Artisan Workshop in Falador.
+904 - during The Void Stares Back.
+902 - during The Void Stares Back.
+899 - during The Void Stares Back.
+903 - in a Halloween holiday event (2010 onwards).
+905 - during The Void Stares Back.
+900 - during The Void Stares Back.
+896 - during Gunnar's Ground.
+907 - in a Halloween holiday event (2010 onwards).
+895 - in the Conquest lobby.
+893 - during a Conquest battle.
+856 - during A Void Dance.
+858 - during A Void Dance.
+859 - automatically.
+857 - during A Void Dance.
+913 - during Dungeoneering.
+937 - during Dungeoneering.
+916 - during Dungeoneering.
+922 - during Dungeoneering.
+940 - during Dungeoneering.
+924 - during Dungeoneering.
+925 - during Dungeoneering.
+936 - during Dungeoneering.
+938 - during Dungeoneering.
+920 - during Dungeoneering.
+927 - during Dungeoneering.
+939 - during Dungeoneering.
+917 - during Dungeoneering.
+911 - during Dungeoneering.
+930 - during Dungeoneering.
+914 - during Dungeoneering.
+892 - during Dungeoneering.
+877 - during Dungeoneering.
+865 - during Dungeoneering.
+891 - during Dungeoneering.
+876 - during Dungeoneering.
+864 - during Dungeoneering.
+870 - during Dungeoneering.
+889 - during Dungeoneering.
+885 - during Dungeoneering.
+872 - during Dungeoneering.
+886 - during Dungeoneering.
+860 - during Dungeoneering.
+880 - during Dungeoneering.
+882 - during Dungeoneering.
+873 - during Dungeoneering.
+979 - in a Clan Citadel.
+996 - in a Clan Citadel.
+983 - in a Clan Citadel.
+984 - in a Clan Citadel.
+976 - in a Clan Citadel.
+998 - in a Clan Citadel.
+992 - in a Clan Citadel.
+990 - in a Clan Citadel.
+978 - in a Clan Citadel.
+989 - in a Clan Citadel.
+987 - in a Clan Citadel.
+975 - in the Jadinko Lair.
+997 - in a Clan Citadel.
+994 - in a Clan Citadel.
+993 - in a Clan Citadel.
+988 - in a Clan Citadel.
+982 - in a Clan Citadel.
+995 - in a Clan Citadel.
+973 - during Salt in the Wound.
+1000 - during Branches of Darkmeyer.
+972 - on entering Kethsi.
+985 - on entering a Clan Citadel.
+1001 - during Branches of Darkmeyer.
+1004 - during Branches of Darkmeyer.
+1003 - during Branches of Darkmeyer.
+967 - during an Easter holiday event (2011 onwards).
+971 - during a Troll Invasion.
+965 - during A Clockwork Syringe.
+966 - during an Easter holiday event (2011 onwards).
+969 - during Deadliest Catch.
+1008 - during Ritual of the Mahjarrat.
+969 - during Deadliest Catch.
+968 - during Deadliest Catch.
+956 - during King of the Dwarves.
+957 - during King of the Dwarves.
+963 - during Elemental Workshop 4
+962 - during Prisoner of Glouphrie.
+961 - during Prisoner of Glouphrie.
+960 - in the God Wars Dungeon.
+958 - during King of the Dwarves.
+959 - during King of the Dwarves.
+955 - during King of the Dwarves.
+954 - during King of the Dwarves.

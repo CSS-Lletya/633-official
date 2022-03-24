@@ -1,0 +1,22 @@
+getAttack Bonus
+0
+0
+10
+168
+0
+Defense Bonus
+0
+0
+0
+55
+0
+35
+Damage Absorption
+0
+0
+0
+Other Bonuses
+0
+0
+5
+38
