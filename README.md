@@ -30,7 +30,7 @@ Using GitHub Desktop app:
 
 Installing via terminal:
 ```
-https://github.com/CSS-Lletya/633-official.git
+git clone https://github.com/CSS-Lletya/633-official.git
 ```
 Installing via GitHub CLI:
 ```
