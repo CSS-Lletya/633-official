@@ -16,7 +16,6 @@ import com.rs.game.npc.familiar.Steeltitan;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.actions.Action;
 import com.rs.game.player.content.Magic;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.player.type.PoisonType;
 import com.rs.game.task.Task;
@@ -89,7 +88,7 @@ public class PlayerCombat extends Action {
 		if (!Utility.isOnRange(getPlayer().getX(),getPlayer().getY(), size, target.getX(), target.getY(), target.getSize(),
 				maxDistance))
 			return 0;
-		if (!ControllerHandler.execute(getPlayer(), controller -> controller.keepCombating(getPlayer(), target))) {
+		if (getPlayer().getMapZoneManager().execute(getPlayer(), controller -> !controller.keepCombating(getPlayer(), target))) {
 			return -1;
 		}
 		addAttackedByDelay(getPlayer());
@@ -156,7 +155,7 @@ public class PlayerCombat extends Action {
 						if (p2 == null || p2 == player || p2 == target || p2.isDead() || !p2.isStarted()
 								|| p2.isFinished() || !p2.isCanPvp() || !p2.isMultiArea()
 								|| !p2.withinDistance(target, maxDistance)
-								|| !ControllerHandler.execute(player, controller -> controller.canHit(player, p2)))
+								|| getPlayer().getMapZoneManager().execute(player, controller -> !controller.canHit(player, p2)))
 							continue;
 						possibleTargets.add(p2);
 						if (possibleTargets.size() == maxAmtTargets)
@@ -170,7 +169,7 @@ public class PlayerCombat extends Action {
 						NPC n = World.getNPCs().get(npcIndex);
 						if (n == null || n == target || n == player.getFamiliar() || n.isDead() || n.isFinished()
 								|| !n.isMultiArea() || !n.withinDistance(target, maxDistance)
-								|| !n.getDefinitions().hasAttackOption() || !ControllerHandler.execute(player, controller -> controller.canHit(player, n)))
+								|| !n.getDefinitions().hasAttackOption() || getPlayer().getMapZoneManager().execute(player, controller -> !controller.canHit(player, n)))
 							continue;
 						possibleTargets.add(n);
 						if (possibleTargets.size() == maxAmtTargets)

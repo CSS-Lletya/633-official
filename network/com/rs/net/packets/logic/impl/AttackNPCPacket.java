@@ -7,7 +7,6 @@ import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacket;
 import com.rs.net.packets.logic.LogicPacketSignature;
@@ -29,7 +28,7 @@ public class AttackNPCPacket implements LogicPacket {
 			return;
 		if (player.getMovement().isLocked() || player.getNextEmoteEnd() >= Utility.currentTimeMillis())
 			return;
-		if (!ControllerHandler.execute(player, controller -> controller.canAttack(player, npc))) {
+		if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, npc))) {
 			return;
 		}
 		if (forceRun) // you scrwed up cutscenes

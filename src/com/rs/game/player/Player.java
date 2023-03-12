@@ -5,6 +5,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.alex.utils.VarsManager;
 import com.rs.GameConstants;
+import com.rs.content.mapzone.MapZone;
+import com.rs.content.mapzone.MapZoneManager;
 import com.rs.game.Entity;
 import com.rs.game.EntityType;
 import com.rs.game.dialogue.DialogueEventListener;
@@ -19,8 +21,6 @@ import com.rs.game.player.content.MusicsManager;
 import com.rs.game.player.content.Notes;
 import com.rs.game.player.content.PriceCheckManager;
 import com.rs.game.player.content.pet.PetManager;
-import com.rs.game.player.controller.Controller;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.game.player.type.CombatEffect;
 import com.rs.game.route.CoordsEvent;
@@ -295,7 +295,9 @@ public class Player extends Entity {
 	/**
 	 * The current Controller this Player is in.
 	 */
-	private Optional<Controller> currentController = Optional.empty();
+	private Optional<MapZone> currentMapZone = Optional.empty();
+	
+	private transient MapZoneManager mapZoneManager = new MapZoneManager();
 
 	/**
 	 * Constructs a new Player
@@ -318,7 +320,7 @@ public class Player extends Entity {
 		setDetails(new PlayerDetails());
 		setSpellDispatcher(new PassiveSpellDispatcher());
 		getDetails().setPassword(password);
-		setCurrentController(Optional.empty());
+		setCurrentMapZone(Optional.empty());
 	}
 
 	/**
@@ -370,8 +372,8 @@ public class Player extends Entity {
 		setSwitchItemCache(new ObjectArrayList<Byte>());
 		if (getAction() == null)
 			setAction(new ActionManager());
-		if (!getCurrentController().isPresent())
-			setCurrentController(getCurrentController());
+		if (!getCurrentMapZone().isPresent())
+			setCurrentMapZone(getCurrentMapZone());
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -408,7 +410,7 @@ public class Player extends Entity {
 			setRouteEvent(null);
 		getAction().process();
 		getPrayer().processPrayer();
-		ControllerHandler.executeVoid(this, controller -> controller.process(this));
+		getMapZoneManager().executeVoid(this, zone -> zone.process(this));
 		getDetails().getCharges().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
@@ -445,7 +447,7 @@ public class Player extends Entity {
 		setRunning(true);
 		setUpdateMovementType(true);
 		getAppearance().generateAppearenceData();
-		ControllerHandler.executeVoid(this, controller -> controller.login(this));
+		getMapZoneManager().execute(this, controller -> controller.login(this));
 		OwnedObjectManager.linkKeys(this);
 		
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {

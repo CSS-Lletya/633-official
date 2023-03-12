@@ -5,9 +5,8 @@ import com.rs.game.map.World;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Hit;
-import com.rs.game.player.Player;
 import com.rs.game.player.Hit.HitLook;
-import com.rs.game.player.controller.ControllerHandler;
+import com.rs.game.player.Player;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -712,7 +711,7 @@ public final class Pots {
 		if (!player.getDetails().getWatchMap().get("DRINKS").elapsed(1800)) {
 			return false;
 		}
-		if (!ControllerHandler.execute(player, controller -> controller.canPot(player, pot))) {
+		if (player.getMapZoneManager().execute(player, controller -> !controller.canPot(player, pot))) {
 			return false;
 		}
 		if (!pot.effect.canDrink(player))

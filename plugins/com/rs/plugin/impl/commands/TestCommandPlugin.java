@@ -1,10 +1,8 @@
 package com.rs.plugin.impl.commands;
 
-import com.rs.game.map.GameObject;
+import com.rs.content.mapzone.impl.TestMapZone;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
-import com.rs.net.mysql.service.ServiceStore;
-import com.rs.net.mysql.service.impl.TestService;
 import com.rs.plugin.listener.Command;
 import com.rs.plugin.wrapper.CommandSignature;
 
@@ -20,6 +18,7 @@ public class TestCommandPlugin implements Command {
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
 //		player.getPackets().sendSpawnedObject(new GameObject(2, 10, 0, player));
-		player.getPackets().sendDestroyObject(new GameObject(2, 10, 0, player));
+		player.getMapZoneManager().submitMapZone(player, new TestMapZone());
+		System.out.println(player.getMapZoneManager().getMapZone(player).isPresent());
 	}
 }

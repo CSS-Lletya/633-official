@@ -3,6 +3,7 @@ package com.rs.game.npc;
 import java.util.Optional;
 
 import com.rs.cache.loaders.NPCDefinitions;
+import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.Entity;
 import com.rs.game.EntityType;
 import com.rs.game.map.World;
@@ -13,7 +14,6 @@ import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.global.GenericNPCDispatcher;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
-import com.rs.game.player.controller.impl.WildernessController;
 import com.rs.game.route.RouteFinder;
 import com.rs.game.route.strategy.FixedTileStrategy;
 import com.rs.game.task.Task;
@@ -300,7 +300,7 @@ public class NPC extends Entity {
 												&& (player.getAttackedByDelay() > Utility.currentTimeMillis()
 														|| player.getFindTargetDelay() > Utility.currentTimeMillis())))
 								|| !clipedProjectile(player, false)
-								|| (!isForceAgressive() && !WildernessController.isAtWild(this) && player.getSkills()
+								|| (!isForceAgressive() && !WildernessMapZone.isAtWild(this) && player.getSkills()
 										.getCombatLevelWithSummoning() >= getDefinitions().getCombatLevel() * 2))
 							continue;
 						possibleTarget.add(player);

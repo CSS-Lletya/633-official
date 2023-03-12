@@ -1,27 +1,28 @@
-package com.rs.game.player.controller.impl;
+package com.rs.content.mapzone.impl;
 
 import java.util.Optional;
 
+import com.rs.content.mapzone.MapZone;
 import com.rs.game.Entity;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Player;
-import com.rs.game.player.controller.Controller;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
 
-public class WildernessController extends Controller {
+public class WildernessMapZone extends MapZone {
 
-	public WildernessController() {
-		super("WILDERNESS", ControllerSafety.DANGEROUS, ControllerType.NORMAL);
+	public WildernessMapZone() {
+		super("WILDERNESS", MapZoneSafetyCondition.DANGEROUS, MapZoneType.NORMAL);
 	}
 
 	@Override
 	public void start(Player player) {
+		System.out.println("?");
 		checkBoosts(player);
 		sendInterfaces(player);
 		moved(player);
@@ -135,7 +136,7 @@ public class WildernessController extends Controller {
 		if (!isAtWild(player.getNextWorldTile())) {
 			player.setCanPvp(false);
 			removeIcon(player);
-			player.setCurrentController(Optional.empty());
+			player.setCurrentMapZone(Optional.empty());
 		}
 		player.getInterfaceManager().removeOverlay(false);
 	}
@@ -154,7 +155,7 @@ public class WildernessController extends Controller {
 		} else if (!isAtWildSafe && !isAtWild) {
 			player.setCanPvp(false);
 			removeIcon(player);
-			player.setCurrentController(Optional.empty());
+			player.setCurrentMapZone(Optional.empty());
 		}
 	}
 	
@@ -232,7 +233,7 @@ public class WildernessController extends Controller {
 		if (showingSkull) {
 			showingSkull = false;
 			player.setCanPvp(false);
-			player.setCurrentController(Optional.empty());
+			player.setCurrentMapZone(Optional.empty());
 			player.getAppearance().generateAppearenceData();
 			player.getEquipment().refresh(null);
 		}
@@ -244,5 +245,11 @@ public class WildernessController extends Controller {
 
 	public static boolean isDitch(int id) {
 		return id >= 1440 && id <= 1444 || id >= 65076 && id <= 65087;
+	}
+
+	@Override
+	public void finish(Player player) {
+		// TODO Auto-generated method stub
+		
 	}
 }

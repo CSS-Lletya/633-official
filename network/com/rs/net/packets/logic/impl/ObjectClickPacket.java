@@ -5,7 +5,6 @@ import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.game.route.RouteEvent;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacket;
@@ -49,7 +48,7 @@ public class ObjectClickPacket implements LogicPacket {
 			player.setRun(forceRun);
 		
 		player.setRouteEvent(new RouteEvent(worldObject, () -> {
-			if (!ControllerHandler.execute(player, controller -> controller.processObjectClick1(player, worldObject)))
+			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectClick1(player, worldObject)))
 				return;
 			ObjectPluginDispatcher.execute(player, worldObject, 1);
 		}, true));

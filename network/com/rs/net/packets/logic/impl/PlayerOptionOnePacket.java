@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacket;
 import com.rs.net.packets.logic.LogicPacketSignature;
@@ -29,11 +28,11 @@ public class PlayerOptionOnePacket implements LogicPacket {
 				|| !player.getMapRegionsIds().contains(p2.getRegionId()))
 			return;
 		if (player.getMovement().isLocked() || player.getLastAnimationEnd() > Utility.currentTimeMillis()
-				|| !ControllerHandler.execute(player, controller -> controller.canPlayerOption1(player, p2)))
+				|| player.getMapZoneManager().execute(player, controller -> !controller.canPlayerOption1(player, p2)))
 			return;
 		if (!player.isCanPvp())
 			return;
-		if (!ControllerHandler.execute(player, controller -> controller.canAttack(player, p2))) {
+		if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
 			return;
 		}
 		if (!player.isCanPvp() || !p2.isCanPvp()) {

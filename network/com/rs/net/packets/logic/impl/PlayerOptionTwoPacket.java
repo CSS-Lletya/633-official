@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.PlayerFollow;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacket;
 import com.rs.net.packets.logic.LogicPacketSignature;
@@ -25,7 +24,7 @@ public class PlayerOptionTwoPacket implements LogicPacket {
 			return;
 		if (player.getMovement().isLocked())
 			return;
-		if (!ControllerHandler.execute(player, controller -> controller.canPlayerOption2(player, p2))) {
+		if (player.getMapZoneManager().execute(player, controller -> !controller.canPlayerOption2(player, p2))) {
 			return;
 		}
 		if (forceRun)

@@ -5,13 +5,12 @@ import com.rs.game.item.Item;
 import com.rs.game.npc.familiar.Familiar.SpecialAttack;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacket;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.LogUtility;
-import com.rs.utilities.Utility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 33, description = "Represents an Interface being used on another Interface")
 public class InterfaceOnInterfacePacket implements OutgoingPacket {
@@ -47,7 +46,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacket {
 			if (player.getMovement().isLocked() || player.getNextEmoteEnd() >= Utility.currentTimeMillis())
 				return;
 			player.getMovement().stopAll();
-			if (!ControllerHandler.execute(player, controller -> controller.canUseItemOnItem(player, itemUsed, usedWith))) {
+			if (player.getMapZoneManager().execute(player, controller -> !controller.canUseItemOnItem(player, itemUsed, usedWith))) {
 				return;
 			}
 		}

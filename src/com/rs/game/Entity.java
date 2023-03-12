@@ -30,8 +30,6 @@ import com.rs.game.player.LocalNPCUpdate;
 import com.rs.game.player.LocalPlayerUpdate;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.TeleportType;
-import com.rs.game.player.controller.ControllerHandler;
-import com.rs.game.player.controller.impl.WildernessController;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.player.type.PoisonType;
 import com.rs.game.route.RouteFinder;
@@ -383,7 +381,7 @@ public abstract class Entity extends WorldTile {
 			}
 			int dir = (int) nextStep[0];
 			if (((boolean) nextStep[3] && !World.checkWalkStep(getPlane(), getX(), getY(), dir, getSize()))
-					|| (isPlayer() && !ControllerHandler.execute((Player) this, controller -> controller.canMove((Player) this, dir)))) {
+					|| (isPlayer() && toPlayer().getMapZoneManager().execute((Player) this, controller -> !controller.canMove((Player) this, dir)))) {
 				resetWalkSteps();
 				break;
 			}
@@ -741,7 +739,7 @@ public abstract class Entity extends WorldTile {
 		if (check && !World.checkWalkStep(getPlane(), lastX, lastY, dir, getSize()))
 			return false;
 		ifPlayer(player -> {
-			if (!ControllerHandler.execute((Player) this, controller -> controller.checkWalkStep((Player) this, lastX, lastY, nextX, nextY)))
+			if (player.getMapZoneManager().execute((Player) this, controller -> !controller.checkWalkStep((Player) this, lastX, lastY, nextX, nextY)))
 				return;
 		});
 		getMovement().getWalkSteps().add(new Object[] { dir, nextX, nextY, check });
@@ -1096,7 +1094,7 @@ public abstract class Entity extends WorldTile {
 				int musicId = region.getRandomMusicId();
 				if (musicId != -1)
 					player.getMusicsManager().checkMusic(musicId);
-				ControllerHandler.executeVoid(player, controller -> controller.moved(player));
+				player.getMapZoneManager().executeVoid(player, controller -> controller.moved(player));
 				if (player.isStarted())
 					checkControlersAtMove(player);
 			});
@@ -1109,7 +1107,7 @@ public abstract class Entity extends WorldTile {
 			entity.setLastRegionId(regionId);
 		} else {
 			ifPlayer(player -> {
-				ControllerHandler.executeVoid(player, controller -> controller.moved(player));
+				player.getMapZoneManager().executeVoid(player, controller -> controller.moved(player));
 				if (player.isStarted())
 					checkControlersAtMove(player);
 			});
@@ -1118,14 +1116,15 @@ public abstract class Entity extends WorldTile {
 	}
 	
 	private static void checkControlersAtMove(Player player) {
-		if (WildernessController.isAtWild(player))
-			new WildernessController().start(player);
-		else
-			new WildernessController().moved(player);
+//		if (WildernessController.isAtWild(player))
+//			new WildernessController().start(player);
+//		else
+//			new WildernessController().moved(player);
 	}
 
 	public final boolean isPvpArea(WorldTile tile) {
-		return WildernessController.isAtWild(tile);
+//		return WildernessController.isAtWild(tile);
+		return false;
 	}
 
 	public void sendSoulSplit(final Hit hit, final Entity user) {

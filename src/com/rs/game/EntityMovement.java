@@ -115,7 +115,7 @@ public class EntityMovement {
 			if (getEntity().isPlayer()) {
 				if (!entangleMessage)
 					getEntity().toPlayer().getPackets().sendGameMessage("You have been frozen.");
-				if (getEntity().toPlayer().getCurrentController().isPresent())
+				if (getEntity().toPlayer().getCurrentMapZone().isPresent())
 					time /= 2;
 			}
 		}

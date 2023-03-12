@@ -11,7 +11,6 @@ import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.game.route.RouteEvent;
 import com.rs.io.InputStream;
 import com.rs.plugin.listener.NPCType;
@@ -126,19 +125,19 @@ public class NPCPluginDispatcher {
 				|| !player.getMapRegionsIds().contains(npc.getRegionId()) || player.getMovement().isLocked())
 			return;
 		player.setRouteEvent(new RouteEvent(npc, () -> {
-			if (!ControllerHandler.getController(player).isPresent()) {
+			if (player.getMapZoneManager().getMapZone(player).isPresent()) {
 				switch(optionId) {
 				case 1:
-					ControllerHandler.execute(player, controller -> controller.processNPCClick1(player, npc));
+					player.getMapZoneManager().execute(player, controller -> !controller.processNPCClick1(player, npc));
 					break;
 				case 2:
-					ControllerHandler.execute(player, controller -> controller.processNPCClick2(player, npc));
+					player.getMapZoneManager().execute(player, controller -> !controller.processNPCClick2(player, npc));
 					break;
 				case 3:
-					ControllerHandler.execute(player, controller -> controller.processNPCClick3(player, npc));
+					player.getMapZoneManager().execute(player, controller -> !controller.processNPCClick3(player, npc));
 					break;
 				case 4:
-					ControllerHandler.execute(player, controller -> controller.processNPCClick4(player, npc));
+					player.getMapZoneManager().execute(player, controller -> !controller.processNPCClick4(player, npc));
 					break;
 				}
 				return;

@@ -13,17 +13,14 @@ import com.rs.game.item.ItemConstants;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.io.InputStream;
 import com.rs.plugin.listener.RSInterface;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
-
-import io.vavr.control.Try;
-
 import com.rs.utilities.Utility;
 
+import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import skills.Skills;
 
@@ -184,7 +181,7 @@ public final class RSInterfacePluginDispatcher {
 		}
 		if (!hasRequiriments)
 			return true;
-		if (!ControllerHandler.execute(player, controller -> controller.canEquip(player, targetSlot, itemId))) {
+		if (player.getMapZoneManager().execute(player, controller -> !controller.canEquip(player, targetSlot, itemId))) {
 			return false;
 		}
 		player.getMovement().stopAll(false, false);
@@ -290,7 +287,7 @@ public final class RSInterfacePluginDispatcher {
 		}
 		if (!hasRequiriments)
 			return false;
-		if (!ControllerHandler.execute(player, controller -> controller.canEquip(player, finalSlot, itemId))) {
+		if (player.getMapZoneManager().execute(player, controller -> !controller.canEquip(player, finalSlot, itemId))) {
 			return false;
 		}
 		player.getInventory().getItems().remove(slotId, item);

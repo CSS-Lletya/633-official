@@ -9,8 +9,6 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
-import com.rs.game.player.controller.ControllerHandler;
-import com.rs.game.player.controller.impl.WildernessController;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
@@ -507,7 +505,7 @@ public class Magic {
 				ObjectArrayList<Short> playersIndexes = World.getRegion(regionalPlayer).getPlayersIndexes();
 				playersIndexes.iterator().forEachRemaining(p -> {
 					World.players().filter(
-							playerIndex -> playerIndex.withinDistance(player, 4) || ControllerHandler.execute(player, controller -> controller.canHit(player, playerIndex)))
+							playerIndex -> playerIndex.withinDistance(player, 4) || player.getMapZoneManager().execute(player, controller -> controller.canHit(player, playerIndex)))
 							.forEach(worldPlayer -> {
 								if (!worldPlayer.getDetails().isAcceptAid()) {
 									player.getPackets().sendGameMessage(worldPlayer.getDisplayName() + " is not accepting aid");
@@ -780,7 +778,7 @@ public class Magic {
 
 	public static void pushLeverTeleport(final Player player, final WorldTile tile, int emote, String startMessage,
 			final String endMessage) {
-		if (!ControllerHandler.execute(player, controller -> controller.processObjectTeleport(player, tile)))
+		if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectTeleport(player, tile)))
 			return;
 		player.setNextAnimation(new Animation(emote));
 		if (startMessage != null)
@@ -819,13 +817,13 @@ public class Magic {
 		if (!checkRunes(player, false, runes))
 			return false;
 		if (teleType == MAGIC_TELEPORT) {
-			if (!ControllerHandler.execute(player, controller -> controller.processMagicTeleport(player, tile)))
+			if (player.getMapZoneManager().execute(player, controller -> !controller.processMagicTeleport(player, tile)))
 				return false;
 		} else if (teleType == ITEM_TELEPORT) {
-			if (!ControllerHandler.execute(player, controller -> controller.processItemTeleport(player, tile)))
+			if (player.getMapZoneManager().execute(player, controller -> !controller.processItemTeleport(player, tile)))
 				return false;
 		} else if (teleType == OBJECT_TELEPORT) {
-			if (!ControllerHandler.execute(player, controller -> controller.processObjectTeleport(player, tile)))
+			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectTeleport(player, tile)))
 				return false;
 		}
 		checkRunes(player, true, runes);
@@ -855,8 +853,8 @@ public class Magic {
 						}
 					}
 					player.safeForceMoveTile(teleTile);
-					ControllerHandler.executeVoid(player, controller -> controller.magicTeleported(player, teleType));
-					if (!player.getCurrentController().isPresent())
+					player.getMapZoneManager().executeVoid(player, controller -> controller.magicTeleported(player, teleType));
+					if (!player.getCurrentMapZone().isPresent())
 						teleControlersCheck(player, teleTile);
 					if (xp != 0)
 						player.getSkills().addXp(Skills.MAGIC, xp);
@@ -893,7 +891,7 @@ public class Magic {
 	}
 
 	public static boolean useTeleTab(final Player player, final WorldTile tile) {
-		if (!ControllerHandler.execute(player, controller -> controller.processItemTeleport(player, tile)))
+		if (player.getMapZoneManager().execute(player, controller -> !controller.processItemTeleport(player, tile)))
 			return false;
 		player.getMovement().lock();
 		player.setNextAnimation(new Animation(9597));
@@ -915,8 +913,8 @@ public class Magic {
 						teleTile = tile;
 					}
 					player.safeForceMoveTile(teleTile);
-					ControllerHandler.executeVoid(player, controller -> controller.magicTeleported(player, ITEM_TELEPORT));
-					if (player.getCurrentController().isPresent())
+					player.getMapZoneManager().executeVoid(player, controller -> controller.magicTeleported(player, ITEM_TELEPORT));
+					if (player.getCurrentMapZone().isPresent())
 						teleControlersCheck(player, teleTile);
 					player.setNextFaceWorldTile(
 							new WorldTile(teleTile.getX(), teleTile.getY() - 1, teleTile.getPlane()));
@@ -935,8 +933,8 @@ public class Magic {
 	}
 
 	public static void teleControlersCheck(Player player, WorldTile teleTile) {
-		if (WildernessController.isAtWild(teleTile))
-			new WildernessController().start(player);
+//		if (WildernessController.isAtWild(teleTile))
+//			new WildernessController().start(player);
 	}
 
 	private Magic() {

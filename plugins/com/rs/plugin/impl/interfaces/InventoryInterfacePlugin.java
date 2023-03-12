@@ -17,7 +17,6 @@ import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Foods;
 import com.rs.game.player.content.Pots;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.game.route.CoordsEvent;
 import com.rs.game.task.Task;
 import com.rs.net.decoders.WorldPacketsDecoder;
@@ -98,7 +97,7 @@ public class InventoryInterfacePlugin implements RSInterface {
 				long dropTime = Utility.currentTimeMillis();
 				if (player.getMovement().getLockDelay() >= dropTime || player.getNextEmoteEnd() >= dropTime)
 					return;
-				if (!ControllerHandler.execute(player, controller -> controller.canDropItem(player, item)))
+				if (player.getMapZoneManager().execute(player, controller -> !controller.canDropItem(player, item)))
 					return;
 				player.getMovement().stopAll(false);
 				
@@ -262,7 +261,7 @@ public class InventoryInterfacePlugin implements RSInterface {
 		}
 		if (!hasRequiriments)
 			return false;
-		if (!ControllerHandler.execute(player, controller -> controller.canEquip(player, finalSlot, itemId))) {
+		if (player.getMapZoneManager().execute(player, controller -> !controller.canEquip(player, finalSlot, itemId))) {
 			return false;
 		}
 		player.getInventory().getItems().remove(slotId, item);

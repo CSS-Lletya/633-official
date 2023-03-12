@@ -12,7 +12,6 @@ import com.rs.game.npc.combat.NPCCombatDefinitions;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Summoning;
 import com.rs.game.player.content.Summoning.Pouch;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
@@ -151,7 +150,7 @@ public abstract class Familiar extends NPC {
 		return !target.isDead()
 				&& ((owner.isMultiArea() && isMultiArea() && target.isMultiArea())
 						|| (owner.isForceMultiArea() && target.isForceMultiArea()))
-				&& ControllerHandler.execute(owner, controller -> controller.canAttack(owner, target));
+				&& owner.getMapZoneManager().execute(owner, controller -> controller.canAttack(owner, target));
 	}
 
 	public boolean renewFamiliar() {

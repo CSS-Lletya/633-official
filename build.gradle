@@ -47,6 +47,7 @@ sourceSets {
             srcDirs 'skills'
             srcDirs 'plugins'
             srcDirs 'mysql'
+			srcDirs 'content'
             srcDirs 'src'
         }
     }

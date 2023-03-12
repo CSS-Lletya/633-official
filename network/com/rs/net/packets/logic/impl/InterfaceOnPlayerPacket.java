@@ -11,7 +11,6 @@ import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
 import com.rs.game.player.content.Magic;
-import com.rs.game.player.controller.ControllerHandler;
 import com.rs.game.route.RouteEvent;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacket;
@@ -59,7 +58,7 @@ public class InterfaceOnPlayerPacket implements LogicPacket {
 			if (item == null || item.getId() != itemId)
 				return;
 			player.setRouteEvent(new RouteEvent(p2, () -> {
-				if (!ControllerHandler.execute(player, controller -> controller.processItemOnPlayer(player, p2, item)))
+				if (player.getMapZoneManager().execute(player, controller -> !controller.processItemOnPlayer(player, p2, item)))
 					return;
 //				if (itemId == 4155)
 //					player.getSlayerManager().invitePlayer(p2);
@@ -112,7 +111,7 @@ public class InterfaceOnPlayerPacket implements LogicPacket {
 				if (Magic.checkCombatSpell(player, componentId, 1, false)) {
 					player.setNextFaceWorldTile(new WorldTile(p2.getCoordFaceX(p2.getSize()),
 							p2.getCoordFaceY(p2.getSize()), p2.getPlane()));
-					if (!ControllerHandler.execute(player, controller -> controller.canAttack(player, p2))) {
+					if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
 						return;
 					}
 					if (!player.isCanPvp() || !p2.isCanPvp()) {
@@ -178,7 +177,7 @@ public class InterfaceOnPlayerPacket implements LogicPacket {
 				if (Magic.checkCombatSpell(player, componentId, 1, false)) {
 					player.setNextFaceWorldTile(new WorldTile(p2.getCoordFaceX(p2.getSize()),
 							p2.getCoordFaceY(p2.getSize()), p2.getPlane()));
-					if (!ControllerHandler.execute(player, controller -> controller.canAttack(player, p2))) {
+					if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
 						return;
 					}
 					if (!player.isCanPvp() || !p2.isCanPvp()) {
