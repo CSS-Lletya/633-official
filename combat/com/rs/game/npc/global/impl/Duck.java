@@ -4,6 +4,7 @@ import com.rs.game.Entity;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.global.GenericNPC;
 import com.rs.game.npc.global.GenericNPCSignature;
+import com.rs.net.encoders.other.ForceTalk;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
@@ -13,19 +14,16 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
  * @author Dennis
  *
  */
-@GenericNPCSignature(npcId = 2693, canBeAttackFromOutOfArea = true, isSpawned = false)
+@GenericNPCSignature(npcId = 2693)
 public class Duck extends GenericNPC {
 
 	@Override
-	public void setAttributes(NPC npc) {}
-
-	@Override
-	public void process(NPC npc) {
-		super.process(npc);
+	public void setAttributes(NPC npc) {
+		
 	}
 
 	@Override
-	public ObjectArrayList<Entity> getPossibleTargets(NPC npc) {
-		return npc.getPossibleTargets();
+	public void process(NPC npc) {
+		
 	}
 }

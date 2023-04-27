@@ -20,5 +20,7 @@ public abstract class GenericNPC  {
 	
 	public void setRespawnTask() { }
 	
-	public abstract ObjectArrayList<Entity> getPossibleTargets(NPC npc);
+	public ObjectArrayList<Entity> getPossibleTargets(NPC npc) {
+		return npc.getPossibleTargets();
+	}
 }

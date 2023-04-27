@@ -9,11 +9,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface GenericNPCSignature {
 
-	public int[] npcId();
+	public int[] npcId() default -1;
 	
 	public byte mapAreaNameHash() default -1;
 	
-	public boolean canBeAttackFromOutOfArea();
+	public boolean canBeAttackFromOutOfArea() default false;
 	
-	public boolean isSpawned();
+	public boolean isSpawned() default false;
 }
