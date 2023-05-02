@@ -6,7 +6,6 @@ import com.rs.cache.Cache;
 import com.rs.io.InputStream;
 import com.rs.utilities.Utility;
 
-import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 public class AnimationDefinitions {
@@ -49,12 +48,10 @@ public class AnimationDefinitions {
 			if (defs == null || defs.emoteItem == -1)
 				continue;
 
-			ItemDefinitions item = ItemDefinitions
-					.getItemDefinitions(defs.emoteItem);
+			ItemDefinitions item = ItemDefinitions.getItemDefinitions(defs.emoteItem);
 			if (item == null)
 				continue;
-			System.out.println("[" + i + "]: item " + defs.emoteItem + " ["
-					+ item.getName() + "]");
+			System.out.println("[" + i + "]: item " + defs.emoteItem + " [" + item.getName() + "]");
 			buffer[size++] = i;
 		}
 
@@ -63,30 +60,31 @@ public class AnimationDefinitions {
 		 * RenderAnimDefinitions.getRenderAnimDefinitions(i); if (defs == null)
 		 * continue;
 		 * 
-		 * for (int x = 0; x < size; x++) { int anim = buffer[x]; if
-		 * (defs.walkAnimation == anim || defs.runAnimation == anim ||
-		 * defs.defaultStandAnimation == anim || defs.walkBackwardsAnimation ==
-		 * anim || defs.walkLeftAnimation == anim || defs.walkRightAnimation ==
-		 * anim || defs.walkUpwardsAnimation == anim) {
-		 * System.out.println("Render:" + i + " uses anim " + anim); break; } }
-		 * }
+		 * for (int x = 0; x < size; x++) { int anim = buffer[x]; if (defs.walkAnimation
+		 * == anim || defs.runAnimation == anim || defs.defaultStandAnimation == anim ||
+		 * defs.walkBackwardsAnimation == anim || defs.walkLeftAnimation == anim ||
+		 * defs.walkRightAnimation == anim || defs.walkUpwardsAnimation == anim) {
+		 * System.out.println("Render:" + i + " uses anim " + anim); break; } } }
 		 */
 
 	}
 
 	public static final AnimationDefinitions getAnimationDefinitions(int emoteId) {
-		return (AnimationDefinitions) Try.run(() -> {
+		try {
 			AnimationDefinitions defs = animDefs.get(emoteId);
 			if (defs != null)
-				return;
-			byte[] data = Cache.STORE.getIndexes()[20].getFile(emoteId >>> 7,
-					emoteId & 0x7f);
+				return defs;
+			byte[] data = Cache.STORE.getIndexes()[20].getFile(emoteId >>> 7, emoteId & 0x7f);
 			defs = new AnimationDefinitions();
 			if (data != null)
 				defs.readValueLoop(new InputStream(data));
 			defs.method2394();
 			animDefs.put(emoteId, defs);
-		});
+			return defs;
+		}
+		catch (Throwable t) {
+			return null;
+		}
 	}
 
 	private void readValueLoop(InputStream stream) {
@@ -140,11 +138,10 @@ public class AnimationDefinitions {
 									int i = stream.readUnsignedByte();
 									anIntArray2151 = new int[i];
 									for (int i_19_ = 0; ((i_19_ ^ 0xffffffff) > (i ^ 0xffffffff)); i_19_++)
-										anIntArray2151[i_19_] = stream
-												.readUnsignedShort();
+										anIntArray2151[i_19_] = stream.readUnsignedShort();
 									for (int i_20_ = 0; i > i_20_; i_20_++)
-										anIntArray2151[i_20_] = ((stream
-												.readUnsignedShort() << 16) + anIntArray2151[i_20_]);
+										anIntArray2151[i_20_] = ((stream.readUnsignedShort() << 16)
+												+ anIntArray2151[i_20_]);
 								} else if ((opcode ^ 0xffffffff) != -14) {
 									if (opcode != 14) {
 										if (opcode != 15) {
@@ -153,8 +150,7 @@ public class AnimationDefinitions {
 											// added opcode
 											else if (opcode == 17) {
 												@SuppressWarnings("unused")
-												int anInt2145 = stream
-														.readUnsignedByte();
+												int anInt2145 = stream.readUnsignedByte();
 												// added opcode
 											} else if (opcode == 18) {
 												effect2Sound = true;
@@ -164,13 +160,10 @@ public class AnimationDefinitions {
 													for (int index = 0; index < handledSounds.length; index++)
 														anIntArray1362[index] = 255;
 												}
-												anIntArray1362[stream
-														.readUnsignedByte()] = stream
-														.readUnsignedByte();
+												anIntArray1362[stream.readUnsignedByte()] = stream.readUnsignedByte();
 												// added opcode
 											} else if (opcode == 20) {
-												if ((soundMaxDelay == null)
-														|| (soundMinDelay == null)) {
+												if ((soundMaxDelay == null) || (soundMinDelay == null)) {
 													soundMaxDelay = (new int[handledSounds.length]);
 													soundMinDelay = (new int[handledSounds.length]);
 													for (int i_34_ = 0; (i_34_ < handledSounds.length); i_34_++) {
@@ -178,12 +171,9 @@ public class AnimationDefinitions {
 														soundMinDelay[i_34_] = 256;
 													}
 												}
-												int index = stream
-														.readUnsignedByte();
-												soundMaxDelay[index] = stream
-														.readUnsignedShort();
-												soundMinDelay[index] = stream
-														.readUnsignedShort();
+												int index = stream.readUnsignedByte();
+												soundMaxDelay[index] = stream.readUnsignedShort();
+												soundMinDelay[index] = stream.readUnsignedShort();
 											}
 										} else
 											aBoolean2159 = true;
@@ -197,11 +187,10 @@ public class AnimationDefinitions {
 										int i_22_ = stream.readUnsignedByte();
 										if ((i_22_ ^ 0xffffffff) < -1) {
 											handledSounds[i_21_] = new int[i_22_];
-											handledSounds[i_21_][0] = stream
-													.read24BitInt();
-											for (int i_23_ = 1; ((i_22_ ^ 0xffffffff) < (i_23_ ^ 0xffffffff)); i_23_++) {
-												handledSounds[i_21_][i_23_] = stream
-														.readUnsignedShort();
+											handledSounds[i_21_][0] = stream.read24BitInt();
+											for (int i_23_ = 1; ((i_22_ ^ 0xffffffff) < (i_23_
+													^ 0xffffffff)); i_23_++) {
+												handledSounds[i_21_][i_23_] = stream.readUnsignedShort();
 											}
 										}
 									}

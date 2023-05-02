@@ -35,8 +35,8 @@ public class Emotes {
 		SHRUG((byte) 8, Optional.of(new Animation(2113)), Optional.empty(), Optional.empty()),
 		CHEER((byte) 9, Optional.of(new Animation(862)), Optional.empty(), Optional.empty()),
 		BECKON((byte) 10, Optional.of(new Animation(864)), Optional.empty(), Optional.empty()),
-		LAUGH((byte) 11, Optional.of(new Animation(861)), Optional.empty(), Optional.empty()),
-		JUMP_FOR_JOY((byte) 12, Optional.of(new Animation(2109)), Optional.empty(), Optional.empty()),
+		LAUGH((byte) 12, Optional.of(new Animation(861)), Optional.empty(), Optional.empty()),
+		JUMP_FOR_JOY((byte) 11, Optional.of(new Animation(2109)), Optional.empty(), Optional.empty()),
 		YAWN((byte) 13, Optional.of(new Animation(2111)), Optional.empty(), Optional.empty()),
 		DANCE((byte) 14, Optional.of(new Animation(866)), Optional.empty(), Optional.empty()),
 		JIG((byte) 15, Optional.of(new Animation(2106)), Optional.empty(), Optional.empty()),
@@ -130,7 +130,6 @@ public class Emotes {
 			for (Emote emote : Emote.values()) {
 				if (buttonId == emote.getButtonId()) {
 					emote.getSpecialEmote().ifPresent(user -> user.handleSpecialEmote(player));
-
 					emote.getAnimation().ifPresent(player::setNextAnimation);
 					emote.getGraphics().ifPresent(player::setNextGraphics);
 					if (!isDoingEmote(player))
