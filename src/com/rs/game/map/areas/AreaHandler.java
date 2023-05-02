@@ -16,7 +16,7 @@ public final class AreaHandler {
 	/**
 	 * An immutable list of Areas
 	 */
-	private static ImmutableList<Area> AREAS = ImmutableList.of(new Multi());
+	private final static ImmutableList<Area> AREAS = ImmutableList.of(new Multi());
 
 	/**
 	 * Gets the specified area the Player is interacting with
@@ -39,7 +39,8 @@ public final class AreaHandler {
 	 * @param player
 	 */
 	public static void processArea(Player player) {
-		if (getArea(player).isPresent())
-			getArea(player).get().processArea(player);
+		Optional<Area> area = getArea(player);
+	    if (area.isPresent())
+	        area.get().processArea(player);
 	}
 }

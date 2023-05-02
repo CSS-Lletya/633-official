@@ -12,15 +12,10 @@ import com.rs.net.mysql.service.impl.TestService;
 public final class ServiceStore {
 
 	/**
-	 * An immutable list of services to be executed.
-	 */
-	private static ImmutableList<MYSQLService> SERVICES = ImmutableList.of(new TestService());
-
-	/**
 	 * Execute the specified service
-	 * @param service
 	 */
 	public static void executeServiceTask(MYSQLService service) {
-		SERVICES.parallelStream().filter(services -> services != service && GameConstants.SQL_ENABLED).forEach(MYSQLService::execute);
+		if (GameConstants.SQL_ENABLED)
+			service.execute();
 	}
 }

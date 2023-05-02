@@ -1,5 +1,6 @@
 package com.rs.game.dialogue.impl;
 
+import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
@@ -40,7 +41,7 @@ public class WildernessDialogue extends DialogueEventListener {
 				protected void execute() {
 					player.setNextWorldTile(toTile);
 					player.setNextFaceWorldTile(toTile);
-//					player.getMapZoneManager().submitMapZone(player, new Wild);
+					player.getMapZoneManager().submitMapZone(player, new WildernessMapZone());
 					player.resetReceivedDamage();
 					player.getMovement().unlock();
 					this.cancel();

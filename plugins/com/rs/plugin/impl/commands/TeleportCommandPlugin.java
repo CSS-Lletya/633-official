@@ -17,9 +17,7 @@ public final class TeleportCommandPlugin implements Command {
 			player.getPackets().sendPanelBoxMessage("Use: ::tele coordX coordY");
 			return;
 		}
-		Try.run(() -> {
-			player.resetWalkSteps();
-			player.safeForceMoveTile(new WorldTile(Integer.valueOf(cmd[1]), Integer.valueOf(cmd[2]),cmd.length >= 4 ? Integer.valueOf(cmd[3]) : player.getPlane()));
-		});
+		player.resetWalkSteps();
+		player.setLocation(new WorldTile(Integer.valueOf(cmd[1]), Integer.valueOf(cmd[2]),cmd.length >= 4 ? Integer.valueOf(cmd[3]) : player.getPlane()));
 	}
 }

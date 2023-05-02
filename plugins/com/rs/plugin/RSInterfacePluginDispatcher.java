@@ -113,7 +113,7 @@ public final class RSInterfacePluginDispatcher {
 
 		if (GameConstants.DEBUG)
 			LogUtility.log(LogType.INFO,
-					"Interface ID: " + interfaceId + " - Comonent: " + componentId + " - PacketId: " + packetId);
+					"Interface ID: " + interfaceId + " - Component: " + componentId + " - PacketId: " + packetId);
 	}
 
 	/**

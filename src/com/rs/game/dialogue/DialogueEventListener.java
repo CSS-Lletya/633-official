@@ -14,7 +14,7 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 
 	protected transient Player player;
 
-	private Object[] args;
+	private final Object[] args;
 
 	public DialogueEventListener mes(String message, Object... args) {
 		dialogueEvent.add(new DialogueEvent((byte) 0, String.format(message, args)));

@@ -321,6 +321,8 @@ public class Player extends Entity {
 		setSpellDispatcher(new PassiveSpellDispatcher());
 		getDetails().setPassword(password);
 		setCurrentMapZone(Optional.empty());
+		if (!getCurrentMapZone().isPresent())
+			setCurrentMapZone(getCurrentMapZone());
 	}
 
 	/**
@@ -372,8 +374,8 @@ public class Player extends Entity {
 		setSwitchItemCache(new ObjectArrayList<Byte>());
 		if (getAction() == null)
 			setAction(new ActionManager());
-		if (!getCurrentMapZone().isPresent())
-			setCurrentMapZone(getCurrentMapZone());
+		if (getMapZoneManager() == null)
+			mapZoneManager = new MapZoneManager();
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -496,7 +498,7 @@ public class Player extends Entity {
 	 * @param packet
 	 */
 	public void addLogicPacketToQueue(LogicPacket packet) {
-		getLogicPackets().stream().filter(type -> type.getId() == packet.getId()).forEach(logical -> getLogicPackets().remove(logical));
+		getLogicPackets().stream().filter(type -> type.getId() == packet.getId()).forEach(getLogicPackets()::remove);
 		getLogicPackets().add(packet);
 	}
 	

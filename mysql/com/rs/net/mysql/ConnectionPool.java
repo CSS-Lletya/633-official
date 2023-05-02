@@ -20,12 +20,12 @@ public class ConnectionPool<T extends DatabaseConnection> {
 	/**
 	 * The configuration to use for this pool
 	 */
-	private DatabaseConfiguration configuration;
+	private final DatabaseConfiguration configuration;
 
 	/**
 	 * The max connections this pool can have.
 	 */
-	private int maxConnections;
+	private final int maxConnections;
 
 	/**
 	 * The amount of current connections..
@@ -35,7 +35,7 @@ public class ConnectionPool<T extends DatabaseConnection> {
 	/**
 	 * A thread-safe linked queue which contains our connections
 	 */
-	private Queue<DatabaseConnection> pool = new ConcurrentLinkedQueue<DatabaseConnection>();
+	private final Queue<DatabaseConnection> pool = new ConcurrentLinkedQueue<DatabaseConnection>();
 
 	/**
 	 * Create a new database pool
@@ -89,10 +89,10 @@ public class ConnectionPool<T extends DatabaseConnection> {
 		// If we don't find a connection, create a new one!
 		connection = configuration.newConnection();
 		connection.setPool((ConnectionPool<DatabaseConnection>) this);
-		if (!connection.connect()) {
-			throw new RuntimeException("Connection was unable to connect!");
-		} else {
+		if (connection.connect()) {
 			currentConnections++;
+		} else {
+			throw new RuntimeException("Connection was unable to connect!");
 		}
 		return connection;
 	}

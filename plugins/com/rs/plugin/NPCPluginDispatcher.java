@@ -36,9 +36,7 @@ public class NPCPluginDispatcher {
 	 * @param parts the string which represents a NPCS.
 	 */
 	public static void execute(Player player, NPC npc, int option) {
-		getMob(npc, npc.getId()).ifPresent(mob -> {
-			Try.run(() -> mob.execute(player, npc, option));
-		});
+		getMob(npc, npc.getId()).ifPresent(mob -> Try.run(() -> mob.execute(player, npc, option)));
 	}
 
 	/**
@@ -56,26 +54,24 @@ public class NPCPluginDispatcher {
 	}
 	
 	/**
-	 * Checks if the the NPCS Id matches the signature
+	 * Checks if the NPCS Id matches the signature
 	 * @param mob
 	 * @param npcId
 	 * @return
 	 */
 	private static boolean isNPCId(NPCType mob, int npcId) {
-		Annotation annotation = mob.getClass().getAnnotation(NPCSignature.class);
-		NPCSignature signature = (NPCSignature) annotation;
+		NPCSignature signature = mob.getClass().getAnnotation(NPCSignature.class);
 		return Arrays.stream(signature.npcId()).anyMatch(id -> npcId == id);
 	}
 	
 	/**
-	 * Checks if the the NPC Name matches the signature
+	 * Checks if the NPC Name matches the signature
 	 * @param mobType
 	 * @param objectId
 	 * @return
 	 */
 	private static boolean isMobNamed(NPCType mobType, NPC mob) {
-		Annotation annotation = mobType.getClass().getAnnotation(NPCSignature.class);
-		NPCSignature signature = (NPCSignature) annotation;
+		NPCSignature signature = mobType.getClass().getAnnotation(NPCSignature.class);
 		return Arrays.stream(signature.name()).anyMatch(mobName -> mob.getDefinitions().getName().contains(mobName));
 	}
 	
@@ -100,30 +96,36 @@ public class NPCPluginDispatcher {
 		load();
 	}
 	
-	@SuppressWarnings("unused")
-	private static boolean forceRun;
-	private static int npcIndex;
-	
 	public static void executeMobInteraction(final Player player, InputStream stream, int optionId) {
-		if (optionId == -1)
-			npcIndex = stream.readUnsignedShort();
-		else if (optionId == 1) {
-			npcIndex = stream.readUnsignedShort();
-			forceRun = stream.readByte() == 1;
-		} else if (optionId == 2) {
-			npcIndex = stream.readUnsignedShortLE128();
-			forceRun = stream.readByte() == 1;
-		} else if (optionId == 3) {
-			forceRun = stream.readByte() == 1;
-		    npcIndex = stream.readUnsignedShortLE();
-		} else if (optionId == 4) {
-			forceRun = stream.readByteC() == 1;
-			npcIndex = stream.readUnsignedShort();
+		boolean forceRun = false;
+		int npcIndex;
+		switch (optionId) {
+			case 1:
+				npcIndex = stream.readUnsignedShort();
+				forceRun = stream.readByte() == 1;
+				break;
+			case 2:
+				npcIndex = stream.readUnsignedShortLE128();
+				forceRun = stream.readByte() == 1;
+				break;
+			case 3:
+				forceRun = stream.readByte() == 1;
+				npcIndex = stream.readUnsignedShortLE();
+				break;
+			case 4:
+				forceRun = stream.readByteC() == 1;
+				npcIndex = stream.readUnsignedShort();
+				break;
+			default:
+				npcIndex = stream.readUnsignedShort();
+				break;
 		}
 		final NPC npc = World.getNPCs().get(npcIndex);
 		if (npc == null || npc.isCantInteract() || npc.isDead() || npc.isFinished()
 				|| !player.getMapRegionsIds().contains(npc.getRegionId()) || player.getMovement().isLocked())
 			return;
+		if (forceRun)
+			player.setRun(true);
 		player.setRouteEvent(new RouteEvent(npc, () -> {
 			if (player.getMapZoneManager().getMapZone(player).isPresent()) {
 				switch(optionId) {
@@ -143,7 +145,7 @@ public class NPCPluginDispatcher {
 				return;
 			}
 			NPCPluginDispatcher.execute(player, npc, optionId);
-		}, npc.getDefinitions().name.contains("Banker") || npc.getDefinitions().name.contains("banker")));
+		}, npc.getDefinitions().name.toLowerCase().equalsIgnoreCase("Banker")));
 
 	}
 	

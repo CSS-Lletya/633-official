@@ -128,7 +128,8 @@ public abstract class DatabaseConnection {
 	 * @return True, if this connection was closed
 	 */
 	public boolean isClosed() {
-		return Try.run(() -> connection.isClosed()) != null;
+		Try.run(() -> connection.isClosed());
+		return true;
 	}
 
 	/**

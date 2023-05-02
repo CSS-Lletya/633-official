@@ -65,8 +65,7 @@ public final class ObjectPluginDispatcher {
 	 * @return
 	 */
 	private static boolean isObjetId(ObjectType object, int objectId) {
-		Annotation annotation = object.getClass().getAnnotation(ObjectSignature.class);
-		ObjectSignature signature = (ObjectSignature) annotation;
+		ObjectSignature signature = object.getClass().getAnnotation(ObjectSignature.class);
 		return Arrays.stream(signature.objectId()).anyMatch(right -> objectId == right);
 	}
 
@@ -78,8 +77,7 @@ public final class ObjectPluginDispatcher {
 	 * @return
 	 */
 	private static boolean isObjectNamed(ObjectType object, GameObject worldObject) {
-		Annotation annotation = object.getClass().getAnnotation(ObjectSignature.class);
-		ObjectSignature signature = (ObjectSignature) annotation;
+		ObjectSignature signature = object.getClass().getAnnotation(ObjectSignature.class);
 		return Arrays.stream(signature.name())
 				.anyMatch(objectName -> worldObject.getDefinitions().getName().contains(objectName));
 	}

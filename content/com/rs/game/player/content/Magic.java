@@ -615,6 +615,7 @@ public class Magic {
 	}
 
 	public static final void processNormalSpell(Player player, int spellId, int packetId) {
+		System.out.println(spellId);
 		switch (spellId) {
 		case 25: // air strike
 		case 28: // water strike

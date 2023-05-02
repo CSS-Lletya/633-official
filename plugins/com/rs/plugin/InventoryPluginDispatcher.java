@@ -33,7 +33,7 @@ public final class InventoryPluginDispatcher {
 	 */
 	public static void execute(Player player, Item item, int optionId) {
 		getItem(item.getId()).ifPresent(specifiedItem -> {
-			Try.run(() -> specifiedItem.execute(player, item, optionId));
+			Try.run(() -> specifiedItem.execute(player, item, optionId)).onFailure(f -> f.printStackTrace());
 		});
 	}
 
@@ -52,8 +52,7 @@ public final class InventoryPluginDispatcher {
 	}
 	
 	private static boolean isCorrectItem(InventoryType InventoryType, int interfaceId) {
-		Annotation annotation = InventoryType.getClass().getAnnotation(InventoryWrapper.class);
-		InventoryWrapper signature = (InventoryWrapper) annotation;
+		InventoryWrapper signature = InventoryType.getClass().getAnnotation(InventoryWrapper.class);
 		return Arrays.stream(signature.itemId()).anyMatch(right -> interfaceId == right);
 	}
 	

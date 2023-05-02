@@ -21,6 +21,12 @@ public class TestD extends DialogueEventListener {
 		}, "maybe", () -> {
 			System.out.println("bye");
 		}, "idk", () -> {
+			player(happy, "lol okay");
+			option("Yes", () -> {
+				System.out.println("hi");
+			}, "No", () -> {
+				System.out.println("bye");
+			});
 			System.out.println("byess");
 		});
 		npc(sad, "I'm sad man..");

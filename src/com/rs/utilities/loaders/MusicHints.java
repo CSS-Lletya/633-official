@@ -10,6 +10,8 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
@@ -25,14 +27,14 @@ public class MusicHints {
 	private final static String PACKED_PATH = "data/musics/packedMusicHints.mh";
 	private final static String UNPACKED_PATH = "data/musics/unpackedMusicHints.txt";
 
-	public static final void init() {
+	public static void init() {
 		if (new File(PACKED_PATH).exists())
 			loadPackedItemExamines();
 		else
 			loadUnpackedItemExamines();
 	}
 
-	public static final String getHint(int musicId) {
+	public static String getHint(int musicId) {
 		String hint = musicHints.get(musicId);
 		if (hint == null)
 			return "somewhere.";
@@ -55,7 +57,7 @@ public class MusicHints {
 			@Cleanup
 			BufferedReader in = new BufferedReader(new FileReader(UNPACKED_PATH));
 			@Cleanup
-			DataOutputStream out = new DataOutputStream(new FileOutputStream(PACKED_PATH));
+			DataOutputStream out = new DataOutputStream(Files.newOutputStream(Paths.get(PACKED_PATH)));
 			while (true) {
 				String line = in.readLine();
 				if (line == null)
@@ -67,7 +69,7 @@ public class MusicHints {
 					in.close();
 					throw new RuntimeException("Invalid list for music hints line: " + line);
 				}
-				int musicId = Integer.valueOf(splitedLine[0]);
+				int musicId = Integer.parseInt(splitedLine[0]);
 				if (splitedLine[1].length() > 255)
 					continue;
 				out.writeShort(musicId);

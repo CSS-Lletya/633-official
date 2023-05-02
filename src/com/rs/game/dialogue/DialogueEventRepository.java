@@ -12,10 +12,10 @@ public class DialogueEventRepository {
 		return handledDialogues.get(key);
 	}
 
-	private static Object2ObjectOpenHashMap<Object, Class<? extends DialogueEventListener>> handledDialogues = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<Object, Class<? extends DialogueEventListener>> handledDialogues = new Object2ObjectOpenHashMap<>();
 
 	@SneakyThrows(Exception.class)
-	public static final void init() {
+	public static void init() {
 		@SuppressWarnings("unchecked")
 		Class<DialogueEventListener>[] regular = Utility.getClasses("com.rs.game.dialogue.impl");
 		for (Class<DialogueEventListener> c : regular) {

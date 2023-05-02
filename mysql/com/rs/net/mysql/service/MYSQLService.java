@@ -10,5 +10,5 @@ public interface MYSQLService {
 	/**
 	 * Handles the execution of the Query/Task
 	 */
-	public void execute();
+	void execute();
 }

@@ -1,6 +1,5 @@
 package com.rs.plugin;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
@@ -17,9 +16,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.SneakyThrows;
 
 /**
- * The manager class of commands which will dispatch executable commands.
- * 
- * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
+ * @author Dennis
  */
 public final class CommandPluginDispatcher {
 
@@ -70,12 +67,8 @@ public final class CommandPluginDispatcher {
 	 * @return <true> if the command was executed, <false> otherwise.
 	 */
 	private static boolean hasPrivileges(Player player, Command command) {
-		Annotation annotation = command.getClass().getAnnotation(CommandSignature.class);
-		CommandSignature sig = (CommandSignature) annotation;
-		if (player.getDetails().getRights().isStaff()) {
-			return true;
-		}
-		return Arrays.stream(sig.rights()).anyMatch(right -> player.getDetails().getRights().equals(right));
+		CommandSignature sig = command.getClass().getAnnotation(CommandSignature.class);
+		return player.getDetails().getRights().isStaff() || Arrays.stream(sig.rights()).anyMatch(right -> player.getDetails().getRights().equals(right));
 	}
 
 	/**

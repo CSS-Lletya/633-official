@@ -8,8 +8,9 @@ import java.lang.annotation.Target;
 import com.rs.game.player.Rights;
 
 /**
- * The Commands Signature which will supply information about a command.
- * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
+ *
+ * @author Dennis
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
@@ -22,7 +23,7 @@ public @interface CommandSignature {
 	String[] alias();
 	
 	/**
-	 * The rights that can use this comand.
+	 * The rights that can use this command.
 	 * @return the rights enumerator as an array.
 	 */
 	Rights[] rights();
