@@ -47,7 +47,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
-public final class World extends AbstractScheduledService {
+public final class World {
 
 	@Getter
 	@Setter
@@ -732,32 +732,6 @@ public final class World extends AbstractScheduledService {
 	public static final GameObject getObjectWithId(WorldTile tile, int id) {
 		return getRegion(tile.getRegionId()).getObjectWithId(tile.getPlane(), tile.getXInRegion(), tile.getYInRegion(),
 				id);
-	}
-
-	@Override
-	protected void runOneIteration() throws Exception {
-		World.get().getTaskManager().sequence();
-		
-		World.players().forEach(player -> player.processEntity());
-		World.npcs().forEach(npc -> npc.processEntity());
-		
-		World.players().forEach(player -> player.processEntityUpdate());
-		World.npcs().forEach(npc -> npc.processEntityUpdate());
-
-		World.players().forEach(player -> {
-			player.getPackets().sendLocalPlayersUpdate();
-			player.getPackets().sendLocalNPCsUpdate();
-		});
-		
-		World.players().forEach(player -> player.resetMasks());
-		World.npcs().forEach(npc -> npc.resetMasks());
-		
-		ServerChannelHandler.processSessionQueue();
-	}
-
-	@Override
-	protected Scheduler scheduler() {
-		return Scheduler.newFixedDelaySchedule(600, 600, TimeUnit.MILLISECONDS);
 	}
 	
 	/**

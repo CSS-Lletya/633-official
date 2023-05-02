@@ -11,7 +11,6 @@ import com.rs.game.map.MapBuilder;
 import com.rs.game.map.World;
 import com.rs.game.npc.combat.NPCCombatDispatcher;
 import com.rs.game.npc.global.GenericNPCDispatcher;
-import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.net.Huffman;
 import com.rs.net.ServerChannelHandler;
@@ -28,11 +27,8 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.json.GsonHandler;
 import com.rs.utilities.json.impl.MobDropTableLoader;
-import com.rs.utilities.loaders.Censor;
-import com.rs.utilities.loaders.ItemBonuses;
 import com.rs.utilities.loaders.MapArchiveKeys;
 import com.rs.utilities.loaders.MusicHints;
-import com.rs.utilities.loaders.NPCBonuses;
 import com.rs.utilities.loaders.NPCCombatDefinitionsL;
 import com.rs.utilities.loaders.ShopsHandler;
 
@@ -75,7 +71,6 @@ public class GameLoader {
 		CoresManager.init();
 		World.init();
 		getBackgroundLoader().submit(() -> {
-			World.get().startAsync().awaitRunning();
 			ServerChannelHandler.init();
 			Huffman.init();
 			MapArchiveKeys.init();
@@ -90,11 +85,11 @@ public class GameLoader {
 			LogUtility.log(LogType.INFO, "Loading Bonuses.");
 		});
 		getBackgroundLoader().submit(() -> {
-//			MusicHints.init();
+			MusicHints.init();
 			ShopsHandler.init();
 			GsonHandler.initialize();
 			new MobDropTableLoader().load();
-//			DialogueEventRepository.init();
+			DialogueEventRepository.init();
 //			FriendChatsManager.init();
 			LogUtility.log(LogType.INFO, "Loading miscellaneous files.");
 		});

@@ -16,17 +16,19 @@ public final class CoresManager {
 	public static ExecutorService serverBossChannelExecutor;
 	public static ScheduledExecutorService slowExecutor;
 	public static int serverWorkersCount;
+	public static WorldThread worldThread;
 
 	public static void init() {
+		worldThread = new WorldThread();
+		
 		int availableProcessors = Runtime.getRuntime().availableProcessors();
 		serverWorkersCount = availableProcessors >= 6 ? availableProcessors - (availableProcessors >= 12 ? 6 : 4) : 2;
-		serverWorkerChannelExecutor = serverWorkersCount > 1
-				? Executors.newFixedThreadPool(serverWorkersCount, new DecoderThreadFactory())
-				: Executors.newSingleThreadExecutor(new DecoderThreadFactory());
+		serverWorkerChannelExecutor = Executors.newFixedThreadPool(serverWorkersCount, new DecoderThreadFactory());
 		serverBossChannelExecutor = Executors.newSingleThreadExecutor(new DecoderThreadFactory());
 		slowExecutor = availableProcessors >= 6
 				? Executors.newScheduledThreadPool(availableProcessors >= 12 ? 4 : 2, new SlowThreadFactory())
 				: Executors.newSingleThreadScheduledExecutor(new SlowThreadFactory());
+		worldThread.start();		
 		WorldPacketsDecoder.loadPacketSizes();
 	}
 
