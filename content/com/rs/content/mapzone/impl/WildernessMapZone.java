@@ -22,7 +22,6 @@ public class WildernessMapZone extends MapZone {
 
 	@Override
 	public void start(Player player) {
-		System.out.println("?");
 		checkBoosts(player);
 		sendInterfaces(player);
 		moved(player);

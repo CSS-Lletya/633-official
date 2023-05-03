@@ -9,8 +9,6 @@ import io.vavr.control.Try;
 
 public final class WorldThread extends Thread {
 
-	public static final long WORLD_CYCLE = 0;
-
 	public WorldThread() {
 		setPriority(Thread.MAX_PRIORITY);
 		setName("World Thread");
@@ -39,7 +37,7 @@ public final class WorldThread extends Thread {
 				World.npcs().forEach(npc -> npc.resetMasks());
 
 				ServerChannelHandler.processSessionQueue();
-			}).onFailure(fail -> fail.printStackTrace());
+			}).onFailure(Throwable::printStackTrace);
 			LAST_CYCLE_CTM = Utility.currentTimeMillis();
 			long sleepTime = GameConstants.WORLD_CYCLE_MS + currentTime - LAST_CYCLE_CTM;
 			if (sleepTime <= 0)

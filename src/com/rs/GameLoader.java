@@ -11,6 +11,7 @@ import com.rs.game.map.MapBuilder;
 import com.rs.game.map.World;
 import com.rs.game.npc.combat.NPCCombatDispatcher;
 import com.rs.game.npc.global.GenericNPCDispatcher;
+import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.net.Huffman;
 import com.rs.net.ServerChannelHandler;
@@ -27,8 +28,11 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.json.GsonHandler;
 import com.rs.utilities.json.impl.MobDropTableLoader;
+import com.rs.utilities.loaders.Censor;
+import com.rs.utilities.loaders.ItemBonuses;
 import com.rs.utilities.loaders.MapArchiveKeys;
 import com.rs.utilities.loaders.MusicHints;
+import com.rs.utilities.loaders.NPCBonuses;
 import com.rs.utilities.loaders.NPCCombatDefinitionsL;
 import com.rs.utilities.loaders.ShopsHandler;
 
@@ -66,32 +70,32 @@ public class GameLoader {
 	 */
 	@SneakyThrows(IOException.class)
 	public void load() {
-		LogUtility.log(LogType.INFO, "Loading essential startup files.");
+		LogUtility.log(LogType.INFO, "Loading #633 Cache");
 		Cache.init();
-		CoresManager.init();
-		World.init();
 		getBackgroundLoader().submit(() -> {
+			LogUtility.log(LogType.INFO, "Loading Game World & Service Network.");
+			CoresManager.init();
+			World.init();
 			ServerChannelHandler.init();
 			Huffman.init();
 			MapArchiveKeys.init();
 			MapBuilder.init();
-			LogUtility.log(LogType.INFO, "Loading Game World.");
 		});
 		getBackgroundLoader().submit(() -> {
-//			ItemBonuses.init();
-//			Censor.init();
-			NPCCombatDefinitionsL.init();
-//			NPCBonuses.init();
 			LogUtility.log(LogType.INFO, "Loading Bonuses.");
+			ItemBonuses.init();
+			Censor.init();
+			NPCCombatDefinitionsL.init();
+			NPCBonuses.init();
 		});
 		getBackgroundLoader().submit(() -> {
+			LogUtility.log(LogType.INFO, "Loading Miscellaneous Files.");
 			MusicHints.init();
 			ShopsHandler.init();
 			GsonHandler.initialize();
 			new MobDropTableLoader().load();
 			DialogueEventRepository.init();
-//			FriendChatsManager.init();
-			LogUtility.log(LogType.INFO, "Loading miscellaneous files.");
+			FriendChatsManager.init();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Host files.");
@@ -112,6 +116,5 @@ public class GameLoader {
 			GenericNPCDispatcher.load();
 			PassiveSpellDispatcher.load();
 		});
-		LogUtility.log(LogType.INFO, "Startup completed.");
 	}
 }

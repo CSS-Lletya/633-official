@@ -10,8 +10,8 @@ import com.rs.utilities.Utility;
 public final class LocalPlayerUpdate {
 
 	/**
-	 * The maximum amount of local players being added per tick. This is to
-	 * decrease time it takes to load crowded places (such as home).
+	 * The maximum amount of local players being added per tick. This is to decrease
+	 * time it takes to load crowded places (such as home).
 	 */
 	private static final int MAX_PLAYER_ADD = 15;
 
@@ -41,11 +41,9 @@ public final class LocalPlayerUpdate {
 	}
 
 	public boolean needAppearenceUpdate(int index, byte[] hash) {
-		if (totalRenderDataSentLength > ((GameConstants.PACKET_SIZE_LIMIT - 500) / 2)
-				|| hash == null)
+		if (totalRenderDataSentLength > ((GameConstants.PACKET_SIZE_LIMIT - 500) / 2) || hash == null)
 			return false;
-		return cachedAppearencesHashes[index] == null
-				|| !MessageDigest.isEqual(cachedAppearencesHashes[index], hash);
+		return cachedAppearencesHashes[index] == null || !MessageDigest.isEqual(cachedAppearencesHashes[index], hash);
 	}
 
 	public LocalPlayerUpdate(Player player) {
@@ -67,8 +65,7 @@ public final class LocalPlayerUpdate {
 			if (playerIndex == player.getIndex())
 				continue;
 			Player player = World.getPlayers().get(playerIndex);
-			stream.writeBits(18, regionHashes[playerIndex] = player == null ? 0
-					: player.getRegionHash());
+			stream.writeBits(18, regionHashes[playerIndex] = player == null ? 0 : player.getRegionHash());
 			outPlayersIndexes[outPlayersIndexesCount++] = playerIndex;
 
 		}
@@ -80,12 +77,10 @@ public final class LocalPlayerUpdate {
 	}
 
 	private boolean needsAdd(Player p) {
-		return p != null && !p.isFinished() && player.withinDistance(p, 14)
-				&& localAddedPlayers < MAX_PLAYER_ADD;
+		return p != null && !p.isFinished() && player.withinDistance(p, 14) && localAddedPlayers < MAX_PLAYER_ADD;
 	}
 
-	private void updateRegionHash(OutputStream stream, int lastRegionHash,
-			int currentRegionHash) {
+	private void updateRegionHash(OutputStream stream, int lastRegionHash, int currentRegionHash) {
 		int lastRegionX = lastRegionHash >> 8;
 		int lastRegionY = 0xff & lastRegionHash;
 		int lastPlane = lastRegionHash >> 16;
@@ -96,8 +91,7 @@ public final class LocalPlayerUpdate {
 		if (lastRegionX == currentRegionX && lastRegionY == currentRegionY) {
 			stream.writeBits(2, 1);
 			stream.writeBits(2, planeOffset);
-		} else if (Math.abs(currentRegionX - lastRegionX) <= 1
-				&& Math.abs(currentRegionY - lastRegionY) <= 1) {
+		} else if (Math.abs(currentRegionX - lastRegionX) <= 1 && Math.abs(currentRegionY - lastRegionY) <= 1) {
 			int opcode;
 			int dx = currentRegionX - lastRegionX;
 			int dy = currentRegionY - lastRegionY;
@@ -123,20 +117,17 @@ public final class LocalPlayerUpdate {
 			int xOffset = currentRegionX - lastRegionX;
 			int yOffset = currentRegionY - lastRegionY;
 			stream.writeBits(2, 3);
-			stream.writeBits(18, (yOffset & 0xff) + ((xOffset & 0xff) << 8)
-					+ (planeOffset << 16));
+			stream.writeBits(18, (yOffset & 0xff) + ((xOffset & 0xff) << 8) + (planeOffset << 16));
 		}
 	}
 
-	private void processOutsidePlayers(OutputStream stream,
-			OutputStream updateBlockData, boolean nsn2) {
+	private void processOutsidePlayers(OutputStream stream, OutputStream updateBlockData, boolean nsn2) {
 		stream.initBitAccess();
 		int skip = 0;
 		localAddedPlayers = 0;
 		for (int i = 0; i < outPlayersIndexesCount; i++) {
 			int playerIndex = outPlayersIndexes[i];
-			if (nsn2 ? (0x1 & slotFlags[playerIndex]) == 0
-					: (0x1 & slotFlags[playerIndex]) != 0)
+			if (nsn2 ? (0x1 & slotFlags[playerIndex]) == 0 : (0x1 & slotFlags[playerIndex]) != 0)
 				continue;
 			if (skip > 0) {
 				skip--;
@@ -157,18 +148,15 @@ public final class LocalPlayerUpdate {
 				}
 				stream.writeBits(6, p.getXInRegion());
 				stream.writeBits(6, p.getYInRegion());
-				boolean needAppearenceUpdate = needAppearenceUpdate(
-						p.getIndex(), p.getAppearance()
-								.getMd5AppeareanceDataHash());
-				appendUpdateBlock(p, updateBlockData, needAppearenceUpdate,
-						true);
+				boolean needAppearenceUpdate = needAppearenceUpdate(p.getIndex(),
+						p.getAppearance().getMd5AppeareanceDataHash());
+				appendUpdateBlock(p, updateBlockData, needAppearenceUpdate, true);
 				stream.writeBits(1, 1);
 				localAddedPlayers++;
 				localPlayers[p.getIndex()] = p;
 				slotFlags[playerIndex] = (byte) (slotFlags[playerIndex] | 2);
 			} else {
-				int hash = p == null ? regionHashes[playerIndex] : p
-						.getRegionHash();
+				int hash = p == null ? regionHashes[playerIndex] : p.getRegionHash();
 				if (p != null && hash != regionHashes[playerIndex]) {
 					stream.writeBits(1, 1);
 					updateRegionHash(stream, regionHashes[playerIndex], hash);
@@ -177,12 +165,10 @@ public final class LocalPlayerUpdate {
 					stream.writeBits(1, 0); // no update needed
 					for (int i2 = i + 1; i2 < outPlayersIndexesCount; i2++) {
 						int p2Index = outPlayersIndexes[i2];
-						if (nsn2 ? (0x1 & slotFlags[p2Index]) == 0
-								: (0x1 & slotFlags[p2Index]) != 0)
+						if (nsn2 ? (0x1 & slotFlags[p2Index]) == 0 : (0x1 & slotFlags[p2Index]) != 0)
 							continue;
 						Player p2 = World.getPlayers().get(p2Index);
-						if (needsAdd(p2)
-								|| (p2 != null && p2.getRegionHash() != regionHashes[p2Index]))
+						if (needsAdd(p2) || (p2 != null && p2.getRegionHash() != regionHashes[p2Index]))
 							break;
 						skip++;
 					}
@@ -194,14 +180,12 @@ public final class LocalPlayerUpdate {
 		stream.finishBitAccess();
 	}
 
-	private void processLocalPlayers(OutputStream stream,
-			OutputStream updateBlockData, boolean nsn0) {
+	private void processLocalPlayers(OutputStream stream, OutputStream updateBlockData, boolean nsn0) {
 		stream.initBitAccess();
 		int skip = 0;
 		for (int i = 0; i < localPlayersIndexesCount; i++) {
 			int playerIndex = localPlayersIndexes[i];
-			if (nsn0 ? (0x1 & slotFlags[playerIndex]) != 0
-					: (0x1 & slotFlags[playerIndex]) == 0)
+			if (nsn0 ? (0x1 & slotFlags[playerIndex]) != 0 : (0x1 & slotFlags[playerIndex]) == 0)
 				continue;
 			if (skip > 0) {
 				skip--;
@@ -213,8 +197,8 @@ public final class LocalPlayerUpdate {
 				stream.writeBits(1, 1); // needs update
 				stream.writeBits(1, 0); // no masks update needeed
 				stream.writeBits(2, 0); // request remove
-				regionHashes[playerIndex] = p.getLastWorldTile() == null ? p
-						.getRegionHash() : p.getLastWorldTile().getRegionHash();
+				regionHashes[playerIndex] = p.getLastWorldTile() == null ? p.getRegionHash()
+						: p.getLastWorldTile().getRegionHash();
 				int hash = p.getRegionHash();
 				if (hash == regionHashes[playerIndex])
 					stream.writeBits(1, 0);
@@ -225,22 +209,18 @@ public final class LocalPlayerUpdate {
 				}
 				localPlayers[playerIndex] = null;
 			} else {
-				boolean needAppearenceUpdate = needAppearenceUpdate(
-						p.getIndex(), p.getAppearance()
-								.getMd5AppeareanceDataHash());
-				boolean needUpdate = p.needMasksUpdate()
-						|| needAppearenceUpdate;
+				boolean needAppearenceUpdate = needAppearenceUpdate(p.getIndex(),
+						p.getAppearance().getMd5AppeareanceDataHash());
+				boolean needUpdate = p.needMasksUpdate() || needAppearenceUpdate;
 				if (needUpdate)
-					appendUpdateBlock(p, updateBlockData, needAppearenceUpdate,
-							false);
+					appendUpdateBlock(p, updateBlockData, needAppearenceUpdate, false);
 				if (p.isTeleported()) {
 					stream.writeBits(1, 1); // needs update
 					stream.writeBits(1, needUpdate ? 1 : 0);
 					stream.writeBits(2, 3);
 					int xOffset = p.getX() - p.getLastWorldTile().getX();
 					int yOffset = p.getY() - p.getLastWorldTile().getY();
-					int planeOffset = p.getPlane()
-							- p.getLastWorldTile().getPlane();
+					int planeOffset = p.getPlane() - p.getLastWorldTile().getPlane();
 					if (Math.abs(p.getX() - p.getLastWorldTile().getX()) <= 14 // 14
 																				// for
 																				// safe
@@ -252,13 +232,11 @@ public final class LocalPlayerUpdate {
 							xOffset += 32;
 						if (yOffset < 0)
 							yOffset += 32;
-						stream.writeBits(12, yOffset + (xOffset << 5)
-								+ (planeOffset << 10));
+						stream.writeBits(12, yOffset + (xOffset << 5) + (planeOffset << 10));
 					} else {
 						stream.writeBits(1, 1);
-						stream.writeBits(30, (yOffset & 0x3fff)
-								+ ((xOffset & 0x3fff) << 14)
-								+ ((planeOffset & 0x3) << 28));
+						stream.writeBits(30,
+								(yOffset & 0x3fff) + ((xOffset & 0x3fff) << 14) + ((planeOffset & 0x3) << 28));
 					}
 				} else if (p.getNextWalkDirection() != -1) {
 					int dx = Utility.DIRECTION_DELTA_X[p.getNextWalkDirection()];
@@ -283,8 +261,7 @@ public final class LocalPlayerUpdate {
 						stream.writeBits(1, 1); // quick fix
 						stream.writeBits(2, 0);
 						if (!needUpdate) // hasnt been sent yet
-							appendUpdateBlock(p, updateBlockData,
-									needAppearenceUpdate, false);
+							appendUpdateBlock(p, updateBlockData, needAppearenceUpdate, false);
 					} else {
 						stream.writeBits(1, needUpdate ? 1 : 0);
 						stream.writeBits(2, running ? 2 : 1);
@@ -298,16 +275,12 @@ public final class LocalPlayerUpdate {
 					stream.writeBits(1, 0); // no update needed
 					for (int i2 = i + 1; i2 < localPlayersIndexesCount; i2++) {
 						int p2Index = localPlayersIndexes[i2];
-						if (nsn0 ? (0x1 & slotFlags[p2Index]) != 0
-								: (0x1 & slotFlags[p2Index]) == 0)
+						if (nsn0 ? (0x1 & slotFlags[p2Index]) != 0 : (0x1 & slotFlags[p2Index]) == 0)
 							continue;
 						Player p2 = localPlayers[p2Index];
-						if (needsRemove(p2)
-								|| p2.isTeleported()
-								|| p2.getNextWalkDirection() != -1
-								|| (p2.needMasksUpdate() || needAppearenceUpdate(
-										p2.getIndex(), p2.getAppearance()
-												.getMd5AppeareanceDataHash())))
+						if (needsRemove(p2) || p2.isTeleported() || p2.getNextWalkDirection() != -1
+								|| (p2.needMasksUpdate() || needAppearenceUpdate(p2.getIndex(),
+										p2.getAppearance().getMd5AppeareanceDataHash())))
 							break;
 						skip++;
 					}
@@ -321,52 +294,43 @@ public final class LocalPlayerUpdate {
 	}
 
 	private void skipPlayers(OutputStream stream, int amount) {
-		stream.writeBits(2, amount == 0 ? 0 : amount > 255 ? 3
-				: (amount > 31 ? 2 : 1));
+		stream.writeBits(2, amount == 0 ? 0 : amount > 255 ? 3 : (amount > 31 ? 2 : 1));
 		if (amount > 0)
 			stream.writeBits(amount > 255 ? 11 : (amount > 31 ? 8 : 5), amount);
 	}
 
-	private void appendUpdateBlock(Player p, OutputStream data,
-			boolean needAppearenceUpdate, boolean added) {
+	private void appendUpdateBlock(Player p, OutputStream data, boolean needAppearenceUpdate, boolean added) {
 		int maskData = 0;
-		
-		if (p.getNextAnimation() != null) //1
+
+		if (p.getNextAnimation() != null) // 1
 			maskData |= 0x10;
-		
-		if (p.getNextGraphics2() != null) //2
+
+		if (p.getNextGraphics2() != null) // 2
 			maskData |= 0x100;
 
-		
-		if (p.getNextFaceEntity() != -2
-				|| (added && p.getLastFaceEntity() != -1)) //4
+		if (p.getNextFaceEntity() != -2 || (added && p.getLastFaceEntity() != -1)) // 4
 			maskData |= 0x4;
-		
 
-		if (added
-				|| (p.getNextFaceWorldTile() != null
-						&& p.getNextRunDirection() == -1 && p
-						.getNextWalkDirection() == -1)) //6
+		if (added || (p.getNextFaceWorldTile() != null && p.getNextRunDirection() == -1
+				&& p.getNextWalkDirection() == -1)) // 6
 			maskData |= 0x80;
 
-
-		
-		if (needAppearenceUpdate) //8
+		if (needAppearenceUpdate) // 8
 			maskData |= 0x8;
-		
-		if (added || p.isUpdateMovementType()) //9
-			maskData |= 0x1;
-		
 
-		if (p.getNextGraphics1() != null) //13
+		if (added || p.isUpdateMovementType()) // 9
+			maskData |= 0x1;
+		if (!p.getNextHits().isEmpty())
+			maskData |= 0x40000;
+
+		if (p.getNextGraphics1() != null) // 13
 			maskData |= 0x40;
 
-		
-		if (p.getTemporaryMovementType() != -1) //15
+		if (p.getTemporaryMovementType() != -1) // 15
 			maskData |= 0x8000;
+		if (p.getNextForceTalk() != null) // 16
+			maskData |= 0x2000;
 
-		
-		
 		if (maskData > 128)
 			maskData |= 0x2;
 		if (maskData > 32768)
@@ -376,88 +340,41 @@ public final class LocalPlayerUpdate {
 			data.writeByte(maskData >> 8);
 		if (maskData > 32768)
 			data.writeByte(maskData >> 16);
-		
-		if (p.getNextAnimation() != null) //1
+
+		if (p.getNextAnimation() != null) // 1
 			applyAnimationMask(p, data);
-		
-		if (p.getNextGraphics2() != null) //2
+
+		if (p.getNextGraphics2() != null) // 2
 			applyGraphicsMask2(p, data);
-		
-		if (p.getNextFaceEntity() != -2
-				|| (added && p.getLastFaceEntity() != -1)) //4
+
+		if (p.getNextFaceEntity() != -2 || (added && p.getLastFaceEntity() != -1)) // 4
 			applyFaceEntityMask(p, data);
 
-		if (added
-				|| (p.getNextFaceWorldTile() != null
-						&& p.getNextRunDirection() == -1 && p
-						.getNextWalkDirection() == -1))
+		if (added || (p.getNextFaceWorldTile() != null && p.getNextRunDirection() == -1
+				&& p.getNextWalkDirection() == -1))
 			applyFaceDirectionMask(p, data);
 
-		
-		if (needAppearenceUpdate) //8
+		if (needAppearenceUpdate) // 8
 			applyAppearanceMask(p, data);
-		
 
-		if (added || p.isUpdateMovementType()) //9
+		if (added || p.isUpdateMovementType()) // 9
 			applyMoveTypeMask(p, data);
-		
-
-		if (p.getNextGraphics1() != null) //13
-			applyGraphicsMask1(p, data);
-
-		if (p.getTemporaryMovementType() != -1) //15
-			applyTemporaryMoveTypeMask(p, data);
-		
-		/*
-
-		if (p.getNextSecondaryBar() != null)
-			maskData |= 0x400;
-
-		if (p.getNextForceTalk() != null)
-			maskData |= 0x1000;
-
-		if (!p.getNextHits().isEmpty())
-			maskData |= 0x4;
-
-		// force movement here
-
-		
-
-	
-	
-
-
-	
-
-
-		if (p.getNextSecondaryBar() != null)
-			applySecondaryBarMask(p, data);
-
-		if (p.getNextForceTalk() != null)
-			applyForceTalkMask(p, data);
 
 		if (!p.getNextHits().isEmpty())
 			applyHitsMask(p, data);
+		if (p.getNextGraphics1() != null) // 13
+			applyGraphicsMask1(p, data);
 
-	
-	
-
-	
-		
-
-
-
-	
-
-
-			/*/
+		if (p.getTemporaryMovementType() != -1) // 15
+			applyTemporaryMoveTypeMask(p, data);
+		if (p.getNextForceTalk() != null) // 16
+			applyForceTalkMask(p, data);
 
 	}
 
-	
-
 	/**
 	 * Pretty sure this is an unused method in this revision.
+	 * 
 	 * @param p
 	 * @param data
 	 */
@@ -479,17 +396,17 @@ public final class LocalPlayerUpdate {
 		data.writeByteC(p.isRun() ? 2 : 1);
 	}
 
-	@SuppressWarnings("unused")
 	private void applyForceTalkMask(Player p, OutputStream data) {
 		data.writeString(p.getNextForceTalk().getText());
 	}
 
 	/**
-	 * This is the hitmark for the player; we need to fix this and the HP bar (assumingly)
+	 * This is the hitmark for the player; we need to fix this and the HP bar
+	 * (assumingly)
+	 * 
 	 * @param p
 	 * @param data
 	 */
-	@SuppressWarnings("unused")
 	private void applyHitsMask(Player p, OutputStream data) {
 		int count = p.getNextHits().size();
 		data.writeByteC(count);
@@ -506,16 +423,8 @@ public final class LocalPlayerUpdate {
 				if (hit.missed() && !interactingWith)
 					data.writeSmart(32766);
 				else {
-					if (hit.getSoaking() != null) {
-						data.writeSmart(32767);
-						data.writeSmart(hit.getMark(player, p));
-						data.writeSmart(hit.getDamage());
-						data.writeSmart(hit.getSoaking().getMark(player, p));
-						data.writeSmart(hit.getSoaking().getDamage());
-					} else {
-						data.writeSmart(hit.getMark(player, p));
-						data.writeSmart(hit.getDamage());
-					}
+					data.writeSmart(hit.getMark(player, p));
+					data.writeSmart(hit.getDamage());
 				}
 				data.writeSmart(hit.getDelay());
 				data.writeByte128(hpBarPercentage);
@@ -524,13 +433,12 @@ public final class LocalPlayerUpdate {
 	}
 
 	private void applyFaceEntityMask(Player p, OutputStream data) {
-		data.writeShort128(p.getNextFaceEntity() == -2 ? p.getLastFaceEntity() : p
-				.getNextFaceEntity());
+		data.writeShort128(p.getNextFaceEntity() == -2 ? p.getLastFaceEntity() : p.getNextFaceEntity());
 	}
 
 	private void applyFaceDirectionMask(Player p, OutputStream data) {
 		data.writeShortLE128(p.getDirection()); // also works as face tile as
-											// dir
+		// dir
 		// calced on setnextfacetile
 	}
 
@@ -555,8 +463,7 @@ public final class LocalPlayerUpdate {
 	private void applyAppearanceMask(Player p, OutputStream data) {
 		byte[] renderData = p.getAppearance().getAppeareanceData();
 		totalRenderDataSentLength += renderData.length;
-		cachedAppearencesHashes[p.getIndex()] = p.getAppearance()
-				.getMd5AppeareanceDataHash();
+		cachedAppearencesHashes[p.getIndex()] = p.getAppearance().getMd5AppeareanceDataHash();
 		data.write128Byte(renderData.length);
 		data.writeBytes(renderData, 0, renderData.length);
 
@@ -564,10 +471,8 @@ public final class LocalPlayerUpdate {
 
 	@SuppressWarnings("unused")
 	private void applyForceMovementMask(Player p, OutputStream data) {
-		data.writeByteC(p.getNextForceMovement().getToFirstTile().getX()
-				- p.getX());
-		data.writeByte(p.getNextForceMovement().getToFirstTile().getY()
-				- p.getY());
+		data.writeByteC(p.getNextForceMovement().getToFirstTile().getX() - p.getX());
+		data.writeByte(p.getNextForceMovement().getToFirstTile().getY() - p.getY());
 		data.writeByte(p.getNextForceMovement().getToSecondTile() == null ? 0
 				: p.getNextForceMovement().getToSecondTile().getX() - p.getX());
 		data.writeByte128(p.getNextForceMovement().getToSecondTile() == null ? 0
@@ -586,8 +491,7 @@ public final class LocalPlayerUpdate {
 		processLocalPlayers(stream, updateBlockData, false);
 		processOutsidePlayers(stream, updateBlockData, true);
 		processOutsidePlayers(stream, updateBlockData, false);
-		stream.writeBytes(updateBlockData.getBuffer(), 0,
-				updateBlockData.getOffset());
+		stream.writeBytes(updateBlockData.getBuffer(), 0, updateBlockData.getOffset());
 		stream.endPacketVarShort();
 		totalRenderDataSentLength = 0;
 		localPlayersIndexesCount = 0;

@@ -11,7 +11,6 @@ public class WildernessObiliskPlugin implements ObjectType {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		System.out.println("?");
 		WildernessObelisk.activateObelisk(object.getId(), player);
 	}
 }

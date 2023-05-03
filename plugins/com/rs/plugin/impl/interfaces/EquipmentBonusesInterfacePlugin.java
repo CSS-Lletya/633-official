@@ -44,7 +44,6 @@ public class EquipmentBonusesInterfacePlugin implements RSInterface {
 			Item item = player.getEquipment().getItem(slotId);
 			if (item == null)
 				return;
-			System.out.println("?");
 			sendItemStats(player, item);	
 		}
 	}

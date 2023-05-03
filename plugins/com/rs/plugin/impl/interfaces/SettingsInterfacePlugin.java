@@ -10,7 +10,6 @@ public class SettingsInterfacePlugin implements RSInterface {
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2)
 			throws Exception {
-		System.out.println("?");
 		if (player.getInterfaceManager().containsInventoryInter())
 			return;
 		if (componentId == 16) {

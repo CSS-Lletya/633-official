@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
@@ -14,6 +15,7 @@ import com.google.common.base.Preconditions;
 import com.rs.GameConstants;
 import com.rs.cache.loaders.AnimationDefinitions;
 import com.rs.cache.loaders.ObjectDefinitions;
+import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.map.DynamicRegion;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.Region;
@@ -44,7 +46,6 @@ import com.rs.utilities.MutableNumber;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayFIFOQueue;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
@@ -62,7 +63,7 @@ public abstract class Entity extends WorldTile {
 	private transient short lastRegionId;
 	private transient WorldTile lastLoadedMapRegionTile;
 	private transient CopyOnWriteArrayList<Integer> mapRegionsIds;
-	private transient byte direction;
+	private transient int direction;
 	private transient WorldTile lastWorldTile;
 	private transient WorldTile nextWorldTile;
 	private transient byte nextWalkDirection;
@@ -71,7 +72,7 @@ public abstract class Entity extends WorldTile {
 	private transient boolean teleported;
 	// than 1thread so concurent
 	private transient ObjectArrayFIFOQueue<Hit> receivedHits;
-	private transient Object2ObjectOpenHashMap<Entity, Integer> receivedDamage;
+	private transient ConcurrentHashMap<Entity, Integer> receivedDamage;
 	private transient boolean finished;
 	
 	// entity masks
@@ -126,7 +127,7 @@ public abstract class Entity extends WorldTile {
 		setHashCode((short) hashCodeGenerator.getAndIncrement());
 		setMapRegionsIds(new CopyOnWriteArrayList<Integer>());
 		setReceivedHits(new ObjectArrayFIFOQueue<Hit>());
-		setReceivedDamage(new Object2ObjectOpenHashMap<Entity, Integer>());
+		setReceivedDamage(new ConcurrentHashMap<Entity, Integer>());
 		setNextHits(new ObjectArrayList<Hit>());
 		setNextWalkDirection((byte) (nextRunDirection - 1));
 		setLastFaceEntity(-1);
@@ -921,14 +922,14 @@ public abstract class Entity extends WorldTile {
 		if (nextFaceWorldTile.getX() == getX()
 				&& nextFaceWorldTile.getY() == getY())
 			return;
-		setNextFaceWorldTile(nextFaceWorldTile);
-		if (getNextWorldTile() != null)
-			setDirection((byte) Utility.getFaceDirection(nextFaceWorldTile.getX()
-					- getNextWorldTile().getX(), nextFaceWorldTile.getY()
-					- getNextWorldTile().getY()));
+		this.nextFaceWorldTile = nextFaceWorldTile;
+		if (nextWorldTile != null)
+			direction = Utility.getFaceDirection(nextFaceWorldTile.getX()
+					- nextWorldTile.getX(), nextFaceWorldTile.getY()
+					- nextWorldTile.getY());
 		else
-			setDirection((byte) Utility.getFaceDirection(nextFaceWorldTile.getX()
-					- getX(), nextFaceWorldTile.getY() - getY()));
+			direction = Utility.getFaceDirection(nextFaceWorldTile.getX()
+					- getX(), nextFaceWorldTile.getY() - getY());
 	}
 
 	public int getSize() {
@@ -1116,10 +1117,10 @@ public abstract class Entity extends WorldTile {
 	}
 	
 	private static void checkControlersAtMove(Player player) {
-//		if (WildernessController.isAtWild(player))
-//			new WildernessController().start(player);
-//		else
-//			new WildernessController().moved(player);
+		if (WildernessMapZone.isAtWild(player))
+			player.getMapZoneManager().submitMapZone(player, new WildernessMapZone());
+		else
+			player.getCurrentMapZone().ifPresent(zone -> zone.moved(player));
 	}
 
 	public final boolean isPvpArea(WorldTile tile) {
