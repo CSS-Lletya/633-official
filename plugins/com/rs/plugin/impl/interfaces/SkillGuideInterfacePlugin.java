@@ -12,6 +12,8 @@ public class SkillGuideInterfacePlugin implements RSInterface {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) throws Exception {
+		if (player.getInterfaceManager().containsChatBoxInter())
+			player.getInterfaceManager().closeChatBoxInterface();
 		if (interfaceId == 499)
 			updateSkillGuide(player, componentId);
 		else

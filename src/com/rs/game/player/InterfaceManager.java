@@ -80,8 +80,18 @@ public class InterfaceManager {
 		return containsInterfaceAtParent(752, CHAT_BOX_COMPONENT);
 	}
 
+	//assuming we're not in fullscreen only
+	public void sendOverlay(int interfaceId) {
+		setWindowInterface(isResizableScreen() ? 11 : 0, interfaceId);
+	}
+	
 	public void setOverlay(int interfaceId, boolean fullScreen) {
 		setWindowInterface(isResizableScreen() ? fullScreen ? 1 : 11 : 0, interfaceId);
+	}
+	
+	//assuming we're not in fullscreen only
+	public void removeOverlay() {
+		removeWindowInterface(isResizableScreen() ? 11 : 0);
 	}
 
 	public void removeOverlay(boolean fullScreen) {
@@ -148,7 +158,7 @@ public class InterfaceManager {
 		sendSettings();
 		sendEmotes();
 		sendMusic();
-//		sendNotes();
+		sendNotes();
 		sendIgnores();
 		sendFriends();
 		sendClanChat();
@@ -433,10 +443,12 @@ public class InterfaceManager {
 	}
 	
 	public void closeInterfaces() {
-		if (player.getInterfaceManager().containsScreenInter())
-			player.getInterfaceManager().removeScreenInterface();
-		if (player.getInterfaceManager().containsInventoryInter())
-			player.getInterfaceManager().removeInventoryInterface();
+		if (containsScreenInter())
+			removeScreenInterface();
+		if (containsInventoryInter())
+			removeInventoryInterface();
+		if (containsChatBoxInter())
+			closeChatBoxInterface();
 		if (player.dialog() != null)
 			player.dialog().complete();
 		if (player.getCloseInterfacesEvent() != null) {

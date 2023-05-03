@@ -1,6 +1,5 @@
 package com.rs.plugin.impl.commands;
 
-import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.plugin.listener.Command;
@@ -13,19 +12,14 @@ public final class ItemCommandPlugin implements Command {
 	
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		if (cmd.length < 2) {
-			player.getPackets().sendGameMessage("Use: ::item id (optional:amount)");
-			return;
-		}
 		Try.run(() -> {
-			int itemId = Integer.valueOf(cmd[1]);
-			ItemDefinitions defs = ItemDefinitions.getItemDefinitions(itemId);
-			if (defs.isLended())
-				return;
-			if (defs.isOverSized()) {
-				player.getPackets().sendGameMessage("The item appears to be oversized.");
-				return;
+			if (cmd.length == 3) {
+				player.getInventory().addItem(Integer.parseInt(cmd[1]),
+						Integer.parseInt(cmd[2]));
+			} else {
+				player.getInventory().addItem(Integer.parseInt(cmd[1]), 1);
 			}
+			player.getInventory().refresh();
 		}).onFailure(failure -> player.getPackets().sendGameMessage("Use: ::item id (optional:amount)"));
 	}
 }

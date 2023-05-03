@@ -289,7 +289,13 @@ public interface InterfaceVars {
 	 */
 	int SKILL_SKILL_GUIDE_DATA = 965;
 	
+	/**
+	 * Represents an item being modified in a trade screen
+	 */
 	int TRADE_ITEM_MODIFIED = 1042;
 	
+	/**
+	 * Represents the targets item being modified in a trade screen
+	 */
 	int TRADE_TARGET_ITEM_MODIFIED = 1043;
 }

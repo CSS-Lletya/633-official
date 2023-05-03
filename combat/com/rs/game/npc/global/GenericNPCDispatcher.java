@@ -24,7 +24,7 @@ public class GenericNPCDispatcher {
 		getVerifiedNPC(npc.getId()).ifPresent(mob -> {
 			Annotation annotation = mob.getClass().getAnnotation(GenericNPCSignature.class);
 			GenericNPCSignature signature = (GenericNPCSignature) annotation;
-			Arrays.stream(signature.npcId()).parallel().filter(id -> npc.getId() == id).forEach(mobId -> new NPC((short) mobId, npc.getNextWorldTile(), (byte) signature.mapAreaNameHash(), signature.canBeAttackFromOutOfArea(), signature.isSpawned()) );
+			Arrays.stream(signature.npcId()).filter(id -> npc.getId() == id).forEach(mobId -> new NPC((short) mobId, npc.getNextWorldTile(), (byte) signature.mapAreaNameHash(), signature.canBeAttackFromOutOfArea(), signature.isSpawned()) );
 		});
 		return npc;
 	}
@@ -61,8 +61,7 @@ public class GenericNPCDispatcher {
 	}
 
 	private boolean isValidID(GenericNPC genericNPC, int mobId) {
-		Annotation annotation = genericNPC.getClass().getAnnotation(GenericNPCSignature.class);
-		GenericNPCSignature signature = (GenericNPCSignature) annotation;
+		GenericNPCSignature signature = genericNPC.getClass().getAnnotation(GenericNPCSignature.class);
 		return Arrays.stream(signature.npcId()).anyMatch(id -> mobId == id);
 	}
 
