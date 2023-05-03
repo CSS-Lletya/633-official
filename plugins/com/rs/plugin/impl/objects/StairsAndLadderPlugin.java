@@ -8,27 +8,44 @@ import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectType;
 import com.rs.plugin.wrapper.ObjectSignature;
 
-@ObjectSignature(objectId = {}, name = {"Staircase", "Ladder"})
+/**
+ * For anything specific we can just declare the respective object ids and
+ * create a event check.
+ * 
+ * @author Dennis
+ *
+ */
+@ObjectSignature(objectId = {}, name = { "Staircase", "Ladder" })
 public class StairsAndLadderPlugin implements ObjectType {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		//if special else do this
-		if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb"))
+		if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb")) {
+			if (player.getPlane() == 3 || player.getPlane() == 0)
+				return;
 			player.dialog(new DialogueEventListener(player) {
 				@Override
 				public void start() {
 					option("Go-Up", () -> {
-						player.getMovement().move(true,new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);
-					},
-					"Go-Down", () -> {
-						player.getMovement().move(true,new WorldTile(player.getX(), player.getY(), player.getPlane() - 1), TeleportType.BLANK);
+						if (player.getPlane() == 3) {
+							return;
+						}
+						player.getMovement().move(true,
+								new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);
+					}, "Go-Down", () -> {
+						player.getMovement().move(true,
+								new WorldTile(player.getX(), player.getY(), player.getPlane() - 1), TeleportType.BLANK);
 					});
 				}
 			});
-		else if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb-up"))
+		} else if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb-up")) {
+			if (player.getPlane() == 3)
+				return;
 			player.getMovement().move(true, new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);
-		else if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb-down"))
+		} else if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb-down")) {
+			if (player.getPlane() == 0)
+				return;
 			player.getMovement().move(true, new WorldTile(player.getX(), player.getY(), player.getPlane() - 1), TeleportType.BLANK);
+		}
 	}
 }
