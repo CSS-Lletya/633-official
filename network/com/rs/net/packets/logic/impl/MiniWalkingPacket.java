@@ -30,8 +30,8 @@ public class MiniWalkingPacket implements LogicPacket {
 		if (forceRun)
 			player.setRun(forceRun);
 
-		if (player.dialog() != null)
-			player.dialog().complete();
+		if (player.getInterfaceManager().containsScreenInter())
+			player.getInterfaceManager().closeInterfaces();
 
 		player.getSkillAction().ifPresent(skill -> skill.cancel());
 

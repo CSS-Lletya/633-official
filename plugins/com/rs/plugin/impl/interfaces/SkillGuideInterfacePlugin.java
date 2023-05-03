@@ -1,5 +1,7 @@
 package com.rs.plugin.impl.interfaces;
 
+import java.util.stream.IntStream;
+
 import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterface;
@@ -37,7 +39,7 @@ public class SkillGuideInterfacePlugin implements RSInterface {
         }
         if (player.getSkills().getLeveledUp()[slot]) {
         	player.getVarsManager().sendVar(InterfaceVars.SKILL_CONGRATULATIONS_LEVEL_UP_INFORMATION, SKILL_GUIDE_DATA[slot][1]);
-        	player.getInterfaceManager().sendInterface(741);
+        	 player.getInterfaceManager().sendFullscreenInterface(5, 741);
             player.getSkills().getLeveledUp()[slot] = false;
             LevelUp.sendFlashIcons(player);
             return true;
@@ -45,7 +47,7 @@ public class SkillGuideInterfacePlugin implements RSInterface {
         int value = SKILL_GUIDE_DATA[slot][2];
         player.getSkills().getLeveledUp()[slot] = false;
         player.getVarsManager().sendVar(InterfaceVars.SKILL_SKILL_GUIDE_DATA, value);
-        player.getInterfaceManager().sendInterface(499);
+        player.getInterfaceManager().sendFullscreenInterface(5, 499);
         player.getAttributes().getAttributes().put("skillGuideMenu", value);
         return true;
     }

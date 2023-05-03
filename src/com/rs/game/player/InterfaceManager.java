@@ -1,5 +1,7 @@
 package com.rs.game.player;
 
+import java.util.stream.IntStream;
+
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
 
@@ -318,6 +320,20 @@ public class InterfaceManager {
 		getOpenedinterfaces().put(parentUID, interfaceId);
 		player.getPackets().sendInterface(clickThrought, parentUID, interfaceId);
 	}
+	
+	/**
+	 * Quest Interface, Skill Guide / Level Up Interfaces Had to make a specific
+	 * check for closing interfaces though, don't think it's that good but works for now.
+	 * 
+	 * @param parentInterfaceComponentId
+	 * @param interfaceId
+	 */
+	public void sendFullscreenInterface(int parentInterfaceComponentId, int interfaceId) {
+		if (!isResizableScreen())
+			sendInterface(interfaceId);
+		else
+			setInterface(false, 746, parentInterfaceComponentId, interfaceId);
+	}
 
 	public void removeInterfaceByParent(int parentInterfaceId, int parentInterfaceComponentId) {
 		removeInterfaceByParent(getComponentUId(parentInterfaceId, parentInterfaceComponentId));
@@ -443,8 +459,8 @@ public class InterfaceManager {
 	}
 	
 	public void closeInterfaces() {
-		if (containsScreenInter())
-			removeScreenInterface();
+		removeScreenInterface();
+		IntStream.of(499, 741).forEach(id -> removeInterface(id));
 		if (containsInventoryInter())
 			removeInventoryInterface();
 		if (containsChatBoxInter())

@@ -26,7 +26,8 @@ public class WildernessDialogue extends DialogueEventListener {
 
 	@Override
 	public void start() {
-		option("Enter the Wilderness", () -> {
+		option(
+		"Enter the Wilderness", () -> {
 			player.getMovement().stopAll();
 			player.getMovement().lock();
 			player.setNextAnimation(new Animation(6132));
@@ -42,13 +43,11 @@ public class WildernessDialogue extends DialogueEventListener {
 					player.setNextWorldTile(toTile);
 					player.setNextFaceWorldTile(toTile);
 					player.getMapZoneManager().submitMapZone(player, new WildernessMapZone());
-					player.resetReceivedDamage();
 					player.getMovement().unlock();
 					this.cancel();
 				}
 			});
-		}, "Nevermind", () -> {
-			player.getInterfaceManager().closeChatBoxInterface();
-		});
+		}, 
+		"Nevermind", () -> player.dialog().complete());
 	}
 }
