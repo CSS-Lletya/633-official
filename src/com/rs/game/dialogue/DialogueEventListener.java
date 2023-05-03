@@ -158,12 +158,12 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 
 			} else {
 
-				player.getInterfaceManager().sendChatBoxInterface(240);
-				player.getPackets().sendIComponentText(26, 3, header(npc));
-				player.getPackets().sendIComponentText(26, 4, event.getText());
-				player.getPackets().sendNPCOnIComponent(26, 1, npc.getId());
-				player.getPackets().sendHideIComponent(26, 5, event.isRemoveContinue());
-				player.getPackets().sendIComponentAnimation(event.getFace(), 26, 1);
+				player.getInterfaceManager().sendChatBoxInterface(241);
+				player.getPackets().sendIComponentText(241, 3, header(npc));
+				player.getPackets().sendIComponentText(241, 4, event.getText());
+				player.getPackets().sendNPCOnIComponent(241, 2, npc.getId());
+				player.getPackets().sendHideIComponent(241, 5, event.isRemoveContinue());
+				player.getPackets().sendIComponentAnimation(event.getFace(), 241, 2);
 
 			}
 

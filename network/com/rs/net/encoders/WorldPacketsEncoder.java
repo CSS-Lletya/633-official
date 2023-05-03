@@ -861,6 +861,7 @@ public class WorldPacketsEncoder extends Encoder {
 		OutputStream stream = new OutputStream(5);
 		stream.writePacket(getPlayer(), 59);
 		stream.writeIntLE(interfaceId << 16 | componentId);
+		getSession().write(stream);
 		return this;
 	}
 
