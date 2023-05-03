@@ -145,8 +145,6 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 
 			NPC npc = args.length > 0 ? (NPC) args[0] : null;
 
-			// TODO: Fix Entity head models not showing...hmm..
-
 			if (event.isPlayer()) {
 
 				player.getInterfaceManager().sendChatBoxInterface(64);
@@ -170,12 +168,10 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 		}
 			break;
 		case 2: {
-			// TODO: Seems accurate, however item is a bit far away, can use a cache editor
-			// to move it though perhaps.
 			DialogueItemEvent event = (DialogueItemEvent) dialogue;
 			player.getInterfaceManager().sendChatBoxInterface(131);
-			player.getPackets().sendItemOnIComponent(131, 0, event.getItemId(), event.getAmount());
 			player.getPackets().sendIComponentText(131, 1, event.getText());
+			player.getPackets().sendItemOnIComponent(131, 2, event.getItemId(), event.getAmount());
 			player.getPackets().sendHideIComponent(131, 3, event.isRemoveContinue());
 		}
 			break;
@@ -191,6 +187,18 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 			}
 
 			player.getInterfaceManager().sendChatBoxInterface(interfaceId);
+		}
+			break;
+		case 4: {
+			/* NOTE: No actual function, this is just a reference point to show that
+			*  there can be two items in the items box, otherwise use type 2 method.
+			*/
+			DialogueItemEvent event = (DialogueItemEvent) dialogue;
+			player.getInterfaceManager().sendChatBoxInterface(131);
+			player.getPackets().sendItemOnIComponent(131, 0, event.getItemId(), event.getAmount());
+			player.getPackets().sendItemOnIComponent(131, 2, event.getItemId(), event.getAmount());
+			player.getPackets().sendIComponentText(131, 1, event.getText());
+			player.getPackets().sendHideIComponent(131, 3, event.isRemoveContinue());
 		}
 			break;
 		}
