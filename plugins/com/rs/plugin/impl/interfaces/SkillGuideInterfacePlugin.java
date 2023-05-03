@@ -4,6 +4,8 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterface;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
+import skills.LevelUp;
+
 @RSInterfaceSignature(interfaceId = {320, 499})
 public class SkillGuideInterfacePlugin implements RSInterface {
 
@@ -30,7 +32,15 @@ public class SkillGuideInterfacePlugin implements RSInterface {
                 break;
             }
         }
+        if (player.getSkills().getLeveledUp()[slot]) {
+        	player.getVarsManager().sendVar(1230, SKILL_GUIDE_DATA[slot][1]);
+        	player.getInterfaceManager().sendInterface(741);
+            player.getSkills().getLeveledUp()[slot] = false;
+            LevelUp.sendFlashIcons(player);
+            return true;
+        }
         int value = SKILL_GUIDE_DATA[slot][2];
+        player.getSkills().getLeveledUp()[slot] = false;
         player.getVarsManager().sendVar(965, value);
         player.getInterfaceManager().sendInterface(499);
         player.getAttributes().getAttributes().put("skillGuideMenu", value);

@@ -32,6 +32,8 @@ public class DialogueContinuePacket implements OutgoingPacket {
 			LogUtility.log(LogType.INFO, "Dialogue: " + interfaceId + ", " + buttonId
 					+ ", " + junk);
 		int componentId = interfaceHash - (interfaceId << 16);
+		if (interfaceId == 740)
+			player.getInterfaceManager().closeChatBoxInterface();
 		if (DialogueEventListener.continueDialogue(player, componentId))
 			return;
 	}

@@ -8,11 +8,25 @@ public class LevelUp extends Skills {
 	public static void advanceLevel(Player player, int skill, int gainedLevels) {
 		Musics musicId = Musics.levelup(skill);
 		totalMileStone(player);
-		player.setNextGraphics(new Graphics(player.getSkills().getLevel(skill) == 99 || player.getSkills().getLevel(skill) == 120 ? 1765 : 199));
+		int flashingConfig = 0;
+        int spriteConfig = 0;
+        player.getSkills().getLeveledUp()[skill] = true;
+        for (int i = 0; i < player.getSkills().getLeveledUp().length; i++) {
+            if (player.getSkills().getLeveledUp()[i]) {
+                flashingConfig |= FLASH_VALUES[i];
+                spriteConfig = CONFIG_VALUES[i];
+            }
+        }
+        player.getVarsManager().sendVar(1179, spriteConfig << 26 | flashingConfig);
+		player.getPackets().sendIComponentText(740, 1, "You have now reached level " + player.getSkills().getLevel(skill) + "!");
+		player.getPackets().sendIComponentText(740, 0, "Congratulations, you've advanced " + gainedLevels
+				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + ".");
+		
+		player.setNextGraphics(new Graphics(199));
 		player.getPackets().sendMusicEffect(gainedLevels > 50 ? musicId.getId2() : musicId.getId());
 		player.getPackets().sendGameMessage("Congratulations, you've advanced " + gainedLevels
 				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + ".");
-		
+		player.getInterfaceManager().sendChatBoxInterface(740);
 	}
 
 	public static void totalMileStone(Player player) {
@@ -26,4 +40,26 @@ public class LevelUp extends Skills {
 			return;
 		}
 	}
+	
+    public static final int[] FLASH_VALUES = {
+            1, 4, 2, 64, 8, 16, 32, 32768, 131072, 2048, 16384, 65536, 1024, 8192, 4096, 256, 128,
+            512, 524288, 1048576, 262144, 4194304, 2097152, 8388608, 16777216,
+    };
+    
+    public static final int[] CONFIG_VALUES =
+        {
+                1, 5, 2, 6, 3, 7, 4, 16, 18, 19, 15, 17, 11, 14, 13, 9, 8, 10, 20, 21, 12, 23, 22, 24, 25
+        };
+    
+    public static void sendFlashIcons(Player player) {
+        int flashingConfig = 0;
+        int spriteConfig = 0;
+        for (int i = 0; i < player.getSkills().getLeveledUp().length; i++) {
+            if (player.getSkills().getLeveledUp()[i]) {
+                flashingConfig |= FLASH_VALUES[i];
+                spriteConfig = CONFIG_VALUES[i];
+            }
+        }
+        player.getVarsManager().sendVar(1179, spriteConfig << 26 | flashingConfig);
+    }
 }

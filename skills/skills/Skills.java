@@ -438,4 +438,6 @@ public class Skills {
 		IntStream.range(0, 25).forEach(level -> totallevel += player.getSkills().getLevelForXp(level));
 		return totallevel;
 	}
+
+	private transient boolean[] leveledUp = new boolean[25];
 }
