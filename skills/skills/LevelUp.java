@@ -1,5 +1,6 @@
 package skills;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Graphics;
 
@@ -17,7 +18,7 @@ public class LevelUp extends Skills {
                 spriteConfig = CONFIG_VALUES[i];
             }
         }
-        player.getVarsManager().sendVar(1179, spriteConfig << 26 | flashingConfig);
+        player.getVarsManager().sendVar(InterfaceVars.LEVEL_UP_AND_FLASH, spriteConfig << 26 | flashingConfig);
 		player.getPackets().sendIComponentText(740, 1, "You have now reached level " + player.getSkills().getLevel(skill) + "!");
 		player.getPackets().sendIComponentText(740, 0, "Congratulations, you've advanced " + gainedLevels
 				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + ".");
@@ -60,6 +61,6 @@ public class LevelUp extends Skills {
                 spriteConfig = CONFIG_VALUES[i];
             }
         }
-        player.getVarsManager().sendVar(1179, spriteConfig << 26 | flashingConfig);
+        player.getVarsManager().sendVar(InterfaceVars.LEVEL_UP_AND_FLASH, spriteConfig << 26 | flashingConfig);
     }
 }

@@ -3,6 +3,7 @@ package com.rs.game.npc.familiar;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
@@ -180,19 +181,16 @@ public abstract class Familiar extends NPC {
 	}
 
 	public void sendTimeRemaining() {
-		owner.getVarsManager().sendVar(1176, ticks * 65);
+		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_TIME_REMAINING, ticks * 65);
 	}
 
 	public void sendMainConfigs() {
 		switchOrb(true);
-		owner.getVarsManager().sendVar(448, pouch.getRealPouchId());// configures
-		// familiar type
-		// based on
-		// pouch?
-		owner.getVarsManager().sendVar(1160, 243269632); // sets npc emote
+		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_POUCH_ID, pouch.getRealPouchId());
+		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_HEAD_ANIMATION, 243269632);
 		refreshSpecialEnergy();
 		sendTimeRemaining();
-		owner.getVarsManager().sendVar(1175, getSpecialAmount() << 23);// check
+		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_SPECIAL_AMOUNT, getSpecialAmount() << 23);// check
 		owner.getPackets().sendGlobalString(204, getSpecialName());
 		owner.getPackets().sendGlobalString(205, getSpecialDescription());
 		owner.getPackets().sendGlobalConfig(1436, getSpecialAttack() == SpecialAttack.CLICK ? 1 : 0);
@@ -214,7 +212,7 @@ public abstract class Familiar extends NPC {
 	}
 
 	public void switchOrb(boolean on) {
-		owner.getVarsManager().sendVar(1174, on ? -1 : 0);
+		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_SWITCH_ORB, on ? -1 : 0);
 		if (on)
 			unlock();
 		else
@@ -248,8 +246,8 @@ public abstract class Familiar extends NPC {
 	}
 
 	public static void sendLeftClickOption(Player player) {
-		player.getVarsManager().sendVar(1493, player.getDetails().getSummoningLeftClickOption());
-		player.getVarsManager().sendVar(1494, player.getDetails().getSummoningLeftClickOption());
+		player.getVarsManager().sendVar(InterfaceVars.SUMMONING_LEFT_CLICK_OPTION, player.getDetails().getSummoningLeftClickOption());
+		player.getVarsManager().sendVar(InterfaceVars.SUMMONING_EXTRA_LEFT_CLICK_OPTION, player.getDetails().getSummoningLeftClickOption());
 	}
 
 	public void unlock() {
@@ -416,7 +414,7 @@ public abstract class Familiar extends NPC {
 	}
 
 	public void refreshSpecialEnergy() {
-		owner.getVarsManager().sendVar(1177, specialEnergy);
+		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_REFRESH_SPECIAL_ENGERY, specialEnergy);
 	}
 
 	public void restoreSpecialAttack(int energy) {

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 
 import lombok.Data;
@@ -370,7 +371,7 @@ public class Skills {
 	 * Refreshes the xp counter value
 	 */
 	public void refreshXpCounter() {
-		player.getVarsManager().sendVar(1801, (int) (xpCounter * 10D));
+		player.getVarsManager().sendVar(InterfaceVars.SKILLS_REFRESH_XP_COUNTER, (int) (xpCounter * 10D));
 	}
 
 	/**

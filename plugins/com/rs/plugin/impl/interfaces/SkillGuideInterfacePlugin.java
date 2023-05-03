@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.interfaces;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterface;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
@@ -33,7 +34,7 @@ public class SkillGuideInterfacePlugin implements RSInterface {
             }
         }
         if (player.getSkills().getLeveledUp()[slot]) {
-        	player.getVarsManager().sendVar(1230, SKILL_GUIDE_DATA[slot][1]);
+        	player.getVarsManager().sendVar(InterfaceVars.SKILL_CONGRATULATIONS_LEVEL_UP_INFORMATION, SKILL_GUIDE_DATA[slot][1]);
         	player.getInterfaceManager().sendInterface(741);
             player.getSkills().getLeveledUp()[slot] = false;
             LevelUp.sendFlashIcons(player);
@@ -41,7 +42,7 @@ public class SkillGuideInterfacePlugin implements RSInterface {
         }
         int value = SKILL_GUIDE_DATA[slot][2];
         player.getSkills().getLeveledUp()[slot] = false;
-        player.getVarsManager().sendVar(965, value);
+        player.getVarsManager().sendVar(InterfaceVars.SKILL_SKILL_GUIDE_DATA, value);
         player.getInterfaceManager().sendInterface(499);
         player.getAttributes().getAttributes().put("skillGuideMenu", value);
         return true;
@@ -59,7 +60,7 @@ public class SkillGuideInterfacePlugin implements RSInterface {
         if (skillMenu == -1) {
             return false;
         }
-        player.getVarsManager().sendVar(965, (1024 * (buttonId - 10)) + skillMenu);
+        player.getVarsManager().sendVar(InterfaceVars.SKILL_SKILL_GUIDE_DATA, (1024 * (buttonId - 10)) + skillMenu);
         return true;
     }
     

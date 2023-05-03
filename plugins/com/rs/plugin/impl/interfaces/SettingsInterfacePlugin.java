@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.interfaces;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterface;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
@@ -24,17 +25,17 @@ public class SettingsInterfacePlugin implements RSInterface {
 			player.setRun(!player.isRun());
 		else if (componentId == 4) {
 			player.getDetails().setAllowChatEffects(!player.getDetails().isAllowChatEffects());
-			player.getVarsManager().sendVar(171, player.getDetails().isAllowChatEffects() ? 0 : 1);
+			player.getVarsManager().sendVar(InterfaceVars.SETTINGS_CHAT_EFFECTS, player.getDetails().isAllowChatEffects() ? 0 : 1);
 		} else if (componentId == 5) // chat setup
 			player.getInterfaceManager().sendSettings(982);
 		else if (componentId == 8) // house options
 			player.getInterfaceManager().sendSettings(398);
 		else if (componentId == 6) {
 			player.getDetails().setMouseButtons(!player.getDetails().isMouseButtons());
-			player.getVarsManager().sendVar(170, player.getDetails().isMouseButtons() ? 0 : 1);
+			player.getVarsManager().sendVar(InterfaceVars.SETTINGS_MOUSE_BUTTONS, player.getDetails().isMouseButtons() ? 0 : 1);
 		} else if (componentId == 7) {
 			player.getDetails().setAcceptAid(!player.getDetails().isAcceptAid());
-			player.getVarsManager().sendVar(427, player.getDetails().isAcceptAid() ? 1 : 0);
+			player.getVarsManager().sendVar(InterfaceVars.SETTINGS_ACCEPT_AID, player.getDetails().isAcceptAid() ? 1 : 0);
 		} else if (componentId == 18) // audio options
 			player.getInterfaceManager().sendInterface(743);
 	}

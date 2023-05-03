@@ -1,5 +1,6 @@
 package com.rs.game.player;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
@@ -268,7 +269,7 @@ public class Prayer {
 	}
 
 	public void adjustStat(int stat, int percentage) {
-		player.getVarsManager().sendVarBit(6857 + stat, 30 + percentage);
+		player.getVarsManager().sendVarBit(InterfaceVars.PRAYER_STAT_PERCENTAGE_BASE_VALUE + stat, 30 + percentage);
 	}
 
 	public void closePrayers(int prayerId) {
@@ -728,7 +729,7 @@ public class Prayer {
 		leechBonuses = new int[11];
 		onPrayersCount = 0;
 		player.getPackets().sendGlobalConfig(182, 0);
-		player.getVarsManager().sendVar(ancientcurses ? 1582 : 1395, 0);
+		player.getVarsManager().sendVar(ancientcurses ? InterfaceVars.CURSES_PRAYER_DISABLE : InterfaceVars.MODERN_PRAYER_DISABLE, 0);
 		player.getAppearance().generateAppearenceData();
 		resetStatAdjustments();
 	}
@@ -762,13 +763,13 @@ public class Prayer {
 			index++;
 		}
 		player.getVarsManager().sendVar(
-				ancientcurses ? (usingQuickPrayer ? 1587 : 1582)
-						: (usingQuickPrayer ? 1397 : 1395), value);
+				ancientcurses ? (usingQuickPrayer ? InterfaceVars.UPDATE_QUICK_CURSES_SLOT_PRAYER : InterfaceVars.UPDATE_CURSES_SLOT_PRAYER)
+						: (usingQuickPrayer ? InterfaceVars.UPDATE_QUICK_MODERN_SLOT_PRAYER : InterfaceVars.UPDATE_MODERN_SLOT_PRAYER), value);
 	}
 
 	public void refresh() {
 		player.getPackets().sendGlobalConfig(181, usingQuickPrayer ? 1 : 0);
-		player.getVarsManager().sendVar(1584, ancientcurses ? 1 : 0);
+		player.getVarsManager().sendVar(InterfaceVars.REFRESH_PRAYER_BOOK, ancientcurses ? 1 : 0);
 		unlockPrayerBookButtons();
 	}
 
@@ -779,7 +780,7 @@ public class Prayer {
 
 	public void init() {
 		player.getPackets().sendGlobalConfig(181, usingQuickPrayer ? 1 : 0);
-		player.getVarsManager().sendVar(1584, ancientcurses ? 1 : 0);
+		player.getVarsManager().sendVar(InterfaceVars.REFRESH_PRAYER_BOOK, ancientcurses ? 1 : 0);
 		resetStatAdjustments();
 	}
 
@@ -836,7 +837,7 @@ public class Prayer {
 	}
 
 	public void refreshPrayerPoints() {
-		player.getVarsManager().sendVar(2382, prayerpoints);
+		player.getVarsManager().sendVar(InterfaceVars.REFRESH_PRAYER_POINTS, prayerpoints);
 	}
 
 	public void drainPrayerOnHalf() {

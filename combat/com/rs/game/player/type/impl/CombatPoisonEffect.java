@@ -3,6 +3,7 @@ package com.rs.game.player.type.impl;
 import java.util.Optional;
 
 import com.rs.cache.loaders.NPCDefinitions;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.player.Hit;
@@ -41,7 +42,7 @@ public final class CombatPoisonEffect extends CombatEffect {
 			Player player = (Player) entity;
 			if (player.getDetails().getPoisonImmunity().get() > 0 || entity.isDead())
 				return false;
-			player.getVarsManager().sendVar(102, 1); //wrong method to call orb
+			player.getVarsManager().sendVar(InterfaceVars.POISIONED_HP_ORB, 1);
 		}
 		entity.getPoisonDamage().set(entity.getPoisonType().getDamage());
 		return true;
@@ -58,13 +59,13 @@ public final class CombatPoisonEffect extends CombatEffect {
 			Player player = (Player) entity;
 			if (entity.getPoisonDamage().get() == 0) {
 				player.getPackets().sendGameMessage("Your poison effects has worn off.");
-				player.getVarsManager().sendVar(102, 0);
+				player.getVarsManager().sendVar(InterfaceVars.POISIONED_HP_ORB, 0);
 			}
 		}
 		if(entity.getPoisonDamage().get() <= 0) {
 			if(entity.isPlayer()) {
 				Player player = (Player) entity;
-				player.getVarsManager().sendVar(102, 1);
+				player.getVarsManager().sendVar(InterfaceVars.POISIONED_HP_ORB, 1);
 			}
 			this.removeOn(entity);
 			return;

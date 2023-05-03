@@ -89,7 +89,7 @@ public abstract class MobCombatInterface {
 					if (target.isPlayer()) {
 						Player targetPlayer = (Player) target;
 						targetPlayer.getInterfaceManager().closeInterfaces();
-						if (targetPlayer.getCombatDefinitions().isAutoRelatie() && !targetPlayer.getAction().getAction().isPresent() && !targetPlayer.hasWalkSteps())
+						if (targetPlayer.getCombatDefinitions().isAutoRetaliation() && !targetPlayer.getAction().getAction().isPresent() && !targetPlayer.hasWalkSteps())
 							targetPlayer.getAction().setAction(new PlayerCombat(targetPlayer, Optional.of(npc)));
 						
 					} else {

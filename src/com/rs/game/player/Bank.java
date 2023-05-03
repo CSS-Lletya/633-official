@@ -2,6 +2,7 @@ package com.rs.game.player;
 
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.item.Item;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.utilities.Utility;
@@ -353,7 +354,7 @@ public class Bank {
 	}
 
 	public void refreshLastX() {
-		player.getVarsManager().sendVar(1249, lastX);
+		player.getVarsManager().sendVar(InterfaceVars.BANK_LAST_X, lastX);
 	}
 
 	public void createTab() {
@@ -604,13 +605,13 @@ public class Bank {
 	}
 
 	public void refreshViewingTab() {
-		player.getVarsManager().sendVarBit(4893, currentTab + 1);
+		player.getVarsManager().sendVarBit(InterfaceVars.BANK_REFRESH_LAST_VIEWING_TAB, currentTab + 1);
 	}
 
 	public void refreshTab(int slot) {
 		if (slot == 0)
 			return;
-		player.getVarsManager().sendVarBit(4885 + (slot - 1), getTabSize(slot));
+		player.getVarsManager().sendVarBit(InterfaceVars.BANK_REFRESH_SPECIFIED_TAB + (slot - 1), getTabSize(slot));
 	}
 
 	public void sendItems() {
@@ -681,7 +682,7 @@ public class Bank {
 
 	public void switchInsertItems() {
 		insertItems = !insertItems;
-		player.getVarsManager().sendVar(305, insertItems ? 1 : 0);
+		player.getVarsManager().sendVar(InterfaceVars.BANK_SWITCH_INSERT_MODES, insertItems ? 1 : 0);
 	}
 
 	public void setCurrentTab(int currentTab) {

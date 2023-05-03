@@ -4,6 +4,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.rs.cache.loaders.ClientScriptMap;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.player.Player;
@@ -49,10 +50,10 @@ public class Shop {
 		});
 //		player.getVarsManager().sendVar(118,
 //				generalStock != null ? 139 : MAIN_STOCK_ITEMS_KEY);
-		player.getVarsManager().sendVar(1496, -1); // sample items container id
+		player.getVarsManager().sendVar(InterfaceVars.SHOP_KEY, -1); // sample items container id
 													// (TODO: add support for
 													// it)
-		player.getVarsManager().sendVar(532, money);
+		player.getVarsManager().sendVar(InterfaceVars.SHOP_CURRENCY, money);
 		resetSelected(player);
 		sendStore(player);
 		player.getInterfaceManager().sendInterface(1265); // opens sho
@@ -128,12 +129,12 @@ public class Shop {
 		else if (amount < 1)
 			amount = 1;
 		player.getAttributes().getAttributes().put("shop_transaction", amount);
-		player.getVarsManager().sendVar(2564, amount);
+		player.getVarsManager().sendVar(InterfaceVars.SHOP_TRANSACTION, amount);
 	}
 
 	public static void setBuying(Player player, boolean buying) {
 		player.getAttributes().getAttributes().put("isShopBuying", buying);
-		player.getVarsManager().sendVar(2565, buying ? 0 : 1);
+		player.getVarsManager().sendVar(InterfaceVars.SHOP_BUYING_STATE, buying ? 0 : 1);
 	}
 
 	public static boolean isBuying(Player player) {
@@ -346,7 +347,7 @@ public class Shop {
 
 	public void resetSelected(Player player) {
 		player.getAttributes().getAttributes().remove("ShopSelectedSlot");
-		player.getVarsManager().sendVar(2563, -1);
+		player.getVarsManager().sendVar(InterfaceVars.SHOP_RESET_SELECTED, -1);
 	}
 
 	public void sendInfo(Player player, int slotId, boolean inventory) {
@@ -373,8 +374,8 @@ public class Shop {
 //				2561,
 //				inventory ? 93 : generalStock != null ? 139
 //						: MAIN_STOCK_ITEMS_KEY); // inv key
-		player.getVarsManager().sendVar(2562, item.getId());
-		player.getVarsManager().sendVar(2563, slotId);
+		player.getVarsManager().sendVar(InterfaceVars.SHOP_ITEM_ID, item.getId());
+		player.getVarsManager().sendVar(InterfaceVars.SHOP_RESET_SELECTED, slotId);
 //		player.getPackets().sendGlobalString(362, ItemExamines.getExamine(item));
 		player.getPackets().sendGlobalConfig(1876,
 				item.getDefinitions().isWearItem() ? 0 : -1); // TODO item pos

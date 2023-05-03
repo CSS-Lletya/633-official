@@ -2,6 +2,7 @@ package com.rs.plugin.impl.interfaces;
 
 import java.util.Optional;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Rest;
 import com.rs.plugin.listener.RSInterface;
@@ -58,7 +59,7 @@ public class WorldMapInterfacePlugin implements RSInterface {
 				player.getPackets().sendRootInterface(player.getInterfaceManager().isResizableScreen() ? 746 : 548, 2);
 			else if (componentId == 42) {
 				player.getHintIconsManager().removeAll();// TODO find hintIcon index
-				player.getVarsManager().sendVar(1159, 1);
+				player.getVarsManager().sendVar(InterfaceVars.WORLD_MAP_MARKER, 1);
 			}
 			break;
 		case 746:

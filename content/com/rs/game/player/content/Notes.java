@@ -2,6 +2,7 @@ package com.rs.game.player.content;
 
 import java.io.Serializable;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -23,8 +24,8 @@ public final class Notes {
 		player.getPackets().sendIComponentSettings(34, 9, 0, 30, 2621470);
 		player.getPackets().sendHideIComponent(34, 3, false);
 		player.getPackets().sendHideIComponent(34, 44, false);
-		player.getVarsManager().sendVar(1437, 1); // unlocks add notes
-		player.getVarsManager().sendVar(1439, -1);
+		player.getVarsManager().sendVar(InterfaceVars.UNLOCK_MANAGE_NOTES, 1); // unlocks add notes
+		player.getVarsManager().sendVar(InterfaceVars.SET_NOTE_INDEX, -1);
 		refresh();
 	}
 
@@ -32,8 +33,8 @@ public final class Notes {
 		for (int i = 0; i < 30; i++)
 			player.getPackets().sendGlobalString(149 + i,
 					notes.size() <= i ? "" : notes.get(i).text);
-		player.getVarsManager().sendVar(1440, getPrimaryColour(this));
-		player.getVarsManager().sendVar(1441, getSecondaryColour(this));
+		player.getVarsManager().sendVar(InterfaceVars.PRIMARY_NOTE_COLOR, getPrimaryColour(this));
+		player.getVarsManager().sendVar(InterfaceVars.SECONDARY_NOTE_COLOR, getSecondaryColour(this));
 	}
 
 	public int getCurrentNote() {
@@ -48,12 +49,12 @@ public final class Notes {
 		if (id >= 30)
 			return;
 		player.getAttributes().getAttributes().put("CURRENT_NOTE", id);
-		player.getVarsManager().sendVar(1439, id);
+		player.getVarsManager().sendVar(InterfaceVars.SET_NOTE_INDEX, id);
 	}
 
 	public void removeCurrentNote() {
 		player.getAttributes().getAttributes().remove("CURRENT_NOTE");
-		player.getVarsManager().sendVar(1439, -1);
+		player.getVarsManager().sendVar(InterfaceVars.SET_NOTE_INDEX, -1);
 	}
 
 	public boolean add(String text) {
@@ -91,9 +92,9 @@ public final class Notes {
 			return false;
 		notes.get(id).setColour(colour);
 		if (id < 16)
-			player.getVarsManager().sendVar(1440, getPrimaryColour(this));
+			player.getVarsManager().sendVar(InterfaceVars.PRIMARY_NOTE_COLOR, getPrimaryColour(this));
 		else
-			player.getVarsManager().sendVar(1441, getSecondaryColour(this));
+			player.getVarsManager().sendVar(InterfaceVars.SECONDARY_NOTE_COLOR, getSecondaryColour(this));
 		return true;
 	}
 

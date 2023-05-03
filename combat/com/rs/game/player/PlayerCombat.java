@@ -2516,7 +2516,7 @@ public class PlayerCombat extends Action {
 					if (target.isPlayer()) {
 						Player p2 = (Player) target;
 						p2.getInterfaceManager().closeInterfaces();
-						if (p2.getCombatDefinitions().isAutoRelatie() && !p2.getAction().getAction().isPresent() &&  !p2.hasWalkSteps())
+						if (p2.getCombatDefinitions().isAutoRetaliation() && !p2.getAction().getAction().isPresent() &&  !p2.hasWalkSteps())
 							p2.getAction().setAction(new PlayerCombat(p2, Optional.of(target)));
 					} else {
 						NPC n = (NPC) target;

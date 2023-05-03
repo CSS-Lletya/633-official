@@ -1,5 +1,6 @@
 package com.rs.net.packets.outgoing.impl;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacket;
@@ -21,9 +22,8 @@ public class WorldMapClickPacket implements OutgoingPacket {
 					coordinateHash);
 		else {
 			player.getAttributes().getAttributes().remove("worldHash");
-			player.getHintIconsManager().addHintIcon(x, y, plane, 20, 0, 2,
-					-1, true);
-			player.getVarsManager().sendVar(1159, coordinateHash);
+			player.getHintIconsManager().addHintIcon(x, y, plane, 20, 0, 2, -1, true);
+			player.getVarsManager().sendVar(InterfaceVars.WORLD_MAP_MARKER, coordinateHash);
 		}
 	}
 }

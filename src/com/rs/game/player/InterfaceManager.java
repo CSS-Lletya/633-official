@@ -1,6 +1,7 @@
 package com.rs.game.player;
 
 import com.rs.GameConstants;
+import com.rs.constants.InterfaceVars;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Data;
@@ -445,7 +446,7 @@ public class InterfaceManager {
 	}
 	
 	public void sendRunButtonConfig() {
-		player.getVarsManager().sendVar(173,
+		player.getVarsManager().sendVar(InterfaceVars.RUN_BUTTON,
 				player.getResting() == 1 ? 3 : player.getResting() == 2 ? 4 : player.isRun() ? 1 : 0);
 	}
 	

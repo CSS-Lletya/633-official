@@ -2,6 +2,7 @@ package com.rs.game.player;
 
 import java.util.Arrays;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemsContainer;
@@ -256,8 +257,8 @@ public class Trade {
 	}
 
 	public void sendTradeModified() {
-		player.getVarsManager().sendVar(1042, tradeModified ? 1 : 0);
-		target.getVarsManager().sendVar(1043, tradeModified ? 1 : 0);
+		player.getVarsManager().sendVar(InterfaceVars.TRADE_ITEM_MODIFIED, tradeModified ? 1 : 0);
+		target.getVarsManager().sendVar(InterfaceVars.TRADE_TARGET_ITEM_MODIFIED, tradeModified ? 1 : 0);
 	}
 
 	public void refreshTradeWealth() {

@@ -4,6 +4,7 @@ import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelFutureListener;
 
 import com.rs.GameConstants;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
@@ -1051,7 +1052,7 @@ public class WorldPacketsEncoder extends Encoder {
 			}
 			stream.writeInt(icon.getModelId());
 		}
-		// ////getSession().write(stream);
+		getSession().write(stream);
 		return this;
 	}
 
@@ -1119,7 +1120,7 @@ public class WorldPacketsEncoder extends Encoder {
 		stream.write24BitInteger(color);
 		stream.writeString(message);
 		stream.endPacketVarByte();
-		// ////getSession().write(stream);
+		getSession().write(stream);
 		return this;
 	}
 
@@ -1201,10 +1202,10 @@ public class WorldPacketsEncoder extends Encoder {
 	}
 
 	public WorldPacketsEncoder sendGameBarStages() {
-		getPlayer().getVarsManager().sendVar(1054, getPlayer().getDetails().getClanStatus());
-		getPlayer().getVarsManager().sendVar(1055, getPlayer().getDetails().getAssistStatus());
+		getPlayer().getVarsManager().sendVar(InterfaceVars.GAME_BAR_STATUS_CLAN, getPlayer().getDetails().getClanStatus());
+		getPlayer().getVarsManager().sendVar(InterfaceVars.GAME_BAR_STATUS_ASSIST, getPlayer().getDetails().getAssistStatus());
 		getPlayer().getVarsManager().sendVarBit(6161, getPlayer().getDetails().isFilterGame() ? 1 : 0);
-		getPlayer().getVarsManager().sendVar(2159, getPlayer().getFriendsIgnores().getFriendsChatStatus());
+		getPlayer().getVarsManager().sendVar(InterfaceVars.GAME_BAR_STATUS_FRIENDS_IGNORE, getPlayer().getFriendsIgnores().getFriendsChatStatus());
 		sendOtherGameBarStages();
 		sendPrivateGameBarStage();
 		return this;

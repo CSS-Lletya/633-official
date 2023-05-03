@@ -2,6 +2,7 @@ package com.rs.game.player;
 
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
@@ -35,7 +36,7 @@ public final class CombatDefinitions {
 
 	private byte attackStyle;
 	private byte specialAttackPercentage;
-	private boolean autoRelatie;
+	private boolean autoRetaliation;
 	private byte sortSpellBook;
 	private boolean showCombatSpells;
 	private boolean showSkillSpells;
@@ -69,7 +70,7 @@ public final class CombatDefinitions {
 
 	public void refreshAutoCastSpell() {
 		refreshAttackStyle();
-		player.getVarsManager().sendVar(108, getSpellAutoCastConfigValue());
+		player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_AUTO_CAST_SPELL, getSpellAutoCastConfigValue());
 	}
 
 	public int getSpellAutoCastConfigValue() {
@@ -180,7 +181,7 @@ public final class CombatDefinitions {
 
 	public CombatDefinitions() {
 		specialAttackPercentage = 100;
-		autoRelatie = true;
+		autoRetaliation = true;
 		showCombatSpells = true;
 		showSkillSpells = true;
 		showMiscallaneousSpells = true;
@@ -197,8 +198,7 @@ public final class CombatDefinitions {
 	}
 
 	public void refreshSpellBookScrollBar_DefCast() {
-		player.getVarsManager().sendVar(439,
-				(dungeonneringSpellBook ? 3 : spellBook) + (defensiveCasting ? 0 : 1 << 8));
+		player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_DEFENCE_SPELL_CAST_SCROLLBAR, (dungeonneringSpellBook ? 3 : spellBook) + (defensiveCasting ? 0 : 1 << 8));
 	}
 
 	public int getSpellBook() {
@@ -247,14 +247,14 @@ public final class CombatDefinitions {
 
 	public void refreshSpellBook() {
 		if (spellBook == 0) {
-			player.getVarsManager().sendVar(1376,
+			player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_SPELLBOOK,
 					sortSpellBook | (showCombatSpells ? 0 : 1 << 9) | (showSkillSpells ? 0 : 1 << 10)
 							| (showMiscallaneousSpells ? 0 : 1 << 11) | (showTeleportSpells ? 0 : 1 << 12));
 		} else if (spellBook == 1) {
-			player.getVarsManager().sendVar(1376,
+			player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_SPELLBOOK,
 					sortSpellBook << 3 | (showCombatSpells ? 0 : 1 << 16) | (showTeleportSpells ? 0 : 1 << 17));
 		} else if (spellBook == 2) {
-			player.getVarsManager().sendVar(1376, sortSpellBook << 6 | (showCombatSpells ? 0 : 1 << 13)
+			player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_SPELLBOOK, sortSpellBook << 6 | (showCombatSpells ? 0 : 1 << 13)
 					| (showMiscallaneousSpells ? 0 : 1 << 14) | (showTeleportSpells ? 0 : 1 << 15));
 		}
 	}
@@ -506,7 +506,7 @@ public final class CombatDefinitions {
 	public void init() {
 		refreshUsingSpecialAttack();
 		refreshSpecialAttackPercentage();
-		refreshAutoRelatie();
+		refreshAutoretaliation();
 		refreshAttackStyle();
 		refreshSpellBook();
 		refreshAutoCastSpell();
@@ -537,7 +537,7 @@ public final class CombatDefinitions {
 	}
 
 	public void refreshAttackStyle() {
-		player.getVarsManager().sendVar(43, autoCastSpell > 0 ? 4 : attackStyle);
+		player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_COMBAT_STYLE, autoCastSpell > 0 ? 4 : attackStyle);
 	}
 
 	public void sendUnlockAttackStylesButtons() {
@@ -564,20 +564,20 @@ public final class CombatDefinitions {
 	}
 
 	public void refreshUsingSpecialAttack() {
-		player.getVarsManager().sendVar(301, usingSpecialAttack ? 1 : 0);
+		player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_USING_SPECIAL_ATTACK, usingSpecialAttack ? 1 : 0);
 	}
 
 	public void refreshSpecialAttackPercentage() {
-		player.getVarsManager().sendVar(300, specialAttackPercentage * 10);
+		player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_SPECIAL_ATTACK_VALUE, specialAttackPercentage * 10);
 	}
 
 	public void switchAutoRelatie() {
-		autoRelatie = !autoRelatie;
-		refreshAutoRelatie();
+		autoRetaliation = !autoRetaliation;
+		refreshAutoretaliation();
 	}
 
-	public void refreshAutoRelatie() {
-		player.getVarsManager().sendVar(172, autoRelatie ? 0 : 1);
+	public void refreshAutoretaliation() {
+		player.getVarsManager().sendVar(InterfaceVars.COMBAT_REFRESH_AUTO_RETALIATION, autoRetaliation ? 0 : 1);
 	}
 
 	public void removeDungeonneringBook() {

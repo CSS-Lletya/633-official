@@ -1,6 +1,7 @@
 
 package com.rs.game.npc.other;
 
+import com.rs.constants.InterfaceVars;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
@@ -202,8 +203,8 @@ public final class Pet extends NPC {
 	 */
 	public void sendMainConfigurations() {
 		switchOrb(true);
-		owner.getVarsManager().sendVar(448, itemId);// configures
-		owner.getVarsManager().sendVar(1160, 243269632); // sets npc emote
+		owner.getVarsManager().sendVar(InterfaceVars.PET_ITEM_ID, itemId);// configures
+		owner.getVarsManager().sendVar(InterfaceVars.PET_HEAD_ANIMATION, 243269632); // sets npc emote
 		owner.getPackets().sendGlobalConfig(1436, 0);
 		unlockOrb(); // temporary
 	}
@@ -226,7 +227,7 @@ public final class Pet extends NPC {
 	 * @param enable If the orb should be enabled.
 	 */
 	public void switchOrb(boolean enable) {
-		owner.getVarsManager().sendVar(1174, enable ? getId() : 0);
+		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_SWITCH_ORB, enable ? getId() : 0);
 		if (enable) {
 			unlock();
 			return;
