@@ -188,11 +188,6 @@ public class Player extends Entity {
 	private transient Pet pet;
 	
 	/**
-	 * Represents a Player's Vars management system
-	 */
-	private transient VarsManager varsManager;
-	
-	/**
 	 * Represents a Player's coordinate (movement) management system
 	 */
 	private transient CoordsEvent coordsEvent;
@@ -218,14 +213,24 @@ public class Player extends Entity {
 	private transient ConcurrentLinkedQueue<LogicPacket> logicPackets;
 	
 	/**
+	 * Represents a Action management system
+	 */
+	private transient ActionManager action = new ActionManager();
+	
+	/**
+	 * Represents the Map Zone Manager
+	 */
+	private transient MapZoneManager mapZoneManager = new MapZoneManager();
+	
+	/**
 	 * Personal details & information stored for a Player
 	 */
 	private PlayerDetails details;
 	
 	/**
-	 * Represents a Action management system
+	 * Represents a Player's Vars management system
 	 */
-	private transient ActionManager action = new ActionManager();
+	private VarsManager varsManager;
 	
 	/**
 	 * The current skill action that is going on for this player.
@@ -297,7 +302,6 @@ public class Player extends Entity {
 	 */
 	private Optional<MapZone> currentMapZone = Optional.empty();
 	
-	private transient MapZoneManager mapZoneManager = new MapZoneManager();
 
 	/**
 	 * Constructs a new Player
@@ -321,6 +325,7 @@ public class Player extends Entity {
 		setSpellDispatcher(new PassiveSpellDispatcher());
 		getDetails().setPassword(password);
 		setCurrentMapZone(Optional.empty());
+		setVarsManager(new VarsManager());
 		if (!getCurrentMapZone().isPresent())
 			setCurrentMapZone(getCurrentMapZone());
 	}
@@ -354,7 +359,9 @@ public class Player extends Entity {
 		setLocalPlayerUpdate(new LocalPlayerUpdate(this));
 		setLocalNPCUpdate(new LocalNPCUpdate(this));
 		setTrade(new Trade(this));
-		setVarsManager(new VarsManager(this));
+		if (getVarsManager() == null)
+			setVarsManager(new VarsManager());
+		getVarsManager().setPlayer(this);
 		setSpellDispatcher(new PassiveSpellDispatcher());
 		getAppearance().setPlayer(this);
 		getInventory().setPlayer(this);
@@ -429,6 +436,7 @@ public class Player extends Entity {
 		getInterfaceManager().sendRunButtonConfig();
 		CombatEffect.values().parallelStream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
 		GameConstants.STAFF.entrySet().parallelStream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
+		getVarsManager().varMap.forEach((k, v) -> getVarsManager().sendVar(k, v));
 		getInterfaceManager().sendDefaultPlayersOptions();
 		checkMultiArea();
 		getInventory().init();

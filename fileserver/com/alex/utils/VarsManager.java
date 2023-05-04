@@ -1,14 +1,23 @@
 package com.alex.utils;
 
+import java.util.HashMap;
+
 import com.rs.cache.Cache;
 import com.rs.cache.loaders.VarBitDefinitions;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.Emotes.Emote;
 
 public class VarsManager {
 
-	private static final int[] masklookup = new int[32];
+	private transient int[] values;
+	private transient Player player;
+	public HashMap<Integer,Integer> varMap = new HashMap<Integer,Integer>();
+	public HashMap<Integer,Integer> varBitMap = new HashMap<Integer,Integer>();
+	
+	private transient final int[] masklookup = new int[32];
 
-	static {
+	{
 		int i = 2;
 		for (int i2 = 0; i2 < 32; i2++) {
 			masklookup[i2] = i - 1;
@@ -16,24 +25,54 @@ public class VarsManager {
 		}
 	}
 
-	private int[] values;
-	private Player player;
-
-	public VarsManager(Player player) {
-		this.player = player;
+	public VarsManager() {
 		values = new int[Cache.STORE.getIndexes()[2].getLastFileId(16) + 1];
+		if (varMap == null)
+			varMap  = new HashMap<Integer,Integer>();
+		if (varBitMap == null)
+			varBitMap  = new HashMap<Integer,Integer>();
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
-	public void sendVar(int id, int value) {
+	/**
+	 * Bind {@link InterfaceVars} to the Player and load on login.
+	 * Commonly used for {@link Emote}, such..
+	 * @param id
+	 * @param value
+	 * @return
+	 */
+	public VarsManager submitVarToMap(int id, int value) {
+		varMap.putIfAbsent(id, value);
+		return this;
+	}
+	
+	/**
+	 * Bind VarBits (Objects states, etc..) to the Player and load on login.
+	 * Commonly used for Farming, such..
+	 * @param id
+	 * @param value
+	 * @return
+	 */
+	public VarsManager submitVarBitToMap(int id, int value) {
+		varBitMap.putIfAbsent(id, value);
+		return this;
+	}
+
+	public VarsManager sendVar(int id, int value) {
 		sendVar(id, value, false);
+		return this;
 	}
 
-	public void forceSendVar(int id, int value) {
+	public VarsManager forceSendVar(int id, int value) {
 		sendVar(id, value, true);
+		return this;
 	}
-
-	private void sendVar(int id, int value, boolean force) {
-		if (id < 0 || id >= values.length) // temporarly
+	
+	public void sendVar(int id, int value, boolean force) {
+		if (id < 0 || id >= values.length)
 			return;
 		if (force || values[id] == value)
 			return;
@@ -41,26 +80,26 @@ public class VarsManager {
 		sendClientVarp(id);
 	}
 
-	public void setVar(int id, int value) {
-		if (id == -1) // temporarly
-			return;
+	public VarsManager setVar(int id, int value) {
+		if (id == -1)
+			return this;
 		values[id] = value;
+		return this;
 	}
 
-	public int getValue(int id) {
-		return values[id];
-	}
-
-	public void forceSendVarBit(int id, int value) {
+	public VarsManager forceSendVarBit(int id, int value) {
 		setVarBit(id, value, 0x1 | 0x2);
+		return this;
 	}
 
-	public void sendVarBit(int id, int value) {
+	public VarsManager sendVarBit(int id, int value) {
 		setVarBit(id, value, 0x1);
+		return this;
 	}
 
-	public void setVarBit(int id, int value) {
+	public VarsManager setVarBit(int id, int value) {
 		setVarBit(id, value, 0);
+		return this;
 	}
 
 	public int getBitValue(int id) {
@@ -70,9 +109,9 @@ public class VarsManager {
 				& masklookup[defs.endBit - defs.startBit];
 	}
 
-	private void setVarBit(int id, int value, int flag) {
-		if (id == -1) // temporarly
-			return;
+	private VarsManager setVarBit(int id, int value, int flag) {
+		if (id == -1)
+			return this;
 		VarBitDefinitions defs = VarBitDefinitions
 				.getClientVarpBitDefinitions(id);
 		int mask = masklookup[defs.endBit - defs.startBit];
@@ -86,6 +125,7 @@ public class VarsManager {
 			if ((flag & 0x1) != 0)
 				sendClientVarp(defs.baseVar);
 		}
+		return this;
 	}
 
 	@SuppressWarnings("deprecation")
