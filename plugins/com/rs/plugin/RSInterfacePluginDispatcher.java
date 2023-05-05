@@ -13,6 +13,7 @@ import com.rs.game.item.ItemConstants;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
 import com.rs.plugin.listener.RSInterface;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
@@ -442,9 +443,9 @@ public final class RSInterfacePluginDispatcher {
 		player.getPackets().sendGlobalConfig(779, player.getEquipment().getWeaponRenderEmote());
 		refreshEquipBonuses(player);
 		if (banking) {
-			player.getAttributes().getAttributes().put("Banking", Boolean.TRUE);
+			player.getAttributes().get(Attribute.IS_BANKING).set(true);
 			player.setCloseInterfacesEvent(() -> {
-				player.getAttributes().getAttributes().remove("Banking");
+				player.getAttributes().get(Attribute.IS_BANKING).set(false);
 				player.getVarsManager().sendVarBit(4894, 0);
 			});
 		}

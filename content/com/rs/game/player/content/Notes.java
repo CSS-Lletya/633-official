@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
@@ -38,8 +39,7 @@ public final class Notes {
 	}
 
 	public int getCurrentNote() {
-		Integer note = (Integer) player.getAttributes().getAttributes().get(
-				"CURRENT_NOTE");
+		Integer note = (Integer) player.getAttributes().get(Attribute.CURRENT_NOTE).get();
 		if (note == null)
 			return -1;
 		return note;
@@ -48,12 +48,12 @@ public final class Notes {
 	public void setCurrentNote(int id) {
 		if (id >= 30)
 			return;
-		player.getAttributes().getAttributes().put("CURRENT_NOTE", id);
+		player.getAttributes().get(Attribute.CURRENT_NOTE).set(id);
 		player.getVarsManager().sendVar(InterfaceVars.SET_NOTE_INDEX, id);
 	}
 
 	public void removeCurrentNote() {
-		player.getAttributes().getAttributes().remove("CURRENT_NOTE");
+		player.getAttributes().get(Attribute.CURRENT_NOTE).set(null);
 		player.getVarsManager().sendVar(InterfaceVars.SET_NOTE_INDEX, -1);
 	}
 

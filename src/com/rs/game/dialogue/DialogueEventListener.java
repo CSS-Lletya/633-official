@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 
 public abstract class DialogueEventListener implements DialogueFaceExpression {
 
@@ -86,10 +87,14 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 		return this;
 	}
 
+	/*NOTE: cant cast boolean to dialogue class for attribute.
+	  		Not sure how to fix tbh, however not using it for close interfaces
+	  		works. sigh. sorry.
+	*/
 	public void complete() {
 		player.getInterfaceManager().closeChatBoxInterface();
 		onClose();
-		player.getAttributes().getAttributes().remove("dialogue_event");
+		player.getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
 	}
 
 	/**
@@ -220,7 +225,7 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 
 	public static boolean continueDialogue(Player player, int i) {
 		System.out.println("dialogue compId: " + i);
-		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().getAttributes().get("dialogue_event");
+		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().get(Attribute.DIALOGUE_EVENT).get();
 		if (dialogue == null)
 			return false;
 		dialogue.listenToDialogueEvent(i);

@@ -16,6 +16,7 @@ import com.rs.game.map.areas.AreaHandler;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.other.Pet;
 import com.rs.game.player.actions.ActionManager;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.content.MusicsManager;
 import com.rs.game.player.content.Notes;
@@ -523,14 +524,14 @@ public class Player extends Entity {
 	 * @param listener
 	 */
 	public void dialog(DialogueEventListener listener){
-		getAttributes().getAttributes().put("dialogue_event", listener.begin());
+		getAttributes().get(Attribute.DIALOGUE_EVENT).set(listener.begin());
 	}
 	
 	/**
 	 * Gets a Dialogue event
 	 */
 	public DialogueEventListener dialog(){
-		DialogueEventListener listener = (DialogueEventListener) getAttributes().getAttributes().get("dialogue_event");
+		DialogueEventListener listener = (DialogueEventListener) getAttributes().get(Attribute.DIALOGUE_EVENT).get();
 		return listener;
 	}
 }

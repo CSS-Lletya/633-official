@@ -1,9 +1,8 @@
 package com.rs.plugin.impl.interfaces;
 
-import java.util.stream.IntStream;
-
 import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.plugin.listener.RSInterface;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
@@ -48,7 +47,7 @@ public class SkillGuideInterfacePlugin implements RSInterface {
         player.getSkills().getLeveledUp()[slot] = false;
         player.getVarsManager().sendVar(InterfaceVars.SKILL_SKILL_GUIDE_DATA, value);
         player.getInterfaceManager().sendFullscreenInterface(5, 499);
-        player.getAttributes().getAttributes().put("skillGuideMenu", value);
+        player.getAttributes().get(Attribute.SKILL_GUIDE_MENU).set(value);
         return true;
     }
     
@@ -60,7 +59,7 @@ public class SkillGuideInterfacePlugin implements RSInterface {
      * @return {@code True} if succesful, {@code false} if not..
      */
     private boolean updateSkillGuide(Player player, int buttonId) {
-        int skillMenu = (int) player.getAttributes().getAttributes().get("skillGuideMenu");
+        int skillMenu = (int)player.getAttributes().get(Attribute.SKILL_GUIDE_MENU).get();
         if (skillMenu == -1) {
             return false;
         }

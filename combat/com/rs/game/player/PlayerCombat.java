@@ -15,6 +15,7 @@ import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.familiar.Steeltitan;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.actions.Action;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.Magic;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.player.type.PoisonType;
@@ -78,7 +79,7 @@ public class PlayerCombat extends Action {
 		}
 		int maxDistance = isRanging != 0 || spellId > 0 ? 7 : 0;
 		double multiplier = 1.0;
-		if (getPlayer().getAttributes().getAttributes().get("miasmic_effect") == Boolean.TRUE)
+		if (target.getAttributes().get(Attribute.MIASMIC_EFFECT).get() == Boolean.TRUE)
 			multiplier = 1.5;
 		int size = getPlayer().getSize();
 		if (!getPlayer().clipedProjectile(target, maxDistance == 0))
@@ -527,23 +528,23 @@ public class PlayerCombat extends Action {
 				base_mage_xp = 35;
 				delayMagicHit(2, getMagicHit(player, getRandomMagicMaxHit(player, 200)));
 				World.sendProjectile(player, target, 1846, 43, 22, 51, 50, 16, 0);
-				if (target.getAttributes().getAttributes().get("miasmic_immunity") == Boolean.TRUE) {
+				if (target.getAttributes().get(Attribute.MIASMIC_IMMUNITY).get() == Boolean.TRUE) {
 					return 4;
 				}
 				if (target.isPlayer()) {
 					((Player) target).getPackets().sendGameMessage("You feel slowed down.");
 				}
-				target.getAttributes().getAttributes().put("miasmic_immunity", Boolean.TRUE);
-				target.getAttributes().getAttributes().put("miasmic_effect", Boolean.TRUE);
+				target.getAttributes().get(Attribute.MIASMIC_IMMUNITY).set(false);
+				target.getAttributes().get(Attribute.MIASMIC_EFFECT).set(false);
 				final Entity t = target;
 				World.get().submit(new Task(20) {
 					@Override
 					protected void execute() {
-						t.getAttributes().getAttributes().remove("miasmic_effect");
+						t.getAttributes().get(Attribute.MIASMIC_EFFECT).set(false);
 						World.get().submit(new Task(15) {
 							@Override
 							protected void execute() {
-								t.getAttributes().getAttributes().remove("miasmic_immunity");
+								t.getAttributes().get(Attribute.MIASMIC_IMMUNITY).set(false);
 								this.cancel();
 							}
 						});
@@ -558,23 +559,23 @@ public class PlayerCombat extends Action {
 				base_mage_xp = 48;
 				delayMagicHit(2, getMagicHit(player, getRandomMagicMaxHit(player, 280)));
 				World.sendProjectile(player, target, 1852, 43, 22, 51, 50, 16, 0);
-				if (target.getAttributes().getAttributes().get("miasmic_immunity") == Boolean.TRUE) {
+				if (target.getAttributes().get(Attribute.MIASMIC_IMMUNITY).getBoolean()) {
 					return 4;
 				}
 				if (target.isPlayer()) {
 					((Player) target).getPackets().sendGameMessage("You feel slowed down.");
 				}
-				target.getAttributes().getAttributes().put("miasmic_immunity", Boolean.TRUE);
-				target.getAttributes().getAttributes().put("miasmic_effect", Boolean.TRUE);
+				target.getAttributes().get(Attribute.MIASMIC_IMMUNITY).set(true);
+				target.getAttributes().get(Attribute.MIASMIC_EFFECT).set(true);
 				final Entity t0 = target;
 				World.get().submit(new Task(60) {
 					@Override
 					protected void execute() {
-						t0.getAttributes().getAttributes().remove("miasmic_effect");
+						t0.getAttributes().get(Attribute.MIASMIC_EFFECT).set(false);
 						World.get().submit(new Task(15) {
 							@Override
 							protected void execute() {
-								t0.getAttributes().getAttributes().remove("miasmic_immunity");
+								t0.getAttributes().get(Attribute.MIASMIC_IMMUNITY).set(false);
 								this.cancel();
 							}
 						});
@@ -594,21 +595,21 @@ public class PlayerCombat extends Action {
 						base_mage_xp = 42;
 						int damage = getRandomMagicMaxHit(player, 240);
 						delayMagicHit(2, getMagicHit(player, damage));
-						if (target.getAttributes().getAttributes().get("miasmic_immunity") != Boolean.TRUE) {
+						if (!target.getAttributes().get(Attribute.MIASMIC_IMMUNITY).getBoolean()) {
 							if (target.isPlayer()) {
 								((Player) target).getPackets().sendGameMessage("You feel slowed down.");
 							}
-							target.getAttributes().getAttributes().put("miasmic_immunity", Boolean.TRUE);
-							target.getAttributes().getAttributes().put("miasmic_effect", Boolean.TRUE);
+							target.getAttributes().get(Attribute.MIASMIC_IMMUNITY).set(true);
+							target.getAttributes().get(Attribute.MIASMIC_EFFECT).set(true);
 							final Entity t = target;
 							World.get().submit(new Task(40) {
 								@Override
 								protected void execute() {
-									t.getAttributes().getAttributes().remove("miasmic_effect");
+									t.getAttributes().get(Attribute.MIASMIC_EFFECT).set(false);
 									World.get().submit(new Task(15) {
 										@Override
 										protected void execute() {
-											t.getAttributes().getAttributes().remove("miasmic_immunity");
+											t.getAttributes().get(Attribute.MIASMIC_IMMUNITY).set(false);
 											this.cancel();
 										}
 									});
@@ -639,20 +640,20 @@ public class PlayerCombat extends Action {
 						base_mage_xp = 54;
 						int damage = getRandomMagicMaxHit(player, 320);
 						delayMagicHit(2, getMagicHit(player, damage));
-						if (target.getAttributes().getAttributes().get("miasmic_immunity") != Boolean.TRUE) {
+						if (!target.getAttributes().get(Attribute.MIASMIC_IMMUNITY).getBoolean()) {
 							if (target.isPlayer()) {
 								((Player) target).getPackets().sendGameMessage("You feel slowed down.");
 							}
-							target.getAttributes().getAttributes().put("miasmic_immunity", Boolean.TRUE);
-							target.getAttributes().getAttributes().put("miasmic_effect", Boolean.TRUE);
+							target.getAttributes().get(Attribute.MIASMIC_IMMUNITY).set(true);
+							target.getAttributes().get(Attribute.MIASMIC_EFFECT).set(true);
 							final Entity t = target;
 							World.get().submit(new Task(80) {
 								@Override
 								protected void execute() {
-									t.getAttributes().getAttributes().remove("miasmic_effect");
+									t.getAttributes().get(Attribute.MIASMIC_EFFECT).set(false);
 									World.get().submit(new Task(15) {
 										protected void execute() {
-											t.getAttributes().getAttributes().remove("miasmic_immunity");
+											t.getAttributes().get(Attribute.MIASMIC_IMMUNITY).set(false);
 											this.cancel();
 										}
 									});

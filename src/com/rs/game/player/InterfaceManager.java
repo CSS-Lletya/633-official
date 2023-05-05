@@ -151,6 +151,7 @@ public class InterfaceManager {
 		sendPMChatArea();
 		sendCombatStyles();
 		sendAchievement();
+		sendSummoning();
 		sendSkills();
 //		sendQuest();
 		sendInventory();
@@ -160,7 +161,7 @@ public class InterfaceManager {
 		sendSettings();
 		sendEmotes();
 		sendMusic();
-		sendNotes();
+//		sendNotes();
 		sendIgnores();
 		sendFriends();
 		sendClanChat();
@@ -257,6 +258,12 @@ public class InterfaceManager {
 	public void sendAchievement() {
 		setWindowInterface(
 				isResizableScreen() ? RESIZABLE_TAB_OFFSET + Tab.ACHIEVEMENT : FIXED_TAB_OFFSET + Tab.ACHIEVEMENT, 259);
+	}
+	
+	// incorrect icon, does it even exist?
+	public void sendSummoning() {
+		setWindowInterface(
+				isResizableScreen() ? RESIZABLE_TAB_OFFSET + Tab.SUMMONING : FIXED_TAB_OFFSET + Tab.SUMMONING, 662);
 	}
 
 	public void sendSkills() {
@@ -465,8 +472,6 @@ public class InterfaceManager {
 			removeInventoryInterface();
 		if (containsChatBoxInter())
 			closeChatBoxInterface();
-		if (player.dialog() != null)
-			player.dialog().complete();
 		if (player.getCloseInterfacesEvent() != null) {
 			player.getCloseInterfacesEvent().run();
 			player.setCloseInterfacesEvent(null);

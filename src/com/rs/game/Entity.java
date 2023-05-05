@@ -24,13 +24,13 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.map.areas.AreaHandler;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
-import com.rs.game.player.Attributes;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.LocalNPCUpdate;
 import com.rs.game.player.LocalPlayerUpdate;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.AttributeMap;
 import com.rs.game.player.content.TeleportType;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.player.type.PoisonType;
@@ -96,7 +96,10 @@ public abstract class Entity extends WorldTile {
 	private transient long findTargetDelay;
 	private transient short hashCode;
 	private transient EntityMovement movement;
-	private transient Attributes attributes;
+	/**
+	 * An {@link AttributeMap} instance assigned to this {@code Actor}.
+	 */
+	protected AttributeMap attributes = new AttributeMap();
 	private transient int mapSize;
 	
 	/**
@@ -133,7 +136,7 @@ public abstract class Entity extends WorldTile {
 		setLastFaceEntity(-1);
 		nextFaceEntity = -2;
 		setMovement(new EntityMovement(this));
-		setAttributes(new Attributes());
+		attributes = new AttributeMap();
 	}
 
 	public int getClientIndex() {
@@ -162,7 +165,7 @@ public abstract class Entity extends WorldTile {
 		setAttackedBy(null);
 		setAttackedByDelay(0);
 		if (attributes)
-			getAttributes().getAttributes().clear();
+			getAttributes().attributes.clear();
 		ifPlayer(player -> {
 			player.getInterfaceManager().refreshHitPoints();
 			player.getHintIconsManager().removeAll();

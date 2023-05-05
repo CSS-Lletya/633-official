@@ -1,6 +1,7 @@
 package com.rs.net.packets.outgoing.impl;
 
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacket;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
@@ -19,9 +20,10 @@ public class EnterLongTextPacket implements OutgoingPacket {
 		val value = stream.readString();
 		if (value.equals(""))
 			return;
-		if (player.getAttributes().getAttributes().get("string_input_action") != null) {
-			StringInputAction action = (StringInputAction) player.getAttributes().getAttributes().remove("string_input_action");
+		if (player.getAttributes().get(Attribute.STRING_INPUT_ACTION).get() != null) {
+			StringInputAction action = (StringInputAction) player.getAttributes().get(Attribute.STRING_INPUT_ACTION).get();
 			action.handle(value);
+			player.getAttributes().get(Attribute.STRING_INPUT_ACTION).set(null);
 			return;
 		}
 	}

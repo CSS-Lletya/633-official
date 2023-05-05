@@ -79,57 +79,6 @@ public class Bank {
 					"Bank of " + GameConstants.SERVER_NAME);
 	}
 
-	public void checkPinInput(boolean isConfirmation, int componentId) {
-		setRequestedPin((byte) ((componentId - 4) / 4));
-		if (stage++ == 4) {
-			byte[] requestedPin = getRequestedPin();
-			if (actualPin == null || requestedPin != actualPin) { // either
-																	// wrong or
-																	// switching/adding
-																	// pin
-				if (isConfirmation) { // switch / adding pin
-					this.requestedPin = requestedPin;
-					recoveryDelay += (86400000 * 3); // three days
-					StringBuilder builder = new StringBuilder();
-					builder.append("Your PIN has been set, the personal identification number is : ");
-					for (int pinNumber : requestedPin)
-						builder.append(pinNumber + " - ");
-					player.getPackets().sendGameMessage(builder.toString());
-				} else {
-					player.getPackets().sendGameMessage(
-							"The PIN you have put is incorrect.");
-				}
-				player.getInterfaceManager().closeInterfaces();
-			} else if (requestedPin == actualPin) { // pin is correct.
-				player.getPackets().sendGameMessage(
-						"Successfully entered your PIN number.");
-				player.getBank().openBank();
-				activatedTime += (3600000 * 6); // six hours
-			} else {
-				player.getPackets()
-						.sendGameMessage(
-								"The PIN you have selected is in the same sequence your currently have. Please pick different numbers or sequences.");
-			}
-		}
-	}
-
-	private byte[] getRequestedPin() {
-		byte[] pin = (byte[]) player.getAttributes().getAttributes().get(
-				"temporary_pin");
-		if (pin == null)
-			return (byte[]) player.getAttributes().getAttributes().put(
-					"temporary_pin", new byte[4]);
-		return pin;
-	}
-
-	private void setRequestedPin(byte value) {
-		byte[] pin = (byte[]) player.getAttributes().getAttributes().get(
-				"temporary_pin");
-		if (pin == null)
-			pin = new byte[5];
-		pin[stage] = value;
-		player.getAttributes().getAttributes().put("temporary_pin", pin);
-	}
 
 	public void removeItem(int id) {
 		if (bankTabs != null) {

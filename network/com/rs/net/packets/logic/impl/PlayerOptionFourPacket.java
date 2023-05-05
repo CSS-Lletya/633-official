@@ -2,6 +2,7 @@ package com.rs.net.packets.logic.impl;
 
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.route.RouteEvent;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacket;
@@ -42,13 +43,13 @@ public class PlayerOptionFourPacket implements LogicPacket {
 				player.getPackets().sendGameMessage("Unable to find target " + p2.getDisplayName());
 				return;
 			}
-			if (p2.getAttributes().getAttributes().get("TradeTarget") == player) {
-				p2.getAttributes().getAttributes().remove("TradeTarget");
+			if (p2.getAttributes().get(Attribute.TRADE_TARGET).get() == player) {
+				p2.getAttributes().get(Attribute.TRADE_TARGET).set(null);
 				player.getTrade().openTrade(p2);
 				p2.getTrade().openTrade(player);
 				return;
 			}
-			player.getAttributes().getAttributes().put("TradeTarget", p2);
+			player.getAttributes().get(Attribute.TRADE_TARGET).set(p2);
 			player.getPackets().sendGameMessage("Sending " + p2.getDisplayName() + " a request...");
 			p2.getPackets().sendTradeRequestMessage(player);
 		}));

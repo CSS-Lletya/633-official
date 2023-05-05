@@ -11,6 +11,7 @@ import com.rs.game.map.MapBuilder;
 import com.rs.game.map.World;
 import com.rs.game.npc.combat.NPCCombatDispatcher;
 import com.rs.game.npc.global.GenericNPCDispatcher;
+import com.rs.game.player.attribute.AttributeKey;
 import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.net.Huffman;
@@ -96,6 +97,7 @@ public class GameLoader {
 			new MobDropTableLoader().load();
 			DialogueEventRepository.init();
 			FriendChatsManager.init();
+			AttributeKey.init();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Host files.");

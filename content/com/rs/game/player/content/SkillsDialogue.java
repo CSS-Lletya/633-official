@@ -2,6 +2,7 @@ package com.rs.game.player.content;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 
 public final class SkillsDialogue {
 
@@ -65,7 +66,7 @@ public final class SkillsDialogue {
 	}
 
 	public static void setMaxQuantity(Player player, int maxQuantity) {
-		player.getAttributes().getAttributes().put("SkillsDialogueMaxQuantity", maxQuantity);
+		player.getAttributes().get(Attribute.SKILL_DIALOGUE_MAX_QUANTITY).set(maxQuantity);
 		player.getVarsManager().sendVarBit(8094, maxQuantity);
 	}
 
@@ -79,20 +80,20 @@ public final class SkillsDialogue {
 			quantity = maxQuantity;
 		else if (quantity < 0)
 			quantity = 0;
-		player.getAttributes().getAttributes().put("SkillsDialogueQuantity", quantity);
+		player.getAttributes().get(Attribute.SKILL_DIALOGUE_MAX_QUANTITY).set(quantity);
 		if (refresh)
 			player.getVarsManager().sendVarBit(8095, quantity);
 	}
 
 	public static int getMaxQuantity(Player player) {
-		Integer maxQuantity = (Integer) player.getAttributes().getAttributes().get("SkillsDialogueMaxQuantity");
+		Integer maxQuantity = (Integer) player.getAttributes().get(Attribute.SKILL_DIALOGUE_MAX_QUANTITY).get();
 		if (maxQuantity == null)
 			return 0;
 		return maxQuantity;
 	}
 
 	public static int getQuantity(Player player) {
-		Integer quantity = (Integer) player.getAttributes().getAttributes().get("SkillsDialogueQuantity");
+		Integer quantity = (Integer) player.getAttributes().get(Attribute.SKILL_DIALOGUE_MAX_QUANTITY).get();
 		if (quantity == null)
 			return 0;
 		return quantity;

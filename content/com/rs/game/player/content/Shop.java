@@ -8,6 +8,7 @@ import com.rs.constants.InterfaceVars;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 
 public class Shop {
 
@@ -39,14 +40,14 @@ public class Shop {
 
 	public void addPlayer(final Player player) {
 		viewingPlayers.add(player);
-		player.getAttributes().getAttributes().put("Shop", this);
+		player.getAttributes().get(Attribute.SHOP).set(this);//may not be correct. need to redo shops
 		player.setCloseInterfacesEvent(() -> {
 			viewingPlayers.remove(player);
-			player.getAttributes().getAttributes().remove("Shop");
-			player.getAttributes().getAttributes().remove("shop_transaction");
-			player.getAttributes().getAttributes().remove("isShopBuying");
-			player.getAttributes().getAttributes().remove("ShopSelectedSlot");
-			player.getAttributes().getAttributes().remove("ShopSelectedInventory");
+			player.getAttributes().get(Attribute.SHOP).set(null);
+			player.getAttributes().get(Attribute.SHOP_TRANSACTION).set(null);
+			player.getAttributes().get(Attribute.IS_SHOP_BUYING).set(null);
+			player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).set(null);
+			player.getAttributes().get(Attribute.SHOP_SELECTED_INVENTORY).set(null);
 		});
 //		player.getVarsManager().sendVar(118,
 //				generalStock != null ? 139 : MAIN_STOCK_ITEMS_KEY);
@@ -79,16 +80,13 @@ public class Shop {
 	}
 
 	public int getTransaction(Player player) {
-		Integer transaction = (Integer) player.getAttributes().getAttributes().get(
-				"shop_transaction");
+		Integer transaction = (Integer) player.getAttributes().get(Attribute.SHOP_TRANSACTION).get();
 		return transaction == null ? 1 : transaction;
 	}
 
 	public void pay(Player player) {
-		Integer selectedSlot = (Integer) player.getAttributes().getAttributes().get(
-				"ShopSelectedSlot");
-		Boolean inventory = (Boolean) player.getAttributes().getAttributes().get(
-				"ShopSelectedInventory");
+		Integer selectedSlot = (Integer) player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).get();
+		Boolean inventory = (Boolean) player.getAttributes().get(Attribute.SHOP_SELECTED_INVENTORY).getBoolean();
 		if (selectedSlot == null || inventory == null)
 			return;
 		int amount = getTransaction(player);
@@ -99,10 +97,8 @@ public class Shop {
 	}
 
 	public int getSelectedMaxAmount(Player player) {
-		Integer selectedSlot = (Integer) player.getAttributes().getAttributes().get(
-				"ShopSelectedSlot");
-		Boolean inventory = (Boolean) player.getAttributes().getAttributes().get(
-				"ShopSelectedInventory");
+		Integer selectedSlot = (Integer) player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).get();
+		Boolean inventory = (Boolean) player.getAttributes().get(Attribute.SHOP_SELECTED_INVENTORY).getBoolean();
 		if (selectedSlot == null || inventory == null)
 			return 1;
 		if (inventory) {
@@ -128,18 +124,17 @@ public class Shop {
 			amount = max;
 		else if (amount < 1)
 			amount = 1;
-		player.getAttributes().getAttributes().put("shop_transaction", amount);
+		player.getAttributes().get(Attribute.SHOP_TRANSACTION).set(amount);
 		player.getVarsManager().sendVar(InterfaceVars.SHOP_TRANSACTION, amount);
 	}
 
 	public static void setBuying(Player player, boolean buying) {
-		player.getAttributes().getAttributes().put("isShopBuying", buying);
+		player.getAttributes().get(Attribute.IS_SHOP_BUYING).set(buying);
 		player.getVarsManager().sendVar(InterfaceVars.SHOP_BUYING_STATE, buying ? 0 : 1);
 	}
 
 	public static boolean isBuying(Player player) {
-		Boolean isBuying = (Boolean) player.getAttributes().getAttributes().get(
-				"isShopBuying");
+		Boolean isBuying = (Boolean) player.getAttributes().get(Attribute.IS_SHOP_BUYING).getBoolean();
 		return isBuying != null && isBuying;
 	}
 
@@ -346,7 +341,7 @@ public class Shop {
 	}
 
 	public void resetSelected(Player player) {
-		player.getAttributes().getAttributes().remove("ShopSelectedSlot");
+		player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).set(null);
 		player.getVarsManager().sendVar(InterfaceVars.SHOP_RESET_SELECTED, -1);
 	}
 
@@ -367,9 +362,8 @@ public class Shop {
 			return;
 		}
 		resetTransaction(player);
-		player.getAttributes().getAttributes().put("ShopSelectedSlot", slotId);
-		player.getAttributes().getAttributes()
-				.put("ShopSelectedInventory", inventory);
+		player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).set(slotId);
+		player.getAttributes().get(Attribute.SHOP_SELECTED_INVENTORY).set(inventory);
 //		player.getVarsManager().sendVar(
 //				2561,
 //				inventory ? 93 : generalStock != null ? 139

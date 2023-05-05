@@ -6,6 +6,7 @@ import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
@@ -49,14 +50,14 @@ public final class CombatDefinitions {
 	private byte autoCastSpell;
 
 	public int getSpellId() {
-		Integer tempCastSpell = (Integer) player.getAttributes().getAttributes().get("tempCastSpell");
+		Integer tempCastSpell = (Integer) player.getAttributes().get(Attribute.TEMP_CAST_SPELL).get();
 		if (tempCastSpell != null)
 			return tempCastSpell + 256;
 		return autoCastSpell;
 	}
 
 	public void resetSpells(boolean removeAutoSpell) {
-		player.getAttributes().getAttributes().remove("tempCastSpell");
+		player.getAttributes().get(Attribute.TEMP_CAST_SPELL).set(null);
 		if (removeAutoSpell) {
 			setAutoCastSpell(0);
 			refreshAutoCastSpell();

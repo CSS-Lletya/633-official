@@ -3,6 +3,7 @@ package com.rs.net.packets.outgoing.impl;
 import com.rs.GameConstants;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.Shop;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacket;
@@ -71,16 +72,15 @@ public class SwitchInterfaceComponentsPacket implements OutgoingPacket {
 		} else if (fromInterfaceId == 762 && toInterfaceId == 762) {
 			player.getBank().switchItem(fromSlot, toSlot, fromComponentId,
 					toComponentId);
-		} else if (fromInterfaceId == 1265
-				&& toInterfaceId == 1266
-				&& player.getAttributes().getAttributes().get("is_buying") != null) {
-			if ((boolean) player.getAttributes().getAttributes().get("is_buying") == true) {
-				Shop shop = (Shop) player.getAttributes().getAttributes().get(
-						"shop_instance");
-				if (shop == null)
-					return;
-				// shop.buyItem(player, fromSlot, 1);
-			}
+//		} else if (fromInterfaceId == 1265
+//				&& toInterfaceId == 1266
+//				&& player.getAttributes().get(Attribute.IS_BUYING).get() != null) {
+//			if (player.getAttributes().get(Attribute.IS_BUYING).getBoolean()) {
+//				Shop shop = (Shop) player.getAttributes().get(Attribute.SHOP_INSTANCE).get();
+//				if (shop == null)
+//					return;
+//				// shop.buyItem(player, fromSlot, 1);
+//			}//this is 718 code, need to rework to 633.
 		} else if (fromInterfaceId == 34 && toInterfaceId == 34)
 			player.getNotes().switchNotes(fromSlot, toSlot);
 		if (GameConstants.DEBUG)

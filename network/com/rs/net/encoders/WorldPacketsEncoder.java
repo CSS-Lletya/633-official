@@ -17,6 +17,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.FriendChatsManager;
 import com.rs.io.OutputStream;
 import com.rs.net.Huffman;
@@ -1570,12 +1571,12 @@ public class WorldPacketsEncoder extends Encoder {
 	}
 
 	public void sendInputIntegerScript(String message, IntegerInputAction onInputGivenAction) {
-		getPlayer().getAttributes().getAttributes().put("integer_input_action", onInputGivenAction);
+		getPlayer().getAttributes().get(Attribute.INTEGER_INPUT_ACTION).set(onInputGivenAction);
 		sendRunScript(108, new Object[] { message });
 	}
 	
 	public void sendInputStringScript(String message, StringInputAction onInputGivenAction) {
-		getPlayer().getAttributes().getAttributes().put("string_input_action", onInputGivenAction);
+		getPlayer().getAttributes().get(Attribute.STRING_INPUT_ACTION).set(onInputGivenAction);
 		sendRunScript(110, new Object[] { message });
 	}
 	
