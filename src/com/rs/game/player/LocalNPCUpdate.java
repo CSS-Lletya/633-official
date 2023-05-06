@@ -301,38 +301,6 @@ public final class LocalNPCUpdate {
 			hp = maxHp;
 		int hpBarPercentage = hp * 255 / maxHp;
 		data.writeByte128(hpBarPercentage);
-		
-//		int count = n.getNextHits().size();
-//		data.write128Byte(count);
-//		if (count > 0) {
-//			int hp = n.getHitpoints();
-//			int maxHp = n.getMaxHitpoints();
-//			if (hp > maxHp)
-//				hp = maxHp;
-//			int hpBarPercentage = hp * 255 / maxHp;
-//			for (Hit hit : n.getNextHits()) {
-//				boolean interactingWith = hit.interactingWith(player, n);
-//				if (hit.getDamage() < 0) {
-//					hit.setDamage(0);
-//				}
-//				if (hit.missed() && !interactingWith)
-//					data.writeSmart(32766);
-//				else {
-//					if (hit.getSoaking() != null) {
-//						data.writeSmart(32767);
-//						data.writeSmart(hit.getMark(player, n));
-//						data.writeSmart(hit.getDamage());
-//						data.writeSmart(hit.getSoaking().getMark(player, n));
-//						data.writeSmart(hit.getSoaking().getDamage());
-//					} else {
-//						data.writeSmart(hit.getMark(player, n));
-//						data.writeSmart(hit.getDamage());
-//					}
-//				}
-//				data.writeSmart(hit.getDelay());
-//				data.writeByte(hpBarPercentage);
-//			}
-//		}
 	}
 
 	private void applyFaceEntityMask(NPC n, OutputStream data) {

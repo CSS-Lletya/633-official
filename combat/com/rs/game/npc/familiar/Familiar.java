@@ -11,6 +11,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.combat.NPCCombatDefinitions;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.Summoning;
 import com.rs.game.player.content.Summoning.Pouch;
 import com.rs.game.task.Task;
@@ -208,7 +209,6 @@ public abstract class Familiar extends NPC {
 		owner.getPackets().sendHideIComponent(662, 71, false);
 		owner.getPackets().sendHideIComponent(662, 72, false);
 		unlock();
-		owner.getInterfaceManager().openGameTab(95);
 	}
 
 	public void switchOrb(boolean on) {
@@ -220,6 +220,7 @@ public abstract class Familiar extends NPC {
 	}
 
 	public void unlockOrb() {
+		owner.getVarsManager().sendVar(1160, -1); // unlock summoning orb
 		owner.getPackets().sendHideIComponent(747, 9, false);
 		sendLeftClickOption(owner);
 		unlock();
@@ -273,6 +274,7 @@ public abstract class Familiar extends NPC {
 	}
 
 	public void lockOrb() {
+		owner.getVarsManager().sendVar(1160, 0); // unlock summoning orb
 		owner.getPackets().sendHideIComponent(747, 9, true);
 	}
 
@@ -288,6 +290,7 @@ public abstract class Familiar extends NPC {
 			return;
 		}
 		call(false);
+		sendFollowerDetails();
 	}
 
 	public void call(boolean login) {
@@ -426,13 +429,13 @@ public abstract class Familiar extends NPC {
 
 	public void setSpecial(boolean on) {
 		if (!on)
-			owner.getAttributes().getAttributes().remove("FamiliarSpec");
+			owner.getAttributes().get(Attribute.FAMILIAR_SPECIAL).set(false);
 		else {
 			if (specialEnergy < getSpecialAmount()) {
 				owner.getPackets().sendGameMessage("Your special move bar is too low to use this scroll.");
 				return;
 			}
-			owner.getAttributes().getAttributes().put("FamiliarSpec", Boolean.TRUE);
+			owner.getAttributes().get(Attribute.FAMILIAR_SPECIAL).set(true);
 		}
 	}
 
@@ -450,7 +453,7 @@ public abstract class Familiar extends NPC {
 	}
 
 	public boolean hasSpecialOn() {
-		if (owner.getAttributes().getAttributes().remove("FamiliarSpec") != null) {
+		if (owner.getAttributes().get("FamiliarSpec").get() != null) {
 			int scrollId = Summoning.getScrollId(pouch.getRealPouchId());
 			if (!owner.getInventory().containsItem(scrollId, 1)) {
 				owner.getPackets().sendGameMessage("You don't have the scrolls to use this move.");

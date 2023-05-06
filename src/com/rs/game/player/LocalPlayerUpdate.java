@@ -320,8 +320,8 @@ public final class LocalPlayerUpdate {
 
 		if (added || p.isUpdateMovementType()) // 9
 			maskData |= 0x1;
-		if (!p.getNextHits().isEmpty())
-			maskData |= 0x40000;
+		if (p.getNextHits().size() > 0)
+			maskData |= 0x20;
 
 		if (p.getNextGraphics1() != null) // 13
 			maskData |= 0x40;
@@ -360,32 +360,17 @@ public final class LocalPlayerUpdate {
 		if (added || p.isUpdateMovementType()) // 9
 			applyMoveTypeMask(p, data);
 
-		if (!p.getNextHits().isEmpty())
-			applyHitsMask(p, data);
+		if (p.getNextHits().size() > 0)
+			applyHitsMask1(p, data);
 		if (p.getNextGraphics1() != null) // 13
 			applyGraphicsMask1(p, data);
-
+		if (p.getNextHits().size() > 1)
+			applyHitsMask2(p, data);
 		if (p.getTemporaryMovementType() != -1) // 15
 			applyTemporaryMoveTypeMask(p, data);
 		if (p.getNextForceTalk() != null) // 16
 			applyForceTalkMask(p, data);
 
-	}
-
-	/**
-	 * Pretty sure this is an unused method in this revision.
-	 * 
-	 * @param p
-	 * @param data
-	 */
-	@SuppressWarnings("unused")
-	private void applySecondaryBarMask(Player p, OutputStream data) {
-//		SecondaryBar bar = p.getNextSecondaryBar();
-//		boolean permanant = bar.isPermenant();
-//		int unknownV = bar.getTotalUnits();
-//		data.writeShortLE((permanant ? 8000 : 0) | (unknownV & 0x7fff));
-//		data.write128Byte(bar.getBeginningOffset());
-//		data.write128Byte(bar.getIncrementalUnits());
 	}
 
 	private void applyTemporaryMoveTypeMask(Player p, OutputStream data) {
@@ -400,38 +385,6 @@ public final class LocalPlayerUpdate {
 		data.writeString(p.getNextForceTalk().getText());
 	}
 
-	/**
-	 * This is the hitmark for the player; we need to fix this and the HP bar
-	 * (assumingly)
-	 * 
-	 * @param p
-	 * @param data
-	 */
-	private void applyHitsMask(Player p, OutputStream data) {
-		int count = p.getNextHits().size();
-		data.writeByteC(count);
-		if (count > 0) {
-			int hp = p.getHitpoints();
-			int maxHp = p.getMaxHitpoints();
-			if (hp > maxHp)
-				hp = maxHp;
-			int hpBarPercentage = maxHp == 0 ? 0 : (hp * 255 / maxHp);
-			for (Hit hit : p.getNextHits()) {
-				if (hit.getDamage() < 0)
-					hit.setDamage(0);
-				boolean interactingWith = hit.interactingWith(player, p);
-				if (hit.missed() && !interactingWith)
-					data.writeSmart(32766);
-				else {
-					data.writeSmart(hit.getMark(player, p));
-					data.writeSmart(hit.getDamage());
-				}
-				data.writeSmart(hit.getDelay());
-				data.writeByte128(hpBarPercentage);
-			}
-		}
-	}
-
 	private void applyFaceEntityMask(Player p, OutputStream data) {
 		data.writeShort128(p.getNextFaceEntity() == -2 ? p.getLastFaceEntity() : p.getNextFaceEntity());
 	}
@@ -440,6 +393,24 @@ public final class LocalPlayerUpdate {
 		data.writeShortLE128(p.getDirection()); // also works as face tile as
 		// dir
 		// calced on setnextfacetile
+	}
+
+	//only issue seems to be spamming the markers all at once, error is below. However i can get 3 markers to show up sometimes
+	//spamming 2 hitmarkers works just fine!
+	//error: Error: st.A(9,114,{...}) gt.B(-114) | Class11_Sub46_Sub3.decodePlayerUpdate:72 Class161.method996:628 Class11_Sub2_Sub34.method3812:67 Class58.method462:247 client.method4021:2569 client.method3987:2713 Applet_Sub1.method3983:100 Applet_Sub1.run:737 java.lang.Thread.run | java.lang.RuntimeException: gpi1 pos:7 psize:9 | T2 - 33,7,7 - 9,3085,3492 - -64,127,-12,32,5,-2,-40,5,2,
+	private void applyHitsMask1(Player p, OutputStream data) {
+		Hit hit = p.getNextHits().get(0);
+		data.writeSmart(hit.getDamage());
+		data.writeByteC(hit.getMark(player, p));
+		int maxHp = p.getMaxHitpoints();
+		int hpBarPercentage = maxHp == 0 ? 0 : Math.min(255, p.getHitpoints() * 255 / maxHp);
+		data.writeByteC(hpBarPercentage);
+	}
+
+	private void applyHitsMask2(Player p, OutputStream data) {
+		Hit hit = p.getNextHits().get(1);
+		data.writeSmart(hit.getDamage());
+		data.writeByteC(hit.getMark(player, p));
 	}
 
 	private void applyGraphicsMask1(Player p, OutputStream data) {

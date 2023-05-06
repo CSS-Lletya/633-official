@@ -225,11 +225,9 @@ public class Session {
 			return;
 		LogUtility.log(LogType.INFO, player.getDisplayName() + " has logged out.");
 		player.getMovement().stopAll();
-		System.out.println(1);
 		player.getMapZoneManager().executeVoid(player, controller -> controller.logout(player));
 		player.setRunning(false);
 		player.getFriendsIgnores().sendFriendsMyStatus(false);
-		System.out.println(2);
 		if (player.getCurrentFriendChat() != null)
 			player.getCurrentFriendChat().leaveChat(player, true);
 		if (player.getFamiliar() != null && !player.getFamiliar().isFinished())
@@ -237,11 +235,9 @@ public class Session {
 		else if (player.getPet() != null)
 			player.getPet().deregister();
 		player.setFinished(true);
-		System.out.println("3");
 		player.getAction().forceStop();
 		player.getSession().setDecoder(-1);
 		AccountCreation.savePlayer(player);
-		System.out.println("end");
 		player.updateEntityRegion(player);
 		World.removePlayer(player);
 	}

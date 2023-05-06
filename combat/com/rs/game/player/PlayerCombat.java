@@ -2446,9 +2446,9 @@ public class PlayerCombat extends Action {
 					}
 					doDefenceEmote();
 					int damage = hit.getDamage() > target.getHitpoints() ? target.getHitpoints() : hit.getDamage();
-					if ((damage >= max_hit * 0.90) && (hit.getLook() == HitLook.MAGIC_DAMAGE
-							|| hit.getLook() == HitLook.RANGE_DAMAGE || hit.getLook() == HitLook.MELEE_DAMAGE))
-						hit.setCriticalMark();
+//					if ((damage >= max_hit * 0.90) && (hit.getLook() == HitLook.MAGIC_DAMAGE
+//							|| hit.getLook() == HitLook.RANGE_DAMAGE || hit.getLook() == HitLook.MELEE_DAMAGE))
+//						hit.setCriticalMark();
 					if (hit.getLook() == HitLook.RANGE_DAMAGE || hit.getLook() == HitLook.MELEE_DAMAGE) {
 						double combatXp = damage / 2.5;
 						if (combatXp > 0) {
