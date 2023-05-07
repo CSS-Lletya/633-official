@@ -16,8 +16,8 @@ public class InterfaceManager {
 	public static final int CHAT_BOX_COMPONENT = 13;
 	public static final int FIXED_SCREEN_COMPONENT_ID = 18;
 	public static final int RESIZABLE_SCREEN_COMPONENT_ID = 8;
-	public static final int FIXED_INV_COMPONENT_ID = 197;
-	public static final int RESIZABLE_INV_COMPONENT_ID = 83;
+	public static final int FIXED_INV_COMPONENT_ID = 196;
+	public static final int RESIZABLE_INV_COMPONENT_ID = 85;
 	private final Player player;
 
 	private static final int FIXED_TAB_OFFSET = 201;
