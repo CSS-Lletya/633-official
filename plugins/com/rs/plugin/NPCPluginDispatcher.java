@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
@@ -115,6 +116,12 @@ public class NPCPluginDispatcher {
 			case 4:
 				forceRun = stream.readByteC() == 1;
 				npcIndex = stream.readUnsignedShort();
+				break;
+			case 5:
+				//TODO: Find npc description, is it packed in cache? hm
+				npcIndex = stream.readUnsignedShort();
+				String npcDef = NPCDefinitions.getNPCDefinitions(npcIndex).name;
+				player.getPackets().sendGameMessage("It's a " + npcDef + " (ID: " + npcIndex + ")");
 				break;
 			default:
 				npcIndex = stream.readUnsignedShort();

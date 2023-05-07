@@ -1,5 +1,6 @@
 package com.rs.net.packets.outgoing.impl;
 
+import com.rs.cache.loaders.ObjectDefinitions;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacket;
@@ -10,6 +11,9 @@ public class ObjectExaminePacket implements OutgoingPacket {
 
 	@Override
 	public void execute(Player player, InputStream stream) {
-//		ObjectDispatcher.handleOption(player, stream, -1);
+		int id = stream.readUnsignedShort();
+		String defs = ObjectDefinitions.getObjectDefinitions(id).getName();
+		//TODO: Find object description, is it packed in cache? hm
+		player.getPackets().sendGameMessage("It's a " + defs + " (ID: " + id +")");
 	}
 }
