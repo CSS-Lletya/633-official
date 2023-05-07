@@ -1,19 +1,10 @@
 package com.rs.utilities;
 
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.tinylog.Logger;
 
 import com.rs.GameConstants;
-import com.rs.game.map.World;
-import com.rs.game.player.Player;
-import com.rs.net.mysql.DatabaseConnection;
-
-import lombok.SneakyThrows;
+import com.rs.network.sql.PassiveDatabaseWorker;
+import com.rs.network.sql.queries.SQLLogSQLPlugin;
 
 /**
  * Represents a feature-rich Logging utility backed by TinyLog
@@ -58,27 +49,9 @@ public final class LogUtility {
 			Logger.warn(message);
 			break;
 		case SQL:
-			submitFullQuery(message);
+			submitSQLLog(message);
 			break;
 		}
-	}
-
-	/**
-	 * Submit a full length query to the database
-	 * 
-	 * @param query
-	 */
-	@SneakyThrows(SQLException.class)
-	public static void submitFullQuery(String query) {
-		if (!checkSQLState())
-			return;
-		DatabaseConnection connection = World.getConnectionPool().nextFree();
-		Statement statement = connection.createStatement();
-		if (statement == null) {
-			return;
-		}
-		statement.executeUpdate(query);
-		connection.returnConnection();
 	}
 
 	/**
@@ -87,20 +60,10 @@ public final class LogUtility {
 	 * @param player
 	 * @param query
 	 */
-	@SneakyThrows(SQLException.class)
-	public static void submitSQLLog(Player player, String query) {
+	private static void submitSQLLog(String query) {
 		if (!checkSQLState())
 			return;
-		DatabaseConnection connection = World.getConnectionPool().nextFree();
-		Statement statement = connection.createStatement();
-		if (statement == null) {
-			return;
-		}
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss aa");
-		Date date = new Date();
-		statement.executeUpdate("INSERT INTO log(username, logtext, date) VALUES ('" + player.getDisplayName() + "','"
-				+ query + "','" + dateFormat.format(date) + "');");
-		connection.returnConnection();
+		PassiveDatabaseWorker.addRequest(new SQLLogSQLPlugin(query));
 	}
 
 	/**

@@ -20,6 +20,8 @@ import com.rs.net.host.HostListType;
 import com.rs.net.host.HostManager;
 import com.rs.net.packets.logic.LogicPacketDispatcher;
 import com.rs.net.packets.outgoing.OutgoingPacketDispatcher;
+import com.rs.network.sql.GameDatabase;
+import com.rs.network.sql.PassiveDatabaseWorker;
 import com.rs.plugin.CommandPluginDispatcher;
 import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.plugin.NPCPluginDispatcher;
@@ -118,5 +120,11 @@ public class GameLoader {
 			GenericNPCDispatcher.load();
 			PassiveSpellDispatcher.load();
 		});
+		getBackgroundLoader().submit(() -> {
+        	if (GameConstants.SQL_ENABLED) {
+    			GameDatabase.initializeWebsiteDatabases();
+    			PassiveDatabaseWorker.initialize();
+    		}
+        });
 	}
 }
