@@ -38,7 +38,7 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 	 * @param player the player this skill action is for.
 	 * @param position the position the player should face.
 	 */
-	public HarvestingSkillAction(Player player, WorldTile position) {
+	public HarvestingSkillAction(Player player, Optional<WorldTile> position) {
 		super(player, position);
 	}
 	

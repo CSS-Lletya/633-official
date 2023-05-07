@@ -1,5 +1,7 @@
 package skills;
 
+import java.util.Optional;
+
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
@@ -26,7 +28,7 @@ public abstract class DestructionSkillAction extends SkillHandler {
 	 * @param player the player this skill action is for.
 	 * @param position the position the player should face.
 	 */
-	public DestructionSkillAction(Player player, WorldTile position) {
+	public DestructionSkillAction(Player player, Optional<WorldTile> position) {
 		super(player, position);
 	}
 	
@@ -42,7 +44,7 @@ public abstract class DestructionSkillAction extends SkillHandler {
 	
 	@Override
 	public final void execute(Task t) {
-		if(getPlayer().getInventory().getAmountOf(destructItem().getAmount()) >= 0) {
+		if(getPlayer().getInventory().canRemove(destructItem().getId(), destructItem().getAmount())) {
 			onDestruct(t, true);
 			player.getSkills().addXp(getSkillId(), experience());
 			return;

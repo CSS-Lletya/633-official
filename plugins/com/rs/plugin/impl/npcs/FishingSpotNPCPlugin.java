@@ -1,5 +1,7 @@
 package com.rs.plugin.impl.npcs;
 
+import java.util.Optional;
+
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.NPCType;
@@ -18,32 +20,32 @@ public class FishingSpotNPCPlugin implements NPCType {
 				if (i == 312 || i == 313 || i == 316)
 					continue;
 				if (mob.getId() == i) {
-					Fishing lobster_pot = new Fishing(player, Tool.LOBSTER_POT, mob.getLastWorldTile());
+					Fishing lobster_pot = new Fishing(player, Tool.LOBSTER_POT, Optional.of(mob.getLastWorldTile()));
 					lobster_pot.start();
 				}
 			}
 			for (int i = 233; i < 235; i++) {
 				if (mob.getId() == i) {
-					Fishing fly_fishing = new Fishing(player, Tool.FLY_FISHING_ROD, mob.getLastWorldTile());
+					Fishing fly_fishing = new Fishing(player, Tool.FLY_FISHING_ROD, Optional.of(mob.getLastWorldTile()));
 					fly_fishing.start();
 				}
 			}
 			switch (mob.getId()) {
 			case 312:
-				Fishing big_net = new Fishing(player, Tool.BIG_NET, mob.getLastWorldTile());
+				Fishing big_net = new Fishing(player, Tool.BIG_NET, Optional.of(mob.getLastWorldTile()));
 				big_net.start();
 				break;
 			case 313:
-				Fishing net = new Fishing(player, Tool.NET, mob.getLastWorldTile());
+				Fishing net = new Fishing(player, Tool.NET, Optional.of(mob.getLastWorldTile()));
 				net.start();
 				break;
 			case 316:
 			case 319:
-				Fishing net_monkfish = new Fishing(player, Tool.NET_MONKFISH, mob.getLastWorldTile());
+				Fishing net_monkfish = new Fishing(player, Tool.NET_MONKFISH, Optional.of(mob.getLastWorldTile()));
 				net_monkfish.start();
 				break;
 			case 322:
-				Fishing lobster_pot = new Fishing(player, Tool.FISHING_ROD, mob.getLastWorldTile());
+				Fishing lobster_pot = new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile()));
 				lobster_pot.start();
 				break;
 			}
@@ -53,12 +55,12 @@ public class FishingSpotNPCPlugin implements NPCType {
 				if (i == 312 || i == 313 || i == 316)
 					continue;
 				if (mob.getId() == i) {
-					Fishing lobster_pot = new Fishing(player, Tool.HARPOON, mob.getLastWorldTile());
+					Fishing lobster_pot = new Fishing(player, Tool.HARPOON, Optional.of(mob.getLastWorldTile()));
 					lobster_pot.start();
 				}
 			}
 			if (mob.getId() == 312 || mob.getId() == 322) {
-				Fishing lobster_pot = new Fishing(player, Tool.SHARK_HARPOON, mob.getLastWorldTile());
+				Fishing lobster_pot = new Fishing(player, Tool.SHARK_HARPOON, Optional.of(mob.getLastWorldTile()));
 				lobster_pot.start();
 			}
 		}

@@ -33,7 +33,6 @@ public class InterfaceManager {
 		public static final int EQUIPMENT = 5;
 		public static final int PRAYER = 6;
 		public static final int MAGIC = 7;
-		@SuppressWarnings("unused")
 		public static final int SUMMONING = 8;// also tasks? 1056 TODO find
 		public static final int FRIENDS = 9;
 		public static final int IGNORES = 10;
@@ -153,7 +152,7 @@ public class InterfaceManager {
 		sendAchievement();
 		sendSummoning();
 		sendSkills();
-//		sendQuest();
+		sendQuest();
 		sendInventory();
 		sendEquipment();
 		sendPrayerBook();

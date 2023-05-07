@@ -268,4 +268,12 @@ public final class Inventory {
 		}
 		return true;
 	}
+
+	public boolean canRemove(int id, int amount) {
+		if (getAmountOf(id) >= amount) {
+			deleteItem(id, amount);
+			return true;
+		}
+		return getAmountOf(id) >= amount;
+	}
 }

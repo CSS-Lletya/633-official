@@ -64,7 +64,7 @@ public final class Pickpocketing extends Thieving {
 	 * @param mob the mob this player is stealing from.
 	 */
 	public Pickpocketing(Player player, PickpocketData data, NPC mob) {
-		super(player, mob.getLastWorldTile());
+		super(player, Optional.of(mob.getLastWorldTile()));
 		this.definition = data;
 		this.mob = mob;
 		this.loot = RandomUtils.random(definition.loot);

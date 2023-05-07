@@ -28,7 +28,7 @@ public abstract class ProducingSkillAction extends SkillHandler {
 	 * @param player the player this skill action is for.
 	 * @param position the position the player should face.
 	 */
-	public ProducingSkillAction(Player player, WorldTile position) {
+	public ProducingSkillAction(Player player, Optional<WorldTile> position) {
 		super(player, position);
 	}
 	

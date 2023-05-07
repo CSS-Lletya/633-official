@@ -22,11 +22,11 @@ public abstract class SkillHandler {
 
 	@Getter
 	public transient Player player;
-	public transient WorldTile tile;
+	public transient Optional<WorldTile> tile;
 	
-	public SkillHandler(Player player, WorldTile tile) {
+	public SkillHandler(Player player, Optional<WorldTile> position) {
 		this.player = player;
-		this.tile = tile;
+		this.tile = position;
 	}
 	
 	/**

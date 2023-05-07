@@ -206,4 +206,9 @@ public final class PlayerDetails {
 		watchMap.put("EMOTE", new Stopwatch());
 		watchMap.put("STUN", new Stopwatch());
 	}
+	
+	/**
+	 * Represents the stopwatch timer for Burying Bones
+	 */
+	private final Stopwatch boneBury = new Stopwatch();
 }

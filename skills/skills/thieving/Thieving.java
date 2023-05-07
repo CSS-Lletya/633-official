@@ -1,5 +1,7 @@
 package skills.thieving;
 
+import java.util.Optional;
+
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
@@ -19,7 +21,7 @@ public abstract class Thieving extends SkillHandler {
 	 * @param player the player performing this skill action.
 	 * @param position the position this player should face.
 	 */
-	public Thieving(Player player, WorldTile position) {
+	public Thieving(Player player, Optional<WorldTile> position) {
 		super(player, position);
 	}
 	

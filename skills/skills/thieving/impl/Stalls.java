@@ -42,7 +42,7 @@ public final class Stalls extends Thieving {
 	 * @param object the object this player is interacting with.
 	 */
 	public Stalls(Player player, StallData stall, GameObject object) {
-		super(player, object);
+		super(player, Optional.of(object));
 		this.stall = stall;
 		this.object = object;
 		this.loot = RandomUtils.random(stall.loot);

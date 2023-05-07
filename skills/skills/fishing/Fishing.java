@@ -15,7 +15,7 @@ public final class Fishing extends HarvestingSkillAction {
 	
 	private final Tool tool;
 	
-	public Fishing(Player player, Tool tool, WorldTile position) {
+	public Fishing(Player player, Tool tool, Optional<WorldTile> position) {
 		super(player, position);
 		this.tool = tool;
 	}
