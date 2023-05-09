@@ -234,14 +234,14 @@ public class EntityMovement {
 
 	/**
 	 * Sets the Player's Run enegery to a specific amount
-	 * @param runEnergy
+	 * @param d
 	 */
-	public void setRunEnergy(int runEnergy) {
-		if (runEnergy < 0)
-			runEnergy = 0;
-		else if (runEnergy > 100)
-			runEnergy = 100;
-		getEntity().toPlayer().getDetails().setRunEnergy((byte) runEnergy);
+	public void setRunEnergy(double d) {
+		if (d < 0)
+			d = 0;
+		else if (d > 100)
+			d = 100;
+		getEntity().toPlayer().getDetails().setRunEnergy((byte) d);
 		getEntity().toPlayer().getPackets().sendRunEnergy();
 	}
 }

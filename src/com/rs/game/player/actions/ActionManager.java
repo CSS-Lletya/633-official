@@ -79,4 +79,12 @@ public final class ActionManager {
 	public void addActionDelay(int delay) {
 		this.actionDelay += delay;
 	}
+	
+	public boolean getPresentAction(Class<?> action, Runnable doFunction) {
+		if (getAction().isPresent() && action.isInstance(getAction().get())) {
+			doFunction.run();
+			return true;
+		}
+		return false;
+	}
 }

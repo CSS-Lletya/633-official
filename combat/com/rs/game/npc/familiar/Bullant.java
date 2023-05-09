@@ -47,7 +47,7 @@ public class Bullant extends Familiar {
 			return false;
 		}
 		int agilityLevel = getOwner().getSkills().getLevel(Skills.AGILITY);
-		int runEnergy = player.getDetails().getRunEnergy() + (Math.round(agilityLevel / 2));
+		double runEnergy = player.getDetails().getRunEnergy() + (Math.round(agilityLevel / 2));
 		if (runEnergy > 100)
 			runEnergy = 100;
 		player.setNextGraphics(new Graphics(1300));

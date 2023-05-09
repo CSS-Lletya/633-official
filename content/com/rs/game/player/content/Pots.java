@@ -286,14 +286,14 @@ public final class Pots {
 		ENERGY_POTION() {
 			@Override
 			public void extra(Player player) {
-				int restoredEnergy = player.getDetails().getRunEnergy() + 20;
+				double restoredEnergy = player.getDetails().getRunEnergy() + 20;
 				player.getMovement().setRunEnergy(restoredEnergy > 100 ? 100 : restoredEnergy);
 			}
 		},
 		SUPER_ENERGY() {
 			@Override
 			public void extra(Player player) {
-				int restoredEnergy = player.getDetails().getRunEnergy() + 40;
+				double restoredEnergy = (player.getDetails().getRunEnergy() + 40);
 				player.getMovement().setRunEnergy(restoredEnergy > 100 ? 100 : restoredEnergy);
 			}
 		},
@@ -709,7 +709,7 @@ public final class Pots {
 		Pot pot = getPot(item.getId());
 		if (pot == null)
 			return false;
-		if (!player.getDetails().getWatchMap().get("DRINKS").elapsed(1800)) {
+		if (!player.getDetails().getDrinks().elapsed(1800)) {
 			return false;
 		}
 		if (player.getMapZoneManager().execute(player, controller -> !controller.canPot(player, pot))) {
@@ -717,7 +717,7 @@ public final class Pots {
 		}
 		if (!pot.effect.canDrink(player))
 			return true;
-		player.getDetails().getWatchMap().get("DRINKS").reset();
+		player.getDetails().getDrinks().reset();
 		pot.effect.extra(player);
 		int dosesLeft = getDoses(pot, item) - 1;
 		if (dosesLeft == 0 && pot.isFlask())
