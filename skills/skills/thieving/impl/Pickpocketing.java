@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
+import com.rs.game.player.Hit;
+import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -102,10 +104,10 @@ public final class Pickpocketing extends Thieving {
 			getPlayer().getPackets().sendGameMessage("You don't have enough inventory space for the loot.");
 			return false;
 		}
-		if (!player.getDetails().getWatchMap().get("STUN").elapsed(1800)) {
+		if (!player.getDetails().getThievingStun().elapsed(1800)) {
 			return false;
 		}
-		player.getDetails().getWatchMap().get("STUN").reset();
+		player.getDetails().getThievingStun().reset();
 		return true;
 	}
 
@@ -127,11 +129,11 @@ public final class Pickpocketing extends Thieving {
 				mob.setNextAnimation(new Animation(mob.getCombatDefinitions().getAttackAnim()));
 			else
 				mob.setNextAnimation(NPC_ANIMATION);
-//			int hit = RandomUtils.inclusive(1, definition.damage);
-//			getPlayer().damage(new Hit(hit, Hitsplat.NORMAL, HitIcon.NONE));
+			int hit = RandomUtils.inclusive(1, definition.damage);
+			getPlayer().applyHit(new Hit(player, hit, HitLook.MELEE_DAMAGE));
 			getPlayer().setNextAnimation(STUN_ANIMATION);
 			getPlayer().setNextGraphics(STUN_GRAPHIC);
-			getPlayer().getMovement().lock(definition.seconds + 2);
+			getPlayer().getMovement().lock(definition.seconds);
 		} else {
 			getPlayer().getInventory().addItem(loot);
 			getPlayer().getPackets().sendGameMessage("You pick the victims pocket.");
@@ -208,16 +210,14 @@ public final class Pickpocketing extends Thieving {
 
 		/**
 		 * The amount of damage this players get inflicted upon failing to pickpocket this mob.
-		 * TODO: Fix Player hitbar
 		 */
-		@SuppressWarnings("unused")
 		private final int damage;
 
 		private PickpocketData(int[] npcId, Item[] loot, int requirement, double experience, int seconds, int damage) {
 			this.npcId = npcId;
 			this.loot = loot;
 			this.requirement = requirement;
-			this.experience = experience / 2;
+			this.experience = experience;
 			this.seconds = seconds;
 			this.damage = damage;
 		}

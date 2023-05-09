@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.npcs;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import com.rs.game.npc.NPC;
@@ -14,12 +15,13 @@ import skills.thieving.impl.Pickpocketing.PickpocketData;
 		18, 187, 9, 10, 5920, 3408, 1880, 1881, 1926, 1927, 1928, 1929, 1930, 1931, 23, 26, 1883, 1884, 32, 1904, 1905,
 		20, 365, 2256, 66, 67, 68, 2234, 2235, 3299, 21, 7882 })
 public class ThievableNPCPlugin implements NPCType {
-	
+
 	@Override
 	public void execute(Player player, NPC npc, int option) throws Exception {
-		for (PickpocketData data : PickpocketData.values()) {
-			Pickpocketing thieving = new Pickpocketing(player, data, npc);
-			IntStream.of(data.npcId).filter(mob -> mob == npc.getId()).forEach(mob -> thieving.start());
-		}
+		npc.getDefinitions().doAction(option, "Pickpocket", () -> {
+			Arrays.stream(PickpocketData.values()).forEach(data -> IntStream.of(data.npcId)
+					.filter(mob -> mob == npc.getId())
+					.forEach(mob -> new Pickpocketing(player, data, npc).start()));
+		});
 	}
 }

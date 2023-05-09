@@ -112,6 +112,7 @@ public final class SkillActionTask extends Task {
 			}
 			action.execute(this);
 			if(!action.animationDelay().isPresent()) {
+				player.getMovement().lock(action.delay());
 				action.animation().ifPresent(player::setNextAnimation);
 			}
 			counter = 0;
