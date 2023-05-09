@@ -328,7 +328,7 @@ public class WorldPacketsEncoder extends Encoder {
 	public WorldPacketsEncoder sendRunEnergy() {
 		OutputStream stream = new OutputStream(2);
 		stream.writePacket(getPlayer(), 83);
-		stream.writeByte(getPlayer().getDetails().getRunEnergy());
+		stream.writeByte((int) getPlayer().getDetails().getRunEnergy());
 		getSession().write(stream);
 		return this;
 	}
@@ -512,10 +512,9 @@ public class WorldPacketsEncoder extends Encoder {
 		return this;
 	}
 
-	public WorldPacketsEncoder sendLogout(boolean lobby) {
-		// Highscores.highscores(getPlayer(), null);
+	public WorldPacketsEncoder sendLogout() {
 		OutputStream stream = new OutputStream();
-		stream.writePacket(getPlayer(), lobby ? 26 : 26); // idk lobby
+		stream.writePacket(getPlayer(), 26);
 		ChannelFuture future = getSession().writeWithFuture(stream);
 		if (future != null)
 			future.addListener(ChannelFutureListener.CLOSE);

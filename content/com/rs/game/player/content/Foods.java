@@ -531,7 +531,7 @@ public class Foods {
 		Food food = Food.forId(item.getId());
 		if (food == null)
 			return false;
-		if (!player.getDetails().getWatchMap().get("FOOD").elapsed(1800)) {
+		if (!player.getDetails().getFood().elapsed(1800)) {
 			return false;
 		}
 		if (player.getMapZoneManager().execute(player, controller -> !controller.canEat(player, food))) {
@@ -542,7 +542,7 @@ public class Foods {
 		player.setNextAnimationNoPriority(EAT_ANIM);
 		long foodDelay = name.contains("half") ? 600 : 1800;
 		player.getAction().setActionDelay((int) foodDelay / 1000);
-		player.getDetails().getWatchMap().get("FOOD").reset();
+		player.getDetails().getFood().reset();
 		player.getInventory().getItems().set(slot, food.getNewId() == 0 ? null : new Item(food.getNewId(), 1));
 		player.getInventory().refresh(slot);
 		int hp = player.getHitpoints();

@@ -169,7 +169,7 @@ public class Session {
 	 * 
 	 * @param lobby If we're logging out to the lobby.
 	 */
-	public void logout(Player player, boolean lobby) {
+	public void logout(Player player) {
 		if (!player.isRunning())
 			return;
 		long currentTime = Utility.currentTimeMillis();
@@ -185,12 +185,12 @@ public class Session {
 			player.getPackets().sendGameMessage("You can't log out while performing an action.");
 			return;
 		}
-		player.getPackets().sendLogout(lobby);
+		player.getPackets().sendLogout();
 		player.setRunning(false);
 	}
 
 	public void forceLogout(Player player) {
-		player.getPackets().sendLogout(false);
+		player.getPackets().sendLogout();
 		player.setRunning(false);
 		realFinish(player, false);
 	}

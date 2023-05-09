@@ -79,10 +79,10 @@ public final class Stalls extends Thieving {
 			getPlayer().getPackets().sendGameMessage("You don't have enough inventory space for the loot.");
 			return false;
 		}
-//		if (!player.getDetails().getWatchMap().get("STUN").elapsed(1800)) {
-//			return false;
-//		}
-//		player.getDetails().getWatchMap().get("STUN").reset();
+		if (!player.getDetails().getThievingStun().elapsed(1800)) {
+			return false;
+		}
+		player.getDetails().getThievingStun().reset();
 		return true;
 	}
 

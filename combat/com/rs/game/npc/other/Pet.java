@@ -65,19 +65,12 @@ public final class Pet extends NPC {
 		this.details = details;
 		this.pet = Pets.forId(itemId);
 		setRun(true);
-		if (pet == Pets.TROLL_BABY && owner.getPetManager().getTrollBabyName() != null) {
-			getDefinitions().setName(owner.getPetManager().getTrollBabyName());
-		}
 		sendMainConfigurations();
 	}
 
 	@Override
 	public void processNPC() {
 		unlockOrb();
-		if (pet == Pets.TROLL_BABY || pet.getFood().length > 0) {
-			details.updateHunger(0.025);
-			owner.getVarsManager().sendVarBit(4286, (int) details.getHunger());
-		}
 		if (details.getHunger() >= 90.0 && details.getHunger() < 90.025) {
 			owner.getPackets().sendGameMessage("<col=ff0000>Your pet is starving, feed it before it runs off.</col>");
 		} else if (details.getHunger() == 100.0) {
@@ -139,6 +132,7 @@ public final class Pet extends NPC {
 	 * Picks up the pet.
 	 */
 	public void pickup() {
+		owner.getInterfaceManager().openGameTab(4);
 		owner.getInventory().addItem(itemId, 1);
 		owner.setPet(null);
 		owner.getPetManager().setNpcId(-1);
@@ -205,7 +199,6 @@ public final class Pet extends NPC {
 		switchOrb(true);
 		owner.getVarsManager().sendVar(InterfaceVars.PET_ITEM_ID, itemId);// configures
 		owner.getVarsManager().sendVar(InterfaceVars.PET_HEAD_ANIMATION, 243269632); // sets npc emote
-		owner.getPackets().sendGlobalConfig(1436, 0);
 		unlockOrb(); // temporary
 	}
 
@@ -218,7 +211,6 @@ public final class Pet extends NPC {
 		boolean res = owner.getInterfaceManager().isResizableScreen();
 		owner.getInterfaceManager().setWindowInterface(res ? 128 : 188, 662);
 		unlock();
-		owner.getInterfaceManager().openGameTab(95);
 	}
 
 	/**
@@ -240,6 +232,7 @@ public final class Pet extends NPC {
 	 */
 	public void unlockOrb() {
 		owner.getPackets().sendHideIComponent(747, 9, false);
+		owner.getVarsManager().sendVar(1160, -1); // unlock summoning orb
 		Familiar.sendLeftClickOption(owner);
 	}
 
@@ -255,6 +248,7 @@ public final class Pet extends NPC {
 	 */
 	public void lockOrb() {
 		owner.getPackets().sendHideIComponent(747, 9, true);
+		owner.getVarsManager().sendVar(1160, 0); // unlock summoning orb
 	}
 
 	/**

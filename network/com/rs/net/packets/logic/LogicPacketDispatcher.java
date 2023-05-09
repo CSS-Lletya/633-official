@@ -1,6 +1,5 @@
 package com.rs.net.packets.logic;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.IncompleteAnnotationException;
 import java.util.List;
 import java.util.Map.Entry;
@@ -52,14 +51,12 @@ public class LogicPacketDispatcher {
 	}
 
 	private static boolean isPacket(LogicPacket outgoingPacket, int packetId) {
-		Annotation annotation = outgoingPacket.getClass().getAnnotation(LogicPacketSignature.class);
-		LogicPacketSignature signature = (LogicPacketSignature) annotation;
+		LogicPacketSignature signature = outgoingPacket.getClass().getAnnotation(LogicPacketSignature.class);
 		return signature.packetId() == packetId;
 	}
 	
 	private static boolean matchesSize(LogicPacket outgoingPacket, int size) {
-		Annotation annotation = outgoingPacket.getClass().getAnnotation(LogicPacketSignature.class);
-		LogicPacketSignature signature = (LogicPacketSignature) annotation;
+		LogicPacketSignature signature = outgoingPacket.getClass().getAnnotation(LogicPacketSignature.class);
 		return signature.packetSize() == 0 || signature.packetSize() == size;
 	}
 

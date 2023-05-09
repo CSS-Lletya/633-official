@@ -8,7 +8,6 @@ import com.rs.utilities.MutableNumber;
 import com.rs.utilities.Stopwatch;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 
@@ -36,8 +35,6 @@ public final class PlayerDetails {
 		ownedObjectsManagerKeys = new ObjectArrayList<String>();
 		passwordList = new ObjectArrayList<String>();
 		ipList = new ObjectArrayList<String>();
-		if (watchMap == null) 
-			watchMap = new Object2ObjectOpenHashMap<>();
 	}
 
 	/**
@@ -106,13 +103,7 @@ public final class PlayerDetails {
 	/**
 	 * The Run Engery amount a Player has
 	 */
-	private byte runEnergy;
-	
-	/**
-	 * A collection of Stopwatches
-	 */
-	
-	private Object2ObjectOpenHashMap<String, Stopwatch> watchMap = new Object2ObjectOpenHashMap<>();
+	private double runEnergy;
 
 	/**
 	 * Should the Player use Chat effects for overhead text
@@ -197,18 +188,7 @@ public final class PlayerDetails {
 	private Optional<AntifireDetails> antifireDetails = Optional.empty();
 	
 	/**
-	 * Populates the {@link #watchMap}
+	 * A collection of stopwatch timers
 	 */
-	{
-		watchMap.put("FOOD", new Stopwatch());
-		watchMap.put("DRINKS", new Stopwatch());
-		watchMap.put("TOLERANCE", new Stopwatch());
-		watchMap.put("EMOTE", new Stopwatch());
-		watchMap.put("STUN", new Stopwatch());
-	}
-	
-	/**
-	 * Represents the stopwatch timer for Burying Bones
-	 */
-	private final Stopwatch boneBury = new Stopwatch();
+	private Stopwatch boneBury = new Stopwatch(), thievingStun = new Stopwatch(), drinks = new Stopwatch(), food = new Stopwatch(), tolerance = new Stopwatch();
 }

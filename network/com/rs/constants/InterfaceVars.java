@@ -10,6 +10,9 @@ import com.rs.game.player.content.MusicsManager;
  * Some contents may be excluded due to the nature of usages via for loops, such.
  * ({@link MusicsManager}
  * 
+ * Thanks to Gregs open source repo, we have a list of varps to operate with
+ * https://github.com/GregHib/void/blob/main/data/definitions/variables-player.yml
+ * 
  * @author Dennis
  *
  */

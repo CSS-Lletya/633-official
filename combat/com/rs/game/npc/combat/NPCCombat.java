@@ -118,7 +118,7 @@ public final class NPCCombat {
 		int size = npc.getSize();
 		int maxDistance;
 		Player player = (Player) target;
-		boolean agressive = player.getDetails().getWatchMap().get("TOLERANCE").elapsed(GameConstants.TOLERANCE_SECONDS,
+		boolean agressive = player.getDetails().getTolerance().elapsed(GameConstants.TOLERANCE_SECONDS,
 				TimeUnit.SECONDS);
 		if (agressive) {
 			npc.resetCombat();

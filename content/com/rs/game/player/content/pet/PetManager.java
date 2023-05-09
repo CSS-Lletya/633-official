@@ -4,12 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.rs.cache.loaders.ItemDefinitions;
-import com.rs.game.item.Item;
-import com.rs.game.item.ItemConstants;
 import com.rs.game.npc.other.Pet;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
-import com.rs.net.encoders.other.ForceTalk;
 
 import lombok.Data;
 
@@ -41,11 +38,6 @@ public final class PetManager {
 	 * The current item id.
 	 */
 	private int itemId;
-
-	/**
-	 * The troll baby's name (if any).
-	 */
-	private String trollBabyName;
 
 	/**
 	 * Constructs a new {@code PetManager} {@code Object}.
@@ -117,22 +109,6 @@ public final class PetManager {
 	public void eat(int foodId, Pet npc) {
 		Pets pets = Pets.forId(itemId);
 		if (pets == null) {
-			return;
-		}
-		if (pets == Pets.TROLL_BABY) {
-			if (!ItemConstants.isTradeable(new Item(foodId))) {
-				npc.setNextForceTalk(new ForceTalk("I no like that!"));
-				return;
-			}
-			if (trollBabyName == null) {
-				trollBabyName = ItemDefinitions.getItemDefinitions(foodId).getName();
-				npc.getDefinitions().setName(trollBabyName);
-				npc.setNextForceTalk(new ForceTalk("YUM! Me likes " + trollBabyName + "!"));
-			}
-			player.getInventory().deleteItem(foodId, 1);
-			npc.getDetails().updateHunger(-15.0);
-			player.getPackets().sendGameMessage(
-					"Your pet happily eats the " + ItemDefinitions.getItemDefinitions(foodId).getName() + ".");
 			return;
 		}
 		for (int food : pets.getFood()) {
