@@ -36,11 +36,11 @@ public final class World {
 
 	@Getter
 	@Setter
-	private short exiting_delay;
+	public short exiting_delay;
 	
 	@Getter
 	@Setter
-	private long exiting_start;
+	public long exiting_start;
 
 	private static final Predicate<Player> VALID_PLAYER = (player) -> player != null && player.isStarted() && !player.isFinished();
 	private static final Predicate<NPC> VALID_NPC = (npc) -> npc != null && !npc.isFinished();

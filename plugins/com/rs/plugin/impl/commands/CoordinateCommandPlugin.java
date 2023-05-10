@@ -11,7 +11,7 @@ import com.rs.plugin.wrapper.CommandSignature;
  * @author Dennis
  *
  */
-@CommandSignature(alias = {"coord", "coords"}, rights = {Rights.ADMINISTRATOR}, syntax = "Get your current coordinate")
+@CommandSignature(alias = {"coord", "coords", "mypos", "pos"}, rights = {Rights.ADMINISTRATOR}, syntax = "Get your current coordinate")
 public final class CoordinateCommandPlugin implements Command {
 	
 	@Override

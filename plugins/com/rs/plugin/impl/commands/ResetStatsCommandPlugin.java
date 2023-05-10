@@ -15,17 +15,17 @@ import skills.Skills;
  * @author Dennis
  *
  */
-@CommandSignature(alias = {"max", "master"}, rights = {Rights.PLAYER}, syntax = "Unlock all skills to 99")
-public final class MasterCommandPlugin implements Command {
+@CommandSignature(alias = {"reset", "rs", "resetskills"}, rights = {Rights.PLAYER}, syntax = "Resets all your skills back to level 1")
+public final class ResetStatsCommandPlugin implements Command {
 	
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
 		IntStream.rangeClosed(0, 23).forEach(skill -> {
-			 player.getSkills().set(skill, 99);
-			 player.getSkills().setXp(skill, Skills.getXPForLevel(99));
+			 player.getSkills().set(skill, 1);
+			 player.getSkills().setXp(skill, Skills.getXPForLevel(1));
 		});
-        player.getSkills().set(24, 120);
-        player.getSkills().setXp(24, Skills.getXPForLevel(120));
+        player.getSkills().set(24, 1);
+        player.getSkills().setXp(24, Skills.getXPForLevel(1));
         player.getAppearance().generateAppearenceData();
 	}
 }

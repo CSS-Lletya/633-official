@@ -6,8 +6,6 @@ import com.rs.game.player.Rights;
 import com.rs.plugin.listener.Command;
 import com.rs.plugin.wrapper.CommandSignature;
 
-import io.vavr.control.Try;
-
 @CommandSignature(alias = {"tele"}, rights = {Rights.ADMINISTRATOR}, syntax = "Teleports you to a specified location")
 public final class TeleportCommandPlugin implements Command {
 	

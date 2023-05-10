@@ -192,8 +192,10 @@ public final class CombatDefinitions {
 	public void setSpellBook(int id) {
 		if (id == 3)
 			dungeonneringSpellBook = true;
-		else
+		else {
 			spellBook = (byte) id;
+			dungeonneringSpellBook = false;
+		}
 		refreshSpellBookScrollBar_DefCast();
 		player.getInterfaceManager().sendMagicBook();
 	}

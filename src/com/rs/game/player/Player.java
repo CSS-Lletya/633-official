@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.alex.utils.VarsManager;
 import com.rs.GameConstants;
-import com.rs.constants.InterfaceVars;
 import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.MapZoneManager;
 import com.rs.game.Entity;
@@ -432,6 +431,10 @@ public class Player extends Entity {
 	 * Sends important information & data for login for the player to see
 	 */
 	public void login() {
+		if (World.get().exiting_start != 0) {
+			int delayPassed = (int) ((Utility.currentTimeMillis() - World.get().exiting_start) / 1000);
+			getPackets().sendSystemUpdate(World.get().exiting_delay - delayPassed);
+		}
 		getDetails().setLastIP(getSession().getIP());
 		getInterfaceManager().sendInterfaces();
 		getPackets().sendRunEnergy().sendGameBarStages().sendGameMessage("Welcome to " + GameConstants.SERVER_NAME + ".");
