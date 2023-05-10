@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.alex.utils.VarsManager;
 import com.rs.GameConstants;
+import com.rs.constants.InterfaceVars;
 import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.MapZoneManager;
 import com.rs.game.Entity;
@@ -434,12 +435,9 @@ public class Player extends Entity {
 		getDetails().setLastIP(getSession().getIP());
 		getInterfaceManager().sendInterfaces();
 		getPackets().sendRunEnergy().sendGameBarStages().sendGameMessage("Welcome to " + GameConstants.SERVER_NAME + ".");
-		getInterfaceManager().sendRunButtonConfig();
 		CombatEffect.values().parallelStream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
 		GameConstants.STAFF.entrySet().parallelStream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
 		getVarsManager().varMap.forEach((k, v) -> getVarsManager().sendVar(k, v));
-		getInterfaceManager().sendDefaultPlayersOptions();
-		checkMultiArea();
 		getInventory().init();
 		getEquipment().checkItems();
 		getEquipment().init();
@@ -447,7 +445,6 @@ public class Player extends Entity {
 		getCombatDefinitions().init();
 		getPrayer().init();
 		getFriendsIgnores().init();
-		getInterfaceManager().refreshHitPoints();
 		getPrayer().refreshPrayerPoints();
 		getMusicsManager().init();
 		getNotes().init();
@@ -457,10 +454,9 @@ public class Player extends Entity {
 			getPetManager().init();
 		setRunning(true);
 		setUpdateMovementType(true);
+		OwnedObjectManager.linkKeys(this);
 		getAppearance().generateAppearenceData();
 		getMapZoneManager().execute(this, controller -> controller.login(this));
-		OwnedObjectManager.linkKeys(this);
-		
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
 			GameConstants.STATER_KIT.forEach(getInventory()::addItem);
 			HostManager.add(this, HostListType.STARTER_RECEIVED, true);

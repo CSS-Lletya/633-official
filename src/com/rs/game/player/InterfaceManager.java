@@ -114,9 +114,8 @@ public class InterfaceManager {
 				isResizableScreen() ? RESIZABLE_INV_COMPONENT_ID : FIXED_INV_COMPONENT_ID, interfaceId);
 	}
 
-	public final void sendInterfaces() {
+	public void sendInterfaces() {
 		setResizableScreen(player.getDisplayMode() == 2 || player.getDisplayMode() == 3 ? true : false);
-		sendGameInterfaces();
 		player.getCombatDefinitions().sendUnlockAttackStylesButtons();
 		player.getMusicsManager().unlockMusicPlayer();
 		player.getInventory().unlockInventoryOptions();
@@ -124,6 +123,7 @@ public class InterfaceManager {
 		if (player.getFamiliar() != null && player.isRunning())
 			player.getFamiliar().unlock();
 		player.getMapZoneManager().executeVoid(player, controller -> controller.sendInterfaces(player));
+		sendGameInterfaces();
 	}
 
 	public boolean containsReplacedChatBoxInter() {
@@ -143,16 +143,18 @@ public class InterfaceManager {
 	}
 
 	public void sendGameInterfaces() {
+		player.task(2, p -> setInterface(true, 752, 9, 137));
 		setDefaultRootInterface();
 		sendOrbs();
-		sendChatOptions();
-		sendChatBox();
+		refreshHitPoints();
+		sendDefaultPlayersOptions();
+		sendRunButtonConfig();
 		sendPMChatArea();
 		sendCombatStyles();
 		sendAchievement();
 		sendSummoning();
 		sendSkills();
-		sendQuest();
+//		sendQuest();
 		sendInventory();
 		sendEquipment();
 		sendPrayerBook();
@@ -165,8 +167,9 @@ public class InterfaceManager {
 		sendFriends();
 		sendClanChat();
 		sendLogout();
-		setInterface(true, 752, 9, 137); // chatbox
-		player.getVarsManager().sendVar(InterfaceVars.CLOSE_CHAT_TOOLBELT, 1000); // unlocks close chat/inv fully
+		sendChatBox();
+		sendChatOptions();
+		player.getVarsManager().sendVar(InterfaceVars.CLOSE_CHAT_TOOLBELT, 1000);
 	}
 
 	public void sendOrbs() {
