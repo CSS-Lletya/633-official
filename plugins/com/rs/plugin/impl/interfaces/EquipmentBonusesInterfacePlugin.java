@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.interfaces;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
@@ -7,6 +8,7 @@ import com.rs.game.player.Player;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterface;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
+import com.rs.utilities.ItemExamines;
 import com.rs.utilities.loaders.ItemBonuses;
 
 @RSInterfaceSignature(interfaceId = { 667 })
@@ -37,6 +39,12 @@ public class EquipmentBonusesInterfacePlugin implements RSInterface {
 				RSInterfacePluginDispatcher.sendRemove(player, Equipment.SLOT_RING);
 			if (slotId == 5)
 				RSInterfacePluginDispatcher.sendRemove(player, Equipment.SLOT_SHIELD);
+		}
+		if (componentId == 7 && packetId == 12) {
+			Item item = player.getEquipment().getItem(slotId);
+			if (item == null)
+				return;
+			player.getPackets().sendGameMessage(ItemExamines.getExamine(item));
 		}
 		if (packetId == 74 && componentId == 7) {
 			if (slotId >= player.getInventory().getItemsContainerSize())

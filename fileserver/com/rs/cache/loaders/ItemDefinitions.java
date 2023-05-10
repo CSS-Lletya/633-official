@@ -6,6 +6,7 @@ import com.rs.game.item.Item;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
 import com.rs.io.InputStream;
+import com.rs.utilities.EquipData;
 import com.rs.utilities.loaders.ItemBonuses;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
@@ -534,6 +535,11 @@ public final class ItemDefinitions {
 	}
 
 	private final void readValues(InputStream stream, int opcode) {
+		if (EquipData.canEquip(id) && equipSlot == -1) {
+			equipSlot = EquipData.getEquipSlot(id);
+			if (EquipData.getEquipType(id) > -1)
+				equipType = EquipData.getEquipType(id);
+		}
 		if (opcode == 1)
 			modelId = stream.readUnsignedShort();
 		else if (opcode == 2)

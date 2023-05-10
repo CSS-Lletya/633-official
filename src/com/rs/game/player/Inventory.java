@@ -4,6 +4,7 @@ import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemsContainer;
 import com.rs.game.map.WorldTile;
+import com.rs.utilities.ItemExamines;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -244,7 +245,7 @@ public final class Inventory {
 		Item item = items.get(slotId);
 		if (item == null)
 			return;
-//		player.getPackets().sendGameMessage(ItemExamines.getExamine(item));
+		player.getPackets().sendGameMessage(ItemExamines.getExamine(item));
 	}
 
 	public void refresh() {

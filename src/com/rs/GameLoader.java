@@ -27,6 +27,8 @@ import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.plugin.NPCPluginDispatcher;
 import com.rs.plugin.ObjectPluginDispatcher;
 import com.rs.plugin.RSInterfacePluginDispatcher;
+import com.rs.utilities.EquipData;
+import com.rs.utilities.ItemExamines;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.json.GsonHandler;
@@ -87,6 +89,8 @@ public class GameLoader {
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Bonuses.");
 			ItemBonuses.init();
+			EquipData.init();
+			ItemExamines.init();
 			Censor.init();
 			NPCCombatDefinitionsL.init();
 			NPCBonuses.init();

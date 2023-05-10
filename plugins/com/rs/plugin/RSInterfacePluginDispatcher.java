@@ -152,8 +152,6 @@ public final class RSInterfacePluginDispatcher {
 			player.getPackets().sendGameMessage("You can't wear that.");
 			return true;
 		}
-		if (!ItemConstants.canWear(item, player))
-			return true;
 		boolean isTwoHandedWeapon = targetSlot == 3 && Equipment.isTwoHandedWeapon(item);
 		if (isTwoHandedWeapon && !player.getInventory().hasFreeSlots() && player.getEquipment().hasShield()) {
 			player.getPackets().sendGameMessage("Not enough free space in your inventory.");

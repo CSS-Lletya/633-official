@@ -24,6 +24,7 @@ import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterface;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
+import com.rs.utilities.EquipData;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
@@ -45,6 +46,10 @@ public class InventoryInterfacePlugin implements RSInterface {
 				return;
 			
 			switch(packetId) {
+			case 12:
+				player.getInventory().sendExamine(slotId);
+				InventoryPluginDispatcher.execute(player, item, 8);
+				break;
 			case WorldPacketsDecoder.ACTION_BUTTON1_PACKET:
 				InventoryPluginDispatcher.execute(player, item, 1);
 				break;
@@ -120,10 +125,6 @@ public class InventoryInterfacePlugin implements RSInterface {
 					return;
 				FloorItem.createGroundItem(item, new WorldTile(player), player, false, 180, true);
 				player.getPackets().sendSound(2739, 0, 1);
-				break;
-			case 81:
-				player.getInventory().sendExamine(slotId);
-				InventoryPluginDispatcher.execute(player, item, 8);
 				break;
 			}
 		}
@@ -216,7 +217,7 @@ public class InventoryInterfacePlugin implements RSInterface {
 			player.getPackets().sendGameMessage("You can't wear that.");
 			return false;
 		}
-		int targetSlot = Equipment.getItemSlot(itemId);
+		int targetSlot = EquipData.getEquipSlot(itemId);
 		finalSlot = targetSlot;
 		if (itemId == 4084)
 			targetSlot = 3;
