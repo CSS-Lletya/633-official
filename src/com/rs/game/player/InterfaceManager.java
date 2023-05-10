@@ -166,6 +166,7 @@ public class InterfaceManager {
 		sendClanChat();
 		sendLogout();
 		setInterface(true, 752, 9, 137); // chatbox
+		player.getVarsManager().sendVar(InterfaceVars.CLOSE_CHAT_TOOLBELT, 1000); // unlocks close chat/inv fully
 	}
 
 	public void sendOrbs() {

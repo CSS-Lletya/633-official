@@ -301,4 +301,11 @@ public interface InterfaceVars {
 	 * Represents the targets item being modified in a trade screen
 	 */
 	int TRADE_TARGET_ITEM_MODIFIED = 1043;
+	
+	/**
+	 * This allows you to close your chatbox interface entirely as well as your 
+	 * toolbelt slots (skill tab, such). This feature is disabled by default
+	 * cause of the tutorial islands.
+	 */
+	int CLOSE_CHAT_TOOLBELT = 281;
 }
