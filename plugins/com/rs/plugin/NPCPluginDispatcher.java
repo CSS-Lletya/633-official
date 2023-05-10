@@ -84,6 +84,8 @@ public class NPCPluginDispatcher {
 	public static void load() {
 		List<NPCType> mobTypes = Utility.getClassesInDirectory("com.rs.plugin.impl.npcs").stream().map(clazz -> (NPCType) clazz).collect(Collectors.toList());
 		mobTypes.forEach(npc -> MOBS.put(npc.getClass().getAnnotation(NPCSignature.class), npc));
+		List<NPCType> mobTypesRegions = Utility.getClassesInDirectory("com.rs.plugin.impl.npcs.region").stream().map(clazz -> (NPCType) clazz).collect(Collectors.toList());
+		mobTypesRegions.forEach(npc -> MOBS.put(npc.getClass().getAnnotation(NPCSignature.class), npc));
 	}
 	
 	/**
