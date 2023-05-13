@@ -130,4 +130,11 @@ public interface Attribute {
 	 * This attribute is currently not in use.
 	 */
 	public String PC_ITEM_X_SLOT = "pc_item_X_Slot";
+	
+	/**
+	 * Represents the item that's being destroyed.
+	 * Destroying items can not be undone.
+	 */
+	public String DESTROY_ITEM_ID = "Destroy_Item";
+	
 }

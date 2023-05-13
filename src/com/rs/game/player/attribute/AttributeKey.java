@@ -60,6 +60,7 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.SHOP_SELECTED_INVENTORY, false);
 		AttributeKey.forTransient(Attribute.BANK_ITEM_X_SLOT, -1);
 		AttributeKey.forTransient(Attribute.PC_ITEM_X_SLOT, -1);
+		AttributeKey.forTransient(Attribute.DESTROY_ITEM_ID, -1);
 	}
 	
 	/**

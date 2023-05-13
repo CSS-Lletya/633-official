@@ -2,13 +2,15 @@ package com.rs.net.packets.outgoing.impl;
 
 import com.rs.GameConstants;
 import com.rs.game.dialogue.DialogueEventListener;
+import com.rs.game.item.Item;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacket;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.LogUtility;
-import com.rs.utilities.Utility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 61, description = "Represents an interaction with a Dialogue state")
 public class DialogueContinuePacket implements OutgoingPacket {
@@ -32,9 +34,16 @@ public class DialogueContinuePacket implements OutgoingPacket {
 			LogUtility.log(LogType.INFO, "Dialogue: " + interfaceId + ", " + buttonId
 					+ ", " + junk);
 		int componentId = interfaceHash - (interfaceId << 16);
+		
 		if (interfaceId == 740)
 			player.getInterfaceManager().closeChatBoxInterface();
-		if (DialogueEventListener.continueDialogue(player, componentId))
-			return;
+		if (interfaceId == 94) {
+			if (buttonId == 3) 
+				player.getInventory().deleteItem(new Item(player.getAttributes().get(Attribute.DESTROY_ITEM_ID).getInt()));
+			player.getInterfaceManager().closeChatBoxInterface();
+			player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(null);
+		}
+		
+		DialogueEventListener.continueDialogue(player, componentId);
 	}
 }

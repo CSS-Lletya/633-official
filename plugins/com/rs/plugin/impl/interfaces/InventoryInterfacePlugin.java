@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rs.GameConstants;
 import com.rs.cache.io.InputStream;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
@@ -15,6 +16,7 @@ import com.rs.game.npc.other.Pet;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.Foods;
 import com.rs.game.player.content.Pots;
 import com.rs.game.route.CoordsEvent;
@@ -112,10 +114,15 @@ public class InventoryInterfacePlugin implements RSInterface {
 					return;
 				}
 
-//				if (item.getDefinitions().isDestroyItem()) {
-//					DestroyItemD.INSTANCE.sendChatInterface(player, item);
-//					return;
-//				}
+				if (item.getDefinitions().isDestroyItem()) {
+					player.getInterfaceManager().sendChatBoxInterface(94);
+					player.getPackets().sendIComponentText(94, 2, "Are you sure you want to destroy this item?");
+					player.getPackets().sendIComponentText(94, 8, ItemDefinitions.getItemDefinitions(item.getId()).getName());
+					player.getPackets().sendIComponentText(94, 7, "<br>The item is undropable, and if dropped could possibly not be obtained again.");
+					player.getPackets().sendItemOnIComponent(94, 9, 1, 1);
+					player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(item.getId());
+					return;
+				}
 				if (player.getPetManager().spawnPet(item.getId(), true)) {
 					return;
 				}
