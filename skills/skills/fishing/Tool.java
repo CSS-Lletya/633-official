@@ -1,7 +1,9 @@
 package skills.fishing;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
+import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.RandomUtils;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -9,14 +11,14 @@ import it.unimi.dsi.fastutil.objects.ObjectList;
 import skills.Skills;
 
 public enum Tool {
-	NET(303, 1, -1, 0.35, 621, new Catchable[]{Catchable.SHRIMP, Catchable.ANCHOVY, Catchable.MONKFISH}) {
+	NET(303, 1, -1, 0.35, Animations.NET_FISHING, new Catchable[]{Catchable.SHRIMP, Catchable.ANCHOVY, Catchable.MONKFISH}) {
 		@Override
 		public Catchable catchable() {
 			return Catchable.SHRIMP;
 		}
 	},
-	NET_MONKFISH(303, 62, -1, 0.25, 621, new Catchable[]{Catchable.MONKFISH}),
-	BIG_NET(305, 16, -1, 0.50, 620, new Catchable[]{Catchable.MACKEREL, Catchable.COD, Catchable.BASS, Catchable.CASKET, Catchable.LEATHER_BOOTS, Catchable.LEATHER_GLOVES, Catchable.OYSTER, Catchable.SEAWEED, Catchable.ROCKTAIL}) {
+	NET_MONKFISH(303, 62, -1, 0.25, Animations.NET_FISHING, new Catchable[]{Catchable.MONKFISH}),
+	BIG_NET(305, 16, -1, 0.50, Animations.BIG_NET_FISHING, new Catchable[]{Catchable.MACKEREL, Catchable.COD, Catchable.BASS, Catchable.CASKET, Catchable.LEATHER_BOOTS, Catchable.LEATHER_GLOVES, Catchable.OYSTER, Catchable.SEAWEED, Catchable.ROCKTAIL}) {
 		@Override
 		public Item[] onCatch(Player player) {
 			int amount = RandomUtils.inclusive(1, 3);
@@ -31,35 +33,35 @@ public enum Tool {
 			return Catchable.MACKEREL;
 		}
 	},
-	FISHING_ROD(307, 5, 313, 0.45, 622, new Catchable[]{Catchable.SARDINE, Catchable.HERRING, Catchable.PIKE, Catchable.SLIMY_EEL, Catchable.CAVE_EEL, Catchable.LAVA_EEL}) {
+	FISHING_ROD(307, 5, 313, 0.45, Animations.FISHING_ROD, new Catchable[]{Catchable.SARDINE, Catchable.HERRING, Catchable.PIKE, Catchable.SLIMY_EEL, Catchable.CAVE_EEL, Catchable.LAVA_EEL}) {
 		@Override
 		public Catchable catchable() {
 			return Catchable.SARDINE;
 		}
 	},
-	FLY_FISHING_ROD(309, 20, 314, 0.50, 622, new Catchable[]{Catchable.TROUT, Catchable.SALMON}) {
+	FLY_FISHING_ROD(309, 20, 314, 0.50, Animations.FISHING_ROD, new Catchable[]{Catchable.TROUT, Catchable.SALMON}) {
 		@Override
 		public Catchable catchable() {
 			return Catchable.TROUT;
 		}
 	},
-	HARPOON(311, 35, -1, 0.20, 618, new Catchable[]{Catchable.TUNA, Catchable.SWORDFISH}) {
+	HARPOON(311, 35, -1, 0.20, Animations.HARPOON, new Catchable[]{Catchable.TUNA, Catchable.SWORDFISH}) {
 		@Override
 		public Catchable catchable() {
 			return Catchable.TUNA;
 		}
 	},
-	SHARK_HARPOON(311, 76, -1, 0.15, 618, new Catchable[]{Catchable.SHARK, Catchable.MANTAS}),
-	LOBSTER_POT(301, 40, -1, 0.25, 619, new Catchable[]{Catchable.LOBSTER});
+	SHARK_HARPOON(311, 76, -1, 0.15, Animations.HARPOON, new Catchable[]{Catchable.SHARK, Catchable.MANTAS}),
+	LOBSTER_POT(301, 40, -1, 0.25, Animations.LOBSTER_POT, new Catchable[]{Catchable.LOBSTER});
 
 	final int id;
 	final int level;
 	final int needed;
 	final double success;
-	final int animation;
+	final Animation animation;
 	final Catchable[] catchables;
 
-	Tool(int id, int level, int needed, double success, int animation, Catchable[] catchables) {
+	Tool(int id, int level, int needed, double success, Animation animation, Catchable[] catchables) {
 		this.id = id;
 		this.level = level;
 		this.needed = needed;

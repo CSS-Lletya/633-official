@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
 import com.rs.game.npc.other.Pet;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Animation;
 
 import lombok.Data;
 
@@ -83,7 +83,7 @@ public final class PetManager {
 			pet.setGrowthRate(pets.getGrowthRate());
 			player.setPet(pet);
 			if (deleteItem) {
-				player.setNextAnimation(new Animation(827));
+				player.setNextAnimation(Animations.DIG);
 				player.getInventory().deleteItem(itemId, 1);
 			}
 			return true;
@@ -116,7 +116,7 @@ public final class PetManager {
 				player.getInventory().deleteItem(food, 1);
 				player.getPackets().sendGameMessage(
 						"Your pet happily eats the " + ItemDefinitions.getItemDefinitions(food).getName() + ".");
-				player.setNextAnimation(new Animation(827));
+				player.setNextAnimation(Animations.DIG);
 				npc.getDetails().updateHunger(-15.0);
 				return;
 			}

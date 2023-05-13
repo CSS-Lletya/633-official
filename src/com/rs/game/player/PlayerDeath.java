@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.rs.GameConstants;
+import com.rs.constants.Animations;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
@@ -23,7 +24,7 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 		if (getActor().getMapZoneManager().execute(getActor(), controller -> !controller.sendDeath(getActor())))
 			return;
 		getActor().getMovement().lock();
-		getActor().setNextAnimation(new Animation(836));
+		getActor().setNextAnimation(Animations.DEATH_FALLING);
 	}
 
 	@Override
@@ -44,11 +45,10 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 	public void postDeath() {
 		getActor().getInterfaceManager().sendInterface(153);
 		getActor().getPackets().sendMusicEffect(90).sendGameMessage("Oh dear, you have died.");
-		getActor().setNextAnimation(new Animation(-1));
+		getActor().setNextAnimation(Animations.RESET_ANIMATION);
 		getActor().heal(getActor().getMaxHitpoints());
 		final int maxPrayer = getActor().getSkills().getLevelForXp(Skills.PRAYER) * 10;
 		getActor().getPrayer().restorePrayer(maxPrayer);
-		getActor().setNextAnimation(new Animation(-1));
 		getActor().getMovement().unlock();
 		getActor().getCombatDefinitions().resetSpecialAttack();
 		getActor().getPrayer().closeAllPrayers();

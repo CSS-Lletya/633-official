@@ -2,6 +2,7 @@ package com.rs.game.player.content;
 
 import java.util.List;
 
+import com.rs.constants.Animations;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
@@ -30,10 +31,10 @@ public class WildernessObelisk {
 		GameObject object = GameObject.getObjectWithId(center, id);
 		if (object == null) // still loading objects i guess
 			return;
-		GameObject.sendObjectAnimation(object, new Animation(2226));
-		GameObject.sendObjectAnimation(GameObject.getObjectWithId(center.transform(4, 0, 0), id), new Animation(2226));
-		GameObject.sendObjectAnimation(GameObject.getObjectWithId(center.transform(0, 4, 0), id), new Animation(2226));
-		GameObject.sendObjectAnimation(GameObject.getObjectWithId(center.transform(4, 4, 0), id), new Animation(2226));
+		GameObject.sendObjectAnimation(object, Animations.WILDERNESS_OBELISK);
+		GameObject.sendObjectAnimation(GameObject.getObjectWithId(center.transform(4, 0, 0), id), Animations.WILDERNESS_OBELISK);
+		GameObject.sendObjectAnimation(GameObject.getObjectWithId(center.transform(0, 4, 0), id), Animations.WILDERNESS_OBELISK);
+		GameObject.sendObjectAnimation(GameObject.getObjectWithId(center.transform(4, 4, 0), id), Animations.WILDERNESS_OBELISK);
 		
 		World.get().submit(new Task(8) {
 			@Override

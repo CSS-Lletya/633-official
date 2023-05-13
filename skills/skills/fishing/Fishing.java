@@ -42,7 +42,7 @@ public final class Fishing extends HarvestingSkillAction {
 	
 	@Override
 	public Optional<Animation> animation() {
-		return Optional.of(new Animation(tool.animation));
+		return Optional.of(tool.animation);
 	}
 	
 	@Override
@@ -79,7 +79,7 @@ public final class Fishing extends HarvestingSkillAction {
 			return false;
 		}
 		getPackets().sendGameMessage("You begin to fish...");
-		getPlayer().setNextAnimation(new Animation(tool.animation));
+		getPlayer().setNextAnimation(tool.animation);
 		return true;
 	}
 	

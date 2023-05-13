@@ -1,5 +1,6 @@
 package com.rs.game.player;
 
+import com.rs.constants.Animations;
 import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
 import com.rs.net.encoders.other.Animation;
@@ -608,7 +609,7 @@ public class Prayer {
 			switch (prayerId) {
 			case 0:
 				if (!usingQuickPrayer) {
-					player.setNextAnimation(new Animation(12567));
+					player.setNextAnimation(Animations.CURSES_PROTECT_ITEM);
 					player.setNextGraphics(new Graphics(2213));
 				}
 				closePrayers(closePrayers[getPrayerBook()][0]);
@@ -622,7 +623,7 @@ public class Prayer {
 				break;
 			case 5:
 				if (!usingQuickPrayer) {
-					player.setNextAnimation(new Animation(12589));
+					player.setNextAnimation(Animations.CURSES_BUFF);
 					player.setNextGraphics(new Graphics(2266));
 				}
 				closePrayers(closePrayers[getPrayerBook()][2]);
@@ -650,9 +651,8 @@ public class Prayer {
 						closePrayers[getPrayerBook()][6]);
 				break;
 			case 19:
-				// stop changing this idiot. it doesnt stop walk on rs
 				if (!usingQuickPrayer) {
-					player.setNextAnimation(new Animation(12565));
+					player.setNextAnimation(Animations.CURSES_TURMOIL);
 					player.setNextGraphics(new Graphics(2226));
 				}
 				closePrayers(closePrayers[getPrayerBook()][1],

@@ -1,5 +1,6 @@
 package com.rs.game.player.content;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.npc.familiar.Familiar;
@@ -730,7 +731,7 @@ public final class Pots {
 		for (int skillId : pot.effect.affectedSkills)
 			player.getSkills().set(skillId, pot.effect.getAffectedSkill(player, skillId,
 					player.getSkills().getLevel(skillId), player.getSkills().getLevelForXp(skillId)));
-		player.setNextAnimationNoPriority(new Animation(829));
+		player.setNextAnimationNoPriority(Animations.DRINKING);
 		player.getPackets().sendSound(4580, 0, 1);
 		if (pot.isFlask() || pot.isPotion()) {
 			player.getPackets().sendGameMessage(pot.effect.drinkMessage != null ? pot.effect.drinkMessage

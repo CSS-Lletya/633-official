@@ -2,6 +2,7 @@ package skills.thieving.impl;
 
 import java.util.Optional;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Hit;
@@ -42,17 +43,17 @@ public final class Pickpocketing extends Thieving {
 	/**
 	 * Represents the animation specific to pickpocketing.
 	 */
-	private static final Animation ANIMATION = new Animation(881);
+	private static final Animation ANIMATION = Animations.PICKPOCKET;
 
 	/**
 	 * Represents the mob animation(hitting player).
 	 */
-	private static final Animation NPC_ANIMATION = new Animation(422);
+	private static final Animation NPC_ANIMATION = Animations.NPC_PICKPOCKET_FAIL_RESPONSE;
 
 	/**
 	 * Represents the animation specific to pickpocketing.(block animation)
 	 */
-	private static final Animation STUN_ANIMATION = new Animation(424);
+	private static final Animation STUN_ANIMATION = Animations.PICKPOCKET_STUN;
 
 	/**
 	 * The graphic id when player is stunned

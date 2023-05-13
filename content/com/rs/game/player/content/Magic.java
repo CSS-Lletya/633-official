@@ -2,6 +2,7 @@ package com.rs.game.player.content;
 
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
@@ -896,14 +897,14 @@ public class Magic {
 		if (player.getMapZoneManager().execute(player, controller -> !controller.processItemTeleport(player, tile)))
 			return false;
 		player.getMovement().lock();
-		player.setNextAnimation(new Animation(9597));
+		player.setNextAnimation(Animations.BREAK_TELETAB);
 		player.setNextGraphics(new Graphics(1680));
 		World.get().submit(new Task(2) {
 			int stage;
 			@Override
 			protected void execute() {
 				if (stage == 0) {
-					player.setNextAnimation(new Animation(4731));
+					player.setNextAnimation(Animations.TELE_TAB_SINK_INWARDS);
 					stage = 1;
 				} else if (stage == 1) {
 					WorldTile teleTile = tile;
@@ -946,7 +947,7 @@ public class Magic {
 	public static void useEctoPhial(final Player player, Item item) {
 		player.getInventory().deleteItem(item);
 		player.setNextGraphics(new Graphics(1688));
-		player.setNextAnimation(new Animation(9609));
+		player.setNextAnimation(Animations.EMPTY_ECTOPHIAL);
 		World.get().submit(new Task(6) {
 			@Override
 			protected void execute() {

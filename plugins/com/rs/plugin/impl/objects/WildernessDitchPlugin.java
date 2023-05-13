@@ -1,12 +1,12 @@
 package com.rs.plugin.impl.objects;
 
+import com.rs.constants.Animations;
 import com.rs.game.dialogue.impl.WildernessDialogue;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceMovement;
 import com.rs.plugin.listener.ObjectType;
 import com.rs.plugin.wrapper.ObjectSignature;
@@ -22,7 +22,7 @@ public class WildernessDitchPlugin implements ObjectType {
 			return;
 		} else {
 			player.getMovement().lock();
-			player.setNextAnimation(new Animation(6132));
+			player.setNextAnimation(Animations.JUMP);
 			final WorldTile toTile = new WorldTile(
 					object.getRotation() == 1 || object.getRotation() == 3 ? object.getX() + 1 : player.getX(),
 					object.getRotation() == 0 || object.getRotation() == 2 ? object.getY() - 1 : player.getY(),

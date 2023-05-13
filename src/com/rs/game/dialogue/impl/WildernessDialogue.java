@@ -1,5 +1,6 @@
 package com.rs.game.dialogue.impl;
 
+import com.rs.constants.Animations;
 import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.map.GameObject;
@@ -7,7 +8,6 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceMovement;
 
 /**
@@ -30,7 +30,7 @@ public class WildernessDialogue extends DialogueEventListener {
 		"Enter the Wilderness", () -> {
 			player.getMovement().stopAll();
 			player.getMovement().lock();
-			player.setNextAnimation(new Animation(6132));
+			player.setNextAnimation(Animations.JUMP);
 			final WorldTile toTile = new WorldTile(
 					ditch.getRotation() == 3 || ditch.getRotation() == 1 ? ditch.getX() - 1 : player.getX(),
 					ditch.getRotation() == 0 || ditch.getRotation() == 2 ? ditch.getY() + 2 : player.getY(),

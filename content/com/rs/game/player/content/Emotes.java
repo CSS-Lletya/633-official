@@ -2,12 +2,14 @@ package com.rs.game.player.content;
 
 import java.util.Optional;
 
+import com.rs.constants.Animations;
 import com.rs.game.player.Player;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.Utility;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -25,64 +27,65 @@ public class Emotes {
 	 * @author Dennis
 	 *
 	 */
+	@AllArgsConstructor
 	public enum Emote {
-		YES((byte) 2, Optional.of(new Animation(855)), Optional.empty(), Optional.empty()),
-		NO((byte) 3, Optional.of(new Animation(856)), Optional.empty(), Optional.empty()),
-		BOW((byte) 4, Optional.of(new Animation(858)), Optional.empty(), Optional.empty()),
-		ANGRY((byte) 5, Optional.of(new Animation(859)), Optional.empty(), Optional.empty()),
-		THINKING((byte) 6, Optional.of(new Animation(857)), Optional.empty(), Optional.empty()),
-		WAVE((byte) 7, Optional.of(new Animation(863)), Optional.empty(), Optional.empty()),
-		SHRUG((byte) 8, Optional.of(new Animation(2113)), Optional.empty(), Optional.empty()),
-		CHEER((byte) 9, Optional.of(new Animation(862)), Optional.empty(), Optional.empty()),
-		BECKON((byte) 10, Optional.of(new Animation(864)), Optional.empty(), Optional.empty()),
-		LAUGH((byte) 12, Optional.of(new Animation(861)), Optional.empty(), Optional.empty()),
-		JUMP_FOR_JOY((byte) 11, Optional.of(new Animation(2109)), Optional.empty(), Optional.empty()),
-		YAWN((byte) 13, Optional.of(new Animation(2111)), Optional.empty(), Optional.empty()),
-		DANCE((byte) 14, Optional.of(new Animation(866)), Optional.empty(), Optional.empty()),
-		JIG((byte) 15, Optional.of(new Animation(2106)), Optional.empty(), Optional.empty()),
-		TWIRL((byte) 16, Optional.of(new Animation(2107)), Optional.empty(), Optional.empty()),
-		HEADBANG((byte) 17, Optional.of(new Animation(2108)), Optional.empty(), Optional.empty()),
-		CRY((byte) 18, Optional.of(new Animation(860)), Optional.empty(), Optional.empty()),
-		BLOW_KISS((byte) 19, Optional.of(new Animation(1374)), Optional.of(new Graphics(1702)), Optional.empty()),
-		PANIC((byte) 20, Optional.of(new Animation(2105)), Optional.empty(), Optional.empty()),
-		RASPBERRY((byte) 21, Optional.of(new Animation(2110)), Optional.empty(), Optional.empty()),
-		CLAP((byte) 22, Optional.of(new Animation(865)), Optional.empty(), Optional.empty()),
-		SALUTE((byte) 23, Optional.of(new Animation(2112)), Optional.empty(), Optional.empty()),
-		GOBLIN_BOW((byte) 24, Optional.of(new Animation(0x84F)), Optional.empty(), Optional.empty()),
-		GOBLIN_SALUTE((byte) 25, Optional.of(new Animation(0x850)), Optional.empty(), Optional.empty()),
-		GLASS_BOX((byte) 26, Optional.of(new Animation(1131)), Optional.empty(), Optional.empty()),
-		CLIMB_ROPE((byte) 27, Optional.of(new Animation(1130)), Optional.empty(), Optional.empty()),
-		LEAN((byte) 28, Optional.of(new Animation(1129)), Optional.empty(), Optional.empty()),
-		GLASS_WALL((byte) 29, Optional.of(new Animation(1128)), Optional.empty(), Optional.empty()),
-		IDEA((byte) 30, Optional.of(new Animation(4275)), Optional.empty(), Optional.empty()),
-		STOMP((byte) 31, Optional.of(new Animation(1745)), Optional.empty(), Optional.empty()),
-		FLAP((byte) 32, Optional.of(new Animation(4280)), Optional.empty(), Optional.empty()),
-		SLAP_HEAD((byte) 33, Optional.of(new Animation(4276)), Optional.empty(), Optional.empty()),
-		ZOMBIE_WALK((byte) 34, Optional.of(new Animation(3544)), Optional.empty(), Optional.empty()),
-		ZOMBIE_DANCE((byte) 35, Optional.of(new Animation(3543)), Optional.empty(), Optional.empty()),
-		ZOMBIE_HAND((byte) 36, Optional.of(new Animation(7272)), Optional.of(new Graphics(1244)), Optional.empty()),
-		SCARED((byte) 37, Optional.of(new Animation(2836)), Optional.empty(), Optional.empty()),
-		BUNNY_HOP((byte) 38, Optional.of(new Animation(6111)), Optional.empty(), Optional.empty()),
+		YES(2, Optional.of(Animations.YES), Optional.empty(), Optional.empty()),
+		NO(3, Optional.of(Animations.NO), Optional.empty(), Optional.empty()),
+		BOW(4, Optional.of(Animations.BOW_DOWN), Optional.empty(), Optional.empty()),
+		ANGRY(5, Optional.of(Animations.ANGRY), Optional.empty(), Optional.empty()),
+		THINKING(6, Optional.of(Animations.THINKING), Optional.empty(), Optional.empty()),
+		WAVE(7, Optional.of(Animations.WAVE), Optional.empty(), Optional.empty()),
+		SHRUG(8, Optional.of(Animations.SHRUG), Optional.empty(), Optional.empty()),
+		CHEER(9, Optional.of(Animations.CHEER), Optional.empty(), Optional.empty()),
+		BECKON(10, Optional.of(Animations.BECKON), Optional.empty(), Optional.empty()),
+		LAUGH(12, Optional.of(Animations.LAUGH), Optional.empty(), Optional.empty()),
+		JUMP_FOR_JOY(11, Optional.of(Animations.JUMP_FOR_JOY), Optional.empty(), Optional.empty()),
+		YAWN(13, Optional.of(Animations.YAWN), Optional.empty(), Optional.empty()),
+		DANCE(14, Optional.of(Animations.DANCE), Optional.empty(), Optional.empty()),
+		JIG(15, Optional.of(Animations.JIG), Optional.empty(), Optional.empty()),
+		TWIRL(16, Optional.of(Animations.TWIRL), Optional.empty(), Optional.empty()),
+		HEADBANG(17, Optional.of(Animations.HEAD_BANG), Optional.empty(), Optional.empty()),
+		CRY(18, Optional.of(Animations.CRY), Optional.empty(), Optional.empty()),
+		BLOW_KISS(19, Optional.of(Animations.BLOW_KISS), Optional.of(new Graphics(1702)), Optional.empty()),
+		PANIC(20, Optional.of(Animations.PANIC), Optional.empty(), Optional.empty()),
+		RASPBERRY(21, Optional.of(Animations.RASPBERRY), Optional.empty(), Optional.empty()),
+		CLAP(22, Optional.of(Animations.CLAP), Optional.empty(), Optional.empty()),
+		SALUTE(23, Optional.of(Animations.SALUTE), Optional.empty(), Optional.empty()),
+		GOBLIN_BOW(24, Optional.of(Animations.GOBLIN_BOW), Optional.empty(), Optional.empty()),
+		GOBLIN_SALUTE(25, Optional.of(Animations.GOBLIN_SALUTE), Optional.empty(), Optional.empty()),
+		GLASS_BOX(26, Optional.of(Animations.GLASS_BOX), Optional.empty(), Optional.empty()),
+		CLIMB_ROPE(27, Optional.of(Animations.CLIMB_ROPE), Optional.empty(), Optional.empty()),
+		LEAN(28, Optional.of(Animations.LEAN), Optional.empty(), Optional.empty()),
+		GLASS_WALL(29, Optional.of(Animations.GLASS_WALL), Optional.empty(), Optional.empty()),
+		IDEA(30, Optional.of(Animations.IDEA), Optional.empty(), Optional.empty()),
+		STOMP(31, Optional.of(Animations.STOMP), Optional.empty(), Optional.empty()),
+		FLAP(32, Optional.of(Animations.FLAP), Optional.empty(), Optional.empty()),
+		SLAP_HEAD(33, Optional.of(Animations.SLAP_HEAD), Optional.empty(), Optional.empty()),
+		ZOMBIE_WALK(34, Optional.of(Animations.ZOMBIE_WALK), Optional.empty(), Optional.empty()),
+		ZOMBIE_DANCE(35, Optional.of(Animations.ZOMBIE_DANCE), Optional.empty(), Optional.empty()),
+		ZOMBIE_HAND(36, Optional.of(Animations.ZOMBIE_HAND), Optional.of(new Graphics(1244)), Optional.empty()),
+		SCARED(37, Optional.of(Animations.SCARED), Optional.empty(), Optional.empty()),
+		BUNNY_HOP(38, Optional.of(Animations.BUNNY_HOP), Optional.empty(), Optional.empty()),
 		//skillcape is 39
-		SNOWMAN_DANCE((byte) 40, Optional.of(new Animation(7531)), Optional.empty(), Optional.empty()),
-		AIR_GUITAR((byte) 41, Optional.of(new Animation(2414)), Optional.of(new Graphics(1537)), Optional.of(SpecialEmote.AIR_GUITAR)),
-		SAFETY_FIRST((byte) 42, Optional.of(new Animation(8770)), Optional.of(new Graphics(1553)), Optional.empty()),
-		EXPLORE((byte) 43, Optional.of(new Animation(9990)), Optional.of(new Graphics(1734)), Optional.empty()),
-		TRICK((byte) 44, Optional.of(new Animation(10530)), Optional.of(new Graphics(1864)), Optional.empty()),
-		FREEZE((byte) 45, Optional.of(new Animation(11044)), Optional.of(new Graphics(1973)), Optional.empty()),
-		TURKEY((byte) 46, Optional.empty(),  Optional.empty(), Optional.of(SpecialEmote.TURKEY)),
-		AROUND_THE_WORLD_IN_EGGTY_DAYS((byte) 47, Optional.of(new Animation(11542)), Optional.of(new Graphics(2037)), Optional.empty()),
-		DRAMATIC_POINT((byte) 48, Optional.of(new Animation(12658)), Optional.empty(), Optional.empty()),
-		FAINT((byte) 49, Optional.of(new Animation(14165 )), Optional.empty(), Optional.empty()),
-		PUPPET_MASTER((byte) 50, Optional.of(new Animation(14869)), Optional.of(new Graphics(2837)), Optional.empty()),
-		TASK_MASTER((byte) 51, Optional.of(new Animation(15033)), Optional.of(new Graphics(2930)), Optional.empty())
+		SNOWMAN_DANCE(40, Optional.of(Animations.SNOWMAN_DANCE), Optional.empty(), Optional.empty()),
+		AIR_GUITAR(41, Optional.of(Animations.AIR_GUITAR), Optional.of(new Graphics(1537)), Optional.of(SpecialEmote.AIR_GUITAR)),
+		SAFETY_FIRST(42, Optional.of(Animations.SAFETY_FIRST), Optional.of(new Graphics(1553)), Optional.empty()),
+		EXPLORE(43, Optional.of(Animations.EXPLORE), Optional.of(new Graphics(1734)), Optional.empty()),
+		TRICK(44, Optional.of(Animations.TRICK), Optional.of(new Graphics(1864)), Optional.empty()),
+		FREEZE(45, Optional.of(Animations.FREEZE), Optional.of(new Graphics(1973)), Optional.empty()),
+		TURKEY(46, Optional.empty(),  Optional.empty(), Optional.of(SpecialEmote.TURKEY)),
+		AROUND_THE_WORLD_IN_EGGTY_DAYS(47, Optional.of(Animations.AROUND_THE_WORLD_IN_EGGTY_DAYS), Optional.of(new Graphics(2037)), Optional.empty()),
+		DRAMATIC_POINT(48, Optional.of(Animations.DRAMATIC_POINT), Optional.empty(), Optional.empty()),
+		FAINT(49, Optional.of(Animations.FAINT), Optional.empty(), Optional.empty()),
+		PUPPET_MASTER(50, Optional.of(Animations.PUPPET_MASTER), Optional.of(new Graphics(2837)), Optional.empty()),
+		TASK_MASTER(51, Optional.of(Animations.TASK_MASTER), Optional.of(new Graphics(2930)), Optional.empty())
 		;
 
 		/**
 		 * The button Id (slot id).
 		 */
 		@Getter
-		private final byte buttonId;
+		private final int buttonId;
 		
 		/**
 		 * The Animation being performed.
@@ -101,22 +104,6 @@ public class Emotes {
 		 */
 		@Getter
 		private final Optional<SpecialEmote> specialEmote;
-
-		/**
-		 * Constructs a new Player Emote.
-		 * 
-		 * @param buttonId
-		 * @param animation
-		 * @param graphics
-		 * @param specialEmote
-		 */
-		private Emote(byte buttonId, Optional<Animation> animation, Optional<Graphics> graphics,
-				Optional<SpecialEmote> specialEmote) {
-			this.buttonId = buttonId;
-			this.animation = animation;
-			this.graphics = graphics;
-			this.specialEmote = specialEmote;
-		}
 
 		/**
 		 * Executes the Emote.
@@ -169,15 +156,15 @@ public class Emotes {
 			protected boolean handleSpecialEmote(Player player) {
 				LinkedTaskSequence turkeySeq = new LinkedTaskSequence();
 				turkeySeq.connect(1, () -> {
-					player.setNextAnimation(new Animation(10994));
+					player.setNextAnimation(Animations.TURKEY_PART_1);
 					player.setNextGraphics(new Graphics(86));
 				});
 				turkeySeq.connect(2, () -> {
-					player.setNextAnimation(new Animation(10996));
+					player.setNextAnimation(Animations.TURKEY_PART_2);
 					player.getAppearance().transformIntoNPC(8499);
 				});
 				turkeySeq.connect(6, () -> {
-					player.setNextAnimation(new Animation(10995));
+					player.setNextAnimation(Animations.TURKEY_PART_3);
 					player.setNextGraphics(new Graphics(86));
 					player.getAppearance().transformIntoNPC(-1);
 				});

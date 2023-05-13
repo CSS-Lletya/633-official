@@ -43,15 +43,7 @@ public class Appearance {
 		transformedNpcId = -1;
 		renderEmote = -1;
 		forcedWeapon = forcedShield = forcedAmulet = -1;
-		if (lookI == null)
-			resetAppearence();
-		else
-			for (int i = 0; i < lookI.length; i++) { // temp fix
-				if (lookI[i] >= 16384 || lookI[i] < 0) {
-					resetAppearence();
-					break;
-				}
-			}
+		resetAppearence();
 	}
 
 	public void transformIntoNPC(int id) {

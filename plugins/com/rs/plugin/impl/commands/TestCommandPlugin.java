@@ -23,24 +23,6 @@ public class TestCommandPlugin implements Command {
 
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		File file = new File("information/item_names_633.txt");
-		if (file.exists())
-			file.delete();
-		else
-			file.createNewFile();
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-		writer.flush();
-		for (int id = 0; id < Utility.getItemDefinitionsSize(); id++) {
-			ItemDefinitions def = ItemDefinitions.getItemDefinitions(id);
-			if (def.getName().isEmpty() || def.getName() == null)
-				continue;
-			if (def.getName().contains(" "))
-				def.getName().replace(" ", "_");
-			writer.newLine();
-			writer.append("int " +def.getName().toUpperCase().replaceAll("[^a-zA-Z0-9]","_") + "_"+id+" = " +id + ";");
-			writer.toString().replace(" ", "_");
-			writer.flush();
-		}
-		writer.close();
+		player.getAppearance().setTitle(1);
 	}
 }
