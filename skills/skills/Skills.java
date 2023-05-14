@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
+import com.rs.utilities.Utility;
 
 import lombok.Data;
 
@@ -75,6 +76,10 @@ public class Skills {
 		level[HERBLORE] = 3;
 		xp[HERBLORE] = 250;
 		xpCounter = 1434;
+
+		enabledSkillsTargets = new boolean[25];
+		skillsTargetsUsingLevelMode = new boolean[25];
+		skillsTargetsValues = new int[25];
 	}
 
 	/**
@@ -252,6 +257,9 @@ public class Skills {
 	public void init() {
 		IntStream.range(0, 25).forEach(level -> refresh(level));
 		refreshXpCounter();
+		refreshEnabledSkillsTargets();
+        refreshUsingLevelTargets();
+        refreshSkillsTargetsValues();
 	}
 
 	/**
@@ -441,4 +449,64 @@ public class Skills {
 	}
 
 	private transient boolean[] leveledUp = new boolean[25];
+
+	public int getTargetIdByComponentId(int componentId) {
+		int[] mappings = {200, 11, 52, 93, 28, 193, 76, 19, 36, 60, 84, 110, 186, 179, 44, 68, 172, 165, 101, 118, 126, 134, 142, 150, 158};
+		for (int i = 0; i < mappings.length; i++) {
+			if (mappings[i] == componentId) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public int getSkillIdByTargetId(int targetId) {
+		int[] mappings = {ATTACK, STRENGTH, RANGE, MAGIC, DEFENCE, HITPOINTS, PRAYER, AGILITY, HERBLORE, THIEVING, CRAFTING, RUNECRAFTING, MINING, SMITHING, FISHING, COOKING, FIREMAKING, WOODCUTTING, FLETCHING, SLAYER, FARMING, CONSTRUCTION, HUNTER, SUMMONING, DUNGEONEERING};
+		if (targetId >= 0 && targetId < mappings.length) {
+			return mappings[targetId];
+		} else {
+			return -1;
+		}
+	}
+	
+    public boolean[] enabledSkillsTargets;
+    public boolean[] skillsTargetsUsingLevelMode;
+    public int[] skillsTargetsValues;
+    
+    public void refreshEnabledSkillsTargets() {
+        int value = Utility.get32BitValue(enabledSkillsTargets, true);
+        player.getVarsManager().sendVar(InterfaceVars.SKILL_TARGETS, value);
+    }
+
+    public void refreshUsingLevelTargets() {
+        int value = Utility.get32BitValue(skillsTargetsUsingLevelMode, true);
+        player.getVarsManager().sendVar(InterfaceVars.SKILL_TARGET_LEVEL_MODE, value);
+    }
+
+    public void refreshSkillsTargetsValues() {
+        for (int skill = 0; skill < 25; skill++) {
+            player.getVarsManager().sendVar(InterfaceVars.SKILL_TARGET_VALUES + skill, skillsTargetsValues[skill]);
+        }
+    }
+
+    public void setSkillTargetEnabled(int id, boolean enabled) {
+        enabledSkillsTargets[id] = enabled;
+        refreshEnabledSkillsTargets();
+    }
+
+    public void setSkillTargetUsingLevelMode(int id, boolean using) {
+        skillsTargetsUsingLevelMode[id] = using;
+        refreshUsingLevelTargets();
+    }
+
+    public void setSkillTargetValue(int skillId, int value) {
+        skillsTargetsValues[skillId] = value;
+        refreshSkillsTargetsValues();
+    }
+
+    public void setSkillTarget(boolean usingLevel, int skillId, int target) {
+        setSkillTargetEnabled(skillId, true);
+        setSkillTargetUsingLevelMode(skillId, usingLevel);
+        setSkillTargetValue(skillId, target);
+    }
 }

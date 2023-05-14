@@ -137,4 +137,7 @@ public interface Attribute {
 	 */
 	public String DESTROY_ITEM_ID = "Destroy_Item";
 	
+	public String SET_LEVEL = "Set_Level";
+	
+	public String SET_XP = "Set_XP";
 }

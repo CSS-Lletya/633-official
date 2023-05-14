@@ -61,6 +61,8 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.BANK_ITEM_X_SLOT, -1);
 		AttributeKey.forTransient(Attribute.PC_ITEM_X_SLOT, -1);
 		AttributeKey.forTransient(Attribute.DESTROY_ITEM_ID, -1);
+		AttributeKey.forTransient(Attribute.SET_LEVEL, -1);
+		AttributeKey.forTransient(Attribute.SET_XP, -1);
 	}
 	
 	/**

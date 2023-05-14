@@ -308,4 +308,19 @@ public interface InterfaceVars {
 	 * cause of the tutorial islands.
 	 */
 	int CLOSE_CHAT_TOOLBELT = 281;
+	
+	/**
+	 * Enables Skill target Levels or XP tracking!
+	 */
+	int SKILL_TARGETS = 1966;
+	
+	/**
+	 * Represents the state of using the Level mode specifically
+	 */
+	int SKILL_TARGET_LEVEL_MODE = 1968;
+	
+	/**
+	 * Represents the tracking target values
+	 */
+	int SKILL_TARGET_VALUES = 1969;
 }

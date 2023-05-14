@@ -583,4 +583,14 @@ public final class Utility {
 	public static final int getAngleTo(int xOffset, int yOffset) {
 		return ((int) (Math.atan2(-xOffset, -yOffset) * 2607.5945876176133)) & 0x3fff;
 	}
+
+	public static int get32BitValue(boolean[] array, boolean trueCondition) {
+		int value = 0;
+		for (int index = 1; index < array.length + 1; index++) {
+			if (array[index - 1] == trueCondition) {
+				value += 1 << index;
+			}
+		}
+		return value;
+	}
 }
