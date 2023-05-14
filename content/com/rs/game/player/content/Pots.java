@@ -1,6 +1,7 @@
 package com.rs.game.player.content;
 
 import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.npc.familiar.Familiar;
@@ -11,8 +12,6 @@ import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
-import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
@@ -523,8 +522,8 @@ public final class Pots {
 					protected void execute() {
 						if (count == 0)
 							this.cancel();
-						player.setNextAnimation(new Animation(3170));
-						player.setNextGraphics(new Graphics(560));
+						player.setNextAnimation(Animations.OVERLOAD);
+						player.setNextGraphics(Graphic.OVERLOAD_SHOCKING);
 						player.applyHit(new Hit(player, 100, HitLook.REGULAR_DAMAGE, 0));
 						count--;
 						this.cancel();

@@ -3,6 +3,7 @@ package com.rs.game.player.content;
 import java.util.Optional;
 
 import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.game.player.Player;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.net.encoders.other.Animation;
@@ -46,7 +47,7 @@ public class Emotes {
 		TWIRL(16, Optional.of(Animations.TWIRL), Optional.empty(), Optional.empty()),
 		HEADBANG(17, Optional.of(Animations.HEAD_BANG), Optional.empty(), Optional.empty()),
 		CRY(18, Optional.of(Animations.CRY), Optional.empty(), Optional.empty()),
-		BLOW_KISS(19, Optional.of(Animations.BLOW_KISS), Optional.of(new Graphics(1702)), Optional.empty()),
+		BLOW_KISS(19, Optional.of(Animations.BLOW_KISS), Optional.of(Graphic.BLOW_KISS), Optional.empty()),
 		PANIC(20, Optional.of(Animations.PANIC), Optional.empty(), Optional.empty()),
 		RASPBERRY(21, Optional.of(Animations.RASPBERRY), Optional.empty(), Optional.empty()),
 		CLAP(22, Optional.of(Animations.CLAP), Optional.empty(), Optional.empty()),
@@ -63,22 +64,22 @@ public class Emotes {
 		SLAP_HEAD(33, Optional.of(Animations.SLAP_HEAD), Optional.empty(), Optional.empty()),
 		ZOMBIE_WALK(34, Optional.of(Animations.ZOMBIE_WALK), Optional.empty(), Optional.empty()),
 		ZOMBIE_DANCE(35, Optional.of(Animations.ZOMBIE_DANCE), Optional.empty(), Optional.empty()),
-		ZOMBIE_HAND(36, Optional.of(Animations.ZOMBIE_HAND), Optional.of(new Graphics(1244)), Optional.empty()),
+		ZOMBIE_HAND(36, Optional.of(Animations.ZOMBIE_HAND), Optional.of(Graphic.ZOMBIE_HAND), Optional.empty()),
 		SCARED(37, Optional.of(Animations.SCARED), Optional.empty(), Optional.empty()),
 		BUNNY_HOP(38, Optional.of(Animations.BUNNY_HOP), Optional.empty(), Optional.empty()),
 		//skillcape is 39
 		SNOWMAN_DANCE(40, Optional.of(Animations.SNOWMAN_DANCE), Optional.empty(), Optional.empty()),
-		AIR_GUITAR(41, Optional.of(Animations.AIR_GUITAR), Optional.of(new Graphics(1537)), Optional.of(SpecialEmote.AIR_GUITAR)),
-		SAFETY_FIRST(42, Optional.of(Animations.SAFETY_FIRST), Optional.of(new Graphics(1553)), Optional.empty()),
-		EXPLORE(43, Optional.of(Animations.EXPLORE), Optional.of(new Graphics(1734)), Optional.empty()),
-		TRICK(44, Optional.of(Animations.TRICK), Optional.of(new Graphics(1864)), Optional.empty()),
-		FREEZE(45, Optional.of(Animations.FREEZE), Optional.of(new Graphics(1973)), Optional.empty()),
+		AIR_GUITAR(41, Optional.of(Animations.AIR_GUITAR), Optional.of(Graphic.AIR_GUITAR), Optional.of(SpecialEmote.AIR_GUITAR)),
+		SAFETY_FIRST(42, Optional.of(Animations.SAFETY_FIRST), Optional.of(Graphic.SAFETY_FIRST), Optional.empty()),
+		EXPLORE(43, Optional.of(Animations.EXPLORE), Optional.of(Graphic.EXPLORE), Optional.empty()),
+		TRICK(44, Optional.of(Animations.TRICK), Optional.of(Graphic.TRICK), Optional.empty()),
+		FREEZE(45, Optional.of(Animations.FREEZE), Optional.of(Graphic.FREEZE), Optional.empty()),
 		TURKEY(46, Optional.empty(),  Optional.empty(), Optional.of(SpecialEmote.TURKEY)),
-		AROUND_THE_WORLD_IN_EGGTY_DAYS(47, Optional.of(Animations.AROUND_THE_WORLD_IN_EGGTY_DAYS), Optional.of(new Graphics(2037)), Optional.empty()),
+		AROUND_THE_WORLD_IN_EGGTY_DAYS(47, Optional.of(Animations.AROUND_THE_WORLD_IN_EGGTY_DAYS), Optional.of(Graphic.AROUND_THE_WORLD_IN_EGGTY_DAYS), Optional.empty()),
 		DRAMATIC_POINT(48, Optional.of(Animations.DRAMATIC_POINT), Optional.empty(), Optional.empty()),
 		FAINT(49, Optional.of(Animations.FAINT), Optional.empty(), Optional.empty()),
-		PUPPET_MASTER(50, Optional.of(Animations.PUPPET_MASTER), Optional.of(new Graphics(2837)), Optional.empty()),
-		TASK_MASTER(51, Optional.of(Animations.TASK_MASTER), Optional.of(new Graphics(2930)), Optional.empty())
+		PUPPET_MASTER(50, Optional.of(Animations.PUPPET_MASTER), Optional.of(Graphic.PUPPET_MASTER), Optional.empty()),
+		TASK_MASTER(51, Optional.of(Animations.TASK_MASTER), Optional.of(Graphic.TASK_MASTER), Optional.empty())
 		;
 
 		/**
@@ -157,7 +158,7 @@ public class Emotes {
 				LinkedTaskSequence turkeySeq = new LinkedTaskSequence();
 				turkeySeq.connect(1, () -> {
 					player.setNextAnimation(Animations.TURKEY_PART_1);
-					player.setNextGraphics(new Graphics(86));
+					player.setNextGraphics(Graphic.SMALL_CLOUD_COVERING_PLAYER);
 				});
 				turkeySeq.connect(2, () -> {
 					player.setNextAnimation(Animations.TURKEY_PART_2);
@@ -165,7 +166,7 @@ public class Emotes {
 				});
 				turkeySeq.connect(6, () -> {
 					player.setNextAnimation(Animations.TURKEY_PART_3);
-					player.setNextGraphics(new Graphics(86));
+					player.setNextGraphics(Graphic.SMALL_CLOUD_COVERING_PLAYER);
 					player.getAppearance().transformIntoNPC(-1);
 				});
 				turkeySeq.start();

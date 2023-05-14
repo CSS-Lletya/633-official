@@ -15,6 +15,7 @@ import com.google.common.base.Preconditions;
 import com.rs.GameConstants;
 import com.rs.cache.loaders.AnimationDefinitions;
 import com.rs.cache.loaders.ObjectDefinitions;
+import com.rs.constants.Graphic;
 import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.map.DynamicRegion;
 import com.rs.game.map.GameObject;
@@ -234,7 +235,7 @@ public abstract class Entity extends WorldTile {
 		ifPlayer(player -> {
 			if (player.getPrayer().hasPrayersOn()) {
 				if ((getHitpoints() < player.getMaxHitpoints() * 0.1) && player.getPrayer().usingPrayer(0, 23)) {
-					setNextGraphics(new Graphics(436));
+					setNextGraphics(Graphic.HEALING_BARRIER);
 					setHitpoints((int) (getHitpoints() + player.getSkills().getLevelForXp(Skills.PRAYER) * 2.5));
 					player.getSkills().set(Skills.PRAYER, 0);
 					player.getPrayer().setPrayerpoints(0);
@@ -1140,7 +1141,7 @@ public abstract class Entity extends WorldTile {
 		World.get().submit(new Task(1) {
 			@Override
 			protected void execute() {
-				setNextGraphics(new Graphics(2264));
+				setNextGraphics(Graphic.SOULSPLIT);
 				if (hit.getDamage() > 0)
 					World.sendProjectile(target, user, 2263, 11, 11, 20, 5, 0, 0);
 				this.cancel();
@@ -1233,6 +1234,22 @@ public abstract class Entity extends WorldTile {
 	public void task(int delay, Consumer<Entity> entity) {
 		Entity consumer = this;
 		new Task(delay, false) {
+			@Override
+			protected void execute() {
+				entity.accept(consumer);
+				cancel();
+			}
+		}.submit();
+	}
+	
+	/**
+	 * Sends a queued Task with Consumer action support
+	 * @param delay
+	 * @param entity
+	 */
+	public void task(Consumer<Entity> entity) {
+		Entity consumer = this;
+		new Task(0, true) {
 			@Override
 			protected void execute() {
 				entity.accept(consumer);

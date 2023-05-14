@@ -3,6 +3,7 @@ package com.rs.game.npc;
 import java.util.Optional;
 
 import com.rs.cache.loaders.NPCDefinitions;
+import com.rs.constants.Graphic;
 import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.Entity;
 import com.rs.game.EntityType;
@@ -160,7 +161,7 @@ public class NPC extends Entity {
 	public void processEntity() {
 		super.processEntity();
 		processNPC();
-		getGenericNPC().process(this);
+//		getGenericNPC().process(this);
 	}
 
 	public byte getRespawnDirection() {
@@ -179,7 +180,7 @@ public class NPC extends Entity {
 		World.get().submit(new Task(1) {
 			@Override
 			protected void execute() {
-				setNextGraphics(new Graphics(2264));
+				setNextGraphics(Graphic.SOULSPLIT);
 				if (hit.getDamage() > 0)
 					World.sendProjectile(target, user, 2263, 11, 11, 20, 5, 0, 0);
 				this.cancel();

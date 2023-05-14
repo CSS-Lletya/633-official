@@ -98,6 +98,7 @@ public final class Animations {
 	public static final Animation LOBSTER_POT = new Animation(619);
 	public static final Animation PICKPOCKET = new Animation(881);
 	public static final Animation PICKPOCKET_STUN = new Animation(424);
+	public static final Animation OVERLOAD = new Animation(3170);
 	
 	/**
 	 * Object Based Animations

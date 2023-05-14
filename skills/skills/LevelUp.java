@@ -1,8 +1,8 @@
 package skills;
 
+import com.rs.constants.Graphic;
 import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.Colors;
 
 public class LevelUp extends Skills {
@@ -30,7 +30,7 @@ public class LevelUp extends Skills {
 		player.getPackets().sendIComponentText(740, 0, Colors.color(Colors.blue, "Congratulations, you've advanced " + gainedLevels
 				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + "."));
 		
-		player.setNextGraphics(new Graphics(199));
+		player.setNextGraphics(Graphic.LEVEL_UP_BASIC);
 		player.getPackets().sendMusicEffect(gainedLevels > 50 ? musicId.getId2() : musicId.getId());
 		player.getPackets().sendGameMessage("Congratulations, you've advanced " + gainedLevels
 				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + ".");

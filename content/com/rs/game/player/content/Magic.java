@@ -3,6 +3,7 @@ package com.rs.game.player.content;
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
@@ -898,7 +899,7 @@ public class Magic {
 			return false;
 		player.getMovement().lock();
 		player.setNextAnimation(Animations.BREAK_TELETAB);
-		player.setNextGraphics(new Graphics(1680));
+		player.setNextGraphics(Graphic.TELETAB_BREAKING_SPARKS);
 		World.get().submit(new Task(2) {
 			int stage;
 			@Override
@@ -922,7 +923,7 @@ public class Magic {
 					player.setNextFaceWorldTile(
 							new WorldTile(teleTile.getX(), teleTile.getY() - 1, teleTile.getPlane()));
 					player.setDirection((byte) 6);
-					player.setNextAnimation(new Animation(-1));
+					player.setNextAnimation(Animations.RESET_ANIMATION);
 					stage = 2;
 				} else if (stage == 2) {
 					player.resetReceivedHits();
@@ -946,7 +947,7 @@ public class Magic {
 
 	public static void useEctoPhial(final Player player, Item item) {
 		player.getInventory().deleteItem(item);
-		player.setNextGraphics(new Graphics(1688));
+		player.setNextGraphics(Graphic.ECTOPHIAL_LIQUID);
 		player.setNextAnimation(Animations.EMPTY_ECTOPHIAL);
 		World.get().submit(new Task(6) {
 			@Override

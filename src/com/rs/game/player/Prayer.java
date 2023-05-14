@@ -1,10 +1,9 @@
 package com.rs.game.player;
 
 import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
-import com.rs.net.encoders.other.Animation;
-import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
@@ -610,7 +609,7 @@ public class Prayer {
 			case 0:
 				if (!usingQuickPrayer) {
 					player.setNextAnimation(Animations.CURSES_PROTECT_ITEM);
-					player.setNextGraphics(new Graphics(2213));
+					player.setNextGraphics(Graphic.CURSES_PROTECT_ITEM);
 				}
 				closePrayers(closePrayers[getPrayerBook()][0]);
 				break;
@@ -624,7 +623,7 @@ public class Prayer {
 			case 5:
 				if (!usingQuickPrayer) {
 					player.setNextAnimation(Animations.CURSES_BUFF);
-					player.setNextGraphics(new Graphics(2266));
+					player.setNextGraphics(Graphic.CURSES_BUFF);
 				}
 				closePrayers(closePrayers[getPrayerBook()][2]);
 				break;
@@ -653,7 +652,7 @@ public class Prayer {
 			case 19:
 				if (!usingQuickPrayer) {
 					player.setNextAnimation(Animations.CURSES_TURMOIL);
-					player.setNextGraphics(new Graphics(2226));
+					player.setNextGraphics(Graphic.CURSES_TURMOIL);
 				}
 				closePrayers(closePrayers[getPrayerBook()][1],
 						closePrayers[getPrayerBook()][5],
