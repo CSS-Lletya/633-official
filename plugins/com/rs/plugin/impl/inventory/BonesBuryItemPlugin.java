@@ -11,7 +11,7 @@ import skills.prayer.Bone;
 import skills.prayer.PrayerBoneBury;
 
 @InventoryWrapper(itemId = {526, 530, 3179, 2859, 532, 534, 536, 4834, 6729})
-public class BonesBuryAction implements InventoryType {
+public class BonesBuryItemPlugin implements InventoryType {
 
 	@Override
 	public void execute(Player player, Item item, int option) throws Exception {
