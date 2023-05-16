@@ -2,13 +2,12 @@ package com.rs.game.player;
 
 import com.rs.game.Entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 /**
- * These actually need to be looked into once hp bars and such are fixed; we
- * technically don't use any hitmarks besides hit and miss (generic hit mask), so
- * cannon, etc.. have no special icons, such in this revision.
- * 
+ * TODO: Combat rework to eventually remove old hitlooks, atm just archival.
  * @author Dennis
  *
  */
@@ -16,10 +15,13 @@ import lombok.Data;
 public final class Hit {
 
 	//new hitmarkers will be updated when a combat system is reworked.
-	public static enum HitLook {
+	@AllArgsConstructor
+	public enum HitLook {
 
-		MISSED(8), REGULAR_DAMAGE(3), MELEE_DAMAGE(0), RANGE_DAMAGE(1), MAGIC_DAMAGE(2), REFLECTED_DAMAGE(4),
-		ABSORB_DAMAGE(5), POISON_DAMAGE(6), DESEASE_DAMAGE(7), HEALED_DAMAGE(9), CANNON_DAMAGE(13);
+		MISSED(1), 
+		REGULAR_DAMAGE(2), MELEE_DAMAGE(2), RANGE_DAMAGE(2), MAGIC_DAMAGE(2), REFLECTED_DAMAGE(2), ABSORB_DAMAGE(2), 
+		LARGE_DAMAGE(3),
+		POISON_DAMAGE(4), DESEASE_DAMAGE(4);
 
 //		MISSED(1), 
 //		REGULAR_DAMAGE(2), 
@@ -31,15 +33,8 @@ public final class Hit {
 //		NPC_MISSED(8), //maybe this is for npcs? its similar to damage though. 
 //		LARGE_NPC_MISSED(9), //maybe this is for npcs? its similar to damage though. 
 //		HEAL_DUNG(10)//gotta be healed dung (cross shaped) 11 is same thing/size
+		@Getter
 		private int mark;
-
-		private HitLook(int mark) {
-			this.mark = mark;
-		}
-
-		public int getMark() {
-			return mark;
-		}
 	}
 
 	private Entity source;
@@ -48,6 +43,7 @@ public final class Hit {
 	private boolean critical;
 	private Hit soaking;
 	private int delay;
+	
 	public Hit(Entity source, int damage, HitLook look) {
 		this(source, damage, look, 0);
 	}
@@ -63,16 +59,11 @@ public final class Hit {
 		return damage == 0;
 	}
 
-	public boolean interactingWith(Player player, Entity victm) {
-		return player == victm || player == source;
-	}
-
 	public int getMark(Player player, Entity victm) {
-		if (look == HitLook.HEALED_DAMAGE)
-			return look.getMark();
-		if (missed()) {
+		if (missed())
 			return HitLook.MISSED.getMark();
-		}
-		return 5;
+		if (getDamage() > 99)
+			return HitLook.LARGE_DAMAGE.getMark();
+		return HitLook.REGULAR_DAMAGE.getMark();
 	}
 }

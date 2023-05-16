@@ -221,10 +221,6 @@ public abstract class Entity extends WorldTile {
 	public void removeHitpoints(ObjectArrayFIFOQueue<Hit> hit) {
 		if (isDead())
 			return;
-		if (hit.first().getLook() == HitLook.HEALED_DAMAGE) {
-			heal(hit.first().getDamage());
-			return;
-		}
 		if (hit.first().getDamage() > getHitpoints())
 			hit.first().setDamage(getHitpoints());
 		addReceivedDamage(hit.first().getSource(), hit.first().getDamage());
