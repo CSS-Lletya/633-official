@@ -191,4 +191,6 @@ public final class PlayerDetails {
 	 * A collection of stopwatch timers
 	 */
 	private Stopwatch boneBury = new Stopwatch(), thievingStun = new Stopwatch(), drinks = new Stopwatch(), food = new Stopwatch(), tolerance = new Stopwatch();
+
+	public int questPoints;
 }

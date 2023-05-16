@@ -11,7 +11,9 @@ import java.text.DateFormat;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rs.content.quests.Quest;
 import com.rs.game.player.Player;
+import com.rs.utilities.QuestJsonAdapter;
 
 import lombok.SneakyThrows;
 
@@ -26,8 +28,9 @@ public class GSONParser {
 	private static Gson GSON;
 
 	static {
-		GSON = new GsonBuilder().setPrettyPrinting().disableInnerClassSerialization().enableComplexMapKeySerialization().setDateFormat(DateFormat.LONG)
-				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
+		GSON = new GsonBuilder().disableHtmlEscaping().registerTypeAdapter(Quest.class, new QuestJsonAdapter())
+                .setPrettyPrinting().disableInnerClassSerialization().enableComplexMapKeySerialization()
+                .setDateFormat(DateFormat.LONG).setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
 	}
 
 	@SneakyThrows(IOException.class)

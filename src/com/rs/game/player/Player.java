@@ -7,6 +7,7 @@ import com.alex.utils.VarsManager;
 import com.rs.GameConstants;
 import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.MapZoneManager;
+import com.rs.content.quests.QuestManager;
 import com.rs.game.Entity;
 import com.rs.game.EntityType;
 import com.rs.game.dialogue.DialogueEventListener;
@@ -329,6 +330,7 @@ public class Player extends Entity {
 		setVarsManager(new VarsManager());
 		if (!getCurrentMapZone().isPresent())
 			setCurrentMapZone(getCurrentMapZone());
+		questManager = new QuestManager();
 	}
 
 	/**
@@ -371,6 +373,8 @@ public class Player extends Entity {
 		getCombatDefinitions().setPlayer(this);
 		getPrayer().setPlayer(this);
 		getBank().setPlayer(this);
+		if (questManager == null)
+            questManager = new QuestManager();
 		getMusicsManager().setPlayer(this);
 		getNotes().setPlayer(this);
 		getFriendsIgnores().setPlayer(this);
@@ -384,6 +388,8 @@ public class Player extends Entity {
 			setAction(new ActionManager());
 		if (getMapZoneManager() == null)
 			mapZoneManager = new MapZoneManager();
+		
+        questManager.setPlayer(this);
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -533,4 +539,6 @@ public class Player extends Entity {
 		DialogueEventListener listener = (DialogueEventListener) getAttributes().get(Attribute.DIALOGUE_EVENT).get();
 		return listener;
 	}
+
+	private QuestManager questManager;
 }

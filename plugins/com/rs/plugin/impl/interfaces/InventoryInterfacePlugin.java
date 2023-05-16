@@ -112,7 +112,9 @@ public class InventoryInterfacePlugin implements RSInterface {
 					player.getInventory().deleteItem(item);
 					return;
 				}
-
+				if (player.getQuestManager().handleDropItem(player, item)) {
+		            return;
+		        }
 				if (item.getDefinitions().isDestroyItem()) {
 					player.getInterfaceManager().sendChatBoxInterface(94);
 					player.getPackets().sendIComponentText(94, 2, "Are you sure you want to destroy this item?");

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.concurrent.Executors;
 
 import com.rs.cache.Cache;
+import com.rs.content.quests.QuestManager;
 import com.rs.cores.BlockingExecutorService;
 import com.rs.cores.CoresManager;
 import com.rs.game.dialogue.DialogueEventRepository;
@@ -104,6 +105,7 @@ public class GameLoader {
 			DialogueEventRepository.init();
 			FriendChatsManager.init();
 			AttributeKey.init();
+			QuestManager.load();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Host files.");
@@ -133,6 +135,7 @@ public class GameLoader {
 		getBackgroundLoader().submit(() -> {
         	CharmDrop.loadCharmDrops();
         	DropSets.init();
+        	
         });
 	}
 }

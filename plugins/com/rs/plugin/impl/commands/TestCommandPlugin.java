@@ -1,16 +1,10 @@
 package com.rs.plugin.impl.commands;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-
-import com.rs.cache.loaders.ItemDefinitions;
-import com.rs.cache.loaders.NPCDefinitions;
+import com.rs.content.quests.impl.DemoQuest;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.plugin.listener.Command;
 import com.rs.plugin.wrapper.CommandSignature;
-import com.rs.utilities.Utility;
 
 /**
  * This is just a dummy command to re-use for whatever testing needed.
@@ -23,6 +17,6 @@ public class TestCommandPlugin implements Command {
 
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		player.getAppearance().setTitle(1);
+		player.getQuestManager().startQuest(DemoQuest.class);
 	}
 }

@@ -153,6 +153,8 @@ public class NPCPluginDispatcher {
 				}
 				return;
 			}
+			if (player.getQuestManager().handleNPC(player, npc, optionId))
+				return;
 			NPCPluginDispatcher.execute(player, npc, optionId);
 		}, npc.getDefinitions().name.toLowerCase().equalsIgnoreCase("Banker")));
 

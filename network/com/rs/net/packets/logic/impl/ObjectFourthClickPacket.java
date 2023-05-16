@@ -51,6 +51,8 @@ public class ObjectFourthClickPacket implements LogicPacket {
 		player.setRouteEvent(new RouteEvent(worldObject, () -> {
 			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectClick4(player, worldObject)))
 				return;
+			if (player.getQuestManager().handleObject(player, worldObject))
+				return;
 			ObjectPluginDispatcher.execute(player, worldObject, 4);
 		}, true));
 	}

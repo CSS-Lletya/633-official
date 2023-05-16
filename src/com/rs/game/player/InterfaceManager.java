@@ -4,6 +4,8 @@ import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
+import com.rs.content.quests.Quest;
+import com.rs.utilities.Colors;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Data;
@@ -489,4 +491,14 @@ public class InterfaceManager {
 	public void refreshHitPoints() {
 		player.getVarsManager().sendVarBit(7198, player.getHitpoints());
 	}
+
+	 /**
+     * For displaying color-based progress indications (simplified progression labels)
+     * NOTE: need to add this interface to be visable. This isn't real quest tab.
+     */
+    public void renderQuestStatus(){
+//        for (Quest quest: player.getQuestManager().getProgressed().values()) {
+//             player.getPackets().sendIComponentText(3033, quest.getComponentId() +1 , player.getQuestManager().getStage(quest.getName()) >= 1 && player.getQuestManager().getStage(quest.getName()) < quest.getLastStage(player) ? Colors.yellow + quest.getName() : player.getQuestManager().completedQuest(quest.getName()) ? Colors.green + quest.getName() : Colors.red + quest.getName());
+//        }
+    }
 }
