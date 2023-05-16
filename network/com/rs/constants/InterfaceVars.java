@@ -153,6 +153,11 @@ public interface InterfaceVars {
 	int SETTINGS_ACCEPT_AID = 427;
 	
 	/**
+	 * Sets the state of the run button in Settings interface
+	 */
+	int SETTINGS_RUN = 173;
+	
+	/**
 	 * Refreshes the Auto attack style of the magic spell
 	 */
 	int COMBAT_REFRESH_AUTO_CAST_SPELL = 108;
