@@ -44,4 +44,14 @@ public class GSONParser {
 			e.printStackTrace();
 		}
 	}
+	
+    public static Object loadFile(String dir, Type type) {
+        try (Reader reader = Files.newBufferedReader(Paths.get(dir))) {
+            return GSON.fromJson(reader, type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

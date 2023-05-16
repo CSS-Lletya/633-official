@@ -10,6 +10,7 @@ import com.rs.game.dialogue.DialogueEventRepository;
 import com.rs.game.map.MapBuilder;
 import com.rs.game.map.World;
 import com.rs.game.npc.combat.NPCCombatDispatcher;
+import com.rs.game.npc.drops.DropSets;
 import com.rs.game.npc.global.GenericNPCDispatcher;
 import com.rs.game.player.attribute.AttributeKey;
 import com.rs.game.player.content.FriendChatsManager;
@@ -27,12 +28,12 @@ import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.plugin.NPCPluginDispatcher;
 import com.rs.plugin.ObjectPluginDispatcher;
 import com.rs.plugin.RSInterfacePluginDispatcher;
+import com.rs.utilities.CharmDrop;
 import com.rs.utilities.EquipData;
 import com.rs.utilities.ItemExamines;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.json.GsonHandler;
-import com.rs.utilities.json.impl.MobDropTableLoader;
 import com.rs.utilities.loaders.Censor;
 import com.rs.utilities.loaders.ItemBonuses;
 import com.rs.utilities.loaders.MapArchiveKeys;
@@ -100,7 +101,6 @@ public class GameLoader {
 			MusicHints.init();
 			ShopsHandler.init();
 			GsonHandler.initialize();
-			new MobDropTableLoader().load();
 			DialogueEventRepository.init();
 			FriendChatsManager.init();
 			AttributeKey.init();
@@ -129,6 +129,10 @@ public class GameLoader {
     			GameDatabase.initializeWebsiteDatabases();
     			PassiveDatabaseWorker.initialize();
     		}
+        });
+		getBackgroundLoader().submit(() -> {
+        	CharmDrop.loadCharmDrops();
+        	DropSets.init();
         });
 	}
 }

@@ -22,8 +22,7 @@ public class SettingsInterfacePlugin implements RSInterface {
 			player.getMovement().stopAll();
 			player.getInterfaceManager().sendInterface(742);
 		} else if (componentId == 3) {
-			player.setRun(!player.isRun());
-			player.getVarsManager().sendVar(InterfaceVars.SETTINGS_RUN, !player.isRun() ? 0 : 1);
+			player.setRunState(!player.isRun());
 		} else if (componentId == 4) {
 			player.getDetails().setAllowChatEffects(!player.getDetails().isAllowChatEffects());
 			player.getVarsManager().sendVar(InterfaceVars.SETTINGS_CHAT_EFFECTS, player.getDetails().isAllowChatEffects() ? 0 : 1);

@@ -2,7 +2,9 @@ package com.rs.utilities;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
@@ -593,4 +595,79 @@ public final class Utility {
 		}
 		return value;
 	}
+	
+
+    public static Rational toRational(double number) {
+        return toRational(number, 5);
+    }
+
+    public static long gcm(long a, long b) {
+        return b == 0 ? a : gcm(b, a % b); // Not bad for one line of code :)
+    }
+
+    public static Rational toRational(double number, int largestRightOfDecimal) {
+
+        long sign = 1;
+        if (number < 0) {
+            number = -number;
+            sign = -1;
+        }
+
+        final long SECOND_MULTIPLIER_MAX = (long) Math.pow(10, largestRightOfDecimal - 1);
+        final long FIRST_MULTIPLIER_MAX = SECOND_MULTIPLIER_MAX * 10L;
+        final double ERROR = Math.pow(10, -largestRightOfDecimal - 1);
+        long firstMultiplier = 1;
+        long secondMultiplier = 1;
+        boolean notIntOrIrrational = false;
+        long truncatedNumber = (long) number;
+        Rational rationalNumber = new Rational((long) (sign * number * FIRST_MULTIPLIER_MAX), FIRST_MULTIPLIER_MAX);
+
+        double error = number - truncatedNumber;
+        while ((error >= ERROR) && (firstMultiplier <= FIRST_MULTIPLIER_MAX)) {
+            secondMultiplier = 1;
+            firstMultiplier *= 10;
+            while ((secondMultiplier <= SECOND_MULTIPLIER_MAX) && (secondMultiplier < firstMultiplier)) {
+                double difference = (number * firstMultiplier) - (number * secondMultiplier);
+                truncatedNumber = (long) difference;
+                error = difference - truncatedNumber;
+                if (error < ERROR) {
+                    notIntOrIrrational = true;
+                    break;
+                }
+                secondMultiplier *= 10;
+            }
+        }
+
+        if (notIntOrIrrational) {
+            rationalNumber = new Rational(sign * truncatedNumber, firstMultiplier - secondMultiplier);
+        }
+        return rationalNumber;
+    }
+
+    public static double randomD() {
+        return RandomUtils.nextDouble();
+    }
+
+    public static double clampD(double val, double min, double max) {
+        return Math.max(min, Math.min(max, val));
+    }
+    
+    public static String asFraction(long a, long b) {
+        long gcm = gcm(a, b);
+        return (a / gcm) + "/" + (b / gcm);
+    }
+    
+    private double nothingRate = 0.0;
+    
+    public double getNothingRate() {
+        return round(nothingRate, 10);
+    }
+    
+    public static double round(double value, int places) {
+        if (places < 0)
+            throw new IllegalArgumentException();
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }

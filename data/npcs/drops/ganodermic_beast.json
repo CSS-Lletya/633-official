@@ -1,0 +1,219 @@
+{
+  "names": [
+    "Ganodermic beast"
+  ],
+  "tables": [
+    {
+      "chance": 0.0,
+      "outOf": 0.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 532,
+          "min": 1,
+          "max": 1
+        }
+      ]
+    },
+    {
+      "chance": 0.0,
+      "outOf": 0.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 22445,
+          "min": 1,
+          "max": 4
+        }
+      ]
+    },
+    {
+      "chance": 40.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 22451,
+          "min": 1,
+          "max": 298
+        }
+      ]
+    },
+    {
+      "chance": 28.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 22446,
+          "min": 12,
+          "max": 12
+        }
+      ]
+    },
+    {
+      "chance": 26.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 22448,
+          "min": 1,
+          "max": 1252
+        }
+      ]
+    },
+    {
+      "chance": 20.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 207,
+          "min": 2,
+          "max": 2
+        }
+      ]
+    },
+    {
+      "chance": 18.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 5321,
+          "min": 3,
+          "max": 3
+        }
+      ]
+    },
+    {
+      "chance": 16.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 385,
+          "min": 1,
+          "max": 3
+        }
+      ]
+    },
+    {
+      "chance": 16.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 995,
+          "min": 2265,
+          "max": 6933
+        }
+      ]
+    },
+    {
+      "chance": 15.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 565,
+          "min": 1,
+          "max": 3
+        }
+      ]
+    },
+    {
+      "chance": 15.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 1780,
+          "min": 40,
+          "max": 40
+        }
+      ]
+    },
+    {
+      "chance": 14.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 21620,
+          "min": 3,
+          "max": 3
+        }
+      ]
+    },
+    {
+      "chance": 28.0,
+      "outOf": 256.0,
+      "dropOne": true,
+      "drops": [
+        {
+          "id": 5302,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": 21621,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": 5300,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": 5288,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": 5289,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": 5316,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": 5315,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": 5304,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": 5317,
+          "min": 1,
+          "max": 1
+        }
+      ]
+    },
+    {
+      "chance": 1.0,
+      "outOf": 256.0,
+      "dropOne": false,
+      "drops": [
+        {
+          "id": 22498,
+          "min": 1,
+          "max": 1
+        }
+      ]
+    },
+    {
+      "chance": 19.0, "outOf": 256.0,
+      "rollTable": "rdt_gem"
+    }
+  ]
+}

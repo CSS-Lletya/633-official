@@ -7,10 +7,15 @@ import com.rs.constants.Graphic;
 import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.Entity;
 import com.rs.game.EntityType;
+import com.rs.game.item.FloorItem;
+import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.combat.NPCCombat;
 import com.rs.game.npc.combat.NPCCombatDefinitions;
+import com.rs.game.npc.drops.Drop;
+import com.rs.game.npc.drops.DropSets;
+import com.rs.game.npc.drops.DropTable;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.global.GenericNPCDispatcher;
 import com.rs.game.player.Hit;
@@ -18,7 +23,7 @@ import com.rs.game.player.Player;
 import com.rs.game.route.RouteFinder;
 import com.rs.game.route.strategy.FixedTileStrategy;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Graphics;
+import com.rs.utilities.CharmDrop;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.NPCBonuses;
@@ -247,9 +252,21 @@ public class NPC extends Entity {
 		Player killer = getMostDamageReceivedSourcePlayer();
 		if (killer == null)
 			return;
-		DropManager.dropItems(killer, this);
+		Item[] drops = DropTable.calculateDrops(killer, DropSets.getDropSet(id));
+
+		for (Item item : drops)
+			sendDrop(killer, item);
+
+		DropTable charm = CharmDrop.getCharmDrop(NPCDefinitions.getNPCDefinitions(getId()).getName().toLowerCase());
+		if (charm != null)
+			for (Drop d : charm.getDrops())
+				sendDrop(killer, d.toItem());
 	}
 
+	public void sendDrop(Player player, Item item) {
+		FloorItem.createGroundItem(item, this.getLastWorldTile(), player, true, 60, true);
+	}
+	
 	@Override
 	public void setAttackedBy(Entity target) {
 		super.setAttackedBy(target);

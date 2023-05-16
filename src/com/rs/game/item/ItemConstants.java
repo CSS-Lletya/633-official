@@ -294,6 +294,8 @@ public class ItemConstants {
 
 	private static final int ITEMS_RANGE = 500;
 
+	public static int[] CHARM_IDS = { 12158, 12159, 12160, 12163 };
+
 	private static double price = 0;
 	
 	public static boolean repairItem(Player player, int slot) {

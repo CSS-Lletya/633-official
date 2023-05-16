@@ -85,6 +85,12 @@ public final class RandomUtils {
 		return array[(int) (ThreadLocalRandom.current().nextDouble() * array.length)];
 	}
 	
+	private static final Random RANDOM = new Random();
+    public static int random(int maxValue) {
+        if (maxValue <= 0)
+            return 0;
+        return RANDOM.nextInt(maxValue);
+    }
 	/**
 	 * Pseudo-randomly retrieves an {@code int} from this {@code array}.
 	 * @param array The array to retrieve an {@code int} from.

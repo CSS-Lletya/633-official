@@ -56,7 +56,6 @@ public class AttackNPCPacket implements LogicPacket {
 				}
 			}
 		}
-		System.out.println(npc.getId());
 		//bugged..hmmm
 		player.getAction().setAction(new PlayerCombat(player, Optional.of(npc)));
 	}
