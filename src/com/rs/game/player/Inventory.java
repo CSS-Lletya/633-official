@@ -2,6 +2,7 @@ package com.rs.game.player;
 
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
+import com.rs.game.item.ItemWeights;
 import com.rs.game.item.ItemsContainer;
 import com.rs.game.map.WorldTile;
 import com.rs.utilities.ItemExamines;
@@ -14,6 +15,8 @@ public final class Inventory {
 	private ItemsContainer<Item> items;
 
 	private transient Player player;
+	
+	private transient double inventoryWeight;
 
 	public static final int INVENTORY_INTERFACE = 149;
 
@@ -43,6 +46,7 @@ public final class Inventory {
 
 	public void refresh(int... slots) {
 		player.getPackets().sendUpdateItems(93, items, slots);
+		refreshConfigs(false);
 	}
 
 	public boolean addItemDrop(int itemId, int amount, WorldTile tile) {
@@ -250,6 +254,7 @@ public final class Inventory {
 
 	public void refresh() {
 		player.getPackets().sendItems(93, items);
+		refreshConfigs(true);
 	}
 
 	public void replaceItem(int id, int amount, int slot) {
@@ -276,5 +281,20 @@ public final class Inventory {
 			return true;
 		}
 		return getAmountOf(id) >= amount;
+	}
+	
+	public void refreshConfigs(boolean init) {
+		double w = 0;
+		for (Item item : items.getItems()) {
+			if (item == null)
+				continue;
+			w += ItemWeights.getWeight(item, false);
+		}
+		inventoryWeight = w;
+//		player.getPackets().refreshWeight();
+	}
+
+	public double getInventoryWeight() {
+		return inventoryWeight;
 	}
 }

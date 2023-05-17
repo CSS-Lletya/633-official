@@ -304,6 +304,11 @@ public class Player extends Entity {
 	 */
 	private Optional<MapZone> currentMapZone = Optional.empty();
 	
+	/**
+	 * Represents a Quest Manager
+	 */
+	private QuestManager questManager;
+	
 
 	/**
 	 * Constructs a new Player
@@ -539,6 +544,13 @@ public class Player extends Entity {
 		DialogueEventListener listener = (DialogueEventListener) getAttributes().get(Attribute.DIALOGUE_EVENT).get();
 		return listener;
 	}
-
-	private QuestManager questManager;
+	
+	/**
+	 * Total player weight.
+	 * 
+	 * @return the weight as a Double Integer.
+	 */
+	public double getWeight() {
+		return inventory.getInventoryWeight() + equipment.getEquipmentWeight();
+	}
 }

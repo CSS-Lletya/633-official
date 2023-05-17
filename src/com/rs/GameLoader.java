@@ -8,6 +8,7 @@ import com.rs.content.quests.QuestManager;
 import com.rs.cores.BlockingExecutorService;
 import com.rs.cores.CoresManager;
 import com.rs.game.dialogue.DialogueEventRepository;
+import com.rs.game.item.ItemWeights;
 import com.rs.game.map.MapBuilder;
 import com.rs.game.map.World;
 import com.rs.game.npc.combat.NPCCombatDispatcher;
@@ -106,6 +107,7 @@ public class GameLoader {
 			FriendChatsManager.init();
 			AttributeKey.init();
 			QuestManager.load();
+			ItemWeights.init();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Host files.");

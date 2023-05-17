@@ -332,6 +332,14 @@ public class WorldPacketsEncoder extends Encoder {
 		getSession().write(stream);
 		return this;
 	}
+	
+	public WorldPacketsEncoder sendWeight() {
+		OutputStream stream = new OutputStream();
+		stream.writePacket(getPlayer(), 98);
+		stream.writeShort((int) getPlayer().getWeight());
+		getSession().write(stream);
+		return this;
+	}
 
 	public WorldPacketsEncoder sendMessage(int type, String text, Player p) {
 		int maskData = 0;

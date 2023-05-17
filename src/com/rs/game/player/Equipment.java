@@ -3,6 +3,7 @@ package com.rs.game.player;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
+import com.rs.game.item.ItemWeights;
 import com.rs.game.item.ItemsContainer;
 
 public final class Equipment {
@@ -14,7 +15,7 @@ public final class Equipment {
 	private ItemsContainer<Item> items;
 
 	private transient Player player;
-	private transient int equipmentHpIncrease;
+	private transient double equipmentWeight;
 
 	static final int[] DISABLED_SLOTS = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0 };
 
@@ -49,6 +50,14 @@ public final class Equipment {
 			player.getCombatDefinitions().checkAttackStyle();
 		}
 		player.getCombatDefinitions().refreshBonuses();
+		double w = 0;
+		for (Item item : items.getItems()) {
+			if (item == null)
+				continue;
+			w += ItemWeights.getWeight(item, true);
+		}
+		equipmentWeight = w;
+//		player.getPackets().refreshWeight();
 	}
 
 	public void reset() {
@@ -238,15 +247,7 @@ public final class Equipment {
 	public ItemsContainer<Item> getItems() {
 		return items;
 	}
-
-	public int getEquipmentHpIncrease() {
-		return equipmentHpIncrease;
-	}
-
-	public void setEquipmentHpIncrease(int hp) {
-		this.equipmentHpIncrease = hp;
-	}
-
+	
 	public boolean wearingArmour() {
 		return getItem(SLOT_HAT) != null || getItem(SLOT_CAPE) != null || getItem(SLOT_AMULET) != null
 				|| getItem(SLOT_WEAPON) != null || getItem(SLOT_CHEST) != null || getItem(SLOT_SHIELD) != null
@@ -264,5 +265,9 @@ public final class Equipment {
 	public boolean hasTwoHandedWeapon() {
 		Item weapon = items.get(SLOT_WEAPON);
 		return weapon != null && isTwoHandedWeapon(weapon);
+	}
+	
+	public double getEquipmentWeight() {
+		return equipmentWeight;
 	}
 }
