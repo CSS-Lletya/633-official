@@ -334,8 +334,8 @@ public class WorldPacketsEncoder extends Encoder {
 	}
 	
 	public WorldPacketsEncoder sendWeight() {
-		OutputStream stream = new OutputStream();
-		stream.writePacket(getPlayer(), 98);
+		OutputStream stream = new OutputStream(2);
+		stream.writePacket(getPlayer(), 79);
 		stream.writeShort((int) getPlayer().getWeight());
 		getSession().write(stream);
 		return this;
