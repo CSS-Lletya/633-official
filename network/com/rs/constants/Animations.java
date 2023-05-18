@@ -90,7 +90,7 @@ public final class Animations {
 	public static final Animation FADE_BACK_IN = new Animation(9013);
 	public static final Animation LEAP_INTO_AIR = new Animation(9602);
 	public static final Animation DEATH_FALLING = new Animation(836);
-	public static final Animation DRINKING = new Animation(829);
+	public static final Animation CONSUMING_ITEM = new Animation(829);
 	public static final Animation NET_FISHING = new Animation(621);
 	public static final Animation BIG_NET_FISHING = new Animation(620);
 	public static final Animation FISHING_ROD = new Animation(622);

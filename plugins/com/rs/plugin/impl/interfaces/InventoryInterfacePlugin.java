@@ -52,19 +52,19 @@ public class InventoryInterfacePlugin implements RSInterface {
 				InventoryPluginDispatcher.execute(player, item, 8);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON1_PACKET:
-				InventoryPluginDispatcher.execute(player, item, 1);
-				break;
-			case WorldPacketsDecoder.ACTION_BUTTON2_PACKET:
-				long time = Utility.currentTimeMillis();
-				if (player.getMovement().getLockDelay() >= time || player.getNextEmoteEnd() >= time)
-					return;
-				player.getMovement().stopAll(false);
 				if (Foods.eat(player, item, slotId))
 					return;
 				if (Pots.pot(player, item, slotId))
 					return;
+				InventoryPluginDispatcher.execute(player, item, 1);
+				break;
+			case WorldPacketsDecoder.ACTION_BUTTON2_PACKET:
+				long time = Utility.currentTimeMillis();
 				if (player.isDisableEquip())
 					return;
+				if (player.getMovement().getLockDelay() >= time || player.getNextEmoteEnd() >= time)
+					return;
+				player.getMovement().stopAll(false);
 				long passedTime = Utility.currentTimeMillis() - 600 /*WorldThread.WORLD_CYCLE*/;
 				if (player.getSwitchItemCache().isEmpty()) {
 					player.getSwitchItemCache().add(slotId);

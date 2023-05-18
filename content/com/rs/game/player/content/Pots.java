@@ -730,7 +730,7 @@ public final class Pots {
 		for (int skillId : pot.effect.affectedSkills)
 			player.getSkills().set(skillId, pot.effect.getAffectedSkill(player, skillId,
 					player.getSkills().getLevel(skillId), player.getSkills().getLevelForXp(skillId)));
-		player.setNextAnimationNoPriority(Animations.DRINKING);
+		player.setNextAnimationNoPriority(Animations.CONSUMING_ITEM);
 		player.getPackets().sendSound(4580, 0, 1);
 		if (pot.isFlask() || pot.isPotion()) {
 			player.getPackets().sendGameMessage(pot.effect.drinkMessage != null ? pot.effect.drinkMessage

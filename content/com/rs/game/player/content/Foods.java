@@ -1,33 +1,38 @@
 package com.rs.game.player.content;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Hit;
-import com.rs.game.player.Player;
 import com.rs.game.player.Hit.HitLook;
-import com.rs.net.encoders.other.Animation;
+import com.rs.game.player.Player;
+import com.rs.net.encoders.other.ForceTalk;
 import com.rs.utilities.RandomUtils;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import skills.Skills;
 
-/**
- * 
- * @author Cjay0091
- * 
- */
 public class Foods {
 
-	public static enum Food {
+	public enum Food {
 
-		/**
-		 * Fish
-		 */
+		TURKEY_DRUMSTICK(15428, 1),
+		ROAST_POTATOES(15429, 1),
+		YULE_LOGS(15430, 1),
+		MULLED_WINE(15431, 1),
+
 		CRAFISH(13433, 2),
+
+		KINGWORM(2162, 2),
 
 		ANCHOVIE(319, 1),
 
 		SHRIMP(315, 3),
+
+		FROG_SPAWN(5004, 2),
 
 		KARAMBWANJI(3151, 3),
 
@@ -37,19 +42,19 @@ public class Foods {
 
 		KARAMBWANI(3144, 18),
 
-		PURPLE_SWEETS(4561, 3, Effect.PURPLE_SWEET),
-
-		SLIMY_EEL(3381, 7 + RandomUtils.inclusive(2)),
+		SLIMY_EEL(3381, 7),
 
 		RAINBOW_FISH(10136, 11),
 
-		CAVE_EEL(5003, 8 + RandomUtils.inclusive(2)),
+		CAVE_EEL(5003, 8),
 
-		LAVA_EEL(2149, 7 + RandomUtils.inclusive(2)),
+		LAVA_EEL(2149, 7),
 
 		HERRING(347, 5),
 
-		MACKEREL(335, 6),
+		EDIBLE_SEAWEED(403, 4),
+
+		MACKEREL(355, 6),
 
 		TROUT(333, 7),
 
@@ -67,15 +72,20 @@ public class Foods {
 
 		SWORDFISH(373, 14),
 
+		SWEETCORN(5988, 10),
+		STRAWBERRY(5504, 6),
+
 		MONKFISH(7946, 16),
 
 		SHARK(385, 20),
+
+		BARON_SHARK(19948, 28),
 
 		TURTLE(397, 21),
 
 		MANTA(391, 22),
 
-		CAVEFISH(15266, 20),
+		CAVEFISH(15266, 22),
 
 		ROCKTAIL(15272, 23, 0, null, 10),
 
@@ -89,6 +99,8 @@ public class Foods {
 		RABIT(3228, 5),
 
 		ROAST_RABIT(7223, 7),
+
+		KEBAB(1971, 7),
 
 		ROASTED_BIRD_MEAT(9980, 6),
 
@@ -206,36 +218,69 @@ public class Foods {
 		 * Gnome Food
 		 */
 		TOAD_CRUNCHIES(2217, 8),
+		PM_TOAD_CRUNCHIES(2243, 8),
 
 		SPICY_CRUNCHIES(2213, 7),
+		PM_SPICY_CRUNCHIES(2241, 7),
 
 		WORM_CRUNCHIES(2205, 8),
+		PM_WORM_CRUNCHIES(2237, 8),
 
-		CHOCOCHIP_CRUNCHIES(9544, 7),
+		CHOCOCHIP_CRUNCHIES(2209, 7),
+		PM_CHOCOCHIP_CRUNCHIES(2239, 7),
 
 		FRUIT_BATTA(2277, 11),
+		PM_FRUIT_BATTA(2225, 11),
 
 		TOAD_BATTA(2255, 11),
+		PM_TOAD_BATTA(2221, 11),
 
 		WORM_BATTA(2253, 11),
+		PM_WORM_BATTA(2219, 11),
 
 		VEGETABLE_BATTA(2281, 11),
+		PM_VEGETABLE_BATTA(2227, 11),
 
 		CHEESE_AND_TOMATO_BATTA(9535, 11),
+		PM_CHEESE_AND_TOMATO_BATTA(2223, 11),
 
 		WORM_HOLE(2191, 12),
+		PM_WORM_HOLE(2233, 12),
 
 		VEG_BALL(2195, 12),
-
 		PRE_MADE_VEG_BALL(2235, 12),
 
 		TANGLED_TOAD_LEGS(2187, 15),
+		PM_TANGLED_TOAD_LEGS(2231, 15),
 
 		CHOCOLATE_BOMB(2185, 15),
+		PM_CHOCOLATE_BOMB(2229, 15),
 
 		/**
 		 * Misc
 		 */
+		CHOCOLATE_BAR(1973, 2),
+		EASTER_EGG(1961, 12),
+		EASTER_EGG1(7928, 12),
+		EASTER_EGG2(7929, 12),
+		EASTER_EGG3(7930, 12),
+		EASTER_EGG4(7931, 12),
+		EASTER_EGG5(7932, 12),
+		EASTER_EGG6(7933, 12),
+
+		GGS(10960, 2),
+		FSG(10961, 2),
+		FB(10962, 2),
+		CFL(10963, 2),
+		BSH(10964, 2),
+		FINGERS(10965, 2),
+		GLM(10966, 2),
+		RF(10967, 2),
+		MUSHROOMS(10968, 2),
+		FILLETS(10969, 2),
+		LOACH(10970, 3),
+		EELSUSHI(10971, 10),
+
 		CAKE(1891, 4, 1893),
 
 		TWO_THIRDS_CAKE(1893, 4, 1895),
@@ -252,6 +297,9 @@ public class Foods {
 
 		BREAD(2309, 5),
 
+		TEA(1978, 3, 1980, Effect.TEA_MESSAGE),
+		WINE(1993, 11, 1935),
+
 		CABBAGE(1965, 1, Effect.CABAGE_MESSAGE),
 
 		ONION(1957, 1, Effect.ONION_MESSAGE),
@@ -261,12 +309,37 @@ public class Foods {
 		POT_OF_CREAM(2130, 1),
 
 		CHEESE_WHEEL(18789, 2),
+		SPINACH_ROLL(1969, 2),
 
-		THIN_SNAIL_MEAT(3369, 5 + RandomUtils.inclusive(2)),
+		PAPAYA(5972, 8, Effect.PAPAYA),
+
+		BANANA(1963, 2),
+
+		THIN_SNAIL_MEAT(3369, 5 + RandomUtils.random(2)),
 
 		LEAN_SNAIL_MEAT(3371, 8),
 
-		FAT_SNAIL_MEAT(3373, 8 + RandomUtils.inclusive(2));
+		FAT_SNAIL_MEAT(3373, 8 + RandomUtils.random(2)),
+
+		HEIM_CRAB(18159, 2),
+
+		BLUE_CRAB(18175, 22),
+
+		BOULDABASS(18171, 17),
+
+		CAVE_MORAY(18177, 25),
+
+		DUSK_EEL(18163, 7),
+
+		GIANT_FLATFISH(18165, 10),
+
+		RED_EYE(18161, 5),
+
+		SALVE_EEL(18173, 20),
+
+		SHORT_FINNED_EEL(18167, 12),
+
+		WEB_SNIPER(18169, 15);
 
 		/**
 		 * The food id
@@ -293,12 +366,13 @@ public class Foods {
 		/**
 		 * A map of object ids to foods.
 		 */
-		private static Object2ObjectOpenHashMap<Integer, Food> foods = new Object2ObjectOpenHashMap<Integer, Food>();
+		private static Map<Integer, Food> foods = new HashMap<>();
 
 		/**
 		 * Gets a food by an object id.
-		 * 
-		 * @param itemId The object id.
+		 *
+		 * @param itemId
+		 *            The object id.
 		 * @return The food, or <code>null</code> if the object is not a food.
 		 */
 		public static Food forId(int itemId) {
@@ -309,16 +383,17 @@ public class Foods {
 		 * Populates the tree map.
 		 */
 		static {
-			for (final Food food : Food.values()) {
+			for (final Food food : Food.values())
 				foods.put(food.id, food);
-			}
 		}
 
 		/**
 		 * Represents a food being eaten
-		 * 
-		 * @param id     The food id
-		 * @param health The healing health received
+		 *
+		 * @param id
+		 *            The food id
+		 * @param heal
+		 *            The healing health received
 		 */
 		private Food(int id, int heal) {
 			this.id = id;
@@ -327,10 +402,13 @@ public class Foods {
 
 		/**
 		 * Represents a part of a food item being eaten (example: cake)
-		 * 
-		 * @param id    The food id
-		 * @param heal  The heal amount
-		 * @param newId The new food id
+		 *
+		 * @param id
+		 *            The food id
+		 * @param heal
+		 *            The heal amount
+		 * @param newId
+		 *            The new food id
 		 */
 		private Food(int id, int heal, int newId) {
 			this(id, heal, newId, null);
@@ -354,7 +432,7 @@ public class Foods {
 
 		/**
 		 * Gets the id.
-		 * 
+		 *
 		 * @return The id.
 		 */
 		public int getId() {
@@ -363,7 +441,7 @@ public class Foods {
 
 		/**
 		 * Gets the exp amount.
-		 * 
+		 *
 		 * @return The exp amount.
 		 */
 		public int getHeal() {
@@ -372,7 +450,7 @@ public class Foods {
 
 		/**
 		 * Gets the new food id
-		 * 
+		 *
 		 * @return The new food id.
 		 */
 		public int getNewId() {
@@ -384,7 +462,7 @@ public class Foods {
 		}
 	}
 
-	public static enum Effect {
+	public enum Effect {
 		SUMMER_PIE {
 
 			@Override
@@ -393,7 +471,7 @@ public class Foods {
 				int runEnergy = (int) (player.getDetails().getRunEnergy() * 1.1);
 				if (runEnergy > 100)
 					runEnergy = 100;
-				player.getMovement().setRunEnergy(runEnergy);
+				player.getDetails().setRunEnergy(runEnergy);
 				int level = player.getSkills().getLevel(Skills.AGILITY);
 				int realLevel = player.getSkills().getLevelForXp(Skills.AGILITY);
 				player.getSkills().set(Skills.AGILITY, level >= realLevel ? realLevel + 5 : level + 5);
@@ -451,7 +529,7 @@ public class Foods {
 			@Override
 			public void effect(Object object) {
 				Player player = (Player) object;
-				if (RandomUtils.inclusive(100) > 5) {
+				if (RandomUtils.random(100) > 5) {
 					int level = player.getSkills().getLevel(Skills.COOKING);
 					int realLevel = player.getSkills().getLevelForXp(Skills.COOKING);
 					player.getSkills().set(Skills.COOKING, level >= realLevel ? realLevel + 6 : level + 6);
@@ -471,12 +549,28 @@ public class Foods {
 			}
 		},
 
+		PAPAYA {
+			@Override
+			public void effect(Object object) {
+				Player player = (Player) object;
+				int restoredEnergy = (int) (player.getDetails().getRunEnergy() + 5);
+				player.getDetails().setRunEnergy(restoredEnergy > 100 ? 100 : restoredEnergy);
+			}
+		},
+
+		TEA_MESSAGE {
+			@Override
+			public void effect(Object object) {
+				Player player = (Player) object;
+				player.setNextForceTalk(new ForceTalk("Aaah, nothing like a nice cuppa tea!"));
+			}
+		},
+
 		ONION_MESSAGE {
 			@Override
 			public void effect(Object object) {
 				Player player = (Player) object;
-				player.getPackets().sendGameMessage(
-						"It hurts to see a grown " + (player.getAppearance().isMale() ? "male" : "female") + " cry.");
+				player.getPackets().sendGameMessage("It hurts to see a grown " + (player.getAppearance().isMale() ? "male" : "female") + "cry.");
 			}
 		},
 
@@ -486,62 +580,28 @@ public class Foods {
 				Player player = (Player) object;
 				player.applyHit(new Hit(player, 50, HitLook.POISON_DAMAGE));
 			}
-		},
-
-		BEER_EFFECT {
-			@Override
-			public void effect(Object object) {
-				Player player = (Player) object;
-				player.getPackets().sendGameMessage("You drink the beer. You feel slightly reinvigorated...");
-				player.getPackets().sendGameMessage("...and slightly dizzy too.");
-				int level = player.getSkills().getLevel(Skills.ATTACK);
-				player.getSkills().set(Skills.ATTACK, level <= 0 ? 0 : level - 2);
-				level = player.getSkills().getLevel(Skills.STRENGTH);
-				int realLevel = player.getSkills().getLevelForXp(Skills.STRENGTH);
-				player.getSkills().set(Skills.STRENGTH, level >= realLevel ? realLevel + 1 : level + 1);
-			}
-		},
-
-		WINE_EFFECT {
-			@Override
-			public void effect(Object object) {
-				Player player = (Player) object;
-				player.getPackets().sendGameMessage("You drink the wine. You feel slightly reinvigorated...");
-				player.getPackets().sendGameMessage("...and slightly dizzy too.");
-				player.heal(70);
-				int level = player.getSkills().getLevel(Skills.ATTACK);
-				player.getSkills().set(Skills.ATTACK, level <= 0 ? 0 : level - 4);
-			}
-		},
-		PURPLE_SWEET {
-			@Override
-			public void effect(Object object) {
-				Player player = (Player) object;
-				player.getMovement().setRunEnergy((int) (.20 * player.getDetails().getRunEnergy()));
-			}
 		};
 
 		public void effect(Object object) {
 		}
 	}
 
-	private static final Animation EAT_ANIM = new Animation(829);
-
 	public static boolean eat(final Player player, Item item, int slot) {
+		return eat(player, item, slot, null);
+	}
+
+	public static boolean eat(final Player player, Item item, int slot, Player givenFrom) {
 		Food food = Food.forId(item.getId());
 		if (food == null)
 			return false;
-		if (!player.getDetails().getFood().elapsed(1800)) {
+		if (player.getMapZoneManager().execute(player, zone -> !zone.canEat(player, food)))
 			return false;
-		}
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canEat(player, food))) {
-			return false;
-		}
 		String name = ItemDefinitions.getItemDefinitions(food.getId()).getName().toLowerCase();
+		int foodDelay = name.contains("half") ? 2 : 3;
+		if (!player.getDetails().getFood().elapsed(foodDelay * 600))
+			return false;
 		player.getPackets().sendGameMessage("You eat the " + name + ".");
-		player.setNextAnimationNoPriority(EAT_ANIM);
-		long foodDelay = name.contains("half") ? 600 : 1800;
-		player.getAction().setActionDelay((int) foodDelay / 1000);
+		player.setNextAnimation(Animations.CONSUMING_ITEM);
 		player.getDetails().getFood().reset();
 		player.getInventory().getItems().set(slot, food.getNewId() == 0 ? null : new Item(food.getNewId(), 1));
 		player.getInventory().refresh(slot);
@@ -550,9 +610,12 @@ public class Foods {
 		if (player.getHitpoints() > hp)
 			player.getPackets().sendGameMessage("It heals some health.");
 		player.getInventory().refresh();
-		if (food.effect != null) {
+		if (food.effect != null)
 			food.effect.effect(player);
-		}
 		return true;
+	}
+
+	public static boolean isConsumable(Item item) {
+		return Food.forId(item.getId()) == null;
 	}
 }
