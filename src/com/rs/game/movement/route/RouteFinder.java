@@ -1,4 +1,4 @@
-package com.rs.game.route;
+package com.rs.game.movement.route;
 
 /**
  * Route finder, designed for single-threaded usage.

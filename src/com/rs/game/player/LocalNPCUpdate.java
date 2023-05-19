@@ -270,18 +270,19 @@ public final class LocalNPCUpdate {
 
 	@SuppressWarnings("unused")
 	private void applyForceMovementMask(NPC n, OutputStream data) {
-		data.write128Byte(n.getNextForceMovement().getToFirstTile().getX()
-				- n.getX());
-		data.writeByte(n.getNextForceMovement().getToFirstTile().getY()
-				- n.getY());
-		data.writeByteC(n.getNextForceMovement().getToSecondTile() == null ? 0
-				: n.getNextForceMovement().getToSecondTile().getX() - n.getX());
-		data.writeByteC(n.getNextForceMovement().getToSecondTile() == null ? 0
-				: n.getNextForceMovement().getToSecondTile().getY() - n.getY());
-		data.writeShortLE((n.getNextForceMovement().getFirstTileTicketDelay() * 600) / 20);
-		data.writeShortLE128(n.getNextForceMovement().getToSecondTile() == null ? 0
-				: ((n.getNextForceMovement().getSecondTileTicketDelay() * 600) / 20));
-		data.writeShort128(n.getNextForceMovement().getDirection());
+		//TODO: Update this to new system. Old system also wasn't updated too.
+//		data.write128Byte(n.getNextForceMovement().getToFirstTile().getX()
+//				- n.getX());
+//		data.writeByte(n.getNextForceMovement().getToFirstTile().getY()
+//				- n.getY());
+//		data.writeByteC(n.getNextForceMovement().getToSecondTile() == null ? 0
+//				: n.getNextForceMovement().getToSecondTile().getX() - n.getX());
+//		data.writeByteC(n.getNextForceMovement().getToSecondTile() == null ? 0
+//				: n.getNextForceMovement().getToSecondTile().getY() - n.getY());
+//		data.writeShortLE((n.getNextForceMovement().getFirstTileTicketDelay() * 600) / 20);
+//		data.writeShortLE128(n.getNextForceMovement().getToSecondTile() == null ? 0
+//				: ((n.getNextForceMovement().getSecondTileTicketDelay() * 600) / 20));
+//		data.writeShort128(n.getNextForceMovement().getDirection());
 	}
 
 	private void applyFaceWorldTileMask(NPC n, OutputStream data) {

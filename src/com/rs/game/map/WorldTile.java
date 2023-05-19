@@ -212,4 +212,23 @@ public class WorldTile {
 		final int distanceY = Math.abs(from.getY() - getY());
 		return distanceX > distanceY ? distanceX : distanceY;
 	}
+
+	/**
+	 * Creates a backing copy of this position.
+	 */
+	public WorldTile copy() {
+		return new WorldTile(x, y, plane);
+	}
+
+	/**
+	 * Returns the delta coordinates. Note that the returned position is not an
+	 * actual position, instead it's values represent the delta values between
+	 * the two arguments.
+	 * @param a the first position.
+	 * @param b the second position.
+	 * @return the delta coordinates contained within a position.
+	 */
+	public static WorldTile delta(WorldTile a, WorldTile b) {
+		return new WorldTile(b.x - a.x, b.y - a.y, 0);
+	}
 }

@@ -1,14 +1,14 @@
-package com.rs.game.route;
+package com.rs.game.movement.route;
 
 import com.rs.game.Entity;
 import com.rs.game.item.FloorItem;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
+import com.rs.game.movement.route.strategy.EntityStrategy;
+import com.rs.game.movement.route.strategy.FixedTileStrategy;
+import com.rs.game.movement.route.strategy.FloorItemStrategy;
+import com.rs.game.movement.route.strategy.ObjectStrategy;
 import com.rs.game.player.Player;
-import com.rs.game.route.strategy.EntityStrategy;
-import com.rs.game.route.strategy.FixedTileStrategy;
-import com.rs.game.route.strategy.FloorItemStrategy;
-import com.rs.game.route.strategy.ObjectStrategy;
 
 public class RouteEvent {
 

@@ -4,9 +4,9 @@ package com.rs.game.player.actions;
 import java.util.Optional;
 
 import com.rs.game.Entity;
+import com.rs.game.movement.route.RouteFinder;
+import com.rs.game.movement.route.strategy.EntityStrategy;
 import com.rs.game.player.Player;
-import com.rs.game.route.RouteFinder;
-import com.rs.game.route.strategy.EntityStrategy;
 import com.rs.utilities.Utility;
 
 public class PlayerFollow extends Action {

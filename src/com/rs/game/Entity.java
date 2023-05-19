@@ -26,7 +26,10 @@ import com.rs.game.map.GameObject;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
-import com.rs.game.map.areas.AreaHandler;
+import com.rs.game.movement.ForcedMovement;
+import com.rs.game.movement.route.RouteFinder;
+import com.rs.game.movement.route.strategy.EntityStrategy;
+import com.rs.game.movement.route.strategy.ObjectStrategy;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Combat;
@@ -39,12 +42,8 @@ import com.rs.game.player.content.TeleportType;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.player.type.Effect;
 import com.rs.game.player.type.PoisonType;
-import com.rs.game.route.RouteFinder;
-import com.rs.game.route.strategy.EntityStrategy;
-import com.rs.game.route.strategy.ObjectStrategy;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
-import com.rs.net.encoders.other.ForceMovement;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.MutableNumber;
@@ -87,7 +86,7 @@ public abstract class Entity extends WorldTile {
 	private transient Graphics nextGraphics3;
 	private transient Graphics nextGraphics4;
 	private transient ObjectArrayList<Hit> nextHits;
-	private transient ForceMovement nextForceMovement;
+	private transient ForcedMovement nextForceMovement;
 	private transient ForceTalk nextForceTalk;
 	private transient int nextFaceEntity;
 	private transient int lastFaceEntity;
@@ -173,6 +172,11 @@ public abstract class Entity extends WorldTile {
 		setAttackedByDelay(0);
 		if (attributes)
 			getAttributes().attributes.clear();
+		ifNpc(npc -> {
+			npc.setDirection(npc.getRespawnDirection());
+			npc.getCombat().reset();
+			npc.setForceWalk(null);
+		});
 		ifPlayer(player -> {
 			player.getInterfaceManager().refreshHitPoints();
 			player.getHintIconsManager().removeAll();
@@ -328,7 +332,7 @@ public abstract class Entity extends WorldTile {
 
 	public void heal(int ammount) {
 		heal(ammount, 0);
-		ifPlayer(player -> player.getInterfaceManager().refreshHitPoints());
+		toPlayer().getInterfaceManager().refreshHitPoints();
 	}
 
 	public void heal(int ammount, int extra) {
@@ -738,7 +742,7 @@ public abstract class Entity extends WorldTile {
 		return new int[] { (int) step[1], (int) step[2] };
 	}
 
-	private boolean addWalkStep(int nextX, int nextY, int lastX, int lastY, boolean check) {
+	public boolean addWalkStep(int nextX, int nextY, int lastX, int lastY, boolean check) {
 		int dir = Utility.getMoveDirection(nextX - lastX, nextY - lastY);
 		if (dir == -1)
 			return false;
@@ -974,8 +978,7 @@ public abstract class Entity extends WorldTile {
 		ifPlayer(player -> {
 			if (!player.isStarted())
 				return;
-			boolean isAtMultiArea = player.isForceMultiArea() ? true : World
-					.isMultiArea(player) || AreaHandler.getArea(player).isPresent() && AreaHandler.getArea(player).get().name().equalsIgnoreCase("Multi Area");
+			boolean isAtMultiArea = player.isForceMultiArea() ? true : World.isMultiArea(player);
 			if (isAtMultiArea && !player.isMultiArea()) {
 				player.setMultiArea(isAtMultiArea);
 				player.getPackets().sendGlobalConfig(616, 1);

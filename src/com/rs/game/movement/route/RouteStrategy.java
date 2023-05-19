@@ -1,4 +1,4 @@
-package com.rs.game.route;
+package com.rs.game.movement.route;
 
 /**
  * Class, controlling the exit point of a route.

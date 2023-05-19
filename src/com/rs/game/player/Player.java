@@ -13,7 +13,8 @@ import com.rs.game.EntityType;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
-import com.rs.game.map.areas.AreaHandler;
+import com.rs.game.movement.route.CoordsEvent;
+import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.other.Pet;
 import com.rs.game.player.actions.ActionManager;
@@ -25,8 +26,6 @@ import com.rs.game.player.content.PriceCheckManager;
 import com.rs.game.player.content.pet.PetManager;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.game.player.type.CombatEffect;
-import com.rs.game.route.CoordsEvent;
-import com.rs.game.route.RouteEvent;
 import com.rs.game.task.impl.CombatEffectTask;
 import com.rs.game.task.impl.SkillActionTask;
 import com.rs.net.IsaacKeyPair;
@@ -361,7 +360,6 @@ public class Player extends Entity {
 		setScreenWidth(screenWidth);
 		setScreenHeight(screenHeight);
 		setIsaacKeyPair(isaacKeyPair);
-		setInterfaceManager(new InterfaceManager(this));
 		setHintIconsManager(new HintIconsManager(this));
 		setPriceCheckManager(new PriceCheckManager(this));
 		setLocalPlayerUpdate(new LocalPlayerUpdate(this));
@@ -393,8 +391,8 @@ public class Player extends Entity {
 			setAction(new ActionManager());
 		if (getMapZoneManager() == null)
 			mapZoneManager = new MapZoneManager();
-		
         questManager.setPlayer(this);
+        interfaceManager = new InterfaceManager(this);
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -423,7 +421,6 @@ public class Player extends Entity {
 	public void processEntity() {
 		if (isDead())
 			return;
-		super.processEntity();
 		getSession().processLogicPackets(this);
 		if (getCoordsEvent() != null && getCoordsEvent().processEvent(this))
 			setCoordsEvent(null);
@@ -435,7 +432,6 @@ public class Player extends Entity {
 		getDetails().getCharges().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
-		AreaHandler.processArea(this);
 		processEffects();
 	}
 

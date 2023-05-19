@@ -1,8 +1,8 @@
-package com.rs.game.route.strategy;
+package com.rs.game.movement.route.strategy;
 
 import com.rs.game.item.FloorItem;
 import com.rs.game.map.WorldTile;
-import com.rs.game.route.RouteStrategy;
+import com.rs.game.movement.route.RouteStrategy;
 
 public class FloorItemStrategy extends RouteStrategy {
 

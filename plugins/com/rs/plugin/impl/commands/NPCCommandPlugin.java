@@ -14,7 +14,7 @@ public final class NPCCommandPlugin implements Command {
 
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		Try.run(() -> World.addNPC(new NPC(Short.parseShort(cmd[1]), player, (byte) -1, true, true)))
+		Try.run(() -> World.addNPC(new NPC(Short.parseShort(cmd[1]), player, true, true)))
 				.onFailure(failure -> player.getPackets().sendPanelBoxMessage("Use: ::npc id(Integer)"));
 	}
 }

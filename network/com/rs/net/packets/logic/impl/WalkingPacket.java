@@ -1,9 +1,9 @@
 package com.rs.net.packets.logic.impl;
 
 import com.rs.game.map.WorldTile;
+import com.rs.game.movement.route.RouteFinder;
+import com.rs.game.movement.route.strategy.FixedTileStrategy;
 import com.rs.game.player.Player;
-import com.rs.game.route.RouteFinder;
-import com.rs.game.route.strategy.FixedTileStrategy;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacket;
 import com.rs.net.packets.logic.LogicPacketSignature;

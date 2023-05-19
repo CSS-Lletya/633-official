@@ -1,9 +1,9 @@
 package com.rs.net.packets.logic.impl;
 
 import com.rs.game.map.World;
+import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.game.route.RouteEvent;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacket;
 import com.rs.net.packets.logic.LogicPacketSignature;
