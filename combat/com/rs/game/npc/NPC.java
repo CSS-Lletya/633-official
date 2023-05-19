@@ -11,6 +11,8 @@ import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
+import com.rs.game.movement.route.RouteFinder;
+import com.rs.game.movement.route.strategy.FixedTileStrategy;
 import com.rs.game.npc.combat.NPCCombat;
 import com.rs.game.npc.combat.NPCCombatDefinitions;
 import com.rs.game.npc.drops.Drop;
@@ -20,8 +22,6 @@ import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.global.GenericNPCDispatcher;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
-import com.rs.game.route.RouteFinder;
-import com.rs.game.route.strategy.FixedTileStrategy;
 import com.rs.game.task.Task;
 import com.rs.utilities.CharmDrop;
 import com.rs.utilities.RandomUtils;
@@ -44,11 +44,9 @@ public class NPC extends Entity {
 
 	private int id;
 	private WorldTile respawnTile;
-	private byte mapAreaNameHash;
 	private boolean canBeAttackFromOutOfArea;
 	private byte walkType;
-	private short[] bonuses = NPCBonuses.getBonuses(id); // 0 stab, 1 slash, 2 crush,3 mage, 4 range, 5 stab // def,
-															// blahblah till 9
+	private short[] bonuses = NPCBonuses.getBonuses(id);
 	private boolean spawned;
 	private transient NPCCombat combat;
 	public WorldTile forceWalk;
@@ -69,23 +67,22 @@ public class NPC extends Entity {
 	// npc masks
 	private transient Transformation nextTransformation;
 
-	public NPC(short id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		this(id, tile, mapAreaNameHash, canBeAttackFromOutOfArea, false);
+	public NPC(short id, WorldTile tile, boolean canBeAttackFromOutOfArea) {
+		this(id, tile, canBeAttackFromOutOfArea, false);
 	}
 
 	public NPC(short id, WorldTile tile) {
 		super(tile, EntityType.NPC);
-		new NPC(id, tile, (byte) -1, false);
+		new NPC(id, tile, false);
 	}
 
 	/*
 	 * creates and adds npc
 	 */
-	public NPC(int id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea, boolean spawned) {
+	public NPC(int id, WorldTile tile, boolean canBeAttackFromOutOfArea, boolean spawned) {
 		super(tile, EntityType.NPC);
 		setId(id);
 		setRespawnTile(new WorldTile(tile));
-		setMapAreaNameHash(mapAreaNameHash);
 		setCanBeAttackFromOutOfArea(canBeAttackFromOutOfArea);
 		setSpawned(spawned);
 		setHitpoints(getMaxHitpoints());
@@ -130,11 +127,8 @@ public class NPC extends Entity {
 						int moveX = (int) Math.round(Math.random() * 10.0 - 5.0);
 						int moveY = (int) Math.round(Math.random() * 10.0 - 5.0);
 						resetWalkSteps();
-						if (getMapAreaNameHash() != -1) {
-							addWalkSteps(getX() + moveX, getY() + moveY, 5, (getWalkType() & FLY_WALK) == 0);
-						} else
-							addWalkSteps(getRespawnTile().getX() + moveX, getRespawnTile().getY() + moveY, 5,
-									(getWalkType() & FLY_WALK) == 0);
+						addWalkSteps(getRespawnTile().getX() + moveX, getRespawnTile().getY() + moveY, 5,
+								(getWalkType() & FLY_WALK) == 0);
 					}
 				}
 			}
@@ -164,7 +158,6 @@ public class NPC extends Entity {
 
 	@Override
 	public void processEntity() {
-		super.processEntity();
 		processNPC();
 //		getGenericNPC().process(this);
 	}
@@ -198,15 +191,8 @@ public class NPC extends Entity {
 		getCombatDefinitions().handleIngoingHit(this, hit);
 		getGenericNPC().handleIngoingHit(this, hit);
 	}
-
-	@Override
-	public void reset() {
-		super.reset();
-		setDirection(getRespawnDirection());
-		getCombat().reset();
-		setForceWalk(null);
-	}
-
+	
+	
 	@Override
 	public void deregister() {
 		if (isFinished())
@@ -387,25 +373,22 @@ public class NPC extends Entity {
 	}
 
 	/**
-	 * TODO: REDO ALL THIS TO THE NEW SYSTEM
-	 * 
 	 * @param id
 	 * @param tile
-	 * @param mapAreaNameHash
 	 * @param canBeAttackFromOutOfArea
 	 * @param spawned
 	 * @return
 	 */
-	public static final NPC spawnNPC(int id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea,
+	public static final NPC spawnNPC(int id, WorldTile tile, boolean canBeAttackFromOutOfArea,
 			boolean spawned) {
 
 		NPC npcType = null;
-		npcType = new NPC(id, tile, mapAreaNameHash, canBeAttackFromOutOfArea, spawned);
+		npcType = new NPC(id, tile, canBeAttackFromOutOfArea, spawned);
 		npcType = new GenericNPCDispatcher().create(npcType);
 		return npcType;
 	}
 
-	public static final NPC spawnNPC(int id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		return spawnNPC(id, tile, mapAreaNameHash, canBeAttackFromOutOfArea, false);
+	public static final NPC spawnNPC(int id, WorldTile tile, boolean canBeAttackFromOutOfArea) {
+		return spawnNPC(id, tile, canBeAttackFromOutOfArea, false);
 	}
 }

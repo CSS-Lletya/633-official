@@ -16,9 +16,9 @@ import skills.Skills;
 
 public class Spiritlarupia extends Familiar {
 
-	public Spiritlarupia(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Spiritlarupia(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

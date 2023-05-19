@@ -13,9 +13,9 @@ import com.rs.net.encoders.other.Graphics;
 
 public class Ravenouslocust extends Familiar {
 
-	public Ravenouslocust(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Ravenouslocust(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

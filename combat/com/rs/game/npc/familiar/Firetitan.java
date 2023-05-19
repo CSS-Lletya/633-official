@@ -10,8 +10,9 @@ import skills.Skills;
 
 public class Firetitan extends Familiar {
 
-	public Firetitan(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+	public Firetitan(Player owner, Pouch pouch, WorldTile tile,
+			boolean canBeAttackFromOutOfArea) {
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

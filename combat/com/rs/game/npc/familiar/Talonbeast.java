@@ -14,9 +14,9 @@ import com.rs.utilities.RandomUtils;
 
 public class Talonbeast extends Familiar {
 
-	public Talonbeast(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Talonbeast(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

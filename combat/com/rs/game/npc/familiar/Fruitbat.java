@@ -16,8 +16,9 @@ public class Fruitbat extends Familiar {
 
 	private int fruitTicks;
 
-	public Fruitbat(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+	public Fruitbat(Player owner, Pouch pouch, WorldTile tile,
+			boolean canBeAttackFromOutOfArea) {
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

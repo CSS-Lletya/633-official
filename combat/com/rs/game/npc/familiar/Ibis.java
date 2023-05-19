@@ -18,8 +18,9 @@ public class Ibis extends Familiar {
 	@SuppressWarnings("unused")
 	private int forageTicks;
 
-	public Ibis(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+	public Ibis(Player owner, Pouch pouch, WorldTile tile,
+			boolean canBeAttackFromOutOfArea) {
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

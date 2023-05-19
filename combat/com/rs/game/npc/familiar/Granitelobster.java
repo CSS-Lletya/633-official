@@ -20,9 +20,9 @@ public class Granitelobster extends Familiar {
 	@SuppressWarnings("unused")
 	private int forageTicks;
 
-	public Granitelobster(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Granitelobster(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

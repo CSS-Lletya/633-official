@@ -32,8 +32,8 @@ public abstract class Familiar extends NPC {
 	private BeastOfBurden bob;
 	private Pouch pouch;
 
-	public Familiar(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		super((short) Summoning.getNPCId(pouch.getRealPouchId()), tile, (byte) mapAreaNameHash,
+	public Familiar(Player owner, Pouch pouch, WorldTile tile, boolean canBeAttackFromOutOfArea) {
+		super((short) Summoning.getNPCId(pouch.getRealPouchId()), tile,
 				canBeAttackFromOutOfArea, false);
 		this.owner = owner;
 		this.pouch = pouch;

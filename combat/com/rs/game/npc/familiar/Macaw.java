@@ -12,8 +12,9 @@ public class Macaw extends Familiar {
 
 	private int specialLock = -1;
 
-	public Macaw(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+	public Macaw(Player owner, Pouch pouch, WorldTile tile,
+			boolean canBeAttackFromOutOfArea) {
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

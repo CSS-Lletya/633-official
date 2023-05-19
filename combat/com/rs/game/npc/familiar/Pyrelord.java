@@ -6,8 +6,9 @@ import com.rs.game.player.content.Summoning.Pouch;
 
 public class Pyrelord extends Familiar {
 
-	public Pyrelord(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+	public Pyrelord(Player owner, Pouch pouch, WorldTile tile,
+			boolean canBeAttackFromOutOfArea) {
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

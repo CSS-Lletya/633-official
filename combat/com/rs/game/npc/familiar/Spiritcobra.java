@@ -11,9 +11,9 @@ import com.rs.net.encoders.other.Graphics;
 
 public class Spiritcobra extends Familiar {
 
-	public Spiritcobra(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Spiritcobra(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

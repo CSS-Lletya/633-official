@@ -8,9 +8,9 @@ import com.rs.net.encoders.other.Graphics;
 
 public class Spiritwolf extends Familiar {
 
-	public Spiritwolf(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Spiritwolf(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

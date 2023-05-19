@@ -6,9 +6,9 @@ import com.rs.game.player.content.Summoning.Pouch;
 
 public class SpiritTzKih extends Familiar {
 
-	public SpiritTzKih(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public SpiritTzKih(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

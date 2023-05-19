@@ -8,8 +8,9 @@ import com.rs.net.encoders.other.Graphics;
 
 public class Packyak extends Familiar {
 
-	public Packyak(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, false);
+	public Packyak(Player owner, Pouch pouch, WorldTile tile,
+			boolean canBeAttackFromOutOfArea) {
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

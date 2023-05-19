@@ -8,9 +8,9 @@ import com.rs.net.encoders.other.Graphics;
 
 public class Mithrilminotaur extends Familiar {
 
-	public Mithrilminotaur(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Mithrilminotaur(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

@@ -7,9 +7,9 @@ import com.rs.net.encoders.other.Animation;
 
 public class Steeltitan extends Familiar {
 
-	public Steeltitan(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Steeltitan(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 		setNextAnimation(new Animation(8188));
 	}
 

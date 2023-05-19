@@ -19,9 +19,9 @@ public class Spiritguthatrice extends Familiar {
 
 	private int chocoTriceEgg;
 
-	public Spiritguthatrice(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Spiritguthatrice(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

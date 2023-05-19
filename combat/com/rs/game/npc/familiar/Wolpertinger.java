@@ -10,9 +10,9 @@ import skills.Skills;
 
 public class Wolpertinger extends Familiar {
 
-	public Wolpertinger(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Wolpertinger(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

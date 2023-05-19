@@ -12,9 +12,9 @@ import com.rs.utilities.RandomUtils;
 
 public class Spiritspider extends Familiar {
 
-	public Spiritspider(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Spiritspider(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

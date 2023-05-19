@@ -1,9 +1,7 @@
 package com.rs.game.npc.global;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,9 +20,8 @@ public class GenericNPCDispatcher {
 	@SneakyThrows(Exception.class)
 	public NPC create(NPC npc) {
 		getVerifiedNPC(npc.getId()).ifPresent(mob -> {
-			Annotation annotation = mob.getClass().getAnnotation(GenericNPCSignature.class);
-			GenericNPCSignature signature = (GenericNPCSignature) annotation;
-			Arrays.stream(signature.npcId()).filter(id -> npc.getId() == id).forEach(mobId -> new NPC((short) mobId, npc.getNextWorldTile(), (byte) signature.mapAreaNameHash(), signature.canBeAttackFromOutOfArea(), signature.isSpawned()) );
+			GenericNPCSignature signature = mob.getClass().getAnnotation(GenericNPCSignature.class);
+			Arrays.stream(signature.npcId()).filter(id -> npc.getId() == id).forEach(mobId -> new NPC(mobId, npc.getNextWorldTile(), signature.canBeAttackFromOutOfArea(), signature.isSpawned()) );
 		});
 		return npc;
 	}
@@ -54,10 +51,9 @@ public class GenericNPCDispatcher {
 	}
 	
 	private Optional<GenericNPC> getVerifiedNPC(int id) {
-		for (Entry<GenericNPCSignature, GenericNPC> npc : NPC.entrySet()) {
-			return isValidID(npc.getValue(), id) ? Optional.of(npc.getValue()) : Optional.empty();
-		}
-		return Optional.empty();
+	    return NPC.values().stream()
+	            .filter(npc -> isValidID(npc, id))
+	            .findFirst();
 	}
 
 	private boolean isValidID(GenericNPC genericNPC, int mobId) {

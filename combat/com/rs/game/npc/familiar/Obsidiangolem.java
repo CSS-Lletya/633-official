@@ -10,12 +10,9 @@ import skills.Skills;
 
 public class Obsidiangolem extends Familiar {
 
-	public Obsidiangolem(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Obsidiangolem(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea); // TODO
-		// invisible
-		// mining
-		// boost
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

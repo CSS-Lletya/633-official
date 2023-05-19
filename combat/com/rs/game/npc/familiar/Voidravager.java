@@ -7,9 +7,9 @@ import com.rs.game.player.content.Summoning.Pouch;
 
 public class Voidravager extends Familiar {
 
-	public Voidravager(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Voidravager(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.rs.game.npc.familiar;
 
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.Summoning.Pouch;
 
 /**
  * Represents the TzRek-Jad pet.
@@ -17,8 +18,9 @@ public final class TzRekJad extends Familiar {
 	 * @param owner The owner.
 	 * @param tile  The world tile to spawn on.
 	 */
-	public TzRekJad(Player owner, WorldTile tile) {
-		super(owner, null, tile, -1, true);
+	public TzRekJad(Player owner, Pouch pouch, WorldTile tile,
+			boolean canBeAttackFromOutOfArea) {
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

@@ -15,9 +15,9 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class Giantchinchompa extends Familiar {
 
-	public Giantchinchompa(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Giantchinchompa(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

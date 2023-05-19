@@ -16,9 +16,9 @@ import com.rs.utilities.RandomUtils;
 
 public class Forgeregent extends Familiar {
 
-	public Forgeregent(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Forgeregent(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

@@ -9,9 +9,9 @@ import com.rs.game.player.content.Summoning.Pouch;
 
 public class Voidshifter extends Familiar {
 
-	public Voidshifter(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Voidshifter(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

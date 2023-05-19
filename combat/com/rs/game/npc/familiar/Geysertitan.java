@@ -6,9 +6,9 @@ import com.rs.game.player.content.Summoning.Pouch;
 
 public class Geysertitan extends Familiar {
 
-	public Geysertitan(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Geysertitan(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

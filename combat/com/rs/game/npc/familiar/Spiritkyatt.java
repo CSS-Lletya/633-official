@@ -14,9 +14,9 @@ import com.rs.utilities.RandomUtils;
 
 public class Spiritkyatt extends Familiar {
 
-	public Spiritkyatt(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Spiritkyatt(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override

@@ -8,9 +8,9 @@ import com.rs.net.encoders.other.Graphics;
 
 public class Steelminotaur extends Familiar {
 
-	public Steelminotaur(Player owner, Pouch pouch, WorldTile tile, int mapAreaNameHash,
+	public Steelminotaur(Player owner, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
-		super(owner, pouch, tile, mapAreaNameHash, canBeAttackFromOutOfArea);
+		super(owner, pouch, tile, canBeAttackFromOutOfArea);
 	}
 
 	@Override
