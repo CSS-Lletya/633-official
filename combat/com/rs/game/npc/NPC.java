@@ -42,7 +42,7 @@ public class NPC extends Entity {
 
 	public static byte NORMAL_WALK = 0x2, WATER_WALK = 0x4, FLY_WALK = 0x8;
 
-	private short id;
+	private int id;
 	private WorldTile respawnTile;
 	private byte mapAreaNameHash;
 	private boolean canBeAttackFromOutOfArea;
@@ -81,7 +81,7 @@ public class NPC extends Entity {
 	/*
 	 * creates and adds npc
 	 */
-	public NPC(short id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea, boolean spawned) {
+	public NPC(int id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea, boolean spawned) {
 		super(tile, EntityType.NPC);
 		setId(id);
 		setRespawnTile(new WorldTile(tile));
@@ -396,7 +396,7 @@ public class NPC extends Entity {
 	 * @param spawned
 	 * @return
 	 */
-	public static final NPC spawnNPC(short id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea,
+	public static final NPC spawnNPC(int id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea,
 			boolean spawned) {
 
 		NPC npcType = null;
@@ -405,7 +405,7 @@ public class NPC extends Entity {
 		return npcType;
 	}
 
-	public static final NPC spawnNPC(short id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
+	public static final NPC spawnNPC(int id, WorldTile tile, byte mapAreaNameHash, boolean canBeAttackFromOutOfArea) {
 		return spawnNPC(id, tile, mapAreaNameHash, canBeAttackFromOutOfArea, false);
 	}
 }

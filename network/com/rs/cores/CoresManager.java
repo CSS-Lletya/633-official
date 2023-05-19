@@ -19,6 +19,7 @@ public final class CoresManager {
 	public static WorldThread worldThread;
 
 	public static void init() {
+		WorldPacketsDecoder.loadPacketSizes();
 		worldThread = new WorldThread();
 		
 		int availableProcessors = Runtime.getRuntime().availableProcessors();
@@ -26,10 +27,10 @@ public final class CoresManager {
 		serverWorkerChannelExecutor = Executors.newFixedThreadPool(serverWorkersCount, new DecoderThreadFactory());
 		serverBossChannelExecutor = Executors.newSingleThreadExecutor(new DecoderThreadFactory());
 		slowExecutor = availableProcessors >= 6
-				? Executors.newScheduledThreadPool(availableProcessors >= 12 ? 4 : 2, new SlowThreadFactory())
+				? Executors.newScheduledThreadPool(availableProcessors >= 12 ? 4 : availableProcessors >= 6 ? 2 : 1, new SlowThreadFactory())
 				: Executors.newSingleThreadScheduledExecutor(new SlowThreadFactory());
 		worldThread.start();		
-		WorldPacketsDecoder.loadPacketSizes();
+		
 	}
 
 	public static void shutdown() {

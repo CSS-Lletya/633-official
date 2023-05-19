@@ -29,7 +29,7 @@ public final class NPCBonuses {
 			loadUnpackedNPCBonuses();
 	}
 
-	public static short[] getBonuses(Short id) {
+	public static short[] getBonuses(int id) {
 		return npcBonuses.get(id);
 	}
 

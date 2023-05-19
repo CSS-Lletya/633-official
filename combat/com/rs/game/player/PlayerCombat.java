@@ -58,9 +58,9 @@ public class PlayerCombat extends Action {
 	@Override
 	public boolean start() {
 		getPlayer().setNextFaceEntity(target);
+		getPlayer().getPackets().sendResetMinimapFlag();
 		if (checkAll())
 			return true;
-		
 		getPlayer().setNextFaceEntity(null);
 		return false;
 	}
