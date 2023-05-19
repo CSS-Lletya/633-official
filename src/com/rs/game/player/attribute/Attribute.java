@@ -137,7 +137,18 @@ public interface Attribute {
 	 */
 	public String DESTROY_ITEM_ID = "Destroy_Item";
 	
+	/**
+	 * Represents the set level mode of Skill Targets
+	 */
 	public String SET_LEVEL = "Set_Level";
 	
+	/**
+	 * Represents the set xp mode of Skill Targets
+	 */
 	public String SET_XP = "Set_XP";
+	
+	/**
+	 * Represents the special recovery state
+	 */
+	public String SPECIAL_RECOVERY = "Spec_Recovery";
 }

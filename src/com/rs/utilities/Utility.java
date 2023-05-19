@@ -670,4 +670,22 @@ public final class Utility {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
+
+    public static int clampI(int val, int min, int max) {
+        return Math.max(min, Math.min(max, val));
+    }
+
+    public static int[] range(int min, int max) {
+        int[] range = new int[max - min + 1];
+        for (int i = min, j = 0; i <= max; i++, j++)
+            range[j] = i;
+        return range;
+    }
+
+    public static int[] range(int min, int max, int step) {
+        int[] range = new int[(max - min) / step + 1];
+        for (int i = min, j = 0; i <= max; i += step, j++)
+            range[j] = i;
+        return range;
+    }
 }

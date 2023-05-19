@@ -18,7 +18,7 @@ import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.Foods;
-import com.rs.game.player.content.Pots;
+import com.rs.game.player.content.Potions.Potion;
 import com.rs.game.route.CoordsEvent;
 import com.rs.game.task.Task;
 import com.rs.net.decoders.WorldPacketsDecoder;
@@ -54,8 +54,10 @@ public class InventoryInterfacePlugin implements RSInterface {
 			case WorldPacketsDecoder.ACTION_BUTTON1_PACKET:
 				if (Foods.eat(player, item, slotId))
 					return;
-				if (Pots.pot(player, item, slotId))
+				Potion pot = Potion.forId(item.getId());
+				if (pot == null)
 					return;
+				pot.drink(player, item.getId(), slotId);
 				InventoryPluginDispatcher.execute(player, item, 1);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON2_PACKET:

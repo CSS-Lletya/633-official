@@ -8,7 +8,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Foods.Food;
-import com.rs.game.player.content.Pots.Pot;
+import com.rs.game.player.content.Potions.Potion;
 
 import io.vavr.collection.Array;
 import lombok.Data;
@@ -401,7 +401,7 @@ public abstract class MapZone {
 		return true;
 	}
 
-	public boolean canPot(Player player, Pot pot) {
+	public boolean canPot(Player player, Potion pot) {
 		return true;
 	}
 	

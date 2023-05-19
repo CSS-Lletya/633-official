@@ -63,6 +63,7 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.DESTROY_ITEM_ID, -1);
 		AttributeKey.forTransient(Attribute.SET_LEVEL, -1);
 		AttributeKey.forTransient(Attribute.SET_XP, -1);
+		AttributeKey.forTransient(Attribute.SPECIAL_RECOVERY, -1);
 	}
 	
 	/**

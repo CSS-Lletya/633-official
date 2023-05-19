@@ -436,6 +436,7 @@ public class Player extends Entity {
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
 		AreaHandler.processArea(this);
+		processEffects();
 	}
 
 	/**

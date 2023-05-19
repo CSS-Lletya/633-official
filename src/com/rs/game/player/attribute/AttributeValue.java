@@ -52,6 +52,13 @@ public final class AttributeValue<T> {
 		return (Double) value;
 	}
 	
+	public double getLong() {
+		if(!(value instanceof Long)) {
+			throw new ClassCastException("Could not cast to long.");
+		}
+		return (Long) value;
+	}
+	
 	public void set(T value) {
 		this.value = value;
 	}

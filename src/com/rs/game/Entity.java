@@ -2,9 +2,13 @@ package com.rs.game;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,13 +31,13 @@ import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Hit;
-import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.LocalNPCUpdate;
 import com.rs.game.player.LocalPlayerUpdate;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.AttributeMap;
 import com.rs.game.player.content.TeleportType;
 import com.rs.game.player.type.CombatEffectType;
+import com.rs.game.player.type.Effect;
 import com.rs.game.player.type.PoisonType;
 import com.rs.game.route.RouteFinder;
 import com.rs.game.route.strategy.EntityStrategy;
@@ -113,6 +117,8 @@ public abstract class Entity extends WorldTile {
 	 */
 	private PoisonType poisonType;
 	
+	private Map<Effect, Long> effects = new HashMap<>();
+	
 	private int hitpoints;
 	private boolean run;
 
@@ -189,7 +195,6 @@ public abstract class Entity extends WorldTile {
 	public void resetCombat() {
 		setAttackedBy(null);
 		setAttackedByDelay(0);
-		getMovement().setFreezeDelay(0);
 	}
 
 	public void processReceivedHits() {
@@ -748,6 +753,7 @@ public abstract class Entity extends WorldTile {
 	}
 
 	public void resetWalkSteps() {
+		ifPlayer(p -> p.getPackets().sendResetMinimapFlag());
 		getMovement().getWalkSteps().clear();
 	}
 
@@ -832,7 +838,7 @@ public abstract class Entity extends WorldTile {
 	}
 
 	public int getMaxHitpoints() {
-		return isNPC() ? toNPC().getCombatDefinitions().getHitpoints() : toPlayer().getSkills().getLevel(Skills.HITPOINTS) * 10 + toPlayer().getEquipment().getEquipmentHpIncrease();
+		return isNPC() ? toNPC().getCombatDefinitions().getHitpoints() : toPlayer().getSkills().getLevel(Skills.HITPOINTS) * 10;
 	}
 
 	public void processEntityUpdate() {
@@ -1265,5 +1271,63 @@ public abstract class Entity extends WorldTile {
 				player.getInterfaceManager().sendRunButtonConfig();
 			}
 		});
+	}
+	
+	public void clearEffects() {
+		effects = new HashMap<>();
+	}
+
+	public boolean hasEffect(Effect effect) {
+		return effects != null && effects.containsKey(effect);
+	}
+
+	public void addEffect(Effect effect, long ticks) {
+		if (effects == null)
+			effects = new HashMap<>();
+		effects.put(effect, ticks);
+		effect.apply(this);
+		effect.tick(this, ticks);
+	}
+
+	public void removeEffect(Effect effect) {
+		ifPlayer(p -> {
+			if (effect.sendWarnings())
+				p.getPackets().sendGameMessage(effect.getExpiryMessage());
+		});
+		effects.remove(effect);
+		effect.expire(this);
+	}
+
+	public void removeEffects(Effect... effects) {
+		for (Effect e : effects)
+			removeEffect(e);
+	}
+
+	protected void processEffects() {
+		if (effects == null)
+			return;
+		Set<Effect> expired = new HashSet<>();
+		for (Effect effect : effects.keySet()) {
+			long time = effects.get(effect);
+			time--;
+			effect.tick(this, time);
+			if (isPlayer()) {
+				if (time == 50 && effect.sendWarnings())
+					toPlayer().getPackets().sendGameMessage(effect.get30SecWarning());
+			}
+			
+			if (time <= 0) {
+				if (isPlayer()) {
+					if (effect.sendWarnings())
+						toPlayer().getPackets().sendGameMessage(effect.getExpiryMessage());
+				}
+				expired.add(effect);
+			} else
+				effects.put(effect, time);
+		}
+		for (Effect e : expired) {
+			effects.remove(e);
+			e.expire(this);
+		}
 	}
 }

@@ -193,4 +193,11 @@ public final class PlayerDetails {
 	private Stopwatch boneBury = new Stopwatch(), thievingStun = new Stopwatch(), drinks = new Stopwatch(), food = new Stopwatch(), tolerance = new Stopwatch();
 
 	public int questPoints;
+
+    public void restoreRunEnergy(double energy) {
+        if (runEnergy + energy > 100.0)
+            runEnergy = (byte) 100.0;
+        else
+            runEnergy += energy;
+    }
 }

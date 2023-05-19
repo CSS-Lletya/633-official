@@ -24,6 +24,8 @@ public class Skills {
 	 * The maximum amount of experience a Player can achieve in a Skill
 	 */
 	public static final int MAXIMUM_EXP = 200000000;
+	
+	public static int MAXIMUM_SKILL_COUNT = 25;
 
 	/**
 	 * Simple Skill name with value constants
@@ -509,4 +511,36 @@ public class Skills {
         setSkillTargetUsingLevelMode(skillId, usingLevel);
         setSkillTargetValue(skillId, target);
     }
+    
+	public void adjustStat(int baseMod, double mul, int... skills) {
+		for (int i : skills)
+			adjustStat(baseMod, mul, true, i);
+	}
+
+	public void adjustStat(int baseMod, double mul, boolean boost, int... skills) {
+		for (int i : skills)
+			adjustStat(baseMod, mul, boost, i);
+	}
+
+	public void adjustStat(int baseMod, double mul, boolean boost, int skill) {
+		int realLevel = getLevelForXp(skill);
+		int realBoost = (int) (baseMod + (getLevel(skill) * mul));
+		if (realBoost < 0)
+			realLevel = getLevel(skill);
+		int maxBoost = (int) (realLevel + (baseMod + (realLevel * mul)));
+		level[skill] = (short) Utility.clampI(level[skill] + realBoost, 0, boost ? maxBoost : (getLevel(skill) > realLevel ? getLevel(skill) : realLevel));
+		refresh(skill);
+	}
+	
+	public static int[] allExcept(int... exclude) {
+		int[] skills = new int[1+SKILL_NAME.length-exclude.length];
+		int idx = 0;
+		for (int i = 0;i < SKILL_NAME.length;i++) {
+			for (int ex : exclude)
+				if (i == ex)
+					continue;
+			skills[idx++] = i;
+		}
+		return skills;
+	}
 }
