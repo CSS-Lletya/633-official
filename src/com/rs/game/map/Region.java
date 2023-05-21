@@ -13,9 +13,10 @@ import com.rs.game.item.FloorItem;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
+import com.rs.utilities.ItemSpawns;
 import com.rs.utilities.LogUtility;
-import com.rs.utilities.RandomUtils;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.RandomUtils;
 import com.rs.utilities.json.GsonHandler;
 import com.rs.utilities.json.impl.NPCAutoSpawn;
 import com.rs.utilities.json.impl.ObjectSpawnLoader;
@@ -73,6 +74,10 @@ public class Region {
 					loadObjectSpawns();
 					setLoadedObjectSpawns(true);
 				}
+				if (!isLoadedItemSpawns()) {
+                    loadItemSpawns();
+                    setLoadedItemSpawns(true);
+                }
 				if (!isLoadedNPCSpawns()) {
 					loadNPCSpawns(regionId);
 					setLoadedNPCSpawns(true);
@@ -81,6 +86,16 @@ public class Region {
 		}
 	}
 
+    public void loadItemSpawns() {
+        ItemSpawns.loadItemSpawns(regionId);
+    }
+    
+    public void setLoadedItemSpawns(boolean loadedItemSpawns) {
+        this.loadedItemSpawns = loadedItemSpawns;
+    }
+    
+    private boolean loadedItemSpawns;
+    
 	public static final void loadNPCSpawns(int regionId) {
 		NPCAutoSpawn autoSpawn = GsonHandler.getJsonLoader(NPCAutoSpawn.class);
 		List<NPCSpawning> spawns = autoSpawn.getSpawns(regionId);

@@ -5,6 +5,7 @@ import java.util.List;
 import com.rs.GameConstants;
 import com.rs.cache.io.InputStream;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.cores.WorldThread;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
@@ -133,7 +134,10 @@ public class InventoryInterfacePlugin implements RSInterface {
 				player.getInventory().deleteItem(slotId, item);
 				if (player.getDetails().getCharges().degradeCompletly(item))
 					return;
-				FloorItem.createGroundItem(item, new WorldTile(player), player, false, 180, true);
+				if (WildernessMapZone.isAtWild(player) && ItemConstants.isTradeable(item))
+		            FloorItem.updateGroundItem(item, new WorldTile(player), player, 1, 0);
+		        else
+		        	FloorItem.updateGroundItem(item, new WorldTile(player), player, 1, 0);
 				player.getPackets().sendSound(2739, 0, 1);
 				break;
 			}

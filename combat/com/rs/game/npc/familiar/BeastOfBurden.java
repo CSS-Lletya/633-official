@@ -41,7 +41,7 @@ public class BeastOfBurden {
 		for (int i = 0; i < beastItems.getSize(); i++) {
 			Item item = beastItems.get(i);
 			if (item != null)
-				FloorItem.createGroundItem(item, WorldTile, player, false, -1, true);
+				FloorItem.addGroundItem(item, WorldTile, player, true, -1);
 		}
 		beastItems.reset();
 	}

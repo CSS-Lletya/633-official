@@ -132,10 +132,13 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 					containedItems.remove(item);	//	This remove the whole list of the contained items that is matched
 				}
 			}
-			FloorItem.createGroundItem(item, getActor().getLastWorldTile(), killer == null ? getActor() : killer, false, 180, true, true);	//	This dropps the items to the killer, and is showed for 180 seconds
+			getActor().getEquipment().reset();
+			FloorItem.addGroundItem(item, getActor().getLastWorldTile(), killer == null ? getActor() : killer, true, 180);
+//			FloorItem.addGroundItem(item, getActor().getLastWorldTile(), killer == null ? getActor() : killer, killer, false, 180, true, true);	//	This dropps the items to the killer, and is showed for 180 seconds
 		}
 		for (Item item : containedItems) {
-			FloorItem.createGroundItem(item, getActor().getLastWorldTile(), killer == null ? getActor() : killer, false, 180, true, true);
+			FloorItem.addGroundItem(item, getActor().getLastWorldTile(), killer == null ? getActor() : killer, true, 180);
+//			FloorItem.createGroundItem(item, getActor().getLastWorldTile(), killer == null ? getActor() : killer, false, 180, true, true);
 		}
 	}
 }

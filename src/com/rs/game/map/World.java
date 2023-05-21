@@ -10,6 +10,7 @@ import com.rs.Launcher;
 import com.rs.cores.CoresManager;
 import com.rs.game.Entity;
 import com.rs.game.EntityList;
+import com.rs.game.item.Item;
 import com.rs.game.movement.route.Flags;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
@@ -57,7 +58,7 @@ public final class World {
 		return npcs.stream().filter(VALID_NPC);
 	}
 	
-	private static final EntityList<Player> players = new EntityList<Player>(GameConstants.PLAYERS_LIMIT, true);
+	public static final EntityList<Player> players = new EntityList<Player>(GameConstants.PLAYERS_LIMIT, true);
 	private static final EntityList<NPC> npcs = new EntityList<NPC>(GameConstants.NPCS_LIMIT, false);
 	
 	@Getter

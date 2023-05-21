@@ -390,9 +390,7 @@ public final class LocalPlayerUpdate {
 	}
 
 	private void applyFaceDirectionMask(Player p, OutputStream data) {
-		data.writeShortLE128(p.getDirection()); // also works as face tile as
-		// dir
-		// calced on setnextfacetile
+		data.writeShortLE128(p.getDirection());
 	}
 
 	//only issue seems to be spamming the markers all at once, error is below. However i can get 3 markers to show up sometimes
@@ -443,16 +441,16 @@ public final class LocalPlayerUpdate {
 	@SuppressWarnings("unused")
 	private void applyForceMovementMask(Player p, OutputStream data) {
 		//TODO: Update this to new system. Old system also wasn't updated too.
-//		data.writeByteC(p.getNextForceMovement().getToFirstTile().getX() - p.getX());
-//		data.writeByte(p.getNextForceMovement().getToFirstTile().getY() - p.getY());
-//		data.writeByte(p.getNextForceMovement().getToSecondTile() == null ? 0
-//				: p.getNextForceMovement().getToSecondTile().getX() - p.getX());
-//		data.writeByte128(p.getNextForceMovement().getToSecondTile() == null ? 0
-//				: p.getNextForceMovement().getToSecondTile().getY() - p.getY());
-//		data.writeShort(p.getNextForceMovement().getFirstTileTicketDelay() * 30);
-//		data.writeShort(p.getNextForceMovement().getToSecondTile() == null ? 0
-//				: p.getNextForceMovement().getSecondTileTicketDelay() * 30);
-//		data.writeShort(p.getNextForceMovement().getDirection());
+		data.writeByteC(p.getNextForceMovement().getFirst().getX() - p.getX());
+		data.writeByte(p.getNextForceMovement().getFirst().getY() - p.getY());
+		data.writeByte(p.getNextForceMovement().getSecond() == null ? 0
+				: p.getNextForceMovement().getSecond().getX() - p.getX());
+		data.writeByte128(p.getNextForceMovement().getSecond() == null ? 0
+				: p.getNextForceMovement().getSecond().getY() - p.getY());
+		data.writeShort(p.getNextForceMovement().getFirstSpeed() * 30);
+		data.writeShort(p.getNextForceMovement().getSecond() == null ? 0
+				: p.getNextForceMovement().getSecondSpeed() * 30);
+		data.writeShort(p.getNextForceMovement().getDirection().getId());
 	}
 
 	public OutputStream createPacketAndProcess() {

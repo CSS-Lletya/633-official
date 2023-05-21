@@ -251,7 +251,7 @@ public class NPC extends Entity {
 	}
 
 	public void sendDrop(Player player, Item item) {
-		FloorItem.createGroundItem(item, this.getLastWorldTile(), player, true, 60, true);
+		FloorItem.addGroundItem(item, this.getLastWorldTile(), player, true, 60);
 		if (id == 2263 || id == 2264 || id == 2265) {
             RunecraftingPouchDrop.sendPouchDrop(player, this);
         }

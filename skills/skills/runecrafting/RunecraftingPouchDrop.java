@@ -36,7 +36,7 @@ public class RunecraftingPouchDrop {
 				.findFirst();
 		if (pouches.isPresent() && RandomUtils.random(0) == 0 && World.getRegion(npc.getRegionId()).getGroundItems()
 				.stream().noneMatch(drop -> drop.getId() == pouches.get().getPouchId())) {
-			FloorItem.createGroundItem(new Item(pouches.get().getPouchId()), npc.getLastWorldTile(), player, true, 60, true);
+			FloorItem.addGroundItem(new Item(pouches.get().getPouchId()), npc.getLastWorldTile(), player, true, 60);
 		}
 	}
 }

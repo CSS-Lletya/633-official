@@ -3,8 +3,6 @@ package com.rs.game.map;
 import com.rs.cache.loaders.ObjectDefinitions;
 import com.rs.cores.CoresManager;
 import com.rs.game.Entity;
-import com.rs.game.item.FloorItem;
-import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 
@@ -105,8 +103,7 @@ public class GameObject extends WorldTile {
 		spawnObject(object);
 		CoresManager.schedule(() -> {
 			removeObject(object);
-			//seems weird.
-			FloorItem.createGroundItem(new Item(replaceId), object, null, false, 180, true);
+			//do something else
 		}, (int) time);
 	}
 

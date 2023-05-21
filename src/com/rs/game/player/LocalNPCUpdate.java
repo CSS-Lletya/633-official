@@ -196,67 +196,6 @@ public final class LocalNPCUpdate {
 		if (n.getNextTransformation() != null) { //12
 			applyTransformationMask(n, data);
 		}
-		
-
-/*
-	
-
-	
-		
-	
-
-	
-
-		// if (n.getNextForceMovement() != null) { TODO
-		// // maskData |= 0x1000;
-		// }
-
-		if (!n.getNextHits().isEmpty()) {
-			maskData |= 0x40;
-		}
-
-	
-
-		
-		if (n.getNextSecondaryBar() != null) {
-			maskData |= 0x800;
-		}
-
-		
-
-		
-		
-		
-	
-		// if (n.getNextForceMovement() != null) { TODO
-		// applyForceMovementMask(n, data);
-		// }
-		
-		
-		 if ((maskdata & 0x2000) != 0) { // color mask used in temple treking and nex
-		    ((Entity) curnpc).Ub = Class_wh.b.ReadSignedByteC(-622951480); TODO
-		    ((Entity) curnpc).X = Class_wh.b.ReadSignedByteS(-27697);
-		    ((Entity) curnpc).jc = Class_wh.b.ReadSignedByteC(i + -622885944);
-		    ((Entity) curnpc).sc = (byte) Class_wh.b.ReadUnsignedByte(255);
-		    ((Entity) curnpc).Nb = or.o + Class_wh.b.ReadUnsignedShort(842397944);
-		    ((Entity) curnpc).Pb = or.o + Class_wh.b.ReadUnsignedShort(842397944);
-		}
-		
-
-		if (!n.getNextHits().isEmpty()) {
-			applyHitMask(n, data);
-		}
-
-	
-
-	
-
-		if (n.getNextSecondaryBar() != null) {
-			applySecondaryBar(n, data);
-		}
-
-		
-		/*/
 
 	}
 	
@@ -271,18 +210,18 @@ public final class LocalNPCUpdate {
 	@SuppressWarnings("unused")
 	private void applyForceMovementMask(NPC n, OutputStream data) {
 		//TODO: Update this to new system. Old system also wasn't updated too.
-//		data.write128Byte(n.getNextForceMovement().getToFirstTile().getX()
-//				- n.getX());
-//		data.writeByte(n.getNextForceMovement().getToFirstTile().getY()
-//				- n.getY());
-//		data.writeByteC(n.getNextForceMovement().getToSecondTile() == null ? 0
-//				: n.getNextForceMovement().getToSecondTile().getX() - n.getX());
-//		data.writeByteC(n.getNextForceMovement().getToSecondTile() == null ? 0
-//				: n.getNextForceMovement().getToSecondTile().getY() - n.getY());
-//		data.writeShortLE((n.getNextForceMovement().getFirstTileTicketDelay() * 600) / 20);
-//		data.writeShortLE128(n.getNextForceMovement().getToSecondTile() == null ? 0
-//				: ((n.getNextForceMovement().getSecondTileTicketDelay() * 600) / 20));
-//		data.writeShort128(n.getNextForceMovement().getDirection());
+		data.write128Byte(n.getNextForceMovement().getFirst().getX()
+				- n.getX());
+		data.writeByte(n.getNextForceMovement().getFirst().getY()
+				- n.getY());
+		data.writeByteC(n.getNextForceMovement().getSecond() == null ? 0
+				: n.getNextForceMovement().getSecond().getX() - n.getX());
+		data.writeByteC(n.getNextForceMovement().getSecond() == null ? 0
+				: n.getNextForceMovement().getSecond().getY() - n.getY());
+		data.writeShortLE((n.getNextForceMovement().getFirstSpeed() * 600) / 20);
+		data.writeShortLE128(n.getNextForceMovement().getSecond() == null ? 0
+				: ((n.getNextForceMovement().getSecondSpeed() * 600) / 20));
+		data.writeShort128(n.getNextForceMovement().getDirection().getId());
 	}
 
 	private void applyFaceWorldTileMask(NPC n, OutputStream data) {

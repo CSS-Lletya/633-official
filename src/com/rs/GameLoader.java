@@ -3,6 +3,7 @@ package com.rs;
 import java.io.IOException;
 import java.util.concurrent.Executors;
 
+import com.google.gson.JsonIOException;
 import com.rs.cache.Cache;
 import com.rs.content.quests.QuestManager;
 import com.rs.cores.BlockingExecutorService;
@@ -33,6 +34,7 @@ import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.utilities.CharmDrop;
 import com.rs.utilities.EquipData;
 import com.rs.utilities.ItemExamines;
+import com.rs.utilities.ItemSpawns;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.json.GsonHandler;
@@ -76,7 +78,7 @@ public class GameLoader {
 	 *
 	 * @throws IOException
 	 */
-	@SneakyThrows(IOException.class)
+	@SneakyThrows({IOException.class, JsonIOException.class})
 	public void load() {
 		LogUtility.log(LogType.INFO, "Loading #633 Cache");
 		Cache.init();
@@ -94,6 +96,7 @@ public class GameLoader {
 			ItemBonuses.init();
 			EquipData.init();
 			ItemExamines.init();
+			ItemSpawns.init();
 			Censor.init();
 			NPCCombatDefinitionsL.init();
 			NPCBonuses.init();
