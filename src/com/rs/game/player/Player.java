@@ -11,6 +11,7 @@ import com.rs.content.quests.QuestManager;
 import com.rs.game.Entity;
 import com.rs.game.EntityType;
 import com.rs.game.dialogue.DialogueEventListener;
+import com.rs.game.item.Item;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
 import com.rs.game.movement.route.CoordsEvent;
@@ -550,4 +551,14 @@ public class Player extends Entity {
 	public double getWeight() {
 		return inventory.getInventoryWeight() + equipment.getEquipmentWeight();
 	}
+
+    /**
+     * Checks if the Player has the item.
+     *
+     * @param item The item to check.
+     * @return if has item or not.
+     */
+    public boolean hasItem(Item item) {
+        return getBank().getItem(item.getId()) != null || getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId());
+    }
 }

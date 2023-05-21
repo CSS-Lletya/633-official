@@ -6,8 +6,7 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectType;
 import com.rs.plugin.wrapper.ObjectSignature;
 
-@ObjectSignature(objectId = { 2465, 2466, 2467, 2468, 2469, 2470, 2471, 2472, 2743, 2474, 2475, 2477, 7133, 7132, 7141,
-		7129, 7130, 7131, 7140, 7139, 7137, 7136, 7135, 7134, 2473, 17010 }, name = {})
+@ObjectSignature(objectId = { 2465, 2466, 2467, 2468, 2469, 2470, 2471, 2472, 2743, 2474, 2475, 2477}, name = {})
 public class RunecraftingExitPortalsObjectPlugin extends ObjectType {
 
 	@Override

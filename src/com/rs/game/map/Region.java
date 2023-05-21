@@ -2,6 +2,7 @@ package com.rs.game.map;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.rs.GameConstants;
 import com.rs.cache.Cache;
@@ -42,9 +43,9 @@ public class Region {
 
 	protected ObjectArrayList<Short> playersIndexes;
 	protected ObjectArrayList<Short> npcsIndexes;
-	protected ObjectArrayList<GameObject> spawnedObjects;
-	protected ObjectArrayList<GameObject> removedOriginalObjects;
-	private ObjectArrayList<FloorItem> groundItems;
+	protected CopyOnWriteArrayList<GameObject> spawnedObjects;
+	protected CopyOnWriteArrayList<GameObject> removedOriginalObjects;
+	private CopyOnWriteArrayList<FloorItem> groundItems;
 	protected GameObject[][][][] objects;
 	private volatile int loadMapStage;
 	private boolean loadedNPCSpawns;
@@ -54,8 +55,8 @@ public class Region {
 
 	public Region(int regionId) {
 		this.regionId = regionId;
-		this.spawnedObjects = new ObjectArrayList<GameObject>();
-		this.removedOriginalObjects = new ObjectArrayList<GameObject>();
+		this.spawnedObjects = new CopyOnWriteArrayList<GameObject>();
+		this.removedOriginalObjects = new CopyOnWriteArrayList<GameObject>();
 		loadMusicIds();
 		// indexes null by default cuz we dont want them on mem for regions that
 		// players cant go in
@@ -613,9 +614,9 @@ public class Region {
 		return null;
 	}
 	
-	public ObjectArrayList<FloorItem> forceGetFloorItems() {
+	public CopyOnWriteArrayList<FloorItem> forceGetFloorItems() {
 		if (groundItems == null)
-			groundItems = new ObjectArrayList<FloorItem>();
+			groundItems = new CopyOnWriteArrayList<FloorItem>();
 		return groundItems;
 	}
 
@@ -626,9 +627,9 @@ public class Region {
 	 * 
 	 * @return
 	 */
-	public ObjectArrayList<FloorItem> getGroundItemsSafe() {
+	public CopyOnWriteArrayList<FloorItem> getGroundItemsSafe() {
 		if (groundItems == null)
-			groundItems = new ObjectArrayList<FloorItem>();
+			groundItems = new CopyOnWriteArrayList<FloorItem>();
 		return groundItems;
 	}
 
@@ -1234,8 +1235,7 @@ public class Region {
 	
 	public void refreshSpawnedItems(Player player) {
 		for (int regionId : player.getMapRegionsIds()) {
-			ObjectArrayList<FloorItem> floorItems = (ObjectArrayList<FloorItem>) World.getRegion(regionId)
-					.getGroundItems();
+			 List<FloorItem> floorItems = World.getRegion(regionId).getGroundItems();
 			if (floorItems == null)
 				continue;
 			for (FloorItem item : floorItems) {
@@ -1248,8 +1248,7 @@ public class Region {
 			}
 		}
 		for (int regionId : player.getMapRegionsIds()) {
-			ObjectArrayList<FloorItem> floorItems = World.getRegion(regionId)
-					.getGroundItems();
+			 List<FloorItem> floorItems = World.getRegion(regionId).getGroundItems();
 			if (floorItems == null)
 				continue;
 			for (FloorItem item : floorItems) {
@@ -1265,8 +1264,7 @@ public class Region {
 
 	public void refreshSpawnedObjects(Player player) {
 		for (int regionId : player.getMapRegionsIds()) {
-			ObjectArrayList<GameObject> removedObjects = (ObjectArrayList<GameObject>) World.getRegion(regionId)
-					.getRemovedOriginalObjects();
+			List<GameObject> removedObjects = World.getRegion(regionId).getRemovedOriginalObjects();
 			for (GameObject object : removedObjects)
 				player.getPackets().sendDestroyObject(object);
 			List<GameObject> spawnedObjects = World.getRegion(regionId)

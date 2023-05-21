@@ -270,4 +270,12 @@ public final class Equipment {
 	public double getEquipmentWeight() {
 		return equipmentWeight;
 	}
+
+    public boolean containsAny(int... itemIds) {
+        for (int itemId : itemIds) {
+            if (items.containsOne(new Item(itemId, 1)))
+                return true;
+        }
+        return false;
+    }
 }

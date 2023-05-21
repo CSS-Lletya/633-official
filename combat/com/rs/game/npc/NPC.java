@@ -34,6 +34,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import skills.runecrafting.RunecraftingPouchDrop;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -251,6 +252,9 @@ public class NPC extends Entity {
 
 	public void sendDrop(Player player, Item item) {
 		FloorItem.createGroundItem(item, this.getLastWorldTile(), player, true, 60, true);
+		if (id == 2263 || id == 2264 || id == 2265) {
+            RunecraftingPouchDrop.sendPouchDrop(player, this);
+        }
 	}
 	
 	@Override

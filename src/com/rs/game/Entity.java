@@ -1117,7 +1117,6 @@ public abstract class Entity extends WorldTile {
 			entity.setLastRegionId(regionId);
 		} else {
 			ifPlayer(player -> {
-				player.getMapZoneManager().executeVoid(player, controller -> controller.moved(player));
 				if (player.isStarted())
 					checkControlersAtMove(player);
 			});
@@ -1126,15 +1125,14 @@ public abstract class Entity extends WorldTile {
 	}
 	
 	private static void checkControlersAtMove(Player player) {
-		if (WildernessMapZone.isAtWild(player))
+		if (WildernessMapZone.isAtWild(player) && !player.getMapZoneManager().getMapZone(player).isPresent())
 			player.getMapZoneManager().submitMapZone(player, new WildernessMapZone());
 		else
 			player.getCurrentMapZone().ifPresent(zone -> zone.moved(player));
 	}
 
 	public final boolean isPvpArea(WorldTile tile) {
-//		return WildernessController.isAtWild(tile);
-		return false;
+		return WildernessMapZone.isAtWild(tile);
 	}
 
 	public void sendSoulSplit(final Hit hit, final Entity user) {
