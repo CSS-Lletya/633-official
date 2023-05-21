@@ -172,11 +172,6 @@ public abstract class Entity extends WorldTile {
 		setAttackedByDelay(0);
 		if (attributes)
 			getAttributes().attributes.clear();
-		ifNpc(npc -> {
-			npc.setDirection(npc.getRespawnDirection());
-			npc.getCombat().reset();
-			npc.setForceWalk(null);
-		});
 		ifPlayer(player -> {
 			player.getInterfaceManager().refreshHitPoints();
 			player.getHintIconsManager().removeAll();
@@ -189,6 +184,11 @@ public abstract class Entity extends WorldTile {
 			player.getDetails().setAntifireDetails(Optional.empty());
 			player.getDetails().setRunEnergy((byte) 100);
 			player.getAppearance().generateAppearenceData();
+		});
+		ifNpc(npc -> {
+			npc.setDirection(npc.getRespawnDirection());
+			npc.getCombat().reset();
+			npc.setForceWalk(null);
 		});
 	}
 
@@ -332,7 +332,7 @@ public abstract class Entity extends WorldTile {
 
 	public void heal(int ammount) {
 		heal(ammount, 0);
-		toPlayer().getInterfaceManager().refreshHitPoints();
+		ifPlayer(player -> player.getInterfaceManager().refreshHitPoints());
 	}
 
 	public void heal(int ammount, int extra) {

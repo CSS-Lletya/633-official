@@ -5,6 +5,7 @@ import java.util.List;
 import com.rs.GameConstants;
 import com.rs.cache.io.InputStream;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.cores.WorldThread;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
@@ -45,20 +46,19 @@ public class InventoryInterfacePlugin implements RSInterface {
 			Item item = player.getInventory().getItem(slotId);
 			if (item == null || item.getId() != slotId2)
 				return;
-			
 			switch(packetId) {
 			case 12:
 				player.getInventory().sendExamine(slotId);
 				InventoryPluginDispatcher.execute(player, item, 8);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON1_PACKET:
+				InventoryPluginDispatcher.execute(player, item, 1);
 				if (Foods.eat(player, item, slotId))
 					return;
 				Potion pot = Potion.forId(item.getId());
 				if (pot == null)
 					return;
 				pot.drink(player, item.getId(), slotId);
-				InventoryPluginDispatcher.execute(player, item, 1);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON2_PACKET:
 				long time = Utility.currentTimeMillis();
@@ -67,27 +67,29 @@ public class InventoryInterfacePlugin implements RSInterface {
 				if (player.getMovement().getLockDelay() >= time || player.getNextEmoteEnd() >= time)
 					return;
 				player.getMovement().stopAll(false);
-				long passedTime = Utility.currentTimeMillis() - 600 /*WorldThread.WORLD_CYCLE*/;
-				if (player.getSwitchItemCache().isEmpty()) {
-					player.getSwitchItemCache().add(slotId);
-					World.get().submit(new Task(passedTime >= 600 ? 0 : passedTime > 330 ? 1 : 0) {
-						
-						@Override
-						protected void execute() {
-							List<Byte> slots = player.getSwitchItemCache();
-							int[] slot = new int[slots.size()];
-							for (int i = 0; i < slot.length; i++)
-								slot[i] = slots.get(i);
-							player.getSwitchItemCache().clear();
-							RSInterfacePluginDispatcher.sendWear(player, slot);
-							player.getMovement().stopAll(false, true, false);
-							this.cancel();
-						}
-					});
-				} else if (!player.getSwitchItemCache().contains(slotId)) {
-					player.getSwitchItemCache().add(slotId);
-				}
 				InventoryPluginDispatcher.execute(player, item, 2);
+				if (item.getDefinitions().containsOption("Wield") || item.getDefinitions().containsOption("Wear")) {
+					long passedTime = Utility.currentTimeMillis() - WorldThread.LAST_CYCLE_CTM;
+					if (player.getSwitchItemCache().isEmpty()) {
+						player.getSwitchItemCache().add(slotId);
+						World.get().submit(new Task(passedTime >= 600 ? 0 : passedTime > 330 ? 1 : 0) {
+
+							@Override
+							protected void execute() {
+								List<Byte> slots = player.getSwitchItemCache();
+								int[] slot = new int[slots.size()];
+								for (int i = 0; i < slot.length; i++)
+									slot[i] = slots.get(i);
+								player.getSwitchItemCache().clear();
+								RSInterfacePluginDispatcher.sendWear(player, slot);
+								player.getMovement().stopAll(false, true, false);
+								this.cancel();
+							}
+						});
+					} else if (!player.getSwitchItemCache().contains(slotId)) {
+						player.getSwitchItemCache().add(slotId);
+					}
+				}
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON3_PACKET:
 				InventoryPluginDispatcher.execute(player, item, 3);
@@ -114,9 +116,10 @@ public class InventoryInterfacePlugin implements RSInterface {
 					player.getInventory().deleteItem(item);
 					return;
 				}
-				if (player.getQuestManager().handleDropItem(player, item)) {
+				if (player.getQuestManager().handleDropItem(player, item))
 		            return;
-		        }
+				if (player.getPetManager().spawnPet(item.getId(), true))
+					return;
 				if (item.getDefinitions().isDestroyItem()) {
 					player.getInterfaceManager().sendChatBoxInterface(94);
 					player.getPackets().sendIComponentText(94, 2, "Are you sure you want to destroy this item?");
@@ -124,9 +127,6 @@ public class InventoryInterfacePlugin implements RSInterface {
 					player.getPackets().sendIComponentText(94, 7, "<br>The item is undropable, and if dropped could possibly not be obtained again.");
 					player.getPackets().sendItemOnIComponent(94, 9, 1, 1);
 					player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(item.getId());
-					return;
-				}
-				if (player.getPetManager().spawnPet(item.getId(), true)) {
 					return;
 				}
 				InventoryPluginDispatcher.execute(player, item, 7);

@@ -1,6 +1,5 @@
 package com.rs.plugin;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;

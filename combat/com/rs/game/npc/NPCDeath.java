@@ -37,7 +37,7 @@ public class NPCDeath extends ActorDeathTask<NPC> {
 				} else if (loop >= definition.getDeathDelay()) {
 					getActor().drop();
 					getActor().reset();
-					getActor().setLocation(getActor().getRespawnTile());
+					getActor().setNextWorldTile(getActor().getRespawnTile());
 					getActor().deregister();
 					this.cancel();
 				}

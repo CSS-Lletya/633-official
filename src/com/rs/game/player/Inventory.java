@@ -297,4 +297,21 @@ public final class Inventory {
 	public double getInventoryWeight() {
 		return inventoryWeight;
 	}
+
+	/**
+	 * Determines if this container contains any {@code identifiers}.
+	 * @param identifiers The identifiers to check this container for.
+	 * @return {@code true} if this container has any {@code identifiers}, {@code false} otherwise.
+	 */
+	public final boolean containsAny(int... identifiers) {
+		for(int id : identifiers) {
+			for(Item item : items.getItems()) {
+				if(item == null)
+					continue;
+				if(item.getId() == id)
+					return true;
+			}
+		}
+		return false;
+	}
 }

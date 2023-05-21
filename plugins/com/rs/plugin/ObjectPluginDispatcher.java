@@ -1,6 +1,5 @@
 package com.rs.plugin;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
@@ -39,6 +38,18 @@ public final class ObjectPluginDispatcher {
 	public static void execute(Player player, GameObject gamObject, int optionId) {
 		getObject(gamObject, gamObject.getId()).ifPresent(object -> {
 			Try.run(() -> object.execute(player, gamObject, optionId));
+		});
+	}
+	
+	/**
+	 * Executes the specified Objects if it's registered.
+	 * 
+	 * @param player the player executing the Objects.
+	 * @param parts  the string which represents a Objects.
+	 */
+	public static void executeItemOnObject(Player player, GameObject gamObject, Item item) {
+		getObject(gamObject, gamObject.getId()).ifPresent(object -> {
+			Try.run(() -> object.executeItemOnObject(player, gamObject, item));
 		});
 	}
 
@@ -106,15 +117,14 @@ public final class ObjectPluginDispatcher {
 		load();
 	}
 
-	@SuppressWarnings("unused")
-	public static void handleItemOnObject(final Player player, final GameObject object, final int interfaceId,
-			final Item item) {
-		final int itemId = item.getId();
+	public static void handleItemOnObject(final Player player, final GameObject object, final int interfaceId, final Item item) {
+		@SuppressWarnings("unused")
 		final ObjectDefinitions objectDef = object.getDefinitions();
 		player.setRouteEvent(new RouteEvent(object, () ->  {
 			player.faceObject(object);
 			if (GameConstants.DEBUG)
 				System.out.println("Item on object: " + object.getId());
+			executeItemOnObject(player, object, item);
 		}, false));
 	}
 }

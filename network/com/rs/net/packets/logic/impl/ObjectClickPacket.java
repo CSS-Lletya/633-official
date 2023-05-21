@@ -43,9 +43,11 @@ public class ObjectClickPacket implements LogicPacket {
 		}
 		final GameObject worldObject = mapObject;
 
+		player.faceObject(worldObject);
 		player.getMovement().stopAll();
 		if (forceRun)
 			player.setRun(forceRun);
+		System.out.println(id);
 		player.setRouteEvent(new RouteEvent(worldObject, () -> {
 			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectClick1(player, worldObject)))
 				return;

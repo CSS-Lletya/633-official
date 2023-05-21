@@ -16,7 +16,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
  *
  */
 @ObjectSignature(objectId = {}, name = { "Staircase", "Ladder" })
-public class StairsAndLadderPlugin implements ObjectType {
+public class StairsAndLadderPlugin extends ObjectType {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

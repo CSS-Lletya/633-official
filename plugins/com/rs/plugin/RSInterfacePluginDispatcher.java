@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
+import com.rs.constants.InterfaceVars;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.player.CombatDefinitions;
@@ -131,8 +133,7 @@ public final class RSInterfacePluginDispatcher {
 		player.getEquipment().refresh(slotId);
 		player.getAppearance().generateAppearenceData();
 		player.getPackets().sendGlobalConfig(779, player.getEquipment().getWeaponRenderEmote());
-//		if (Runecrafting.isTiara(item.getId()))
-//			player.getVarsManager().sendVar(491, 0);
+		isWearingTiara(player, () -> player.getVarsManager().sendVar(InterfaceVars.RUNECRAFTING_ALTARS_OPTIONS, 0).submitVarToMap(InterfaceVars.RUNECRAFTING_ALTARS_OPTIONS, 0));
 		if (slotId == 3)
 			player.getCombatDefinitions().decreaseSpecialAttack(0);
 		RSInterfacePluginDispatcher.refreshEquipBonuses(player);
@@ -344,12 +345,14 @@ public final class RSInterfacePluginDispatcher {
 				continue;
 			if (sendWear2(player, slotId, item.getId()))
 				worn = true;
+			isWearingTiara(player, () -> player.getVarsManager().sendVar(InterfaceVars.RUNECRAFTING_ALTARS_OPTIONS, 1).submitVarToMap(InterfaceVars.RUNECRAFTING_ALTARS_OPTIONS, 1));
 		}
 		player.getInventory().refreshItems(copy);
 		if (worn) {
 			player.getAppearance().generateAppearenceData();
 			player.getPackets().sendSound(2240, 0, 1);
 		}
+		
 	}
 
 	public static void openItemsKeptOnDeath(Player player) {
@@ -472,5 +475,12 @@ public final class RSInterfacePluginDispatcher {
 		player.getInterfaceManager().setInterface(false, 1218, 1, 1217); // seems
 		// to
 		// fix
+	}
+	
+	//Note: Not sure how come the rest of altars aren't being unlocked, air unlocks for sure!
+	public static boolean isWearingTiara(Player player, Runnable run) {
+		run.run();
+		return IntStream.of(1438, 1448, 1444, 1440, 1442, 1446, 1454, 1452, 1462, 1458, 1456, 1450)
+				.anyMatch(id -> player.getEquipment().containsOneItem(id));
 	}
 }

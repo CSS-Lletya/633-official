@@ -347,4 +347,8 @@ public final class RandomUtils {
 	public static final boolean percentageChance(int chance) {
 		return (Math.random() * 100) < chance;
 	}
+	
+    public static int getRandom(int maxValue) {
+        return (int) (Math.random() * (maxValue + 1));
+    }
 }

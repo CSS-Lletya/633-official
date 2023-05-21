@@ -2,6 +2,8 @@ package com.rs.constants;
 
 import com.rs.game.player.content.MusicsManager;
 
+import skills.runecrafting.Runecrafting;
+
 /**
  * A type-safe record of all known Interface Configs/Vars. Some data below may
  * not have completed contents and cannot be verified their uses, apologies in
@@ -328,4 +330,9 @@ public interface InterfaceVars {
 	 * Represents the tracking target values
 	 */
 	int SKILL_TARGET_VALUES = 1969;
+
+	/**
+	 * Represents global {@link Runecrafting} altars giving action menus
+	 */
+	int RUNECRAFTING_ALTARS_OPTIONS = 492;
 }

@@ -8,6 +8,8 @@ import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.utilities.TextUtils;
 
+import skills.runecrafting.Runecrafting;
+
 /**
  * The skill action that represents an action where one item in an inventory is
  * replaced with a new one. This type of skill action is somewhat basic and
@@ -37,7 +39,7 @@ public abstract class ProducingSkillAction extends SkillHandler {
 		Optional<Item[]> removeItem = removeItem();
 		
 		//Looking if player has empty space for produce items.
-		if (!player.getInventory().hasFreeSlots()) {
+		if (!player.getInventory().hasFreeSlots() && !canIgnoreIventoryCheck()) {
 			return false;
 		}
 		
@@ -106,6 +108,15 @@ public abstract class ProducingSkillAction extends SkillHandler {
 	
 	@Override
 	public boolean isPrioritized() {
+		return false;
+	}
+	
+	/**
+	 * Used in very specific cases such as attempting
+	 * to {@link Runecrafting} with a full inventory of essences.
+	 * @return
+	 */
+	public boolean canIgnoreIventoryCheck() {
 		return false;
 	}
 	

@@ -45,6 +45,7 @@ public class VarsManager {
 	 * @return
 	 */
 	public VarsManager submitVarToMap(int id, int value) {
+		varMap.computeIfPresent(id, (k,v) -> v = value);
 		varMap.putIfAbsent(id, value);
 		return this;
 	}
@@ -57,6 +58,7 @@ public class VarsManager {
 	 * @return
 	 */
 	public VarsManager submitVarBitToMap(int id, int value) {
+		varBitMap.computeIfPresent(id, (k,v) -> v = value);
 		varBitMap.putIfAbsent(id, value);
 		return this;
 	}

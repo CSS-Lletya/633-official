@@ -21,6 +21,6 @@ public class TestCommandPlugin implements Command {
 	public void execute(Player player, String[] cmd, String command) throws Exception {
 //		player.getQuestManager().startQuest(DemoQuest.class);
 //		player.getHintIconsManager().addHintIcon(3222, 3222, 0, 120, 0, 1, -1, false);
-		player.getPackets().test(1050, 1);
+		player.getVarsManager().sendVar(491, 1);
 	}
 }

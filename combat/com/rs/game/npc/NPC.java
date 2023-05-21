@@ -207,7 +207,7 @@ public class NPC extends Entity {
 		getGenericNPC().setRespawnTask(this);
 		if (!isFinished()) {
 			reset();
-			setLocation(getRespawnTile());
+			setNextWorldTile(getRespawnTile());
 			deregister();
 		}
 		World.get().submit(new Task(getCombatDefinitions().getRespawnDelay()) {

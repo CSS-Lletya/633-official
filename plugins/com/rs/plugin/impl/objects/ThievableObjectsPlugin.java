@@ -11,7 +11,7 @@ import skills.thieving.impl.Stalls;
 import skills.thieving.impl.Stalls.StallData;
 
 @ObjectSignature(objectId = {}, name = {})
-public class ThievableObjectsPlugin implements ObjectType {
+public class ThievableObjectsPlugin extends ObjectType {
 
 	/**
 	 * Thieving stalls has been issue reading X / Y coordinate for some reason.

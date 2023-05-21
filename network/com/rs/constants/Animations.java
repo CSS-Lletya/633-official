@@ -99,6 +99,7 @@ public final class Animations {
 	public static final Animation PICKPOCKET = new Animation(881);
 	public static final Animation PICKPOCKET_STUN = new Animation(424);
 	public static final Animation OVERLOAD = new Animation(3170);
+	public static final Animation RUNECRAFTING = new Animation(791);
 	
 	/**
 	 * Object Based Animations
