@@ -99,11 +99,10 @@ public class GameObject extends WorldTile {
 	}
 
 	@SneakyThrows(Throwable.class)
-	public static final void spawnTempGroundObject(final GameObject object, final int replaceId, long time) {
+	public static final void spawnTempGroundObject(final GameObject object, long time) {
 		spawnObject(object);
 		CoresManager.schedule(() -> {
 			removeObject(object);
-			//do something else
 		}, (int) time);
 	}
 
@@ -153,5 +152,19 @@ public class GameObject extends WorldTile {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * A simple way of executing an action based on the option.
+	 * can also force assign option actions as well.
+	 * @param option
+	 * @param objectId
+	 * @param searchedOption
+	 * @param action
+	 */
+	public GameObject doAction(int optionId, int objectId, String searchedOption, Runnable action) {
+		if (getDefinitions().getId() == objectId && getDefinitions().getOption(optionId).equalsIgnoreCase(searchedOption))
+			action.run();
+		return this;
 	}
 }

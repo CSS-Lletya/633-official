@@ -21,37 +21,37 @@ public interface Attribute {
 	/**
 	 * Represents the Integer input value
 	 */
-	public String INTEGER_INPUT_ACTION = "integer_input_action";
+	public String INTEGER_INPUT_ACTION = "IntegerInputAction";
 	
 	/**
 	 * Represents the String input value
 	 */
-	public String STRING_INPUT_ACTION = "string_input_action";
+	public String STRING_INPUT_ACTION = "StringInputAction";
 	
 	/**
 	 * Represents the temporary casted spell id
 	 */
-	public String TEMP_CAST_SPELL = "tempCastSpell";
+	public String TEMP_CAST_SPELL = "TempCastSpell";
 	
 	/**
 	 * Represents the Miasmic immunity effects
 	 */
-	public String MIASMIC_IMMUNITY = "miasmic_immunity";
+	public String MIASMIC_IMMUNITY = "MiasmicImmunity";
 	
 	/**
 	 * Represents the Miasmic effects
 	 */
-	public String MIASMIC_EFFECT = "miasmic_effect";
+	public String MIASMIC_EFFECT = "MiasmicEffect";
 	
 	/**
 	 * Represents the Shop instance
 	 */
-	public String SHOP_INSTANCE = "shop_instance";
+	public String SHOP_INSTANCE = "ShopInstance";
 	
 	/**
 	 * Represents the World Hash
 	 */
-	public String WORLD_HASH = "worldHash";
+	public String WORLD_HASH = "WorldHash";
 	
 	/**
 	 * Represents the Bank state
@@ -66,7 +66,7 @@ public interface Attribute {
 	/**
 	 * Represents the Dialogue event state
 	 */
-	public String DIALOGUE_EVENT = "dialogue_event";
+	public String DIALOGUE_EVENT = "DialogueEvent";
 	
 	/**
 	 * Represents the max skill quantity for skilling menu (fletching, such)
@@ -77,12 +77,12 @@ public interface Attribute {
 	/**
 	 * Represents the Miasmic effects
 	 */
-	public String RECOVER_SPECIAL_POT = "Recover_Special_Pot";
+	public String RECOVER_SPECIAL_POT = "RecoverSpecialPot";
 	
 	/**
 	 * Represents the current Note index
 	 */
-	public String CURRENT_NOTE = "Current_Note";
+	public String CURRENT_NOTE = "CurrentNote";
 	
 	/**
 	 * Represents the last Vengeance timer
@@ -92,7 +92,7 @@ public interface Attribute {
 	/**
 	 * Represents the state of the player infusing to summoning scrolls
 	 */
-	public String INFUSING_SCROLL = "infusing_scroll";
+	public String INFUSING_SCROLL = "InfusingScroll";
 	
 	/**
 	 * Represents the state shop access, this system needs to be reworked
@@ -102,12 +102,12 @@ public interface Attribute {
 	/**
 	 * Represents the current shop transaction amount placed
 	 */
-	public String SHOP_TRANSACTION = "shop_transaction";
+	public String SHOP_TRANSACTION = "ShopTransaction";
 	
 	/**
 	 * Represents the Shop buying state
 	 */
-	public String IS_SHOP_BUYING = "isShopBuying";
+	public String IS_SHOP_BUYING = "IsShopBuying";
 	
 	/**
 	 * Represents the Shop selected shop (item seleted in the Shop container)
@@ -123,32 +123,32 @@ public interface Attribute {
 	 * Represents the X slot of the bank item.
 	 * This attribute is currently not in use.
 	 */
-	public String BANK_ITEM_X_SLOT = "bank_item_X_Slot";
+	public String BANK_ITEM_X_SLOT = "BankItemXSlot";
 	
 	/**
 	 * Represents the X slot of the price checked item.
 	 * This attribute is currently not in use.
 	 */
-	public String PC_ITEM_X_SLOT = "pc_item_X_Slot";
+	public String PC_ITEM_X_SLOT = "PCItemXSlot";
 	
 	/**
 	 * Represents the item that's being destroyed.
 	 * Destroying items can not be undone.
 	 */
-	public String DESTROY_ITEM_ID = "Destroy_Item";
+	public String DESTROY_ITEM_ID = "DestroyItem";
 	
 	/**
 	 * Represents the set level mode of Skill Targets
 	 */
-	public String SET_LEVEL = "Set_Level";
+	public String SET_LEVEL = "SetLevel";
 	
 	/**
 	 * Represents the set xp mode of Skill Targets
 	 */
-	public String SET_XP = "Set_XP";
+	public String SET_XP = "SetXP";
 	
 	/**
 	 * Represents the special recovery state
 	 */
-	public String SPECIAL_RECOVERY = "Spec_Recovery";
+	public String SPECIAL_RECOVERY = "SpecRecovery";
 }

@@ -3,8 +3,6 @@ package com.rs.net.packets.outgoing.impl;
 import com.rs.GameConstants;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
-import com.rs.game.player.attribute.Attribute;
-import com.rs.game.player.content.Shop;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacket;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;

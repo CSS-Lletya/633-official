@@ -2,13 +2,8 @@ package com.rs.cache.loaders;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.function.Consumer;
-import java.util.stream.IntStream;
-
-import javax.swing.plaf.basic.BasicSliderUI.ActionScroller;
 
 import com.rs.cache.Cache;
-import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;

@@ -4,8 +4,6 @@ import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
-import com.rs.content.quests.Quest;
-import com.rs.utilities.Colors;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Data;

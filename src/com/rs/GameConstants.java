@@ -65,6 +65,11 @@ public final class GameConstants {
 	public static final short TOLERANCE_SECONDS = GameProperties.getGameProperties().getShort("tolerance");
 	
 	/**
+	 * The maximum amount of drops that can be rolled from the dynamic drop table.
+	 */
+	public static final String MISSING_CONTENT = GameProperties.getGameProperties().getString("missing_content_message");
+	
+	/**
 	 * An immutable map of Staff members
 	 */
 	public static final ImmutableMap<String, Rights> STAFF = ImmutableMap.of(

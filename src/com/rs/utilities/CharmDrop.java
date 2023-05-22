@@ -86,14 +86,11 @@ public class CharmDrop {
 			charmDrops = new HashMap<>();
 			Path path = Paths.get(PACKED_PATH);
 			try (Scanner scanner = new Scanner(path, ENCODING.name())) {
-				int lineNumber = 0;
-
 				String npcName = null;
 				int[] charmPerc = new int[4];
 
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
-					lineNumber++;
 
 					if (line.startsWith("//") || line.isEmpty())
 						continue;
@@ -106,10 +103,8 @@ public class CharmDrop {
 					charmPerc[1] = Integer.parseInt(info[1]);
 					charmPerc[2] = Integer.parseInt(info[2]);
 					charmPerc[3] = Integer.parseInt(info[3]);
-
 					charmDrops.put(npcName, new int[] {charmPerc[0], charmPerc[1], charmPerc[2], charmPerc[3]});
 				}
-//				Logger.log("CharmDrop", "Parsed " + lineNumber + " lines of NPC charm drops.");
 
 			}
 		} catch (Throwable e) {

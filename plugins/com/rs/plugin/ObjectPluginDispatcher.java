@@ -14,7 +14,9 @@ import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectType;
 import com.rs.plugin.wrapper.ObjectSignature;
+import com.rs.utilities.LogUtility;
 import com.rs.utilities.Utility;
+import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -103,6 +105,9 @@ public final class ObjectPluginDispatcher {
 		List<ObjectType> objectTypes = Utility.getClassesInDirectory("com.rs.plugin.impl.objects").stream()
 				.map(clazz -> (ObjectType) clazz).collect(Collectors.toList());
 		objectTypes.forEach(objectType -> OBJECTS.put(objectType.getClass().getAnnotation(ObjectSignature.class), objectType));
+		List<ObjectType> objectTypesRegion = Utility.getClassesInDirectory("com.rs.plugin.impl.objects.region").stream()
+				.map(clazz -> (ObjectType) clazz).collect(Collectors.toList());
+		objectTypesRegion.forEach(objectType -> OBJECTS.put(objectType.getClass().getAnnotation(ObjectSignature.class), objectType));
 	}
 
 	/**
@@ -115,6 +120,7 @@ public final class ObjectPluginDispatcher {
 	public static void reload() {
 		OBJECTS.clear();
 		load();
+		LogUtility.log(LogType.INFO, "Reloaded Objects Plugins");
 	}
 
 	public static void handleItemOnObject(final Player player, final GameObject object, final int interfaceId, final Item item) {

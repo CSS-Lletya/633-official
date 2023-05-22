@@ -1,6 +1,5 @@
 package com.rs.plugin.impl.interfaces;
 
-import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;

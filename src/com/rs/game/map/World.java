@@ -10,7 +10,6 @@ import com.rs.Launcher;
 import com.rs.cores.CoresManager;
 import com.rs.game.Entity;
 import com.rs.game.EntityList;
-import com.rs.game.item.Item;
 import com.rs.game.movement.route.Flags;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;

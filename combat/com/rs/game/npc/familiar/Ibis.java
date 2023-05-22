@@ -1,6 +1,5 @@
 package com.rs.game.npc.familiar;
 
-import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
