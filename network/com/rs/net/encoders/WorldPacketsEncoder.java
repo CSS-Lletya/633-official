@@ -1038,7 +1038,7 @@ public class WorldPacketsEncoder extends Encoder {
 	// CUTSCENE PACKETS START
 
 	public WorldPacketsEncoder sendHintIcon(HintIcon icon) {
-		OutputStream stream = new OutputStream(12);//15
+		OutputStream stream = new OutputStream(12);
 		stream.writePacket(getPlayer(), 60);
 		stream.writeByte((icon.getTargetType() & 0x1f) | (icon.getIndex() << 5));
 		if (icon.getTargetType() == 0)
