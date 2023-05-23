@@ -85,7 +85,7 @@ public final class ObjectPluginDispatcher {
 	private static boolean isObjectNamed(ObjectType object, GameObject worldObject) {
 		ObjectSignature signature = object.getClass().getAnnotation(ObjectSignature.class);
 		return Arrays.stream(signature.name())
-				.anyMatch(objectName -> worldObject.getDefinitions().getName().contains(objectName));
+				.anyMatch(objectName -> worldObject.getDefinitions().getName().equalsIgnoreCase(objectName));
 	}
 
 	/**

@@ -16,8 +16,10 @@ public class PickablesObjectPlugin extends ObjectType {
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		object.doAction(optionId, "Banana Tree", "Pick", () -> {
-			if (player.getInventory().addItem(new Item(ItemNames.BANANA)))
+			if (player.getInventory().addItem(new Item(ItemNames.BANANA))) {
+				player.setNextAnimation(Animations.GRABBING_INFRONT_OF_YOU);
 				player.getPackets().sendGameMessage("You pick a Banana from the Banana tree");
+			}
 		});
 		object.doAction(optionId, "Flax", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.FLAX))){

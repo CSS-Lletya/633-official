@@ -2,9 +2,6 @@ package com.rs.net;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.LinkedTransferQueue;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;

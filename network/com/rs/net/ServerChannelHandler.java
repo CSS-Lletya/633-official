@@ -1,7 +1,6 @@
 package com.rs.net;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;

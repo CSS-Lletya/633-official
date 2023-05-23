@@ -4,7 +4,6 @@ import com.rs.GameConstants;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.net.ServerChannelHandler;
 import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
@@ -16,6 +15,8 @@ public final class WorldThread extends Thread {
 		setName("World Thread");
 	}
 
+	public static long LAST_CYCLE_CTM;
+	
 	@Override
 	public final void run() {
 		while (!CoresManager.shutdown) {
@@ -41,14 +42,7 @@ public final class WorldThread extends Thread {
 			long sleepTime = GameConstants.WORLD_CYCLE_MS + currentTime - LAST_CYCLE_CTM;
 			if (sleepTime <= 0)
 				continue;
-			try {
-				Thread.sleep(sleepTime);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			Try.run(() -> Thread.sleep(sleepTime)).onFailure(f -> f.printStackTrace());
 		}
 	}
-
-	public static long LAST_CYCLE_CTM;
-
 }
