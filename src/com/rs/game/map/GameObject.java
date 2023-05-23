@@ -105,6 +105,16 @@ public class GameObject extends WorldTile {
 			removeObject(object);
 		}, (int) time);
 	}
+	
+	
+	@SneakyThrows(Throwable.class)
+	public static final void spawnTempGroundObject(final GameObject object, long time, Runnable run) {
+		spawnObject(object);
+		CoresManager.schedule(() -> {
+			removeObject(object);
+			run.run();
+		}, (int) time);
+	}
 
 	public static final GameObject getStandartObject(WorldTile tile) {
 		return World.getRegion(tile.getRegionId()).getStandartObject(tile.getPlane(), tile.getXInRegion(),
@@ -179,6 +189,16 @@ public class GameObject extends WorldTile {
 	public GameObject doAction(int optionId, String objectName, String searchedOption, Runnable action) {
 		if (getDefinitions().getName().equalsIgnoreCase(objectName)&& getDefinitions().getOption(optionId).equalsIgnoreCase(searchedOption))
 			action.run();
+		return this;
+	}
+	
+	/**
+	 * Gets this object with the new id.
+	 * @param id new direction to set.
+	 * @return the copy of this object.
+	 */
+	public GameObject setId(int id) {
+		this.id = id;
 		return this;
 	}
 }

@@ -143,7 +143,10 @@ public class InterfaceManager {
 	}
 
 	public void sendGameInterfaces() {
-		player.task(2, p -> setInterface(true, 752, 9, 137));
+		player.task(2, p -> {
+			setInterface(true, 752, 9, 137);
+			player.getCombatDefinitions().refreshSpellBookScrollBar_DefCast();
+		});
 		setDefaultRootInterface();
 		sendOrbs();
 		refreshHitPoints();

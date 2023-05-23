@@ -41,6 +41,18 @@ public final class RandomUtils {
 	}
 	
 	/**
+	 * Returns a pseudo-random {@code double}.
+	 * @return The pseudo-random {@code double}.
+	 */
+	public static double nextDouble(double value) {
+		return ThreadLocalRandom.current().nextDouble(value);
+	}
+	
+	public static int nextInt(int value) {
+		return ThreadLocalRandom.current().nextInt(value);
+	}
+	
+	/**
 	 * Returns a pseudo-random {@code float} between inclusive {@code 0} and
 	 * exclusive {@code range}.
 	 * @param range The exclusive range.

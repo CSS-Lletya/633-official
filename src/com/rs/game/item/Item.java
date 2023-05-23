@@ -1,7 +1,10 @@
 package com.rs.game.item;
 
+import com.google.common.collect.Iterables;
 import com.rs.cache.loaders.ItemDefinitions;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.Data;
 
 /**
@@ -48,5 +51,18 @@ public class Item {
 
 	public String getName() {
 		return getDefinitions().getName();
+	}
+
+	/**
+	 * Converts an int array into an {@link Item} array.
+	 * @param id the array to convert into an item array.
+	 * @return the item array containing the values from the int array.
+	 */
+	public static final Item[] convert(int... id) {
+		ObjectList<Item> items = new ObjectArrayList<>();
+		for(int identifier : id) {
+			items.add(new Item(identifier));
+		}
+		return Iterables.toArray(items, Item.class);
 	}
 }

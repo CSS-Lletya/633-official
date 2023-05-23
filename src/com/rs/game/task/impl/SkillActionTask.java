@@ -111,8 +111,8 @@ public final class SkillActionTask extends Task {
 				return;
 			}
 			action.execute(this);
+			action.tile.ifPresent(player::setNextFaceWorldTile);
 			if(!action.animationDelay().isPresent()) {
-				player.getMovement().lock(action.delay());
 				action.animation().ifPresent(player::setNextAnimation);
 			}
 			counter = 0;

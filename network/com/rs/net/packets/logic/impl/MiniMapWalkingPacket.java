@@ -9,8 +9,8 @@ import com.rs.net.packets.logic.LogicPacket;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.utilities.Utility;
 
-@LogicPacketSignature(packetId = 43, packetSize = 18, description = "Basic Short-Walking packet")
-public class MiniWalkingPacket implements LogicPacket {
+@LogicPacketSignature(packetId = 43, packetSize = 18, description = "Basic Minimap-based walking packet")
+public class MiniMapWalkingPacket implements LogicPacket {
 
 	@Override
 	public void execute(Player player, InputStream stream) {
