@@ -17,5 +17,6 @@ public final class CoordinateCommandPlugin implements Command {
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
 		player.getPackets().sendGameMessage("x: "+ player.getX() + " y: " + player.getY() + " h: " + player.getPlane());
+		System.out.println(player.getX() + ", " + player.getY() + ", " + player.getPlane());
 	}
 }

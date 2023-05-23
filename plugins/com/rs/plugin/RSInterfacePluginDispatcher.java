@@ -3,7 +3,6 @@ package com.rs.plugin;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -56,12 +55,10 @@ public final class RSInterfacePluginDispatcher {
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
 	private static Optional<RSInterface> getRSInterface(int interfaceId) {
-		for (Entry<RSInterfaceSignature, RSInterface> rsInterface : INTERFACES.entrySet()) {
-			if (isInterface(rsInterface.getValue(), interfaceId)) {
-				return Optional.of(rsInterface.getValue());
-			}
-		}
-		return Optional.empty();
+	    return INTERFACES.values()
+	            .stream()
+	            .filter(rsInterface -> isInterface(rsInterface, interfaceId))
+	            .findFirst();
 	}
 
 	private static boolean isInterface(RSInterface rsInterface, int interfaceId) {
@@ -92,6 +89,7 @@ public final class RSInterfacePluginDispatcher {
 	public static void reload() {
 		INTERFACES.clear();
 		load();
+		LogUtility.log(LogType.INFO, "Reloaded RSInterface Plugins");
 	}
 
 	public static void handleButtons(final Player player, InputStream stream, int packetId) {
@@ -433,7 +431,6 @@ public final class RSInterfacePluginDispatcher {
 
 	public static void openEquipmentBonuses(final Player player, boolean banking) {
 		player.getMovement().stopAll();
-		player.getInterfaceManager().closeInterface(11, 0);
 		player.getInterfaceManager().sendInventoryInterface(670);
 		player.getInterfaceManager().sendInterface(667);
 		player.getPackets().sendRunScript(787, 1);

@@ -2,13 +2,14 @@ package com.rs.plugin;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.Command;
 import com.rs.plugin.wrapper.CommandSignature;
+import com.rs.utilities.LogUtility;
+import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
@@ -49,14 +50,13 @@ public final class CommandPluginDispatcher {
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
 	private static Optional<Command> getCommand(String identifier) {
-		for (Entry<CommandSignature, Command> command : COMMANDS.entrySet()) {
-			for (String s : command.getKey().alias()) {
-				if (s.equalsIgnoreCase(identifier)) {
-					return Optional.of(command.getValue());
-				}
-			}
-		}
-		return Optional.empty();
+	    return COMMANDS.entrySet()
+	            .stream()
+	            .flatMap(entry -> Arrays.stream(entry.getKey().alias())
+	                    .filter(alias -> alias.equalsIgnoreCase(identifier))
+	                    .map(alias -> entry.getValue())
+	            )
+	            .findFirst();
 	}
 	
 	/**
@@ -94,5 +94,6 @@ public final class CommandPluginDispatcher {
 	public static void reload() {
 		COMMANDS.clear();
 		load();
+		LogUtility.log(LogType.INFO, "Reloaded Command Plugins");
 	}
 }

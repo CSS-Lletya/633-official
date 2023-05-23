@@ -2,7 +2,6 @@ package com.rs.plugin;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -15,8 +14,8 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectType;
 import com.rs.plugin.wrapper.ObjectSignature;
 import com.rs.utilities.LogUtility;
-import com.rs.utilities.Utility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -38,9 +37,7 @@ public final class ObjectPluginDispatcher {
 	 * @param parts  the string which represents a Objects.
 	 */
 	public static void execute(Player player, GameObject gamObject, int optionId) {
-		getObject(gamObject, gamObject.getId()).ifPresent(object -> {
-			Try.run(() -> object.execute(player, gamObject, optionId));
-		});
+		getObject(gamObject, gamObject.getId()).ifPresent(object -> Try.run(() -> object.execute(player, gamObject, optionId)));
 	}
 	
 	/**
@@ -50,9 +47,7 @@ public final class ObjectPluginDispatcher {
 	 * @param parts  the string which represents a Objects.
 	 */
 	public static void executeItemOnObject(Player player, GameObject gamObject, Item item) {
-		getObject(gamObject, gamObject.getId()).ifPresent(object -> {
-			Try.run(() -> object.executeItemOnObject(player, gamObject, item));
-		});
+		getObject(gamObject, gamObject.getId()).ifPresent(object -> Try.run(() -> object.executeItemOnObject(player, gamObject, item)));
 	}
 
 	/**
@@ -62,12 +57,10 @@ public final class ObjectPluginDispatcher {
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
 	private static Optional<ObjectType> getObject(GameObject object, int objectId) {
-		for (Entry<ObjectSignature, ObjectType> objects : OBJECTS.entrySet()) {
-			if (isObjetId(objects.getValue(), objectId) || isObjectNamed(objects.getValue(), object)) {
-				return Optional.of(objects.getValue());
-			}
-		}
-		return Optional.empty();
+	    return OBJECTS.values()
+	            .stream()
+	            .filter(objectType -> isObjetId(objectType, objectId) || isObjectNamed(objectType, object))
+	            .findFirst();
 	}
 
 	/**

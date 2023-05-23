@@ -11,6 +11,7 @@ public class WorldTile {
 
 	private short x, y;
 	private byte plane;
+	
 
 	public WorldTile(int x, int y, int plane) {
 		this.x = (short) x;
@@ -28,6 +29,11 @@ public class WorldTile {
 		this.x = tile.x;
 		this.y = tile.y;
 		this.plane = tile.plane;
+	}
+	
+	public WorldTile(int x, int y) {
+		this.x = (short) x;
+		this.y = (short) y;
 	}
 
 	public WorldTile(WorldTile tile, int randomize) {
@@ -230,5 +236,21 @@ public class WorldTile {
 	 */
 	public static WorldTile delta(WorldTile a, WorldTile b) {
 		return new WorldTile(b.x - a.x, b.y - a.y, 0);
+	}
+	
+	/**
+	 * Gets the current position and increases the plane height by 1
+	 * @return
+	 */
+	public WorldTile increasePlane() {
+		return new WorldTile(x, y, plane + 1);
+	}
+	
+	/**
+	 * Gets the current position and decreases the plane height by 1
+	 * @return
+	 */
+	public WorldTile decreasePlane() {
+		return new WorldTile(x, y, plane - 1);
 	}
 }

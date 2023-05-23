@@ -2,7 +2,6 @@ package com.rs.plugin;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -15,7 +14,9 @@ import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.plugin.listener.NPCType;
 import com.rs.plugin.wrapper.NPCSignature;
+import com.rs.utilities.LogUtility;
 import com.rs.utilities.Utility;
+import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -45,12 +46,10 @@ public class NPCPluginDispatcher {
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
 	private static Optional<NPCType> getMob(NPC mob, int npcId) {
-		for(Entry<NPCSignature, NPCType> mobType : MOBS.entrySet()) {
-			if (isNPCId(mobType.getValue(), npcId) || isMobNamed(mobType.getValue(), mob)) {
-				return Optional.of(mobType.getValue());
-			}
-		}
-		return Optional.empty();
+	    return MOBS.values()
+	            .stream()
+	            .filter(npcType -> isNPCId(npcType, npcId) || isMobNamed(npcType, mob))
+	            .findFirst();
 	}
 	
 	/**
@@ -96,6 +95,7 @@ public class NPCPluginDispatcher {
 	public static void reload() {
 		MOBS.clear();
 		load();
+		LogUtility.log(LogType.INFO, "Reloaded NPC Plugins");
 	}
 	
 	public static void executeMobInteraction(final Player player, InputStream stream, int optionId) {

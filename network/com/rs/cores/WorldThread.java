@@ -2,6 +2,8 @@ package com.rs.cores;
 
 import com.rs.GameConstants;
 import com.rs.game.map.World;
+import com.rs.game.npc.NPC;
+import com.rs.game.player.Player;
 import com.rs.net.ServerChannelHandler;
 import com.rs.utilities.Utility;
 
@@ -19,24 +21,22 @@ public final class WorldThread extends Thread {
 		while (!CoresManager.shutdown) {
 			long currentTime = Utility.currentTimeMillis();
 			Try.run(() -> {
-
+				
 				World.get().getTaskManager().sequence();
-
+				ServerChannelHandler.processSessionQueue();
 				World.players().forEach(player -> player.processEntity());
 				World.npcs().forEach(npc -> npc.processEntity());
 
-				World.players().forEach(player -> player.processEntityUpdate());
-				World.npcs().forEach(npc -> npc.processEntityUpdate());
+				World.players().forEach(Player::processEntityUpdate);
+				World.npcs().forEach(NPC::processEntityUpdate);
 
 				World.players().forEach(player -> {
 					player.getPackets().sendLocalPlayersUpdate();
 					player.getPackets().sendLocalNPCsUpdate();
 				});
-
-				World.players().forEach(player -> player.resetMasks());
-				World.npcs().forEach(npc -> npc.resetMasks());
-
-				ServerChannelHandler.processSessionQueue();
+				
+				World.players().forEach(Player::resetMasks);
+				World.npcs().forEach(NPC::resetMasks);
 			}).onFailure(Throwable::printStackTrace);
 			LAST_CYCLE_CTM = Utility.currentTimeMillis();
 			long sleepTime = GameConstants.WORLD_CYCLE_MS + currentTime - LAST_CYCLE_CTM;

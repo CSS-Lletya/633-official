@@ -11,7 +11,7 @@ import skills.runecrafting.Altar;
 import skills.runecrafting.Runecrafting;
 
 @ObjectSignature(objectId = {2478, 2479, 2480, 2481, 2482, 2483, 2484, 2485, 2486, 2487, 2488, 30624}, name = {})
-public class RunecraftingAltarsObjectsPlugin extends ObjectType {
+public class RunecraftingAltarsObjectPlugin extends ObjectType {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

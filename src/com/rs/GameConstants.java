@@ -34,6 +34,17 @@ public final class GameConstants {
 	public static final boolean XP_BONUS_ENABLED = GameProperties.getGameProperties().getBoolean("bonus_exp_enabled");
 	
 	/**
+	 * The time in seconds that has to be spent in a region before {@link Mob}s stop
+	 * acting aggressive towards a specific {@link Player}.
+	 */
+	public static final short TOLERANCE_SECONDS = GameProperties.getGameProperties().getShort("tolerance");
+	
+	/**
+	 * The maximum amount of drops that can be rolled from the dynamic drop table.
+	 */
+	public static final String MISSING_CONTENT = GameProperties.getGameProperties().getString("missing_content_message");
+	
+	/**
 	 * Items that are protected upon a Players death by default in the Wilderness
 	 */
 	public static final String[] PROTECT_ON_DEATH = { "chaotic", "stream", "defender", "swift", "spellcaster", "goliath",
@@ -47,27 +58,6 @@ public final class GameConstants {
 			new Item(ItemNames.COINS, 10_000), new Item(ItemNames.BRONZE_SCIMITAR), new Item(ItemNames.STAFF_OF_AIR),
 			new Item(ItemNames.SHORTBOW), new Item(ItemNames.BRONZE_ARROW, 250)
 	);
-	
-	/**
-	 * The maximum amount of drops that can be rolled from the dynamic drop table.
-	 */
-	public static final byte DROP_THRESHOLD = GameProperties.getGameProperties().getByte("drop_threshold");
-
-	/**
-	 * The attempted looped of randomized rare mob drops.
-	 */
-	public static final byte DROP_RARE_ATTEMPTS = GameProperties.getGameProperties().getByte("drop_rare_attempts");
-	
-	/**
-	 * The time in seconds that has to be spent in a region before {@link Mob}s stop
-	 * acting aggressive towards a specific {@link Player}.
-	 */
-	public static final short TOLERANCE_SECONDS = GameProperties.getGameProperties().getShort("tolerance");
-	
-	/**
-	 * The maximum amount of drops that can be rolled from the dynamic drop table.
-	 */
-	public static final String MISSING_CONTENT = GameProperties.getGameProperties().getString("missing_content_message");
 	
 	/**
 	 * An immutable map of Staff members

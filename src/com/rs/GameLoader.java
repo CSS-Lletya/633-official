@@ -140,7 +140,6 @@ public class GameLoader {
 		getBackgroundLoader().submit(() -> {
         	CharmDrop.loadCharmDrops();
         	DropSets.init();
-        	
         });
 	}
 }

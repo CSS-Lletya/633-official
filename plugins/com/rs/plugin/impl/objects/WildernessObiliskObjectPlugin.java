@@ -7,7 +7,7 @@ import com.rs.plugin.listener.ObjectType;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 @ObjectSignature(objectId = {}, name = {"Obelisk"})
-public class WildernessObiliskPlugin extends ObjectType {
+public class WildernessObiliskObjectPlugin extends ObjectType {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
