@@ -6,7 +6,7 @@ import com.rs.plugin.listener.NPCType;
 import com.rs.plugin.wrapper.NPCSignature;
 
 @NPCSignature(name = {"Banker"}, npcId = {})
-public class BankerPlugin implements NPCType{
+public class BankerNPCPlugin implements NPCType{
 
 	@Override
 	public void execute(Player player, NPC npc, int option) throws Exception {

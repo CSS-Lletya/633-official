@@ -371,7 +371,7 @@ public class NPC extends Entity {
 		return getDefinitions().getName() + " - " + id + " - " + getX() + " " + getY() + " " + getPlane();
 	}
 
-	public void transformIntoNPC(short id) {
+	public void transformIntoNPC(int id) {
 		setId(id);
 		setNextTransformation(new Transformation(id));
 	}
