@@ -676,7 +676,7 @@ public class Potions {
 			return POTS.get(itemId);
 		}
 
-		private int emptyId;
+		public int emptyId;
 		private Consumer<Player> effect;
 		private int[] ids;
 
@@ -744,21 +744,6 @@ public class Potions {
 			return emptyId == VIAL || emptyId == JUJU_VIAL;
 		}
 	}
-
-//	public static ItemClickHandler clickOps = new ItemClickHandler(Potion.POTS.keySet().toArray(), new String[] { "Drink", "Empty" }) {
-//		@Override
-//		public void handle(ItemClickEvent e) {
-//			Potion pot = Potion.forId(e.getItem().getId());
-//			if (pot == null)
-//				return;
-//			if (e.getOption().equals("Drink"))
-//				pot.drink(e.getPlayer(), e.getItem().getId(), e.getItem().getSlot());
-//			else if (e.getOption().equals("Empty") && pot.emptyId != -1) {
-//				e.getItem().setId(pot.emptyId);
-//				e.getPlayer().getInventory().refresh(e.getItem().getSlot());
-//			}
-//		}
-//	};
 
 	public static int getDoses(Potion pot, Item item) {
 		for (int i = pot.ids.length - 1; i >= 0; i--)

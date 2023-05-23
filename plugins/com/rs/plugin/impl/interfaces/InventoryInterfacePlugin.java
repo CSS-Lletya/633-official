@@ -102,6 +102,13 @@ public class InventoryInterfacePlugin implements RSInterface {
 				InventoryPluginDispatcher.execute(player, item, 5);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON6_PACKET:
+				Potion pots = Potion.forId(item.getId());
+				if (pots == null)
+					return;
+				if (pots.emptyId != -1) {
+					item.setId(pots.emptyId);
+					player.getInventory().refresh(slotId);
+				}
 				InventoryPluginDispatcher.execute(player, item, 6);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON7_PACKET:
