@@ -1,10 +1,12 @@
 package skills.prayer;
 
+import java.util.EnumSet;
+import java.util.Optional;
+
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 
 import lombok.AllArgsConstructor;
-
-import java.util.Optional;
 
 @AllArgsConstructor
 public enum Bone {
@@ -18,7 +20,7 @@ public enum Bone {
 	OURG_BONES(4834, 90),
 	DAGANNOTH_BONES(6729, 120);
 
-	private static final ImmutableSet<Bone> VALUES = ImmutableSet.copyOf(Bone.values());
+	public static final ImmutableSet<Bone> VALUES = Sets.immutableEnumSet(EnumSet.allOf(Bone.class));
 
 	private final int id;
 	private final double experience;

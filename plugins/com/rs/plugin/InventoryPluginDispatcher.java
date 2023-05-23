@@ -2,6 +2,7 @@ package com.rs.plugin;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -43,10 +44,12 @@ public final class InventoryPluginDispatcher {
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
 	private static Optional<InventoryType> getItem(int itemId) {
-	    return ITEMS.values()
-	            .stream()
-	            .filter(inventoryType -> isCorrectItem(inventoryType, itemId))
-	            .findFirst();
+		for(Entry<InventoryWrapper, InventoryType> InventoryType : ITEMS.entrySet()) {
+			if (isCorrectItem(InventoryType.getValue(), itemId)) {
+				return Optional.of(InventoryType.getValue());
+			}
+		}
+		return Optional.empty();
 	}
 	
 	private static boolean isCorrectItem(InventoryType InventoryType, int interfaceId) {

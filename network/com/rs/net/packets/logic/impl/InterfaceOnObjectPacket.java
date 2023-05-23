@@ -17,8 +17,8 @@ public class InterfaceOnObjectPacket implements LogicPacket {
 	@Override
 	public void execute(Player player, InputStream stream) {
 		int slot = stream.readShort();
-		int itemId = stream.readShortLE();
-		int objectId = stream.readShortLE();
+		int itemId = stream.readUnsignedShortLE();
+		int objectId = stream.readUnsignedShortLE();
 		int y = stream.readShort();
 		boolean forceRun = stream.readByteC() == 1;
 		int interfaceHash = stream.readInt();
@@ -26,20 +26,19 @@ public class InterfaceOnObjectPacket implements LogicPacket {
 		int x = stream.readShort128();
 		if (!player.isStarted() || !player.isClientLoadedMapRegion() || player.isDead())
 			return;
-		if (player.getMovement().isLocked()/* || player.getEmotesManager().isDoingEmote() */)
+		if (player.getMovement().isLocked() || player.getNextEmoteEnd() >= Utility.currentTimeMillis())
 			return;
 		final WorldTile tile = new WorldTile(x, y, player.getPlane());
 		int regionId = tile.getRegionId();
 		if (!player.getMapRegionsIds().contains(regionId))
 			return;
+		
 		GameObject mapObject = GameObject.getObjectWithId(tile, objectId);
 		if (mapObject == null || mapObject.getId() != objectId)
 			return;
 		final GameObject object = mapObject;
 		final Item item = player.getInventory().getItem(slot);
 		if (player.isDead() || Utility.getInterfaceDefinitionsSize() <= interfaceId)
-			return;
-		if (player.getMovement().isLocked())
 			return;
 		if (!player.getInterfaceManager().containsInterface(interfaceId))
 			return;
@@ -49,7 +48,7 @@ public class InterfaceOnObjectPacket implements LogicPacket {
 		if (forceRun)
 			player.setRun(forceRun);
 		switch (interfaceId) {
-		case Inventory.INVENTORY_INTERFACE: // inventory
+		case Inventory.INVENTORY_INTERFACE:
 			ObjectPluginDispatcher.handleItemOnObject(player, object, interfaceId, item);
 			break;
 		}

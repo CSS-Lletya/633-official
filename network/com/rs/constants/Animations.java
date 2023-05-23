@@ -103,6 +103,7 @@ public final class Animations {
 	public static final Animation PRAYING_TO_ALTAR = new Animation(645);
 	public static final Animation GRABBING_INFRONT_OF_YOU = new Animation(881);
 	public static final Animation OPENING_INFRONT_OF_YOU = new Animation(536);
+	public static final Animation BONE_ON_ALTAR = new Animation(713);
 	
 	/**
 	 * Object Based Animations

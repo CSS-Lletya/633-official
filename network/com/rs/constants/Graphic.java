@@ -17,7 +17,7 @@ public final class Graphic {
 	public static final Graphics RESET_GRAPHICS = new Graphics(-1);
 
 	/**
-	 * Player Based Animations
+	 * Player Based Graphics
 	 */
 	public static final Graphics OBELISK_SENDING = new Graphics(661);
 	public static final Graphics HEALING_BARRIER = new Graphics(436);
@@ -47,4 +47,9 @@ public final class Graphic {
 	public static final Graphics PUPPET_MASTER = new Graphics(2837);
 	public static final Graphics TASK_MASTER = new Graphics(2930);
 	public static final Graphics RUNECRAFTING = new Graphics(186);
+	
+	/**
+	 * Object Based Graphics
+	 */
+	public static final Graphics BONE_ON_ALTER = new Graphics(186);
 }

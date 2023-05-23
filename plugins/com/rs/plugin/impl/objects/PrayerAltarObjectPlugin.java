@@ -1,14 +1,19 @@
 package com.rs.plugin.impl.objects;
 
+import java.util.stream.IntStream;
+
 import com.rs.constants.Animations;
+import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectType;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.Skills;
+import skills.prayer.Bone;
+import skills.prayer.PrayerBoneAltar;
 
-@ObjectSignature(objectId = {}, name = {"Altar"})
+@ObjectSignature(objectId = {409, 36972}, name = {"Altar"})
 public class PrayerAltarObjectPlugin extends ObjectType {
 
 	@Override
@@ -25,5 +30,11 @@ public class PrayerAltarObjectPlugin extends ObjectType {
                 return;
             }
 		}
+	}
+
+	@Override
+	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
+		Bone.VALUES.stream().filter(bone -> bone.getId() == item.getId())
+		.forEach(bone ->  new PrayerBoneAltar(player, object, bone).start());
 	}
 }
