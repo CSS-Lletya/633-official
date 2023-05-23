@@ -167,4 +167,18 @@ public class GameObject extends WorldTile {
 			action.run();
 		return this;
 	}
+	
+	/**
+	 * A simple way of executing an action based on the option.
+	 * can also force assign option actions as well.
+	 * @param option
+	 * @param objectId
+	 * @param searchedOption
+	 * @param action
+	 */
+	public GameObject doAction(int optionId, String objectName, String searchedOption, Runnable action) {
+		if (getDefinitions().getName().equalsIgnoreCase(objectName)&& getDefinitions().getOption(optionId).equalsIgnoreCase(searchedOption))
+			action.run();
+		return this;
+	}
 }
