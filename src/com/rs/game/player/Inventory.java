@@ -198,7 +198,7 @@ public final class Inventory {
 		return items.getSize();
 	}
 
-	public boolean containsItems(ObjectArrayList<Item> list) {
+	public boolean containsListItems(ObjectArrayList<Item> list) {
 		for (Item item : list)
 			if (!items.contains(item))
 				return false;
@@ -317,4 +317,5 @@ public final class Inventory {
     public int getNumberOf(int itemId) {
         return items.getNumberOf(itemId);
     }
+
 }

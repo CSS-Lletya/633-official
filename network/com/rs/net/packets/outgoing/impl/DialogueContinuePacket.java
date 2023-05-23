@@ -10,6 +10,9 @@ import com.rs.net.packets.outgoing.OutgoingPacket;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
+
+import skills.runecrafting.EniolaBanker;
+
 import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 61, description = "Represents an interaction with a Dialogue state")
@@ -22,8 +25,7 @@ public class DialogueContinuePacket implements OutgoingPacket {
 		int interfaceId = interfaceHash >> 16;
 		int buttonId = (interfaceHash & 0xFF);
 		if (Utility.getInterfaceDefinitionsSize() <= interfaceId) {
-			// hack, or server error or client error
-			// player.getSession().getChannel().close();
+			 player.getSession().getChannel().close();
 			return;
 		}
 		if (!player.isRunning()
@@ -43,7 +45,7 @@ public class DialogueContinuePacket implements OutgoingPacket {
 			player.getInterfaceManager().closeChatBoxInterface();
 			player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(null);
 		}
-		
+		EniolaBanker.sendInterfaceFunctionality(player, componentId);
 		DialogueEventListener.continueDialogue(player, componentId);
 	}
 }

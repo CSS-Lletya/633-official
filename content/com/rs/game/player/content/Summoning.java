@@ -343,7 +343,7 @@ public class Summoning {
 		int level = getRequiredLevel(pouch.getRealPouchId());
 		if (itemReq != null) {
 			itemCount: for (int i = 0; i < creationCount; i++) {
-				if (!player.getInventory().containsItems(itemReq)) {
+				if (!player.getInventory().containsListItems(itemReq)) {
 					sendItemList(player, infusingScroll, creationCount, slotId);
 					break itemCount;
 				} else if (!player.getInventory().hasFreeSlots()) {

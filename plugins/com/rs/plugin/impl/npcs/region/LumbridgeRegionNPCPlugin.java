@@ -8,7 +8,7 @@ import com.rs.plugin.listener.NPCType;
 import com.rs.plugin.wrapper.NPCSignature;
 
 @NPCSignature(name = {}, npcId = {NPCNames.SERGEANT_ABRAM_7888})
-public class Lumbridge implements NPCType{
+public class LumbridgeRegionNPCPlugin implements NPCType{
 
 	@Override
 	public void execute(Player player, NPC npc, int option) throws Exception {
