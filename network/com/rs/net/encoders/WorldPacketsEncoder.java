@@ -686,8 +686,8 @@ public class WorldPacketsEncoder extends Encoder {
 			stream.endPacketVarShort();
 		} else {
 			stream.writePacketVarByte(getPlayer(), 42);
+            stream.writeShort(id);
 			stream.writeString(string);
-			stream.writeShort(id);
 			stream.endPacketVarByte();
 		}
 		getSession().write(stream);
@@ -1038,11 +1038,11 @@ public class WorldPacketsEncoder extends Encoder {
 	// CUTSCENE PACKETS START
 
 	public WorldPacketsEncoder sendHintIcon(HintIcon icon) {
-		OutputStream stream = new OutputStream(15);
-		stream.writePacket(getPlayer(), 79);
+		OutputStream stream = new OutputStream(12);//15
+		stream.writePacket(getPlayer(), 60);
 		stream.writeByte((icon.getTargetType() & 0x1f) | (icon.getIndex() << 5));
 		if (icon.getTargetType() == 0)
-			stream.skip(13);
+			stream.skip(11);
 		else {
 			stream.writeByte(icon.getArrowType());
 			if (icon.getTargetType() == 1 || icon.getTargetType() == 10) {
@@ -1058,7 +1058,7 @@ public class WorldPacketsEncoder extends Encoder {
 				stream.writeShort(-1); // distance to start showing on minimap,
 				// 0 doesnt show, -1 infinite
 			}
-			stream.writeInt(icon.getModelId());
+			stream.writeShort(icon.getModelId());
 		}
 		getSession().write(stream);
 		return this;
