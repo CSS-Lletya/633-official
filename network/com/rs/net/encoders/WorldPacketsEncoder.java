@@ -523,7 +523,7 @@ public class WorldPacketsEncoder extends Encoder {
 	public WorldPacketsEncoder sendLogout() {
 		OutputStream stream = new OutputStream();
 		stream.writePacket(getPlayer(), 26);
-		ChannelFuture future = getSession().writeWithFuture(stream);
+		ChannelFuture future = getSession().write(stream);
 		if (future != null)
 			future.addListener(ChannelFutureListener.CLOSE);
 		else
@@ -1586,5 +1586,8 @@ public class WorldPacketsEncoder extends Encoder {
 		getPlayer().getAttributes().get(Attribute.STRING_INPUT_ACTION).set(onInputGivenAction);
 		sendRunScript(110, new Object[] { message });
 	}
-	
+
+	public void test(int item, int zoom) {
+		sendRunScript(3449, new Object[] { item, 650 });
+	}
 }

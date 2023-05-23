@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.LinkedTransferQueue;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -38,8 +39,6 @@ public class Session {
 	private Channel channel;
 	private Decoder decoder;
 	private Encoder encoder;
-
-	private Queue<OutputStream> outgoingQueue = new LinkedBlockingQueue<>();
 
 	public Session(Channel channel) {
 		this.channel = channel;
@@ -242,16 +241,6 @@ public class Session {
 		World.removePlayer(player);
 	}
 
-	@SneakyThrows(Exception.class)
-	public void processOutgoingQueue() {
-		OutputStream outputStream;
-		if (!outgoingQueue.isEmpty()) {
-			while ((outputStream = outgoingQueue.poll()) != null) {
-				channel.write(ChannelBuffers.copiedBuffer(outputStream.getBuffer(), 0, outputStream.getOffset()));
-			}
-		}
-	}
-
 	public final ChannelFuture writeWithFuture(OutputStream outStream) {
 		if (outStream == null || !channel.isConnected())
 			return null;
@@ -259,11 +248,11 @@ public class Session {
 		return channel.write(buffer);
 	}
 
-	public final void write(OutputStream outStream) {
-		if (outStream == null || !channel.isOpen()) {
-			return;
-		}
-		outgoingQueue.add(outStream);
+	public final ChannelFuture write(OutputStream outStream) {
+		if (outStream == null || !channel.isConnected())
+			return null;
+		ChannelBuffer buffer = ChannelBuffers.copiedBuffer(outStream.getBuffer(), 0, outStream.getOffset());
+		return channel.write(buffer);
 	}
 
 	public final ChannelFuture write(ChannelBuffer outStream) {

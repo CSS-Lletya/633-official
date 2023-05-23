@@ -23,7 +23,6 @@ public final class WorldThread extends Thread {
 			Try.run(() -> {
 				
 				World.get().getTaskManager().sequence();
-				ServerChannelHandler.processSessionQueue();
 				World.players().forEach(player -> player.processEntity());
 				World.npcs().forEach(npc -> npc.processEntity());
 

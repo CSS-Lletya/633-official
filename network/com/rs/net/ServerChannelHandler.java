@@ -26,8 +26,6 @@ public final class ServerChannelHandler extends SimpleChannelHandler {
 
 	private static ChannelGroup channels;
 	private static ServerBootstrap bootstrap;
-	
-	private static final CopyOnWriteArrayList<Session> connectedSessions = new CopyOnWriteArrayList<>();
 
 	public static final void init() {
 		new ServerChannelHandler();
@@ -74,7 +72,6 @@ public final class ServerChannelHandler extends SimpleChannelHandler {
 		Object sessionObject = ctx.getAttachment();
 		if (sessionObject != null && sessionObject instanceof Session) {
 			Session session = (Session) sessionObject;
-			connectedSessions.remove(session);
 			if (session.getDecoder() == null)
 				return;
 			if (session.getDecoder() instanceof WorldPacketsDecoder)
@@ -101,7 +98,6 @@ public final class ServerChannelHandler extends SimpleChannelHandler {
 			}
 			byte[] buffer = new byte[buf.readableBytes()];
 			buf.readBytes(buffer);
-			connectedSessions.add(session);
 			session.getDecoder().decode(new InputStream(buffer));
 		}
 	}
@@ -115,9 +111,4 @@ public final class ServerChannelHandler extends SimpleChannelHandler {
 		channels.close().awaitUninterruptibly();
 		bootstrap.releaseExternalResources();
 	}
-
-	public static void processSessionQueue() {
-		connectedSessions.forEach(Session::processOutgoingQueue);
-	}
-	
 }

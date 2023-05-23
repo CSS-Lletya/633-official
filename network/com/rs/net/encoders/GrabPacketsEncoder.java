@@ -34,7 +34,7 @@ public final class GrabPacketsEncoder extends Encoder {
 	public final void sendOutdatedClientPacket() {
 		OutputStream stream = new OutputStream(1);
 		stream.writeByte(6);
-		ChannelFuture future = session.writeWithFuture(stream);
+		ChannelFuture future = session.write(stream);
 		if (future != null)
 			future.addListener(ChannelFutureListener.CLOSE);
 		else
