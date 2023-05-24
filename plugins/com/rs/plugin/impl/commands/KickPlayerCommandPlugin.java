@@ -22,7 +22,7 @@ public final class KickPlayerCommandPlugin implements Command {
 			player.getPackets().sendGameMessage(Utility.formatPlayerNameForDisplay(name) + " is not logged in.");
 			return;
 		}
-		target.deregister();
+		target.getSession().forceLogout(target);
 		player.getPackets().sendGameMessage("You have force kicked: " + target.getDisplayName() + ".");
     }
 }

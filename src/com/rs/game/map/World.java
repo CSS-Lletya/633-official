@@ -13,6 +13,7 @@ import com.rs.game.EntityList;
 import com.rs.game.movement.route.Flags;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.LivingRockCavern;
 import com.rs.game.task.Task;
 import com.rs.game.task.TaskManager;
 import com.rs.game.task.impl.DrainPrayerTask;
@@ -72,6 +73,7 @@ public final class World {
 		World.get().submit(new PlayerOwnedObjectTask());
 		World.get().submit(new RestoreSkillTask());
 		World.get().submit(new RestoreHitpoints());
+		LivingRockCavern.init();
 //		Try.run(() -> loadConfiguration());
 	}
 

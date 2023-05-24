@@ -1,11 +1,13 @@
 package com.rs.game.player.content;
 
-import com.rs.cores.CoresManager;
 import com.rs.game.map.GameObject;
 import com.rs.utilities.RandomUtils;
 
+import lombok.AllArgsConstructor;
+
 public final class LivingRockCavern {
 
+	@AllArgsConstructor
 	public static enum Rocks {
 		COAL_ROCK_1(new GameObject(5999, 10, 1, 3690, 5146, 0)),
 		COAL_ROCK_2(new GameObject(5999, 10, 2, 3690, 5125, 0)),
@@ -20,28 +22,14 @@ public final class LivingRockCavern {
 		GOLD_ROCK_3(new GameObject(45076, 10, 0, 3677, 5160, 0)),
 		GOLD_ROCK_4(new GameObject(45076, 10, 1, 3629, 5148, 0));
 
-		private Rocks(GameObject rock) {
-			this.rock = rock;
-		}
-
 		public GameObject rock;
 
 	}
 
 	private static void respawnRock(final Rocks rock) {
-		GameObject.spawnObject(rock.rock);
-		CoresManager.schedule(() -> {
-			removeRock(rock);
-		}, RandomUtils.inclusive(8) + 3 * 60);
+		GameObject.spawnTempGroundObject(rock.rock, RandomUtils.inclusive(8) + 3 * 60);
 	}
-
-	private static void removeRock(final Rocks rock) { 
-		GameObject.removeObject(rock.rock);
-		CoresManager.schedule(() -> {
-			respawnRock(rock);
-		}, 3 * 60);
-	}
-
+	
 	public static void init() {
 		for (Rocks rock : Rocks.values())
 			respawnRock(rock);

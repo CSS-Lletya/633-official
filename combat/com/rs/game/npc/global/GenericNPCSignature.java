@@ -11,7 +11,7 @@ public @interface GenericNPCSignature {
 
 	public int[] npcId() default -1;
 	
-	public boolean canBeAttackFromOutOfArea() default false;
+	public boolean canBeAttackFromOutOfArea() default true;
 	
 	public boolean isSpawned() default false;
 }

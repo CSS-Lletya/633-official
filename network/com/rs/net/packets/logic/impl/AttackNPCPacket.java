@@ -34,6 +34,7 @@ public class AttackNPCPacket implements LogicPacket {
 		if (forceRun) // you scrwed up cutscenes
 			player.setRun(forceRun);
 		player.getMovement().stopAll();
+		player.getSkillAction().ifPresent(skill -> skill.cancel());
 		if (npc instanceof Familiar) {
 			Familiar familiar = (Familiar) npc;
 			if (familiar == player.getFamiliar()) {

@@ -408,6 +408,8 @@ public class Player extends Entity {
 	 */
 	public void start() {
 		LogUtility.log(LogType.INFO, getDisplayName() + " has logged in from their IP " + getSession().getIP());
+		World.getRegion(this.getRegionId()).refreshSpawnedItems(this);
+		World.getRegion(this.getRegionId()).refreshSpawnedObjects(this);
 		loadMapRegions();
 		setStarted(true);
 		login();
@@ -474,8 +476,6 @@ public class Player extends Entity {
 			HostManager.add(this, HostListType.STARTER_RECEIVED, true);
 			World.sendWorldMessage("[New Player] " + getDisplayName() + " has just joined " + GameConstants.SERVER_NAME);
 		}
-		World.getRegion(this.getRegionId()).refreshSpawnedItems(this);
-		World.getRegion(this.getRegionId()).refreshSpawnedObjects(this);
 	}
 
 	/**

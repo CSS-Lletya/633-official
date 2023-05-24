@@ -11,7 +11,7 @@ import com.rs.plugin.listener.ObjectType;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 @ObjectSignature(objectId = {}, name = { "Wilderness wall" })
-public class Edgeville extends ObjectType {
+public class EdgevilleRegionObjectPlugin extends ObjectType {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

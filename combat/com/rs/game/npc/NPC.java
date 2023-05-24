@@ -1,6 +1,7 @@
 package com.rs.game.npc;
 
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.constants.Graphic;
@@ -68,13 +69,12 @@ public class NPC extends Entity {
 	// npc masks
 	private transient Transformation nextTransformation;
 
+	public NPC(short id, WorldTile tile) {
+		this(id, tile, true, false);
+	}
+	
 	public NPC(short id, WorldTile tile, boolean canBeAttackFromOutOfArea) {
 		this(id, tile, canBeAttackFromOutOfArea, false);
-	}
-
-	public NPC(short id, WorldTile tile) {
-		super(tile, EntityType.NPC);
-		new NPC(id, tile, false);
 	}
 
 	/*
@@ -97,8 +97,8 @@ public class NPC extends Entity {
 		updateEntityRegion(this);
 		loadMapRegions();
 		checkMultiArea();
-		setGenericNPC(new GenericNPCDispatcher());
-		getGenericNPC().setAttributes(this);
+		this.genericNPC = new GenericNPCDispatcher();
+		genericNPC.setAttributes(this);
 	}
 
 	public void setNextNPCTransformation(short id) {
@@ -160,7 +160,7 @@ public class NPC extends Entity {
 	@Override
 	public void processEntity() {
 		processNPC();
-//		getGenericNPC().process(this);
+		getGenericNPC().process(this);
 	}
 
 	public byte getRespawnDirection() {
@@ -231,7 +231,8 @@ public class NPC extends Entity {
 
 	@Override
 	public void sendDeath(Optional<Entity> source) {
-		World.get().submit(new NPCDeath(this));
+		Entity killer = getMostDamageReceivedSourcePlayer();
+		getGenericNPC().sendDeath(killer.toPlayer(), Optional.of(this), () -> World.get().submit(new NPCDeath(this)));
 	}
 
 	@SneakyThrows(Exception.class)
@@ -251,7 +252,10 @@ public class NPC extends Entity {
 	}
 
 	public void sendDrop(Player player, Item item) {
-		FloorItem.addGroundItem(item, this.getLastWorldTile(), player, true, 60);
+		if (IntStream.of(8832, 8833,8834).anyMatch(id -> getId() == id))
+			FloorItem.addGroundItem(item, player, player, true, 60);
+		else
+			FloorItem.addGroundItem(item, new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()), player, true, 60);
 		if (id == 2263 || id == 2264 || id == 2265) {
             RunecraftingPouchDrop.sendPouchDrop(player, this);
         }
@@ -337,7 +341,6 @@ public class NPC extends Entity {
 	}
 
 	public ObjectArrayList<Entity> getPossibleTargets() {
-		getGenericNPC().possibleTargets(this);
 		return getPossibleTargets(false, true);
 	}
 
@@ -388,7 +391,6 @@ public class NPC extends Entity {
 
 		NPC npcType = null;
 		npcType = new NPC(id, tile, canBeAttackFromOutOfArea, spawned);
-		npcType = new GenericNPCDispatcher().create(npcType);
 		return npcType;
 	}
 

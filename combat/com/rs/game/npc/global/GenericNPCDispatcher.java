@@ -6,8 +6,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.rs.game.Entity;
+import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Hit;
+import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -18,10 +20,10 @@ public class GenericNPCDispatcher {
 	private static final Object2ObjectOpenHashMap<GenericNPCSignature, GenericNPC> NPC = new Object2ObjectOpenHashMap<>();
 	
 	@SneakyThrows(Exception.class)
-	public NPC create(NPC npc) {
+	public NPC create(NPC npc, WorldTile tile) {
 		getVerifiedNPC(npc.getId()).ifPresent(mob -> {
 			GenericNPCSignature signature = mob.getClass().getAnnotation(GenericNPCSignature.class);
-			Arrays.stream(signature.npcId()).filter(id -> npc.getId() == id).forEach(mobId -> new NPC(mobId, npc.getNextWorldTile(), signature.canBeAttackFromOutOfArea(), signature.isSpawned()) );
+			Arrays.stream(signature.npcId()).forEach(mobId -> new NPC(mobId,tile , signature.canBeAttackFromOutOfArea(), signature.isSpawned()) );
 		});
 		return npc;
 	}
@@ -42,8 +44,13 @@ public class GenericNPCDispatcher {
 		getVerifiedNPC(npc.getId()).ifPresent(mob -> mob.getPossibleTargets(npc));
 	}
 	
-	public void sendDeath(Optional<Entity> source) {
-		getVerifiedNPC(Optional.of(source.get().toNPC().getId()).get()).ifPresent(mob -> mob.sendDeath(source));
+	public void sendDeath(Player killer, Optional<Entity> source, Runnable run) {
+		if (getVerifiedNPC(Optional.of(source.get().toNPC().getId()).get()).isPresent()) {
+			getVerifiedNPC(Optional.of(source.get().toNPC().getId()).get()).ifPresent(mob -> mob.sendDeath(killer, source));
+		} else {
+			run.run();
+		}
+		
 	}
 	
 	public void setAttributes(NPC npc) {

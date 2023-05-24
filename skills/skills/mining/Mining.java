@@ -67,7 +67,7 @@ public final class Mining extends HarvestingSkillAction {
 
 	@Override
 	public void onHarvest(Task t, Item[] items, boolean success) {
-		if (rock == RockData.ESSENCE || rock == RockData.PURE_ESSENCE)
+		if (rock == RockData.LRC_COAL || rock == RockData.LRC_GOLD || rock == RockData.LRC_MINERALS ||rock == RockData.ESSENCE || rock == RockData.PURE_ESSENCE)
 			return;
 		if (success) {
 			randomEvent();

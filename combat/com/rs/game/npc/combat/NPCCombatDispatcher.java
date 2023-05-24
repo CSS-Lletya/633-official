@@ -21,14 +21,14 @@ import lombok.SneakyThrows;
  * TODO: Redo Drops
  * @author Dennis
  */
-public final class NPCCombatDispatcher {
+public class NPCCombatDispatcher {
 	
 	/**
 	 * The object map which contains all the mob on the world.
 	 */
 	private static final Object2ObjectOpenHashMap<MobCombatSignature, MobCombatInterface> COMBATANTS = new Object2ObjectOpenHashMap<>();
 	
-	private int mobValue = 600;
+	private int mobValue = -1;
 	
 	/**
 	 * Executes the specified mob if it's registered.
@@ -46,7 +46,7 @@ public final class NPCCombatDispatcher {
 		mobCombat.ifPresent(value -> {
 			Try.run(() -> mobValue = value.execute(player, npc));
 		});
-		return mobValue;
+		return (mobValue == -1 ? npc.getCombatDefinitions().getAttackDelay() : mobValue);
 	}
 
 	/**

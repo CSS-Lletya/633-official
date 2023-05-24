@@ -9,11 +9,12 @@ import skills.mining.Mining;
 import skills.mining.RockData;
 
 @ObjectSignature(objectId = {}, name = {"Mineral deposit"})
-public class LivingRockCavernsRegionNPCPlugin extends ObjectType{
+public class LivingRockCavernsRegionObjectPlugin extends ObjectType{
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		int id = object.getId();
+		//technically its all 5999 always, so figure out a new way to randomize spawns
 		new Mining(player, (id == 5999 ? RockData.LRC_COAL : RockData.LRC_GOLD), object).start();
 	}
 }

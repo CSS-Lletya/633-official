@@ -14,7 +14,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
 @ObjectSignature(objectId = { 36974, 36687, 29355, 12309, 36773, 36774, 36775, 36776, 36777, 36778, 12348, 36984, 36985,
 		36986, 36987, 36988, 36989, 36990, 36991, 36976, 36978, 45482, 45483, 45484, 37683, 45481, 36768, 36769,
 		36770, 36771, 36772, 37335, 48797, 2145 }, name = {})
-public class Lumbridge extends ObjectType {
+public class LumbridgeRegionObjectPlugin extends ObjectType {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
