@@ -372,7 +372,7 @@ public final class LocalPlayerUpdate {
 			applyTemporaryMoveTypeMask(p, data);
 		if (p.getNextForceTalk() != null) // 16
 			applyForceTalkMask(p, data);
-        if (p.getNextForceTalk() != null) // 17
+        if (p.getNextForceMovement() != null) // 17
             applyForceMovementMask(p, data);
 
 	}
