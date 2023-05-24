@@ -1,7 +1,5 @@
 package com.rs.plugin.impl.objects;
 
-import java.util.stream.IntStream;
-
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;

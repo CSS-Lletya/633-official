@@ -1,9 +1,9 @@
 package com.rs.plugin.impl.objects.region;
 
 import com.rs.GameConstants;
+import com.rs.constants.ItemNames;
 import com.rs.game.dialogue.impl.StairsLaddersDialogue;
 import com.rs.game.item.Item;
-import com.rs.game.item.ItemNames;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
@@ -20,7 +20,7 @@ public class Lumbridge extends ObjectType {
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		//chicken area (hatchet specifically)
 		object.doAction(optionId, 36974, "take-hatchet", () -> {
-			if (player.getInventory().addItem(new Item(ItemNames.BRONZE_HATCHET)))
+			if (player.getInventory().addItem(new Item(ItemNames.BRONZE_HATCHET_1351)))
 				GameObject.spawnTempGroundObject(new GameObject(36975, 10, 0, object), 30);
 		});/*.doAction(option, objectId, searchedOption, action);*/
 		//basement

@@ -39,6 +39,7 @@ public enum Tool {
 			return Catchable.SARDINE;
 		}
 	},
+	FISHING_ROD_(307, 90, 15263, 0.11, Animations.FISHING_ROD, new Catchable[]{Catchable.ROCKTAIL}),
 	FLY_FISHING_ROD(309, 20, 314, 0.50, Animations.FISHING_ROD, new Catchable[]{Catchable.TROUT, Catchable.SALMON}) {
 		@Override
 		public Catchable catchable() {

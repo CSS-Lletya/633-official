@@ -10,8 +10,8 @@ import java.util.stream.IntStream;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
-import com.rs.game.item.ItemNames;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
@@ -35,12 +35,12 @@ public final class Runecrafting extends ProducingSkillAction {
 	/**
 	 * Represents the pure essence item identification.
 	 */
-	private static final Item PURE_ESSENCE = new Item(ItemNames.PURE_ESSENCE);
+	private static final Item PURE_ESSENCE = new Item(ItemNames.PURE_ESSENCE_7936);
 
 	/**
 	 * Represents the rune essence item identification.
 	 */
-	private static final Item RUNE_ESSENCE = new Item(ItemNames.RUNE_ESSENCE);
+	private static final Item RUNE_ESSENCE = new Item(ItemNames.RUNE_ESSENCE_1436);
 
 	/**
 	 * Represents the a mapping for the Pouches

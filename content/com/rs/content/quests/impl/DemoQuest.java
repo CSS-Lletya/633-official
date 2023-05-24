@@ -1,9 +1,9 @@
 package com.rs.content.quests.impl;
 
+import com.rs.constants.ItemNames;
 import com.rs.content.quests.Quest;
 import com.rs.content.quests.QuestAttribute;
 import com.rs.game.item.Item;
-import com.rs.game.item.ItemNames;
 import com.rs.game.map.GameObject;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
@@ -49,7 +49,7 @@ public class DemoQuest extends Quest {
 
 	@Override
 	public int rewardItemForDisplay() {
-		return ItemNames.CAKE;
+		return ItemNames.CAKE_1891;
 	}
 
 	@Override

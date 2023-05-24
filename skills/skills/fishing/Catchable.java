@@ -49,7 +49,7 @@ public enum Catchable {
 	MONKFISH(7944, 62, 0.12, 120),
 	SHARK(383, 76, 0.1, 110),
 	MANTAS(389, 81, 0.1, 140),
-	ROCKTAIL(15270, 90, 0.1, 185);
+	ROCKTAIL(15270, 90, 0.1, 380);
 	
 	private static final ImmutableSet<Catchable> VALUES = Sets.immutableEnumSet(EnumSet.allOf(Catchable.class));
 	
@@ -62,7 +62,7 @@ public enum Catchable {
 		this.id = id;
 		this.level = level;
 		this.chance = chance;
-		this.experience = experience * 1.40;//increased a bit.
+		this.experience = experience;
 	}
 	
 	@Override

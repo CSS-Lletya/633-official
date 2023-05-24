@@ -60,8 +60,6 @@ You'll need to ad Gradle to your project. Refer to your specified IDE for setup 
 > [TinyLog (v2)](https://tinylog.org/v2/)
 > 
 > [Vavr](https://www.vavr.io/)
->
-> [PostgreSQL](https://www.postgresql.org/)
 
 # ⬇️ Client download ⬇️
 ou can download the Client  by [clicking here](https://mega.nz/file/Q45y0AzT#3XGhBwujEsH4dhA-FfP9FNRC0Rh7KKcXlvCLEG7JBow), or by joining the official Discord. Should the cache link become dead notify any contributor or Zed directly.

@@ -19,11 +19,11 @@ public final class Fishing extends HarvestingSkillAction {
 		super(player, position);
 		this.tool = tool;
 	}
-	
-	@SuppressWarnings("unused")
+
 	@Override
 	public void onHarvest(Task t, Item[] items, boolean success) {
 		if(success) {
+			@SuppressWarnings("unused")
 			int count = 0;
 			for(Item item : items) {
 				if(item == null)

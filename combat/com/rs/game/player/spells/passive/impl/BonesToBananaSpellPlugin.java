@@ -1,7 +1,7 @@
 package com.rs.game.player.spells.passive.impl;
 
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
-import com.rs.game.item.ItemNames;
 import com.rs.game.player.Player;
 import com.rs.game.player.spells.passive.PassiveSpell;
 import com.rs.game.player.spells.passive.PassiveSpellSignature;
@@ -27,9 +27,9 @@ public class BonesToBananaSpellPlugin implements PassiveSpell {
 	@Override
 	public Item[] runes() {
 		return new Item[] {
-				new Item(ItemNames.EARTH_RUNE, 2),
-				new Item(ItemNames.WATER_RUNE, 2),
-				new Item(ItemNames.NATURE_RUNE, 1)
+				new Item(ItemNames.EARTH_RUNE_557, 2),
+				new Item(ItemNames.WATER_RUNE_555, 2),
+				new Item(ItemNames.NATURE_RUNE_561, 1)
 		};
 	}
 }

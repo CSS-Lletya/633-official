@@ -2,7 +2,6 @@ package com.rs.plugin;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -11,8 +10,8 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryType;
 import com.rs.plugin.wrapper.InventoryWrapper;
 import com.rs.utilities.LogUtility;
-import com.rs.utilities.Utility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -44,12 +43,10 @@ public final class InventoryPluginDispatcher {
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
 	private static Optional<InventoryType> getItem(int itemId) {
-		for(Entry<InventoryWrapper, InventoryType> InventoryType : ITEMS.entrySet()) {
-			if (isCorrectItem(InventoryType.getValue(), itemId)) {
-				return Optional.of(InventoryType.getValue());
-			}
-		}
-		return Optional.empty();
+		return ITEMS.values()
+	            .stream()
+	            .filter(inventoryType -> isCorrectItem(inventoryType, itemId))
+	            .findFirst();
 	}
 	
 	private static boolean isCorrectItem(InventoryType InventoryType, int interfaceId) {

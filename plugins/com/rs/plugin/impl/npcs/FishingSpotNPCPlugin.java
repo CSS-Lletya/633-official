@@ -10,7 +10,7 @@ import com.rs.plugin.wrapper.NPCSignature;
 import skills.fishing.Fishing;
 import skills.fishing.Tool;
 
-@NPCSignature(name = { "Fishing spot" }, npcId = {})
+@NPCSignature(name = { "Fishing spot", "Cavefish shoal"}, npcId = {})
 public class FishingSpotNPCPlugin implements NPCType {
 
 	@Override
@@ -47,6 +47,11 @@ public class FishingSpotNPCPlugin implements NPCType {
 			case 322:
 				Fishing lobster_pot = new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile()));
 				lobster_pot.start();
+				break;
+			case 8841:
+			case 8842:
+				Fishing rocktail = new Fishing(player, Tool.FISHING_ROD_, Optional.of(mob.getLastWorldTile()));
+				rocktail.start();
 				break;
 			}
 		}

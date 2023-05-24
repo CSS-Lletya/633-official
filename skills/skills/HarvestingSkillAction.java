@@ -76,10 +76,10 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 				if(harvestMessage() && item.getDefinitions() != null && item.getDefinitions().getName() != null) {
 					getPlayer().getPackets().sendGameMessage("You get some " + item.getDefinitions().getName() + ".");
 				}
+				player.getSkills().addXp(getSkillId(), experience());
+				onHarvest(t, harvestItems, true);
+				removeItems.ifPresent(getPlayer().getInventory()::removeItems);
 			}
-			player.getSkills().addXp(getSkillId(), experience());
-			onHarvest(t, harvestItems, true);
-			removeItems.ifPresent(getPlayer().getInventory()::removeItems);
 		}
 	}
 	

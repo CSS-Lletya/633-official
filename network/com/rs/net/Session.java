@@ -232,6 +232,7 @@ public class Session {
 			player.getPet().deregister();
 		player.setFinished(true);
 		player.getAction().forceStop();
+		player.getSkillAction().ifPresent(skill -> skill.cancel());
 		player.getSession().setDecoder(-1);
 		AccountCreation.savePlayer(player);
 		player.updateEntityRegion(player);
