@@ -126,12 +126,6 @@ public interface Attribute {
 	public String BANK_ITEM_X_SLOT = "BankItemXSlot";
 	
 	/**
-	 * Represents the X slot of the price checked item.
-	 * This attribute is currently not in use.
-	 */
-	public String PC_ITEM_X_SLOT = "PCItemXSlot";
-	
-	/**
 	 * Represents the item that's being destroyed.
 	 * Destroying items can not be undone.
 	 */

@@ -131,52 +131,6 @@ public class ObjectDefinitions {
 		System.out.println(Arrays.toString(defs.possibleTypes));
 	}
 
-	public static int[] findDoorPairs(int openDoorId) {
-		ObjectDefinitions open = getObjectDefinitions(openDoorId);
-		if (open == null || open.modelIds == null)
-			return new int[0];
-		int length = 0;
-		for (int i = 0; i < open.modelIds.length; i++)
-			length += open.modelIds[i].length;
-
-		@SuppressWarnings("unused")
-		int[] allModels = new int[length];
-
-		int[] pairs = new int[100];
-		int count = 0;
-
-		main: for (int x = 0; x < Utility.getObjectDefinitionsSize(); x++) {
-			ObjectDefinitions other = getObjectDefinitions(x);
-			if (other == null || other == open || other.modelIds == null)
-				continue;
-
-			if (open.modelIds.length != other.modelIds.length)
-				continue;
-
-			for (int a = 0; a < open.modelIds.length; a++) {
-				if (open.modelIds[a].length != other.modelIds[a].length)
-					continue main;
-
-				int[] a1 = open.modelIds[a];
-				int[] a2 = other.modelIds[a];
-
-				for (int b = 0; b < a1.length; b++)
-					if (a1[b] != a2[b])
-						continue main;
-			}
-
-			pairs[count++] = x;
-		}
-
-		if (count == pairs.length)
-			return pairs;
-
-		int[] rebuff = new int[count];
-		System.arraycopy(pairs, 0, rebuff, 0, count);
-		return rebuff;
-
-	}
-
 	public String getFirstOption() {
 		if (options == null || options.length < 1)
 			return "";

@@ -77,11 +77,11 @@ public class PriceCheckManager {
 		for (int index = 0; index < itemsBefore.length; index++) {
 			Item item = pcInv.getItems()[index];
 			if (item != null)
-//		totalPrice += GrandExchange.getPrice(item.getId()) * item.getAmount();
-				if (itemsBefore[index] != item) {
-					changedSlots[count++] = index;
-//		player.getPackets().sendGlobalConfig(700 + index, item == null ? 0 : GrandExchange.getPrice(item.getId()));
-				}
+				totalPrice += item.getDefinitions().getValue() * item.getAmount();
+			if (itemsBefore[index] != item) {
+				changedSlots[count++] = index;
+				player.getPackets().sendGlobalConfig(700 + index, item == null ? 0 : item.getDefinitions().getValue());
+			}
 
 		}
 		int[] finalChangedSlots = new int[count];
@@ -95,7 +95,7 @@ public class PriceCheckManager {
 	}
 
 	public void sendOptions() {
-		player.getPackets().sendUnlockIComponentOptionSlots(206, 15, 0, 54, 0, 1, 2, 3, 4, 5, 6);
+		player.getPackets().sendUnlockIComponentOptionSlots(206, 18, 0, 54, 0, 1, 2, 3, 4, 5, 6);
 		player.getPackets().sendUnlockIComponentOptionSlots(207, 0, 0, 27, 0, 1, 2, 3, 4, 5);
 		player.getPackets().sendInterSetItemsOptionsScript(207, 0, 93, 4, 7, "Add", "Add-5", "Add-10", "Add-All",
 				"Add-X", "Examine");
