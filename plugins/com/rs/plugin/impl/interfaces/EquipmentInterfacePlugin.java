@@ -5,12 +5,12 @@ import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
 import com.rs.plugin.RSInterfacePluginDispatcher;
-import com.rs.plugin.listener.RSInterface;
+import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.loaders.ItemBonuses;
 
 @RSInterfaceSignature(interfaceId = { 387 })
-public class EquipmentInterfacePlugin implements RSInterface {
+public class EquipmentInterfacePlugin implements RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2)
@@ -58,22 +58,17 @@ public class EquipmentInterfacePlugin implements RSInterface {
 	}
 
 	public static void sendItemStats(final Player player, Item item) {
-		StringBuilder b = new StringBuilder();
-		if (item.getId() == 772)
-			return;
+		StringBuilder statString = new StringBuilder();
 		boolean hasBonuses = ItemBonuses.getItemBonuses(item.getId()) != null;
-		for (int i = 0; i < 17; i++) {
+		for (int i = 0; i < 18; i++) {
 			int bonus = hasBonuses ? ItemBonuses.getItemBonuses(item.getId())[i] : 0;
 			String label = CombatDefinitions.BONUS_LABELS[i];
 			String sign = bonus > 0 ? "+" : "";
-			if (bonus == 16) {
-				continue;
-			}
-			b.append(label + ": " + (sign + bonus) + ((label == "Magic Damage" || label == "Absorb Melee"
+			statString.append(label + ": " + (sign + bonus) + ((label == "Magic Damage" || label == "Absorb Melee"
 					|| label == "Absorb Magic" || label == "Absorb Ranged") ? "%" : "") + "<br>");
 		}
 		player.getPackets().sendGlobalString(321, "Stats for " + item.getName());
-		player.getPackets().sendGlobalString(324, b.toString());
+		player.getPackets().sendGlobalString(324, statString.toString());
 		player.getPackets().sendHideIComponent(667, 49, false);
 		player.setCloseInterfacesEvent(() -> {
 			player.getPackets().sendGlobalString(321, "");

@@ -3,11 +3,11 @@ package com.rs.plugin.impl.interfaces;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.plugin.RSInterfacePluginDispatcher;
-import com.rs.plugin.listener.RSInterface;
+import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
 @RSInterfaceSignature(interfaceId = { 670 })
-public class EquipmentBonusesInventoryInterfacePlugin implements RSInterface {
+public class EquipmentBonusesInventoryInterfacePlugin implements RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2)
@@ -25,7 +25,7 @@ public class EquipmentBonusesInventoryInterfacePlugin implements RSInterface {
 			} else if (packetId == 9)
 				player.getInventory().sendExamine(slotId);
 			else if (packetId == 31) {//broken 
-				EquipmentBonusesInterfacePlugin.sendItemStats(player, item);
+				EquipmentInterfacePlugin.sendItemStats(player, item);
 			}
 		}
 	}

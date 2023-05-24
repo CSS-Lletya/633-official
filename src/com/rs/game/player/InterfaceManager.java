@@ -17,7 +17,7 @@ public class InterfaceManager {
 	public static final int FIXED_SCREEN_COMPONENT_ID = 18;
 	public static final int RESIZABLE_SCREEN_COMPONENT_ID = 8;
 	public static final int FIXED_INV_COMPONENT_ID = 196;
-	public static final int RESIZABLE_INV_COMPONENT_ID = 85;
+	public static final int RESIZABLE_INV_COMPONENT_ID = 84;
 	private final Player player;
 
 	private static final int FIXED_TAB_OFFSET = 201;
@@ -44,7 +44,6 @@ public class InterfaceManager {
 		public static final int LOGOUT = 18;
 	}
 
-	// TODO CLOSE interface tab ids
 	private Object2ObjectOpenHashMap<Integer, Integer> openedinterfaces = new Object2ObjectOpenHashMap<>();
 	
 
@@ -115,6 +114,7 @@ public class InterfaceManager {
 	}
 
 	public void sendInterfaces() {
+		player.task(2, p -> setInterface(true, 752, 9, 137));
 		setResizableScreen(player.getDisplayMode() == 2 || player.getDisplayMode() == 3 ? true : false);
 		player.getCombatDefinitions().sendUnlockAttackStylesButtons();
 		player.getMusicsManager().unlockMusicPlayer();
@@ -143,10 +143,7 @@ public class InterfaceManager {
 	}
 
 	public void sendGameInterfaces() {
-		player.task(2, p -> {
-			setInterface(true, 752, 9, 137);
-			player.getCombatDefinitions().refreshSpellBookScrollBar_DefCast();
-		});
+		player.getCombatDefinitions().refreshSpellBookScrollBar_DefCast();
 		setDefaultRootInterface();
 		sendOrbs();
 		refreshHitPoints();

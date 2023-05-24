@@ -1,5 +1,6 @@
 package com.rs.net.packets.logic.impl;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.FloorItem;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
@@ -37,11 +38,22 @@ public class ItemTakePacket implements LogicPacketListener {
 		if (forceRun)
 			player.setRun(forceRun);
 		player.getMovement().stopAll();
+		if (!World.isTileFree(item.getTile().getPlane(), x, y, 1)) {
+			player.setNextFaceWorldTile(tile);
+			if (FloorItem.removeGroundItem(player, item)) {
+				player.setNextAnimation(Animations.OPENING_INFRONT_OF_YOU);
+				return;
+			}
+			return;
+		}
 		player.setRouteEvent(new RouteEvent(item, () -> {
-			if (FloorItem.removeGroundItem(player, item))
-				LogUtility.log(LogType.INFO, player.getUsername() + " " + player.getSession().getIP() + "has picked up item [ id: " + item.getId() + ", amount: " + item.getAmount()
-								+ " ] originally owned to " + (item.getOwner() == null ? "no owner" : item.getOwner())
-								+ ".");
+			if (FloorItem.removeGroundItem(player, item)) {
+				LogUtility.log(LogType.INFO,
+						player.getDisplayName() + " " + player.getSession().getIP() + " - has picked up item [ id: "
+								+ item.getId() + ", amount: " + item.getAmount() + " ] originally owned to "
+								+ (item.getOwnerName() == null ? "no owner" : item.getOwnerName()) + ".");
+				return;
+			}
 		}));
 	}
 }
