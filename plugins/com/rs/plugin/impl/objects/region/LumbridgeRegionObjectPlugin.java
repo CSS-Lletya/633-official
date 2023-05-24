@@ -115,6 +115,9 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 			if (object.getY() == 3209) {
 				player.getMovement().move(true, new WorldTile(3229, 3209, 1), TeleportType.BLANK);
 			}
+			if (object.getY() == 3270) {
+				player.getMovement().move(true, new WorldTile(3188, 3270, 1), TeleportType.BLANK);
+			}
 		});
 		object.doAction(optionId, 45484, "climb-down", () -> {
 			if (object.getX() == 3237) {
@@ -125,6 +128,9 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 			}
 			if (object.getY() == 3209) {
 				player.getMovement().move(true, new WorldTile(3232, 3209, 0), TeleportType.BLANK);
+			}
+			if (object.getY() == 3270) {
+				player.getMovement().move(true, new WorldTile(3185, 3270, 0), TeleportType.BLANK);
 			}
 		});
 		object.doAction(optionId, 37683, "climb-down", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));

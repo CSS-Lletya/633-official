@@ -430,6 +430,10 @@ public abstract class Entity extends WorldTile {
 	public boolean addWalkSteps(int destX, int destY) {
 		return addWalkSteps(destX, destY, -1);
 	}
+	
+    public void addWalkSteps(WorldTile toTile, int maxSteps, boolean clip) {
+        addWalkSteps(toTile.getX(), toTile.getY(), maxSteps, clip);
+    }
 
 	public boolean clipedProjectile(WorldTile tile, boolean checkClose) {
 		if (tile instanceof Entity) {

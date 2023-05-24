@@ -14,6 +14,7 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
+import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.CoordsEvent;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.familiar.Familiar;

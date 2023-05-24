@@ -201,4 +201,24 @@ public class GameObject extends WorldTile {
 		this.id = id;
 		return this;
 	}
+	
+    public int getRotation(int turn) {
+        int initial = rotation;
+        if (turn == 0)
+            return initial;
+        if (turn > 0) {
+            for (int i = 0; i < turn; i++) {
+                initial++;
+                if (initial == 4)
+                    initial = 0;
+            }
+        } else {
+            for (int i = 0; i > turn; i--) {
+                initial--;
+                if (initial == -1)
+                    initial = 3;
+            }
+        }
+        return initial;
+    }
 }

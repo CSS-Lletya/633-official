@@ -17,6 +17,7 @@ import com.rs.game.npc.drops.DropSets;
 import com.rs.game.npc.global.GenericNPCDispatcher;
 import com.rs.game.player.attribute.AttributeKey;
 import com.rs.game.player.content.FriendChatsManager;
+import com.rs.game.player.content.doors.DoorPair;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.net.Huffman;
 import com.rs.net.ServerChannelHandler;
@@ -111,6 +112,7 @@ public class GameLoader {
 			AttributeKey.init();
 			QuestManager.load();
 			ItemWeights.init();
+			DoorPair.loadPairs();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Host files.");
