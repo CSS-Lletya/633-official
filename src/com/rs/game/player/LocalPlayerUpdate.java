@@ -330,6 +330,8 @@ public final class LocalPlayerUpdate {
 			maskData |= 0x8000;
 		if (p.getNextForceTalk() != null) // 16
 			maskData |= 0x2000;
+        if (p.getNextForceMovement() != null) // 17
+            maskData |= 0x200;
 
 		if (maskData > 128)
 			maskData |= 0x2;
@@ -370,6 +372,8 @@ public final class LocalPlayerUpdate {
 			applyTemporaryMoveTypeMask(p, data);
 		if (p.getNextForceTalk() != null) // 16
 			applyForceTalkMask(p, data);
+        if (p.getNextForceTalk() != null) // 17
+            applyForceMovementMask(p, data);
 
 	}
 
@@ -441,16 +445,13 @@ public final class LocalPlayerUpdate {
 	@SuppressWarnings("unused")
 	private void applyForceMovementMask(Player p, OutputStream data) {
 		//TODO: Update this to new system. Old system also wasn't updated too.
-		data.writeByteC(p.getNextForceMovement().getFirst().getX() - p.getX());
+		data.writeByte128(p.getNextForceMovement().getFirst().getX() - p.getX());
 		data.writeByte(p.getNextForceMovement().getFirst().getY() - p.getY());
-		data.writeByte(p.getNextForceMovement().getSecond() == null ? 0
-				: p.getNextForceMovement().getSecond().getX() - p.getX());
-		data.writeByte128(p.getNextForceMovement().getSecond() == null ? 0
-				: p.getNextForceMovement().getSecond().getY() - p.getY());
+		data.write128Byte(p.getNextForceMovement().getSecond() == null ? 0 : p.getNextForceMovement().getSecond().getX() - p.getX());
+		data.writeByte128(p.getNextForceMovement().getSecond() == null ? 0 : p.getNextForceMovement().getSecond().getY() - p.getY());
 		data.writeShort(p.getNextForceMovement().getFirstSpeed() * 30);
-		data.writeShort(p.getNextForceMovement().getSecond() == null ? 0
-				: p.getNextForceMovement().getSecondSpeed() * 30);
-		data.writeShort(p.getNextForceMovement().getDirection().getId());
+		data.writeShort128(p.getNextForceMovement().getSecond() == null ? 0 : p.getNextForceMovement().getSecondSpeed() * 30);
+		data.writeByte(p.getNextForceMovement().getDirection().getId());
 	}
 
 	public OutputStream createPacketAndProcess() {
