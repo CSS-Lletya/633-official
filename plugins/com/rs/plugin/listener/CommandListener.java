@@ -7,7 +7,7 @@ import com.rs.game.player.Player;
  * @author Dennis
  *
  */
-public interface Command {
+public interface CommandListener {
 	
 	/**
 	 * The functionality to be executed as soon as this command is called.

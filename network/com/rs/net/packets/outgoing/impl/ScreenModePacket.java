@@ -2,11 +2,11 @@ package com.rs.net.packets.outgoing.impl;
 
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 
 @OutgoingPacketSignature(packetId = 62, description = "Represents a Screen state that the Player is in")
-public class ScreenModePacket implements OutgoingPacket {
+public class ScreenModePacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

@@ -35,14 +35,14 @@ public class TestSQLPlugin extends DatabaseModel {
 	}
 	
 	@Override
-	public String getQuery() {
+	public String getInsertStatement() {
 		return "insert into log (context) values (?)";
 	}
 	
     @Override
     @SneakyThrows(SQLException.class)
-    public void query() {
-        DatabaseConnection databaseConnection = GameDatabase.getGameServer().getConnection(getClass().getCanonicalName());
+    public void execute() {
+        DatabaseConnection databaseConnection = GameDatabase.getGameServer().getConnection(getClass().getSimpleName());
         if (databaseConnection == null) {
             GameDatabase.getGameServer().reportUnavailableConnection();
             return;

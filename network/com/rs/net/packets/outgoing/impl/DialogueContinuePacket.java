@@ -6,7 +6,7 @@ import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
@@ -16,7 +16,7 @@ import skills.runecrafting.EniolaBanker;
 import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 61, description = "Represents an interaction with a Dialogue state")
-public class DialogueContinuePacket implements OutgoingPacket {
+public class DialogueContinuePacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

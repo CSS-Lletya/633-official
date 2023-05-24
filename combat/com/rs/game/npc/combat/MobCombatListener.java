@@ -16,7 +16,7 @@ import com.rs.utilities.RandomUtils;
 
 import skills.Skills;
 
-public abstract class MobCombatInterface {
+public abstract class MobCombatListener {
 	
 	public int execute(Player target, NPC mob) throws Exception {
 		return 0;

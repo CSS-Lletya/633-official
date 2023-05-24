@@ -4,11 +4,11 @@ import com.rs.constants.Animations;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.net.encoders.other.Animation;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
 @CommandSignature(alias = {"emote"}, rights = {Rights.ADMINISTRATOR}, syntax = "Perform an Emote")
-public final class EmoteCommandPlugin implements Command {
+public final class EmoteCommandPlugin implements CommandListener {
     @Override
     public void execute(Player player, String[] cmd, String command) {
     	player.setNextAnimation(Animations.RESET_ANIMATION);

@@ -3,7 +3,7 @@ package com.rs.game.player.spells.passive.impl;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.spells.passive.PassiveSpell;
+import com.rs.game.player.spells.passive.PassiveSpellListener;
 import com.rs.game.player.spells.passive.PassiveSpellSignature;
 
 /**
@@ -12,7 +12,7 @@ import com.rs.game.player.spells.passive.PassiveSpellSignature;
  *
  */
 @PassiveSpellSignature(spellButton = 33, spellLevelRequirement = 15)
-public class BonesToBananaSpellPlugin implements PassiveSpell {
+public class BonesToBananaSpellPlugin implements PassiveSpellListener {
 
 	@Override
 	public boolean canExecute(Player player) {

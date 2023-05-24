@@ -9,7 +9,7 @@ import com.rs.game.player.Player;
  * @author Dennis
  *
  */
-public interface PassiveSpell {
+public interface PassiveSpellListener {
 
 	/**
 	 * Checks if the Player can execute the Spell. In advance this can be used for

@@ -69,8 +69,8 @@ public abstract class DatabaseModel implements Node {
 	protected void prepareStatement(DatabaseConnection databaseConnection, StatementType statementType) {
 		setDatabaseConnection(databaseConnection);
 		if (statementType == StatementType.INSERT) {
-			if (getQuery() != null)
-				insertStatement = databaseConnection.prepareStatement(getQuery());
+			if (getInsertStatement() != null)
+				insertStatement = databaseConnection.prepareStatement(getInsertStatement());
 		} else if (statementType == StatementType.DELETE) {
 			if (getDeleteStatement() != null)
 				deleteStatement = databaseConnection.prepareStatement(getDeleteStatement());
@@ -83,7 +83,7 @@ public abstract class DatabaseModel implements Node {
 		}
 	}
 
-	public String getQuery() {
+	public String getInsertStatement() {
 		return null;
 	}
 

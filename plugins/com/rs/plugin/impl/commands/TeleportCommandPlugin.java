@@ -3,11 +3,11 @@ package com.rs.plugin.impl.commands;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
 @CommandSignature(alias = {"tele"}, rights = {Rights.ADMINISTRATOR}, syntax = "Teleports you to a specified location")
-public final class TeleportCommandPlugin implements Command {
+public final class TeleportCommandPlugin implements CommandListener {
 	
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {

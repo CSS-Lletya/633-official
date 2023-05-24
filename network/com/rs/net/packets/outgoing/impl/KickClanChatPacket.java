@@ -2,13 +2,13 @@ package com.rs.net.packets.outgoing.impl;
 
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.Utility;
 
 //TODO: Convert Packet
 @OutgoingPacketSignature(packetId = -1, description = "Represents an event where a Player is being kicked from a Clan Chat")
-public class KickClanChatPacket implements OutgoingPacket {
+public class KickClanChatPacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

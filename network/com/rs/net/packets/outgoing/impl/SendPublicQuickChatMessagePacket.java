@@ -3,14 +3,14 @@ package com.rs.net.packets.outgoing.impl;
 import com.rs.GameConstants;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.Utility;
 import com.rs.utilities.LogUtility.LogType;
 
 @OutgoingPacketSignature(packetId = 69, description = "Represents sending a Public Quick-Chat based message")
-public class SendPublicQuickChatMessagePacket implements OutgoingPacket {
+public class SendPublicQuickChatMessagePacket implements OutgoingPacketListener {
 
 	private int chatType;
 	

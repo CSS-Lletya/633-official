@@ -2,14 +2,14 @@ package com.rs.plugin.impl.inventory;
 
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.InventoryType;
+import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 
 import skills.runecrafting.PouchType;
 import skills.runecrafting.Runecrafting;
 
 @InventoryWrapper(itemId = {5509, 5510, 5512, 5514})
-public class RunecraftingPouchesItemPlugin implements InventoryType {
+public class RunecraftingPouchesItemPlugin implements InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int option) throws Exception {

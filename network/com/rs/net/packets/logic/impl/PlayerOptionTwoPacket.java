@@ -6,11 +6,11 @@ import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.PlayerFollow;
 import com.rs.io.InputStream;
-import com.rs.net.packets.logic.LogicPacket;
+import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 
 @LogicPacketSignature(packetId = 76, packetSize = 3, description = "The Second menu option for a Player")
-public class PlayerOptionTwoPacket implements LogicPacket {
+public class PlayerOptionTwoPacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

@@ -8,12 +8,12 @@ import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
 import com.rs.io.InputStream;
-import com.rs.net.packets.logic.LogicPacket;
+import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.utilities.Utility;
 
 @LogicPacketSignature(packetId = 21, packetSize = 3, description = "Attack an NPC")
-public class AttackNPCPacket implements LogicPacket {
+public class AttackNPCPacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

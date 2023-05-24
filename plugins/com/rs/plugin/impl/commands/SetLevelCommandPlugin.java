@@ -2,13 +2,13 @@ package com.rs.plugin.impl.commands;
 
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
 import skills.Skills;
 
 @CommandSignature(alias = {"setlevel", "setlvl"}, rights = {Rights.ADMINISTRATOR}, syntax = "Sets target skill to target level")
-public final class SetLevelCommandPlugin implements Command {
+public final class SetLevelCommandPlugin implements CommandListener {
     @Override
     public void execute(Player player, String[] cmd, String command) {
     	if (cmd.length < 3) {

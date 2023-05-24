@@ -7,11 +7,11 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.plugin.listener.ObjectType;
+import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 @ObjectSignature(objectId = {}, name = { "Wilderness wall" })
-public class EdgevilleRegionObjectPlugin extends ObjectType {
+public class EdgevilleRegionObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

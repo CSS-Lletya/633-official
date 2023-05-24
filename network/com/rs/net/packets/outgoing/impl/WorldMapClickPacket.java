@@ -4,11 +4,11 @@ import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 
 @OutgoingPacketSignature(packetId = 23, description = "Represents an interaction with the World Map")
-public class WorldMapClickPacket implements OutgoingPacket {
+public class WorldMapClickPacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public interface Node {
 	
-	public void query() throws SQLException;
+	public void execute() throws SQLException;
 	
 	public void close();
 }

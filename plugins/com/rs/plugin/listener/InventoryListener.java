@@ -8,7 +8,7 @@ import com.rs.game.player.Player;
  * @author Dennis
  *
  */
-public interface InventoryType {
+public interface InventoryListener {
 	
 	void execute(Player player, Item item, int option) throws Exception;
 }

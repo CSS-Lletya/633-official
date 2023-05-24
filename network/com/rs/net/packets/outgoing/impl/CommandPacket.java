@@ -4,14 +4,14 @@ import com.rs.GameConstants;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.plugin.CommandPluginDispatcher;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
 @OutgoingPacketSignature(packetId = 28, description = "A command that the Player is sending to the client")
-public class CommandPacket implements OutgoingPacket {
+public class CommandPacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

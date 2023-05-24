@@ -2,11 +2,11 @@ package com.rs.plugin.impl.interfaces;
 
 import com.rs.game.player.Player;
 import com.rs.net.decoders.WorldPacketsDecoder;
-import com.rs.plugin.listener.RSInterface;
+import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
 @RSInterfaceSignature(interfaceId = { 187 })
-public class MusicInterfacePlugin implements RSInterface {
+public class MusicInterfacePlugin implements RSInterfaceListener {
 
 	//TODO: Fix playing tracks manually, etc..
 	@Override

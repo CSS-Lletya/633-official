@@ -5,11 +5,11 @@ import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.game.player.Hit.HitLook;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
 @CommandSignature(alias = {"kill"}, rights = {Rights.ADMINISTRATOR}, syntax = "Kill a specified Player")
-public final class KillCommandPlugin implements Command {
+public final class KillCommandPlugin implements CommandListener {
 	
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {

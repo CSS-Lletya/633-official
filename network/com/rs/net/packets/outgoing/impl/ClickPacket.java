@@ -2,11 +2,11 @@ package com.rs.net.packets.outgoing.impl;
 
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 
 @OutgoingPacketSignature(packetId = 55, description = "Represents a Click made by the Player ingame")
-public class ClickPacket implements OutgoingPacket {
+public class ClickPacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

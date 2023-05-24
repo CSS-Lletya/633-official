@@ -6,13 +6,13 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.logic.LogicPacket;
+import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
 @LogicPacketSignature(packetId = 30, packetSize = 7, description = "Takes an Item from the Ground tile")
-public class ItemTakePacket implements LogicPacket {
+public class ItemTakePacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

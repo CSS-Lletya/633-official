@@ -8,7 +8,7 @@ import com.rs.game.player.Player;
  * @author Dennis
  *
  */
-public interface NPCType {
+public interface NPCListener {
 	
 	/**
 	 * The functionality to be executed as soon as this execution is called.

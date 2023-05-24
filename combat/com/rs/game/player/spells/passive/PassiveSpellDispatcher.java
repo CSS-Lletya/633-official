@@ -23,10 +23,10 @@ import skills.Skills;
  */
 public final class PassiveSpellDispatcher {
 
-	private static final Object2ObjectOpenHashMap<PassiveSpellSignature, PassiveSpell> SPELLS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<PassiveSpellSignature, PassiveSpellListener> SPELLS = new Object2ObjectOpenHashMap<>();
 
 	public void execute(Player player, int spellButton) {
-		Optional<PassiveSpell> spell = getVerifiedSpell(spellButton);
+		Optional<PassiveSpellListener> spell = getVerifiedSpell(spellButton);
 		spell.filter(caster -> canCast(player, spell, spellButton)).ifPresent(caster -> executeCast(player, spellButton));
 	}
 
@@ -34,9 +34,9 @@ public final class PassiveSpellDispatcher {
 	@Setter
 	private boolean canCast;
 
-	private boolean canCast(Player player, Optional<PassiveSpell> spell, int spellButton) {
+	private boolean canCast(Player player, Optional<PassiveSpellListener> spell, int spellButton) {
 		spell.ifPresent(caster -> {
-			Optional<PassiveSpell> verifiedSpell = getVerifiedSpell(spellButton);
+			Optional<PassiveSpellListener> verifiedSpell = getVerifiedSpell(spellButton);
 			if (!verifiedSpell.get().canExecute(player)) {
 				player.getPackets().sendGameMessage("You don't meet the requirements to cast this spell.");
 				setCanCast(false);
@@ -57,21 +57,21 @@ public final class PassiveSpellDispatcher {
 	}
 
 	private void executeCast(Player player, int spellButton) {
-		Optional<PassiveSpell> spell = getVerifiedSpell(spellButton);
+		Optional<PassiveSpellListener> spell = getVerifiedSpell(spellButton);
 		spell.ifPresent(caster -> {
 			Arrays.stream(caster.runes()).forEach(rune -> player.getInventory().deleteItem(new Item(rune.getId(), rune.getAmount())));
 			spell.get().execute(player);
 		});
 	}
 
-	private int getSpellLevelRequirement(PassiveSpell spell) {
+	private int getSpellLevelRequirement(PassiveSpellListener spell) {
 		Annotation annotation = spell.getClass().getAnnotation(PassiveSpellSignature.class);
 		PassiveSpellSignature signature = (PassiveSpellSignature) annotation;
 		return signature.spellLevelRequirement();
 	}
 
-	private Optional<PassiveSpell> getVerifiedSpell(int id) {
-		for (Entry<PassiveSpellSignature, PassiveSpell> spell : SPELLS.entrySet()) {
+	private Optional<PassiveSpellListener> getVerifiedSpell(int id) {
+		for (Entry<PassiveSpellSignature, PassiveSpellListener> spell : SPELLS.entrySet()) {
 			if (isSpellButton(spell.getValue(), id)) {
 				return Optional.of(spell.getValue());
 			}
@@ -79,15 +79,15 @@ public final class PassiveSpellDispatcher {
 		return Optional.empty();
 	}
 
-	private boolean isSpellButton(PassiveSpell spell, int spellButton) {
+	private boolean isSpellButton(PassiveSpellListener spell, int spellButton) {
 		Annotation annotation = spell.getClass().getAnnotation(PassiveSpellSignature.class);
 		PassiveSpellSignature signature = (PassiveSpellSignature) annotation;
 		return signature.spellButton() == spellButton;
 	}
 
 	public static void load() {
-		List<PassiveSpell> spellLoader = Utility.getClassesInDirectory("com.rs.game.player.spells.passive.impl").stream()
-				.map(clazz -> (PassiveSpell) clazz).collect(Collectors.toList());
+		List<PassiveSpellListener> spellLoader = Utility.getClassesInDirectory("com.rs.game.player.spells.passive.impl").stream()
+				.map(clazz -> (PassiveSpellListener) clazz).collect(Collectors.toList());
 		spellLoader.forEach(spell -> SPELLS.put(spell.getClass().getAnnotation(PassiveSpellSignature.class), spell));
 	}
 

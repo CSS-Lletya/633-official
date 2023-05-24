@@ -7,7 +7,7 @@ import com.rs.game.player.Player;
  * @author Dennis
  *
  */
-public interface RSInterface {
+public interface RSInterfaceListener {
 	
 	/**
 	 * Executes the interface interaction events.

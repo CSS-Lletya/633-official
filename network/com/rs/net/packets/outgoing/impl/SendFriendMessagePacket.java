@@ -5,12 +5,12 @@ import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.Huffman;
 import com.rs.net.encoders.other.ChatMessage;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 40, description = "Represents sending a Message to another Player (Privately)")
-public class SendFriendMessagePacket implements OutgoingPacket {
+public class SendFriendMessagePacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

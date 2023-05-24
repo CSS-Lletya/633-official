@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
 
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
 import skills.Skills;
@@ -16,7 +16,7 @@ import skills.Skills;
  *
  */
 @CommandSignature(alias = {"reset", "rs", "resetskills"}, rights = {Rights.PLAYER}, syntax = "Resets all your skills back to level 1")
-public final class ResetStatsCommandPlugin implements Command {
+public final class ResetStatsCommandPlugin implements CommandListener {
 	
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {

@@ -12,7 +12,7 @@ import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.plugin.listener.NPCType;
+import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.Utility;
@@ -29,7 +29,7 @@ public class NPCPluginDispatcher {
 	/**
 	 * The NPCS map which contains all the NPCS on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<NPCSignature, NPCType> MOBS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<NPCSignature, NPCListener> MOBS = new Object2ObjectOpenHashMap<>();
 	
 	/**
 	 * Executes the specified NPCS if it's registered.
@@ -45,7 +45,7 @@ public class NPCPluginDispatcher {
 	 * @param identifier the identifier to check for matches.
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
-	private static Optional<NPCType> getMob(NPC mob, int npcId) {
+	private static Optional<NPCListener> getMob(NPC mob, int npcId) {
 	    return MOBS.values()
 	            .stream()
 	            .filter(npcType -> isNPCId(npcType, npcId) || isMobNamed(npcType, mob))
@@ -58,7 +58,7 @@ public class NPCPluginDispatcher {
 	 * @param npcId
 	 * @return
 	 */
-	private static boolean isNPCId(NPCType mob, int npcId) {
+	private static boolean isNPCId(NPCListener mob, int npcId) {
 		NPCSignature signature = mob.getClass().getAnnotation(NPCSignature.class);
 		return Arrays.stream(signature.npcId()).anyMatch(id -> npcId == id);
 	}
@@ -69,7 +69,7 @@ public class NPCPluginDispatcher {
 	 * @param objectId
 	 * @return
 	 */
-	private static boolean isMobNamed(NPCType mobType, NPC mob) {
+	private static boolean isMobNamed(NPCListener mobType, NPC mob) {
 		NPCSignature signature = mobType.getClass().getAnnotation(NPCSignature.class);
 		return Arrays.stream(signature.name()).anyMatch(mobName -> mob.getDefinitions().getName().contains(mobName));
 	}
@@ -80,9 +80,9 @@ public class NPCPluginDispatcher {
 	 * <b>Method should only be called once on start-up.</b>
 	 */
 	public static void load() {
-		List<NPCType> mobTypes = Utility.getClassesInDirectory("com.rs.plugin.impl.npcs").stream().map(clazz -> (NPCType) clazz).collect(Collectors.toList());
+		List<NPCListener> mobTypes = Utility.getClassesInDirectory("com.rs.plugin.impl.npcs").stream().map(clazz -> (NPCListener) clazz).collect(Collectors.toList());
 		mobTypes.forEach(npc -> MOBS.put(npc.getClass().getAnnotation(NPCSignature.class), npc));
-		List<NPCType> mobTypesRegions = Utility.getClassesInDirectory("com.rs.plugin.impl.npcs.region").stream().map(clazz -> (NPCType) clazz).collect(Collectors.toList());
+		List<NPCListener> mobTypesRegions = Utility.getClassesInDirectory("com.rs.plugin.impl.npcs.region").stream().map(clazz -> (NPCListener) clazz).collect(Collectors.toList());
 		mobTypesRegions.forEach(npc -> MOBS.put(npc.getClass().getAnnotation(NPCSignature.class), npc));
 	}
 	

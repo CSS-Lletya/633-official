@@ -17,7 +17,7 @@ import lombok.SneakyThrows;
 
 public class GenericNPCDispatcher {
 
-	private static final Object2ObjectOpenHashMap<GenericNPCSignature, GenericNPC> NPC = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<GenericNPCSignature, GenericNPCListener> NPC = new Object2ObjectOpenHashMap<>();
 	
 	@SneakyThrows(Exception.class)
 	public NPC create(NPC npc, WorldTile tile) {
@@ -57,19 +57,19 @@ public class GenericNPCDispatcher {
 		getVerifiedNPC(npc.getId()).ifPresent(mob -> mob.setAttributes(npc));
 	}
 	
-	private Optional<GenericNPC> getVerifiedNPC(int id) {
+	private Optional<GenericNPCListener> getVerifiedNPC(int id) {
 	    return NPC.values().stream()
 	            .filter(npc -> isValidID(npc, id))
 	            .findFirst();
 	}
 
-	private boolean isValidID(GenericNPC genericNPC, int mobId) {
+	private boolean isValidID(GenericNPCListener genericNPC, int mobId) {
 		GenericNPCSignature signature = genericNPC.getClass().getAnnotation(GenericNPCSignature.class);
 		return Arrays.stream(signature.npcId()).anyMatch(id -> mobId == id);
 	}
 
 	public static void load() {
-		List<GenericNPC> mobLoader = Utility.getClassesInDirectory("com.rs.game.npc.global.impl").stream().map(clazz -> (GenericNPC) clazz).collect(Collectors.toList());
+		List<GenericNPCListener> mobLoader = Utility.getClassesInDirectory("com.rs.game.npc.global.impl").stream().map(clazz -> (GenericNPCListener) clazz).collect(Collectors.toList());
 		mobLoader.forEach(npcs -> NPC.put(npcs.getClass().getAnnotation(GenericNPCSignature.class), npcs));
 	}
 }

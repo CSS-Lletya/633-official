@@ -3,11 +3,11 @@ package com.rs.plugin.impl.commands;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.net.encoders.other.Animation;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
 @CommandSignature(alias = {"anim", "an", "animation"}, rights = {Rights.ADMINISTRATOR}, syntax = "Perform an animation")
-public final class AnimationCommandPlugin implements Command {
+public final class AnimationCommandPlugin implements CommandListener {
 	
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {

@@ -2,12 +2,12 @@ package com.rs.net.packets.outgoing.impl;
 
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 
 //TODO: Convert Packet
 @OutgoingPacketSignature(packetId = -1, description = "Represents removing another Player from the Player's Ignore List")
-public class RemoveIgnorePacket implements OutgoingPacket {
+public class RemoveIgnorePacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

@@ -4,11 +4,11 @@ import com.rs.game.map.World;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.logic.LogicPacket;
+import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 
 @LogicPacketSignature(packetId = 44, packetSize = 3, description = "The Third menu option for a Player")
-public class PlayerOptionThreePacket implements LogicPacket {
+public class PlayerOptionThreePacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

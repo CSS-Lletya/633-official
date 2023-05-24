@@ -25,7 +25,7 @@ public class OutgoingPacketDispatcher {
 	/**
 	 * The object map which contains all the interface on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<OutgoingPacketSignature, OutgoingPacket> PACKET = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<OutgoingPacketSignature, OutgoingPacketListener> PACKET = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Executes the specified interface if it's registered.
@@ -35,7 +35,7 @@ public class OutgoingPacketDispatcher {
 	 */
 	@SneakyThrows(Exception.class)
 	public static void execute(Player player, InputStream input, int packetId) {
-		Optional<OutgoingPacket> incomingPacket = getVerifiedPacket(packetId);
+		Optional<OutgoingPacketListener> incomingPacket = getVerifiedPacket(packetId);
 		incomingPacket.ifPresent(packet -> packet.execute(player, input));
 		
 		if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET
@@ -57,8 +57,8 @@ public class OutgoingPacketDispatcher {
 	 * @param identifier the identifier to check for matches.
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
-	private static Optional<OutgoingPacket> getVerifiedPacket(int id) {
-		for (Entry<OutgoingPacketSignature, OutgoingPacket> incomingPacket : PACKET.entrySet()) {
+	private static Optional<OutgoingPacketListener> getVerifiedPacket(int id) {
+		for (Entry<OutgoingPacketSignature, OutgoingPacketListener> incomingPacket : PACKET.entrySet()) {
 			if (isPacket(incomingPacket.getValue(), id)) {
 				return Optional.of(incomingPacket.getValue());
 			}
@@ -66,7 +66,7 @@ public class OutgoingPacketDispatcher {
 		return Optional.empty();
 	}
 
-	private static boolean isPacket(OutgoingPacket incomingPacket, int packetId) {
+	private static boolean isPacket(OutgoingPacketListener incomingPacket, int packetId) {
 		Annotation annotation = incomingPacket.getClass().getAnnotation(OutgoingPacketSignature.class);
 		OutgoingPacketSignature signature = (OutgoingPacketSignature) annotation;
 		return Arrays.stream(signature.packetId()).anyMatch(packet -> packet == packetId);
@@ -79,10 +79,10 @@ public class OutgoingPacketDispatcher {
 	 * <b>Method should only be called once on start-up.</b>
 	 */
 	public static void load() {
-		List<OutgoingPacket> packets = Utility.getClassesInDirectory("com.rs.net.packets.outgoing.impl").stream()
-				.map(clazz -> (OutgoingPacket) clazz).collect(Collectors.toList());
+		List<OutgoingPacketListener> packets = Utility.getClassesInDirectory("com.rs.net.packets.outgoing.impl").stream()
+				.map(clazz -> (OutgoingPacketListener) clazz).collect(Collectors.toList());
 
-		for (OutgoingPacket outgoingPacket : packets) {
+		for (OutgoingPacketListener outgoingPacket : packets) {
 			if (outgoingPacket.getClass().getAnnotation(OutgoingPacketSignature.class) == null) {
 				throw new IncompleteAnnotationException(OutgoingPacketSignature.class,
 						outgoingPacket.getClass().getName() + " has no annotation.");

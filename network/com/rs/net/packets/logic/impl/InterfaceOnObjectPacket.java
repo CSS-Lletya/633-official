@@ -6,13 +6,13 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.logic.LogicPacket;
+import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.plugin.ObjectPluginDispatcher;
 import com.rs.utilities.Utility;
 
 @LogicPacketSignature(packetId = 58, packetSize = 15, description = "An Interface that's used onto a Object (Magic, etc..)")
-public class InterfaceOnObjectPacket implements LogicPacket {
+public class InterfaceOnObjectPacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

@@ -5,12 +5,12 @@ import com.rs.game.movement.route.RouteFinder;
 import com.rs.game.movement.route.strategy.FixedTileStrategy;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.logic.LogicPacket;
+import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.utilities.Utility;
 
 @LogicPacketSignature(packetId = 36, packetSize = 5, description = "Basic Walking packet")
-public class WalkingPacket implements LogicPacket {
+public class WalkingPacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

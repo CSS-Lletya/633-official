@@ -2,7 +2,7 @@ package com.rs.game.npc.combat.impl;
 
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
-import com.rs.game.npc.combat.MobCombatInterface;
+import com.rs.game.npc.combat.MobCombatListener;
 import com.rs.game.npc.combat.MobCombatSignature;
 import com.rs.game.npc.combat.NPCCombatDefinitions;
 import com.rs.game.player.Combat;
@@ -12,7 +12,7 @@ import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.RandomUtils;
 
 @MobCombatSignature(mobId = {50}, mobName = {})
-public class DragonCombat extends MobCombatInterface {
+public class DragonCombat extends MobCombatListener {
 
 	@Override
 	public int execute(Player target, NPC npc) throws Exception {

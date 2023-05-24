@@ -1,7 +1,7 @@
 package com.rs.plugin.impl.interfaces;
 
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.RSInterface;
+import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Data
 @RSInterfaceSignature(interfaceId = { 134 })
-public class ExperienceLampInterfacePlugin implements RSInterface {
+public class ExperienceLampInterfacePlugin implements RSInterfaceListener {
 	
 	private int skill;
 	private double experience;

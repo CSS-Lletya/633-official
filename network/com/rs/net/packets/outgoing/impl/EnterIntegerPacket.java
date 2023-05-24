@@ -3,12 +3,12 @@ package com.rs.net.packets.outgoing.impl;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.IntegerInputAction;
 
 @OutgoingPacketSignature(packetId = 81, description = "Represents an Input of Integer values only.")
-public class EnterIntegerPacket implements OutgoingPacket {
+public class EnterIntegerPacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

@@ -4,12 +4,12 @@ import com.rs.GameConstants;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 10, description = "Represents a handler for Interface Component switching")
-public class SwitchInterfaceComponentsPacket implements OutgoingPacket {
+public class SwitchInterfaceComponentsPacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

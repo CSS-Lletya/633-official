@@ -3,11 +3,11 @@ package com.rs.plugin.impl.commands;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
 @CommandSignature(alias = {"gfx", "graphic", "graphics"}, rights = {Rights.ADMINISTRATOR}, syntax = "Perform an graphic")
-public final class GraphicsCommandPlugin implements Command {
+public final class GraphicsCommandPlugin implements CommandListener {
 	
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {

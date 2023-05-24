@@ -7,12 +7,12 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.logic.LogicPacket;
+import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.plugin.ObjectPluginDispatcher;
 
 @LogicPacketSignature(packetId = 26, packetSize = 7, description = "Second click packet")
-public class ObjectSecondClickPacket implements LogicPacket {
+public class ObjectSecondClickPacket implements LogicPacketListener {
 
     @Override
     public void execute(Player player, InputStream input) {

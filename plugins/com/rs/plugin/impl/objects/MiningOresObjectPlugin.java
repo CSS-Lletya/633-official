@@ -6,7 +6,7 @@ import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.plugin.listener.ObjectType;
+import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.mining.Mining;
@@ -23,7 +23,7 @@ import skills.mining.RockData;
 		5786, 11942, 11943, 11944, 11945, 11946, 11947, 14853, 14854, 14855, 31086, 31087, 31088, 32438, 32439, 32440,
 		5782, 5783, 11939, 11940, 11941, 11963, 11964, 11965, 14862, 14863, 14864, 31083, 31084, 31085, 32435, 32436,
 		32437, 14859, 14860, 14861 }, name = {})
-public class MiningOresObjectPlugin extends ObjectType {
+public class MiningOresObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

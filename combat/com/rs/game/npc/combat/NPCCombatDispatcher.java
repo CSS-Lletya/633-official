@@ -26,7 +26,7 @@ public class NPCCombatDispatcher {
 	/**
 	 * The object map which contains all the mob on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<MobCombatSignature, MobCombatInterface> COMBATANTS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<MobCombatSignature, MobCombatListener> COMBATANTS = new Object2ObjectOpenHashMap<>();
 	
 	private int mobValue = -1;
 	
@@ -38,7 +38,7 @@ public class NPCCombatDispatcher {
 	 */
 	@SneakyThrows(Exception.class)
 	public int customDelay(Player player, NPC npc) {
-		Optional<MobCombatInterface> mobCombat = getMobCombatant(npc);
+		Optional<MobCombatListener> mobCombat = getMobCombatant(npc);
 		if (!mobCombat.isPresent()) {
 			DefaultCombat defaultScript = new DefaultCombat();
 			return defaultScript.execute(player, npc);
@@ -54,8 +54,8 @@ public class NPCCombatDispatcher {
 	 * @param identifier the identifier to check for matches.
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
-	private Optional<MobCombatInterface> getMobCombatant(NPC mob) {
-		for(Entry<MobCombatSignature, MobCombatInterface> MobCombatInterface : COMBATANTS.entrySet()) {
+	private Optional<MobCombatListener> getMobCombatant(NPC mob) {
+		for(Entry<MobCombatSignature, MobCombatListener> MobCombatInterface : COMBATANTS.entrySet()) {
 			if (isMobId(MobCombatInterface.getValue(), mob.getId()) || isMobNamed(MobCombatInterface.getValue(), mob)) {
 				return Optional.of(MobCombatInterface.getValue());
 			}
@@ -63,7 +63,7 @@ public class NPCCombatDispatcher {
 		return Optional.empty();
 	}
 	
-	private boolean isMobId(MobCombatInterface MobCombatInterface, int mobId) {
+	private boolean isMobId(MobCombatListener MobCombatInterface, int mobId) {
 		Annotation annotation = MobCombatInterface.getClass().getAnnotation(MobCombatSignature.class);
 		MobCombatSignature signature = (MobCombatSignature) annotation;
 		return Arrays.stream(signature.mobId()).anyMatch(id -> mobId == id);
@@ -75,7 +75,7 @@ public class NPCCombatDispatcher {
 	 * @param objectId
 	 * @return
 	 */
-	private boolean isMobNamed(MobCombatInterface mobType, NPC mob) {
+	private boolean isMobNamed(MobCombatListener mobType, NPC mob) {
 		Annotation annotation = mobType.getClass().getAnnotation(MobCombatSignature.class);
 		MobCombatSignature signature = (MobCombatSignature) annotation;
 		return Arrays.stream(signature.mobName()).anyMatch(mobName -> mob.getDefinitions().getName().equalsIgnoreCase(mobName));
@@ -87,9 +87,9 @@ public class NPCCombatDispatcher {
 	 * <b>Method should only be called once on start-up.</b>
 	 */
 	public static void load() {
-		List<MobCombatInterface> interfaces = Utility.getClassesInDirectory("com.rs.game.npc.combat.impl").stream().map(clazz -> (MobCombatInterface) clazz).collect(Collectors.toList());
+		List<MobCombatListener> interfaces = Utility.getClassesInDirectory("com.rs.game.npc.combat.impl").stream().map(clazz -> (MobCombatListener) clazz).collect(Collectors.toList());
 		
-		for(MobCombatInterface MobCombatInterface : interfaces) {
+		for(MobCombatListener MobCombatInterface : interfaces) {
 			if(MobCombatInterface.getClass().getAnnotation(MobCombatSignature.class) == null) {
 				throw new IncompleteAnnotationException(MobCombatSignature.class, MobCombatInterface.getClass().getName() + " has no annotation.");
 			}

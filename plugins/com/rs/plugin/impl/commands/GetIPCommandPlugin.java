@@ -4,11 +4,11 @@ import com.rs.GameConstants;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
 @CommandSignature(alias = { "getip" }, rights = { Rights.ADMINISTRATOR }, syntax = "Get a target players IP")
-public final class GetIPCommandPlugin implements Command {
+public final class GetIPCommandPlugin implements CommandListener {
 	@Override
 	public void execute(Player player, String[] cmd, String command) {
 		String name;

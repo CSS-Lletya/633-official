@@ -5,13 +5,13 @@ import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.net.encoders.other.Animation;
-import com.rs.plugin.listener.NPCType;
+import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Ticks;
 
 @NPCSignature(name = { "Sheep" }, npcId = {})
-public class SheepNPCPlugin implements NPCType {
+public class SheepNPCPlugin implements NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) throws Exception {

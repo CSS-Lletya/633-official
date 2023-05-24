@@ -2,11 +2,11 @@ package com.rs.net.packets.outgoing.impl;
 
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 
 @OutgoingPacketSignature(packetId = 16, description = "Represents a Player's Play state with the client itself (visible, etc..)")
-public class InAndOutScreenPacket implements OutgoingPacket {
+public class InAndOutScreenPacket implements OutgoingPacketListener {
 
 	@SuppressWarnings("unused")
 	@Override

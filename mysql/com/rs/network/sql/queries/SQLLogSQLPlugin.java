@@ -14,12 +14,11 @@ import lombok.SneakyThrows;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SQLLogSQLPlugin extends DatabaseModel {
-
 	
 	private final String logContext;
 	
 	@Override
-	public String getQuery() {
+	public String getInsertStatement() {
 		return "insert into log (context) values (?)";
 	}
 	
@@ -30,8 +29,8 @@ public class SQLLogSQLPlugin extends DatabaseModel {
 	
     @Override
     @SneakyThrows(SQLException.class)
-    public void query() {
-        DatabaseConnection databaseConnection = GameDatabase.getGameServer().getConnection(getClass().getCanonicalName());
+    public void execute() {
+        DatabaseConnection databaseConnection = GameDatabase.getGameServer().getConnection(getClass().getSimpleName());
         if (databaseConnection == null) {
             GameDatabase.getGameServer().reportUnavailableConnection(); 
             return;

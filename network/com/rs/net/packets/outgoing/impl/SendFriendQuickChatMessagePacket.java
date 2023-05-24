@@ -4,12 +4,12 @@ import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.encoders.other.QuickChatMessage;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 49, description = "Represents sending a Friend a Quick-Chat based message (Privately)")
-public class SendFriendQuickChatMessagePacket implements OutgoingPacket {
+public class SendFriendQuickChatMessagePacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {

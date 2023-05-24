@@ -2,12 +2,12 @@ package com.rs.net.packets.outgoing.impl;
 
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 
 //TODO: Convert Packet
 @OutgoingPacketSignature(packetId = -1, description = "Represents a event where a Player is reporting another Player")
-public class ReportAbusePacket implements OutgoingPacket {
+public class ReportAbusePacket implements OutgoingPacketListener {
 
 	@SuppressWarnings("unused")
 	@Override

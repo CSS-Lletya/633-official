@@ -5,14 +5,14 @@ import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.Huffman;
 import com.rs.net.encoders.other.PublicChatMessage;
-import com.rs.net.packets.outgoing.OutgoingPacket;
+import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 54, description = "Represents a public message being sent by the Player")
-public class ChatPacket implements OutgoingPacket {
+public class ChatPacket implements OutgoingPacketListener {
 
 	private int chatType;
 	

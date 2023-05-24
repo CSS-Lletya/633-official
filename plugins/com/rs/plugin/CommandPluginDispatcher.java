@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.Command;
+import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
@@ -24,7 +24,7 @@ public final class CommandPluginDispatcher {
 	/**
 	 * The object map which contains all the commands on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<CommandSignature, Command> COMMANDS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<CommandSignature, CommandListener> COMMANDS = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Executes the specified {@code string} if it's a command.
@@ -49,7 +49,7 @@ public final class CommandPluginDispatcher {
 	 * @param identifier the identifier to check for matches.
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
-	private static Optional<Command> getCommand(String identifier) {
+	private static Optional<CommandListener> getCommand(String identifier) {
 	    return COMMANDS.entrySet()
 	            .stream()
 	            .flatMap(entry -> Arrays.stream(entry.getKey().alias())
@@ -66,7 +66,7 @@ public final class CommandPluginDispatcher {
 	 * @param command the command that was executed.
 	 * @return <true> if the command was executed, <false> otherwise.
 	 */
-	private static boolean hasPrivileges(Player player, Command command) {
+	private static boolean hasPrivileges(Player player, CommandListener command) {
 		CommandSignature sig = command.getClass().getAnnotation(CommandSignature.class);
 		return player.getDetails().getRights().isStaff() || Arrays.stream(sig.rights()).anyMatch(right -> player.getDetails().getRights().equals(right));
 	}
@@ -79,8 +79,8 @@ public final class CommandPluginDispatcher {
 	 */
 	public static void load() {
 
-		List<Command> commands = Utility.getClassesInDirectory("com.rs.plugin.impl.commands").stream()
-				.map(clazz -> (Command) clazz).collect(Collectors.toList());
+		List<CommandListener> commands = Utility.getClassesInDirectory("com.rs.plugin.impl.commands").stream()
+				.map(clazz -> (CommandListener) clazz).collect(Collectors.toList());
 		commands.forEach(command -> COMMANDS.put(command.getClass().getAnnotation(CommandSignature.class), command));
 	}
 

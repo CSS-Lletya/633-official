@@ -16,7 +16,7 @@ import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
-import com.rs.plugin.listener.RSInterface;
+import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
@@ -34,7 +34,7 @@ public final class RSInterfacePluginDispatcher {
 	/**
 	 * The object map which contains all the interface on the world.
 	 */
-	private static final Object2ObjectArrayMap<RSInterfaceSignature, RSInterface> INTERFACES = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectArrayMap<RSInterfaceSignature, RSInterfaceListener> INTERFACES = new Object2ObjectArrayMap<>();
 
 	/**
 	 * Executes the specified interface if it's registered.
@@ -54,14 +54,14 @@ public final class RSInterfacePluginDispatcher {
 	 * @param identifier the identifier to check for matches.
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
-	private static Optional<RSInterface> getRSInterface(int interfaceId) {
+	private static Optional<RSInterfaceListener> getRSInterface(int interfaceId) {
 	    return INTERFACES.values()
 	            .stream()
 	            .filter(rsInterface -> isInterface(rsInterface, interfaceId))
 	            .findFirst();
 	}
 
-	private static boolean isInterface(RSInterface rsInterface, int interfaceId) {
+	private static boolean isInterface(RSInterfaceListener rsInterface, int interfaceId) {
 		Annotation annotation = rsInterface.getClass().getAnnotation(RSInterfaceSignature.class);
 		RSInterfaceSignature signature = (RSInterfaceSignature) annotation;
 		return Arrays.stream(signature.interfaceId()).anyMatch(right -> interfaceId == right);
@@ -74,8 +74,8 @@ public final class RSInterfacePluginDispatcher {
 	 * <b>Method should only be called once on start-up.</b>
 	 */
 	public static void load() {
-		List<RSInterface> interfaces = Utility.getClassesInDirectory("com.rs.plugin.impl.interfaces").stream()
-				.map(clazz -> (RSInterface) clazz).collect(Collectors.toList());
+		List<RSInterfaceListener> interfaces = Utility.getClassesInDirectory("com.rs.plugin.impl.interfaces").stream()
+				.map(clazz -> (RSInterfaceListener) clazz).collect(Collectors.toList());
 		interfaces.forEach(inter -> INTERFACES.put(inter.getClass().getAnnotation(RSInterfaceSignature.class), inter));
 	}
 

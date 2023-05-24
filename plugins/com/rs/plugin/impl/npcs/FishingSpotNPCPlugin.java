@@ -4,14 +4,14 @@ import java.util.Optional;
 
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.NPCType;
+import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 
 import skills.fishing.Fishing;
 import skills.fishing.Tool;
 
 @NPCSignature(name = { "Fishing spot", "Cavefish shoal"}, npcId = {})
-public class FishingSpotNPCPlugin implements NPCType {
+public class FishingSpotNPCPlugin implements NPCListener {
 
 	@Override
 	public void execute(Player player, NPC mob, int option) throws Exception {

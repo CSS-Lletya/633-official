@@ -9,7 +9,7 @@ import com.rs.game.player.Player;
  * @author Dennis
  *
  */
-public abstract class ObjectType {
+public abstract class ObjectListener {
 	
 	public void execute(Player player, GameObject object, int optionId) throws Exception {}
 

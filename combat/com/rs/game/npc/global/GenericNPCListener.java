@@ -9,7 +9,7 @@ import com.rs.game.player.Player;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
-public abstract class GenericNPC {
+public abstract class GenericNPCListener {
 
 	public abstract void setAttributes(NPC npc);
 

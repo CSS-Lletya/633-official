@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.InventoryType;
+import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
@@ -24,7 +24,7 @@ public final class InventoryPluginDispatcher {
 	/**
 	 * The object map which contains all the interface on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<InventoryWrapper, InventoryType> ITEMS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<InventoryWrapper, InventoryListener> ITEMS = new Object2ObjectOpenHashMap<>();
 	
 	/**
 	 * Executes the specified Item if it's registered.
@@ -42,14 +42,14 @@ public final class InventoryPluginDispatcher {
 	 * @param identifier the identifier to check for matches.
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
-	private static Optional<InventoryType> getItem(int itemId) {
+	private static Optional<InventoryListener> getItem(int itemId) {
 		return ITEMS.values()
 	            .stream()
 	            .filter(inventoryType -> isCorrectItem(inventoryType, itemId))
 	            .findFirst();
 	}
 	
-	private static boolean isCorrectItem(InventoryType InventoryType, int interfaceId) {
+	private static boolean isCorrectItem(InventoryListener InventoryType, int interfaceId) {
 		InventoryWrapper signature = InventoryType.getClass().getAnnotation(InventoryWrapper.class);
 		return Arrays.stream(signature.itemId()).anyMatch(right -> interfaceId == right);
 	}
@@ -60,7 +60,7 @@ public final class InventoryPluginDispatcher {
 	 * <b>Method should only be called once on start-up.</b>
 	 */
 	public static void load() {
-		List<InventoryType> inventoryItem = Utility.getClassesInDirectory("com.rs.plugin.impl.inventory").stream().map(clazz -> (InventoryType) clazz).collect(Collectors.toList());
+		List<InventoryListener> inventoryItem = Utility.getClassesInDirectory("com.rs.plugin.impl.inventory").stream().map(clazz -> (InventoryListener) clazz).collect(Collectors.toList());
 		inventoryItem.forEach(id -> ITEMS.put(id.getClass().getAnnotation(InventoryWrapper.class), id));
 	}
 	

@@ -1,4 +1,4 @@
-package com.rs.net.packets.logic;
+package com.rs.net.packets.outgoing;
 
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
@@ -8,7 +8,7 @@ import com.rs.io.InputStream;
  * @author Dennis
  *
  */
-public interface LogicPacket {
+public interface OutgoingPacketListener {
 	
 	/**
 	 * Executes the Packet

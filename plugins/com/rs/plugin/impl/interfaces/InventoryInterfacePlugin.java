@@ -26,7 +26,7 @@ import com.rs.game.task.Task;
 import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.plugin.RSInterfacePluginDispatcher;
-import com.rs.plugin.listener.RSInterface;
+import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.EquipData;
 import com.rs.utilities.LogUtility;
@@ -37,7 +37,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import skills.Skills;
 
 @RSInterfaceSignature(interfaceId = {149})
-public class InventoryInterfacePlugin implements RSInterface {
+public class InventoryInterfacePlugin implements RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) throws Exception {

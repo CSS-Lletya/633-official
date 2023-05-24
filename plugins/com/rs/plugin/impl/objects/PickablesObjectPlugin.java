@@ -5,13 +5,13 @@ import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.ObjectType;
+import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Ticks;
 
 @ObjectSignature(objectId = {}, name = {"Banana Tree", "Flax", "Onion", "Cabbage", "Wheat", "Potato"})
-public class PickablesObjectPlugin extends ObjectType {
+public class PickablesObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

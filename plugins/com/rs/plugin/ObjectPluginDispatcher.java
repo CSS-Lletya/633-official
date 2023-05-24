@@ -11,7 +11,7 @@ import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.ObjectType;
+import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
@@ -28,7 +28,7 @@ public final class ObjectPluginDispatcher {
 	/**
 	 * The object map which contains all the Objects on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<ObjectSignature, ObjectType> OBJECTS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<ObjectSignature, ObjectListener> OBJECTS = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Executes the specified Objects if it's registered.
@@ -56,7 +56,7 @@ public final class ObjectPluginDispatcher {
 	 * @param identifier the identifier to check for matches.
 	 * @return an Optional with the found value, {@link Optional#empty} otherwise.
 	 */
-	private static Optional<ObjectType> getObject(GameObject object, int objectId) {
+	private static Optional<ObjectListener> getObject(GameObject object, int objectId) {
 	    return OBJECTS.values()
 	            .stream()
 	            .filter(objectType -> isObjetId(objectType, objectId) || isObjectNamed(objectType, object))
@@ -70,7 +70,7 @@ public final class ObjectPluginDispatcher {
 	 * @param objectId
 	 * @return
 	 */
-	private static boolean isObjetId(ObjectType object, int objectId) {
+	private static boolean isObjetId(ObjectListener object, int objectId) {
 		ObjectSignature signature = object.getClass().getAnnotation(ObjectSignature.class);
 		return Arrays.stream(signature.objectId()).anyMatch(right -> objectId == right);
 	}
@@ -82,7 +82,7 @@ public final class ObjectPluginDispatcher {
 	 * @param objectId
 	 * @return
 	 */
-	private static boolean isObjectNamed(ObjectType object, GameObject worldObject) {
+	private static boolean isObjectNamed(ObjectListener object, GameObject worldObject) {
 		ObjectSignature signature = object.getClass().getAnnotation(ObjectSignature.class);
 		return Arrays.stream(signature.name())
 				.anyMatch(objectName -> worldObject.getDefinitions().getName().equalsIgnoreCase(objectName));
@@ -95,11 +95,11 @@ public final class ObjectPluginDispatcher {
 	 * <b>Method should only be called once on start-up.</b>
 	 */
 	public static void load() {
-		List<ObjectType> objectTypes = Utility.getClassesInDirectory("com.rs.plugin.impl.objects").stream()
-				.map(clazz -> (ObjectType) clazz).collect(Collectors.toList());
+		List<ObjectListener> objectTypes = Utility.getClassesInDirectory("com.rs.plugin.impl.objects").stream()
+				.map(clazz -> (ObjectListener) clazz).collect(Collectors.toList());
 		objectTypes.forEach(objectType -> OBJECTS.put(objectType.getClass().getAnnotation(ObjectSignature.class), objectType));
-		List<ObjectType> objectTypesRegion = Utility.getClassesInDirectory("com.rs.plugin.impl.objects.region").stream()
-				.map(clazz -> (ObjectType) clazz).collect(Collectors.toList());
+		List<ObjectListener> objectTypesRegion = Utility.getClassesInDirectory("com.rs.plugin.impl.objects.region").stream()
+				.map(clazz -> (ObjectListener) clazz).collect(Collectors.toList());
 		objectTypesRegion.forEach(objectType -> OBJECTS.put(objectType.getClass().getAnnotation(ObjectSignature.class), objectType));
 	}
 

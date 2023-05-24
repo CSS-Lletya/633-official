@@ -3,11 +3,11 @@ package com.rs.plugin.impl.objects;
 import com.rs.constants.Animations;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.ObjectType;
+import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 @ObjectSignature(objectId = {}, name = {"crate", "crates", "boxes", "bookcase", "drawers", "closed chest", "open chest"})
-public class SearchablesObjectPlugin extends ObjectType {
+public class SearchablesObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

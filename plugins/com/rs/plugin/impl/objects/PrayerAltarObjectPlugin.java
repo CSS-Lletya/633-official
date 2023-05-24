@@ -4,7 +4,7 @@ import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.ObjectType;
+import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.Skills;
@@ -12,7 +12,7 @@ import skills.prayer.Bone;
 import skills.prayer.PrayerBoneAltar;
 
 @ObjectSignature(objectId = {409, 36972}, name = {"Altar"})
-public class PrayerAltarObjectPlugin extends ObjectType {
+public class PrayerAltarObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

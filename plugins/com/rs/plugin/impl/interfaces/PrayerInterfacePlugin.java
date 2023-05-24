@@ -2,11 +2,11 @@ package com.rs.plugin.impl.interfaces;
 
 import com.rs.game.player.Player;
 import com.rs.net.decoders.WorldPacketsDecoder;
-import com.rs.plugin.listener.RSInterface;
+import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
 @RSInterfaceSignature(interfaceId = { 271, 749 })
-public class PrayerInterfacePlugin implements RSInterface {
+public class PrayerInterfacePlugin implements RSInterfaceListener {
 
 	/**
 	 * TODO: Fix number decrementing & orb updating

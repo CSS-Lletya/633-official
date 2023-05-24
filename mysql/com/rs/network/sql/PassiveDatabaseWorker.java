@@ -73,7 +73,7 @@ public class PassiveDatabaseWorker implements Runnable {
 					Node databaseModel = null;
 					while ((databaseModel = databaseModels.poll()) != null) {
 						try {
-							databaseModel.query();
+							databaseModel.execute();
 						} catch (SQLException e) {
 							e.printStackTrace();
 						} finally {

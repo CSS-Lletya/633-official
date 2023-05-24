@@ -3,11 +3,11 @@ package com.rs.plugin.impl.objects;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.plugin.listener.ObjectType;
+import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 @ObjectSignature(objectId = { 2465, 2466, 2467, 2468, 2469, 2470, 2471, 2472, 2743, 2474, 2475, 2477}, name = {})
-public class RunecraftingExitPortalsObjectPlugin extends ObjectType {
+public class RunecraftingExitPortalsObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {

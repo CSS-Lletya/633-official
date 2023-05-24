@@ -8,7 +8,7 @@ import com.rs.game.Entity;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.combat.NPCCombatDefinitions;
-import com.rs.game.npc.global.GenericNPC;
+import com.rs.game.npc.global.GenericNPCListener;
 import com.rs.game.npc.global.GenericNPCSignature;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -16,7 +16,7 @@ import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.Ticks;
 
 @GenericNPCSignature(npcId = {8832, 8833,8834})
-public class LivingRockCreature extends GenericNPC {
+public class LivingRockCreature extends GenericNPCListener {
 
 	@Override
 	public void setAttributes(NPC npc) {
