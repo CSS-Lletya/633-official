@@ -37,8 +37,6 @@ public class FloorItem extends Item {
         this.setCantPickupBy(ironmanName);
     }
 
-    //global spawn & ironman friendly
-
     public FloorItem(Item item, WorldTile tile, Player owner, boolean underGrave, boolean invisible) {
         super(item.getId(), item.getAmount());
         this.tile = tile;
@@ -90,16 +88,13 @@ public class FloorItem extends Item {
 		return floorItem;
 	}
 
-
-    //Don't use for regular - isn't ironman safe
-    public static void addGroundItem(final Item item, final WorldTile tile) {
-        addGroundItem(item, tile, null, false, -1, 2, -1);
-    }
-
     public static void addGroundItem(final Item item, final WorldTile tile, int publicTime) {
         addGroundItem(item, tile, null, false, -1, 2, publicTime);
     }
 
+	public static void addGroundItem(final Item item, final WorldTile tile, final Player owner, boolean invisible) {
+		addGroundItem(item, tile, owner, invisible, -1, 0, 60);
+	}
     public static void addGroundItem(final Item item, final WorldTile tile, final Player owner, boolean invisible,
                                      long hiddenTime) {
         addGroundItem(item, tile, owner, invisible, hiddenTime, 2, 60);
@@ -303,47 +298,7 @@ public class FloorItem extends Item {
         }
         floorItem.setGlobalPicked(false);
     }
-
-    public static void updateGroundItem(Item item, final WorldTile tile, final Player owner, final int time,
-                                        final int type, String ironmanName) {
-        final FloorItem floorItem = World.getRegion(tile.getRegionId()).getGroundItem(item.getId(), tile, owner);
-        if (floorItem == null) {
-            if (item.getAmount() != 1 && !item.getDefinitions().isStackable() && !item.getDefinitions().isNoted()) {
-                for (int i = 0; i < item.getAmount(); i++) {
-                    addGroundItem(new Item(item.getId(), 1), tile, owner, true, time, type, ironmanName);
-                }
-                return;
-            } else {
-                addGroundItem(item, tile, owner, true, time, type, ironmanName);
-                return;
-            }
-        }
-        if (floorItem.getDefinitions().isStackable() || floorItem.getDefinitions().isNoted()) {
-            if (floorItem.getAmount() + item.getAmount() < 0
-                    || floorItem.getAmount() + item.getAmount() > Integer.MAX_VALUE) {
-                int totalAmount = Integer.MAX_VALUE - floorItem.getAmount();
-                floorItem.setAmount(Integer.MAX_VALUE);
-                item.setAmount(item.getAmount() - totalAmount);
-                addGroundItem(item, tile, owner, true, time, type, ironmanName);
-                owner.getPackets().sendRemoveGroundItem(floorItem);
-                owner.getPackets().sendGroundItem(floorItem);
-            } else
-                floorItem.setAmount(floorItem.getAmount() + item.getAmount());
-            owner.getPackets().sendRemoveGroundItem(floorItem);
-            owner.getPackets().sendGroundItem(floorItem);
-        } else {
-            if (item.getAmount() != 1) {
-                for (int i = 0; i < item.getAmount(); i++) {
-                    addGroundItem(new Item(item.getId(), 1), tile, owner, true, time, type, ironmanName);
-                }
-                return;
-            } else {
-                addGroundItem(item, tile, owner, true, time, type, ironmanName);
-                return;
-            }
-        }
-    }
-
+    
     public static void turnPublic(FloorItem floorItem, int publicTime) {
         if (!floorItem.isInvisible())
             return;
@@ -352,10 +307,7 @@ public class FloorItem extends Item {
         if (!region.getGroundItemsSafe().contains(floorItem))
             return;
         Player realOwner = floorItem.hasOwner() ? World.getPlayer(floorItem.getOwnerName()).get() : null;
-//		if (realOwner.isIronmanBased()) {
-//			removeGroundItem(floorItem, 0);
-//			return;
-//		}
+
         floorItem.setInvisible(false);
 
         for (Player player : World.players) {

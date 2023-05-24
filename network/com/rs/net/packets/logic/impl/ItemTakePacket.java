@@ -41,7 +41,7 @@ public class ItemTakePacket implements LogicPacketListener {
 		if (!World.isTileFree(item.getTile().getPlane(), x, y, 1)) {
 			player.setNextFaceWorldTile(tile);
 			if (FloorItem.removeGroundItem(player, item)) {
-				player.setNextAnimation(Animations.OPENING_INFRONT_OF_YOU);
+				player.setNextAnimation(Animations.SIMPLE_GRAB);
 				return;
 			}
 			return;

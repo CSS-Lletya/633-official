@@ -123,7 +123,6 @@ public final class ObjectPluginDispatcher {
 			player.faceObject(object);
 			if (GameConstants.DEBUG)
 				System.out.println("Item on object: " + object.getId());
-			System.out.println("?");
 			executeItemOnObject(player, object, item);
 		}, false));
 	}

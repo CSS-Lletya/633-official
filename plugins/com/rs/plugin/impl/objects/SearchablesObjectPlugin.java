@@ -18,7 +18,7 @@ public class SearchablesObjectPlugin extends ObjectListener {
                 player.faceObject(openedDrawer);
                 player.getMovement().lock(2);
                 GameObject.spawnObjectTemporary(openedDrawer, 60);
-                player.setNextAnimation(Animations.OPENING_INFRONT_OF_YOU);
+                player.setNextAnimation(Animations.SIMPLE_GRAB);
             }
             if (object.getDefinitions().containsOption("search")) {
                 player.getPackets().sendGameMessage("You search the drawers but find nothing.");
@@ -32,7 +32,7 @@ public class SearchablesObjectPlugin extends ObjectListener {
                 player.faceObject(openedChest);
                 player.getMovement().lock(2);
                 GameObject.spawnObjectTemporary(openedChest, 60);
-                player.setNextAnimation(Animations.OPENING_INFRONT_OF_YOU);
+                player.setNextAnimation(Animations.SIMPLE_GRAB);
 			}
 		}
 		if (object.getDefinitions().containsOption("search"))

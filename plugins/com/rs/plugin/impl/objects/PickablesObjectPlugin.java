@@ -17,7 +17,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		object.doAction(optionId, "Banana Tree", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.BANANA_1963))) {
-				player.setNextAnimation(Animations.GRABBING_INFRONT_OF_YOU);
+				player.setNextAnimation(Animations.TWO_HANDED_GRAB);
 				player.getPackets().sendGameMessage("You pick a Banana from the Banana tree");
 			}
 		});
