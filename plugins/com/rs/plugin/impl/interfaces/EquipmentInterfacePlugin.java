@@ -37,7 +37,10 @@ public class EquipmentInterfacePlugin implements RSInterfaceListener {
 		if (IntStream.of(8,11,14,17,20,23,26,29,32,35,38).anyMatch(comp -> comp == componentId) && packetId == 12)  {
 			player.getPackets().sendGameMessage(ItemExamines.getExamine(new Item(slotId2)));
 		}
-		
+		if (packetId == 29 && componentId == 17) {
+			if (slotId2 == 15484)
+				player.getInterfaceManager().gazeOrbOfOculus();
+		}
 		if (packetId == 11) {
 			if (componentId == 17)
 				RSInterfacePluginDispatcher.sendRemove(player, Equipment.SLOT_WEAPON);
