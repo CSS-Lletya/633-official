@@ -70,7 +70,7 @@ public class DemoQuest extends Quest {
 	@Override
 	public boolean handleNPC(Player player, NPC npc, int option) {
 		if (npc.getId() == 0) {
-			npc.getDefinitions().doAction(option, "Talk-to", () -> {
+			npc.doAction(option, "Talk-to", () -> {
 
 			});
 		}

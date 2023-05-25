@@ -486,18 +486,6 @@ public final class NPCDefinitions {
 		return false;
 	}
 	
-	/**
-	 * A simple way of executing an action based on the option.
-	 * can also force assign option actions as well.
-	 * @param option
-	 * @param searchedOption
-	 * @param action
-	 */
-	public void doAction(int option, String searchedOption, Runnable action) {
-		if (options[option].equalsIgnoreCase(searchedOption))
-			action.run();
-	}
-	
 	public boolean hasAttackOption() {
 		return id == 14899 || hasOptions("Attack");
 	}

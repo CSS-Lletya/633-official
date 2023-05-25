@@ -126,7 +126,7 @@ public class Emotes {
 			}
 		}
 		
-	    private static void setNextEmoteEnd(Player player) {
+	    public static void setNextEmoteEnd(Player player) {
 	    	player.setNextEmoteEnd(player.getLastAnimationEnd() - 600);
 	    }
 

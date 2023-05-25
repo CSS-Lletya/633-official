@@ -2,15 +2,18 @@ package com.rs.game.player.actions;
 
 import java.util.Optional;
 
-import com.rs.game.Entity;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.Emotes.Emote;
 import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.RandomUtils;
 
 public class Rest extends Action {
 
-	public Rest(Player player, Optional<Entity> entity) {
+	private final int restingType;
+	
+	public Rest(Player player, int type) {
 		super(player, Optional.empty());
+		this.restingType = type;
 	}
 
 	private static int[][] REST_DEFS = { { 5713, 1549, 5748 },
@@ -25,9 +28,12 @@ public class Rest extends Action {
 			return false;
 		index = RandomUtils.inclusive(REST_DEFS.length -1);
 		getPlayer().setResting((byte) 1);
-		getPlayer().getInterfaceManager().sendRunButtonConfig();
+		if (restingType == 4)
+			getPlayer().getVarsManager().sendVar(173, 4);
+		else
+			getPlayer().getInterfaceManager().sendRunButtonConfig();
 		getPlayer().setNextAnimation(new Animation(REST_DEFS[index][0]));
-		getPlayer().getAppearance().setRenderEmote((short) REST_DEFS[index][1]);
+		getPlayer().getAppearance().setRenderEmote(REST_DEFS[index][1]);
 		return true;
 	}
 
@@ -48,14 +54,22 @@ public class Rest extends Action {
 
 	@Override
 	public int processWithDelay() {
-		return 0;
+		if (getPlayer().getDetails().getRunEnergy() == 100)
+            return 0;
+        if (getPlayer().getDetails().getRunEnergy() > 98)
+        	getPlayer().getDetails().setRunEnergy(100);
+        else if (getPlayer().getDetails().getRunEnergy() <= 98)
+        	getPlayer().getDetails().setRunEnergy(getPlayer().getDetails().getRunEnergy() + 1);
+		return 2;
 	}
 
+	//this apparently gets ignored entirely.
 	@Override
 	public void stop() {
+		Emote.setNextEmoteEnd(getPlayer());
 		getPlayer().setResting((byte) 0);
 		getPlayer().getInterfaceManager().sendRunButtonConfig();
-		getPlayer().setNextAnimation(new Animation(REST_DEFS[index][2]));
 		getPlayer().getAppearance().setRenderEmote((short) -1);
+		getPlayer().setNextAnimation(new Animation(REST_DEFS[index][2]));
 	}
 }

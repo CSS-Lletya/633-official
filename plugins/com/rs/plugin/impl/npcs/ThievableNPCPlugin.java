@@ -18,7 +18,7 @@ public class ThievableNPCPlugin implements NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) throws Exception {
-		npc.getDefinitions().doAction(option, "Pickpocket", () -> {
+		npc.doAction(option, "Pickpocket", () -> {
 			Arrays.stream(PickpocketData.values()).forEach(data -> IntStream.of(data.npcId)
 					.filter(mob -> mob == npc.getId())
 					.forEach(mob -> new Pickpocketing(player, data, npc).start()));
