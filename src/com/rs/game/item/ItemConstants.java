@@ -2,7 +2,6 @@ package com.rs.game.item;
 
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
-import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 
@@ -322,14 +321,7 @@ public class ItemConstants {
 				player.getInventory().deleteItem(
 						new Item(995, (int) price));
 			else {
-				player.dialog(new DialogueEventListener(player) {
-					
-					@Override
-					public void start() {
-						mes("You don't have enough coins, you need " + (int) price
-								+ " coins to repair this item.");
-					}
-				});
+				player.dialogue(dialogue -> dialogue.mes("You don't have enough coins, you need " + (int) price + " coins to repair this item."));
 				return true;
 			}
 			player.getInventory().getItem(slot).setId(itemIndex);

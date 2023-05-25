@@ -25,20 +25,17 @@ public class StairsLaddersDialogue {
 		if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb")) {
 			if (player.getPlane() == 3 || player.getPlane() == 0)
 				return;
-			player.dialog(new DialogueEventListener(player) {
-				@Override
-				public void start() {
-					option("Go-Up", () -> {
-						if (player.getPlane() == 3) {
-							return;
-						}
-						player.getMovement().move(true,
-								new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);
-					}, "Go-Down", () -> {
-						player.getMovement().move(true,
-								new WorldTile(player.getX(), player.getY(), player.getPlane() - 1), TeleportType.BLANK);
-					});
-				}
+			player.dialogue(dialogue -> {
+				dialogue.option("Go-Up", () -> {
+					if (player.getPlane() == 3) {
+						return;
+					}
+					player.getMovement().move(true,
+							new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);
+				}, "Go-Down", () -> {
+					player.getMovement().move(true,
+							new WorldTile(player.getX(), player.getY(), player.getPlane() - 1), TeleportType.BLANK);
+				});
 			});
 		} else if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb-up")) {
 			if (player.getPlane() == 3)

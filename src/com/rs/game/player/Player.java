@@ -2,6 +2,7 @@ package com.rs.game.player;
 
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.function.Consumer;
 
 import com.alex.utils.VarsManager;
 import com.rs.GameConstants;
@@ -14,6 +15,7 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
+import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.CoordsEvent;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.familiar.Familiar;
@@ -535,6 +537,20 @@ public class Player extends Entity {
 	 */
 	public void dialog(DialogueEventListener listener){
 		getAttributes().get(Attribute.DIALOGUE_EVENT).set(listener.begin());
+	}
+	
+	/**
+	 * A cleaner simpler way to do quick easy dialogues!
+	 * TODO: Convert current to use this.
+	 * @param listener
+	 */
+	public void dialogue(Consumer<DialogueEventListener> listener) {
+		dialog(new DialogueEventListener(this) {
+			@Override
+			public void start() {
+				listener.accept(this);
+			}
+		});
 	}
 	
 	/**
