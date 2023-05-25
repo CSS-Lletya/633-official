@@ -22,7 +22,7 @@ import skills.mining.RockData;
 		11185, 11951, 11952, 11953, 15576, 15577, 15578, 31065, 31066, 31067, 32432, 32433, 32434, 37310, 37312, 5784,
 		5786, 11942, 11943, 11944, 11945, 11946, 11947, 14853, 14854, 14855, 31086, 31087, 31088, 32438, 32439, 32440,
 		5782, 5783, 11939, 11940, 11941, 11963, 11964, 11965, 14862, 14863, 14864, 31083, 31084, 31085, 32435, 32436,
-		32437, 14859, 14860, 14861 }, name = {})
+		32437, 14859, 14860, 14861, 450}, name = {})
 public class MiningOresObjectPlugin extends ObjectListener {
 
 	@Override
@@ -32,7 +32,12 @@ public class MiningOresObjectPlugin extends ObjectListener {
 					.filter(data -> Arrays.stream(data.getObject()).anyMatch(ore -> ore == object.getId())).findFirst()
 					.ifPresent(data -> new Mining(player, data, object).start());
 		}
+		object.doAction(optionId, 450, "Mine", () -> player.getPackets().sendGameMessage("This rock has no ores to mine."));
 		if (optionId == 2) {
+			if (object.getId() == 450) {
+				player.getPackets().sendGameMessage("This rock has no ores to prospect.");
+				return;
+			}
 			player.getPackets().sendGameMessage("You examine the rock for ores...");
 			Arrays.stream(RockData.values())
 			.filter(data -> Arrays.stream(data.getObject()).anyMatch(ore -> ore == object.getId())).findFirst()
