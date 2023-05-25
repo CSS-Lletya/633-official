@@ -1,5 +1,7 @@
 package com.rs.plugin.impl.interfaces;
 
+import java.util.stream.IntStream;
+
 import com.rs.game.item.Item;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
@@ -7,6 +9,7 @@ import com.rs.game.player.Player;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
+import com.rs.utilities.ItemExamines;
 import com.rs.utilities.loaders.ItemBonuses;
 
 @RSInterfaceSignature(interfaceId = { 387 })
@@ -31,6 +34,10 @@ public class EquipmentInterfacePlugin implements RSInterfaceListener {
 		} else if (componentId == 39) {
 			RSInterfacePluginDispatcher.openEquipmentBonuses(player, false);
 		}
+		if (IntStream.of(8,11,14,17,20,23,26,29,32,35,38).anyMatch(comp -> comp == componentId) && packetId == 12)  {
+			player.getPackets().sendGameMessage(ItemExamines.getExamine(new Item(slotId2)));
+		}
+		
 		if (packetId == 11) {
 			if (componentId == 17)
 				RSInterfacePluginDispatcher.sendRemove(player, Equipment.SLOT_WEAPON);
