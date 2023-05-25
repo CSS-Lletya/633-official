@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Rest;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.Utility;
@@ -74,6 +75,10 @@ public class WorldMapInterfacePlugin implements RSInterfaceListener {
 				// pos
 				player.getPackets().sendGlobalConfig(674, posHash); // player
 				// position
+			}
+			if (componentId == 177 && packetId == 29) {
+				player.getHintIconsManager().removeAll();
+				player.getVarsManager().sendVar(InterfaceVars.WORLD_MAP_MARKER, -1);
 			}
 			break;
 		}

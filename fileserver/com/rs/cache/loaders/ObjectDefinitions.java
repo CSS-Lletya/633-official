@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import com.rs.cache.Cache;
 import com.rs.io.InputStream;
-import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;

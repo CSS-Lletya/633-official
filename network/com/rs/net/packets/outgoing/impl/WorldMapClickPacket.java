@@ -20,9 +20,10 @@ public class WorldMapClickPacket implements OutgoingPacketListener {
 		if (hash == null || coordinateHash != hash)
 			player.getAttributes().get(Attribute.WORLD_HASH).set(coordinateHash);
 		else {
-			player.getAttributes().get(Attribute.WORLD_HASH).set(null);
+			player.getHintIconsManager().removeAll();
 			player.getHintIconsManager().addHintIcon(x, y, plane, 20, 0, 2, -1, true);
-			player.getVarsManager().sendVar(InterfaceVars.WORLD_MAP_MARKER, coordinateHash);
+			player.getVarsManager().sendVar(InterfaceVars.WORLD_MAP_MARKER, player.getAttributes().get(Attribute.WORLD_HASH).getInt());
+			
 		}
 	}
 }
