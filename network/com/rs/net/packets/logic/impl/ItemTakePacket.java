@@ -38,12 +38,14 @@ public class ItemTakePacket implements LogicPacketListener {
 		if (forceRun)
 			player.setRun(forceRun);
 		player.getMovement().stopAll();
-		if (!World.isTileFree(item.getTile().getPlane(), x, y, 1)) {
-			player.setNextFaceWorldTile(tile);
-			if (FloorItem.removeGroundItem(player, item)) {
-				player.setNextAnimation(Animations.SIMPLE_GRAB);
-				return;
-			}
+
+		if (!World.isFloorFree(tile.getPlane(), x, y)) {
+			player.setRouteEvent(new RouteEvent(item, () ->  {
+				if (FloorItem.removeGroundItem(player, item)) {
+					player.setNextFaceWorldTile(tile);
+					player.setNextAnimation(Animations.SIMPLE_GRAB);
+				}
+			}, false));
 			return;
 		}
 		player.setRouteEvent(new RouteEvent(item, () -> {
