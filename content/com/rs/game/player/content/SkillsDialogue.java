@@ -1,6 +1,7 @@
 package com.rs.game.player.content;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 
@@ -14,12 +15,19 @@ public final class SkillsDialogue {
 		public String rename(String name);
 	}
 
-	public static void sendSkillsDialogue(Player player, int option, String explanation, int maxQuantity, int[] items,
+	public static void sendSkillsDialogue(Player player, int option, int maxQuantity, int[] items,
 			ItemNameFilter filter) {
-		sendSkillsDialogue(player, option, explanation, maxQuantity, items, filter, true);
+		sendSkillsDialogue(player, option, maxQuantity, items, filter, true);
 	}
+	
+    public static void sendSkillsDialogue(Player player, int option, int maxQuantity, Item[] items, ItemNameFilter filter) {
+        int[] itemIds = new int[items.length];
+        for (int i = 0; i < items.length; i++)
+            itemIds[i] = items[i].getId();
+        sendSkillsDialogue(player, option, maxQuantity, itemIds, filter, true);
+    }
 
-	public static void sendSkillsDialogue(Player player, int option, String explanation, int maxQuantity, int[] items,
+	public static void sendSkillsDialogue(Player player, int option, int maxQuantity, int[] items,
 			ItemNameFilter filter, boolean sendQuantitySelector) {
 		player.getInterfaceManager().sendChatBoxInterface(905);
 		player.getInterfaceManager().setInterface(true, 905, 4, 916);
@@ -33,7 +41,7 @@ public final class SkillsDialogue {
 			// all
 			// option
 		}
-		player.getPackets().sendIComponentText(916, 6, explanation);
+		player.getPackets().sendIComponentText(916, 1, "Choose how many you wish to make, then click on the item to begin.");
 		player.getPackets().sendGlobalConfig(754, option);
 		for (int i = 0; i < 10; i++) {
 			if (i >= items.length) {
@@ -80,22 +88,18 @@ public final class SkillsDialogue {
 			quantity = maxQuantity;
 		else if (quantity < 0)
 			quantity = 0;
-		player.getAttributes().get(Attribute.SKILL_DIALOGUE_MAX_QUANTITY).set(quantity);
+		player.getAttributes().get(Attribute.SKILL_DIALOGUE_QUANTITY).set(quantity);
 		if (refresh)
 			player.getVarsManager().sendVarBit(8095, quantity);
 	}
 
 	public static int getMaxQuantity(Player player) {
-		Integer maxQuantity = (Integer) player.getAttributes().get(Attribute.SKILL_DIALOGUE_MAX_QUANTITY).get();
-		if (maxQuantity == null)
-			return 0;
+		Integer maxQuantity = (Integer) player.getAttributes().get(Attribute.SKILL_DIALOGUE_MAX_QUANTITY).getInt();
 		return maxQuantity;
 	}
 
 	public static int getQuantity(Player player) {
-		Integer quantity = (Integer) player.getAttributes().get(Attribute.SKILL_DIALOGUE_MAX_QUANTITY).get();
-		if (quantity == null)
-			return 0;
+		Integer quantity =  player.getAttributes().get(Attribute.SKILL_DIALOGUE_QUANTITY).getInt();
 		return quantity;
 	}
 

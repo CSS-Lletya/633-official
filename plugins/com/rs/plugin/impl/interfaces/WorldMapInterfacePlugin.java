@@ -35,7 +35,7 @@ public class WorldMapInterfacePlugin implements RSInterfaceListener {
 					return;
 				}
 				player.getMovement().stopAll();
-				player.getAction().setAction(new Rest(player, 0));
+				player.getAction().setAction(new Rest(0));
 			}
 			break;
 		case 548:

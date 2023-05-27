@@ -318,4 +318,25 @@ public final class Inventory {
         return items.getNumberOf(itemId);
     }
 
+    public boolean hasRoomFor(Item[] deleting, Item... adding) {
+        int freeSlots = getFreeSlots();
+        int freedSlots = 0;
+        if (deleting != null) {
+            for (Item i : deleting) {
+                if (i == null)
+                    continue;
+                if (!i.getDefinitions().isStackable()
+                        || (i.getDefinitions().isStackable() && getNumberOf(i.getId()) <= i.getAmount()))
+                    freedSlots++;
+            }
+        }
+        freeSlots += freedSlots;
+        int neededSlots = 0;
+        for (Item i : adding) {
+            if (!i.getDefinitions().isStackable()
+                    || (i.getDefinitions().isStackable() && getNumberOf(i.getId()) <= 0))
+                neededSlots++;
+        }
+        return freeSlots >= neededSlots;
+    }
 }

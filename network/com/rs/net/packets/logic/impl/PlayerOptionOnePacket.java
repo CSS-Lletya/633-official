@@ -56,6 +56,6 @@ public class PlayerOptionOnePacket implements LogicPacketListener {
 			}
 		}
 
-		player.getAction().setAction(new PlayerCombat(player, Optional.of(p2)));
+		player.getAction().setAction(new PlayerCombat(Optional.of(p2)));
 	}
 }

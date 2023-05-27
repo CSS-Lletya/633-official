@@ -1,7 +1,5 @@
 package com.rs.game.player.actions;
 
-import java.util.Optional;
-
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Emotes.Emote;
 import com.rs.net.encoders.other.Animation;
@@ -11,8 +9,7 @@ public class Rest extends Action {
 
 	private final int restingType;
 	
-	public Rest(Player player, int type) {
-		super(player, Optional.empty());
+	public Rest(int type) {
 		this.restingType = type;
 	}
 
@@ -23,29 +20,29 @@ public class Rest extends Action {
 	private int index;
 
 	@Override
-	public boolean start() {
-		if (!process())
+	public boolean start(Player player) {
+		if (!process(player))
 			return false;
 		index = RandomUtils.inclusive(REST_DEFS.length -1);
-		getPlayer().setResting((byte) 1);
+		player.setResting((byte) 1);
 		if (restingType == 4)
-			getPlayer().getVarsManager().sendVar(173, 4);
+			player.getVarsManager().sendVar(173, 4);
 		else
-			getPlayer().getInterfaceManager().sendRunButtonConfig();
-		getPlayer().setNextAnimation(new Animation(REST_DEFS[index][0]));
-		getPlayer().getAppearance().setRenderEmote(REST_DEFS[index][1]);
+			player.getInterfaceManager().sendRunButtonConfig();
+		player.setNextAnimation(new Animation(REST_DEFS[index][0]));
+		player.getAppearance().setRenderEmote(REST_DEFS[index][1]);
 		return true;
 	}
 
 	@Override
-	public boolean process() {
-		if (getPlayer().getPoisonDamage().get() > 0) {
-			getPlayer().getPackets().sendGameMessage(
+	public boolean process(Player player) {
+		if (player.getPoisonDamage().get() > 0) {
+			player.getPackets().sendGameMessage(
 					"You can't rest while you're poisoned.");
 			return false;
 		}
-		if (getPlayer().getCombatDefinitions().isUnderCombat()) {
-			getPlayer().getPackets().sendGameMessage(
+		if (player.getCombatDefinitions().isUnderCombat()) {
+			player.getPackets().sendGameMessage(
 					"You can't rest until 10 seconds after the end of combat.");
 			return false;
 		}
@@ -53,23 +50,23 @@ public class Rest extends Action {
 	}
 
 	@Override
-	public int processWithDelay() {
-		if (getPlayer().getDetails().getRunEnergy() == 100)
+	public int processWithDelay(Player player) {
+		if (player.getDetails().getRunEnergy() == 100)
             return 0;
-        if (getPlayer().getDetails().getRunEnergy() > 98)
-        	getPlayer().getDetails().setRunEnergy(100);
-        else if (getPlayer().getDetails().getRunEnergy() <= 98)
-        	getPlayer().getDetails().setRunEnergy(getPlayer().getDetails().getRunEnergy() + 1);
+        if (player.getDetails().getRunEnergy() > 98)
+        	player.getDetails().setRunEnergy(100);
+        else if (player.getDetails().getRunEnergy() <= 98)
+        	player.getDetails().setRunEnergy(player.getDetails().getRunEnergy() + 1);
 		return 2;
 	}
 
 	//this apparently gets ignored entirely.
 	@Override
-	public void stop() {
-		Emote.setNextEmoteEnd(getPlayer());
-		getPlayer().setResting((byte) 0);
-		getPlayer().getInterfaceManager().sendRunButtonConfig();
-		getPlayer().getAppearance().setRenderEmote((short) -1);
-		getPlayer().setNextAnimation(new Animation(REST_DEFS[index][2]));
+	public void stop(Player player) {
+		Emote.setNextEmoteEnd(player);
+		player.setResting((byte) 0);
+		player.getInterfaceManager().sendRunButtonConfig();
+		player.getAppearance().setRenderEmote((short) -1);
+		player.setNextAnimation(new Animation(REST_DEFS[index][2]));
 	}
 }

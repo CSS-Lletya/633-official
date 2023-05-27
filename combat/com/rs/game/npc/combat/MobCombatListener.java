@@ -90,7 +90,7 @@ public abstract class MobCombatListener {
 						Player targetPlayer = (Player) target;
 						targetPlayer.getInterfaceManager().closeInterfaces();
 						if (targetPlayer.getCombatDefinitions().isAutoRetaliation() && !targetPlayer.getAction().getAction().isPresent() && !targetPlayer.hasWalkSteps())
-							targetPlayer.getAction().setAction(new PlayerCombat(targetPlayer, Optional.of(npc)));
+							targetPlayer.getAction().setAction(new PlayerCombat(Optional.of(npc)));
 						
 					} else {
 						NPC targetNPC = (NPC) target;

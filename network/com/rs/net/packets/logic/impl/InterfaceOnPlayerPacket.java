@@ -140,7 +140,7 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 							}
 						}
 					}
-					player.getAction().setAction(new PlayerCombat(player, Optional.of(p2)));
+					player.getAction().setAction(new PlayerCombat(Optional.of(p2)));
 				}
 				break;
 			}
@@ -206,7 +206,7 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 							}
 						}
 					}
-					player.getAction().setAction(new PlayerCombat(player, Optional.of(p2)));
+					player.getAction().setAction(new PlayerCombat(Optional.of(p2)));
 				}
 				break;
 			}

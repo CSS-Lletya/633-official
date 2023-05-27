@@ -15,7 +15,6 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
-import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.CoordsEvent;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.familiar.Familiar;
@@ -219,7 +218,7 @@ public class Player extends Entity {
 	/**
 	 * Represents a Action management system
 	 */
-	private transient ActionManager action = new ActionManager();
+	private transient ActionManager action = new ActionManager(this);
 	
 	/**
 	 * Represents the Map Zone Manager
@@ -383,6 +382,7 @@ public class Player extends Entity {
             questManager = new QuestManager();
 		getMusicsManager().setPlayer(this);
 		getNotes().setPlayer(this);
+		getCombatDefinitions().setPlayer(this);
 		getFriendsIgnores().setPlayer(this);
 		getDetails().getCharges().setPlayer(this);
 		getPetManager().setPlayer(this);
@@ -391,7 +391,7 @@ public class Player extends Entity {
 		setLogicPackets(new ConcurrentLinkedQueue<LogicPacket>());
 		setSwitchItemCache(new ObjectArrayList<Byte>());
 		if (getAction() == null)
-			setAction(new ActionManager());
+			setAction(new ActionManager(this));
 		if (getMapZoneManager() == null)
 			mapZoneManager = new MapZoneManager();
         questManager.setPlayer(this);
@@ -536,7 +536,19 @@ public class Player extends Entity {
 	 * @param listener
 	 */
 	public void dialog(DialogueEventListener listener){
+		listener.setPlayer(this);
 		getAttributes().get(Attribute.DIALOGUE_EVENT).set(listener.begin());
+		
+	}
+	
+	/**
+	 * Submits & executes a Dialogue event
+	 * @param listener
+	 */
+	public void dialogSkill(DialogueEventListener listener){
+		listener.setPlayer(this);
+		getAttributes().get(Attribute.SKILLING_DIALOGUE_EVENT).set(listener.beginSkill());
+		
 	}
 	
 	/**
@@ -551,14 +563,6 @@ public class Player extends Entity {
 				listener.accept(this);
 			}
 		});
-	}
-	
-	/**
-	 * Gets a Dialogue event
-	 */
-	public DialogueEventListener dialog(){
-		DialogueEventListener listener = (DialogueEventListener) getAttributes().get(Attribute.DIALOGUE_EVENT).get();
-		return listener;
 	}
 	
 	/**

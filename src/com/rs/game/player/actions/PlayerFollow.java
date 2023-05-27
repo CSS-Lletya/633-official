@@ -13,51 +13,50 @@ public class PlayerFollow extends Action {
 
 	private Player target;
 	
-	public PlayerFollow(Player player, Optional<Entity> target) {
-		super(player, target);
+	public PlayerFollow(Optional<Entity> target) {
 		this.target = target.get().toPlayer();
 	}
 
 	@Override
-	public boolean start() {
-		getPlayer().setNextFaceEntity(target);
-		if (checkAll())
+	public boolean start(Player player) {
+		player.setNextFaceEntity(target);
+		if (checkAll(player))
 			return true;
-		getPlayer().setNextFaceEntity(null);
+		player.setNextFaceEntity(null);
 		return false;
 	}
 
-	private boolean checkAll() {
-		if (getPlayer().isDead() || getPlayer().isFinished() || target.isDead() || target.isFinished())
+	private boolean checkAll(Player player) {
+		if (player.isDead() || player.isFinished() || target.isDead() || target.isFinished())
 			return false;
-		if (getPlayer().getPlane() != target.getPlane())
+		if (player.getPlane() != target.getPlane())
 			return false;
-		if (getPlayer().getMovement().isFrozen())
+		if (player.getMovement().isFrozen())
 			return true;
-		int distanceX = getPlayer().getX() - target.getX();
-		int distanceY = getPlayer().getY() - target.getY();
-		int size = getPlayer().getSize();
+		int distanceX = player.getX() - target.getX();
+		int distanceY = player.getY() - target.getY();
+		int size = player.getSize();
 		int maxDistance = 16;
-		if (getPlayer().getPlane() != target.getPlane() || distanceX > size + maxDistance || distanceX < -1 - maxDistance
+		if (player.getPlane() != target.getPlane() || distanceX > size + maxDistance || distanceX < -1 - maxDistance
 				|| distanceY > size + maxDistance || distanceY < -1 - maxDistance)
 			return false;
 		int lastFaceEntity = target.getLastFaceEntity();
-		if (lastFaceEntity == getPlayer().getClientIndex() && target.getAction().getAction().get() instanceof PlayerFollow)
-			getPlayer().addWalkSteps(target.getX(), target.getY());
-		else if (!getPlayer().clipedProjectile(target, true) || !Utility.isOnRange(getPlayer().getX(), getPlayer().getY(), size,
+		if (lastFaceEntity == player.getClientIndex() && target.getAction().getAction().get() instanceof PlayerFollow)
+			player.addWalkSteps(target.getX(), target.getY());
+		else if (!player.clipedProjectile(target, true) || !Utility.isOnRange(player.getX(), player.getY(), size,
 				target.getX(), target.getY(), target.getSize(), 0)) {
-			int steps = RouteFinder.findRoute(RouteFinder.WALK_ROUTEFINDER, getPlayer().getX(), getPlayer().getY(),
-					getPlayer().getPlane(), getPlayer().getSize(), new EntityStrategy(target), true);
+			int steps = RouteFinder.findRoute(RouteFinder.WALK_ROUTEFINDER, player.getX(), player.getY(),
+					player.getPlane(), player.getSize(), new EntityStrategy(target), true);
 			if (steps == -1)
 				return false;
 
 			if (steps > 0) {
-				getPlayer().resetWalkSteps();
+				player.resetWalkSteps();
 
 				int[] bufferX = RouteFinder.getLastPathBufferX();
 				int[] bufferY = RouteFinder.getLastPathBufferY();
 				for (int step = steps - 1; step >= 0; step--) {
-					if (!getPlayer().addWalkSteps(bufferX[step], bufferY[step], 25, true))
+					if (!player.addWalkSteps(bufferX[step], bufferY[step], 25, true))
 						break;
 				}
 			}
@@ -67,17 +66,17 @@ public class PlayerFollow extends Action {
 	}
 
 	@Override
-	public boolean process() {
-		return checkAll();
+	public boolean process(Player player) {
+		return checkAll(player);
 	}
 
 	@Override
-	public int processWithDelay() {
+	public int processWithDelay(Player player) {
 		return 0;
 	}
 
 	@Override
-	public void stop() {
-		getPlayer().setNextFaceEntity(null);
+	public void stop(Player player) {
+		player.setNextFaceEntity(null);
 	}
 }

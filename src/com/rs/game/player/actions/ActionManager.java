@@ -2,6 +2,9 @@ package com.rs.game.player.actions;
 
 import java.util.Optional;
 
+import com.rs.game.player.Player;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,10 +13,14 @@ import lombok.Setter;
  * @author Dennis
  *
  */
+@Data
 public final class ActionManager {
 	
-	public ActionManager() {
+	private final transient Player player;
+	
+	public ActionManager(Player player) {
 		action = Optional.empty();
+		this.player = player;
 	}
 	
 	/**
@@ -33,7 +40,7 @@ public final class ActionManager {
 	 * Handles the processing of an Action
 	 */
 	public void process() {
-		if (getAction().isPresent() && !getAction().get().process()) {
+		if (getAction().isPresent() && !getAction().get().process(player)) {
 			forceStop();	
 		}
 		if (!getAction().isPresent()) {
@@ -43,7 +50,7 @@ public final class ActionManager {
 			actionDelay--;
 			return;
 		}
-		int delay = getAction().get().processWithDelay();
+		int delay = getAction().get().processWithDelay(player);
 		if (delay == -1) {
 			forceStop();
 			return;
@@ -57,7 +64,7 @@ public final class ActionManager {
 	 * @return action
 	 */
 	public void setAction(Action actionEvent) {
-		if (!actionEvent.start())
+		if (!actionEvent.start(player))
 			return;
 		action = Optional.of(actionEvent);
 	}
@@ -67,7 +74,7 @@ public final class ActionManager {
 	 */
 	public void forceStop() {
 		getAction().ifPresent(presentAction ->  {
-			presentAction.stop();
+			presentAction.stop(player);
 		});
 		action = Optional.empty();
 	}

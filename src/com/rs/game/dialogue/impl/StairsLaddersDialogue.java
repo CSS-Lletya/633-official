@@ -1,6 +1,5 @@
 package com.rs.game.dialogue.impl;
 
-import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;

@@ -69,10 +69,20 @@ public interface Attribute {
 	public String DIALOGUE_EVENT = "DialogueEvent";
 	
 	/**
+	 * Represents the Dialogue event state
+	 */
+	public String SKILLING_DIALOGUE_EVENT = "SkillingDialogueEvent";
+	
+	/**
 	 * Represents the max skill quantity for skilling menu (fletching, such)
 	 * TODO: Implement proper system
 	 */
 	public String SKILL_DIALOGUE_MAX_QUANTITY = "SkillsDialogueMaxQuantity";
+	
+	/**
+	 * Represents the skill quantity for skilling menu (fletching, such)
+	 */
+	public String SKILL_DIALOGUE_QUANTITY = "SkillsDialogueQuantity";
 	
 	/**
 	 * Represents the Miasmic effects

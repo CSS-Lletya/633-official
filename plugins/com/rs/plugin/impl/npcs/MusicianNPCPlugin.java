@@ -11,6 +11,6 @@ public class MusicianNPCPlugin implements NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) throws Exception {
-		npc.doAction(option, "Listen-to", () -> player.getAction().setAction(new Rest(player, 4)));
+		npc.doAction(option, "Listen-to", () -> player.getAction().setAction(new Rest(4)));
 	}
 }

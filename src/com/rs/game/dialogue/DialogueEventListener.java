@@ -15,7 +15,11 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 
 	protected transient Player player;
 
-	private final Object[] args;
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	protected Object[] args;
 
 	public DialogueEventListener mes(String message, Object... args) {
 		dialogueEvent.add(new DialogueEvent((byte) 0, String.format(message, args)));
@@ -49,15 +53,13 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 		dialogueEvent.add(new DialogueOptionEvent("", option1, task1, option2, task2));
 	}
 
-	public void option(String option1, Runnable task1, String option2, Runnable task2, String option3,
-			Runnable task3) {
+	public void option(String option1, Runnable task1, String option2, Runnable task2, String option3, Runnable task3) {
 		dialogueEvent.add(new DialogueOptionEvent("", option1, task1, option2, task2, option3, task3));
 	}
 
-	public void option(String option1, Runnable task1, String option2, Runnable task2, String option3,
-			Runnable task3, String option4, Runnable task4) {
-		dialogueEvent
-				.add(new DialogueOptionEvent("", option1, task1, option2, task2, option3, task3, option4, task4));
+	public void option(String option1, Runnable task1, String option2, Runnable task2, String option3, Runnable task3,
+			String option4, Runnable task4) {
+		dialogueEvent.add(new DialogueOptionEvent("", option1, task1, option2, task2, option3, task3, option4, task4));
 	}
 
 	public void option(String title, String option1, Runnable task1, String option2, Runnable task2, String option3,
@@ -82,19 +84,27 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 	}
 
 	public DialogueEventListener begin() {
+		setPlayer(player);
 		start();
 		listenToDialogueEvent(0);
 		return this;
 	}
 
-	/*NOTE: cant cast boolean to dialogue class for attribute.
-	  		Not sure how to fix tbh, however not using it for close interfaces
-	  		works. sigh. sorry.
-	*/
+	public DialogueEventListener beginSkill() {
+		setPlayer(player);
+		start();
+		return this;
+	}
+
+	/*
+	 * NOTE: cant cast boolean to dialogue class for attribute. Not sure how to fix
+	 * tbh, however not using it for close interfaces works. sigh. sorry.
+	 */
 	public void complete() {
 		player.getInterfaceManager().closeChatBoxInterface();
 		onClose();
 		player.getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
+		player.getAttributes().get(Attribute.SKILLING_DIALOGUE_EVENT).set(null);
 	}
 
 	/**
@@ -111,11 +121,10 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 	}
 
 	public int ordinalButton(int button) {
-		return new int[] {0, 0, 0, 1, 2, 3, 4, 5 }[button];
+		return new int[] { 0, 0, 0, 1, 2, 3, 4, 5 }[button];
 	}
 
 	public void listenToDialogueEvent(int button) {
-
 		DialogueEvent previousDialogue = dialogueEvent.get(Math.max(0, page - 1));
 
 		if (page > 0 && previousDialogue.getType() == 3) {
@@ -139,11 +148,11 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 		page++;
 
 		switch (dialogue.getType()) {
-		case 0: {
+		case 0:
 			player.getInterfaceManager().sendChatBoxInterface(210);
 			player.getPackets().sendIComponentText(210, 1, dialogue.getText());
 			player.getPackets().sendHideIComponent(210, 2, dialogue.isRemoveContinue());
-		}
+
 			break;
 		case 1: {
 			DialogueEntityEvent event = (DialogueEntityEvent) dialogue;
@@ -170,42 +179,47 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 
 			}
 
-		}
 			break;
+		}
 		case 2: {
-			DialogueItemEvent event = (DialogueItemEvent) dialogue;
+			DialogueItemEvent event2 = (DialogueItemEvent) dialogue;
 			player.getInterfaceManager().sendChatBoxInterface(131);
-			player.getPackets().sendIComponentText(131, 1, event.getText());
-			player.getPackets().sendItemOnIComponent(131, 2, event.getItemId(), event.getAmount());
-			player.getPackets().sendHideIComponent(131, 3, event.isRemoveContinue());
-		}
+			player.getPackets().sendIComponentText(131, 1, event2.getText());
+			player.getPackets().sendItemOnIComponent(131, 2, event2.getItemId(), event2.getAmount());
+			player.getPackets().sendHideIComponent(131, 3, event2.isRemoveContinue());
+
 			break;
+		}
 		case 3: {
-			DialogueOptionEvent event = (DialogueOptionEvent) dialogue;
+			DialogueOptionEvent event3 = (DialogueOptionEvent) dialogue;
 			int index = 2;
 
-			String[] options = event.getOptionTextArray();
-			int interfaceId = 229 + (options.length == 2 ? -1 :  options.length == 5 ? options.length +1 : options.length -1 );
+			String[] options = event3.getOptionTextArray();
+			int interfaceId = 229
+					+ (options.length == 2 ? -1 : options.length == 5 ? options.length + 1 : options.length - 1);
 
 			for (String string : options) {
 				player.getPackets().sendIComponentText(interfaceId, index++, string);
 			}
 
 			player.getInterfaceManager().sendChatBoxInterface(interfaceId);
-		}
+
 			break;
+		}
 		case 4: {
-			/* NOTE: No actual function, this is just a reference point to show that
-			*  there can be two items in the items box, otherwise use type 2 method.
-			*/
-			DialogueItemEvent event = (DialogueItemEvent) dialogue;
+			/*
+			 * NOTE: No actual function, this is just a reference point to show that there
+			 * can be two items in the items box, otherwise use type 2 method.
+			 */
+			DialogueItemEvent event4 = (DialogueItemEvent) dialogue;
 			player.getInterfaceManager().sendChatBoxInterface(131);
-			player.getPackets().sendItemOnIComponent(131, 0, event.getItemId(), event.getAmount());
-			player.getPackets().sendItemOnIComponent(131, 2, event.getItemId(), event.getAmount());
-			player.getPackets().sendIComponentText(131, 1, event.getText());
-			player.getPackets().sendHideIComponent(131, 3, event.isRemoveContinue());
-		}
+			player.getPackets().sendItemOnIComponent(131, 0, event4.getItemId(), event4.getAmount());
+			player.getPackets().sendItemOnIComponent(131, 2, event4.getItemId(), event4.getAmount());
+			player.getPackets().sendIComponentText(131, 1, event4.getText());
+			player.getPackets().sendHideIComponent(131, 3, event4.isRemoveContinue());
+
 			break;
+		}
 		}
 	}
 
@@ -225,10 +239,18 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 
 	public static boolean continueDialogue(Player player, int i) {
 		System.out.println("dialogue compId: " + i);
-		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().get(Attribute.DIALOGUE_EVENT).get();
+		DialogueEventListener dialogueskill = (DialogueEventListener) player.getAttributes()
+				.get(Attribute.SKILLING_DIALOGUE_EVENT).get();
+		if (dialogueskill == null)
+			return false;
+		dialogueskill.listenToDialogueEvent(i);
+
+		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().get(Attribute.DIALOGUE_EVENT)
+				.get();
 		if (dialogue == null)
 			return false;
 		dialogue.listenToDialogueEvent(i);
+
 		return true;
 	}
 

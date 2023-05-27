@@ -30,8 +30,7 @@ import skills.Skills;
 
 public class PlayerCombat extends Action {
 
-	public PlayerCombat(Player player, Optional<Entity> target) {
-		super(player, target);
+	public PlayerCombat( Optional<Entity> target) {
 		this.target = target.get();
 	}
 
@@ -56,65 +55,65 @@ public class PlayerCombat extends Action {
 
 
 	@Override
-	public boolean start() {
-		getPlayer().setNextFaceEntity(target);
-		getPlayer().getPackets().sendResetMinimapFlag();
-		if (checkAll())
+	public boolean start(Player player) {
+		player.setNextFaceEntity(target);
+		player.getPackets().sendResetMinimapFlag();
+		if (checkAll(player))
 			return true;
-		getPlayer().setNextFaceEntity(null);
+		player.setNextFaceEntity(null);
 		return false;
 	}
 
 	@Override
-	public boolean process() {
-		return checkAll();
+	public boolean process(Player player) {
+		return checkAll(player);
 	}
 
 	@Override
-	public int processWithDelay() {
-		int isRanging = isRanging(getPlayer());
-		int spellId = getPlayer().getCombatDefinitions().getSpellId();
-		if (spellId < 1 && hasPolyporeStaff(getPlayer())) {
+	public int processWithDelay(Player player) {
+		int isRanging = isRanging(player);
+		int spellId = player.getCombatDefinitions().getSpellId();
+		if (spellId < 1 && hasPolyporeStaff(player)) {
 			spellId = 65535;
 		}
 		int maxDistance = isRanging != 0 || spellId > 0 ? 7 : 0;
 		double multiplier = 1.0;
 		if (target.getAttributes().get(Attribute.MIASMIC_EFFECT).get() == Boolean.TRUE)
 			multiplier = 1.5;
-		int size = getPlayer().getSize();
-		if (!getPlayer().clipedProjectile(target, maxDistance == 0))
+		int size = player.getSize();
+		if (!player.clipedProjectile(target, maxDistance == 0))
 			return 0;
-		if (getPlayer().hasWalkSteps())
-			maxDistance += getPlayer().isRun() ? 2 : 1;
-		if (!Utility.isOnRange(getPlayer().getX(),getPlayer().getY(), size, target.getX(), target.getY(), target.getSize(),
+		if (player.hasWalkSteps())
+			maxDistance += player.isRun() ? 2 : 1;
+		if (!Utility.isOnRange(player.getX(),player.getY(), size, target.getX(), target.getY(), target.getSize(),
 				maxDistance))
 			return 0;
-		if (getPlayer().getMapZoneManager().execute(getPlayer(), controller -> !controller.keepCombating(getPlayer(), target))) {
+		if (player.getMapZoneManager().execute(player, controller -> !controller.keepCombating(player, target))) {
 			return -1;
 		}
-		addAttackedByDelay(getPlayer());
+		addAttackedByDelay(player);
 		if (spellId > 0) {
 			boolean manualCast = spellId != 65535 && spellId >= 256;
-			Item gloves = getPlayer().getEquipment().getItem(Equipment.SLOT_HANDS);
+			Item gloves = player.getEquipment().getItem(Equipment.SLOT_HANDS);
 			spellcasterGloves = gloves != null && gloves.getDefinitions().getName().contains("Spellcaster glove")
-					&& getPlayer().getEquipment().getWeaponId() == -1 && new Random().nextInt(30) == 0 ? spellId : -1;
-			int delay = mageAttack(getPlayer(), manualCast ? spellId - 256 : spellId, !manualCast);
-			if (getPlayer().getNextAnimation() != null && spellcasterGloves > 0) {
-				getPlayer().setNextAnimation(new Animation(14339));
+					&& player.getEquipment().getWeaponId() == -1 && new Random().nextInt(30) == 0 ? spellId : -1;
+			int delay = mageAttack(player, manualCast ? spellId - 256 : spellId, !manualCast);
+			if (player.getNextAnimation() != null && spellcasterGloves > 0) {
+				player.setNextAnimation(new Animation(14339));
 				spellcasterGloves = -1;
 			}
 			return delay;
 		} else {
 			if (isRanging == 0) {
-				return (int) (meleeAttack(getPlayer()) * multiplier);
+				return (int) (meleeAttack(player) * multiplier);
 			} else if (isRanging == 1) {
-				getPlayer().getPackets().sendGameMessage("This ammo is not very effective with this weapon.");
+				player.getPackets().sendGameMessage("This ammo is not very effective with this weapon.");
 				return -1;
 			} else if (isRanging == 3) {
-				getPlayer().getPackets().sendGameMessage("You dont have any ammo in your backpack.");
+				player.getPackets().sendGameMessage("You dont have any ammo in your backpack.");
 				return -1;
 			} else {
-				return (int) (rangeAttack(getPlayer()) * multiplier);
+				return (int) (rangeAttack(player) * multiplier);
 			}
 		}
 	}
@@ -156,7 +155,7 @@ public class PlayerCombat extends Action {
 						if (p2 == null || p2 == player || p2 == target || p2.isDead() || !p2.isStarted()
 								|| p2.isFinished() || !p2.isCanPvp() || !p2.isMultiArea()
 								|| !p2.withinDistance(target, maxDistance)
-								|| getPlayer().getMapZoneManager().execute(player, controller -> !controller.canHit(player, p2)))
+								|| player.getMapZoneManager().execute(player, controller -> !controller.canHit(player, p2)))
 							continue;
 						possibleTargets.add(p2);
 						if (possibleTargets.size() == maxAmtTargets)
@@ -170,7 +169,7 @@ public class PlayerCombat extends Action {
 						NPC n = World.getNPCs().get(npcIndex);
 						if (n == null || n == target || n == player.getFamiliar() || n.isDead() || n.isFinished()
 								|| !n.isMultiArea() || !n.withinDistance(target, maxDistance)
-								|| !n.getDefinitions().hasAttackOption() || getPlayer().getMapZoneManager().execute(player, controller -> !controller.canHit(player, n)))
+								|| !n.getDefinitions().hasAttackOption() || player.getMapZoneManager().execute(player, controller -> !controller.canHit(player, n)))
 							continue;
 						possibleTargets.add(n);
 						if (possibleTargets.size() == maxAmtTargets)
@@ -2518,7 +2517,7 @@ public class PlayerCombat extends Action {
 						Player p2 = (Player) target;
 						p2.getInterfaceManager().closeInterfaces();
 						if (p2.getCombatDefinitions().isAutoRetaliation() && !p2.getAction().getAction().isPresent() &&  !p2.hasWalkSteps())
-							p2.getAction().setAction(new PlayerCombat(p2, Optional.of(target)));
+							p2.getAction().setAction(new PlayerCombat(Optional.of(target)));
 					} else {
 						NPC n = (NPC) target;
 						if (!n.getCombat().underCombat() || n.canBeAttackedByAutoRelatie())
@@ -2800,25 +2799,25 @@ public class PlayerCombat extends Action {
 	}
 
 	@Override
-	public void stop() {
-		getPlayer().setNextFaceEntity(null);
+	public void stop(Player player) {
+		player.setNextFaceEntity(null);
 	}
 
-	private boolean checkAll() {
-		if (getPlayer().isDead() || getPlayer().isFinished() || target.isDead() || target.isFinished()) {
+	private boolean checkAll(Player player) {
+		if (player.isDead() || player.isFinished() || target.isDead() || target.isFinished()) {
 			return false;
 		}
-		int distanceX = getPlayer().getX() - target.getX();
-		int distanceY = getPlayer().getY() - target.getY();
-		int size = getPlayer().getSize();
+		int distanceX = player.getX() - target.getX();
+		int distanceY = player.getY() - target.getY();
+		int size = player.getSize();
 		int maxDistance = 16;
-		if (getPlayer().getPlane() != target.getPlane() || distanceX > size + maxDistance || distanceX < -1 - maxDistance
+		if (player.getPlane() != target.getPlane() || distanceX > size + maxDistance || distanceX < -1 - maxDistance
 				|| distanceY > size + maxDistance || distanceY < -1 - maxDistance) {
 			return false;
 		}
 		if (target.isPlayer()) {
 			Player p2 = (Player) target;
-			if (!getPlayer().isCanPvp() || !p2.isCanPvp())
+			if (!player.isCanPvp() || !p2.isCanPvp())
 				return false;
 		} else {
 			NPC n = (NPC) target;
@@ -2834,22 +2833,22 @@ public class PlayerCombat extends Action {
 					return false;
 				}
 				if (n.getId() == 879) {
-					if (getPlayer().getEquipment().getWeaponId() != 2402
-							&& getPlayer().getCombatDefinitions().getAutoCastSpell() <= 0 && !hasPolyporeStaff(getPlayer())) {
-						getPlayer().getPackets().sendGameMessage("I'd better wield Silverlight first.");
+					if (player.getEquipment().getWeaponId() != 2402
+							&& player.getCombatDefinitions().getAutoCastSpell() <= 0 && !hasPolyporeStaff(player)) {
+						player.getPackets().sendGameMessage("I'd better wield Silverlight first.");
 						return false;
 					}
 				} else if (n.getId() >= 14084 && n.getId() <= 14139) {
-					int weaponId = getPlayer().getEquipment().getWeaponId();
+					int weaponId = player.getEquipment().getWeaponId();
 					if (!((weaponId >= 13117 && weaponId <= 13146) || (weaponId >= 21580 && weaponId <= 21582))
-							&& getPlayer().getCombatDefinitions().getAutoCastSpell() <= 0 && !hasPolyporeStaff(getPlayer())) {
-						getPlayer().getPackets().sendGameMessage("I'd better wield a silver weapon first.");
+							&& player.getCombatDefinitions().getAutoCastSpell() <= 0 && !hasPolyporeStaff(player)) {
+						player.getPackets().sendGameMessage("I'd better wield a silver weapon first.");
 						return false;
 					}
 				} else if (n.getId() == 6222 || n.getId() == 6223 || n.getId() == 6225 || n.getId() == 6227
 						|| (n.getId() >= 6232 && n.getId() <= 6246)) {
-					if (isRanging(getPlayer()) == 0) {
-						getPlayer().getPackets()
+					if (isRanging(player) == 0) {
+						player.getPackets()
 								.sendGameMessage("The Aviansie is flying too high for you to attack using melee.");
 						return false;
 					}
@@ -2858,67 +2857,67 @@ public class PlayerCombat extends Action {
 		}
 		if (!(target.isNPC() && ((NPC) target).isForceMultiAttacked())) {
 
-			if (!target.isMultiArea() || !getPlayer().isMultiArea()) {
-				if (getPlayer().getAttackedBy() != target && getPlayer().getAttackedByDelay() > Utility.currentTimeMillis()) {
-					getPlayer().getPackets().sendGameMessage("You are already in combat.");
+			if (!target.isMultiArea() || !player.isMultiArea()) {
+				if (player.getAttackedBy() != target && player.getAttackedByDelay() > Utility.currentTimeMillis()) {
+					player.getPackets().sendGameMessage("You are already in combat.");
 					return false;
 				}
-				if (target.getAttackedBy() != getPlayer() && target.getAttackedByDelay() > Utility.currentTimeMillis()) {
-					getPlayer().getPackets().sendGameMessage("That "
-							+ (getPlayer().getAttackedBy().isPlayer() ? "player" : "npc") + " is already in combat.");
+				if (target.getAttackedBy() != player && target.getAttackedByDelay() > Utility.currentTimeMillis()) {
+					player.getPackets().sendGameMessage("That "
+							+ (player.getAttackedBy().isPlayer() ? "player" : "npc") + " is already in combat.");
 					return false;
 				}
 			}
 		}
-		int isRanging = isRanging(getPlayer());
+		int isRanging = isRanging(player);
 		int targetSize = target.getSize();
-		if (getPlayer().getMovement().getFreezeDelay() >= Utility.currentTimeMillis()) {
-			if (Utility.colides(getPlayer().getX(), getPlayer().getY(), size, target.getX(), target.getY(), targetSize))// under
+		if (player.getMovement().getFreezeDelay() >= Utility.currentTimeMillis()) {
+			if (Utility.colides(player.getX(), player.getY(), size, target.getX(), target.getY(), targetSize))// under
 				// target
 				return false;
-			if (isRanging == 0 && target.getSize() == 1 && getPlayer().getCombatDefinitions().getSpellId() <= 0
-					&& !hasPolyporeStaff(getPlayer()) && Math.abs(getPlayer().getX() - target.getX()) == 1
-					&& Math.abs(getPlayer().getY() - target.getY()) == 1 && !target.hasWalkSteps()) // diagonal
+			if (isRanging == 0 && target.getSize() == 1 && player.getCombatDefinitions().getSpellId() <= 0
+					&& !hasPolyporeStaff(player) && Math.abs(player.getX() - target.getX()) == 1
+					&& Math.abs(player.getY() - target.getY()) == 1 && !target.hasWalkSteps()) // diagonal
 				return false;
 			return true;
 		}
-		if (Utility.colides(getPlayer().getX(), getPlayer().getY(), size, target.getX(), target.getY(), targetSize)
+		if (Utility.colides(player.getX(), player.getY(), size, target.getX(), target.getY(), targetSize)
 				&& !target.hasWalkSteps()) {
-			getPlayer().resetWalkSteps();
-			if (!getPlayer().addWalkSteps(target.getX() + targetSize, getPlayer().getY())) {
-				getPlayer().resetWalkSteps();
-				if (!getPlayer().addWalkSteps(target.getX() - size, getPlayer().getY())) {
-					getPlayer().resetWalkSteps();
-					if (!getPlayer().addWalkSteps(getPlayer().getX(), target.getY() + targetSize)) {
-						getPlayer().resetWalkSteps();
-						if (!getPlayer().addWalkSteps(getPlayer().getX(), target.getY() - size)) {
+			player.resetWalkSteps();
+			if (!player.addWalkSteps(target.getX() + targetSize, player.getY())) {
+				player.resetWalkSteps();
+				if (!player.addWalkSteps(target.getX() - size, player.getY())) {
+					player.resetWalkSteps();
+					if (!player.addWalkSteps(player.getX(), target.getY() + targetSize)) {
+						player.resetWalkSteps();
+						if (!player.addWalkSteps(player.getX(), target.getY() - size)) {
 							return false;
 						}
 					}
 				}
 			}
 			return true;
-		} else if (isRanging == 0 && target.getSize() == 1 && getPlayer().getCombatDefinitions().getSpellId() <= 0
-				&& !hasPolyporeStaff(getPlayer()) && Math.abs(getPlayer().getX() - target.getX()) == 1
-				&& Math.abs(getPlayer().getY() - target.getY()) == 1 && !target.hasWalkSteps()) {
-			if (!getPlayer().addWalkSteps(target.getX(), getPlayer().getY(), 1))
-				getPlayer().addWalkSteps(getPlayer().getX(), target.getY(), 1);
+		} else if (isRanging == 0 && target.getSize() == 1 && player.getCombatDefinitions().getSpellId() <= 0
+				&& !hasPolyporeStaff(player) && Math.abs(player.getX() - target.getX()) == 1
+				&& Math.abs(player.getY() - target.getY()) == 1 && !target.hasWalkSteps()) {
+			if (!player.addWalkSteps(target.getX(), player.getY(), 1))
+				player.addWalkSteps(player.getX(), target.getY(), 1);
 			return true;
 		}
-		maxDistance = isRanging != 0 || getPlayer().getCombatDefinitions().getSpellId() > 0 || hasPolyporeStaff(getPlayer()) ? 7
+		maxDistance = isRanging != 0 || player.getCombatDefinitions().getSpellId() > 0 || hasPolyporeStaff(player) ? 7
 				: 0;
-		boolean needCalc = !getPlayer().hasWalkSteps() || target.hasWalkSteps();
-		if ((!getPlayer().clipedProjectile(target, maxDistance == 0)) || !Utility.isOnRange(getPlayer().getX(), getPlayer().getY(), size,
+		boolean needCalc = !player.hasWalkSteps() || target.hasWalkSteps();
+		if ((!player.clipedProjectile(target, maxDistance == 0)) || !Utility.isOnRange(player.getX(), player.getY(), size,
 				target.getX(), target.getY(), target.getSize(), maxDistance)) {
-			// if (!getPlayer().hasWalkSteps()) {
+			// if (!player.hasWalkSteps()) {
 			if (needCalc) {
-				getPlayer().resetWalkSteps();
-				getPlayer().calcFollow(target, getPlayer().isRun() ? 2 : 1, true, true);
+				player.resetWalkSteps();
+				player.calcFollow(target, player.isRun() ? 2 : 1, true, true);
 			}
 			// }
 			return true;
 		} else {
-			getPlayer().resetWalkSteps();
+			player.resetWalkSteps();
 		}
 		return true;
 	}

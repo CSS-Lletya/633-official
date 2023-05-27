@@ -48,7 +48,9 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.IS_BANKING, false);
 		AttributeKey.forTransient(Attribute.SKILL_GUIDE_MENU, 0);
 		AttributeKey.forTransient(Attribute.DIALOGUE_EVENT, false);
-		AttributeKey.forTransient(Attribute.SKILL_DIALOGUE_MAX_QUANTITY, 1);
+		AttributeKey.forTransient(Attribute.SKILLING_DIALOGUE_EVENT, false);
+		AttributeKey.forTransient(Attribute.SKILL_DIALOGUE_MAX_QUANTITY, 28);
+		AttributeKey.forTransient(Attribute.SKILL_DIALOGUE_QUANTITY, 1);
 		AttributeKey.forTransient(Attribute.RECOVER_SPECIAL_POT, -1);
 		AttributeKey.forTransient(Attribute.CURRENT_NOTE, -1);
 		AttributeKey.forTransient(Attribute.LAST_VENG, -1);

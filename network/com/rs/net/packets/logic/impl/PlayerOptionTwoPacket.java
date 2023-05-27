@@ -30,6 +30,6 @@ public class PlayerOptionTwoPacket implements LogicPacketListener {
 		if (forceRun)
 			player.setRun(forceRun);
 		player.getMovement().stopAll();
-		player.getAction().setAction(new PlayerFollow(player, Optional.of(p2)));
+		player.getAction().setAction(new PlayerFollow(Optional.of(p2)));
 	}
 }
