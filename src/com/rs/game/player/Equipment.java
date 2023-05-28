@@ -57,7 +57,7 @@ public final class Equipment {
 			w += ItemWeights.getWeight(item, true);
 		}
 		equipmentWeight = w;
-//		player.getPackets().refreshWeight();
+		player.getPackets().sendWeight();
 	}
 
 	public void reset() {

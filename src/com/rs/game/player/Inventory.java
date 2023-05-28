@@ -30,6 +30,7 @@ public final class Inventory {
 
 	public void init() {
 		player.getPackets().sendItems(93, items);
+		refreshConfigs(true);
 	}
 
 	public void unlockInventoryOptions() {
@@ -290,7 +291,7 @@ public final class Inventory {
 			w += ItemWeights.getWeight(item, false);
 		}
 		inventoryWeight = w;
-//		player.getPackets().refreshWeight();
+		player.getPackets().sendWeight();
 	}
 
 	public double getInventoryWeight() {
