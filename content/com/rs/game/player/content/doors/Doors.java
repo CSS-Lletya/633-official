@@ -1,14 +1,13 @@
 package com.rs.game.player.content.doors;
 
+import java.util.function.BiFunction;
+import java.util.stream.IntStream;
+
 import com.rs.cache.loaders.ObjectDefinitions;
-import com.rs.game.map.World;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.utilities.Ticks;
-
-import java.util.function.BiFunction;
-import java.util.stream.IntStream;
 
 public class Doors {
 
@@ -522,7 +521,7 @@ public class Doors {
 		for (WorldTile t : toCheck) {
 			if (g[0] == null || g[0].getDefinitions().secondInt == 0
 					|| !g[0].getDefinitions().getName().equals(object.getDefinitions().getName())) {
-				g[0] = World.getObjectWithId(t, object.getType());
+				g[0] = GameObject.getObjectWithId(t, object.getType());
 			}
 		}
 		if (g[0] == null || g[0].getDefinitions().secondInt == 0

@@ -4,11 +4,11 @@ import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 
 import skills.ProducingSkillAction;
 import skills.Skills;
@@ -40,18 +40,13 @@ public final class Cooking extends ProducingSkillAction {
 
 	@Override
 	public void onStop() {
-//		player.getAttr().get("cooking_data").set(null);
-//
-//		if(!spell) {
-//			player.getAttr().get("cooking_object").set(null);
-//			player.getAttr().get("cooking_usingStove").set(false);
-//		}
+		
 	}
 
 	@Override
 	public void onProduce(Task t, boolean success) {
 		if(success) {
-			player.setNextAnimation(spell ? new Animation(4413) : !cookStove ? new Animation(897) : new Animation(896));
+			player.setNextAnimation(spell ? Animations.BAKE_PIE_SPELL : !cookStove ? Animations.COOKING_ON_FIRE : Animations.COOKING_ON_STOVE);
 			if(!spell) {
 				player.getPackets().sendGameMessage((burned ? "Oops! You accidently burn the " : "You cook the ").concat(ItemDefinitions.getItemDefinitions(data.getRawId()).getName()));
 			}
@@ -126,10 +121,8 @@ public final class Cooking extends ProducingSkillAction {
 	private boolean checkCooking() {
 		if(counter == 0)
 			return false;
-		if(!spell && object.getDefinitions().getName().contains("fire") && GameObject.getObjectWithId(object, object.getId()) == null) {
-			System.out.println("doesnt exist");
-			return false;//Fire doesn't exist.
-		}
+		if(!spell && object.getDefinitions().getName().toLowerCase().contains("fire") && GameObject.getObjectWithId(object, object.getId()) == null) 
+			return false;
 		if(!player.getInventory().containsItem(new Item(data.getRawId()))) {
 			player.getPackets().sendGameMessage("You don't have any " + data.toString() + " to cook.");
 			return false;
@@ -140,25 +133,4 @@ public final class Cooking extends ProducingSkillAction {
 		}
 		return true;
 	}
-
-//	public static void action() {
-//		ItemOnObjectAction a = new ItemOnObjectAction() {
-//			@Override
-//			public boolean click(Player player, GameObject object, Item item, int container, int slot) {
-//				CookingData c = CookingData.forItem(item);
-//				if(c == null)
-//					return false;
-//				player.getAttr().get("cooking_usingStove").set(true);
-//				player.getAttr().get("cooking_data").set(c);
-//				player.getAttr().get("cooking_object").set(object);
-//				c.openInterface(player);
-//				return true;
-//			}
-//		};
-//		a.registerObj(114);
-//		a.registerObj(2728);
-//		a.registerObj(25730);
-//		a.registerObj(24283);
-//		a.registerObj(2732);
-//	}
 }

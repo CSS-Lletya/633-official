@@ -676,12 +676,6 @@ public final class World {
 	public static void sendWorldMessage(String message) {
 		players().forEach(player -> player.getPackets().sendGameMessage(message));
 	}
-	
-	public static void sendIgnoreableWorldMessage(Player sender, String message, boolean forStaff) {
-		World.players().filter(p -> p == null || !p.isRunning() || p.getDetails().isYellOff() || (forStaff && !p.getDetails().getRights().isStaff())
-				|| p.getFriendsIgnores().containsIgnore(sender.getUsername()) || p.getInterfaceManager().containsReplacedChatBoxInter()).forEach(player -> player.getPackets().sendGameMessage(message));
-	}
-
 
 	/**
 	 * An implementation of the singleton pattern to prevent indirect
@@ -709,10 +703,5 @@ public final class World {
 	 */
 	public void submit(Task task) {
 		getTaskManager().submit(task);
-	}
-
-	public static final GameObject getObjectWithId(WorldTile tile, int id) {
-		return getRegion(tile.getRegionId()).getObjectWithId(tile.getPlane(), tile.getXInRegion(), tile.getYInRegion(),
-				id);
 	}
 }

@@ -104,6 +104,9 @@ public final class Animations {
 	public static final Animation TWO_HANDED_GRAB = new Animation(881);
 	public static final Animation SIMPLE_GRAB = new Animation(536);
 	public static final Animation BONE_ON_ALTAR = new Animation(713);
+	public static final Animation BAKE_PIE_SPELL = new Animation(4413);
+	public static final Animation COOKING_ON_FIRE = new Animation(897);
+	public static final Animation COOKING_ON_STOVE = new Animation(897);
 	
 	/**
 	 * Object Based Animations

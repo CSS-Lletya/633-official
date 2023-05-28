@@ -2,7 +2,6 @@ package com.rs.net.packets.logic.impl;
 
 import com.rs.GameConstants;
 import com.rs.game.map.GameObject;
-import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.player.Player;
@@ -31,7 +30,7 @@ public class ObjectThirdClickPacket implements LogicPacketListener {
 			player.getPackets().sendGameMessage("map doesnt contains region");
 			return;
 		}
-		GameObject mapObject = World.getObjectWithId(tile, id);
+		GameObject mapObject = GameObject.getObjectWithId(tile, id);
 		if (mapObject == null) {
 			return;
 		}

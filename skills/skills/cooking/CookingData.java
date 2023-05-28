@@ -44,6 +44,7 @@ public enum CookingData {
 	ROCKTAIL(15270, 93, 15272, 100, 15274, 160);
 
 	public static final ImmutableSet<CookingData> VALUES = ImmutableSet.copyOf(values());
+	
 	@Getter
 	private final int rawId, level, cookedId, masterLevel, burntId, experience;
 

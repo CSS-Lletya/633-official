@@ -93,17 +93,15 @@ public final class Equipment {
 	}
 
 	public static boolean hideArms(Item item) {
-		/*
-		 * String name = item.getName().toLowerCase(); if //temp old graphics fix, but
-		 * bugs alil new ones (name.contains("d'hide body") ||
-		 * name.contains("dragonhide body") || name.equals("stripy pirate shirt") ||
-		 * (name.contains("chainbody") && (name.contains("iron") ||
-		 * name.contains("bronze") || name.contains("steel") || name.contains("black")
-		 * || name.contains("mithril") || name.contains("adamant") ||
-		 * name.contains("rune") || name.contains("white"))) ||
-		 * name.equals("leather body") || name.equals("hardleather body") ||
-		 * name.contains("studded body")) return false;
-		 */
+		  String name = item.getName().toLowerCase(); if(name.contains("d'hide body") ||
+		  name.contains("dragonhide body") || name.equals("stripy pirate shirt") ||
+		  (name.contains("chainbody") && (name.contains("iron") ||
+		  name.contains("bronze") || name.contains("steel") || name.contains("black")
+		  || name.contains("mithril") || name.contains("adamant") ||
+		  name.contains("rune") || name.contains("white"))) ||
+		  name.equals("leather body") || name.equals("hardleather body") ||
+		  name.contains("studded body")) return false;
+		 
 		return item.getDefinitions().getEquipType() == 6;
 	}
 
