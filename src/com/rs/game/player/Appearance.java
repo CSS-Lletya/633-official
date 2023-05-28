@@ -121,7 +121,7 @@ public class Appearance {
 			stream.writeShort(item == null ? 0x100 + lookI[6] : 16384 + item.getId());
 			// tits for female, bear for male
 			item = player.getEquipment().getItems().get(male ? Equipment.SLOT_HAT : Equipment.SLOT_CHEST);
-			if (item == null || (male && Equipment.showBear(item)))
+			if (item == null || (male && Equipment.showBeard(item)))
 				stream.writeShort(0x100 + lookI[1]);
 			else
 				stream.writeByte(0);

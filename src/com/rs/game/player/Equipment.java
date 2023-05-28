@@ -109,12 +109,13 @@ public final class Equipment {
 		return item.getDefinitions().getEquipType() == 8;
 	}
 
-	public static boolean showBear(Item item) {
+	public static boolean showBeard(Item item) {
 		String name = item.getName().toLowerCase();
 		return !hideHair(item) || name.contains("horns") || name.contains("hat") || name.contains("afro")
 				|| name.contains("cowl") || name.contains("tattoo") || name.contains("headdress")
 				|| name.contains("hood") || (name.contains("mask") && !name.contains("h'ween"))
-				|| (name.contains("helm") && !name.contains("full")) || name.contains("chicken");
+				|| (name.contains("helm") && !name.contains("full")) || name.contains("chicken")
+				|| name.contains("coif");
 	}
 
 	public static int getItemSlot(int itemId) {
