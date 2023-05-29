@@ -1,4 +1,4 @@
-package com.rs.plugin.impl.regionalttributes;
+package com.rs.plugin.impl.regionalattributes;
 
 import com.rs.game.map.WorldTile;
 import com.rs.plugin.listener.RegionAttributeListener;

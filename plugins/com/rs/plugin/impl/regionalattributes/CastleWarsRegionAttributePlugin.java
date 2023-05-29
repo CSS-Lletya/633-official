@@ -1,16 +1,17 @@
-package com.rs.plugin.impl.regionalttributes;
+package com.rs.plugin.impl.regionalattributes;
 
 import com.rs.game.map.WorldTile;
 import com.rs.plugin.listener.RegionAttributeListener;
 import com.rs.plugin.wrapper.RegionAttributeSignature;
 
 @RegionAttributeSignature(forceMultiRegions = {})
-public class KingBlackDragonRegionAttributePlugin implements RegionAttributeListener {
+public class CastleWarsRegionAttributePlugin implements RegionAttributeListener {
 
 	@Override
 	public boolean withinMultiZonedBoundaries(WorldTile tile) {
 		int destX = tile.getX();
 		int destY = tile.getY();
-		return destX >= 2250 && destX <= 2280 && destY >= 4670 && destY <= 4720;
+		return destX >= 2368 && destY >= 3072 && destX <= 2431 && destY <= 3135
+			|| destX >= 2365 && destY >= 9470 && destX <= 2436 && destY <= 9532;
 	}
 }

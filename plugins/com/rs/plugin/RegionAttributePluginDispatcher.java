@@ -38,7 +38,7 @@ public class RegionAttributePluginDispatcher {
 	}
 
 	public static void load() {
-		List<RegionAttributeListener> commands = Utility.getClassesInDirectory("com.rs.plugin.impl.regionalttributes")
+		List<RegionAttributeListener> commands = Utility.getClassesInDirectory("com.rs.plugin.impl.regionalattributes")
 				.stream().map(clazz -> (RegionAttributeListener) clazz).collect(Collectors.toList());
 		commands.forEach(command -> REGION_ATTRIBUTES
 				.put(command.getClass().getAnnotation(RegionAttributeSignature.class), command));
