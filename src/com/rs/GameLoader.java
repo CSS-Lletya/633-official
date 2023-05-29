@@ -32,6 +32,7 @@ import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.plugin.NPCPluginDispatcher;
 import com.rs.plugin.ObjectPluginDispatcher;
 import com.rs.plugin.RSInterfacePluginDispatcher;
+import com.rs.plugin.RegionAttributePluginDispatcher;
 import com.rs.utilities.CharmDrop;
 import com.rs.utilities.EquipData;
 import com.rs.utilities.ItemExamines;
@@ -131,7 +132,7 @@ public class GameLoader {
 			OutgoingPacketDispatcher.load();
 			GenericNPCDispatcher.load();
 			PassiveSpellDispatcher.load();
-//			RegionAttributePluginDispatcher.load();
+			RegionAttributePluginDispatcher.load();
 		});
 		getBackgroundLoader().submit(() -> {
         	if (GameConstants.SQL_ENABLED) {

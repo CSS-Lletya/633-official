@@ -46,6 +46,7 @@ import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
+import com.rs.plugin.RegionAttributePluginDispatcher;
 import com.rs.utilities.MutableNumber;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
@@ -978,11 +979,11 @@ public abstract class Entity extends WorldTile {
 	}
 
 	public void checkMultiArea() {
-		setMultiArea(isForceMultiArea() ? true : World.isMultiArea(this));
+		setMultiArea(isForceMultiArea() || RegionAttributePluginDispatcher.isMulti(this));
 		ifPlayer(player -> {
 			if (!player.isStarted())
 				return;
-			boolean isAtMultiArea = player.isForceMultiArea() ? true : World.isMultiArea(player);
+			boolean isAtMultiArea = player.isForceMultiArea() || RegionAttributePluginDispatcher.isMulti(this);
 			if (isAtMultiArea && !player.isMultiArea()) {
 				player.setMultiArea(isAtMultiArea);
 				player.getPackets().sendGlobalConfig(616, 1);
