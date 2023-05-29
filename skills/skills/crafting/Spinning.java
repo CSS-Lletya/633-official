@@ -38,28 +38,7 @@ public final class Spinning extends ProducingSkillAction {
 		this.data = data;
 		this.amount = amount;
 	}
-	
-//	public static void action() {
-//		for(SpinningData data : SpinningData.values()) {
-//			ItemOnObjectAction a = new ItemOnObjectAction() {
-//				@Override
-//				public boolean click(Player player, GameObject object, Item item, int container, int slot) {
-//					if(object.getId() != 2644) {
-//						return false;
-//					}
-//					player.text(2799, "\\n\\n\\n\\n\\n" + data.produced.getDefinition().getName());
-//					player.out(new SendItemModelInterface(1746, 200, data.produced.getId()));
-//					player.getAttr().get("crafting_spin").set(true);
-//					player.getAttr().get("crafting_spinning").set(data);
-//					player.chatWidget(4429);
-//					return true;
-//				}
-//			};
-//			a.registerObj(2644);
-//			a.registerItem(data.item.getId());
-//		}
-//	}
-//	
+
 	@Override
 	public void onProduce(Task t, boolean success) {
 		System.out.println(amount);

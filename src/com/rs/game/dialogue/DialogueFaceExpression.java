@@ -1,4 +1,5 @@
 package com.rs.game.dialogue;
+
 public interface DialogueFaceExpression {
 
 	// Happy expressions

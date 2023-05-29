@@ -239,19 +239,21 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 
 	public static boolean continueDialogue(Player player, int i) {
 		System.out.println("dialogue compId: " + i);
-		DialogueEventListener dialogueskill = (DialogueEventListener) player.getAttributes()
-				.get(Attribute.SKILLING_DIALOGUE_EVENT).get();
-		if (dialogueskill == null)
-			return false;
-		dialogueskill.listenToDialogueEvent(i);
-
-		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().get(Attribute.DIALOGUE_EVENT)
-				.get();
+		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().get(Attribute.DIALOGUE_EVENT).get();
 		if (dialogue == null)
 			return false;
+		System.out.println("?");
 		dialogue.listenToDialogueEvent(i);
-
 		return true;
 	}
-
+	
+	public static boolean continueSkillingDialogue(Player player, int i) {
+		System.out.println("dialogue compId: " + i);
+		DialogueEventListener dialogueskill = (DialogueEventListener) player.getAttributes().get(Attribute.SKILLING_DIALOGUE_EVENT).get();
+		if (dialogueskill == null)
+			return false;
+		System.out.println("?.?");
+		dialogueskill.listenToDialogueEvent(i);
+		return true;
+	}
 }

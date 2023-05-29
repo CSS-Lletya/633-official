@@ -8,7 +8,6 @@ import com.rs.cache.Cache;
 import com.rs.content.quests.QuestManager;
 import com.rs.cores.BlockingExecutorService;
 import com.rs.cores.CoresManager;
-import com.rs.game.dialogue.DialogueEventRepository;
 import com.rs.game.item.ItemWeights;
 import com.rs.game.map.MapBuilder;
 import com.rs.game.map.World;
@@ -19,6 +18,7 @@ import com.rs.game.player.attribute.AttributeKey;
 import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.content.doors.DoorPair;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
+import com.rs.game.system.scripts.ScriptManager;
 import com.rs.net.Huffman;
 import com.rs.net.ServerChannelHandler;
 import com.rs.net.host.HostListType;
@@ -107,7 +107,6 @@ public class GameLoader {
 			MusicHints.init();
 			ShopsHandler.init();
 			GsonHandler.initialize();
-			DialogueEventRepository.init();
 			FriendChatsManager.init();
 			AttributeKey.init();
 			QuestManager.load();
@@ -132,6 +131,7 @@ public class GameLoader {
 			OutgoingPacketDispatcher.load();
 			GenericNPCDispatcher.load();
 			PassiveSpellDispatcher.load();
+//			RegionAttributePluginDispatcher.load();
 		});
 		getBackgroundLoader().submit(() -> {
         	if (GameConstants.SQL_ENABLED) {
@@ -142,6 +142,7 @@ public class GameLoader {
 		getBackgroundLoader().submit(() -> {
         	CharmDrop.loadCharmDrops();
         	DropSets.init();
+        	ScriptManager.load();
         });
 	}
 }

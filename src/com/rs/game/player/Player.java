@@ -12,6 +12,7 @@ import com.rs.content.quests.QuestManager;
 import com.rs.game.Entity;
 import com.rs.game.EntityType;
 import com.rs.game.dialogue.DialogueEventListener;
+import com.rs.game.dialogue.ScriptDialogueInterpreter;
 import com.rs.game.item.Item;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
@@ -310,6 +311,11 @@ public class Player extends Entity {
 	 */
 	private QuestManager questManager;
 	
+	/**
+	 * The dialogue interpreter.
+	 */
+	private transient ScriptDialogueInterpreter dialogueInterpreter;
+	
 
 	/**
 	 * Constructs a new Player
@@ -337,6 +343,7 @@ public class Player extends Entity {
 		if (!getCurrentMapZone().isPresent())
 			setCurrentMapZone(getCurrentMapZone());
 		questManager = new QuestManager();
+		dialogueInterpreter = new ScriptDialogueInterpreter(this);
 	}
 
 	/**
@@ -396,6 +403,8 @@ public class Player extends Entity {
 			mapZoneManager = new MapZoneManager();
         questManager.setPlayer(this);
         interfaceManager = new InterfaceManager(this);
+        if (dialogueInterpreter == null)
+			dialogueInterpreter = new ScriptDialogueInterpreter(this);
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -536,7 +545,6 @@ public class Player extends Entity {
 	 * @param listener
 	 */
 	public void dialog(DialogueEventListener listener){
-		listener.setPlayer(this);
 		getAttributes().get(Attribute.DIALOGUE_EVENT).set(listener.begin());
 		
 	}
@@ -546,7 +554,6 @@ public class Player extends Entity {
 	 * @param listener
 	 */
 	public void dialogSkill(DialogueEventListener listener){
-		listener.setPlayer(this);
 		getAttributes().get(Attribute.SKILLING_DIALOGUE_EVENT).set(listener.beginSkill());
 		
 	}
