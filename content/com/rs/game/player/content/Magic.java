@@ -856,7 +856,7 @@ public class Magic {
 							teleTile = tile;
 						}
 					}
-					player.safeForceMoveTile(teleTile);
+					player.setNextWorldTile(teleTile);
 					player.getMapZoneManager().executeVoid(player, controller -> controller.magicTeleported(player, teleType));
 					if (!player.getCurrentMapZone().isPresent())
 						teleControlersCheck(player, teleTile);
@@ -871,6 +871,7 @@ public class Magic {
 						player.setNextFaceWorldTile(
 								new WorldTile(teleTile.getX(), teleTile.getY() - 1, teleTile.getPlane()));
 						player.setDirection((byte) 6);
+						player.getAppearance().generateAppearenceData();
 					}
 					removeDamage = true;
 				} else {
@@ -916,7 +917,7 @@ public class Magic {
 							break;
 						teleTile = tile;
 					}
-					player.safeForceMoveTile(teleTile);
+					player.setNextWorldTile(teleTile);
 					player.getMapZoneManager().executeVoid(player, controller -> controller.magicTeleported(player, ITEM_TELEPORT));
 					if (player.getCurrentMapZone().isPresent())
 						teleControlersCheck(player, teleTile);

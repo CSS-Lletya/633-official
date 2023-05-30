@@ -9,10 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface InventoryWrapper {
 	
-	/**
-	 * The Object ID we're interacting with
-	 * @return
-	 */
 	int[] itemId();
 	
+	String[] itemNames(); 
 }

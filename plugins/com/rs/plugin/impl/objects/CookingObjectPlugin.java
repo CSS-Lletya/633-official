@@ -14,6 +14,6 @@ public class CookingObjectPlugin extends ObjectListener {
 	@Override
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
 		CookingData.VALUES.stream().filter(raw -> raw.getRawId() == item.getId())
-		.forEach(cookable -> player.dialogSkill(new CookingD(player, new CookingData[] {cookable}, object, item.getId())));
+		.forEach(cookable -> player.dialogBlank(new CookingD(player, new CookingData[] {cookable}, object, item.getId())));
 	}
 }

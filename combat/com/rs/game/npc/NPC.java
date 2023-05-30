@@ -148,7 +148,7 @@ public class NPC extends Entity {
 						}
 					}
 					if (!hasWalkSteps()) {
-						safeForceMoveTile(new WorldTile(getForceWalk()));
+						setNextWorldTile(new WorldTile(getForceWalk()));
 						setForceWalk(null);
 					}
 				} else

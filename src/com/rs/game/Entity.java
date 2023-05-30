@@ -13,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
-import java.util.stream.IntStream;
 
 import com.google.common.base.Preconditions;
 import com.rs.GameConstants;
@@ -1155,11 +1154,6 @@ public abstract class Entity extends WorldTile {
 				this.cancel();
 			}
 		});
-	}
-
-	public void safeForceMoveTile(WorldTile desination) {
-		if (World.isFloorFree(desination.getPlane(), desination.getX(), desination.getY()))
-			IntStream.range(0, 3).forEach(count -> setNextWorldTile(new WorldTile(desination, count)));
 	}
 
 	/**

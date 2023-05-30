@@ -52,7 +52,7 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 		getActor().getCombatDefinitions().resetSpecialAttack();
 		getActor().getPrayer().closeAllPrayers();
 		getActor().getMovement().setRunEnergy(100);
-		getActor().safeForceMoveTile(new WorldTile(GameConstants.START_PLAYER_LOCATION));
+		getActor().setNextWorldTile(new WorldTile(GameConstants.START_PLAYER_LOCATION));
 		
 //		Optional<MapZone> controller = getActor().getMapZoneManager().getMapZone(getActor());
 //		if (controller.isPresent()) {

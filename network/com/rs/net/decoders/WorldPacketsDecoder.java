@@ -29,7 +29,7 @@ public final class WorldPacketsDecoder extends Decoder {
 	public final static int ACTION_BUTTON7_PACKET = 19;
 	public final static int ACTION_BUTTON8_PACKET = 12;
 	public final static int ACTION_BUTTON9_PACKET = 18;
-	public final static int ACTION_BUTTON10_PACKET = 74;
+	public final static int ACTION_BUTTON10_PACKET = 72;
 	private final static int NPC_CLICK1_PACKET = 22;
 	private final static int NPC_CLICK2_PACKET = 24;
 	private final static int NPC_CLICK3_PACKET = 27;

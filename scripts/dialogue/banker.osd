@@ -1,5 +1,4 @@
 @dialogue npc:4907
-@dialogue npc:4906
 npc("Hello there! How may I assist you today?")
 >options
 options: {

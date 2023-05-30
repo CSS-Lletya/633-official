@@ -53,7 +53,7 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 		
 		if (player.getDialogueInterpreter().getDialogue() == null && player.getDialogueInterpreter().getDialogueStage() == null) {
 			player.getInterfaceManager().closeChatBoxInterface();
-			DialogueEventListener.continueSkillingDialogue(player, componentId);
+			DialogueEventListener.continueBlankDialogue(player, componentId);
 			DialogueEventListener.continueDialogue(player, componentId);
 			List<DialogueAction> actions = player.getDialogueInterpreter().getActions();
 			if (actions.size() > 0) {

@@ -90,7 +90,7 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 		return this;
 	}
 
-	public DialogueEventListener beginSkill() {
+	public DialogueEventListener beginBlank() {
 		setPlayer(player);
 		start();
 		return this;
@@ -104,7 +104,7 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 		player.getInterfaceManager().closeChatBoxInterface();
 		onClose();
 		player.getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
-		player.getAttributes().get(Attribute.SKILLING_DIALOGUE_EVENT).set(null);
+		player.getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).set(null);
 	}
 
 	/**
@@ -242,18 +242,16 @@ public abstract class DialogueEventListener implements DialogueFaceExpression {
 		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().get(Attribute.DIALOGUE_EVENT).get();
 		if (dialogue == null)
 			return false;
-		System.out.println("?");
 		dialogue.listenToDialogueEvent(i);
 		return true;
 	}
 	
-	public static boolean continueSkillingDialogue(Player player, int i) {
+	public static boolean continueBlankDialogue(Player player, int i) {
 		System.out.println("dialogue compId: " + i);
-		DialogueEventListener dialogueskill = (DialogueEventListener) player.getAttributes().get(Attribute.SKILLING_DIALOGUE_EVENT).get();
-		if (dialogueskill == null)
+		DialogueEventListener dialogueBlank = (DialogueEventListener) player.getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).get();
+		if (dialogueBlank == null)
 			return false;
-		System.out.println("?.?");
-		dialogueskill.listenToDialogueEvent(i);
+		dialogueBlank.listenToDialogueEvent(i);
 		return true;
 	}
 }

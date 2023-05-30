@@ -329,7 +329,7 @@ public abstract class Familiar extends NPC {
 			return;
 		}
 		sentRequestMoveMessage = false;
-		safeForceMoveTile(teleTile);
+		setNextWorldTile(teleTile);
 	}
 
 	public void removeFamiliar() {

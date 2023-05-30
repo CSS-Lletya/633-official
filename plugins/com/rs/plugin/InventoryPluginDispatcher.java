@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
@@ -13,13 +14,12 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
-import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 /**
  * @author Dennis
  */
-public final class InventoryPluginDispatcher {
+public class InventoryPluginDispatcher {
 	
 	/**
 	 * The object map which contains all the interface on the world.
@@ -33,7 +33,7 @@ public final class InventoryPluginDispatcher {
 	 */
 	public static void execute(Player player, Item item, int optionId) {
 		getItem(item.getId()).ifPresent(specifiedItem -> {
-			Try.run(() -> specifiedItem.execute(player, item, optionId)).onFailure(f -> f.printStackTrace());
+			specifiedItem.execute(player, item, optionId);
 		});
 	}
 
@@ -45,13 +45,15 @@ public final class InventoryPluginDispatcher {
 	private static Optional<InventoryListener> getItem(int itemId) {
 		return ITEMS.values()
 	            .stream()
-	            .filter(inventoryType -> isCorrectItem(inventoryType, itemId))
+	            .filter(inventoryType -> isCorrectItemId(inventoryType, itemId))
 	            .findFirst();
 	}
 	
-	private static boolean isCorrectItem(InventoryListener InventoryType, int interfaceId) {
+	private static boolean isCorrectItemId(InventoryListener InventoryType, int itemId) {
+		ItemDefinitions itemDef = ItemDefinitions.getItemDefinitions(itemId);
 		InventoryWrapper signature = InventoryType.getClass().getAnnotation(InventoryWrapper.class);
-		return Arrays.stream(signature.itemId()).anyMatch(right -> interfaceId == right);
+		return Arrays.stream(signature.itemNames()).anyMatch(itemName -> itemDef.getName().toLowerCase().contains(itemName))
+			|| Arrays.stream(signature.itemId()).anyMatch(id -> itemId == id);
 	}
 	
 	/**

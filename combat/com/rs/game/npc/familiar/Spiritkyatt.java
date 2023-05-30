@@ -47,7 +47,7 @@ public class Spiritkyatt extends Familiar {
 	@Override
 	public boolean submitSpecial(Object object) {
 		Player player = getOwner();
-		safeForceMoveTile(player);
+		setNextWorldTile(player);
 		player.setNextGraphics(new Graphics(1316));
 		player.setNextAnimation(new Animation(7660));
 		setNextAnimation(new Animation(5229));

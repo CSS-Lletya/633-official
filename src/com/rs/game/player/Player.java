@@ -551,8 +551,8 @@ public class Player extends Entity {
 	 * Submits & executes a Dialogue event
 	 * @param listener
 	 */
-	public void dialogSkill(DialogueEventListener listener){
-		getAttributes().get(Attribute.SKILLING_DIALOGUE_EVENT).set(listener.beginSkill());
+	public void dialogBlank(DialogueEventListener listener){
+		getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).set(listener.beginBlank());
 		
 	}
 	

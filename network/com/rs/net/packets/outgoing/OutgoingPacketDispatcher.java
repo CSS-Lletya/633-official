@@ -35,9 +35,6 @@ public class OutgoingPacketDispatcher {
 	 */
 	@SneakyThrows(Exception.class)
 	public static void execute(Player player, InputStream input, int packetId) {
-		Optional<OutgoingPacketListener> incomingPacket = getVerifiedPacket(packetId);
-		incomingPacket.ifPresent(packet -> packet.execute(player, input));
-		
 		if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET
 				|| packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET
 				|| packetId == WorldPacketsDecoder.ACTION_BUTTON4_PACKET
@@ -49,6 +46,8 @@ public class OutgoingPacketDispatcher {
 				|| packetId == WorldPacketsDecoder.ACTION_BUTTON9_PACKET
 				|| packetId == WorldPacketsDecoder.ACTION_BUTTON10_PACKET) 
 			RSInterfacePluginDispatcher.handleButtons(player, input, packetId);
+		Optional<OutgoingPacketListener> incomingPacket = getVerifiedPacket(packetId);
+		incomingPacket.ifPresent(packet -> packet.execute(player, input));
 	}
 
 	/**

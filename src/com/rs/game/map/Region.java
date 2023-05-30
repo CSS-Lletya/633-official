@@ -8,7 +8,6 @@ import com.rs.GameConstants;
 import com.rs.cache.Cache;
 import com.rs.cache.loaders.ClientScriptMap;
 import com.rs.cache.loaders.ObjectDefinitions;
-import com.rs.cores.CoresManager;
 import com.rs.game.item.FloorItem;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
