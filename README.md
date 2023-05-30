@@ -70,3 +70,4 @@ You can download the Cache by [clicking here](https://mega.nz/file/l5ZhDI6L#k1fX
 # ❤️ Credits ❤️
 - [Darkan Development](https://github.com/DarkanRS). Without the talents behind Darkan development may be at a slower pace than desired. Darkan is an open source #727 development (where we are 633), Go check them out and support and join the development if you'd like to as well!
 - [Rune-Server Community](https://www.rune-server.ee/). When in doubt, rune-server usually has your back. With the help of quality developers the official 633 development will continue to grow!
+- [Arios Development](https://www.rune-server.ee/runescape-development/rs2-server/projects/462495-arios-498-reliving-good-times.html). Providing great quality code and Scripting language.

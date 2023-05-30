@@ -356,29 +356,6 @@ public final class ScriptCompiler {
 		if (context != null) {
 			context = context.parse(getParameters(arguments, 0));
 		}
-		//		ScriptContext context = builder != null ? builder.newInstruction(name, arguments) : null;
-		//		if (context == null) {
-		//			String[] args = getArguments(arguments);
-		//			switch (name) {
-		//			case "startactivity":
-		//				name = args[0];
-		//				context = new StartActivityInstruction(name, getParameters(arguments, 1));
-		//				break;
-		//			case "message":
-		//				for (int i = 0; i < args.length; i++) {
-		//					args[i] = getString(args[i]);
-		//				}
-		//				context = new PMessageInstruction(args);
-		//				break;
-		//			case "hasitem":
-		//				Item[] items = new Item[args.length / 2];
-		//				for (int i = 0; i < items.length; i++) {
-		//					items[i] = new Item(Integer.parseInt(args[i]), Integer.parseInt(args[i + 1]));
-		//				}
-		//				context = new InvItemCondition(items);
-		//				break;
-		//			}
-		//		}
 		return context;
 	}
 

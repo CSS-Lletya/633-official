@@ -67,22 +67,20 @@ public class Region {
 	public void checkLoadMap() {
 		if (getLoadMapStage() == 0) {
 			setLoadMapStage(1);
-			CoresManager.schedule(() -> {
-				loadRegionMap();
-				setLoadMapStage(2);
-				if (!isLoadedObjectSpawns()) {
-					loadObjectSpawns();
-					setLoadedObjectSpawns(true);
-				}
-				if (!isLoadedItemSpawns()) {
-                    loadItemSpawns();
-                    setLoadedItemSpawns(true);
-                }
-				if (!isLoadedNPCSpawns()) {
-					loadNPCSpawns(regionId);
-					setLoadedNPCSpawns(true);
-				}
-			}, 1);
+			loadRegionMap();
+			setLoadMapStage(2);
+			if (!isLoadedObjectSpawns()) {
+				loadObjectSpawns();
+				setLoadedObjectSpawns(true);
+			}
+			if (!isLoadedItemSpawns()) {
+                loadItemSpawns();
+                setLoadedItemSpawns(true);
+            }
+			if (!isLoadedNPCSpawns()) {
+				loadNPCSpawns(regionId);
+				setLoadedNPCSpawns(true);
+			}
 		}
 	}
 
@@ -619,7 +617,7 @@ public class Region {
 		for (FloorItem item : groundItems) {
 			if ((item.isInvisible())
 					&& (item.hasOwner() && !player.getUsername().equals(
-							item.getOwner())))
+							item.getOwnerName())))
 				continue;
 			if (item.getId() == id && tile.getX() == item.getTile().getX()
 					&& tile.getY() == item.getTile().getY()

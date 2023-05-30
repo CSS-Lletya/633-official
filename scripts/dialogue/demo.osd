@@ -1,0 +1,28 @@
+@dialogue npc:0
+npc("text")
+>options
+options: {
+option("option 1", "option 2", "option 3", "option 4", "option 5")
+@option1 {
+player("text")
+npc("text")
+}
+@option2 {
+player("text")
+npc("text")
+}
+@option3 {
+player("text")
+npc("text")
+player("text")
+npc("text")
+}
+@option4 {
+player("text")
+npc("text")
+}
+@option5 {
+player("text")
+npc("text")
+}
+}

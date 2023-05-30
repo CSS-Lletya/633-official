@@ -489,11 +489,11 @@ public final class World {
 	}
 	
 	public static final Optional<Player> getPlayer(String username) {
-		return players().filter(p -> p.getUsername().equals(username)).findAny();
+		return players().filter(p -> p.getUsername().equalsIgnoreCase(username)).findFirst();
 	}
 
 	public static final Optional<Player> containsPlayer(String username) {
-		return players().filter(p -> p.getUsername().equals(username)).findAny();
+		return players().filter(p -> p.getUsername().equalsIgnoreCase(username)).findFirst();
 	}
 
 	public static final Player getPlayerByDisplayName(String username) {

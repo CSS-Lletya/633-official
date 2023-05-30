@@ -5,13 +5,19 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 
-@NPCSignature(name = {"Banker"}, npcId = {})
-public class BankerNPCPlugin implements NPCListener{
+@NPCSignature(name = { "Banker" }, npcId = {})
+public class BankerNPCPlugin implements NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) throws Exception {
-		if (npc.getDefinitions().hasOptions("Bank", "Talk-to") && option == 1 || option == 2) {
+		switch (option) {
+		case 1:
+			player.getDialogueInterpreter().open(4907);
+			break;
+		case 2:
 			player.getBank().openBank();
+			break;
+
 		}
 	}
 }

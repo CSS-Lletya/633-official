@@ -1,0 +1,29 @@
+@dialogue npc:4907
+@dialogue npc:4906
+npc("Hello there! How may I assist you today?")
+>options
+options: {
+option("I would like to deposit some items.", "Can you explain how the bank works?", "Do you offer any services?", "Can I access my items from any bank?", "Never mind.")
+@option1 {
+player("I would like to deposit some items.")
+npc("Certainly! Just hand me the items you'd like to", "deposit, and I'll keep them safe for you.")
+openbank(player)
+}
+@option2 {
+player("Can you explain how the bank works?")
+npc("Of course! The bank is a secure storage facility for", "your items. You can deposit and withdraw items as", "you please. Your items will be safe and accessible", "whenever you visit any bank in Gielinor.")
+}
+@option3 {
+player("Do you offer any services?")
+npc("Yes, indeed! Besides providing storage for your", "items, we also offer a range of services such as", "currency exchange, lending items to other players,", "and even accessing your personal bank remotely", "using the Grand Exchange.")
+// Continue with the dialogue for explaining services
+}
+@option4 {
+player("Can I access my items from any bank?")
+npc("Absolutely! Your items are linked to your account,", "so you can access them from any bank in the world.", "No matter where you are, your belongings will be", "available to you.")
+}
+@option5 {
+player("Never mind.")
+npc("Alright then. Feel free to return if you have any", "questions or need assistance in the future. Have a", "great day!")
+}
+}

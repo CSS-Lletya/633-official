@@ -1,0 +1,21 @@
+@dialogue npc:278
+npc("Hello there! Can I interest you in some of the finest", "culinary delights?")
+>options
+options: {
+option("Yes, please. What do you have?", "Why do you have so many ingredients?", "No, thank you.")
+@option1 {
+player("Yes, please. What do you have?")
+npc("I have a variety of dishes available. From hearty", "stews to delectable desserts, I've got it all!")
+// Continue with the dialogue for showcasing the dishes
+}
+@option2 {
+player("Why do you have so many ingredients?")
+npc("Ah, cooking is my passion! I love experimenting with", "different flavors and creating new recipes. Having", "a wide range of ingredients allows me to be", "creative in the kitchen.")
+player("That sounds fascinating!")
+npc("Thank you! Cooking is an art, and I take pride in", "delivering delicious meals to the people of Lumbridge.")
+}
+@option3 {
+player("No, thank you.")
+npc("Alright then. Let me know if you change your mind!")
+}
+}

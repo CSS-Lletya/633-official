@@ -419,8 +419,6 @@ public class Player extends Entity {
 	 */
 	public void start() {
 		LogUtility.log(LogType.INFO, getDisplayName() + " has logged in from their IP " + getSession().getIP());
-		World.getRegion(this.getRegionId()).refreshSpawnedItems(this);
-		World.getRegion(this.getRegionId()).refreshSpawnedObjects(this);
 		loadMapRegions();
 		setStarted(true);
 		login();
