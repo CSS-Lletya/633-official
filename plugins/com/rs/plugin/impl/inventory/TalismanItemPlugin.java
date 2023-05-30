@@ -20,7 +20,7 @@ import skills.runecrafting.Altar;
 public class TalismanItemPlugin implements InventoryListener {
 
 	@Override
-	public void execute(Player player, Item item, int option) {
+	public void execute(Player player, Item item, int slotId, int option) {
 		if(option == 6) {
 			Arrays.stream(Altar.values()).filter(altar -> altar.getTalisman() == item.getId())
 			.forEach(altar -> player.getMovement().move(true, altar.getWorldTile(), TeleportType.NORMAL));

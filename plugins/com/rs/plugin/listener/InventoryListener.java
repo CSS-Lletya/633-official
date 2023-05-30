@@ -10,5 +10,5 @@ import com.rs.game.player.Player;
  */
 public interface InventoryListener {
 	
-	void execute(Player player, Item item, int option);
+	void execute(Player player, Item item, int slot, int option);
 }

@@ -10,7 +10,7 @@ import com.rs.plugin.wrapper.InventoryWrapper;
 public class ExperienceLampsItemPlugin implements InventoryListener {
 
 	@Override
-	public void execute(Player player, Item item, int option) {
+	public void execute(Player player, Item item, int slotId, int option) {
 		ExperienceLampInterfacePlugin.setLamp(item.getId());
 		player.getInterfaceManager().closeInterfaces();
 		player.getInterfaceManager().sendInterface(134);

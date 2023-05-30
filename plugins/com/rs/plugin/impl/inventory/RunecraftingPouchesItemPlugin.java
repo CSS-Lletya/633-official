@@ -12,7 +12,7 @@ import skills.runecrafting.Runecrafting;
 public class RunecraftingPouchesItemPlugin implements InventoryListener {
 
 	@Override
-	public void execute(Player player, Item item, int option) {
+	public void execute(Player player, Item item, int slotId, int option) {
 		switch(item.getId()) {
 		case 5509:
 			if (option == 1)

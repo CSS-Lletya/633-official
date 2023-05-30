@@ -14,7 +14,7 @@ import skills.prayer.PrayerBoneBury;
 public class BonesBuryItemPlugin implements InventoryListener {
 
 	@Override
-	public void execute(Player player, Item item, int option) {
+	public void execute(Player player, Item item, int slotId, int option) {
 		Arrays.stream(Bone.values()).filter(boneId -> boneId.getId() == item.getId()).forEach(bone -> {
 			PrayerBoneBury buryAction = new PrayerBoneBury(player, item.getId(), bone);
 			buryAction.start();

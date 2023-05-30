@@ -50,10 +50,10 @@ public class InventoryInterfacePlugin implements RSInterfaceListener {
 			switch(packetId) {
 			case 12:
 				player.getInventory().sendExamine(slotId);
-				InventoryPluginDispatcher.execute(player, item, 8);
+				InventoryPluginDispatcher.execute(player, item, slotId, 8);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON1_PACKET:
-				InventoryPluginDispatcher.execute(player, item, 1);
+				InventoryPluginDispatcher.execute(player, item, slotId,1);
 				if (Foods.eat(player, item, slotId))
 					return;
 				Potion pot = Potion.forId(item.getId());
@@ -68,7 +68,7 @@ public class InventoryInterfacePlugin implements RSInterfaceListener {
 				if (player.getMovement().getLockDelay() >= time || player.getNextEmoteEnd() >= time)
 					return;
 				player.getMovement().stopAll(false);
-				InventoryPluginDispatcher.execute(player, item, 2);
+				InventoryPluginDispatcher.execute(player, item, slotId,2);
 				if (item.getDefinitions().containsOption("Wield") || item.getDefinitions().containsOption("Wear")) {
 					long passedTime = Utility.currentTimeMillis() - WorldThread.LAST_CYCLE_CTM;
 					if (player.getSwitchItemCache().isEmpty()) {
@@ -93,16 +93,16 @@ public class InventoryInterfacePlugin implements RSInterfaceListener {
 				}
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON3_PACKET:
-				InventoryPluginDispatcher.execute(player, item, 3);
+				InventoryPluginDispatcher.execute(player, item, slotId,3);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON4_PACKET:
-				InventoryPluginDispatcher.execute(player, item, 4);
+				InventoryPluginDispatcher.execute(player, item,slotId, 4);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON5_PACKET:
-				InventoryPluginDispatcher.execute(player, item, 5);
+				InventoryPluginDispatcher.execute(player, item, slotId,5);
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON6_PACKET:
-				InventoryPluginDispatcher.execute(player, item, 6);
+				InventoryPluginDispatcher.execute(player, item, slotId,6);
 				Potion pots = Potion.forId(item.getId());
 				if (pots == null)
 					return;
@@ -137,7 +137,7 @@ public class InventoryInterfacePlugin implements RSInterfaceListener {
 					player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(item.getId());
 					return;
 				}
-				InventoryPluginDispatcher.execute(player, item, 7);
+				InventoryPluginDispatcher.execute(player, item, slotId, 7);
 				player.getInventory().deleteItem(slotId, item);
 				if (player.getDetails().getCharges().degradeCompletly(item))
 					return;

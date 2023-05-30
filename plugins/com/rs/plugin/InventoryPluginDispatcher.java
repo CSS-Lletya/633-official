@@ -31,9 +31,9 @@ public class InventoryPluginDispatcher {
 	 * @param player the player executing the item.
 	 * @param parts the string which represents a item.
 	 */
-	public static void execute(Player player, Item item, int optionId) {
+	public static void execute(Player player, Item item, int slot, int optionId) {
 		getItem(item.getId()).ifPresent(specifiedItem -> {
-			specifiedItem.execute(player, item, optionId);
+			specifiedItem.execute(player, item, slot, optionId);
 		});
 	}
 

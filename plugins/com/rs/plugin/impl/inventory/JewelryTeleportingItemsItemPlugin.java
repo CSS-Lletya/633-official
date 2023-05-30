@@ -25,7 +25,7 @@ import com.rs.plugin.wrapper.InventoryWrapper;
 public class JewelryTeleportingItemsItemPlugin implements InventoryListener {
 
 	@Override
-	public void execute(Player player, Item item, int option) {
+	public void execute(Player player, Item item, int slotId, int option) {
 		if (item.getDefinitions().containsOption("Read") && option == 1 || option == 6)
 			ItemTeleports.transportationDialogue(player, item.getId(), false);
 	}
