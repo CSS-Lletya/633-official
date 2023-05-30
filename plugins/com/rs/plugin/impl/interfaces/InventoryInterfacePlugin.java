@@ -130,11 +130,11 @@ public class InventoryInterfacePlugin implements RSInterfaceListener {
 					return;
 				if (item.getDefinitions().isDestroyItem()) {
 					player.getInterfaceManager().sendChatBoxInterface(94);
+					player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(item.getId());
 					player.getPackets().sendIComponentText(94, 2, "Are you sure you want to destroy this item?");
 					player.getPackets().sendIComponentText(94, 8, ItemDefinitions.getItemDefinitions(item.getId()).getName());
-					player.getPackets().sendIComponentText(94, 7, "<br>The item is undropable, and if dropped could possibly not be obtained again.");
-					player.getPackets().sendItemOnIComponent(94, 9, 1, 1);
-					player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(item.getId());
+					player.getPackets().sendIComponentText(94, 7, "The item is undropable, and if dropped could possibly not be obtained again.");
+					player.getPackets().sendItemOnIComponent(94, 9, item.getId(), item.getAmount());
 					return;
 				}
 				InventoryPluginDispatcher.execute(player, item, slotId, 7);
