@@ -1546,9 +1546,9 @@ public class WorldPacketsEncoder extends Encoder {
 
 	public WorldPacketsEncoder sendOpenURL(String url) {
 		OutputStream stream = new OutputStream();
-		stream.writePacketVarShort(getPlayer(), 49);
+		stream.writePacketVarByte(getPlayer(), 49);
 		stream.writeString(url);
-		stream.endPacketVarShort();
+		stream.endPacketVarByte();
 		getSession().write(stream);
 		return this;
 	}
