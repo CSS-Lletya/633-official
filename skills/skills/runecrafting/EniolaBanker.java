@@ -5,12 +5,14 @@ import com.rs.game.player.Player;
 
 public class EniolaBanker {
 	
-	public static void sendInterfaceFunctionality(Player player, int componentId) {
+	public static boolean sendInterfaceFunctionality(Player player, int componentId) {
 	    int[] runeIds = {556, 558, 555, 557, 554, 559, 564, 562, 9075, 563, 560, 565, 561, 566};
 	    if (componentId >= 28 && componentId <= 41) {
 	        int index = componentId - 28;
 	        checkRunesBankOrCollect(player, runeIds[index]);
+	        return true;
 	    }
+	    return false;
 	}
 
 	private static void checkRunesBankOrCollect(Player player, int runeId) {

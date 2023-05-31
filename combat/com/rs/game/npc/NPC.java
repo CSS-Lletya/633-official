@@ -92,13 +92,13 @@ public class NPC extends Entity {
 		setCombat(new NPCCombat(this));
 		setCapDamage((short) -1);
 		setLureDelay((short) 12000);
+		genericNPC = new GenericNPCDispatcher();
+		genericNPC.setAttributes(this);
 		initEntity();
 		World.addNPC(this);
 		updateEntityRegion(this);
 		loadMapRegions();
 		checkMultiArea();
-		this.genericNPC = new GenericNPCDispatcher();
-		genericNPC.setAttributes(this);
 	}
 
 	public void setNextNPCTransformation(short id) {

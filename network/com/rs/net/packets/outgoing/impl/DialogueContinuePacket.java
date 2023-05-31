@@ -42,19 +42,22 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 		if (interfaceId == 740)
 			player.getInterfaceManager().closeChatBoxInterface();
 		
-		EniolaBanker.sendInterfaceFunctionality(player, componentId);
-		
 		if (interfaceId == 94) {
 			if (buttonId == 3) 
 				player.getInventory().deleteItem(new Item(player.getAttributes().get(Attribute.DESTROY_ITEM_ID).getInt()));
 			player.getInterfaceManager().closeChatBoxInterface();
 			player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(null);
+			return;
 		}
 		
 		if (player.getDialogueInterpreter().getDialogue() == null && player.getDialogueInterpreter().getDialogueStage() == null) {
 			player.getInterfaceManager().closeChatBoxInterface();
-			DialogueEventListener.continueBlankDialogue(player, componentId);
-			DialogueEventListener.continueDialogue(player, componentId);
+			if (DialogueEventListener.continueBlankDialogue(player, componentId))
+				return;
+			if(DialogueEventListener.continueDialogue(player, componentId))
+				return;
+			if (EniolaBanker.sendInterfaceFunctionality(player, componentId))
+				return;
 			List<DialogueAction> actions = player.getDialogueInterpreter().getActions();
 			if (actions.size() > 0) {
 				DialogueAction action = actions.get(0);
