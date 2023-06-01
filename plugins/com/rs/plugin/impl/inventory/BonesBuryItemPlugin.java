@@ -11,7 +11,7 @@ import skills.prayer.Bone;
 import skills.prayer.PrayerBoneBury;
 
 @InventoryWrapper(itemId = {526, 530, 3179, 2859, 532, 534, 536, 4834, 6729}, itemNames = {  })
-public class BonesBuryItemPlugin implements InventoryListener {
+public class BonesBuryItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int slotId, int option) {
@@ -20,4 +20,6 @@ public class BonesBuryItemPlugin implements InventoryListener {
 			buryAction.start();
 		});
 	}
+	
+	
 }

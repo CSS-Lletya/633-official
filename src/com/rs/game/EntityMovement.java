@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
 
 import com.rs.game.map.WorldTile;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.TeleportType;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.utilities.Utility;
@@ -214,6 +215,9 @@ public class EntityMovement {
 		}
 		if (stopActions)
 			getEntity().toPlayer().getAction().forceStop();
+		getEntity().toPlayer().getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
+		getEntity().toPlayer().getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).set(null);
+		getEntity().toPlayer().getDialogueInterpreter().close();
 		getEntity().toPlayer().getCombatDefinitions().resetSpells(false);
 	}
 	

@@ -16,9 +16,12 @@
 //
 package com.rs.game.player.actions;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
@@ -48,6 +51,8 @@ public class FillAction extends Action {
 		KETTLE(new Item(7688, 1), new Item(7690, 1));
 
 		private static Map<Short, Filler> items = new HashMap<>();
+		
+		public static final ImmutableSet<Filler> VALUES = Sets.immutableEnumSet(EnumSet.allOf(Filler.class));
 
 		public static Filler forId(short itemId) {
 			return items.get(itemId);

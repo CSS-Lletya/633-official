@@ -23,7 +23,7 @@ public class CookingD extends DialogueEventListener {
 
 	@Override
 	public void start() {
-		SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.SELECT, SkillsDialogue.getQuantity(player), new int[] {itemUsed}, null, true);
+		SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.SELECT, 28, new int[] {itemUsed}, null, true);
 	}
 
 	@Override

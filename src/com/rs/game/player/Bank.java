@@ -1,5 +1,7 @@
 package com.rs.game.player;
 
+import java.util.stream.IntStream;
+
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.InterfaceVars;
@@ -276,6 +278,8 @@ public class Bank {
         }
 		player.getVarsManager().sendVarBit(8348, 0);
 		player.getPackets().sendRunScript(2319);
+		//script 9
+		IntStream.rangeClosed(40, 43).forEach(id -> player.getPackets().sendHideIComponent(762, id, false));
 		player.getAttributes().get(Attribute.IS_BANKING).set(true);
 		lastContainerCopy = null;
 		player.getInterfaceManager().sendInterface(762);

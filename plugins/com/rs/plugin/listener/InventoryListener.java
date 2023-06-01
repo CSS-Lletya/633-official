@@ -8,7 +8,11 @@ import com.rs.game.player.Player;
  * @author Dennis
  *
  */
-public interface InventoryListener {
+public abstract class InventoryListener {
 	
-	void execute(Player player, Item item, int slot, int option);
+	public void execute(Player player, Item item, int slot, int option) {
+	}
+	
+	public void execute(Player player, Item firstItem, Item secondItem) {
+	}
 }

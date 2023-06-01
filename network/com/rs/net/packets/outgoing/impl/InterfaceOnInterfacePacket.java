@@ -8,6 +8,7 @@ import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
+import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
@@ -57,6 +58,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				return;
 			}
 		}
+		InventoryPluginDispatcher.execute(player, new Item(fromItemId), new Item(toItemId));
 		if (Firemaking.execute(player, new Item(fromItemId), new Item(toItemId), false))
 			return;
 		if (GameConstants.DEBUG)

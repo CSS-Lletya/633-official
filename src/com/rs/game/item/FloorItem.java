@@ -7,9 +7,6 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.utilities.Ticks;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 public class FloorItem extends Item {
 
     public int type;

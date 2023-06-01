@@ -22,7 +22,7 @@ import com.rs.plugin.wrapper.InventoryWrapper;
 		"bandit camp",
 		"phoenix lair",
 		"miscellania" })
-public class JewelryTeleportingItemsItemPlugin implements InventoryListener {
+public class JewelryTeleportingItemsItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int slotId, int option) {

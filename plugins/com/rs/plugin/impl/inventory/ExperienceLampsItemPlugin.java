@@ -7,7 +7,7 @@ import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 
 @InventoryWrapper(itemId = {19775, 19755}, itemNames = { })
-public class ExperienceLampsItemPlugin implements InventoryListener {
+public class ExperienceLampsItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int slotId, int option) {

@@ -133,4 +133,9 @@ public final class Cooking extends ProducingSkillAction {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean canIgnoreIventoryCheck() {
+		return player.getInventory().containsAny(data.getRawId());
+	}
 }
