@@ -10,11 +10,9 @@ import com.rs.utilities.Ticks;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Data
-@EqualsAndHashCode(callSuper=false)
 public class FloorItem extends Item {
 
-	public int type;
+    public int type;
     private WorldTile tile;
     private String ownerName;
     private transient Player owner;
@@ -190,7 +188,7 @@ public class FloorItem extends Item {
         final FloorItem floorItem = new FloorItem(item, tile, owner, false, invisible);
         final Region region = World.getRegion(tile.getRegionId());
         floorItem.setGlobalPicked(false);
-        if (type == 1) {
+       if (type == 1) {
             if (ItemConstants.isTradeable(item)) {
                 region.getGroundItemsSafe().add(floorItem);
             }
@@ -480,5 +478,82 @@ public class FloorItem extends Item {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof FloorItem)) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+        final FloorItem o = (FloorItem) other;
+        return o.type == type && o.tile == tile && o.ownerName == ownerName && o.owner == owner && o.tick == tick && o.spawned == spawned
+                && o.globalPicked == globalPicked && o.cantPickupBy == cantPickupBy;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public WorldTile getTile() {
+        return tile;
+    }
+
+    public void setTile(WorldTile tile) {
+        this.tile = tile;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
+    public int getTick() {
+        return tick;
+    }
+
+    public void setTick(int tick) {
+        this.tick = tick;
+    }
+
+    public boolean isSpawned() {
+        return spawned;
+    }
+
+    public void setSpawned(boolean spawned) {
+        this.spawned = spawned;
+    }
+
+    public boolean isGlobalPicked() {
+        return globalPicked;
+    }
+
+    public void setGlobalPicked(boolean globalPicked) {
+        this.globalPicked = globalPicked;
+    }
+
+    public String getCantPickupBy() {
+        return cantPickupBy;
+    }
+
+    public void setCantPickupBy(String cantPickupBy) {
+        this.cantPickupBy = cantPickupBy;
     }
 }
