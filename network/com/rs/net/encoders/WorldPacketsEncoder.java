@@ -661,7 +661,7 @@ public class WorldPacketsEncoder extends Encoder {
 	public WorldPacketsEncoder sendGlobalConfig2(int id, int value) {
 		OutputStream stream = new OutputStream(7);
 		stream.writePacket(getPlayer(), 95);
-		stream.writeShort128(id);
+		stream.writeShortLE128(id);
 		stream.writeInt(value);
 		getSession().write(stream);
 		return this;
@@ -1546,9 +1546,9 @@ public class WorldPacketsEncoder extends Encoder {
 
 	public WorldPacketsEncoder sendOpenURL(String url) {
 		OutputStream stream = new OutputStream();
-		stream.writePacketVarShort(getPlayer(), 49);
+		stream.writePacketVarByte(getPlayer(), 49);
 		stream.writeString(url);
-		stream.endPacketVarShort();
+		stream.endPacketVarByte();
 		getSession().write(stream);
 		return this;
 	}

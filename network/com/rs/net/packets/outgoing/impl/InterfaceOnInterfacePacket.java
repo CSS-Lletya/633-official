@@ -17,31 +17,36 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {
-		int usedWithId = stream.readShort();
-		int toSlot = stream.readUnsignedShortLE128();
-		int interfaceId = stream.readUnsignedShort();
-		int interfaceComponent = stream.readUnsignedShort();
-		int interfaceId2 = stream.readInt() >> 16;
-		int fromSlot = stream.readUnsignedShort();
-		int itemUsedId = stream.readUnsignedShortLE128();
-		if ((interfaceId == 747 || interfaceId == 662) && interfaceId2 == Inventory.INVENTORY_INTERFACE) {
+		final int toInterfaceBitmap = stream.readInt();
+		int toSlotId = stream.readUnsignedShortLE128();
+		int toItemId = stream.readUnsignedShort();
+		final int fromInterfaceBitmap = stream.readInt();
+		int fromItemId = stream.readUnsignedShortLE128();
+		int fromSlotId = stream.readUnsignedShort128();
+
+		final int fromInterfaceId = fromInterfaceBitmap >> 16;
+		final int fromButtonId = fromInterfaceBitmap & 0xFf;
+		final int toInterfaceId = toInterfaceBitmap >> 16;
+		final int toButtonId = toInterfaceBitmap & 0XFF;
+
+		if ((fromInterfaceId == 747 || toInterfaceId == 662) && toInterfaceBitmap == Inventory.INVENTORY_INTERFACE) {
 			if (player.getFamiliar() != null) {
 				player.getFamiliar().setSpecial(true);
 				if (player.getFamiliar().getSpecialAttack() == SpecialAttack.ITEM) {
 					if (player.getFamiliar().hasSpecialOn())
-						player.getFamiliar().submitSpecial(toSlot);
+						player.getFamiliar().submitSpecial(fromSlotId);
 				}
 			}
 			return;
 		}
-		if (interfaceId == Inventory.INVENTORY_INTERFACE && interfaceId == interfaceId2
+		if (fromInterfaceId == Inventory.INVENTORY_INTERFACE && fromInterfaceId == toInterfaceBitmap
 				&& !player.getInterfaceManager().containsInventoryInter()) {
-			if (toSlot >= 28 || fromSlot >= 28 || toSlot == fromSlot)
+			if (fromSlotId >= 28 || toSlotId >= 28 || fromSlotId == toSlotId)
 				return;
-			Item usedWith = player.getInventory().getItem(toSlot);
-			Item itemUsed = player.getInventory().getItem(fromSlot);
-			if (itemUsed == null || usedWith == null || itemUsed.getId() != itemUsedId
-					|| usedWith.getId() != usedWithId)
+			Item usedWith = player.getInventory().getItem(toSlotId);
+			Item itemUsed = player.getInventory().getItem(fromSlotId);
+			if (itemUsed == null || usedWith == null || itemUsed.getId() != fromItemId
+					|| usedWith.getId() != toItemId)
 				return;
 			if (player.getMovement().isLocked() || player.getNextEmoteEnd() >= Utility.currentTimeMillis())
 				return;
@@ -51,7 +56,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 			}
 		}
 		if (GameConstants.DEBUG)
-			LogUtility.log(LogType.INFO, "ItemOnItem " + usedWithId + ", " + toSlot + ", " + interfaceId + ", "
-					+ interfaceComponent + ", " + fromSlot + ", " + itemUsedId);
+			LogUtility.log(LogType.INFO, "ItemOnItem " + fromInterfaceId + ", " + fromButtonId + ", " + fromSlotId + ", " + fromItemId + ", "
+					+ toInterfaceId + ", " + toButtonId + ", " + toSlotId + ", " + toItemId);
 	}
 }

@@ -84,11 +84,11 @@ public class InterfaceManager {
 	public void sendOverlay(int interfaceId) {
 		setWindowInterface(isResizableScreen() ? 11 : 0, interfaceId);
 	}
-	
+
 	public void setOverlay(int interfaceId, boolean fullScreen) {
 		setWindowInterface(isResizableScreen() ? fullScreen ? 1 : 11 : 0, interfaceId);
 	}
-	
+
 	//assuming we're not in fullscreen only
 	public void removeOverlay() {
 		removeWindowInterface(isResizableScreen() ? 11 : 0);
@@ -169,6 +169,7 @@ public class InterfaceManager {
 		sendLogout();
 		sendChatBox();
 		sendChatOptions();
+		sendMainConfig();
 		player.getVarsManager().sendVar(InterfaceVars.CLOSE_CHAT_TOOLBELT, 1000);
 	}
 
@@ -190,6 +191,8 @@ public class InterfaceManager {
 	public void sendChatOptions() {
 		setWindowInterface(isResizableScreen() ? 15 : 67, 751);
 	}
+
+	public void sendMainConfig() { setWindowInterface(isResizableScreen() ? 11 : 14, 745); }
 
 	public void sendLogout() {
 		setWindowInterface(isResizableScreen() ? RESIZABLE_TAB_OFFSET + Tab.LOGOUT : FIXED_TAB_OFFSET + Tab.LOGOUT,
@@ -262,7 +265,7 @@ public class InterfaceManager {
 		setWindowInterface(
 				isResizableScreen() ? RESIZABLE_TAB_OFFSET + Tab.ACHIEVEMENT : FIXED_TAB_OFFSET + Tab.ACHIEVEMENT, 259);
 	}
-	
+
 	// incorrect icon, does it even exist?
 	public void sendSummoning() {
 		setWindowInterface(
@@ -315,9 +318,9 @@ public class InterfaceManager {
 		player.getPackets().sendPlayerOption("Trade with", 4, false);
 		player.getPackets().sendPlayerOption("Req Assist", 5, false);
 	}
-	
+
 	public void setInterface(boolean clickThrought, int parentInterfaceId, int parentInterfaceComponentId,
-			int interfaceId) {
+	                         int interfaceId) {
 		if (GameConstants.DEBUG) {
 			if (parentInterfaceId != rootInterface && !containsInterface(parentInterfaceId))
 				System.out.println("The parent interface isnt setted so where are u trying to set it? "
@@ -330,11 +333,11 @@ public class InterfaceManager {
 		getOpenedinterfaces().put(parentUID, interfaceId);
 		player.getPackets().sendInterface(clickThrought, parentUID, interfaceId);
 	}
-	
+
 	/**
 	 * Quest Interface, Skill Guide / Level Up Interfaces Had to make a specific
 	 * check for closing interfaces though, don't think it's that good but works for now.
-	 * 
+	 *
 	 * @param parentInterfaceComponentId
 	 * @param interfaceId
 	 */
@@ -467,7 +470,7 @@ public class InterfaceManager {
 	public void closeInterface(int one, int two) {
 		player.getPackets().closeInterface(isResizableScreen() ? two : one);
 	}
-	
+
 	public void closeInterfaces() {
 		removeScreenInterface();
 		IntStream.of(499, 741).forEach(id -> removeInterface(id));
@@ -480,23 +483,23 @@ public class InterfaceManager {
 			player.setCloseInterfacesEvent(null);
 		}
 	}
-	
+
 	public void sendRunButtonConfig() {
 		player.getVarsManager().sendVar(InterfaceVars.RUN_BUTTON,
 				player.getResting() == 1 ? 3 : player.getResting() == 2 ? 4 : player.isRun() ? 1 : 0);
 	}
-	
+
 	public void refreshHitPoints() {
 		player.getVarsManager().sendVarBit(7198, player.getHitpoints());
 	}
 
-	 /**
-     * For displaying color-based progress indications (simplified progression labels)
-     * NOTE: need to add this interface to be visable. This isn't real quest tab.
-     */
-    public void renderQuestStatus(){
+	/**
+	 * For displaying color-based progress indications (simplified progression labels)
+	 * NOTE: need to add this interface to be visable. This isn't real quest tab.
+	 */
+	public void renderQuestStatus(){
 //        for (Quest quest: player.getQuestManager().getProgressed().values()) {
 //             player.getPackets().sendIComponentText(3033, quest.getComponentId() +1 , player.getQuestManager().getStage(quest.getName()) >= 1 && player.getQuestManager().getStage(quest.getName()) < quest.getLastStage(player) ? Colors.yellow + quest.getName() : player.getQuestManager().completedQuest(quest.getName()) ? Colors.green + quest.getName() : Colors.red + quest.getName());
 //        }
-    }
+	}
 }
