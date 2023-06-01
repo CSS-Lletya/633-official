@@ -107,6 +107,7 @@ public final class Animations {
 	public static final Animation BAKE_PIE_SPELL = new Animation(4413);
 	public static final Animation COOKING_ON_FIRE = new Animation(897);
 	public static final Animation COOKING_ON_STOVE = new Animation(897);
+	public static final Animation ATTEMPT_FIRE_LIGHTING = new Animation(733);
 	
 	/**
 	 * Object Based Animations

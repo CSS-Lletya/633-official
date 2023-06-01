@@ -12,6 +12,8 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
+import skills.firemaking.Firemaking;
+
 @OutgoingPacketSignature(packetId = 33, description = "Represents an Interface being used on another Interface")
 public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 
@@ -55,6 +57,8 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				return;
 			}
 		}
+		if (Firemaking.execute(player, new Item(fromItemId), new Item(toItemId), false))
+			return;
 		if (GameConstants.DEBUG)
 			LogUtility.log(LogType.INFO, "ItemOnItem " + fromInterfaceId + ", " + fromButtonId + ", " + fromSlotId + ", " + fromItemId + ", "
 					+ toInterfaceId + ", " + toButtonId + ", " + toSlotId + ", " + toItemId);
