@@ -4,8 +4,10 @@ import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.InterfaceVars;
 import com.rs.game.item.Item;
+import com.rs.game.item.ItemConstants;
 import com.rs.game.npc.familiar.Familiar;
-import com.rs.utilities.Utility;
+import com.rs.game.player.attribute.Attribute;
+import com.rs.utilities.ItemExamines;
 
 @SuppressWarnings("all")
 public class Bank {
@@ -27,58 +29,25 @@ public class Bank {
 	private transient Item[] lastContainerCopy;
 	private transient boolean withdrawNotes;
 	private transient boolean insertItems;
+	private transient int total_size = 0;
 
 	private static final long MAX_BANK_SIZE = 506;
 
 	public Bank() {
 		bankTabs = new Item[1][0];
 	}
+	
+    public void refreshTotalSize() {
+        if (total_size < 0) {
+            total_size = 0;
+        }
+        int usedFreeSlots = total_size > 403 ? 403 : total_size;
+        player.getPackets().sendGlobalConfig(1038, usedFreeSlots);
+        player.getPackets().sendGlobalConfig(192, total_size + usedFreeSlots);
+        player.getPackets().sendGlobalConfig(638, usedFreeSlots);
 
-	private void checkPinStatus() {
-		if (recoveryDelay < Utility.currentTimeMillis()) {
-			if (requestedPin != null) {
-				actualPin = requestedPin;
-				requestedPin = null;
-			} else
-				actualPin = null;
-		} else {
-			player.getInterfaceManager().sendInterface(14); // TODO this
-															// interface.
-			player.setCloseInterfacesEvent(() -> {
-				if (actualPin != null)
-					openPin();
-			});
-		}
-	}
-
-	public void openPinSettings() {
-
-	}
-
-	public void openPin() {
-		player.getPackets().sendGlobalConfig(98, 1);
-		player.getVarsManager().sendVarBit(1010, -1);
-		player.getInterfaceManager().sendInterface(13);
-		player.getInterfaceManager().setInterface(false, 13, 5, 759);
-		for (int i = 0; i < 40; i += 4) {
-			player.getPackets().sendUnlockIComponentOptionSlots(759, i, 0, 100,
-					true, 0, 1, 2);
-		}
-		if (recoveryDelay >= Utility.currentTimeMillis()) {
-			int days = (int) (recoveryDelay / 86400000);
-			int hours = days / 24;
-			player.getPackets().sendIComponentText(
-					13,
-					27,
-					actualPin != null ? "Your bankpin will be set in " + days
-							+ " days and " + hours + " hours."
-							: "Your bankpin will be deleted in " + days
-									+ " days and " + hours + " hours.");
-		} else
-			player.getPackets().sendIComponentText(13, 27,
-					"Bank of " + GameConstants.SERVER_NAME);
-	}
-
+    }
+    
 
 	public void removeItem(int id) {
 		if (bankTabs != null) {
@@ -105,6 +74,7 @@ public class Bank {
 			refreshItems();
 			refreshTabs();
 			refreshViewingTab();
+			refreshTotalSize();
 		}
 	}
 
@@ -151,6 +121,8 @@ public class Bank {
 			depositItem(i, Integer.MAX_VALUE, false);
 		refreshTab(currentTab);
 		refreshItems();
+		 if (banking)
+	            refreshTotalSize();
 	}
 
 	public void depositAllBob(boolean banking) {
@@ -169,6 +141,8 @@ public class Bank {
 					"Not enough space in your bank.");
 			return;
 		}
+		 if (banking)
+	            refreshTotalSize();
 	}
 
 	public void depositAllEquipment(boolean banking) {
@@ -185,6 +159,7 @@ public class Bank {
 					"Not enough space in your bank.");
 			return;
 		}
+	    refreshTotalSize();
 	}
 
 	public void collapse(int tabId) {
@@ -201,7 +176,6 @@ public class Bank {
 
 	public void switchItem(int fromSlot, int toSlot, int fromComponentId,
 			int toComponentId) {
-		 System.out.println(fromSlot+", "+toSlot+", "+fromComponentId+", "+toComponentId);
 		if (toSlot == 65535) {
 			int toTab = toComponentId >= 74 ? 10 - (84 - toComponentId)
 					: 8 - ((toComponentId - 46) / 2);
@@ -225,6 +199,7 @@ public class Bank {
 				refreshTab(fromRealSlot[0]);
 				refreshTab(toTab);
 				refreshItems();
+				refreshTotalSize();
 			} else if (bankTabs.length > toTab) {
 				int[] fromRealSlot = getRealSlot(fromSlot);
 				if (fromRealSlot == null)
@@ -244,9 +219,11 @@ public class Bank {
 					toTab -= 1;
 				refreshTab(fromRealSlot[0]);
 				addItem(item.getId(), item.getAmount(), toTab, true);
+				refreshTotalSize();
 			}
 		} else
 			switchItem(fromSlot, toSlot);
+		refreshTotalSize();
 	}
 
 	public void switchItem(int fromSlot, int toSlot) {
@@ -264,9 +241,10 @@ public class Bank {
 		if (fromRealSlot[0] != toRealSlot[0])
 			refreshTab(toRealSlot[0]);
 		refreshItems();
+		refreshTotalSize();
 	}
 
-	public void openDepositBox() {
+	public void openDepositBox() {//here we close shit off
 		player.getInterfaceManager().sendInterface(11);
 		player.getInterfaceManager().closeInventory();
 		player.getInterfaceManager().closeEquipment();
@@ -292,6 +270,13 @@ public class Bank {
 	}
 
 	public void openBank() {
+        if (total_size == 0) {
+            for (int i = 0; i < bankTabs.length; i++)
+                total_size += getTabSize(i);
+        }
+		player.getVarsManager().sendVarBit(8348, 0);
+		player.getPackets().sendRunScript(2319);
+		player.getAttributes().get(Attribute.IS_BANKING).set(true);
 		lastContainerCopy = null;
 		player.getInterfaceManager().sendInterface(762);
 		player.getInterfaceManager().sendInventoryInterface(763);
@@ -300,6 +285,10 @@ public class Bank {
 		unlockButtons();
 		sendItems();
 		refreshLastX();
+		refreshTotalSize();
+		player.setCloseInterfacesEvent(() -> {
+			player.getAttributes().get(Attribute.IS_BANKING).set(false);
+		});
 	}
 
 	public void refreshLastX() {
@@ -312,6 +301,7 @@ public class Bank {
 		System.arraycopy(bankTabs, 0, tabs, 0, slot);
 		tabs[slot] = new Item[0];
 		bankTabs = tabs;
+		total_size++;
 	}
 
 	public void destroyTab(int slot) {
@@ -385,7 +375,7 @@ public class Bank {
 		if (slot == null)
 			return;
 		Item item = bankTabs[slot[0]][slot[1]];
-//		player.getPackets().sendGameMessage(ItemExamines.getExamine(item));
+		player.getPackets().sendGameMessage(ItemExamines.getExamine(item));
 	}
 
 	public void depositItem(int invSlot, int quantity, boolean refresh) {
@@ -419,6 +409,10 @@ public class Bank {
 					"Not enough space in your bank.");
 			return;
 		}
+		if (ItemConstants.canBankItem(player, item)) {
+			player.getPackets().sendGameMessage("You cannot bank this item.");
+			return;
+		}
 		player.getInventory().deleteItem(invSlot,
 				new Item(originalId, item.getAmount()));
 		addItem(item, refresh);
@@ -440,6 +434,7 @@ public class Bank {
 			if (refresh) {
 				refreshTabs();
 				refreshItems();
+				refreshTotalSize();
 			}
 		}
 		return space;
@@ -461,15 +456,20 @@ public class Bank {
 			System.arraycopy(bankTabs[creationTab], 0, tab, 0, slot);
 			tab[slot] = new Item(id, quantity);
 			bankTabs[creationTab] = tab;
-			if (refresh)
-				refreshTab(creationTab);
+			if (refresh) {
+                refreshTabs();
+                refreshItems();
+            }
+			total_size++;
 		} else {
 			Item item = bankTabs[slotInfo[0]][slotInfo[1]];
 			bankTabs[slotInfo[0]][slotInfo[1]] = new Item(item.getId(),
 					item.getAmount() + quantity);
 		}
-		if (refresh)
-			refreshItems();
+		if (refresh) {
+            refreshItems();
+            refreshTotalSize();
+        }
 	}
 
 	public boolean removeItem(int fakeSlot, int quantity, boolean refresh,
@@ -500,11 +500,15 @@ public class Bank {
 				if (refresh)
 					refreshTab(slot[0]);
 			}
-		} else
+		} else {
 			bankTabs[slot[0]][slot[1]] = new Item(item.getId(),
 					item.getAmount() - quantity);
-		if (refresh)
+		}
+		total_size --;
+		if (refresh) {
 			refreshItems();
+			refreshTotalSize();
+		}
 		return destroyed;
 	}
 
@@ -579,6 +583,7 @@ public class Bank {
 
 	public void refreshItems() {
 		refreshItems(generateContainer(), getContainerCopy());
+		refreshTotalSize();
 	}
 
 	public void refreshItems(Item[] itemsAfter, Item[] itemsBefore) {
@@ -621,7 +626,7 @@ public class Bank {
 	public void unlockButtons() {
 		// unlock bank inter all options
 		player.getPackets().sendIComponentSettings(762, 93, 0, 516, 2622718);
-		// unlock bank inv all options
+		// unlock bank inv all options - Broken, need to fix item selection
 		player.getPackets().sendIComponentSettings(763, 0, 0, 27, 2425982);
 	}
 

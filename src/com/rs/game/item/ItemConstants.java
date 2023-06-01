@@ -1,5 +1,7 @@
 package com.rs.game.item;
 
+import java.util.Arrays;
+
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.player.Player;
@@ -336,5 +338,11 @@ public class ItemConstants {
 				|| itemName.endsWith(" (damaged)") || itemName.endsWith(" 0")
 				|| itemName.endsWith(" 25") || itemName.endsWith(" 50")
 				|| itemName.endsWith(" 75") || itemName.endsWith(" 100");
+	}
+
+	public static boolean canBankItem(Player player, Item item) {
+		String[] ITEMS = { "lamp", "skilling" };
+		return Arrays.stream(ITEMS).anyMatch(items -> item.getDefinitions().getName().toLowerCase().contains(items)
+					&& !item.getDefinitions().name.contains("oil"));
 	}
 }

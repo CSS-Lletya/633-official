@@ -36,6 +36,8 @@ public class EquipmentBonusesInterfacePlugin implements RSInterfaceListener {
 				RSInterfacePluginDispatcher.sendRemove(player, Equipment.SLOT_RING);
 			if (slotId == 5)
 				RSInterfacePluginDispatcher.sendRemove(player, Equipment.SLOT_SHIELD);
+			else if (componentId == 48)
+				player.getBank().openBank();
 		}
 		if (componentId == 7 && packetId == 12) {
 			Item item = player.getEquipment().getItem(slotId);
