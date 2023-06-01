@@ -456,6 +456,8 @@ public class Player extends Entity {
 			getPackets().sendSystemUpdate(World.get().exiting_delay - delayPassed);
 		}
 		getDetails().setLastIP(getSession().getIP());
+		getAppearance().generateAppearenceData();
+		getPackets().sendLocalPlayersUpdate();
 		getInterfaceManager().sendInterfaces();
 		getPackets().sendRunEnergy().sendGameBarStages().sendGameMessage("Welcome to " + GameConstants.SERVER_NAME + ".");
 		CombatEffect.values().parallelStream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
@@ -478,7 +480,6 @@ public class Player extends Entity {
 		setRunning(true);
 		setUpdateMovementType(true);
 		OwnedObjectManager.linkKeys(this);
-		getAppearance().generateAppearenceData();
 		getMapZoneManager().execute(this, controller -> controller.login(this));
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
 			GameConstants.STATER_KIT.forEach(getInventory()::addItem);

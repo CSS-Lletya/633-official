@@ -114,7 +114,7 @@ public class InterfaceManager {
 	}
 
 	public void sendInterfaces() {
-		player.task(2, p -> setInterface(true, 752, 9, 137));
+		setInterface(true, 752, 9, 137);
 		setResizableScreen(player.getDisplayMode() == 2 || player.getDisplayMode() == 3 ? true : false);
 		player.getCombatDefinitions().sendUnlockAttackStylesButtons();
 		player.getMusicsManager().unlockMusicPlayer();
