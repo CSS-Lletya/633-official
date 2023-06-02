@@ -272,6 +272,7 @@ public class Bank {
 	}
 
 	public void openBank() {
+		player.getMovement().stopAll();
         if (total_size == 0) {
             for (int i = 0; i < bankTabs.length; i++)
                 total_size += getTabSize(i);

@@ -58,7 +58,7 @@ public final class Pet extends NPC {
 	 * @param tile   The world tile.
 	 */
 	public Pet(short id, int itemId, Player owner, WorldTile tile, PetDetails details) {
-		super(id, tile, false);
+		super(id, tile, null, false);
 		this.owner = owner;
 		this.itemId = itemId;
 		this.checkNearDirs = Utility.getCoordOffsetsNear(super.getSize());

@@ -25,6 +25,7 @@ import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.utilities.CharmDrop;
+import com.rs.utilities.Direction;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.NPCBonuses;
@@ -69,26 +70,26 @@ public class NPC extends Entity {
 	// npc masks
 	private transient Transformation nextTransformation;
 
-	public NPC(short id, WorldTile tile) {
-		this(id, tile, true, false);
+	public NPC(short id, WorldTile tile, Direction direction) {
+		this(id, tile, direction,  true, false);
 	}
 	
-	public NPC(short id, WorldTile tile, boolean canBeAttackFromOutOfArea) {
-		this(id, tile, canBeAttackFromOutOfArea, false);
+	public NPC(short id, WorldTile tile, Direction direction, boolean canBeAttackFromOutOfArea) {
+		this(id, tile, direction, canBeAttackFromOutOfArea, false);
 	}
 
 	/*
 	 * creates and adds npc
 	 */
-	public NPC(int id, WorldTile tile, boolean canBeAttackFromOutOfArea, boolean spawned) {
+	public NPC(int id, WorldTile tile, Direction direction, boolean canBeAttackFromOutOfArea, boolean spawned) {
 		super(tile, EntityType.NPC);
 		setId(id);
 		setRespawnTile(new WorldTile(tile));
 		setCanBeAttackFromOutOfArea(canBeAttackFromOutOfArea);
 		setSpawned(spawned);
 		setHitpoints(getMaxHitpoints());
-		setDirection(getRespawnDirection());
-		setWalkType(getDefinitions().getWalkMask());
+		setDirection(direction == null ? getRespawnDirection() : direction.getAngle());
+		setWalkType((byte) (getDefinitions().walkMask & 0x2));
 		setCombat(new NPCCombat(this));
 		setCapDamage((short) -1);
 		setLureDelay((short) 12000);
@@ -121,8 +122,11 @@ public class NPC extends Entity {
 			if (getMovement().getFreezeDelay() < Utility.currentTimeMillis()) {
 				if (!hasWalkSteps() && (getWalkType() & NORMAL_WALK) != 0) {
 					boolean can = false;
-					if (RandomUtils.inclusive(2) == 0) {
-						can = RandomUtils.percentageChance(30);
+					for (int i = 0; i < 2; i++) {
+						if (Math.random() * 1000.0 < 100.0) {
+							can = true;
+							break;
+						}
 					}
 					if (can) {
 						int moveX = (int) Math.round(Math.random() * 10.0 - 5.0);
@@ -386,16 +390,16 @@ public class NPC extends Entity {
 	 * @param spawned
 	 * @return
 	 */
-	public static final NPC spawnNPC(int id, WorldTile tile, boolean canBeAttackFromOutOfArea,
+	public static final NPC spawnNPC(int id, WorldTile tile, Direction direction, boolean canBeAttackFromOutOfArea,
 			boolean spawned) {
 
 		NPC npcType = null;
-		npcType = new NPC(id, tile, canBeAttackFromOutOfArea, spawned);
+		npcType = new NPC(id, tile, direction, canBeAttackFromOutOfArea, spawned);
 		return npcType;
 	}
 
-	public static final NPC spawnNPC(int id, WorldTile tile, boolean canBeAttackFromOutOfArea) {
-		return spawnNPC(id, tile, canBeAttackFromOutOfArea, false);
+	public static final NPC spawnNPC(int id, WorldTile tile, Direction direction, boolean canBeAttackFromOutOfArea) {
+		return spawnNPC(id, tile, direction, canBeAttackFromOutOfArea, false);
 	}
 	
 	/**

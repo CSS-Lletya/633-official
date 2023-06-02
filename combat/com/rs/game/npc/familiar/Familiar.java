@@ -33,7 +33,7 @@ public abstract class Familiar extends NPC {
 	private Pouch pouch;
 
 	public Familiar(Player owner, Pouch pouch, WorldTile tile, boolean canBeAttackFromOutOfArea) {
-		super((short) Summoning.getNPCId(pouch.getRealPouchId()), tile,
+		super((short) Summoning.getNPCId(pouch.getRealPouchId()), tile, null,
 				canBeAttackFromOutOfArea, false);
 		this.owner = owner;
 		this.pouch = pouch;

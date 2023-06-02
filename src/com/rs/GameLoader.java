@@ -39,13 +39,13 @@ import com.rs.utilities.ItemExamines;
 import com.rs.utilities.ItemSpawns;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
-import com.rs.utilities.json.GsonHandler;
 import com.rs.utilities.loaders.Censor;
 import com.rs.utilities.loaders.ItemBonuses;
 import com.rs.utilities.loaders.MapArchiveKeys;
 import com.rs.utilities.loaders.MusicHints;
 import com.rs.utilities.loaders.NPCBonuses;
 import com.rs.utilities.loaders.NPCCombatDefinitionsL;
+import com.rs.utilities.loaders.NPCSpawns;
 import com.rs.utilities.loaders.ShopsHandler;
 
 import lombok.Getter;
@@ -102,12 +102,12 @@ public class GameLoader {
 			Censor.init();
 			NPCCombatDefinitionsL.init();
 			NPCBonuses.init();
+			NPCSpawns.init();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Miscellaneous Files.");
 			MusicHints.init();
 			ShopsHandler.init();
-			GsonHandler.initialize();
 			FriendChatsManager.init();
 			AttributeKey.init();
 			QuestManager.load();

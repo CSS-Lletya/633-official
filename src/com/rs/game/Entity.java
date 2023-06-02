@@ -49,6 +49,7 @@ import com.rs.plugin.RegionAttributePluginDispatcher;
 import com.rs.utilities.MutableNumber;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
+import com.rs.utilities.Vec2;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayFIFOQueue;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -1330,4 +1331,11 @@ public abstract class Entity extends WorldTile {
 			e.expire(this);
 		}
 	}
+
+    public Vec2 getMiddleWorldTileAsVector() {
+        int size = getSize();
+        if (size == 1)
+            return new Vec2(this);
+        return new Vec2(getX() + (size - 1) / 2.0f, getY() + (size - 1) / 2.0f);
+    }
 }

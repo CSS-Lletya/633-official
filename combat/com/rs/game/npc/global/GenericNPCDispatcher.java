@@ -23,7 +23,7 @@ public class GenericNPCDispatcher {
 	public NPC create(NPC npc, WorldTile tile) {
 		getVerifiedNPC(npc.getId()).ifPresent(mob -> {
 			GenericNPCSignature signature = mob.getClass().getAnnotation(GenericNPCSignature.class);
-			Arrays.stream(signature.npcId()).forEach(mobId -> new NPC(mobId,tile , signature.canBeAttackFromOutOfArea(), signature.isSpawned()) );
+			Arrays.stream(signature.npcId()).forEach(mobId -> new NPC(mobId,tile , null, signature.canBeAttackFromOutOfArea(), signature.isSpawned()) );
 		});
 		return npc;
 	}

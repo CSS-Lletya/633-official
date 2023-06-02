@@ -40,7 +40,7 @@ public class BankInterfacePlugin extends RSInterfaceListener {
 		} else if (interfaceId == 762) {
 			if (player.getAttributes().get(Attribute.IS_BANKING).getBoolean()) {
 				if (componentId == 117) {
-					RSInterfacePluginDispatcher.openEquipmentBonuses(player, false);
+					RSInterfacePluginDispatcher.openEquipmentBonuses(player, true);
 				}
 				if (componentId == 39 && option == 11)
 					player.getBank().depositAllBob(true);
@@ -101,13 +101,17 @@ public class BankInterfacePlugin extends RSInterfaceListener {
 						player.getBank().depositItem(slotId, 5, true);
 					else if (option == 31)
 						player.getBank().depositItem(slotId, 10, true);
-					else if (option == 4)
+					else if (option == 9)
 						player.getBank().depositLastAmount(slotId);
-					else if (option == 5) {
-//                        player.getTemporaryAttributtes().put("bank_item_X_Slot", slotId);
-//                        player.getTemporaryAttributtes().remove("bank_isWithdraw");
-//                        player.getPackets().sendRunScript(108, "Enter Amount:");
-					} else if (option == 9)
+					else if (option == 32) {
+						player.getPackets().sendInputIntegerScript("How many would you like to deposit?",
+								new IntegerInputAction() {
+									@Override
+									public void handle(int input) {
+										player.getBank().depositItem(slotId, input, true);
+									}
+								});
+					} else if (option == 18)
 						player.getBank().depositItem(slotId, Integer.MAX_VALUE, true);
 					else if (option == 12)
 						player.getInventory().sendExamine(slotId);

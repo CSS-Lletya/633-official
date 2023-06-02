@@ -688,4 +688,11 @@ public final class Utility {
             range[j] = i;
         return range;
     }
+
+    private static final byte[][] ANGLE_DIRECTION_DELTA = { { 0, -1 }, { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, 1 }, { 1, 1 }, { 1, 0 }, { 1, -1 } };
+    
+    public static byte[] getDirection(int angle) {
+		int v = angle >> 11;
+		return ANGLE_DIRECTION_DELTA[v];
+	}
 }

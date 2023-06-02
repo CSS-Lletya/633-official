@@ -442,8 +442,8 @@ public final class RSInterfacePluginDispatcher {
 		player.getInterfaceManager().sendInventoryInterface(670);
 		player.getInterfaceManager().sendInterface(667);
 		player.getPackets().sendRunScript(787, 1);
-		player.getVarsManager().sendVarBit(8348, !banking ? 0 : 1);
-		player.getVarsManager().sendVarBit(4894, !banking ? 1 : 0);
+		player.getVarsManager().sendVarBit(8348, banking ? 0 : 1);
+		player.getVarsManager().sendVarBit(4894, banking ? 1 : 0);
 		player.getPackets().sendItems(93, player.getInventory().getItems());
 		player.getPackets().sendInterSetItemsOptionsScript(670, 0, 93, 4, 7, "Equip", "Compare", "Stats", "Examine");
 		player.getPackets().sendUnlockIComponentOptionSlots(670, 0, 0, 27, 0, 1, 2, 3);
@@ -452,7 +452,6 @@ public final class RSInterfacePluginDispatcher {
 		player.getPackets().sendWeight();
 		refreshEquipBonuses(player);
 		if (banking) {
-			player.getAttributes().get(Attribute.IS_BANKING).set(true);
 			player.setCloseInterfacesEvent(() -> {
 				player.getAttributes().get(Attribute.IS_BANKING).set(false);
 				player.getVarsManager().sendVarBit(4894, 0);

@@ -24,17 +24,13 @@ import com.rs.game.player.content.Foods;
 import com.rs.game.player.content.Potions.Potion;
 import com.rs.game.task.Task;
 import com.rs.net.decoders.WorldPacketsDecoder;
-import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.InventoryPluginDispatcher;
-import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
-import com.rs.utilities.EquipData;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import skills.Skills;
 
@@ -241,7 +237,6 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 	        if (item == null) {
 	            return false;
 	        }
-	        String itemName = item.getDefinitions() == null ? "" : item.getDefinitions().getName().toLowerCase();
 	        if (item.getId() != itemId) {
 	            return false;
 	        }

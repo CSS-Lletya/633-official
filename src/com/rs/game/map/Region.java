@@ -9,18 +9,14 @@ import com.rs.cache.Cache;
 import com.rs.cache.loaders.ClientScriptMap;
 import com.rs.cache.loaders.ObjectDefinitions;
 import com.rs.game.item.FloorItem;
-import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.utilities.ItemSpawns;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.RandomUtils;
-import com.rs.utilities.json.GsonHandler;
-import com.rs.utilities.json.impl.NPCAutoSpawn;
-import com.rs.utilities.json.impl.ObjectSpawnLoader;
 import com.rs.utilities.loaders.MapArchiveKeys;
-import com.rs.utilities.loaders.NPCSpawning;
+import com.rs.utilities.loaders.NPCSpawns;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
@@ -83,7 +79,7 @@ public class Region {
 		}
 	}
 
-    public void loadItemSpawns() {
+	private void loadItemSpawns() {
         ItemSpawns.loadItemSpawns(regionId);
     }
     
@@ -93,19 +89,12 @@ public class Region {
     
     private boolean loadedItemSpawns;
     
-	public static final void loadNPCSpawns(int regionId) {
-		NPCAutoSpawn autoSpawn = GsonHandler.getJsonLoader(NPCAutoSpawn.class);
-		List<NPCSpawning> spawns = autoSpawn.getSpawns(regionId);
-		if (spawns == null) {
-			return;
-		}
-		for (NPCSpawning spawn : spawns) {
-			NPC.spawnNPC(spawn.getId(), spawn.getTile(), true);
-		}
+    private void loadNPCSpawns(int regionId) {
+		NPCSpawns.loadNPCSpawns(regionId);
 	}
 
 	private void loadObjectSpawns() {
-		ObjectSpawnLoader.loadObjectSpawns(regionId);
+		//load custom objects
 	}
 	
 	/**
