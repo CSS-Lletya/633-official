@@ -6,16 +6,14 @@ import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
 @RSInterfaceSignature(interfaceId = { 187 })
-public class MusicInterfacePlugin implements RSInterfaceListener {
+public class MusicInterfacePlugin extends RSInterfaceListener {
 
-	//TODO: Fix playing tracks manually, etc..
+	// TODO: Fix playing tracks manually, etc..
 	@Override
-	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2)
-			throws Exception {
+	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		if (componentId == 1) {
 			if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET)
-				player.getMusicsManager().playAnotherMusicByIndex(
-						slotId / 2);
+				player.getMusicsManager().playAnotherMusicByIndex(slotId / 2);
 			else if (packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET)
 				player.getMusicsManager().sendHint(slotId / 2);
 			else if (packetId == WorldPacketsDecoder.ACTION_BUTTON3_PACKET)
@@ -26,8 +24,7 @@ public class MusicInterfacePlugin implements RSInterfaceListener {
 			player.getMusicsManager().addPlayingMusicToPlayList();
 		else if (componentId == 9) {
 			if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET)
-				player.getMusicsManager()
-						.playAnotherMusicFromPlayListByIndex(slotId);
+				player.getMusicsManager().playAnotherMusicFromPlayListByIndex(slotId);
 			else if (packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET)
 				player.getMusicsManager().removeFromPlayListByIndex(slotId);
 

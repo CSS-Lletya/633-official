@@ -4,11 +4,11 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
-@RSInterfaceSignature(interfaceId = {884})
-public class CombatInterfacePlugin implements RSInterfaceListener {
+@RSInterfaceSignature(interfaceId = { 884 })
+public class CombatInterfacePlugin extends RSInterfaceListener {
 
 	@Override
-	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) throws Exception {
+	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		if (player.isDead())
 			return;
 		if (componentId == 4) {

@@ -13,15 +13,17 @@ import com.rs.utilities.ItemExamines;
 import com.rs.utilities.loaders.ItemBonuses;
 
 @RSInterfaceSignature(interfaceId = { 387 })
-public class EquipmentInterfacePlugin implements RSInterfaceListener {
+public class EquipmentInterfacePlugin extends RSInterfaceListener {
 
 	@Override
-	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2)
-			throws Exception {
+	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		if (player.getInterfaceManager().containsInventoryInter())
 			return;
 		player.getMovement().stopAll();
-
+		RSInterfacePluginDispatcher.executeEquipment(player, 387, componentId, packetId, slotId2);
+		if (componentId == 45) {
+			RSInterfacePluginDispatcher.openItemsKeptOnDeath(player);
+		}
 		if (componentId == 42) {
 			if (player.getInterfaceManager().containsScreenInter() || player.getMovement().isLocked()) {
 				player.getPackets()
@@ -34,7 +36,8 @@ public class EquipmentInterfacePlugin implements RSInterfaceListener {
 		} else if (componentId == 39) {
 			RSInterfacePluginDispatcher.openEquipmentBonuses(player, false);
 		}
-		if (IntStream.of(8,11,14,17,20,23,26,29,32,35,38).anyMatch(comp -> comp == componentId) && packetId == 12)  {
+		if (IntStream.of(8, 11, 14, 17, 20, 23, 26, 29, 32, 35, 38).anyMatch(comp -> comp == componentId)
+				&& packetId == 12) {
 			player.getPackets().sendGameMessage(ItemExamines.getExamine(new Item(slotId2)));
 		}
 		if (packetId == 29 && componentId == 17) {
@@ -65,6 +68,12 @@ public class EquipmentInterfacePlugin implements RSInterfaceListener {
 			if (componentId == 23)
 				RSInterfacePluginDispatcher.sendRemove(player, Equipment.SLOT_SHIELD);
 		}
+	}
+	
+	@Override
+	public void executeEquipment(Player player, Item item, int componentId, int packetId) {
+		if (componentId == 23 && packetId == 29)
+			System.out.println(item.getId());
 	}
 
 	public static void sendItemStats(final Player player, Item item) {

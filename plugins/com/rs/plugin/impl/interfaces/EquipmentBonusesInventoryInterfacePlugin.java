@@ -7,12 +7,10 @@ import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
 @RSInterfaceSignature(interfaceId = { 670 })
-public class EquipmentBonusesInventoryInterfacePlugin implements RSInterfaceListener {
+public class EquipmentBonusesInventoryInterfacePlugin extends RSInterfaceListener {
 
 	@Override
-	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2)
-			throws Exception {
-		System.out.println(slotId);
+	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		if (componentId == 0) {
 			if (slotId >= player.getInventory().getItemsContainerSize())
 				return;
@@ -24,7 +22,7 @@ public class EquipmentBonusesInventoryInterfacePlugin implements RSInterfaceList
 					RSInterfacePluginDispatcher.refreshEquipBonuses(player);
 			} else if (packetId == 9)
 				player.getInventory().sendExamine(slotId);
-			else if (packetId == 31) {//broken 
+			else if (packetId == 31) {// broken
 				EquipmentInterfacePlugin.sendItemStats(player, item);
 			}
 		}

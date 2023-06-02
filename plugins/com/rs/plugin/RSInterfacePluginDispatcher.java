@@ -22,8 +22,8 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
-import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import skills.Skills;
 
 /**
@@ -43,9 +43,17 @@ public final class RSInterfacePluginDispatcher {
 	 * @param parts  the string which represents a interface.
 	 */
 	public static void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
-		getRSInterface(interfaceId).ifPresent(inter -> {
-			Try.run(() -> inter.execute(player, interfaceId, componentId, packetId, slotId, slotId2));
-		});
+		getRSInterface(interfaceId).ifPresent(inter -> inter.execute(player, interfaceId, componentId, packetId, slotId, slotId2));
+	}
+	
+	/**
+	 * Executes the specified interface if it's registered.
+	 * 
+	 * @param player the player executing the interface.
+	 * @param parts  the string which represents a interface.
+	 */
+	public static void executeEquipment(Player player, int interfaceId, int componentId, int packetId, int slotId2) {
+		getRSInterface(interfaceId).ifPresent(inter -> inter.executeEquipment(player, new Item(slotId2), componentId, packetId));
 	}
 
 	/**
@@ -156,29 +164,29 @@ public final class RSInterfacePluginDispatcher {
 			player.getPackets().sendGameMessage("Not enough free space in your inventory.");
 			return true;
 		}
-		Object2ObjectArrayMap<Integer, Integer> requiriments = item.getDefinitions().getWearingSkillRequiriments();
-		boolean hasRequiriments = true;
-		if (requiriments != null) {
-			for (int skillId : requiriments.keySet()) {
-				if (skillId > 24 || skillId < 0)
-					continue;
-				int level = requiriments.get(skillId);
-				if (level < 0 || level > 120)
-					continue;
-				if (player.getSkills().getLevelForXp(skillId) < level) {
-					if (hasRequiriments) {
-						player.getPackets().sendGameMessage("You are not high enough level to use this item.");
-					}
-					hasRequiriments = false;
-					String name = Skills.SKILL_NAME[skillId].toLowerCase();
-					player.getPackets().sendGameMessage("You need to have a" + (name.startsWith("a") ? "n" : "") + " "
-							+ name + " level of " + level + ".");
-				}
+		Object2ObjectOpenHashMap<Integer, Integer> requiriments = item.getDefinitions().getWearingSkillRequiriments();
+        boolean hasRequiriments = true;
+        if (requiriments != null) {
+            for (int skillId : requiriments.keySet()) {
+                if (skillId > 24 || skillId < 0)
+                    continue;
+                int level = requiriments.get(skillId);
+                if (level < 0 || level > 120)
+                    continue;
+                if (player.getSkills().getLevelForXp(skillId) < level) {
+                    if (hasRequiriments) {
+                        player.getPackets().sendGameMessage("You are not high enough level to use this item.");
+                    }
+                    hasRequiriments = false;
+                    String name = Skills.SKILL_NAME[skillId].toLowerCase();
+                    player.getPackets().sendGameMessage("You need to have a" + (name.startsWith("a") ? "n" : "") + " "
+                            + name + " level of " + level + ".");
+                }
 
-			}
-		}
-		if (!hasRequiriments)
-			return true;
+            }
+        }
+        if (!hasRequiriments)
+            return true;
 		if (player.getMapZoneManager().execute(player, controller -> !controller.canEquip(player, targetSlot, itemId))) {
 			return false;
 		}
@@ -263,7 +271,7 @@ public final class RSInterfacePluginDispatcher {
 			player.getPackets().sendGameMessage("Not enough free space in your inventory.");
 			return false;
 		}
-		Object2ObjectArrayMap<Integer, Integer> requiriments = item.getDefinitions().getWearingSkillRequiriments();
+		Object2ObjectOpenHashMap<Integer, Integer> requiriments = item.getDefinitions().getWearingSkillRequiriments();
 		boolean hasRequiriments = true;
 		if (requiriments != null) {
 			for (int skillId : requiriments.keySet()) {

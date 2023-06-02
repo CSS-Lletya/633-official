@@ -7,18 +7,17 @@ import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.Utility;
 
-@RSInterfaceSignature(interfaceId = { 750, 548, 755, 746})
-public class WorldMapInterfacePlugin implements RSInterfaceListener {
+@RSInterfaceSignature(interfaceId = { 750, 548, 755, 746 })
+public class WorldMapInterfacePlugin extends RSInterfaceListener {
 
 	@Override
-	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2)
-			throws Exception {
+	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		switch (interfaceId) {
 		case 750:
 			if (componentId == 1 && packetId == 11) {
 				if (player.getMovement().isResting())
 					player.getMovement().stopAll();
-				player.setRunState(!player.isRun());	
+				player.setRunState(!player.isRun());
 			}
 			if (componentId == 1 && packetId == 29) {
 				if (player.getMovement().isResting()) {

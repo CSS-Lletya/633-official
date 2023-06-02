@@ -10,6 +10,7 @@ import com.rs.utilities.EquipData;
 import com.rs.utilities.loaders.ItemBonuses;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 import skills.Skills;
@@ -100,7 +101,7 @@ public final class ItemDefinitions {
 	public boolean lended;
 
 	Object2ObjectArrayMap<Integer, Object> clientScriptData = new Object2ObjectArrayMap<>();
-	Object2ObjectArrayMap<Integer, Integer> itemRequiriments = new Object2ObjectArrayMap<>();
+	Object2ObjectOpenHashMap<Integer, Integer> itemRequiriments = new Object2ObjectOpenHashMap<>();
 	public int[] unknownArray5;
 	public int[] unknownArray4;
 	public byte[] unknownArray6;
@@ -244,18 +245,12 @@ public final class ItemDefinitions {
 		return equipSlot != -1;
 	}
 
-	public boolean isWearItem(boolean male) {
-		if (equipSlot < Equipment.SLOT_RING
-				&& (male ? getMaleEquip1() == -1
-						: getFemaleEquip1() == -1))
-			return false;
-
-		if (!containsInventoryOption(1, "Wield")
-				&& !containsInventoryOption(1, "Wear")) {
-			return false;
-		}
-		return equipSlot != -1;
-	}
+    public boolean isWearItem(boolean male) {
+        if (equipSlot < Equipment.SLOT_RING && (male ? getMaleEquip1() == -1
+                : getFemaleEquip1() == -1))
+            return false;
+        return equipSlot != -1;
+    }
 
 	public boolean containsInventoryOption(int i, String option) {
 		if (inventoryOptions == null || inventoryOptions[i] == null
@@ -473,20 +468,20 @@ public final class ItemDefinitions {
 		return items;
 	}
 	
-	public Object2ObjectArrayMap<Integer, Integer> getWearingSkillRequiriments() {
+	//must be wrong map id. 
+	public Object2ObjectOpenHashMap<Integer, Integer> getWearingSkillRequiriments() {
 		if (clientScriptData == null)
 			return null;
 		if (itemRequiriments == null) {
-			Object2ObjectArrayMap<Integer, Integer> skills = new Object2ObjectArrayMap<Integer, Integer>();
-			for (int i = 0; i < 10; i++) {
-				Integer skill = (Integer) clientScriptData.get(749 + (i * 2));
-				if (skill != null) {
-					Integer level = (Integer) clientScriptData
-							.get(750 + (i * 2));
-					if (level != null)
-						skills.put(skill, level);
-				}
-			}
+			Object2ObjectOpenHashMap<Integer, Integer> skills = new Object2ObjectOpenHashMap<Integer, Integer>();
+            for (int i = 0; i < 10; i++) {
+                Integer skill = (Integer) clientScriptData.get(749 + (i * 2));
+                if (skill != null) {
+                    Integer level = (Integer) clientScriptData.get(750 + (i * 2));
+                    if (level != null)
+                        skills.put(skill, level);
+                }
+            }
 			Integer maxedSkill = (Integer) clientScriptData.get(277);
 			if (maxedSkill != null)
 				skills.put(maxedSkill, getId() == 19709 ? 120 : 99);

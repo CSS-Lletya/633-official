@@ -9,10 +9,10 @@ import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.ItemExamines;
 
 @RSInterfaceSignature(interfaceId = { 667 })
-public class EquipmentBonusesInterfacePlugin implements RSInterfaceListener {
+public class EquipmentBonusesInterfacePlugin extends RSInterfaceListener {
 
 	@Override
-	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) throws Exception {
+	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		if (packetId == 11) {
 			if (slotId == 3)
 				RSInterfacePluginDispatcher.sendRemove(player, Equipment.SLOT_WEAPON);
@@ -51,7 +51,7 @@ public class EquipmentBonusesInterfacePlugin implements RSInterfaceListener {
 			Item item = player.getEquipment().getItem(slotId);
 			if (item == null)
 				return;
-			EquipmentInterfacePlugin.sendItemStats(player, item);	
+			EquipmentInterfacePlugin.sendItemStats(player, item);
 		}
 	}
 }

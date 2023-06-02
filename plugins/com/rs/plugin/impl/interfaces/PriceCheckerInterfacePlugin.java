@@ -6,11 +6,10 @@ import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.IntegerInputAction;
 
 @RSInterfaceSignature(interfaceId = { 206, 207 })
-public class PriceCheckerInterfacePlugin implements RSInterfaceListener {
+public class PriceCheckerInterfacePlugin extends RSInterfaceListener {
 
 	@Override
-	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2)
-			throws Exception {
+	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		if (interfaceId == 207) {
 			switch (packetId) {
 			case 11:

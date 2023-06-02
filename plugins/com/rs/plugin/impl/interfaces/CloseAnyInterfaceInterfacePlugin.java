@@ -6,16 +6,17 @@ import com.rs.plugin.wrapper.RSInterfaceSignature;
 
 /**
  * Mainly used to close interfaces that can't be closed properly.
+ * 
  * @author Dennis
  *
  */
 
-@RSInterfaceSignature(interfaceId = {429, 982, 398})
-public class CloseAnyInterfaceInterfacePlugin implements RSInterfaceListener {
+@RSInterfaceSignature(interfaceId = { 429, 982, 398 })
+public class CloseAnyInterfaceInterfacePlugin extends RSInterfaceListener {
 
 	@Override
-	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) throws Exception {
-		switch(interfaceId) {
+	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
+		switch (interfaceId) {
 		case 429:
 			if (componentId == 18)
 				player.getInterfaceManager().sendSettings();
