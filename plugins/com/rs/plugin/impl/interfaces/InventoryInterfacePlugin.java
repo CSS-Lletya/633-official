@@ -66,7 +66,8 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				if (player.getMovement().getLockDelay() >= time || player.getNextEmoteEnd() >= time)
 					return;
 				player.getMovement().stopAll(false);
-				InventoryPluginDispatcher.execute(player, item, slotId, 2);
+				if (InventoryPluginDispatcher.execute(player, item, slotId, 2))
+					return;
 				if (item.getDefinitions().containsOption("Wield") || item.getDefinitions().containsOption("Wear")) {
 					long passedTime = Utility.currentTimeMillis() - WorldThread.LAST_CYCLE_CTM;
 					if (player.getSwitchItemCache().isEmpty()) {
@@ -89,6 +90,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 						player.getSwitchItemCache().add(slotId);
 					}
 				}
+				
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON3_PACKET:
 				InventoryPluginDispatcher.execute(player, item, slotId, 3);

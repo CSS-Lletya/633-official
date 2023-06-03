@@ -31,12 +31,15 @@ public class InventoryPluginDispatcher {
 	 * @param player the player executing the item.
 	 * @param parts the string which represents a item.
 	 */
-	public static void execute(Player player, Item item, int slot, int optionId) {
-		getItem(item.getId()).ifPresent(specifiedItem -> {
-			specifiedItem.execute(player, item, slot, optionId);
-		});
+	public static boolean execute(Player player, Item item, int slot, int optionId) {
+	    Optional<InventoryListener> optionalItem = getItem(item.getId());
+	    if (optionalItem.isPresent()) {
+	        InventoryListener specifiedItem = optionalItem.get();
+	        specifiedItem.execute(player, item, slot, optionId);
+	        return true;
+	    }
+	    return false;
 	}
-	
 
 	/**
 	 * Executes the specified interface if it's registered.
