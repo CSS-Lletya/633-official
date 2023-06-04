@@ -319,6 +319,76 @@ public class Bank {
 	public boolean hasBankSpace() {
 		return getBankSize() < MAX_BANK_SIZE;
 	}
+	
+	public void deleteItem(int bankSlot) {
+		removeItem(bankSlot);
+		refreshItems();
+	}
+	
+	public boolean withdrawItemDel(int itemId) {
+		boolean refresh = true;
+		boolean forceDestroy = true;
+		int[] slot = getItemSlot(itemId);
+		if (slot == null)
+			return false;
+		Item item = bankTabs[slot[0]][slot[1]];
+		boolean destroyed = false;
+		if (bankTabs[slot[0]].length == 1 && (forceDestroy || bankTabs.length != 1)) {
+			destroyTab(slot[0]);
+			if (refresh)
+				refreshTabs();
+			destroyed = true;
+		}
+		return destroyed;
+	}
+	
+
+    public void forceDeleteItem(int[] slots, int quantity) {
+        if (quantity < 1)
+            return;
+        if (slots == null)
+            return;
+        Item item = getItem(slots);
+        if (item == null)
+            return;
+        if (item.getAmount() < quantity)
+            item = new Item(item.getId(), item.getAmount());
+        else
+            item = new Item(item.getId(), quantity);
+        boolean noted = false;
+        ItemDefinitions defs = item.getDefinitions();
+        if (withdrawNotes) {
+            if (!defs.isNoted() && defs.getCertId() != -1) {
+                item.setId(defs.getCertId());
+                noted = true;
+            } else
+                player.getPackets().sendGameMessage("You cannot withdraw this item as a note.");
+        }
+        if (noted || defs.isStackable()) {
+            if (player.getInventory().getItems().containsOne(item)) {
+                int slot = player.getInventory().getItems().getThisItemSlot(item);
+                Item invItem = player.getInventory().getItems().get(slot);
+                if (invItem.getAmount() + item.getAmount() <= 0) {
+                    item.setAmount(Integer.MAX_VALUE - invItem.getAmount());
+                    player.getPackets().sendGameMessage("Not enough space in your inventory.");
+                }
+            } else if (!player.getInventory().hasFreeSlots()) {
+                player.getPackets().sendGameMessage("Not enough space in your inventory.");
+                return;
+            }
+        } else {
+            int freeSlots = player.getInventory().getFreeSlots();
+            if (freeSlots == 0) {
+                player.getPackets().sendGameMessage("Not enough space in your inventory.");
+                return;
+            }
+            if (freeSlots < item.getAmount()) {
+                item.setAmount(freeSlots);
+                player.getPackets().sendGameMessage("Not enough space in your inventory.");
+            }
+        }
+        removeItem(slots, item.getAmount(), true, false);
+    }
 
 	public void withdrawItem(int bankSlot, int quantity) {
 		if (quantity < 1)
@@ -658,5 +728,18 @@ public class Bank {
 	public void clearBank() {
 		bankTabs = new Item[1][0];
 	}
+	
+	public boolean hasItem(int i) {
+		return getItem(i) != null;
+	}
 
+	public int getAmountOf(int itemUsed) {
+		for (Item bank : player.getBank().getContainerCopy()) {
+            if (bank == null)
+                continue;
+            if (bank.getId() == itemUsed)
+            	return bank.getAmount();
+        }
+		return 0;
+	}
 }

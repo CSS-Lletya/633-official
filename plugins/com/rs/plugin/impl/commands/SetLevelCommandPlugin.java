@@ -26,7 +26,8 @@ public final class SetLevelCommandPlugin implements CommandListener {
 				player.getPackets().sendGameMessage("Please choose a valid skill.");
 				return;
 			}
-			player.getSkills().addXp(skill1,  Skills.getXPForLevel(level1));
+			player.getSkills().set(skill1, level1);
+			player.getSkills().setXp(skill1, Skills.getXPForLevel(level1));
 			player.getAppearance().generateAppearenceData();
 		} catch (NumberFormatException e) {
 			player.getPackets().sendGameMessage("Usage ;;setlevel/;;setlvl skillId level");

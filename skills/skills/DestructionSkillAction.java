@@ -35,6 +35,8 @@ public abstract class DestructionSkillAction extends SkillHandler {
 	
 	@Override
 	public boolean canRun(Task t) {
+		if (manualRemoval())
+			return true;
 		String name = ItemDefinitions.getItemDefinitions(destructItem().getId()).getName();
 		if(!getPlayer().getInventory().containsItem(new Item(destructItem().getId()))) {
 			getPlayer().getPackets().sendGameMessage("You do not have any " + name + " in your inventory.");
@@ -46,6 +48,11 @@ public abstract class DestructionSkillAction extends SkillHandler {
 	
 	@Override
 	public final void execute(Task t) {
+		if (manualRemoval()) {
+			onDestruct(t, true);
+			player.getSkills().addXp(getSkillId(), experience());
+			return;
+		}
 		if(getPlayer().getInventory().canRemove(destructItem().getId(), destructItem().getAmount())) {
 			onDestruct(t, true);
 			player.getSkills().addXp(getSkillId(), experience());
@@ -72,6 +79,10 @@ public abstract class DestructionSkillAction extends SkillHandler {
 	
 	@Override
 	public boolean isPrioritized() {
+		return false;
+	}
+	
+	public boolean manualRemoval() {
 		return false;
 	}
 }

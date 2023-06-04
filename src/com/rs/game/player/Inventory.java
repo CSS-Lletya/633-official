@@ -283,6 +283,10 @@ public final class Inventory {
 		return getAmountOf(id) >= amount;
 	}
 	
+	public boolean canRemoveItem(int id) {
+		return getAmountOf(id) !=0;
+	}
+	
 	public void refreshConfigs(boolean init) {
 		double w = 0;
 		for (Item item : items.getItems()) {
