@@ -43,8 +43,7 @@ public class WineTask extends Action {
 	@Override
 	public int processWithDelay(Player player) {
 		count++;
-		System.out.println(count);
-		if (count == 3) {
+		if (count == 16) {
 			for (int i = 0; i <= totalWine; i++) {
 				if (player.getInventory().containsAny(1995)) {
 					player.getInventory().deleteItem(new Item(1995, 1));
