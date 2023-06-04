@@ -73767,15 +73767,6 @@
   {
     "tile": {
       "plane": 0,
-      "x": 2971,
-      "y": 3288
-    },
-    "comment": "Avalani",
-    "npcId": 13827
-  },
-  {
-    "tile": {
-      "plane": 0,
       "x": 3292,
       "y": 3283
     },
@@ -81255,15 +81246,6 @@
     },
     "comment": "Captain Lawgof",
     "npcId": 208
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2976,
-      "y": 3283
-    },
-    "comment": "Captain of the Guard",
-    "npcId": 13633
   },
   {
     "tile": {
