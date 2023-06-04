@@ -87,12 +87,11 @@ public class CreateActionD extends DialogueEventListener {
         for (int i = 0; i < this.products.length; i++) {
             products[i] = this.products[i][0];
         }
-        SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.MAKE, 0, products, null);
+        SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.MAKE, 28, products, null);
     }
 
     @Override
     public void listenToDialogueEvent(int button) {
-    	int type = SkillsDialogue.getItemSlot(button);
-        player.getAction().setAction(new CreateAction(materials, products, xp, anims, reqs, skill, delay, type));
+        player.getAction().setAction(new CreateAction(materials, products, xp, anims, reqs, skill, delay, SkillsDialogue.getItemSlot(button)));
     }
 }
