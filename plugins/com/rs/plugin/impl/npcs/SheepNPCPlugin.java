@@ -14,7 +14,7 @@ import com.rs.utilities.Ticks;
 public class SheepNPCPlugin implements NPCListener {
 
 	@Override
-	public void execute(Player player, NPC npc, int option) throws Exception {
+	public void execute(Player player, NPC npc, int option) {
 		int npcId = npc.getId();
 		if (!player.getInventory().containsOneItem(1735)) {
 			player.getPackets().sendGameMessage("You need some shears to shear the sheep.");

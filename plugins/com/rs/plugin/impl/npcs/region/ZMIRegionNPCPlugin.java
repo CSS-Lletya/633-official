@@ -10,7 +10,7 @@ import com.rs.plugin.wrapper.NPCSignature;
 public class ZMIRegionNPCPlugin implements NPCListener{
 
 	@Override
-	public void execute(Player player, NPC npc, int option) throws Exception {
+	public void execute(Player player, NPC npc, int option) {
 		player.getInterfaceManager().sendInterface(619);
 	}
 }

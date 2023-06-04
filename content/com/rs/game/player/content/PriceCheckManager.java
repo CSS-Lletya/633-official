@@ -4,6 +4,7 @@ import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemsContainer;
 import com.rs.game.player.Player;
+import com.rs.game.player.InterfaceManager.Tabs;
 
 public class PriceCheckManager {
 
@@ -16,7 +17,7 @@ public class PriceCheckManager {
 	}
 
 	public void openPriceCheck() {
-		player.getInterfaceManager().openGameTab(4);
+		player.getInterfaceManager().sendTab(Tabs.INVENTORY);
 		player.getInterfaceManager().sendInterface(206);
 		player.getInterfaceManager().sendInventoryInterface(207);
 		sendOptions();

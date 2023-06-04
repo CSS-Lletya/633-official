@@ -15,10 +15,9 @@ import com.rs.io.InputStream;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.LogUtility;
-import com.rs.utilities.Utility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.Utility;
 
-import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 /**
@@ -37,7 +36,7 @@ public class NPCPluginDispatcher {
 	 * @param parts the string which represents a NPCS.
 	 */
 	public static void execute(Player player, NPC npc, int option) {
-		getMob(npc, npc.getId()).ifPresent(mob -> Try.run(() -> mob.execute(player, npc, option)));
+		getMob(npc, npc.getId()).ifPresent(mob -> mob.execute(player, npc, option));
 	}
 
 	/**
@@ -135,6 +134,7 @@ public class NPCPluginDispatcher {
 		if (forceRun)
 			player.setRun(true);
 		player.setRouteEvent(new RouteEvent(npc, () -> {
+			NPCPluginDispatcher.execute(player, npc, optionId);
 			if (player.getMapZoneManager().getMapZone(player).isPresent()) {
 				switch(optionId) {
 				case 1:
@@ -152,9 +152,10 @@ public class NPCPluginDispatcher {
 				}
 				return;
 			}
+			
 			if (player.getQuestManager().handleNPC(player, npc, optionId))
 				return;
-			NPCPluginDispatcher.execute(player, npc, optionId);
+			
 		}, npc.getDefinitions().name.toLowerCase().equalsIgnoreCase("Banker")));
 
 	}

@@ -11,6 +11,8 @@ import com.rs.game.player.type.PoisonType;
 import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.RandomUtils;
 
+import skills.prayer.newprayer.Prayer;
+
 @MobCombatSignature(mobId = {50}, mobName = {})
 public class DragonCombat extends MobCombatListener {
 
@@ -35,7 +37,7 @@ public class DragonCombat extends MobCombatListener {
 			int damage = RandomUtils.inclusive(650);
 			final Player player = target.isPlayer() ? (Player) target : null;
 			if (Combat.hasAntiDragProtection(target) || (player != null
-					&& (player.getPrayer().usingPrayer(0, 17) || player.getPrayer().usingPrayer(1, 7))))
+					&& (player.getPrayer().active(Prayer.PROTECT_MAGIC) || player.getPrayer().active(Prayer.DEFLECT_MAGIC))))
 				damage = 0;
 			if (player != null && player.getDetails().getAntifireDetails().isPresent()) {
 				player.getPackets().sendGameMessage("Your potion absorbs most of the dragon's breath!");
@@ -57,7 +59,7 @@ public class DragonCombat extends MobCombatListener {
 					player.getPackets().sendGameMessage("Your shield absorbs most of the dragon's poisonous breath!",
 							true);
 			} else if (player != null
-					&& (player.getPrayer().usingPrayer(0, 17) || player.getPrayer().usingPrayer(1, 7))) {
+					&& (player.getPrayer().active(Prayer.PROTECT_MAGIC) || player.getPrayer().active(Prayer.DEFLECT_MAGIC))) {
 				damage = getRandomMaxHit(npc, 164, NPCCombatDefinitions.MAGE, target);
 				if (player != null)
 					player.getPackets().sendGameMessage("Your prayer absorbs most of the dragon's poisonous breath!",
@@ -81,7 +83,7 @@ public class DragonCombat extends MobCombatListener {
 					player.getPackets().sendGameMessage("Your shield absorbs most of the dragon's freezing breath!",
 							true);
 			} else if (player != null
-					&& (player.getPrayer().usingPrayer(0, 17) || player.getPrayer().usingPrayer(1, 7))) {
+					&& (player.getPrayer().active(Prayer.PROTECT_MAGIC) || player.getPrayer().active(Prayer.DEFLECT_MAGIC))) {
 				damage = getRandomMaxHit(npc, 164, NPCCombatDefinitions.MAGE, target);
 				if (player != null)
 					player.getPackets().sendGameMessage("Your prayer absorbs most of the dragon's freezing breath!",
@@ -115,7 +117,7 @@ public class DragonCombat extends MobCombatListener {
 					if (damage != 0)
 						damage = RandomUtils.inclusive(164);
 			} else if (player != null
-					&& (player.getPrayer().usingPrayer(0, 17) || player.getPrayer().usingPrayer(1, 7))) {
+					&& (player.getPrayer().active(Prayer.PROTECT_MAGIC) || player.getPrayer().active(Prayer.DEFLECT_MAGIC))) {
 				damage = getRandomMaxHit(npc, 164, NPCCombatDefinitions.MAGE, target);
 				if (player != null)
 					player.getPackets().sendGameMessage("Your prayer absorbs most of the dragon's shocking breath!",

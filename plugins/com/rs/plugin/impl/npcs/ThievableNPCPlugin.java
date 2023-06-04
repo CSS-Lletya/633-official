@@ -20,11 +20,17 @@ import skills.thieving.impl.Pickpocketing.PickpocketData;
 public class ThievableNPCPlugin implements NPCListener {
 
 	@Override
-	public void execute(Player player, NPC npc, int option) throws Exception {
-		npc.doAction(option, "Pickpocket", () -> {
-			Arrays.stream(PickpocketData.values()).forEach(data -> IntStream.of(data.npcId)
-					.filter(mob -> mob == npc.getId())
-					.forEach(mob -> new Pickpocketing(player, data, npc).start()));
-		});
+	public void execute(Player player, NPC npc, int option) {
+		if (option == 1 && IntStream.of(1, 2, 3, 4, 5, 6, 16, 24, 170, 351, 663, 728, 729, 1086, 3223, 3224,
+	            3225, 3915, 5923, 7873, 7874, 7875, 7876, 7877, 7878, 7879, 7909, 7910, 8010, 8011,
+	            12345, 12346, 12347, 25, 352, 353, 354, 360, 361, 362, 363, 2776, 3226, 5924, 7880,
+	            7881, 7882, 7883, 7884, 8012, 8013).anyMatch(id -> npc.getId() == id)) {
+			player.getDialogueInterpreter().open(3);
+		} else
+			npc.doAction(option, "Pickpocket", () -> {
+				Arrays.stream(PickpocketData.values())
+						.forEach(data -> IntStream.of(data.npcId).filter(mob -> mob == npc.getId())
+								.forEach(mob -> new Pickpocketing(player, data, npc).start()));
+			});
 	}
 }

@@ -7,6 +7,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Player;
+import com.rs.game.player.InterfaceManager.Tabs;
 import com.rs.game.player.content.pet.PetDetails;
 import com.rs.game.player.content.pet.Pets;
 import com.rs.utilities.Utility;
@@ -132,7 +133,7 @@ public final class Pet extends NPC {
 	 * Picks up the pet.
 	 */
 	public void pickup() {
-		owner.getInterfaceManager().openGameTab(4);
+		owner.getInterfaceManager().sendTab(Tabs.INVENTORY);
 		owner.getInventory().addItem(itemId, 1);
 		owner.setPet(null);
 		owner.getPetManager().setNpcId(-1);

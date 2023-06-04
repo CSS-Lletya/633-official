@@ -11,6 +11,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.task.impl.ActorDeathTask;
 
 import skills.Skills;
+import skills.prayer.newprayer.Prayer;
 
 public class PlayerDeath extends ActorDeathTask<Player> {
 
@@ -93,7 +94,7 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 		int keptAmount = 0;
 
 		keptAmount = getActor().getAppearance().hasSkull() ? 0 : 3;
-		if (getActor().getPrayer().usingPrayer(0, 10) || getActor().getPrayer().usingPrayer(1, 0))
+		if (getActor().getPrayer().active(Prayer.PROTECT_ITEM_N) || getActor().getPrayer().active(Prayer.PROTECT_ITEM_C))
 			keptAmount++;
 		
 		CopyOnWriteArrayList<Item> keptItems = new CopyOnWriteArrayList<Item>();

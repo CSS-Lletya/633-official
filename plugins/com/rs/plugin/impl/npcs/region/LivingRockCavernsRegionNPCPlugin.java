@@ -13,7 +13,7 @@ import skills.mining.RockData;
 public class LivingRockCavernsRegionNPCPlugin implements NPCListener{
 
 	@Override
-	public void execute(Player player, NPC npc, int option) throws Exception {
+	public void execute(Player player, NPC npc, int option) {
 		GameObject rocks = new GameObject(npc.getId(), 1, 10, npc);
 		new Mining(player, RockData.LRC_MINERALS, rocks).start();
 	}

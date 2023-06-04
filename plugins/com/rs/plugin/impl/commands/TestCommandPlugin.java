@@ -1,6 +1,5 @@
 package com.rs.plugin.impl.commands;
 
-import com.rs.game.dialogue.book.DemoBook;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.plugin.listener.CommandListener;
@@ -18,6 +17,5 @@ public class TestCommandPlugin implements CommandListener {
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
 //		player.getDialogueInterpreter().open(7888);
-		player.dialogBlank(new DemoBook(player));
 	}
 }

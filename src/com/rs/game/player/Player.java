@@ -46,6 +46,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import skills.Skills;
+import skills.prayer.newprayer.PrayerManager;
 
 /**
  * Represents a Player & all of their attributes
@@ -269,7 +270,7 @@ public class Player extends Entity {
 	/**
 	 * Represents a Player's Prayer management system
 	 */
-	private Prayer prayer;
+	private PrayerManager prayer;
 	
 	/**
 	 * Represents a Player's Bank management system
@@ -329,7 +330,7 @@ public class Player extends Entity {
 		setEquipment(new Equipment());
 		setSkills(new Skills());
 		setCombatDefinitions(new CombatDefinitions());
-		setPrayer(new Prayer());
+		setPrayer(new PrayerManager());
 		setBank(new Bank());
 		setMusicsManager(new MusicsManager());
 		setNotes(new Notes());
@@ -470,7 +471,7 @@ public class Player extends Entity {
 		getCombatDefinitions().init();
 		getPrayer().init();
 		getFriendsIgnores().init();
-		getPrayer().refreshPrayerPoints();
+		getPrayer().refreshPoints();
 		getMusicsManager().init();
 		getNotes().init();
 		if (getFamiliar() != null)

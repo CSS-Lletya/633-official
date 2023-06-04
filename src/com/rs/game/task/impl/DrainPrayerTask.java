@@ -14,7 +14,7 @@ public final class DrainPrayerTask extends Task {
 	
 	@Override
 	public void execute() {
-		World.players().filter(p -> !p.isDead() && p.getPrayer().hasPrayersOn()).forEach(p -> p.getPrayer().processPrayerDrain());
+		World.players().filter(p -> !p.isDead() && p.getPrayer().hasPrayersOn()).forEach(p -> p.getPrayer().processPrayer());
 	}
 	
 	@Override

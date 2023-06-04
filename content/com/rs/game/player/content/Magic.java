@@ -11,6 +11,7 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
+import com.rs.game.player.InterfaceManager.Tabs;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -416,7 +417,7 @@ public class Magic {
 			if (!checkRunes(player, true, FIRE_RUNE, highAlch ? 5 : 3, NATURE_RUNE, 1))
 				return;
 			player.getMovement().lock(4);
-			player.getInterfaceManager().openGameTab(7);
+			player.getInterfaceManager().sendTab(Tabs.MAGIC);
 			player.getInventory().deleteItem(target.getId(), 1);
 			player.getSkills().addXp(Skills.MAGIC, highAlch ? 65 : 31);
 			player.getInventory()

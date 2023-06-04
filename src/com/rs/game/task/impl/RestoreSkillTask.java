@@ -5,6 +5,7 @@ import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtils;
 
 import skills.Skills;
+import skills.prayer.newprayer.Prayer;
 
 public final class RestoreSkillTask extends Task {
 
@@ -18,10 +19,10 @@ public final class RestoreSkillTask extends Task {
 	@Override
 	public void execute() {
 		World.players().forEach(player -> {
-			int ammountTimes = player.getPrayer().usingPrayer(0, 8) ? 2 : 1;
+			 int ammountTimes = player.getPrayer().active(Prayer.RAPID_RESTORE) ? 2 : 1;
 			if (player.getMovement().isResting())
 				ammountTimes += 1;
-			boolean berserker = player.getPrayer().usingPrayer(1, 5);
+			   boolean berserker = player.getPrayer().active(Prayer.BERSERKER);
 			b: for (int skill = 0; skill < 25; skill++) {
 				if (skill == Skills.SUMMONING)
 					continue b;

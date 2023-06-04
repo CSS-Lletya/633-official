@@ -230,7 +230,7 @@ public abstract class Familiar extends NPC {
 		boolean res = player.getInterfaceManager().isResizableScreen();
 		sendLeftClickOption(player);
 		player.getInterfaceManager().setWindowInterface(res ? 128 : 188, 880);
-		player.getInterfaceManager().openGameTab(95);
+//		player.getInterfaceManager().openGameTab(95);//wtf was that lol
 	}
 
 	public static void confirmLeftOption(Player player) {

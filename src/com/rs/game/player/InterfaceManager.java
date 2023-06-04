@@ -6,7 +6,9 @@ import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class InterfaceManager {
@@ -458,15 +460,6 @@ public class InterfaceManager {
 		});
 	}
 
-	/*
-	 * returns lastGameTab
-	 */
-	public int openGameTab(int tabId) {
-		player.getPackets().sendGlobalConfig(168, tabId);
-		int lastTab = 4;
-		return lastTab;
-	}
-
 	public void closeInterface(int one, int two) {
 		player.getPackets().closeInterface(isResizableScreen() ? two : one);
 	}
@@ -501,5 +494,32 @@ public class InterfaceManager {
 //        for (Quest quest: player.getQuestManager().getProgressed().values()) {
 //             player.getPackets().sendIComponentText(3033, quest.getComponentId() +1 , player.getQuestManager().getStage(quest.getName()) >= 1 && player.getQuestManager().getStage(quest.getName()) < quest.getLastStage(player) ? Colors.yellow + quest.getName() : player.getQuestManager().completedQuest(quest.getName()) ? Colors.green + quest.getName() : Colors.red + quest.getName());
 //        }
+	}
+	
+    public void sendTab(Tabs tab) {
+        player.getPackets().sendGlobalConfig(168, tab.getBeltId());
+    }
+
+    @AllArgsConstructor
+	public enum Tabs {
+		COMBAT(0),
+		ACHIEVEMENT(1),
+		SKILLS(2),
+		QUESTS(3),
+		INVENTORY(4),
+		EQUIPMENT(5),
+		PRAYER(6),
+		MAGIC(7),
+		SOF(8),
+		FRIENDS(9),
+		FRIENDS_CHAT(10),
+		CLAN_CHAT(11),
+		SETTINGS(12),
+		EMOTES(13),
+		MUSIC(14),
+		NOTES(15);
+		
+		@Getter
+		private int beltId;
 	}
 }

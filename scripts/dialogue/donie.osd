@@ -1,0 +1,27 @@
+@dialogue npc:2238
+npc("Hello there! How can I assist you today?")
+>options
+options: {
+option("Who are you?", "What services do you offer?", "Can you tell me about this area?", "Do you have any quests?", "Never mind.")
+@option1 {
+player("Who are you?")
+npc("I'm Donie, a seasoned adventurer and historian. I", "have traveled far and wide, collecting knowledge", "about the fascinating lands of Gielinor.")
+}
+@option2 {
+player("What services do you offer?")
+npc("As a historian, I can provide you with valuable", "insights into the lore, history, and legends of", "various locations. If you have any questions or", "seek information about a specific topic, feel free", "to ask!")
+}
+@option3 {
+player("Can you tell me about this area?")
+npc("Certainly! Lumbridge is a renowned town with a", "rich history. Lumbridge Castle, situated nearby,", "is a symbol of power and a hub of activity. The", "area around Lumbridge is also home to various", "monsters and resources for adventurers to explore.")
+// Continue with the dialogue about the area
+}
+@option4 {
+player("Do you have any quests?")
+npc("As an experienced adventurer, I have undertaken", "many quests in my time. However, I don't have any", "specific quests to offer at the moment. If you're", "in search of adventures, I can point you in the", "right direction or share tales of past quests.")
+}
+@option5 {
+player("Never mind.")
+npc("Alright then. If you ever seek knowledge or have", "any questions, feel free to return. May your", "journeys be filled with discovery and excitement!")
+}
+}

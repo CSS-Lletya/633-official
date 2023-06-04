@@ -56,6 +56,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import lombok.Setter;
 import skills.Skills;
+import skills.prayer.newprayer.Prayer;
 
 @Getter
 @Setter
@@ -240,11 +241,11 @@ public abstract class Entity extends WorldTile {
 
 		ifPlayer(player -> {
 			if (player.getPrayer().hasPrayersOn()) {
-				if ((getHitpoints() < player.getMaxHitpoints() * 0.1) && player.getPrayer().usingPrayer(0, 23)) {
+				if ((getHitpoints() < player.getMaxHitpoints() * 0.1) && player.getPrayer().active(Prayer.REDEMPTION)) {
 					setNextGraphics(Graphic.HEALING_BARRIER);
 					setHitpoints((int) (getHitpoints() + player.getSkills().getLevelForXp(Skills.PRAYER) * 2.5));
 					player.getSkills().set(Skills.PRAYER, 0);
-					player.getPrayer().setPrayerpoints(0);
+					player.getPrayer().setPoints(0);
 				} else if (player.getEquipment().getAmuletId() != 11090 && player.getEquipment().getRingId() == 11090
 						&& player.getHitpoints() <= player.getMaxHitpoints() * 0.1) {
 					player.getMovement().move(true, GameConstants.START_PLAYER_LOCATION, TeleportType.BLANK);
@@ -777,7 +778,7 @@ public abstract class Entity extends WorldTile {
 		int maxHp = getMaxHitpoints();
 		if (getHitpoints() > maxHp) {
 			ifPlayer(player -> {
-				if (player.getPrayer().usingPrayer(1, 5) && RandomUtils.inclusive(100) <= 15)
+				if (player.getPrayer().active(Prayer.RAPID_HEAL) && RandomUtils.inclusive(100) <= 15)
 					return;
 			});
 			setHitpoints(getHitpoints() - 1);
@@ -786,15 +787,15 @@ public abstract class Entity extends WorldTile {
 			setHitpoints(getHitpoints() + 1);
 			ifPlayer(player -> {
 				if (true) {
-					if (player.getPrayer().usingPrayer(0, 9))
+					if (player.getPrayer().active(Prayer.RAPID_RENEWAL))
 						restoreHitPoints();
 					if (player.getResting() != 0)
 						restoreHitPoints();
 					player.getInterfaceManager().refreshHitPoints();
 				}
-				if (player.getPrayer().usingPrayer(0, 9) && getHitpoints() < maxHp)
+				if (player.getPrayer().active(Prayer.RAPID_HEAL) && getHitpoints() < maxHp)
 					setHitpoints(getHitpoints() + 1);
-				else if (player.getPrayer().usingPrayer(0, 26) && getHitpoints() < maxHp)
+				else if (player.getPrayer().active(Prayer.RAPID_RENEWAL) && getHitpoints() < maxHp)
 					setHitpoints(getHitpoints() + (getHitpoints() + 4 > maxHp ? maxHp - getHitpoints() : 4));
 			});
 			return true;

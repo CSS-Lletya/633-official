@@ -4,6 +4,8 @@ import com.rs.game.Entity;
 import com.rs.game.player.Player;
 import com.rs.game.player.type.CombatEffect;
 
+import skills.prayer.newprayer.Prayer;
+
 /**
  * The combat effect applied when a player needs to be teleblocked.
  * @author lare96 <http://github.com/lare96>
@@ -24,8 +26,7 @@ public final class CombatTeleblockEffect extends CombatEffect {
 			if(player.getDetails().getTeleBlockDelay().get() > 0) {
 				return false;
 			}
-			player.getDetails().getTeleBlockDelay().set((player.getPrayer().usingPrayer(0, 17)
-					|| player.getPrayer().usingPrayer(1, 7) ? 3000 / 2 : 3000));
+			player.getDetails().getTeleBlockDelay().set((player.getPrayer().active(Prayer.PROTECT_MAGIC) || player.getPrayer().active(Prayer.DEFLECT_MAGIC)? 3000 / 2 : 3000));
 			player.getPackets().sendGameMessage("You have just been teleblocked!");
 			return true;
 		}

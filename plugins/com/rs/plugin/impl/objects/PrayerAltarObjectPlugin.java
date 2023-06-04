@@ -18,7 +18,7 @@ public class PrayerAltarObjectPlugin extends ObjectListener {
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		if (object.getDefinitions().containsOption("Pray")){
 			final int maxPrayer = player.getSkills().getLevelForXp(Skills.PRAYER) * 10;
-            if (player.getPrayer().getPrayerpoints() < maxPrayer) {
+            if (player.getPrayer().getPoints() < maxPrayer) {
                 player.setNextAnimation(Animations.PRAYING_TO_ALTAR);
                 player.getPrayer().restorePrayer(maxPrayer);
                 player.getPackets().sendGameMessage("You've recharged your prayer points.");

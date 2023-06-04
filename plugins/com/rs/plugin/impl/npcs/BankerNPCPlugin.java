@@ -9,15 +9,14 @@ import com.rs.plugin.wrapper.NPCSignature;
 public class BankerNPCPlugin implements NPCListener {
 
 	@Override
-	public void execute(Player player, NPC npc, int option) throws Exception {
+	public void execute(Player player, NPC npc, int option) {
 		switch (option) {
 		case 1:
-			player.getDialogueInterpreter().open(4907);
+			player.getDialogueInterpreter().open(6200);
 			break;
 		case 2:
 			player.getBank().openBank();
 			break;
-
 		}
 	}
 }

@@ -15,5 +15,5 @@ public interface NPCListener {
 	 * @param player the player we are executing this command for.
 	 * @param cmd the command that we are executing for this player.
 	 */
-	void execute(Player player, NPC npc, int option) throws Exception;
+	void execute(Player player, NPC npc, int option);
 }

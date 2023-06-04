@@ -16,7 +16,7 @@ public class PrayerInterfacePlugin extends RSInterfaceListener {
 		if (interfaceId == 271) {
 			if (componentId == 8 || componentId == 42) {
 				player.getPrayer().switchPrayer(slotId);
-			} else if (componentId == 43 && player.getPrayer().isUsingQuickPrayer())
+			} else if (componentId == 43 && player.getPrayer().settingQuickPrayers)
 				player.getPrayer().switchSettingQuickPrayer();
 		}
 		if (interfaceId == 749) {

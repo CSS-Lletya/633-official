@@ -14,7 +14,7 @@ import skills.fishing.Tool;
 public class FishingSpotNPCPlugin implements NPCListener {
 
 	@Override
-	public void execute(Player player, NPC mob, int option) throws Exception {
+	public void execute(Player player, NPC mob, int option){
 		if (option == 1) {
 			for (int i = 309; i < 318; i++) {
 				if (i == 312 || i == 313 || i == 316)

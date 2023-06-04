@@ -250,8 +250,6 @@ public class Bank {
 		player.getInterfaceManager().sendInterface(11);
 		player.getInterfaceManager().closeInventory();
 		player.getInterfaceManager().closeEquipment();
-		final int lastGameTab = player.getInterfaceManager().openGameTab(9); // friends
-		// tab
 		sendBoxInterItems();
 		player.getPackets().sendIComponentText(11, 13,
 				"Bank Of " + GameConstants.SERVER_NAME + " - Deposit Box");
@@ -259,7 +257,6 @@ public class Bank {
 			player.getInterfaceManager().sendInventory();
 			player.getInventory().unlockInventoryOptions();
 			player.getInterfaceManager().sendEquipment();
-			player.getInterfaceManager().openGameTab(lastGameTab);
 		});
 	}
 

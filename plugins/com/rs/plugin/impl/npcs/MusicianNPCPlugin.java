@@ -10,7 +10,10 @@ import com.rs.plugin.wrapper.NPCSignature;
 public class MusicianNPCPlugin implements NPCListener {
 
 	@Override
-	public void execute(Player player, NPC npc, int option) throws Exception {
-		npc.doAction(option, "Listen-to", () -> player.getAction().setAction(new Rest(4)));
+	public void execute(Player player, NPC npc, int option) {
+		if (option == 1)
+			player.getDialogueInterpreter().open(29);
+		else
+			npc.doAction(option, "Listen-to", () -> player.getAction().setAction(new Rest(4)));
 	}
 }
