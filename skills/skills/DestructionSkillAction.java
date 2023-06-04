@@ -82,6 +82,10 @@ public abstract class DestructionSkillAction extends SkillHandler {
 		return false;
 	}
 	
+	/**
+	 * Used if we're manually settings a item removal event
+	 * @return
+	 */
 	public boolean manualRemoval() {
 		return false;
 	}
