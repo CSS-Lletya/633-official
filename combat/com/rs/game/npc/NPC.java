@@ -70,11 +70,11 @@ public class NPC extends Entity {
 	// npc masks
 	private transient Transformation nextTransformation;
 
-	public NPC(short id, WorldTile tile, Direction direction) {
+	public NPC(int id, WorldTile tile, Direction direction) {
 		this(id, tile, direction,  true, false);
 	}
 	
-	public NPC(short id, WorldTile tile, Direction direction, boolean canBeAttackFromOutOfArea) {
+	public NPC(int id, WorldTile tile, Direction direction, boolean canBeAttackFromOutOfArea) {
 		this(id, tile, direction, canBeAttackFromOutOfArea, false);
 	}
 
