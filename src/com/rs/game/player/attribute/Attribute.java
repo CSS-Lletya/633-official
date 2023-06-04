@@ -155,4 +155,6 @@ public interface Attribute {
 	 * Represents the special recovery state
 	 */
 	public String SPECIAL_RECOVERY = "SpecRecovery";
+	
+	public String FAIRY_RING_LOCATION_ARRAY = "LocationArray";
 }
