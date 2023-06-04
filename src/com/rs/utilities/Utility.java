@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.rs.GameConstants;
 import com.rs.cache.Cache;
+import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.utilities.LogUtility.LogType;
@@ -695,4 +696,14 @@ public final class Utility {
 		int v = angle >> 11;
 		return ANGLE_DIRECTION_DELTA[v];
 	}
+
+    public static WorldTile getFreeTile(WorldTile center, int distance) {
+        WorldTile tile = center;
+        for (int i = 0; i < 10; i++) {
+            tile = new WorldTile(center, distance);
+            if (World.isTileFree(tile.getPlane(), tile.getX(), tile.getY(), 1))
+                return tile;
+        }
+        return center;
+    }
 }

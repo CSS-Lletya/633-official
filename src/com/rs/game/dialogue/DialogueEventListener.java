@@ -7,7 +7,7 @@ import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 
-public abstract class DialogueEventListener implements DialogueFaceExpression {
+public abstract class DialogueEventListener implements Expression {
 
 	private ArrayList<DialogueEvent> dialogueEvent = new ArrayList<DialogueEvent>();
 

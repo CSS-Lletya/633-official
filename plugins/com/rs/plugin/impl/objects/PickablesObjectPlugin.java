@@ -23,32 +23,32 @@ public class PickablesObjectPlugin extends ObjectListener {
 		});
 		object.doAction(optionId, "Flax", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.FLAX_1779))){
-				player.setNextAnimation(Animations.DIG);
+				player.setNextAnimation(Animations.TOUCH_GROUND);
 				if (RandomUtils.percentageChance(18))
 					GameObject.removeObjectTemporary(object, Ticks.fromSeconds(6));
 			}
 		});
 		object.doAction(optionId, "Onion", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.ONION_1957))){
-				player.setNextAnimation(Animations.DIG);
+				player.setNextAnimation(Animations.TOUCH_GROUND);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
 			}
 		});
 		object.doAction(optionId, "Cabbage", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.CABBAGE_1965))){
-				player.setNextAnimation(Animations.DIG);
+				player.setNextAnimation(Animations.TOUCH_GROUND);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
 			}
 		});
 		object.doAction(optionId, "Wheat", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.GRAIN_1947))){
-				player.setNextAnimation(Animations.DIG);
+				player.setNextAnimation(Animations.TOUCH_GROUND);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
 			}
 		});
 		object.doAction(optionId, "Potato", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.POTATO_1942))){
-				player.setNextAnimation(Animations.DIG);
+				player.setNextAnimation(Animations.TOUCH_GROUND);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
 			}
 		});

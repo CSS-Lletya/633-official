@@ -133,6 +133,8 @@ public class NPCPluginDispatcher {
 			return;
 		if (forceRun)
 			player.setRun(true);
+		if (player.getTreasureTrailsManager().useNPC(npc))
+            return;
 		player.setRouteEvent(new RouteEvent(npc, () -> {
 			NPCPluginDispatcher.execute(player, npc, optionId);
 			if (player.getMapZoneManager().getMapZone(player).isPresent()) {

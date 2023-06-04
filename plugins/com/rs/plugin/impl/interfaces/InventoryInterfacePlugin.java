@@ -52,6 +52,8 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON1_PACKET:
 				InventoryPluginDispatcher.execute(player, item, slotId, 1);
+				 if (player.getTreasureTrailsManager().useItem(item, slotId))
+			            return;
 				if (Foods.eat(player, item, slotId))
 					return;
 				Potion pot = Potion.forId(item.getId());

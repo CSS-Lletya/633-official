@@ -49,6 +49,8 @@ public class ObjectSecondClickPacket implements LogicPacketListener {
         player.setRouteEvent(new RouteEvent(worldObject, () -> {
         	if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectClick2(player, worldObject)))
 				return;
+        	if (player.getTreasureTrailsManager().useObject(worldObject))
+                return;
             ObjectPluginDispatcher.execute(player, worldObject, 2);
         }, true));
     }

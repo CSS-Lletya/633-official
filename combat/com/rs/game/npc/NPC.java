@@ -244,6 +244,7 @@ public class NPC extends Entity {
 		Player killer = getMostDamageReceivedSourcePlayer();
 		if (killer == null)
 			return;
+		killer.getTreasureTrailsManager().setPhase(2);
 		Item[] drops = DropTable.calculateDrops(killer, DropSets.getDropSet(id));
 
 		for (Item item : drops)
@@ -253,6 +254,12 @@ public class NPC extends Entity {
 		if (charm != null)
 			for (Drop d : charm.getDrops())
 				sendDrop(killer, d.toItem());
+		
+		Item[] clues = DropTable.calculateDrops(killer.toPlayer(), NPCClueDrops.rollClues(id));
+        for (Item item : clues) {
+//            killer.toPlayer().getPlayerDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(item.getId()).getName() + "_Clues_Collected");
+            FloorItem.updateGroundItem(item, new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()), killer.toPlayer(), 60, 0);
+        }
 	}
 
 	public void sendDrop(Player player, Item item) {

@@ -1,5 +1,6 @@
 package com.rs.game.player;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
@@ -14,6 +15,7 @@ import com.rs.game.EntityType;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.ScriptDialogueInterpreter;
 import com.rs.game.item.Item;
+import com.rs.game.item.ItemsContainer;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
 import com.rs.game.movement.route.CoordsEvent;
@@ -27,6 +29,9 @@ import com.rs.game.player.content.MusicsManager;
 import com.rs.game.player.content.Notes;
 import com.rs.game.player.content.PriceCheckManager;
 import com.rs.game.player.content.pet.PetManager;
+import com.rs.game.player.content.trails.PuzzleBox;
+import com.rs.game.player.content.trails.Puzzles;
+import com.rs.game.player.content.trails.TreasureTrailsManager;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.game.player.type.CombatEffect;
 import com.rs.game.task.impl.CombatEffectTask;
@@ -227,6 +232,12 @@ public class Player extends Entity {
 	 */
 	private transient MapZoneManager mapZoneManager = new MapZoneManager();
 	
+	private transient ItemsContainer<Item> clueScrollRewards;
+	
+    private TreasureTrailsManager treasureTrailsManager;
+
+	private PuzzleBox puzzleBox;
+	
 	/**
 	 * Personal details & information stored for a Player
 	 */
@@ -345,6 +356,9 @@ public class Player extends Entity {
 			setCurrentMapZone(getCurrentMapZone());
 		questManager = new QuestManager();
 		dialogueInterpreter = new ScriptDialogueInterpreter(this);
+		treasureTrailsManager = new TreasureTrailsManager();
+		clueScrollRewards = new ItemsContainer<Item>(10, true);
+		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
 	}
 
 	/**
@@ -386,6 +400,12 @@ public class Player extends Entity {
 		getCombatDefinitions().setPlayer(this);
 		getPrayer().setPlayer(this);
 		getBank().setPlayer(this);
+		if (clueScrollRewards == null)
+            clueScrollRewards = new ItemsContainer<>(10, true);
+		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
+		if (treasureTrailsManager == null)
+            treasureTrailsManager = new TreasureTrailsManager();
+        treasureTrailsManager.setPlayer(this);
 		if (questManager == null)
             questManager = new QuestManager();
 		getMusicsManager().setPlayer(this);

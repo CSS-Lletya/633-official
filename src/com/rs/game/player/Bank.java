@@ -420,7 +420,7 @@ public class Bank {
 		addItem(item, refresh);
 	}
 
-	private void addItem(Item item, boolean refresh) {
+	public void addItem(Item item, boolean refresh) {
 		addItem(item.getId(), item.getAmount(), refresh);
 	}
 

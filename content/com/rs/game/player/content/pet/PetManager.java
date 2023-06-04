@@ -83,7 +83,7 @@ public final class PetManager {
 			pet.setGrowthRate(pets.getGrowthRate());
 			player.setPet(pet);
 			if (deleteItem) {
-				player.setNextAnimation(Animations.DIG);
+				player.setNextAnimation(Animations.TOUCH_GROUND);
 				player.getInventory().deleteItem(itemId, 1);
 			}
 			return true;
@@ -116,7 +116,7 @@ public final class PetManager {
 				player.getInventory().deleteItem(food, 1);
 				player.getPackets().sendGameMessage(
 						"Your pet happily eats the " + ItemDefinitions.getItemDefinitions(food).getName() + ".");
-				player.setNextAnimation(Animations.DIG);
+				player.setNextAnimation(Animations.TOUCH_GROUND);
 				npc.getDetails().updateHunger(-15.0);
 				return;
 			}

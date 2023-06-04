@@ -77,7 +77,7 @@ public final class Animations {
 	public static final Animation CURSES_BUFF = new Animation(12589);
 	public static final Animation CURSES_TURMOIL = new Animation(12565);
 	public static final Animation EMPTY_ECTOPHIAL = new Animation(9609);
-	public static final Animation DIG = new Animation(827);
+	public static final Animation TOUCH_GROUND = new Animation(827);
 	public static final Animation JUMP = new Animation(6132);
 	public static final Animation TELEPORT_NORMAL = new Animation(8939);
 	public static final Animation TELEPORT_ANCIENT = new Animation(9599);
@@ -108,6 +108,7 @@ public final class Animations {
 	public static final Animation COOKING_ON_FIRE = new Animation(897);
 	public static final Animation COOKING_ON_STOVE = new Animation(897);
 	public static final Animation ATTEMPT_FIRE_LIGHTING = new Animation(733);
+	public static final Animation SPADE_DIG = new Animation(830);
 	
 	/**
 	 * Object Based Animations

@@ -1,6 +1,6 @@
 package com.rs.game.dialogue;
 
-public interface DialogueFaceExpression {
+public interface Expression {
 
 	// Happy expressions
 	short head_side2side_happy = 9843;

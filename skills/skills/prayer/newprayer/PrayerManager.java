@@ -686,8 +686,6 @@ public class PrayerManager {
 
 	public void refreshPoints() {
 		player.getVarsManager().sendVar(2382, (int) points);
-		player.getAppearance().generateAppearenceData();
-		player.getLocalPlayerUpdate().createPacketAndProcess();
 	}
 
 	public boolean hasFullPoints() {

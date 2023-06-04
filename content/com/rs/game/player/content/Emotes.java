@@ -120,9 +120,11 @@ public class Emotes {
 					emote.getSpecialEmote().ifPresent(user -> user.handleSpecialEmote(player));
 					emote.getAnimation().ifPresent(player::setNextAnimation);
 					emote.getGraphics().ifPresent(player::setNextGraphics);
+					player.getTreasureTrailsManager().useEmote(buttonId);
 					if (!isDoingEmote(player))
 					    setNextEmoteEnd(player);
 				}
+				useBookEmote(player, buttonId);
 			}
 		}
 		
@@ -183,4 +185,209 @@ public class Emotes {
 			return false;
 		}
 	}
+	
+
+    public static void useBookEmote(Player player, int id) {
+        player.getMovement().stopAll(false);
+        if (id == 39) {
+            final int capeId = player.getEquipment().getCapeId();
+            switch (capeId) {
+                case 9747:
+                case 9748:
+                case 10639: // Attack cape
+                    player.setNextAnimation(new Animation(4959));
+                    player.setNextGraphics(new Graphics(823));
+                    break;
+                case 9753:
+                case 9754:
+                case 10641: // Defence cape
+                    player.setNextAnimation(new Animation(4961));
+                    player.setNextGraphics(new Graphics(824));
+                    break;
+                case 9750:
+                case 9751:
+                case 10640: // Strength cape
+                    player.setNextAnimation(new Animation(4981));
+                    player.setNextGraphics(new Graphics(828));
+                    break;
+                case 9768:
+                case 9769:
+                case 10647: // Hitpoints cape
+                    player.setNextAnimation(new Animation(14242));
+                    player.setNextGraphics(new Graphics(2745));
+                    break;
+                case 9756:
+                case 9757:
+                case 10642: // Ranged cape
+                    player.setNextAnimation(new Animation(4973));
+                    player.setNextGraphics(new Graphics(832));
+                    break;
+                case 9762:
+                case 9763:
+                case 10644: // Magic cape
+                    player.setNextAnimation(new Animation(4939));
+                    player.setNextGraphics(new Graphics(813));
+                    break;
+                case 9759:
+                case 9760:
+                case 10643: // Prayer cape
+                    player.setNextAnimation(new Animation(4979));
+                    player.setNextGraphics(new Graphics(829));
+                    break;
+                case 9801:
+                case 9802:
+                case 10658: // Cooking cape
+                    player.setNextAnimation(new Animation(4955));
+                    player.setNextGraphics(new Graphics(821));
+                    break;
+                case 9807:
+                case 9808:
+                case 10660: // Woodcutting cape
+                    player.setNextAnimation(new Animation(4957));
+                    player.setNextGraphics(new Graphics(822));
+                    break;
+                case 9783:
+                case 9784:
+                case 10652: // Fletching cape
+                    player.setNextAnimation(new Animation(4937));
+                    player.setNextGraphics(new Graphics(812));
+                    break;
+                case 9798:
+                case 9799:
+                case 10657: // Fishing cape
+                    player.setNextAnimation(new Animation(4951));
+                    player.setNextGraphics(new Graphics(819));
+                    break;
+                case 9804:
+                case 9805:
+                case 10659: // Firemaking cape
+                    player.setNextAnimation(new Animation(4975));
+                    player.setNextGraphics(new Graphics(831));
+                    break;
+                case 9780:
+                case 9781:
+                case 10651: // Crafting cape
+                    player.setNextAnimation(new Animation(4949));
+                    player.setNextGraphics(new Graphics(818));
+                    break;
+                case 9795:
+                case 9796:
+                case 10656: // Smithing cape
+                    player.setNextAnimation(new Animation(4943));
+                    player.setNextGraphics(new Graphics(815));
+                    break;
+                case 9792:
+                case 9793:
+                case 10655: // Mining cape
+                    player.setNextAnimation(new Animation(4941));
+                    player.setNextGraphics(new Graphics(814));
+                    break;
+                case 9774:
+                case 9775:
+                case 10649: // Herblore cape
+                    player.setNextAnimation(new Animation(4969));
+                    player.setNextGraphics(new Graphics(835));
+                    break;
+                case 9771:
+                case 9772:
+                case 10648: // Agility cape
+                    player.setNextAnimation(new Animation(4977));
+                    player.setNextGraphics(new Graphics(830));
+                    break;
+                case 9777:
+                case 9778:
+                case 10650: // Thieving cape
+                    player.setNextAnimation(new Animation(4965));
+                    player.setNextGraphics(new Graphics(826));
+                    break;
+                case 9786:
+                case 9787:
+                case 10653: // Slayer cape
+                    player.setNextAnimation(new Animation(4967));
+                    player.setNextGraphics(new Graphics(1656));
+                    break;
+                case 9810:
+                case 9811:
+                case 10611: // Farming cape
+                    player.setNextAnimation(new Animation(4963));
+                    player.setNextGraphics(new Graphics(825));
+                    break;
+                case 9765:
+                case 9766:
+                case 10645: // Runecrafting cape
+                    player.setNextAnimation(new Animation(4947));
+                    player.setNextGraphics(new Graphics(817));
+                    break;
+                case 9789:
+                case 9790:
+                case 10654: // Construction cape
+                    player.setNextAnimation(new Animation(4953));
+                    player.setNextGraphics(new Graphics(820));
+                    break;
+                case 12169:
+                case 12170:
+                case 12524: // Summoning cape
+                    player.setNextAnimation(new Animation(8525));
+                    player.setNextGraphics(new Graphics(1515));
+                    break;
+                case 9948:
+                case 9949:
+                case 10646: // Hunter cape
+                    player.setNextAnimation(new Animation(5158));
+                    player.setNextGraphics(new Graphics(907));
+                    break;
+                case 9813:
+                case 10662: // Quest cape
+                    player.setNextAnimation(new Animation(4945));
+                    player.setNextGraphics(new Graphics(816));
+                    break;
+                case 18508:
+                case 18509: // Dungeoneering cape
+                    final int rand = (int) (Math.random() * (2 + 1));
+                    player.setNextAnimation(new Animation(13190));
+                    player.setNextGraphics(new Graphics(2442));
+
+                    LinkedTaskSequence seq = new LinkedTaskSequence();
+                    seq.connect(1, () -> {
+                        player.setNextAnimation(new Animation(((rand > 0 ? 13192 : (rand == 2 ? 13193 : 13194)))));
+                    }).connect(2, () -> {
+                        player.getAppearance().transformIntoNPC((rand == 0 ? 11229 : (rand == 2 ? 11228 : 11227)));
+                    }).connect(3, () -> {
+                        player.getAppearance().transformIntoNPC(-1);
+                    }).start();
+                    break;
+                case 19709:
+                case 19710: // Master dungeoneering cape
+                    /*
+                     * WorldTasksManager.schedule(new WorldTask() { int step; private NPC dung1,
+                     * dung2, dung3, dung4;
+                     *
+                     * @Override public void run() { if (step == 1) {
+                     * player.getAppearence().transformIntoNPC(11229); player.setNextAnimation(new
+                     * Animation(14608)); dung1 = new NPC(-1, new WorldTile(player.getX(),
+                     * player.getY() -1, player.getPlane()), -1, true);
+                     * player.setNextFaceEntity(dung1); dung1.setLocation(dung1);
+                     * dung1.setNextGraphics(new Graphics(2777)); dung2 = new NPC(-1, new
+                     * WorldTile(player.getX()+1, player.getY()-1, player.getPlane()), -1, true); }
+                     * if (step == 2) { player.setNextFaceEntity(null); dung1.finish();
+                     * player.getAppearence().transformIntoNPC(11228); dung2.setLocation(dung2);
+                     * player.setNextAnimation(new Animation(14609)); player.setNextGraphics(new
+                     * Graphics(2782)); dung2.setNextGraphics(new Graphics(2778)); dung3 = new
+                     * NPC(-1, new WorldTile(player.getX(), player.getY()-1, player.getPlane()), -1,
+                     * true); dung4 = new NPC(-1, new WorldTile(player.getX(), player.getY()+1,
+                     * player.getPlane()), -1, true); } if (step == 3) { dung2.finish();
+                     * player.getAppearence().transformIntoNPC(11227); dung3.setLocation(dung3);
+                     * dung4.setLocation(dung4); dung4.setNextFaceEntity(player);
+                     * player.setNextAnimation(new Animation(14610)); dung3.setNextGraphics(new
+                     * Graphics(2779)); dung4.setNextGraphics(new Graphics(2780)); } if (step > 4) {
+                     * dung4.setNextFaceEntity(null); player.getAppearence().transformIntoNPC(-1);
+                     * dung3.finish(); dung4.finish(); stop(); } step++; } }, 0, 1);
+                     */
+                    break;
+            }
+            return;
+        }
+        if (!Emote.isDoingEmote(player))
+            Emote.setNextEmoteEnd(player);
+    }
 }
