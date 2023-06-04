@@ -4,6 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Consumer;
 
 import com.rs.game.map.WorldTile;
+import com.rs.game.player.actions.WineTask;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.TeleportType;
 import com.rs.game.task.LinkedTaskSequence;
@@ -213,7 +214,7 @@ public class EntityMovement {
 			getEntity().toPlayer().setCoordsEvent(null);
 			getEntity().toPlayer().resetWalkSteps();
 		}
-		if (stopActions)
+		if (stopActions && !(getEntity().toPlayer().getAction().getAction().isPresent() && getEntity().toPlayer().getAction().getAction().get() instanceof WineTask))
 			getEntity().toPlayer().getAction().forceStop();
 		getEntity().toPlayer().getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
 		getEntity().toPlayer().getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).set(null);

@@ -277,4 +277,26 @@ public final class Equipment {
         }
         return false;
     }
+
+	/**
+	 * Determines if this container contains all {@code identifiers}.
+	 * @param identifiers The identifiers to check this container for.
+	 * @return {@code true} if this container has all {@code identifiers}, {@code false} otherwise.
+	 */
+	public final boolean containsAll(int... identifiers) {
+		for(int id : identifiers) {
+			boolean found = false;
+			for(Item item : items.getItems()) {
+				if(item == null)
+					continue;
+				if(item.getId() == id) {
+					found = true;
+					break;
+				}
+			}
+			if(!found)
+				return false;
+		}
+		return true;
+	}
 }
