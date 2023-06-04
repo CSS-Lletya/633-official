@@ -45,7 +45,7 @@ public final class ChocolateCake extends DestructionSkillAction {
 
 	@Override
 	public int delay() {
-		return 2;
+		return 1;
 	}
 
 	@Override

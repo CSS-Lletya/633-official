@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.inventory;
 
 import com.rs.game.item.Item;
+import com.rs.game.item.UseWith;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
@@ -12,6 +13,6 @@ public class ChocolateCakeItemPlugin extends InventoryListener {
 	
 	@Override
 	public void execute(Player player, Item firstItem, Item secondItem) {
-		new ChocolateCake(player).start();
+		new UseWith(firstItem, secondItem, () -> new ChocolateCake(player).start());
 	}
 }
