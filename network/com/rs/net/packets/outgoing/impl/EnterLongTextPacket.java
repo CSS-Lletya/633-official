@@ -9,8 +9,7 @@ import com.rs.utilities.StringInputAction;
 
 import lombok.val;
 
-//TODO: Convert this packet
-@OutgoingPacketSignature(packetId = -1, description = "Represents a Longer string of text used for input handling")
+@OutgoingPacketSignature(packetId = 65, description = "Represents a Longer string of text used for input handling")
 public class EnterLongTextPacket implements OutgoingPacketListener {
 
 	@Override
@@ -23,7 +22,6 @@ public class EnterLongTextPacket implements OutgoingPacketListener {
 		if (player.getAttributes().get(Attribute.STRING_INPUT_ACTION).get() != null) {
 			StringInputAction action = (StringInputAction) player.getAttributes().get(Attribute.STRING_INPUT_ACTION).get();
 			action.handle(value);
-			player.getAttributes().get(Attribute.STRING_INPUT_ACTION).set(null);
 			return;
 		}
 	}

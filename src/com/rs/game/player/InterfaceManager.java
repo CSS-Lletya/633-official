@@ -116,7 +116,6 @@ public class InterfaceManager {
 	}
 
 	public void sendInterfaces() {
-		setInterface(true, 752, 9, 137);
 		setResizableScreen(player.getDisplayMode() == 2 || player.getDisplayMode() == 3 ? true : false);
 		player.getCombatDefinitions().sendUnlockAttackStylesButtons();
 		player.getMusicsManager().unlockMusicPlayer();
@@ -146,6 +145,7 @@ public class InterfaceManager {
 
 	public void sendGameInterfaces() {
 		player.getCombatDefinitions().refreshSpellBookScrollBar_DefCast();
+		
 		setDefaultRootInterface();
 		sendOrbs();
 		refreshHitPoints();
@@ -164,7 +164,7 @@ public class InterfaceManager {
 		sendSettings();
 		sendEmotes();
 		sendMusic();
-//		sendNotes();
+		sendNotes();
 		sendIgnores();
 		sendFriends();
 		sendClanChat();
@@ -172,6 +172,7 @@ public class InterfaceManager {
 		sendChatBox();
 		sendChatOptions();
 		sendMainConfig();
+		setInterface(true, 752, 9, 137);
 		player.getVarsManager().sendVar(InterfaceVars.CLOSE_CHAT_TOOLBELT, 1000);
 	}
 
