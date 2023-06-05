@@ -27,6 +27,7 @@ import com.rs.game.player.Player;
 import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.task.Task;
 import com.rs.utilities.CharmDrop;
+import com.rs.utilities.Colors;
 import com.rs.utilities.Direction;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
@@ -250,20 +251,23 @@ public class NPC extends Entity {
 		Item[] drops = DropTable.calculateDrops(killer, DropSets.getDropSet(id));
 
 		List<Player> players = FriendChatsManager.getLootSharingPeople(killer.toPlayer());
-        if (players == null || players.size() == 1 || !killer.toPlayer().isToogleLootShare()) {
-        	for (Item item : drops)
+		Player luckyPlayer = players.get(RandomUtils.random(players.size()));
+		if (!killer.toPlayer().isToogleLootShare()) {
+			for (Item item : drops)
     			sendDrop(killer, item);
-        } else {
-        	Player luckyPlayer = players.get(RandomUtils.random(players.size()));
-        	for (Item item : drops)
-    			sendDrop(luckyPlayer, item);
-        	for (Player p2 : players) {
-                if (p2 == luckyPlayer)
-                    continue;
-                p2.getPackets().sendGameMessage("Your chance of receiving loot has improved.");
-                break;
-            }
-        }
+		} else if (killer.toPlayer().isToogleLootShare() && players != null || players.size() > 0) {
+			for (Item item : drops) {
+				sendDrop(luckyPlayer, item);
+				luckyPlayer.getPackets().sendGameMessage(Colors.color(Colors.red, "You have recieved " + item.getAmount() + " " + item.getName() + "."));
+				if (luckyPlayer != killer) {
+					if (!item.getName().toLowerCase().contains("bones")) {
+						killer.getPackets().sendGameMessage(
+								luckyPlayer.getDisplayName() + " recieved " + item.getAmount() + " " + item.getName() + ".");
+						killer.getPackets().sendGameMessage("Your chance of receiving loot has improved.");
+					}
+				}
+			}
+		}
 
 		DropTable charm = CharmDrop.getCharmDrop(NPCDefinitions.getNPCDefinitions(getId()).getName().toLowerCase());
 		if (charm != null)

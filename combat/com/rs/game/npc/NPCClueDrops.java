@@ -28,7 +28,7 @@ public class NPCClueDrops {
 		EASY.put("freidir", new ClueDrop(128));
 		EASY.put("freygerd", new ClueDrop(128));
 		EASY.put("giant cave bug", new ClueDrop(128));
-		EASY.put("goblin", new ClueDrop(1));
+		EASY.put("goblin", new ClueDrop(128));
 		EASY.put("icefiend", new ClueDrop(128));
 		EASY.put("inga", new ClueDrop(128));
 		EASY.put("jennella", new ClueDrop(128));
@@ -45,7 +45,7 @@ public class NPCClueDrops {
 		EASY.put("agnar", new ClueDrop(128));
 		EASY.put("h.a.m. guard", new ClueDrop(55));
 		EASY.put("icefiend", new ClueDrop(128));
-		EASY.put("man", new ClueDrop(1));
+		EASY.put("man", new ClueDrop(128));
 		EASY.put("minotaur", new ClueDrop(101));
 		EASY.put("skeleton", new ClueDrop(128, 21, 22, 25));
 		EASY.put("woman", new ClueDrop(128));

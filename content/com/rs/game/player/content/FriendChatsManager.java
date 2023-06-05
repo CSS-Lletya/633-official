@@ -63,7 +63,7 @@ public class FriendChatsManager {
 		synchronized (this) {
 			if (!player.getUsername().equals(owner) && !settings.hasRankToJoin(player.getUsername())
 					&& !player.getDetails().getRights().isStaff()) {
-				player.getPackets().sendGameMessage("You do not have a enough rank to join this friends chat channel.");
+				player.getPackets().sendGameMessage("You do not have a enough rank to join this clan chat channel.");
 				return;
 			}
 			if (players.size() >= 100) {
@@ -99,6 +99,7 @@ public class FriendChatsManager {
 				player.getPackets().sendFriendsChatChannel();
 			}
 			getLocalMembers().remove(player);
+			player.getVarsManager().forceSendVarBit(4071, 0);
 		}
 	}
 
@@ -132,9 +133,9 @@ public class FriendChatsManager {
 			players.remove(kicked);
 			bannedPlayers.put(kicked.getUsername(), Utility.currentTimeMillis());
 			kicked.getPackets().sendFriendsChatChannel();
-			kicked.getPackets().sendGameMessage("You have been kicked from the friends chat channel.");
+			kicked.getPackets().sendGameMessage("You have been kicked from the clan chat channel.");
 			player.getPackets()
-					.sendGameMessage("You have kicked " + kicked.getUsername() + " from friends chat channel.");
+					.sendGameMessage("You have kicked " + kicked.getUsername() + " from clan chat channel.");
 			refreshChannel();
 
 		}
@@ -146,7 +147,7 @@ public class FriendChatsManager {
 			player.setCurrentFriendChat(this);
 			player.getDetails().setCurrentFriendChatOwner(owner);
 			player.getPackets()
-					.sendGameMessage("You are now talking in the friends chat channel " + settings.getChatName());
+					.sendGameMessage("You are now talking in the clan chat channel " + settings.getChatName());
 			refreshChannel();
 			getLocalMembers().add(player);
 		}
@@ -171,7 +172,7 @@ public class FriendChatsManager {
 		synchronized (this) {
 			if (!player.getUsername().equals(owner) && !settings.canTalk(player) && !player.getDetails().getRights().isStaff()) {
 				player.getPackets()
-						.sendGameMessage("You do not have a enough rank to talk on this friends chat channel.");
+						.sendGameMessage("You do not have a enough rank to talk on this clan chat channel.");
 				return;
 			}
 			String formatedName = Utility.formatPlayerNameForDisplay(player.getUsername());
@@ -187,7 +188,7 @@ public class FriendChatsManager {
 		synchronized (this) {
 			if (!player.getUsername().equals(owner) && !settings.canTalk(player) && !player.getDetails().getRights().isStaff()) {
 				player.getPackets()
-						.sendGameMessage("You do not have a enough rank to talk on this friends chat channel.");
+						.sendGameMessage("You do not have a enough rank to talk on this clan chat channel.");
 				return;
 			}
 			String formatedName = Utility.formatPlayerNameForDisplay(player.getUsername());
@@ -203,7 +204,7 @@ public class FriendChatsManager {
 		synchronized (this) {
 			if (!player.getUsername().equals(owner) && !settings.canTalk(player) && !player.getDetails().getRights().isStaff()) {
 				player.getPackets()
-						.sendGameMessage("You do not have a enough rank to talk on this friends chat channel.");
+						.sendGameMessage("You do not have a enough rank to talk on this clan chat channel.");
 				return;
 			}
 			for (Player p2 : players) {
@@ -265,7 +266,7 @@ public class FriendChatsManager {
 			if (chat == null)
 				return;
 			chat.destroyChat();
-			player.getPackets().sendGameMessage("Your friends chat channel has now been disabled!");
+			player.getPackets().sendGameMessage("Your clan chat channel has now been disabled!");
 		}
 	}
 
@@ -307,16 +308,16 @@ public class FriendChatsManager {
 
     public static void toogleLootShare(Player player) {
         if (player.getCurrentFriendChat() == null) {
-            player.getPackets().sendGameMessage("You need to be in a Clan Chat channel to activate LootShare.");
+            player.getPackets().sendGameMessage("You need to be in a clan chat channel to activate LootShare.");
             player.refreshToogleLootShare();
             return;
         }
         if (!player.getUsername().equals(player.getCurrentFriendChat().getOwnerName())) {
-            player.getPackets().sendGameMessage("Only the owner of the Clan Chat can toggle Lootshare.");
+            player.getPackets().sendGameMessage("Only the owner of the clan chat can toggle Lootshare.");
             player.refreshToogleLootShare();
             return;
         }
-        player.toogleLootShare();
+        player.getCurrentFriendChat().players.forEach(cm -> cm.toogleLootShare());
         player.getPackets().sendGameMessage("LootShare is now " + (player.isToogleLootShare() ? "active." :"deactivated."));
     }
 	public static void joinChat(String ownerName, Player player) {
@@ -326,8 +327,8 @@ public class FriendChatsManager {
 			player.getPackets().sendGameMessage("Attempting to join channel...");
 			String formatedName = Utility.formatPlayerNameForProtocol(ownerName);
 			FriendChatsManager chat = cachedFriendChats.get(formatedName);
+			Player owner = World.getPlayerByDisplayName(ownerName);
 			if (chat == null) {
-				Player owner = World.getPlayerByDisplayName(ownerName);
 				if (owner == null) {
 					if (!AccountCreation.exists(formatedName)) {
 						player.getPackets().sendGameMessage("The channel you tried to join does not exist.");
@@ -347,15 +348,17 @@ public class FriendChatsManager {
 				if (!player.getUsername().equals(ownerName) && !settings.hasRankToJoin(player.getUsername())
 						&& !player.getDetails().getRights().isStaff()) {
 					player.getPackets()
-							.sendGameMessage("You do not have a enough rank to join this friends chat channel.");
+							.sendGameMessage("You do not have a enough rank to join this clan chat channel.");
 					return;
 				}
+				
 				chat = new FriendChatsManager(owner);
 				cachedFriendChats.put(chat.owner, chat);
 				chat.joinChatNoCheck(player);
-				player.getCurrentFriendChat().getLocalMembers().add(player);
+				player.getVarsManager().forceSendVarBit(4071, 1);
 			} else
 				chat.joinChat(player);
+			player.getVarsManager().forceSendVarBit(4071, owner.isToogleLootShare() ? 1 : 0);
 		}
 
 	}
