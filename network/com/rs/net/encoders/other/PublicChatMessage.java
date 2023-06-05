@@ -21,7 +21,7 @@ public class PublicChatMessage extends ChatMessage {
 
 	@NonNull
 	public void sendPublicChatMessage(Player player, PublicChatMessage message) {
-		player.getMapRegionsIds().parallelStream().filter(regionalPlayer -> regionalPlayer != null).forEach(regionalPlayer -> {
+		player.getMapRegionsIds().stream().filter(regionalPlayer -> regionalPlayer != null).forEach(regionalPlayer -> {
 			ObjectArrayList<Short> playersIndexes = World.getRegion(regionalPlayer).getPlayersIndexes();
 			playersIndexes.iterator().forEachRemaining(p -> {
 				World.players().filter(

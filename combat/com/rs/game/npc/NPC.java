@@ -1,5 +1,6 @@
 package com.rs.game.npc;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -23,6 +24,7 @@ import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.global.GenericNPCDispatcher;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.task.Task;
 import com.rs.utilities.CharmDrop;
 import com.rs.utilities.Direction;
@@ -247,8 +249,21 @@ public class NPC extends Entity {
 		killer.getTreasureTrailsManager().setPhase(2);
 		Item[] drops = DropTable.calculateDrops(killer, DropSets.getDropSet(id));
 
-		for (Item item : drops)
-			sendDrop(killer, item);
+		List<Player> players = FriendChatsManager.getLootSharingPeople(killer.toPlayer());
+        if (players == null || players.size() == 1 || !killer.toPlayer().isToogleLootShare()) {
+        	for (Item item : drops)
+    			sendDrop(killer, item);
+        } else {
+        	Player luckyPlayer = players.get(RandomUtils.random(players.size()));
+        	for (Item item : drops)
+    			sendDrop(luckyPlayer, item);
+        	for (Player p2 : players) {
+                if (p2 == luckyPlayer)
+                    continue;
+                p2.getPackets().sendGameMessage("Your chance of receiving loot has improved.");
+                break;
+            }
+        }
 
 		DropTable charm = CharmDrop.getCharmDrop(NPCDefinitions.getNPCDefinitions(getId()).getName().toLowerCase());
 		if (charm != null)
@@ -257,8 +272,7 @@ public class NPC extends Entity {
 		
 		Item[] clues = DropTable.calculateDrops(killer.toPlayer(), NPCClueDrops.rollClues(id));
         for (Item item : clues) {
-//            killer.toPlayer().getPlayerDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(item.getId()).getName() + "_Clues_Collected");
-            FloorItem.updateGroundItem(item, new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()), killer.toPlayer(), 60, 0);
+        	FloorItem.updateGroundItem(item, new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()), killer.toPlayer(), 60, 0);
         }
 	}
 

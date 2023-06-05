@@ -5,6 +5,7 @@ import com.rs.game.player.content.FriendChatsManager;
 import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.net.encoders.other.ChatMessage;
 import com.rs.net.encoders.other.QuickChatMessage;
+import com.rs.utilities.StringInputAction;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -156,25 +157,32 @@ public class FriendsIgnores {
 	}
 
 	public void handleFriendChatButtons(int interfaceId, int componentId, int packetId) {
-		if (interfaceId == 1109) {
-			if (componentId == 19)
+		if (interfaceId == 589) {
+			if (componentId == 17)
 				FriendChatsManager.toogleLootShare(player);
-			else if (componentId == 26) {
-				if (player.getCurrentFriendChat() != null)
+			else if (componentId == 11) {
+				if (player.getCurrentFriendChat() != null) {
 					player.getCurrentFriendChat().leaveChat(player, false);
-			} else if (componentId == 31) {
+				return;
+				}
+			} else if (componentId == 12) {
 				if (player.getInterfaceManager().containsScreenInter()) {
 					player.getPackets().sendGameMessage(
-							"Please close the interface you have opened before using Friends Chat setup.");
+							"Please close the interface you have opened before using Clan Chat setup.");
 					return;
 				}
 				player.getMovement().stopAll();
 				openFriendChatSetup();
 			}
-		} else if (interfaceId == 1108) {
-			if (componentId == 1) {
+		} else if (interfaceId == 590) {
+			if (componentId == 22) {
 				if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET) {
-					player.getPackets().sendRunScript(109, new Object[] { "Enter chat prefix:" });
+					player.getPackets().sendInputStringScript("Enter chat prefix:", new StringInputAction() {
+						@Override
+						public void handle(String input) {
+							setChatPrefix(input);
+						}
+					});
 				} else if (packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET) {
 					if (chatName != null) {
 						chatName = null;
@@ -182,7 +190,7 @@ public class FriendsIgnores {
 						FriendChatsManager.destroyChat(player);
 					}
 				}
-			} else if (componentId == 2) {
+			} else if (componentId == 23) {
 				if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET)
 					whoCanEnterChat = -1;
 				else if (packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET)
@@ -202,7 +210,7 @@ public class FriendsIgnores {
 				else if (packetId == WorldPacketsDecoder.ACTION_BUTTON10_PACKET)
 					whoCanEnterChat = 7;
 				refreshWhoCanEnterChat();
-			} else if (componentId == 3) {
+			} else if (componentId == 24) {
 				if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET)
 					whoCanTalkOnChat = -1;
 				else if (packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET)
@@ -222,7 +230,7 @@ public class FriendsIgnores {
 				else if (packetId == WorldPacketsDecoder.ACTION_BUTTON10_PACKET)
 					whoCanTalkOnChat = 7;
 				refreshWhoCanTalkOnChat();
-			} else if (componentId == 4) {
+			} else if (componentId == 25) {
 				if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET)
 					whoCanKickOnChat = -1;
 				else if (packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET)
@@ -243,7 +251,7 @@ public class FriendsIgnores {
 					whoCanKickOnChat = 7;
 				refreshWhoCanKickOnChat();
 				FriendChatsManager.refreshChat(player);
-			} else if (componentId == 5) {
+			} else if (componentId == 26) {
 				if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET)
 					whoCanShareloot = 7;
 				else if (packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET)
@@ -274,7 +282,7 @@ public class FriendsIgnores {
 	}
 
 	public void refreshChatName() {
-		player.getPackets().sendIComponentText(1108, 1, chatName == null ? "Chat disabled" : chatName);
+		player.getPackets().sendIComponentText(590, 22, chatName == null ? "Chat disabled" : chatName);
 	}
 
 	public void refreshWhoCanShareloot() {
@@ -295,7 +303,7 @@ public class FriendsIgnores {
 			text = "General+";
 		else
 			text = "No-one";
-		player.getPackets().sendIComponentText(1108, 5, text);
+		player.getPackets().sendIComponentText(590, 26, text);
 	}
 
 	public void refreshWhoCanKickOnChat() {
@@ -318,7 +326,7 @@ public class FriendsIgnores {
 			text = "Only Me";
 		else
 			text = "Anyone";
-		player.getPackets().sendIComponentText(1108, 4, text);
+		player.getPackets().sendIComponentText(590, 25, text);
 	}
 
 	public void refreshWhoCanTalkOnChat() {
@@ -341,7 +349,7 @@ public class FriendsIgnores {
 			text = "Only Me";
 		else
 			text = "Anyone";
-		player.getPackets().sendIComponentText(1108, 3, text);
+		player.getPackets().sendIComponentText(590, 24, text);
 	}
 
 	public void refreshWhoCanEnterChat() {
@@ -364,20 +372,16 @@ public class FriendsIgnores {
 			text = "Only Me";
 		else
 			text = "Anyone";
-		player.getPackets().sendIComponentText(1108, 2, text);
+		player.getPackets().sendIComponentText(590, 23, text);
 	}
 
 	public void openFriendChatSetup() {
-		player.getInterfaceManager().sendInterface(1108);
+		player.getInterfaceManager().sendInterface(590);
 		refreshChatName();
 		refreshWhoCanEnterChat();
 		refreshWhoCanTalkOnChat();
 		refreshWhoCanKickOnChat();
 		refreshWhoCanShareloot();
-		player.getPackets().sendHideIComponent(1108, 49, true);
-		player.getPackets().sendHideIComponent(1108, 63, true);
-		player.getPackets().sendHideIComponent(1108, 77, true);
-		player.getPackets().sendHideIComponent(1108, 91, true);
 	}
 
 	public void addIgnore(String username, boolean tillLogout) {

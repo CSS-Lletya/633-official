@@ -484,6 +484,11 @@ public class Player extends Entity {
 		CombatEffect.values().parallelStream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
 		GameConstants.STAFF.entrySet().parallelStream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
 		getVarsManager().varMap.forEach((k, v) -> getVarsManager().sendVar(k, v));
+		if (getDetails().getCurrentFriendChatOwner() != null) {
+			FriendChatsManager.joinChat(getUsername(), this);
+			if (currentFriendChat == null)
+				getDetails().currentFriendChatOwner = null;
+		}
 		getInventory().init();
 		getEquipment().checkItems();
 		getEquipment().init();
@@ -609,5 +614,16 @@ public class Player extends Entity {
      */
     public boolean hasItem(Item item) {
         return getBank().getItem(item.getId()) != null || getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId());
+    }
+
+    private transient boolean toogleLootShare;
+    
+    public void toogleLootShare() {
+        this.toogleLootShare = !toogleLootShare;
+        refreshToogleLootShare();
+    }
+
+    public void refreshToogleLootShare() {
+        varsManager.forceSendVarBit(4071, toogleLootShare ? 1 : 0);
     }
 }

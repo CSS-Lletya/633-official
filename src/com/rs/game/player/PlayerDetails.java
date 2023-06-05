@@ -162,7 +162,7 @@ public final class PlayerDetails {
 	 */
 	private ChargesManager charges;
 
-	private String currentFriendChatOwner;
+	public String currentFriendChatOwner;
 	private String clanName;
 	private boolean connectedClanChannel;
 	

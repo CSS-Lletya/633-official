@@ -706,4 +706,29 @@ public final class Utility {
         }
         return center;
     }
+
+    public static String fixChatMessage(String message) {
+        StringBuilder newText = new StringBuilder();
+        boolean wasSpace = true;
+        boolean exception = false;
+        for (int i = 0; i < message.length(); i++) {
+            if (!exception) {
+                if (wasSpace) {
+                    newText.append(("" + message.charAt(i)).toUpperCase());
+                    if (!String.valueOf(message.charAt(i)).equals(" "))
+                        wasSpace = false;
+                } else {
+                    newText.append(("" + message.charAt(i)).toLowerCase());
+                }
+            } else {
+                newText.append(("" + message.charAt(i)));
+            }
+            if (String.valueOf(message.charAt(i)).contains(":"))
+                exception = true;
+            else if (String.valueOf(message.charAt(i)).contains(".") || String.valueOf(message.charAt(i)).contains("!")
+                    || String.valueOf(message.charAt(i)).contains("?"))
+                wasSpace = true;
+        }
+        return newText.toString();
+    }
 }

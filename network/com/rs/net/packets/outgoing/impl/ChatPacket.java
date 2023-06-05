@@ -4,6 +4,7 @@ import com.rs.GameConstants;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.Huffman;
+import com.rs.net.encoders.other.ChatMessage;
 import com.rs.net.encoders.other.PublicChatMessage;
 import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
@@ -41,15 +42,12 @@ public class ChatPacket implements OutgoingPacketListener {
 			return;
 		}
 		int effects = (colorEffect << 8) | (moveEffect & 0xff);
-//		if (chatType == 1)
-//			player.sendFriendsChannelMessage(new ChatMessage(message));
-//		else if (chatType == 2)
-//			player.sendClanChannelMessage(new ChatMessage(message));
-//		else if (chatType == 3)
-//			player.sendGuestClanChannelMessage(new ChatMessage(message));
-//		else
-		PublicChatMessage chatMessage = new PublicChatMessage(message, effects);
-		chatMessage.sendPublicChatMessage(player, chatMessage);
+		if (chatType == 1) {
+			player.getCurrentFriendChat().sendMessage(player, new ChatMessage(message));
+		} else {
+			PublicChatMessage chatMessage = new PublicChatMessage(message, effects);
+			chatMessage.sendPublicChatMessage(player, chatMessage);
+		}
 		if (GameConstants.DEBUG)
 			LogUtility.log(LogType.INFO, "Chat type: " + chatType);
 	}

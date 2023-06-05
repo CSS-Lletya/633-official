@@ -1,5 +1,6 @@
 package com.rs.game.player.content;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -23,11 +24,6 @@ public class FriendChatsManager {
 	private CopyOnWriteArrayList<Player> players;
 	private Object2ObjectOpenHashMap<String, Long> bannedPlayers;
 	private byte[] dataBlock;
-
-	/**
-	 * The clan wars instance (if the clan is in a war).
-	 */
-//    private ClanWars clanWars;
 
 	private static Object2ObjectOpenHashMap<String, FriendChatsManager> cachedFriendChats;
 
@@ -98,14 +94,11 @@ public class FriendChatsManager {
 				refreshChannel();
 			if (!logout) {
 				player.getDetails().setCurrentFriendChatOwner(null);
-//				player.disableLootShare();
 				player.getInterfaceManager().closeInterfaces();
 				player.getPackets().sendGameMessage("You have left the channel.");
 				player.getPackets().sendFriendsChatChannel();
 			}
-//	    if (clanWars != null) {
-//		clanWars.leave(player, false);
-//	    }
+			getLocalMembers().remove(player);
 		}
 	}
 
@@ -155,6 +148,7 @@ public class FriendChatsManager {
 			player.getPackets()
 					.sendGameMessage("You are now talking in the friends chat channel " + settings.getChatName());
 			refreshChannel();
+			getLocalMembers().add(player);
 		}
 	}
 
@@ -163,7 +157,6 @@ public class FriendChatsManager {
 			for (Player player : players) {
 				player.setCurrentFriendChat(null);
 				player.getDetails().setCurrentFriendChatOwner(null);
-//				player.disableLootShare();
 				player.getPackets().sendFriendsChatChannel();
 				player.getPackets().sendGameMessage("You have been removed from this channel!");
 			}
@@ -263,6 +256,7 @@ public class FriendChatsManager {
 		settings = player.getFriendsIgnores();
 		players = new CopyOnWriteArrayList<Player>();
 		bannedPlayers = new Object2ObjectOpenHashMap<String, Long>();
+		this.localMembers = new CopyOnWriteArrayList<Player>();
 	}
 
 	public static void destroyChat(Player player) {
@@ -293,39 +287,38 @@ public class FriendChatsManager {
 		}
 	}
 
-	public static List<Player> getLootSharingPeople(Player player) {
-//		if (!player.isToogleLootShare())
-//			return null;
-//		FriendChatsManager chat = player.getCurrentFriendChat();
-//		if (chat == null)
-//			return null;
-//		List<Player> players = new ArrayList<Player>();
-//		for (Player p2 : player.getCurrentFriendChat().getPlayers()) {
-//			if (p2.isToogleLootShare() && p2.withinDistance(player))
-//				players.add(p2);
-//		}
-//		return players;
-		return null;
-	}
+    public static List<Player> getLootSharingPeople(Player player) {
+        FriendChatsManager chat = player.getCurrentFriendChat();
+        if (chat == null)
+            return null;
+        List<Player> players = new ArrayList<Player>();
+        for (Player p2 : player.getCurrentFriendChat().getLocalMembers()) {
+            if (p2.withinDistance(player, 12))
+                players.add(p2);
+        }
+        return players;
+    }
+    
+    private CopyOnWriteArrayList<Player> localMembers;
+    
+    public CopyOnWriteArrayList<Player> getLocalMembers() {
+        return localMembers;
+    }
 
-	public static void toogleLootShare(Player player) {
-		if (player.getCurrentFriendChat() == null) {
-			player.getPackets().sendGameMessage("You need to be in a Friends Chat channel to activate LootShare.");
-//			player.refreshToogleLootShare();
-			return;
-		}
-		if (!player.getUsername().equals(player.getCurrentFriendChat().getOwnerName())
-				&& !player.getCurrentFriendChat().settings.hasRankToLootShare(player.getUsername())) {
-			player.getPackets()
-					.sendGameMessage("You must be on channel owner's Friend List ot use LootShare on this channel.");
-//			player.refreshToogleLootShare();
-			return;
-		}
-//		player.toogleLootShare();
-//		if (player.isToogleLootShare())
-//			player.getPackets().sendGameMessage("LootShare is now active.");
-	}
-
+    public static void toogleLootShare(Player player) {
+        if (player.getCurrentFriendChat() == null) {
+            player.getPackets().sendGameMessage("You need to be in a Clan Chat channel to activate LootShare.");
+            player.refreshToogleLootShare();
+            return;
+        }
+        if (!player.getUsername().equals(player.getCurrentFriendChat().getOwnerName())) {
+            player.getPackets().sendGameMessage("Only the owner of the Clan Chat can toggle Lootshare.");
+            player.refreshToogleLootShare();
+            return;
+        }
+        player.toogleLootShare();
+        player.getPackets().sendGameMessage("LootShare is now " + (player.isToogleLootShare() ? "active." :"deactivated."));
+    }
 	public static void joinChat(String ownerName, Player player) {
 		synchronized (cachedFriendChats) {
 			if (player.getCurrentFriendChat() != null)
@@ -345,7 +338,6 @@ public class FriendChatsManager {
 						player.getPackets().sendGameMessage("The channel you tried to join does not exist.");
 						return;
 					}
-//					owner.setDisplayName(formatedName);
 				}
 				FriendsIgnores settings = owner.getFriendsIgnores();
 				if (!settings.hasFriendChat()) {
@@ -361,6 +353,7 @@ public class FriendChatsManager {
 				chat = new FriendChatsManager(owner);
 				cachedFriendChats.put(chat.owner, chat);
 				chat.joinChatNoCheck(player);
+				player.getCurrentFriendChat().getLocalMembers().add(player);
 			} else
 				chat.joinChat(player);
 		}
@@ -384,23 +377,4 @@ public class FriendChatsManager {
 			return;
 		player.getCurrentFriendChat().sendQuickMessage(player, message);
 	}
-
-//    /**
-//     * Gets the clanWars.
-//     * 
-//     * @return The clanWars.
-//     */
-//    public ClanWars getClanWars() {
-//	return clanWars;
-//    }
-//
-//    /**
-//     * Sets the clanWars.
-//     * 
-//     * @param clanWars
-//     *            The clanWars to set.
-//     */
-//    public void setClanWars(ClanWars clanWars) {
-//	this.clanWars = clanWars;
-//    }
 }

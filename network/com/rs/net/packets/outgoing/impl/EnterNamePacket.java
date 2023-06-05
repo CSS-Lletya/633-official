@@ -15,7 +15,5 @@ public class EnterNamePacket implements OutgoingPacketListener {
 		String value = stream.readString();
 		if (value.equals(""))
 			return;
-		if (player.getInterfaceManager().containsInterface(1108))
-			player.getFriendsIgnores().setChatPrefix(value);
 	}
 }
