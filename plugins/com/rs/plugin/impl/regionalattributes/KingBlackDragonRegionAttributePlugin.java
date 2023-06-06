@@ -4,7 +4,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.plugin.listener.RegionAttributeListener;
 import com.rs.plugin.wrapper.RegionAttributeSignature;
 
-@RegionAttributeSignature(forceMultiRegions = {})
+@RegionAttributeSignature(forceMultiRegions = {}, alias="King_black_dragon")
 public class KingBlackDragonRegionAttributePlugin implements RegionAttributeListener {
 
 	@Override

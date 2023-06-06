@@ -476,6 +476,7 @@ public class Player extends Entity {
 			int delayPassed = (int) ((Utility.currentTimeMillis() - World.get().exiting_start) / 1000);
 			getPackets().sendSystemUpdate(World.get().exiting_delay - delayPassed);
 		}
+		checkMultiArea();
 		getDetails().setLastIP(getSession().getIP());
 		getAppearance().generateAppearenceData();
 		getPackets().sendLocalPlayersUpdate();

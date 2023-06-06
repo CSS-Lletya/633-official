@@ -980,18 +980,14 @@ public abstract class Entity extends WorldTile {
 	}
 
 	public void checkMultiArea() {
-		setMultiArea(isForceMultiArea() || RegionAttributePluginDispatcher.isMulti(this));
+		boolean multi = RegionAttributePluginDispatcher.isMulti(this);
+		setMultiArea(isForceMultiArea() || multi);
 		ifPlayer(player -> {
 			if (!player.isStarted())
 				return;
-			boolean isAtMultiArea = player.isForceMultiArea() || RegionAttributePluginDispatcher.isMulti(this);
-			if (isAtMultiArea && !player.isMultiArea()) {
-				player.setMultiArea(isAtMultiArea);
-				player.getPackets().sendGlobalConfig(616, 1);
-			} else if (!isAtMultiArea && player.isMultiArea()) {
-				player.setMultiArea(isAtMultiArea);
-				player.getPackets().sendGlobalConfig(616, 0);
-			}
+			boolean isAtMultiArea = player.isForceMultiArea() || multi;
+			player.setMultiArea(isAtMultiArea);
+			player.getPackets().sendGlobalConfig(616, isAtMultiArea ? 1 : 0);
 		});
 	}
 	
