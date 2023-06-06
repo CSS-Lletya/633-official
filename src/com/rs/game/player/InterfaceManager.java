@@ -511,7 +511,7 @@ public class InterfaceManager {
 		EQUIPMENT(5),
 		PRAYER(6),
 		MAGIC(7),
-		SOF(8),
+		FAMILIAR(8),
 		FRIENDS(9),
 		FRIENDS_CHAT(10),
 		CLAN_CHAT(11),

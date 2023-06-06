@@ -201,6 +201,7 @@ public final class Pet extends NPC {
 		owner.getVarsManager().sendVar(InterfaceVars.PET_ITEM_ID, itemId);// configures
 		owner.getVarsManager().sendVar(InterfaceVars.PET_HEAD_ANIMATION, 243269632); // sets npc emote
 		unlockOrb(); // temporary
+		owner.getInterfaceManager().sendTab(Tabs.FAMILIAR);
 	}
 
 	/**

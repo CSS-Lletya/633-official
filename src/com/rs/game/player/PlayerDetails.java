@@ -151,7 +151,7 @@ public final class PlayerDetails {
 	private byte tradeStatus;
 	private byte assistStatus;
 
-	private byte summoningLeftClickOption;
+	private int summoningLeftClickOption;
 	
 	// Used for storing recent ips and password
 	private ObjectArrayList<String> passwordList = new ObjectArrayList<String>();

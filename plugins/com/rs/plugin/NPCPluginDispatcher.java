@@ -6,10 +6,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.rs.cache.loaders.NPCDefinitions;
+import com.rs.constants.Animations;
+import com.rs.game.dialogue.Expression;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.NPC;
+import com.rs.game.npc.other.Pet;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.plugin.listener.NPCListener;
@@ -155,6 +158,20 @@ public class NPCPluginDispatcher {
 				return;
 			}
 			
+			if (npc instanceof Pet) {
+				if (optionId == 1) {
+					Pet pet = (Pet) npc;
+					if (pet != player.getPet()) {
+						player.getPackets().sendGameMessage("This isn't your pet.");
+						return;
+					}
+					player.setNextAnimation(Animations.TOUCH_GROUND);
+					pet.pickup();
+				} else if (optionId == 2) {
+					player.setNextFaceEntity(npc);
+					player.dialogue(d -> d.player(Expression.laugh_happy, "Who's loves me? You? yay!"));
+				}
+			}
 			if (player.getQuestManager().handleNPC(player, npc, optionId))
 				return;
 			

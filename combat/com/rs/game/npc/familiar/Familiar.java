@@ -11,6 +11,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.combat.NPCCombatDefinitions;
 import com.rs.game.player.Player;
+import com.rs.game.player.InterfaceManager.Tabs;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.Summoning;
 import com.rs.game.player.content.Summoning.Pouch;
@@ -229,17 +230,18 @@ public abstract class Familiar extends NPC {
 	public static void selectLeftOption(Player player) {
 		boolean res = player.getInterfaceManager().isResizableScreen();
 		sendLeftClickOption(player);
-		player.getInterfaceManager().setWindowInterface(res ? 128 : 188, 880);
-//		player.getInterfaceManager().openGameTab(95);//wtf was that lol
+		player.getInterfaceManager().setWindowInterface(res ? 95 : 196, 880);
+		player.getInterfaceManager().sendTab(Tabs.FAMILIAR);
 	}
 
 	public static void confirmLeftOption(Player player) {
-		player.getPackets().sendGlobalConfig(168, 4);// inv tab id
+		player.getInterfaceManager().sendTab(Tabs.FAMILIAR);
 		boolean res = player.getInterfaceManager().isResizableScreen();
-		player.getInterfaceManager().removeWindowInterface(res ? 128 : 188);
+		player.getInterfaceManager().removeWindowInterface(res ? 95 : 196);
+		player.getInterfaceManager().setWindowInterface(res ? 95 : 179, 662);
 	}
 
-	public static void setLeftclickOption(Player player, byte summoningLeftClickOption) {
+	public static void setLeftclickOption(Player player, int summoningLeftClickOption) {
 		if (summoningLeftClickOption == player.getDetails().getSummoningLeftClickOption())
 			return;
 		player.getDetails().setSummoningLeftClickOption(summoningLeftClickOption);
@@ -342,7 +344,7 @@ public abstract class Familiar extends NPC {
 			setFinished(true);
 			switchOrb(false);
 			owner.getInterfaceManager()
-					.removeWindowInterface(owner.getInterfaceManager().isResizableScreen() ? 128 : 188);
+					.removeWindowInterface(owner.getInterfaceManager().isResizableScreen() ? 95 : 188);
 			owner.getPackets().sendIComponentSettings(747, 18, 0, 0, 0);
 			if (bob != null)
 				bob.dropBob();
