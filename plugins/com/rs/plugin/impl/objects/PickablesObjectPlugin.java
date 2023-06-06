@@ -10,7 +10,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Ticks;
 
-@ObjectSignature(objectId = {}, name = {"Banana Tree", "Flax", "Onion", "Cabbage", "Wheat", "Potato"})
+@ObjectSignature(objectId = {}, name = {"Banana Tree", "Flax", "Onion", "Cabbage", "Wheat", "Potato", "Cadava bush", "Redberry bush"})
 public class PickablesObjectPlugin extends ObjectListener {
 
 	@Override
@@ -50,6 +50,39 @@ public class PickablesObjectPlugin extends ObjectListener {
 			if (player.getInventory().addItem(new Item(ItemNames.POTATO_1942))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
+			}
+		});
+		object.doAction(optionId, "Cadava bush", "Pick-from", () -> {
+			if (object.getId() == 23627) {
+				player.getPackets().sendGameMessage("There's nothing to pick from this bush.");
+				return;
+			}
+			if (player.getInventory().addItem(new Item(ItemNames.CADAVA_BERRIES_753))){
+				player.setNextAnimation(Animations.TOUCH_GROUND);
+				if (RandomUtils.percentageChance(18))
+					GameObject.spawnTempGroundObject(new GameObject(23627, 10, 0, object), Ticks.fromSeconds(6));
+			}
+		});
+		object.doAction(optionId, "Cadava bush", "Pick-from", () -> {
+			if (object.getId() == 23627) {
+				player.getPackets().sendGameMessage("There's nothing to pick from this bush.");
+				return;
+			}
+			if (player.getInventory().addItem(new Item(ItemNames.CADAVA_BERRIES_753))){
+				player.setNextAnimation(Animations.TOUCH_GROUND);
+				if (RandomUtils.percentageChance(18))
+					GameObject.spawnTempGroundObject(new GameObject(23627, 10, 0, object), Ticks.fromSeconds(6));
+			}
+		});
+		object.doAction(optionId, "Redberry bush", "Pick-from", () -> {
+			if (object.getId() == 23630) {
+				player.getPackets().sendGameMessage("There's nothing to pick from this bush.");
+				return;
+			}
+			if (player.getInventory().addItem(new Item(ItemNames.REDBERRIES_1951))){
+				player.setNextAnimation(Animations.TOUCH_GROUND);
+				if (RandomUtils.percentageChance(18))
+					GameObject.spawnTempGroundObject(new GameObject(23630, 10, 0, object), Ticks.fromSeconds(6));
 			}
 		});
 	}
