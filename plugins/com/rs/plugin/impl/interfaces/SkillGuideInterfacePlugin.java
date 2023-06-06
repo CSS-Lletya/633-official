@@ -16,6 +16,7 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		if (player.getInterfaceManager().containsChatBoxInter())
 			player.getInterfaceManager().closeChatBoxInterface();
+		player.getMovement().stopAll();
 		if (interfaceId == 499)
 			updateSkillGuide(player, componentId);
 		if (packetId == 11)
