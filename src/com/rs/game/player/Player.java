@@ -21,6 +21,7 @@ import com.rs.game.map.World;
 import com.rs.game.movement.route.CoordsEvent;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.familiar.Familiar;
+import com.rs.game.npc.other.Gravestone;
 import com.rs.game.npc.other.Pet;
 import com.rs.game.player.actions.ActionManager;
 import com.rs.game.player.attribute.Attribute;
@@ -477,6 +478,7 @@ public class Player extends Entity {
 			getPackets().sendSystemUpdate(World.get().exiting_delay - delayPassed);
 		}
 		checkMultiArea();
+		Gravestone.login(this);
 		getDetails().setLastIP(getSession().getIP());
 		getAppearance().generateAppearenceData();
 		getPackets().sendLocalPlayersUpdate();

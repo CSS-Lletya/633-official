@@ -8,6 +8,7 @@ import com.rs.constants.Animations;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
+import com.rs.game.npc.other.Gravestone;
 import com.rs.game.task.impl.ActorDeathTask;
 
 import skills.Skills;
@@ -54,7 +55,7 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 		getActor().getPrayer().closeAllPrayers();
 		getActor().getMovement().setRunEnergy(100);
 		getActor().setNextWorldTile(new WorldTile(GameConstants.START_PLAYER_LOCATION));
-		
+		new Gravestone(getActor(), getActor());
 //		Optional<MapZone> controller = getActor().getMapZoneManager().getMapZone(getActor());
 //		if (controller.isPresent()) {
 //			if (controller.get().getSafety() == ControllerSafety.SAFE)

@@ -199,6 +199,8 @@ public final class PlayerDetails {
 	
 	boolean toogleLootShare;
 	
+	private int gravestone;
+	
     public void restoreRunEnergy(double energy) {
         if (runEnergy + energy > 100.0)
             runEnergy = (byte) 100.0;

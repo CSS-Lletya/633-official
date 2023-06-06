@@ -12,6 +12,7 @@ import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.NPC;
+import com.rs.game.npc.other.Gravestone;
 import com.rs.game.npc.other.Pet;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
@@ -22,6 +23,7 @@ import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import skills.Skills;
 
 /**
  * @author Dennis
@@ -171,6 +173,14 @@ public class NPCPluginDispatcher {
 					player.setNextFaceEntity(npc);
 					player.dialogue(d -> d.player(Expression.laugh_happy, "Who's loves me? You? yay!"));
 				}
+			}
+			if (npc instanceof Gravestone) {
+				Gravestone gsh = (Gravestone) npc;
+				player.dialogue(d -> d.option(
+						"Inspect gravestone.", () -> gsh.sendGraveInscription(player),
+						"Demolish gravestone (Items will become public - not supported).", () -> gsh.demolish(player),
+						(player.getSkills().getLevel(Skills.PRAYER) >= 70 ? "Bless gravestone" : "Repair gravestone"), () -> gsh.repair(player, player.getSkills().getLevel(Skills.PRAYER) >= 70)));
+				return;
 			}
 			if (player.getQuestManager().handleNPC(player, npc, optionId))
 				return;
