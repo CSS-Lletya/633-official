@@ -99,7 +99,7 @@ public class FriendChatsManager {
 				player.getPackets().sendFriendsChatChannel();
 			}
 			getLocalMembers().remove(player);
-			player.getVarsManager().forceSendVarBit(4071, 0);
+			player.toogleLootShare();
 		}
 	}
 
@@ -355,10 +355,12 @@ public class FriendChatsManager {
 				chat = new FriendChatsManager(owner);
 				cachedFriendChats.put(chat.owner, chat);
 				chat.joinChatNoCheck(player);
-				player.getVarsManager().forceSendVarBit(4071, 1);
-			} else
+				player.getCurrentFriendChat().getLocalMembers().add(player);
+			} else {
 				chat.joinChat(player);
-			player.getVarsManager().forceSendVarBit(4071, owner.isToogleLootShare() ? 1 : 0);
+				if (owner.isToogleLootShare())
+					player.toogleLootShare();
+			}
 		}
 
 	}

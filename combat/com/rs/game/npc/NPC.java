@@ -254,21 +254,33 @@ public class NPC extends Entity {
 		Player luckyPlayer = players.get(RandomUtils.random(players.size()));
 		if (!killer.toPlayer().isToogleLootShare()) {
 			for (Item item : drops)
-    			sendDrop(killer, item);
-		} else if (killer.toPlayer().isToogleLootShare() && players != null || players.size() > 0) {
-			for (Item item : drops) {
-				sendDrop(luckyPlayer, item);
-				luckyPlayer.getPackets().sendGameMessage(Colors.color(Colors.red, "You have recieved " + item.getAmount() + " " + item.getName() + "."));
-				if (luckyPlayer != killer) {
-					if (!item.getName().toLowerCase().contains("bones")) {
-						killer.getPackets().sendGameMessage(
-								luckyPlayer.getDisplayName() + " recieved " + item.getAmount() + " " + item.getName() + ".");
+				sendDrop(killer, item);
+		} else {
+			if (players != null || players.size() > 1) {
+				for (Item item : drops) {
+					sendDrop(luckyPlayer, item);
+					if (luckyPlayer != killer) {
+						killer.getPackets().sendGameMessage(luckyPlayer.getDisplayName() + " received "
+								+ item.getAmount() + " " + item.getName() + ".");
 						killer.getPackets().sendGameMessage("Your chance of receiving loot has improved.");
+					} else {
+						luckyPlayer.getPackets().sendGameMessage(Colors.color(Colors.red,
+								"You received: " + item.getAmount() + " " + item.getName() + "."));
+					}
+					if (item.getDefinitions().getValue() >= 500) {// 500gp is demo, set to desired amount.
+						if (luckyPlayer != killer) {
+							killer.getPackets().sendGameMessage("You recieved "
+									+ (Utility.getFormattedNumber(item.getDefinitions().getValue() / players.size()))
+									+ " gold as your split of this drop: " + item.getAmount() + " x " + item.getName()
+									+ ".");
+							FloorItem.updateGroundItem(new Item(995, item.getDefinitions().getValue() / players.size()),
+									new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()),
+									killer.toPlayer(), 60, 0);
+						}
 					}
 				}
 			}
 		}
-
 		DropTable charm = CharmDrop.getCharmDrop(NPCDefinitions.getNPCDefinitions(getId()).getName().toLowerCase());
 		if (charm != null)
 			for (Drop d : charm.getDrops())
