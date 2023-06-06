@@ -35,6 +35,7 @@ public final class PlayerDetails {
 		ownedObjectsManagerKeys = new ObjectArrayList<String>();
 		passwordList = new ObjectArrayList<String>();
 		ipList = new ObjectArrayList<String>();
+		seenDungeon = new boolean[16];
 	}
 
 	/**
@@ -193,6 +194,9 @@ public final class PlayerDetails {
 	private Stopwatch boneBury = new Stopwatch(), thievingStun = new Stopwatch(), drinks = new Stopwatch(), food = new Stopwatch(), tolerance = new Stopwatch();
 
 	public int questPoints;
+	
+	private boolean[] seenDungeon;
+	
 
     public void restoreRunEnergy(double energy) {
         if (runEnergy + energy > 100.0)

@@ -960,4 +960,25 @@ public class Magic {
 			}
 		});
 	}
+	
+	 public static void resourcesTeleport(final Player player, final int x, final int y, final int h) {
+	        player.getMovement().lock();
+	        World.get().submit(new Task(1) {
+	        	 int loop;
+				@Override
+				protected void execute() {
+					 if (loop == 0) {
+		                    player.setNextAnimation(new Animation(13288));
+		                    player.setNextGraphics(new Graphics(2516));
+		                } else if (loop == 2) {
+		                    player.setNextWorldTile(new WorldTile(x, y, h));
+		                    player.setNextAnimation(new Animation(13285));
+		                    player.setNextGraphics(new Graphics(2517));
+		                    player.getMovement().unlock();
+		                    cancel();
+		                }
+		                loop++;
+				}
+			});
+	    }
 }
