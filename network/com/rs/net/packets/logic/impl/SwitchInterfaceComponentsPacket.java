@@ -50,7 +50,14 @@ public class SwitchInterfaceComponentsPacket implements LogicPacketListener {
 				return;
 			player.getInventory().switchItem(fromSlot, toSlot);
 		} else if (fromInterfaceId == 762 && toInterfaceId == 762) {
-			player.getBank().switchItem(fromSlot, toSlot, fromComponentId, toComponentId);
+			if (toSlot < 0) {
+				toSlot = 65535;
+			}
+			if (player.getBank().isInsertItems()) {
+				player.getBank().insertItem(fromSlot, toSlot);
+			} else {
+				player.getBank().switchItem(fromSlot, toSlot, fromComponentId, toComponentId);
+			}
 		} else if (fromInterfaceId == 34 && toInterfaceId == 34)
 			player.getNotes().switchNotes(fromSlot, toSlot);
 		if (GameConstants.DEBUG)

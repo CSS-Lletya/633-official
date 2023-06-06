@@ -213,7 +213,7 @@ public interface InterfaceVars {
 	/**
 	 * Updates the state of insert mode for the bank
 	 */
-	int BANK_SWITCH_INSERT_MODES = 305;
+	int BANK_SWITCH_INSERT_MODES = 762;
 	
 	/**
 	 * Refreshes the special energy used for familiars specials

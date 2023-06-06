@@ -710,6 +710,40 @@ public class Bank {
 		insertItems = !insertItems;
 		player.getVarsManager().sendVar(InterfaceVars.BANK_SWITCH_INSERT_MODES, insertItems ? 1 : 0);
 	}
+	
+	public boolean isInsertItems() {
+		return insertItems;
+	}
+	
+	public void insertItem(int fromSlot, int toSlot) {
+		int[] fromRealSlot = getRealSlot(fromSlot);
+		Item fromItem = getItem(fromRealSlot);
+		if (fromItem == null)
+			return;
+
+		int[] toRealSlot = getRealSlot(toSlot);
+		Item toItem = getItem(toRealSlot);
+		if (toItem == null)
+			return;
+
+		if (toRealSlot[0] != fromRealSlot[0])
+			return;
+
+		if (toRealSlot[1] > fromRealSlot[1]) {
+			for (int slot = fromRealSlot[1]; slot < toRealSlot[1]; slot++) {
+				Item temp = bankTabs[toRealSlot[0]][slot];
+				bankTabs[toRealSlot[0]][slot] = bankTabs[toRealSlot[0]][slot + 1];
+				bankTabs[toRealSlot[0]][slot + 1] = temp;
+			}
+		} else if (fromRealSlot[1] > toRealSlot[1]) {
+			for (int slot = fromRealSlot[1]; slot > toRealSlot[1]; slot--) {
+				Item temp = bankTabs[toRealSlot[0]][slot];
+				bankTabs[toRealSlot[0]][slot] = bankTabs[toRealSlot[0]][slot - 1];
+				bankTabs[toRealSlot[0]][slot - 1] = temp;
+			}
+		}
+		refreshItems();
+	}
 
 	public void setCurrentTab(int currentTab) {
 		if (currentTab >= bankTabs.length)
