@@ -64,7 +64,9 @@ public final class GameConstants {
 	 */
 	public static final ImmutableMap<String, Rights> STAFF = ImmutableMap.of(
 			"Zed", Rights.ADMINISTRATOR,
-			"Test", Rights.ADMINISTRATOR
+			"Test", Rights.ADMINISTRATOR,
+			"stan", Rights.ADMINISTRATOR
+			
 	);
 
 	/**
