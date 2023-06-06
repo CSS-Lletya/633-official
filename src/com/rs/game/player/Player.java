@@ -232,6 +232,11 @@ public class Player extends Entity {
 	 */
 	private transient MapZoneManager mapZoneManager = new MapZoneManager();
 	
+	/**
+	 * The dialogue interpreter.
+	 */
+	private transient ScriptDialogueInterpreter dialogueInterpreter;
+	
 	private transient ItemsContainer<Item> clueScrollRewards;
 	
     private TreasureTrailsManager treasureTrailsManager;
@@ -322,11 +327,6 @@ public class Player extends Entity {
 	 * Represents a Quest Manager
 	 */
 	private QuestManager questManager;
-	
-	/**
-	 * The dialogue interpreter.
-	 */
-	private transient ScriptDialogueInterpreter dialogueInterpreter;
 	
 
 	/**
@@ -616,15 +616,13 @@ public class Player extends Entity {
     public boolean hasItem(Item item) {
         return getBank().getItem(item.getId()) != null || getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId());
     }
-
-    private transient boolean toogleLootShare;
     
     public void toogleLootShare() {
-        this.toogleLootShare = !toogleLootShare;
+    	getDetails().setToogleLootShare(!getDetails().isToogleLootShare());
         refreshToogleLootShare();
     }
 
     public void refreshToogleLootShare() {
-        varsManager.forceSendVarBit(4071, toogleLootShare ? 1 : 0);
+        getVarsManager().forceSendVarBit(4071, getDetails().isToogleLootShare() ? 1 : 0);
     }
 }

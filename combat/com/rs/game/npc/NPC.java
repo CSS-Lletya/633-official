@@ -250,34 +250,41 @@ public class NPC extends Entity {
 		killer.getTreasureTrailsManager().setPhase(2);
 		Item[] drops = DropTable.calculateDrops(killer, DropSets.getDropSet(id));
 
-		List<Player> players = FriendChatsManager.getLootSharingPeople(killer.toPlayer());
-		Player luckyPlayer = players.get(RandomUtils.random(players.size()));
-		if (!killer.toPlayer().isToogleLootShare()) {
+		if (!killer.toPlayer().getDetails().isToogleLootShare() || killer.toPlayer().getCurrentFriendChat() == null) {
 			for (Item item : drops)
 				sendDrop(killer, item);
 		} else {
-			if (players != null || players.size() > 1) {
+			List<Player> players = FriendChatsManager.getLootSharingPeople(killer.toPlayer());
+			Player luckyPlayer = players.get(RandomUtils.random(players.size()));
+			if (luckyPlayer != null || players != null || players.size() > 0) {
 				for (Item item : drops) {
 					sendDrop(luckyPlayer, item);
-					if (luckyPlayer != killer) {
-						killer.getPackets().sendGameMessage(luckyPlayer.getDisplayName() + " received "
-								+ item.getAmount() + " " + item.getName() + ".");
-						killer.getPackets().sendGameMessage("Your chance of receiving loot has improved.");
-					} else {
+					if (luckyPlayer == killer) {
 						luckyPlayer.getPackets().sendGameMessage(Colors.color(Colors.red,
 								"You received: " + item.getAmount() + " " + item.getName() + "."));
 					}
-					if (item.getDefinitions().getValue() >= 500) {// 500gp is demo, set to desired amount.
-						if (luckyPlayer != killer) {
-							killer.getPackets().sendGameMessage("You recieved "
-									+ (Utility.getFormattedNumber(item.getDefinitions().getValue() / players.size()))
-									+ " gold as your split of this drop: " + item.getAmount() + " x " + item.getName()
-									+ ".");
-							FloorItem.updateGroundItem(new Item(995, item.getDefinitions().getValue() / players.size()),
-									new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()),
-									killer.toPlayer(), 60, 0);
+					for (Player ccm : players) {
+						if (ccm != luckyPlayer) {
+							ccm.getPackets().sendGameMessage(luckyPlayer.getDisplayName() + " received "
+									+ item.getAmount() + " " + item.getName() + ".");
+							ccm.getPackets().sendGameMessage("Your chance of receiving loot has improved.");
+							if (item.getDefinitions().getValue() >= 55) {
+								ccm.getPackets()
+										.sendGameMessage("You recieved "
+												+ (Utility.getFormattedNumber(
+														item.getDefinitions().getValue() / players.size()))
+												+ " gold as your split of this drop: " + item.getAmount() + " x "
+												+ item.getName() + ".");
+								FloorItem.updateGroundItem(
+										new Item(995, item.getDefinitions().getValue() / players.size()),
+										new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()),
+										killer.toPlayer(), 60, 0);
+							}
+							break;
 						}
+						
 					}
+					
 				}
 			}
 		}

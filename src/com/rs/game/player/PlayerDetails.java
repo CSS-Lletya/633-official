@@ -197,7 +197,8 @@ public final class PlayerDetails {
 	
 	private boolean[] seenDungeon;
 	
-
+	boolean toogleLootShare;
+	
     public void restoreRunEnergy(double energy) {
         if (runEnergy + energy > 100.0)
             runEnergy = (byte) 100.0;

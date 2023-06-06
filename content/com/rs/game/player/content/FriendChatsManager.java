@@ -97,9 +97,10 @@ public class FriendChatsManager {
 				player.getInterfaceManager().closeInterfaces();
 				player.getPackets().sendGameMessage("You have left the channel.");
 				player.getPackets().sendFriendsChatChannel();
+				player.getDetails().setToogleLootShare(false);
+				player.getVarsManager().forceSendVarBit(4071, 0);
 			}
 			getLocalMembers().remove(player);
-			player.toogleLootShare();
 		}
 	}
 
@@ -318,7 +319,7 @@ public class FriendChatsManager {
             return;
         }
         player.getCurrentFriendChat().players.forEach(cm -> cm.toogleLootShare());
-        player.getPackets().sendGameMessage("LootShare is now " + (player.isToogleLootShare() ? "active." :"deactivated."));
+        player.getPackets().sendGameMessage("LootShare is now " + (player.getDetails().isToogleLootShare() ? "active." :"deactivated."));
     }
 	public static void joinChat(String ownerName, Player player) {
 		synchronized (cachedFriendChats) {
@@ -356,10 +357,13 @@ public class FriendChatsManager {
 				cachedFriendChats.put(chat.owner, chat);
 				chat.joinChatNoCheck(player);
 				player.getCurrentFriendChat().getLocalMembers().add(player);
+				player.getVarsManager().forceSendVarBit(4071, owner.getDetails().isToogleLootShare() ? 1 : 0);
 			} else {
 				chat.joinChat(player);
-				if (owner.isToogleLootShare())
-					player.toogleLootShare();
+				if (owner.getDetails().isToogleLootShare()) {
+					player.getDetails().setToogleLootShare(true);
+					player.getVarsManager().forceSendVarBit(4071, 1);
+				}
 			}
 		}
 
