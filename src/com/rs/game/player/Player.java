@@ -36,6 +36,7 @@ import com.rs.game.player.content.trails.TreasureTrailsManager;
 import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.game.player.type.CombatEffect;
 import com.rs.game.task.impl.CombatEffectTask;
+import com.rs.game.task.impl.OverloadEffectTask;
 import com.rs.game.task.impl.SkillActionTask;
 import com.rs.net.IsaacKeyPair;
 import com.rs.net.LogicPacket;
@@ -466,7 +467,6 @@ public class Player extends Entity {
 		getDetails().getCharges().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
-		processEffects();
 	}
 
 	/**
@@ -627,4 +627,36 @@ public class Player extends Entity {
     public void refreshToogleLootShare() {
         getVarsManager().forceSendVarBit(4071, getDetails().isToogleLootShare() ? 1 : 0);
     }
+
+
+    private transient OverloadEffectTask overloadEffect;
+    
+	/**
+	 * Gets the overload effect if there is any.
+	 * @return the overload effect.
+	 */
+	public OverloadEffectTask getOverloadEffect() {
+		return overloadEffect;
+	}
+	
+	/**
+	 * Applies the overload effect for the specified player.
+	 */
+	public void applyOverloadEffect() {
+		OverloadEffectTask effect = new OverloadEffectTask(this);
+		overloadEffect = effect;
+		effect.submit();
+	}
+	
+	/**
+	 * Resets the overload effect.
+	 */
+	public void resetOverloadEffect(boolean stopTask) {
+		if(overloadEffect != null) {
+			if(overloadEffect.isRunning() && stopTask) {
+				overloadEffect.cancel();
+			}
+			overloadEffect = null;
+		}
+	}
 }

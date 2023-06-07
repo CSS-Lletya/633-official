@@ -40,6 +40,8 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 		getActor().getMovement().stopAll();
 		if (getActor().getFamiliar() != null)
 			getActor().getFamiliar().sendDeath(Optional.of(getActor()));
+		getActor().getSkills().restoreSkills();
+		getActor().resetOverloadEffect(false);
 	}
 
 	@Override

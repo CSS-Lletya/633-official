@@ -22,20 +22,19 @@ import java.util.function.Consumer;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.InterfaceVars;
 import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.cores.WorldThread;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.npc.familiar.Familiar;
+import com.rs.game.player.Combat;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.game.player.type.Effect;
+import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
-import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.Ticks;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
@@ -137,25 +136,25 @@ public class Potions {
 			p.getPrayer().restorePrayer(((int) (p.getSkills().getLevelForXp(Skills.PRAYER) * 0.33 * 10)));
 			p.heal(30);
 		}),
-		ANTIPOISON(VIAL, new int[] { 2446, 175, 177, 179 }, p -> p.addEffect(Effect.ANTIPOISON, Ticks.fromSeconds(90))),
+		ANTIPOISON(VIAL, new int[] { 2446, 175, 177, 179 }, p -> onAntiPoisonEffect(p, false, 100)),
 		ANTIPOISON_MIX(VIAL, new int[] { 11433, 11435 }, p -> {
-			p.addEffect(Effect.ANTIPOISON, Ticks.fromSeconds(90));
+			onAntiPoisonEffect(p, false, 100);
 			p.heal(30);
 		}),
 
-		SUPER_ANTIPOISON(VIAL, new int[] { 2448, 181, 183, 185 }, p -> p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(6))),
+		SUPER_ANTIPOISON(VIAL, new int[] { 2448, 181, 183, 185 }, p -> onAntiPoisonEffect(p, false, 500)),
 		ANTI_P_SUPERMIX(VIAL, new int[] { 11473, 11475 }, p -> {
-			p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(6));
+			onAntiPoisonEffect(p, false, 500);
 			p.heal(30);
 		}),
 
-		ANTIPOISONP(VIAL, new int[] { 5943, 5945, 5947, 5949 }, p -> p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(9))),
+		ANTIPOISONP(VIAL, new int[] { 5943, 5945, 5947, 5949 }, p -> onAntiPoisonEffect(p, false, 1200)),
 		ANTIDOTEP_MIX(VIAL, new int[] { 11501, 11503 }, p -> {
-			p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(9));
+			onAntiPoisonEffect(p, false, 1200);
 			p.heal(30);
 		}),
 
-		ANTIPOISONPP(VIAL, new int[] { 5952, 5954, 5956, 5958 }, p -> p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(12))),
+		ANTIPOISONPP(VIAL, new int[] { 5952, 5954, 5956, 5958 }, p -> onAntiPoisonEffect(p, false, 1200)),
 		
 		RELICYMS_BALM(VIAL, new int[] { 4842, 4844, 4846, 4848 }, p -> { /*TODO*/ }),
 		RELICYMS_BALM_FLASK(-1, new int[] { 23537, 23539, 23541, 23543, 23545, 23547 }, p -> { /*TODO*/ }),
@@ -174,9 +173,9 @@ public class Potions {
 			p.heal(30);
 		}),
 
-		ANTIFIRE(VIAL, new int[] { 2452, 2454, 2456, 2458 }, p -> p.addEffect(Effect.ANTIFIRE, Ticks.fromMinutes(6))),
+		ANTIFIRE(VIAL, new int[] { 2452, 2454, 2456, 2458 }, p -> Combat.effect(p, CombatEffectType.ANTIFIRE_POTION)),
 		ANTIFIRE_MIX(VIAL, new int[] { 11505, 11507 }, p -> {
-			p.addEffect(Effect.ANTIFIRE, Ticks.fromMinutes(6));
+			Combat.effect(p, CombatEffectType.ANTIFIRE_POTION);
 			p.heal(30);
 		}),
 
@@ -244,7 +243,7 @@ public class Potions {
 		SANFEW_SERUM(VIAL, new int[] { 10925, 10927, 10929, 10931 }, p -> {
 			p.getSkills().adjustStat(8, 0.25, false, Utility.range(0, Skills.MAXIMUM_SKILL_COUNT -1));
 			p.getPrayer().restorePrayer(((int) (p.getSkills().getLevelForXp(Skills.PRAYER) * 0.33 * 10)));
-			p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(6));
+			onAntiPoisonEffect(p, false, 500);
 		}),
 
 		SUMMONING_POTION(VIAL, new int[] { 12140, 12142, 12144, 12146 }, p -> {
@@ -255,7 +254,6 @@ public class Potions {
 		}),
 
 		RECOVER_SPECIAL(VIAL, new int[] { 15300, 15301, 15302, 15303 }, true, p -> {
-			System.out.println(WorldThread.LAST_CYCLE_CTM);
 			p.getAttributes().get(Attribute.SPECIAL_RECOVERY).set(WorldThread.LAST_CYCLE_CTM);
 			p.getCombatDefinitions().restoreSpecialAttack(25);
 		}) {
@@ -271,7 +269,7 @@ public class Potions {
 			}
 		},
 
-		SUPER_ANTIFIRE(VIAL, new int[] { 15304, 15305, 15306, 15307 }, true, p -> p.addEffect(Effect.SUPER_ANTIFIRE, Ticks.fromMinutes(6))),
+		SUPER_ANTIFIRE(VIAL, new int[] { 15304, 15305, 15306, 15307 }, true, p -> Combat.effect(p, CombatEffectType.ANTIFIRE_POTION)),
 		
 		EXTREME_ATTACK(VIAL, new int[] { 15308, 15309, 15310, 15311 }, true, p -> p.getSkills().adjustStat(5, 0.22, Skills.ATTACK)),
 		
@@ -286,55 +284,44 @@ public class Potions {
 		SUPER_PRAYER(VIAL, new int[] { 15328, 15329, 15330, 15331 }, p -> p.getPrayer().restorePrayer(((int) (70 + (p.getSkills().getLevelForXp(Skills.PRAYER) * 3.43))))),
 		DOM_SUPER_PRAYER(-1, new int[] { 22375, 22376 }),
 
-		OVERLOAD(VIAL, new int[] { 15332, 15333, 15334, 15335 }, true, p -> {
-			p.addEffect(Effect.OVERLOAD, 500);
-			World.get().submit(new Task(2) {
-				int count = 4;
-				@Override
-				protected void execute() {
-					if (count == 0)
-						this.cancel();
-					p.setNextAnimation(new Animation(3170));
-					p.setNextGraphics(new Graphics(560));
-					p.applyHit(new Hit(p, 100, HitLook.REGULAR_DAMAGE, 0));
-					count--;
-				}
-			});
-		}) {
+		OVERLOAD(VIAL, new int[] { 15332, 15333, 15334, 15335 }, true, p -> p.applyOverloadEffect()) {
 			@Override
 			public boolean canDrink(Player player) {
-				if (player.hasEffect(Effect.OVERLOAD)) {
-					player.getPackets().sendGameMessage("You are already under the effects of an overload potion.");
+				if(WildernessMapZone.isAtWild(player)) {
+					player.getPackets().sendGameMessage("You can't drink this potion in the wilderness.");
 					return false;
 				}
-				if (player.getHitpoints() <= 500) {
-					player.getPackets().sendGameMessage("You need more than 500 life points to survive the power of overload.");
+				if(player.getOverloadEffect() != null) {
+					player.getPackets().sendGameMessage("You already have the effects of overload upon you.");
+					return false;
+				}
+				if(player.getHitpoints() <= 500) {
+					player.getPackets().sendGameMessage("You don't have enough health to drink this potion.");
 					return false;
 				}
 				return true;
 			}
 		},
-		JUJU_MINING_POTION(JUJU_VIAL, new int[] { 20003, 20004, 20005, 20006 }, p -> p.addEffect(Effect.JUJU_MINING, 500)),
-		
-		JUJU_COOKING_POTION(JUJU_VIAL, new int[] { 20007, 20008, 20009, 20010 }),
-		
-		JUJU_FARMING_POTION(JUJU_VIAL, new int[] { 20011, 20012, 20013, 20014 }, p -> p.addEffect(Effect.JUJU_FARMING, 500)),
-		
-		JUJU_WOODCUTTING_POTION(JUJU_VIAL, new int[] { 20015, 20016, 20017, 20018 }, p -> p.addEffect(Effect.JUJU_WOODCUTTING, 500)),
-		
-		JUJU_FISHING_POTION(JUJU_VIAL, new int[] { 20019, 20020, 20021, 20022 }, p -> p.addEffect(Effect.JUJU_FISHING, 500)),
-		
-		JUJU_HUNTER_POTION(JUJU_VIAL, new int[] { 20023, 20024, 20025, 20026 }),
-		
-		SCENTLESS_POTION(JUJU_VIAL, new int[] { 20027, 20028, 20029, 20030 }, p -> p.addEffect(Effect.SCENTLESS, 500)),
-		
-		SARADOMINS_BLESSING(JUJU_VIAL, new int[] { 20031, 20032, 20033, 20034 }, p -> p.addEffect(Effect.SARA_BLESSING, 500)),
-		SARADOMINS_BLESSING_FLASK(-1, new int[] { 23173, 23174, 23175, 23176, 23177, 23178 }, p -> p.addEffect(Effect.SARA_BLESSING, 500)),
-
-		GUTHIXS_GIFT(JUJU_VIAL, new int[] { 20035, 20036, 20037, 20038 }, p -> p.addEffect(Effect.GUTHIX_GIFT, 500)),
-		
-		ZAMORAKS_FAVOUR(JUJU_VIAL, new int[] { 20039, 20040, 20041, 20042 }, p -> p.addEffect(Effect.ZAMMY_FAVOR, 500)),
-		
+//		JUJU_MINING_POTION(JUJU_VIAL, new int[] { 20003, 20004, 20005, 20006 }, p -> p.addEffect(Effect.JUJU_MINING, 500)),
+//		
+//		JUJU_COOKING_POTION(JUJU_VIAL, new int[] { 20007, 20008, 20009, 20010 }),
+//		
+//		JUJU_FARMING_POTION(JUJU_VIAL, new int[] { 20011, 20012, 20013, 20014 }, p -> p.addEffect(Effect.JUJU_FARMING, 500)),
+//		
+//		JUJU_WOODCUTTING_POTION(JUJU_VIAL, new int[] { 20015, 20016, 20017, 20018 }, p -> p.addEffect(Effect.JUJU_WOODCUTTING, 500)),
+//		
+//		JUJU_FISHING_POTION(JUJU_VIAL, new int[] { 20019, 20020, 20021, 20022 }, p -> p.addEffect(Effect.JUJU_FISHING, 500)),
+//		
+//		JUJU_HUNTER_POTION(JUJU_VIAL, new int[] { 20023, 20024, 20025, 20026 }),
+//		
+//		SCENTLESS_POTION(JUJU_VIAL, new int[] { 20027, 20028, 20029, 20030 }, p -> p.addEffect(Effect.SCENTLESS, 500)),
+//		
+//		SARADOMINS_BLESSING(JUJU_VIAL, new int[] { 20031, 20032, 20033, 20034 }, p -> p.addEffect(Effect.SARA_BLESSING, 500)),
+//		SARADOMINS_BLESSING_FLASK(-1, new int[] { 23173, 23174, 23175, 23176, 23177, 23178 }, p -> p.addEffect(Effect.SARA_BLESSING, 500)),
+//
+//		GUTHIXS_GIFT(JUJU_VIAL, new int[] { 20035, 20036, 20037, 20038 }, p -> p.addEffect(Effect.GUTHIX_GIFT, 500)),
+//		
+//		ZAMORAKS_FAVOUR(JUJU_VIAL, new int[] { 20039, 20040, 20041, 20042 }, p -> p.addEffect(Effect.ZAMMY_FAVOR, 500)),
 
 		WEAK_MAGIC_POTION(17490, 17556, p -> p.getSkills().adjustStat(4, 0.1, Skills.MAGIC)),
 		WEAK_RANGED_POTION(17490, 17558, p -> p.getSkills().adjustStat(4, 0.1, Skills.RANGE)),
@@ -370,18 +357,6 @@ public class Potions {
 		STAT_RESTORE_POTION(17490, 17590, p -> p.getSkills().adjustStat(7, 0.17, false, Skills.allExcept(Skills.PRAYER, Skills.SUMMONING))),
 		STRONG_STAT_RESTORE_POTION(17490, 17614, p -> p.getSkills().adjustStat(10, 0.24, false, Skills.allExcept(Skills.PRAYER, Skills.SUMMONING))),
 
-//		WEAK_CURE_POTION(17490, 17568, p -> {
-//			p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(5));
-//			p.addEffect(Effect.ANTIFIRE, Ticks.fromMinutes(5));
-//		}),
-//		CURE_POTION(17490, 17592, p -> {
-//			p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(10));
-//			p.addEffect(Effect.ANTIFIRE, Ticks.fromMinutes(10));
-//		}),
-//		STRONG_CURE_POTION(17490, 17616, p -> {
-//			p.addEffect(Effect.ANTIPOISON, Ticks.fromMinutes(20));
-//			p.addEffect(Effect.SUPER_ANTIFIRE, Ticks.fromMinutes(20));
-//		}),
 
 		WEAK_REJUVENATION_POTION(17490, 17570, p -> {
 			p.getSkills().adjustStat(5, 0.10, false, Skills.SUMMONING);
@@ -401,10 +376,7 @@ public class Potions {
 		}),
 
 		STRANGE_FRUIT(-1, 464, p -> p.getDetails().restoreRunEnergy(30)),
-//		GORAJIAN_MUSHROOM(-1, 22446, p -> {
-//			p.heal((int) (p.getMaxHitpoints()*0.1));
-//			p.getTempAttribs().setB("gorajMush", true);
-//		}),
+
 
 		KARAMJAN_RUM(-1, 431, p -> {
 			p.getSkills().adjustStat(-4, 0, Skills.ATTACK);
@@ -851,6 +823,47 @@ public class Potions {
 			realLevel = player.getSkills().getLevelForXp(Skills.RANGE);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.RANGE, (int) (level + 4 + (Math.floor(realLevel / 5.2))));
+		}
+	}
+	
+	/**
+	 * The method that executes the anti-poison potion action.
+	 * @param player the player to do this action for.
+	 * @param superPotion {@code true} if this potion is a super potion, {@code false}
+	 * otherwise.
+	 * @param length the length that the effect lingers for.
+	 */
+	public static void onAntiPoisonEffect(Player player, boolean superPotion, int length) {
+		if(player.isPoisoned()) {
+			player.getPoisonDamage().set(0);
+			player.getVarsManager().sendVar(InterfaceVars.POISIONED_HP_ORB, 0);
+			player.getPackets().sendGameMessage("You have been cured of your poison!");
+		}
+		if(superPotion) {
+			if(player.getDetails().getPoisonImmunity().get() <= 0) {
+				player.getPackets().sendGameMessage("You have been granted immunity against poison.");
+				player.getDetails().getPoisonImmunity().incrementAndGet(length);
+				World.get().submit(new Task(50, false) {
+					@Override
+					public void execute() {
+						if(player.getDetails().getPoisonImmunity().get() <= 0)
+							this.cancel();
+						if(player.getDetails().getPoisonImmunity().decrementAndGet(50) <= 50)
+							player.getPackets().sendGameMessage("Your resistance to poison is about to wear off!");
+						if(player.getDetails().getPoisonImmunity().get() <= 0)
+							this.cancel();
+					}
+					
+					@Override
+					public void onCancel() {
+						player.getPackets().sendGameMessage("Your resistance to poison has worn off!");
+						player.getDetails().getPoisonImmunity().set(0);
+					}
+				}.attach(player));
+			} else if(player.getDetails().getPoisonImmunity().get() > 0) {
+				player.getPackets().sendGameMessage("Your immunity against poison has been restored!");
+				player.getDetails().getPoisonImmunity().set(length);
+			}
 		}
 	}
 }

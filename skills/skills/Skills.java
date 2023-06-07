@@ -93,6 +93,13 @@ public class Skills {
 			refresh(skill);
 		});
 	}
+	
+	public void restoreSkill(int skill) {
+		IntStream.range(0, 25).forEach(skills -> {
+			level[skills] = (byte) getLevelForXp(skills);
+			refresh(skills);
+		});
+	}
 
 	/**
 	 * Gets the level of a Skill

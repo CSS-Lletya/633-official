@@ -75720,15 +75720,17 @@
     "npcId": 6200
   },
   {
+  "dir": "EAST",
     "tile": {
       "plane": 0,
       "x": 3090,
-      "y": 3241
+      "y": 3243
     },
     "comment": "Banker",
     "npcId": 6200
   },
   {
+  "dir": "EAST",
     "tile": {
       "plane": 0,
       "x": 3090,
@@ -75738,6 +75740,7 @@
     "npcId": 6200
   },
   {
+  "dir": "EAST",
     "tile": {
       "plane": 0,
       "x": 3090,
@@ -75747,6 +75750,7 @@
     "npcId": 6200
   },
   {
+  "dir": "EAST",
     "tile": {
       "plane": 0,
       "x": 3090,
