@@ -47,9 +47,8 @@ public final class GameConstants {
 	/**
 	 * Items that are protected upon a Players death by default in the Wilderness
 	 */
-	public static final String[] PROTECT_ON_DEATH = { "chaotic", "stream", "defender", "swift", "spellcaster", "goliath",
-			"fire cape", "max cape", "max hood", "completionist cape", "completionist hood", "farseer kiteshield",
-			"eagle-eye kiteshield", "gravite" };
+	public static final String[] PROTECT_ON_DEATH = { "chaotic", "stream", "defender",
+			"fire cape", "farseer kiteshield", "eagle-eye kiteshield", "gravite" };
 	
 	/**
 	 * A Players starter kit when joining the game for the first time.

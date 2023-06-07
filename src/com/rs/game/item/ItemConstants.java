@@ -288,9 +288,10 @@ public class ItemConstants {
 		case 8849:
 		case 8850:
 			return false;
-		default:
-			return true;
 		}
+		if ((!item.getDefinitions().isStackable() && item.getDefinitions().getCertId() == -1) || item.getDefinitions().isDestroyItem() || item.getDefinitions().isLended())
+			return false;
+		return item.getDefinitions().isExchangableItem();
 	}
 
 	private static final int ITEMS_RANGE = 500;
