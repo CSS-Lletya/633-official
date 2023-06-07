@@ -24,4 +24,8 @@ public abstract class GenericNPCListener {
 	public ObjectArrayList<Entity> getPossibleTargets(NPC npc) {
 		return npc.getPossibleTargets();
 	}
+	
+	public void reset(NPC npc) {}
+	
+	public void setTarget(NPC npc, Entity entity) {}
 }

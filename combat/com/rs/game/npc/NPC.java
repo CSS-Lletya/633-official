@@ -96,8 +96,8 @@ public class NPC extends Entity {
 		setCombat(new NPCCombat(this));
 		setCapDamage((short) -1);
 		setLureDelay((short) 12000);
-		genericNPC = new GenericNPCDispatcher();
-		genericNPC.setAttributes(this);
+		setGenericNPC(new GenericNPCDispatcher());
+		getGenericNPC().setAttributes(this);
 		initEntity();
 		World.addNPC(this);
 		updateEntityRegion(this);
@@ -105,7 +105,7 @@ public class NPC extends Entity {
 		checkMultiArea();
 	}
 
-	public void setNextNPCTransformation(short id) {
+	public void setNextNPCTransformation(int id) {
 		setId(id);
 		setNextTransformation(new Transformation(id));
 	}
@@ -327,6 +327,7 @@ public class NPC extends Entity {
 	public void setTarget(Entity entity) {
 		if (isForceWalking())
 			return;
+		getGenericNPC().setTarget(this, entity);
 		getCombat().setTarget(entity);
 		setLastAttackedByTarget(Utility.currentTimeMillis());
 	}

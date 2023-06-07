@@ -183,6 +183,7 @@ public abstract class Entity extends WorldTile {
 			player.getAppearance().generateAppearenceData();
 		});
 		ifNpc(npc -> {
+			npc.getGenericNPC().setResetTask(npc);
 			npc.setDirection(npc.getRespawnDirection());
 			npc.getCombat().reset();
 			npc.setForceWalk(null);

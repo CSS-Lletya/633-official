@@ -919,7 +919,7 @@
   },
   {
     "comment": "Witchhaven dungeon: Hobgoblin 5",
-    "npcId": 13100,
+    "npcId": 6275,
     "tile": {
       "x": 2707,
       "y": 9700,
@@ -928,7 +928,7 @@
   },
   {
     "comment": "Witchhaven dungeon: Hobgoblin 4",
-    "npcId": 13100,
+    "npcId": 6275,
     "tile": {
       "x": 2702,
       "y": 9697,
@@ -937,7 +937,7 @@
   },
   {
     "comment": "Witchhaven dungeon: Hobgoblin 3",
-    "npcId": 13100,
+    "npcId": 6275,
     "tile": {
       "x": 2693,
       "y": 9690,
@@ -946,7 +946,7 @@
   },
   {
     "comment": "Witchhaven dungeon: Hobgoblin 2",
-    "npcId": 13100,
+    "npcId": 6275,
     "tile": {
       "x": 2698,
       "y": 9690,
@@ -955,7 +955,7 @@
   },
   {
     "comment": "Witchhaven dungeon: Hobgoblin 1",
-    "npcId": 13100,
+    "npcId": 6275,
     "tile": {
       "x": 2700,
       "y": 9687,
@@ -43287,7 +43287,7 @@
       "y": 9578
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -43296,7 +43296,7 @@
       "y": 9580
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -43305,7 +43305,7 @@
       "y": 9593
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -43314,7 +43314,7 @@
       "y": 9578
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -43323,7 +43323,7 @@
       "y": 9591
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -43332,7 +43332,7 @@
       "y": 9592
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -43341,7 +43341,7 @@
       "y": 9589
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105378,7 +105378,7 @@
       "y": 3359
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105387,7 +105387,7 @@
       "y": 3359
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105396,7 +105396,7 @@
       "y": 3362
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105405,7 +105405,7 @@
       "y": 3357
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105414,7 +105414,7 @@
       "y": 3361
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105423,7 +105423,7 @@
       "y": 3329
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105432,7 +105432,7 @@
       "y": 3331
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105441,7 +105441,7 @@
       "y": 3330
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105450,7 +105450,7 @@
       "y": 3730
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105459,7 +105459,7 @@
       "y": 3739
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105468,7 +105468,7 @@
       "y": 3720
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105477,7 +105477,7 @@
       "y": 3729
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105486,7 +105486,7 @@
       "y": 3733
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105495,7 +105495,7 @@
       "y": 3725
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105504,7 +105504,7 @@
       "y": 3731
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105513,7 +105513,7 @@
       "y": 3730
     },
     "comment": "Hobgoblin",
-    "npcId": 13246
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105522,7 +105522,7 @@
       "y": 3013
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105531,7 +105531,7 @@
       "y": 3012
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105540,7 +105540,7 @@
       "y": 3012
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105549,7 +105549,7 @@
       "y": 3291
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105558,7 +105558,7 @@
       "y": 3282
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105567,7 +105567,7 @@
       "y": 3288
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105576,7 +105576,7 @@
       "y": 3298
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105585,7 +105585,7 @@
       "y": 3305
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105684,7 +105684,7 @@
       "y": 3787
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105693,7 +105693,7 @@
       "y": 3813
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105702,7 +105702,7 @@
       "y": 3781
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105711,7 +105711,7 @@
       "y": 3793
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105720,7 +105720,7 @@
       "y": 3803
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105729,7 +105729,7 @@
       "y": 3789
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105738,7 +105738,7 @@
       "y": 3798
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105747,7 +105747,7 @@
       "y": 3809
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105756,7 +105756,7 @@
       "y": 3805
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105765,7 +105765,7 @@
       "y": 3781
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105774,7 +105774,7 @@
       "y": 3796
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105783,7 +105783,7 @@
       "y": 3812
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105792,7 +105792,7 @@
       "y": 3791
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105801,7 +105801,7 @@
       "y": 3797
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105810,7 +105810,7 @@
       "y": 3804
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105819,7 +105819,7 @@
       "y": 3809
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105828,7 +105828,7 @@
       "y": 3795
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105837,7 +105837,7 @@
       "y": 3802
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105846,7 +105846,7 @@
       "y": 3785
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105855,7 +105855,7 @@
       "y": 3811
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105864,7 +105864,7 @@
       "y": 3806
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105873,7 +105873,7 @@
       "y": 3795
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105882,7 +105882,7 @@
       "y": 3800
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105891,7 +105891,7 @@
       "y": 3809
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105900,7 +105900,7 @@
       "y": 3802
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
@@ -105909,7 +105909,7 @@
       "y": 3797
     },
     "comment": "Hobgoblin",
-    "npcId": 13100
+    "npcId": 6275
   },
   {
     "tile": {
