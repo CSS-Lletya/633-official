@@ -66,6 +66,9 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.SET_XP, -1);
 		AttributeKey.forTransient(Attribute.SPECIAL_RECOVERY, -1);
 		AttributeKey.forTransient(Attribute.FAIRY_RING_LOCATION_ARRAY, new int[] {});
+		
+		AttributeKey.forPersistent(Attribute.WHEAT_GRINDED, false);
+		AttributeKey.forPersistent(Attribute.WHEAT_DEPOSITED, false);
 	}
 	
 	/**

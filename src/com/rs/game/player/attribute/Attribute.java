@@ -156,5 +156,18 @@ public interface Attribute {
 	 */
 	public String SPECIAL_RECOVERY = "SpecRecovery";
 	
+	/**
+	 * Represents the last 3 codes
+	 */
 	public String FAIRY_RING_LOCATION_ARRAY = "LocationArray";
+	
+	/**
+	 * Represents the Wheat grind state
+	 */
+	public String WHEAT_GRINDED = "WheatGrinded";
+	
+	/**
+	 * Represents the Wheat deposited state
+	 */
+	public String WHEAT_DEPOSITED = "WheatDeposited";
 }

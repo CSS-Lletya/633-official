@@ -7,13 +7,15 @@ import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.TeleportType;
+import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 @ObjectSignature(objectId = { 36974, 36687, 29355, 12309, 36773, 36774, 36775, 36776, 36777, 36778, 12348, 36984, 36985,
 		36986, 36987, 36988, 36989, 36990, 36991, 36976, 36978, 45482, 45483, 45484, 37683, 45481, 36768, 36769,
-		36770, 36771, 36772, 37335, 48797, 2145, 52309,52308}, name = {})
+		36770, 36771, 36772, 37335, 48797, 2145, 52309,52308, 36881, 36880}, name = {})
 public class LumbridgeRegionObjectPlugin extends ObjectListener {
 
 	@Override
@@ -142,5 +144,39 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 		
 		object.doAction(optionId, 52308, "climb-up", () ->  player.getMovement().move(true, new WorldTile(3222, 3268), TeleportType.LADDER));
 		object.doAction(optionId, 52309, "enter", () -> player.getMovement().move(true, new WorldTile(4762, 5891), TeleportType.BLANK));
+		
+		
+		if (object.getId() == 36880) {
+			if (player.getInventory().containsItem(1931, 1)) {
+				if (player.getAttributes().get(Attribute.WHEAT_GRINDED).getBoolean()) {
+					player.getAttributes().get(Attribute.WHEAT_GRINDED).set(false);
+					player.getAttributes().get(Attribute.WHEAT_DEPOSITED).set(false);
+					player.getPackets().sendGameMessage("You take the ground flour.");
+					player.setNextAnimation(new Animation(832));
+					player.getInventory().deleteItem(1931, 1);
+					player.getInventory().addItem(1933, 1);
+					updateWheat(player);
+				}
+			} else
+				player.getPackets().sendGameMessage("You need an empty pot to gather the flour.");
+		}
 	}
+	
+	@Override
+	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
+		if (object.getId() == 36881 && item.getId() == 1947) {
+			if (!player.getAttributes().get(Attribute.WHEAT_DEPOSITED).getBoolean()) {
+				player.getInventory().deleteItem(1947, 1);
+				player.setNextAnimation(new Animation(832));
+				player.getPackets().sendGameMessage("You put the wheat in the hopper.");
+				player.getAttributes().get(Attribute.WHEAT_DEPOSITED).set(true);
+			} else
+				player.getPackets().sendGameMessage("You already have wheat in deposited.");
+		}
+	}
+	
+	public static void updateWheat(Player player) {
+		player.getVarsManager().sendVar(695, (player.getAttributes().get(Attribute.WHEAT_GRINDED).getBoolean() ? 1 : 0)).submitVarToMap(695, (player.getAttributes().get(Attribute.WHEAT_GRINDED).getBoolean() ? 1 : 0));
+	}
+	
 }
