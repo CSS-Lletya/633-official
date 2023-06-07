@@ -144823,5 +144823,14 @@
     },
     "comment": "Zookeeper",
     "npcId": 7570
+  },
+    {
+    "tile": {
+      "plane": 0,
+      "x": 4765,
+      "y": 5923
+    },
+    "comment": "thieveMaster",
+    "npcId": 11281
   }
 ]
