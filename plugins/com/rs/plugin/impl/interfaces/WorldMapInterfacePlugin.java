@@ -1,5 +1,7 @@
 package com.rs.plugin.impl.interfaces;
 
+import java.util.stream.IntStream;
+
 import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Rest;
@@ -60,6 +62,11 @@ public class WorldMapInterfacePlugin extends RSInterfaceListener {
 			}
 			break;
 		case 746:
+			if (componentId == 170 && packetId == 11) {
+				player.getInterfaceManager().sendInterface(895);
+				IntStream.rangeClosed(23, 82).forEach(comp ->
+				player.getPackets().sendIComponentText(895, comp, "Random suggestive text! Each component is clickable, could be quite useful!"));
+			}
 			if (componentId == 223 && packetId == 19)
 				player.getSkills().resetXpCounter();
 			if (componentId == 177 && packetId == 11) {
@@ -76,6 +83,7 @@ public class WorldMapInterfacePlugin extends RSInterfaceListener {
 				player.getHintIconsManager().removeAll();
 				player.getVarsManager().sendVar(InterfaceVars.WORLD_MAP_MARKER, -1);
 			}
+			
 			break;
 		}
 	}
