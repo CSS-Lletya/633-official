@@ -60,6 +60,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				if (pot == null)
 					return;
 				pot.drink(player, item.getId(), slotId);
+				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(item.getId()).getName() + "_Consumed").addStatistic("Potions_Consumed");
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON2_PACKET:
 				long time = Utility.currentTimeMillis();

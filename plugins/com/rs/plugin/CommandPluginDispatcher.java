@@ -40,6 +40,7 @@ public final class CommandPluginDispatcher {
 				return;
 			}
 			Try.run(() -> commander.execute(player, parts, command));
+			player.getDetails().getStatistics().addStatistic("Commands_Executed");
 		});
 	}
 

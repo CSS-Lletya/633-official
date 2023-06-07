@@ -612,6 +612,7 @@ public class Foods {
 		player.getInventory().refresh();
 		if (food.effect != null)
 			food.effect.effect(player);
+		player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(food.id).getName() + "_Eaten").addStatistic("Food_Eaten");
 		return true;
 	}
 

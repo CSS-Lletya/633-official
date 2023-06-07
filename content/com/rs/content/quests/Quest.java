@@ -129,6 +129,7 @@ public abstract class Quest {
             player.getPackets().sendIComponentText(interfaceId, 4, "You have completed " + getName() + "!");
             player.getPackets().sendIComponentText(interfaceId, 9, "You are awarded:");
             player.getPackets().sendIComponentText(interfaceId, 6, "Quest Points: " + player.getDetails().getQuestPoints());
+            player.getDetails().getStatistics().addStatistic("Quests_Completed");
             int start = 10;
             for (String reward : getReward()) {
                 player.getPackets().sendIComponentText(interfaceId, start, reward);

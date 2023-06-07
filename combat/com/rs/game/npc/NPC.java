@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.constants.Graphic;
 import com.rs.content.mapzone.impl.WildernessMapZone;
@@ -247,7 +248,8 @@ public class NPC extends Entity {
 		Player killer = getMostDamageReceivedSourcePlayer();
 		if (killer == null)
 			return;
-		killer.getTreasureTrailsManager().setPhase(2);
+		killer.toPlayer().getDetails().getStatistics().addStatistic("Total_NPC_Kills");
+        killer.toPlayer().getDetails().getStatistics().addStatistic(getDefinitions().getName() + "_Kills");
 		Item[] drops = DropTable.calculateDrops(killer, DropSets.getDropSet(id));
 
 		if (!killer.toPlayer().getDetails().isToogleLootShare() || killer.toPlayer().getCurrentFriendChat() == null) {
@@ -290,11 +292,14 @@ public class NPC extends Entity {
 		}
 		DropTable charm = CharmDrop.getCharmDrop(NPCDefinitions.getNPCDefinitions(getId()).getName().toLowerCase());
 		if (charm != null)
-			for (Drop d : charm.getDrops())
+			for (Drop d : charm.getDrops()) {
+				killer.toPlayer().getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(d.getId()).getName() + "_Charms_Found").addStatistic("Charms_Found");
 				sendDrop(killer, d.toItem());
+			}
 		
 		Item[] clues = DropTable.calculateDrops(killer.toPlayer(), NPCClueDrops.rollClues(id));
         for (Item item : clues) {
+        	killer.toPlayer().getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(item.getId()).getName() + "_Clues_Found").addStatistic("Clues_Found");
         	FloorItem.updateGroundItem(item, new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()), killer.toPlayer(), 60, 0);
         }
 	}

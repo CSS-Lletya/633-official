@@ -3,6 +3,7 @@ package skills.firemaking;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
@@ -68,6 +69,7 @@ public final class Firemaking extends DestructionSkillAction {
 	public void onDestruct(Task t, boolean success) {
 		if(success) {
 			getPlayer().setNextAnimation(null);
+			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(log.getLog().getId()).getName() + "_Lit").addStatistic("Fires_Started");
 			if(!familiar) {
 				World.get().submit(new FiremakingTask(this));
 			}

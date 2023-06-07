@@ -840,7 +840,7 @@ public class Magic {
 		if (teleType == MAGIC_TELEPORT)
 			player.getPackets().sendSound(5527, 0, 2);
 		player.getMovement().lock(3 + delay);
-
+		player.getDetails().getStatistics().addStatistic("Teleports_Completed");
 		World.get().submit(new Task(delay) {
 			boolean removeDamage;
 			
@@ -902,6 +902,7 @@ public class Magic {
 		player.getMovement().lock();
 		player.setNextAnimation(Animations.BREAK_TELETAB);
 		player.setNextGraphics(Graphic.TELETAB_BREAKING_SPARKS);
+		player.getDetails().getStatistics().addStatistic("Teleports_Completed").addStatistic("TELEPOR_TABS_BROKEN");
 		World.get().submit(new Task(2) {
 			int stage;
 			@Override

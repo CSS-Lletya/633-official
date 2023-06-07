@@ -73,6 +73,9 @@ public class WallSafe extends Thieving {
 			t.cancel();
 		} else {
 			player.getPackets().sendGameMessage("You successfully crack the safe!");
+			player.getDetails().getStatistics()
+			.addStatistic(ItemDefinitions.getItemDefinitions(getLoot().getId()).getName() + "_Taken_From_Safe")
+			.addStatistic("Safes_Cracked");
 		}
 		t.cancel();
 	}

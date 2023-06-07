@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.FillAction.Filler;
@@ -62,6 +63,7 @@ public final class DoughCreation extends ProducingSkillAction {
 			getDefinition(used.getId(), onto.getId()).ifPresent(filled -> {
 				player.getInventory().deleteItem(filled.getFilledItem());
 				player.getInventory().addItem(filled.getEmptyItem());
+				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced.getId()).getName()+"_Created").addStatistic("Food_Prepared");
 			});
 			counter--;
 			if(counter == 0)

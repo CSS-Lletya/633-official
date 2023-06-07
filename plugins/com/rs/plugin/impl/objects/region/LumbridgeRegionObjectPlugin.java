@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.objects.region;
 
 import com.rs.GameConstants;
+import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
 import com.rs.game.dialogue.impl.StairsLaddersDialogue;
 import com.rs.game.item.Item;
@@ -152,7 +153,8 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 					player.getAttributes().get(Attribute.WHEAT_GRINDED).set(false);
 					player.getAttributes().get(Attribute.WHEAT_DEPOSITED).set(false);
 					player.getPackets().sendGameMessage("You take the ground flour.");
-					player.setNextAnimation(new Animation(832));
+					player.getDetails().getStatistics().addStatistic("Flour_Taken");
+					player.setNextAnimation(Animations.TWO_HANDED_GRAB);
 					player.getInventory().deleteItem(1931, 1);
 					player.getInventory().addItem(1933, 1);
 					updateWheat(player);

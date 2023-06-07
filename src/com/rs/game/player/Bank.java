@@ -125,6 +125,7 @@ public class Bank {
 		refreshItems();
 		 if (banking)
 	            refreshTotalSize();
+		 player.getDetails().getStatistics().addStatistic("Items_Deposited");
 	}
 
 	public void depositAllBob(boolean banking) {
@@ -143,6 +144,7 @@ public class Bank {
 					"Not enough space in your bank.");
 			return;
 		}
+		player.getDetails().getStatistics().addStatistic("Items_Deposited");
 		 if (banking)
 	            refreshTotalSize();
 	}
@@ -161,6 +163,7 @@ public class Bank {
 					"Not enough space in your bank.");
 			return;
 		}
+		player.getDetails().getStatistics().addStatistic("Items_Deposited");
 	    refreshTotalSize();
 	}
 
@@ -439,6 +442,7 @@ public class Bank {
 			}
 		}
 		removeItem(bankSlot, item.getAmount(), true, false);
+		player.getDetails().getStatistics().addStatistic("Items_Withdrawn");
 		player.getInventory().addItem(item);
 	}
 
@@ -487,6 +491,7 @@ public class Bank {
 		}
 		player.getInventory().deleteItem(invSlot,
 				new Item(originalId, item.getAmount()));
+		player.getDetails().getStatistics().addStatistic("Items_Deposited");
 		addItem(item, refresh);
 	}
 

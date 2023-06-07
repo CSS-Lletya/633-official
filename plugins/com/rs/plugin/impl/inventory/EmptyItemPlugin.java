@@ -23,6 +23,7 @@ public class EmptyItemPlugin extends InventoryListener {
 				player.getInventory().getItems().set(slotId, new Item(toEmpty.getResult()));
                 player.getInventory().refresh();
                 player.getPackets().sendGameMessage("You empty out the " + ItemDefinitions.getItemDefinitions(item.getId()).getName() + ".");
+                player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(toEmpty.toEmpty).getName() + "_Emptied").addStatistic("Items_Emptied");
 			});
 		}
 	}

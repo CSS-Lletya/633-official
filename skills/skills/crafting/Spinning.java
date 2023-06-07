@@ -2,6 +2,7 @@ package skills.crafting;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -44,7 +45,7 @@ public final class Spinning extends ProducingSkillAction {
 		System.out.println(amount);
 		if(success) {
 			amount--;
-			
+			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced.getId()).getName() + "_Crafted").addStatistic("Items_Crafted");
 			if(amount <= 0)
 				t.cancel();
 		}

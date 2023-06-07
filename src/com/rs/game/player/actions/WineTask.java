@@ -55,6 +55,7 @@ public class WineTask extends Action {
 					player.getBank().forceDeleteItem(player.getBank().getItemSlot(1995), Integer.MAX_VALUE);
 					player.getSkills().addXp(Skills.COOKING, 200 * totalWine);
 				}
+				player.getDetails().getStatistics().addStatistic("Wine_Crafted").addStatistic("Food_Prepared");
 			}
 			player.getSkillAction().get().cancel();
 			player.getAction().forceStop();

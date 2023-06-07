@@ -118,6 +118,7 @@ public class FairyRing {
             return false;
         }
         sendTeleport(player, ring.getTile());
+        player.getDetails().getStatistics().addStatistic("Fairy_Rings_Teleports");
         return true;
     }
 

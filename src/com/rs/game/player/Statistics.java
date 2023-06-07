@@ -41,7 +41,7 @@ public final class Statistics {
      *
      * @param key
      */
-    public void addStatistic(String key) {
+    public Statistics addStatistic(String key) {
         if (key.contains("_Kills")) {
             NPCKillStatistics.putIfAbsent(key, 0);
             NPCKillStatistics.put(key, NPCKillStatistics.get(key) + 1);
@@ -49,6 +49,7 @@ public final class Statistics {
             statistics.putIfAbsent(key, 0);
             statistics.put(key, statistics.get(key) + 1);
         }
+        return this;
     }
 
     /**
@@ -56,16 +57,17 @@ public final class Statistics {
      *
      * @param key
      */
-    public void subtractStatistic(String key) {
+    public Statistics subtractStatistic(String key) {
         if (key.contains("_Kills")) {
             if (!NPCKillStatistics.containsKey(key) || NPCKillStatistics.get(key) <= 0)
-                return;
+                return this;
             NPCKillStatistics.put(key, NPCKillStatistics.get(key) - 1);
         } else {
             if (!statistics.containsKey(key) || statistics.get(key) <= 0)
-                return;
+                return this;
             statistics.put(key, statistics.get(key) - 1);
         }
+        return this;
     }
 
     /**
@@ -74,16 +76,17 @@ public final class Statistics {
      *
      * @param key
      */
-    public void clearMapEntry(String key) {
+    public Statistics clearMapEntry(String key) {
         if (key.contains("_Kills")) {
             if (!NPCKillStatistics.containsKey(key))
-                return;
+                return this;
             NPCKillStatistics.remove(key);
         } else {
             if (!statistics.containsKey(key))
-                return;
+                return this;
             statistics.remove(key);
         }
+        return this;
     }
 
     /**

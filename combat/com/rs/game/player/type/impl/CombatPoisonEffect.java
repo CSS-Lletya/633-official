@@ -43,6 +43,7 @@ public final class CombatPoisonEffect extends CombatEffect {
 			if (player.getDetails().getPoisonImmunity().get() > 0 || entity.isDead())
 				return false;
 			player.getVarsManager().sendVar(InterfaceVars.POISIONED_HP_ORB, 1);
+			player.getDetails().getStatistics().addStatistic("Poisoned");
 		}
 		entity.getPoisonDamage().set(entity.getPoisonType().getDamage());
 		return true;

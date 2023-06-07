@@ -3,6 +3,7 @@ package skills.woodcutting;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
@@ -92,6 +93,9 @@ public class Woodcutting extends HarvestingSkillAction {
 	public void onHarvest(Task t, Item[] items, boolean success) {
 		if(success) {
 			BirdNest.drop(getPlayer());
+			player.getDetails().getStatistics()
+			.addStatistic(ItemDefinitions.getItemDefinitions(tree.getItem().getId()).getName() + "_Chopped")
+			.addStatistic("Logs_Cut");
 			object.setLife(object.getLife() - 1);
 		}
 		if(object.getLife() <= 0 && !tree.isObstacle()) {

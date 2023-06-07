@@ -2,6 +2,7 @@ package skills.mining;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -34,6 +35,7 @@ public final class AxeAssembly extends DestructionSkillAction {
 			if (player.getInventory().canRemove(data.head, 1)) {
 				player.getInventory().addItem(new Item(data.product));
 				player.getPackets().sendGameMessage("You skillfully reattach the pick head to the pickaxe handle.");
+				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.product).getName() + "_Reassembled");
 			}
 		}
 		t.cancel();

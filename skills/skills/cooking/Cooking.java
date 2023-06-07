@@ -48,6 +48,7 @@ public final class Cooking extends ProducingSkillAction {
 		if(success) {
 			player.setNextAnimation(spell ? Animations.BAKE_PIE_SPELL : !cookStove ? Animations.COOKING_ON_FIRE : Animations.COOKING_ON_STOVE);
 			if(!spell) {
+				player.getDetails().getStatistics().addStatistic(burned ? ItemDefinitions.getItemDefinitions(data.getBurntId()).getName() + "_Burnt" : ItemDefinitions.getItemDefinitions(data.getCookedId()).getName() + "_Cooked").addStatistic("Food_Prepared");
 				player.getPackets().sendGameMessage((burned ? "Oops! You accidently burn the " : "You cook the ").concat(ItemDefinitions.getItemDefinitions(data.getRawId()).getName()));
 			}
 			counter--;

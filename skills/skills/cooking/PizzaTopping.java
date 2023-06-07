@@ -47,6 +47,7 @@ public final class PizzaTopping extends ProducingSkillAction {
 			return false;
 		PizzaTopping cooking = new PizzaTopping(player, data);
 		cooking.start();
+		player.getDetails().getStatistics().addStatistic("Pizza_Toppings_Added").addStatistic("Food_Prepared");
 		return true;
 	}
 	

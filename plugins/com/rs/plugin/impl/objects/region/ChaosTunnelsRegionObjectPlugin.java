@@ -406,6 +406,7 @@ public class ChaosTunnelsRegionObjectPlugin extends ObjectListener{
             if (x == 3115 && y == 5528) {
                 player.setNextWorldTile(new WorldTile(3142, 5545, 0));
             }
+            player.getDetails().getStatistics().addStatistic("Chaos_Tunnel_Portal_Teleports");
         }
 	}
 

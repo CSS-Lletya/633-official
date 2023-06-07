@@ -22,6 +22,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
@@ -107,6 +108,9 @@ public class FillAction extends Action {
 		player.setNextAnimation(FILLING);
 		player.getInventory().deleteItem(fil.getEmptyItem().getId(), 1);
 		player.getInventory().addItem(fil.getFilledItem().getId(), 1);
+		player.getDetails().getStatistics()
+		.addStatistic(ItemDefinitions.getItemDefinitions(fil.getFilledItem().getId()).getName() + "_Filled")
+		.addStatistic("Items_Filled");
 		if (amount > 0)
 			return 1;
 		return -1;

@@ -125,6 +125,7 @@ public class Emotes {
 					emote.getAnimation().ifPresent(player::setNextAnimation);
 					emote.getGraphics().ifPresent(player::setNextGraphics);
 					player.getTreasureTrailsManager().useEmote(buttonId);
+					player.getDetails().getStatistics().addStatistic("Emotes_Performed");
 					if (!isDoingEmote(player))
 					    setNextEmoteEnd(player);
 				}

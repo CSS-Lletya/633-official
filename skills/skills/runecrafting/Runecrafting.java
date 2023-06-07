@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.ItemNames;
@@ -67,6 +68,9 @@ public final class Runecrafting extends ProducingSkillAction {
 		if(success) {
 			getPlayer().setNextAnimation(Animations.RUNECRAFTING);
 			getPlayer().setNextGraphics(Graphic.RUNECRAFTING);
+			player.getDetails().getStatistics()
+			.addStatistic(ItemDefinitions.getItemDefinitions(altar.getRune().getItem().getId()).getName() + "_Runecrafted")
+			.addStatistic("Runes_Crafted");
 			t.cancel();
 		}
 	}

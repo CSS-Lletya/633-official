@@ -2,6 +2,7 @@ package skills.thieving.impl;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
@@ -135,8 +136,10 @@ public final class Pickpocketing extends Thieving {
 			getPlayer().setNextAnimation(STUN_ANIMATION);
 			getPlayer().setNextGraphics(STUN_GRAPHIC);
 			getPlayer().getMovement().lock(definition.seconds);
+			getPlayer().getDetails().getStatistics().addStatistic("Failed_Pickpockets");
 		} else {
 			getPlayer().getInventory().addItem(loot);
+			getPlayer().getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(loot.getId()).getName() + "_Pickpocketed").addStatistic("Successful_Pickpockets");
 			getPlayer().getPackets().sendGameMessage("You pick the victims pocket.");
 		}
 		t.cancel();

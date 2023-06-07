@@ -37,8 +37,10 @@ public final class ChocolateCake extends DestructionSkillAction {
 	@Override
 	public void onDestruct(Task t, boolean success) {
 		if (success) {
-			if (player.getInventory().canRemove(1973, 1) && player.getInventory().canRemove(1891, 1))
+			if (player.getInventory().canRemove(1973, 1) && player.getInventory().canRemove(1891, 1)) {
 				player.getInventory().addItem(new Item(1897));
+				player.getDetails().getStatistics().addStatistic("Chocolate_Cake_made").addStatistic("Food_Prepared");
+			}
 		}
 		t.cancel();
 	}

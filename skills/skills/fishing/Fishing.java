@@ -2,6 +2,7 @@ package skills.fishing;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
@@ -29,6 +30,7 @@ public final class Fishing extends HarvestingSkillAction {
 				if(item == null)
 					continue;
 				Catchable catchable = Catchable.getCatchable(item.getId()).orElse(null);
+				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(catchable.getId()).getName() + "_Caught").addStatistic("Fish_Caught");
 				getPlayer().getSkills().addXp(getSkillId(), catchable.getExperience());
 				count += item.getAmount();
 			}

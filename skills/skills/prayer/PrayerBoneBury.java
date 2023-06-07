@@ -2,6 +2,7 @@ package skills.prayer;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -36,6 +37,7 @@ public final class PrayerBoneBury extends DestructionSkillAction {
 		if(success) {
 			getPlayer().setNextAnimation(Animations.TOUCH_GROUND);
 			getPlayer().getPackets().sendGameMessage("You bury the " + bone + ".");
+			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(itemId).getName() + "_Buried").addStatistic("Bones_Buried");
 			getPlayer().getDetails().getBoneBury().reset();
 		}
 		t.cancel();

@@ -26,6 +26,7 @@ public final class CombatSkullEffect extends CombatEffect {
 			}
 			player.getDetails().getSkullTimer().set(3000);
 			player.getDetails().setSkullId(WHITE_SKULL);
+			player.getDetails().getStatistics().addStatistic("Skulled");
 			player.getAppearance().getAppeareanceData();
 			return true;
 		}

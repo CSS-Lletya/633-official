@@ -540,6 +540,28 @@ public class TreasureTrailsManager {
 
     public void openReward(int level) {
         boolean bank = false;
+        switch (level) {
+        case 0:
+            EasyRewards.generateRewards(player);
+            player.getDetails().getStatistics().addStatistic("Easy_Clues_Completed");
+            player.getPackets().sendGameMessage("Congratulations, you've completed " + player.getDetails().getStatistics().getStatistics().get("Easy_Clues_Completed")+" Easy Treasure Trails.");
+            break;
+        case 1:
+            MediumRewards.generateRewards(player);
+            player.getDetails().getStatistics().addStatistic("Medium_Clues_Completed");
+            player.getPackets().sendGameMessage("Congratulations, you've completed " + player.getDetails().getStatistics().getStatistics().get("Medium_Clues_Completed")+" Medium Treasure Trails.");
+            break;
+        case 2:
+            HardRewards.generateRewards(player);
+            player.getDetails().getStatistics().addStatistic("Hard_Clues_Completed");
+            player.getPackets().sendGameMessage("Congratulations, you've completed " + player.getDetails().getStatistics().getStatistics().get("Hard_Clues_Completed")+" Hard Treasure Trails.");
+            break;
+        case 3:
+            EliteRewards.generateRewards(player);
+            player.getDetails().getStatistics().addStatistic("Elite_Clues_Completed");
+            player.getPackets().sendGameMessage("Congratulations, you've completed " + player.getDetails().getStatistics().getStatistics().get("Elite_Clues_Completed")+" Elite Treasure Trails.");
+            break;
+        }
         player.getInterfaceManager().sendInterface(364);
         player.getPackets().sendItems(141, player.getClueScrollRewards());
         player.getPackets().sendInterSetItemsOptionsScript(364, 4, 141, 3, 4, "Examine");

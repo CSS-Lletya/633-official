@@ -2,6 +2,7 @@ package skills.thieving.impl;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
@@ -93,6 +94,9 @@ public final class Stalls extends Thieving {
 
 	@Override
 	public void onExecute(Task t) {
+		player.getDetails().getStatistics()
+		.addStatistic(ItemDefinitions.getItemDefinitions(loot.getId()).getName() + "_Taken_From_Stall")
+		.addStatistic("Stalls_Thieved");
 		t.cancel();
 	}
 

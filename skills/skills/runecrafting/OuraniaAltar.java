@@ -2,6 +2,7 @@ package skills.runecrafting;
 
 import java.util.stream.IntStream;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.game.item.Item;
@@ -31,13 +32,16 @@ public class OuraniaAltar {
         player.setNextAnimation(Animations.RUNECRAFTING);
         player.getMovement().lock(1);
         player.getInventory().deleteItem(PURE_ESSENCE, runes);
-        IntStream.range(0, runes).forEach(rune -> {
-        	Altar randomRune = store[RandomUtils.getRandom(store.length)];
-            while (actualLevel < randomRune.getRequirement())
-                randomRune = store[RandomUtils.getRandom(store.length)];
-            Item item = new Item(randomRune.getRune().getItem().getId(), 1);
-            player.getInventory().addItem(item);
-        });
+		IntStream.range(0, runes).forEach(rune -> {
+			Altar randomRune = store[RandomUtils.getRandom(store.length)];
+			while (actualLevel < randomRune.getRequirement())
+				randomRune = store[RandomUtils.getRandom(store.length)];
+			Item item = new Item(randomRune.getRune().getItem().getId(), 1);
+			player.getInventory().addItem(item);
+			player.getDetails().getStatistics()
+					.addStatistic(ItemDefinitions.getItemDefinitions(item.getId()).getName() + "_Runecrafted")
+					.addStatistic("Runes_Crafted");
+		});
         player.getPackets().sendGameMessage("You bind the temple's power into runes.");
     }
 }

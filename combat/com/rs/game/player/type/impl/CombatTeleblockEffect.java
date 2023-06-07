@@ -28,6 +28,7 @@ public final class CombatTeleblockEffect extends CombatEffect {
 			}
 			player.getDetails().getTeleBlockDelay().set((player.getPrayer().active(Prayer.PROTECT_MAGIC) || player.getPrayer().active(Prayer.DEFLECT_MAGIC)? 3000 / 2 : 3000));
 			player.getPackets().sendGameMessage("You have just been teleblocked!");
+			player.getDetails().getStatistics().addStatistic("Teleblocked");
 			return true;
 		}
 		return false;

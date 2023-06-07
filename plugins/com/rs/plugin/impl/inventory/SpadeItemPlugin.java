@@ -20,6 +20,7 @@ public class SpadeItemPlugin extends InventoryListener {
 				if (player.getTreasureTrailsManager().useDig())
 					return;
 				player.getPackets().sendGameMessage("You find nothing.");
+				player.getDetails().getStatistics().addStatistic("Times_Dug");
 			});
 		}
 	}

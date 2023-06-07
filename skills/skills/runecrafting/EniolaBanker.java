@@ -1,5 +1,6 @@
 package skills.runecrafting;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 
@@ -19,6 +20,7 @@ public class EniolaBanker {
 		Item runes = new Item(runeId, 20);
 		if (player.getInventory().containsItem(runes)) {
 			player.getInventory().removeItems(runes);
+			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(runes.getId()).getName()+"_Traded").addStatistic("Eniola_Runes_Traded");
 			player.getBank().openBank();
 		} else {
 			player.getPackets().sendGameMessage("You don't have enough " + runes.getName() + "s!");

@@ -2,6 +2,7 @@ package skills.prayer;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
@@ -43,6 +44,7 @@ public final class PrayerBoneAltar extends DestructionSkillAction {
 		if(success) {
 			getPlayer().setNextAnimation(Animations.BONE_ON_ALTAR);
 			getPlayer().getPackets().sendGameMessage("You offer the " + bone + " to the gods... they seem pleased.");
+			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(bone.getId()).getName() +"_Bones_Offered").addStatistic("Bones_Offered");
 		}
 	}
 	

@@ -55,6 +55,7 @@ public class WildernessObelisk {
 						Magic.sendTeleportSpell(p, 8939, 8941, 1690, -1, 0, 0,
 								new WorldTile(newCenter.getX() + offsetX, newCenter.getY() + offsetY, 0), 3, false,
 								Magic.OBJECT_TELEPORT);
+						player.getDetails().getStatistics().addStatistic("Wilderness_Obelisk_Teleports");
 					}
 				}
 				IS_ACTIVE[index] = false;
