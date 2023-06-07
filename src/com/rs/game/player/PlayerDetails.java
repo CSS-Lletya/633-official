@@ -36,6 +36,7 @@ public final class PlayerDetails {
 		passwordList = new ObjectArrayList<String>();
 		ipList = new ObjectArrayList<String>();
 		seenDungeon = new boolean[16];
+		statistics = new Statistics();
 	}
 
 	/**
@@ -200,6 +201,8 @@ public final class PlayerDetails {
 	boolean toogleLootShare;
 	
 	private int gravestone;
+	
+	private Statistics statistics;
 	
     public void restoreRunEnergy(double energy) {
         if (runEnergy + energy > 100.0)

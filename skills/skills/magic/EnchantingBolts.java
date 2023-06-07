@@ -91,6 +91,8 @@ public class EnchantingBolts extends Action {
         player.getPackets().sendGameMessage("You enchant " + amount + " "
                 + ItemDefinitions.getItemDefinitions(enchant.getNewId()).getName() + ".");
         player.getSkills().addXp(Skills.MAGIC, enchant.getXp() * amount);
+        player.getDetails().getStatistics().addStatistic("Bolts_Enchanted");
+        player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(enchant.getBaseId()).getName() +"_Enchantments");
         if (!player.getInventory().containsItem(enchant.getBaseId(), 1)) {
             player.getPackets().sendGameMessage("You don't have any "
                     + ItemDefinitions.getItemDefinitions(enchant.getBaseId()).getName() + " left to enchant.");
