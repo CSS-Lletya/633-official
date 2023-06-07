@@ -510,6 +510,8 @@ public class Player extends Entity {
 		setUpdateMovementType(true);
 		OwnedObjectManager.linkKeys(this);
 		getMapZoneManager().execute(this, controller -> controller.login(this));
+		if (HostManager.contains(getUsername(), HostListType.MUTED_IP))
+			getInterfaceManager().sendInterface(801);
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
 			GameConstants.STATER_KIT.forEach(getInventory()::addItem);
 			HostManager.add(this, HostListType.STARTER_RECEIVED, true);
