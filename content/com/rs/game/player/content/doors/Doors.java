@@ -23,6 +23,125 @@ public class Doors {
 		}
 		return !((defs.containsOption("Open") || defs.containsOption("Close")) && defs.secondInt != 0);
 	}
+	
+    public static void handleGate(Player player, GameObject object) {
+        boolean open = object.getDefinitions().containsOption("Open");
+        int rotation = object.getRotation(open ? 0 : 1);
+        ObjectDefinitions openedDef = ObjectDefinitions.getObjectDefinitions(DoorPair.getOpposingDoor(player, object));
+        boolean tempMove = !((openedDef.containsOption("Open") || openedDef.containsOption("Close")) && openedDef.secondInt != 0);
+        GameObject[] gates;
+        switch (rotation) {
+            case 0:
+                if (open) {
+                    gates = getNearby(player, object, (t1, t2) -> {
+                        return t1.getY() > t2.getY();
+                    }, object.transform(0, -1, 0), object.transform(0, 1, 0));
+                } else {
+                    gates = getNearby(player, object, (t1, t2) -> {
+                        return t1.getX() < t2.getX();
+                    }, object.transform(-1, 0, 0), object.transform(1, 0, 0));
+                }
+                if (gates == null) {
+                    handleDoor(player, object);
+                    return;
+                }
+                if (tempMove) {
+                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(-1, 0, 0) : gates[0].transform(1, 0, 0)), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(-2, -1, 0) : gates[1].transform(2, 1, 0)), 4);
+                    player.addWalkSteps(object.transform(player.getX() < object.getX() ? 0 : -1, 0, 0), 3, false);
+                } else {
+                    GameObject.removeObject(gates[0]);
+                    GameObject.removeObject(gates[1]);
+                    GameObject.spawnObject(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(-1, 0, 0) : gates[0].transform(1, 0, 0)));
+                    GameObject.spawnObject(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(-2, -1, 0) : gates[1].transform(2, 1, 0)));
+                }
+                break;
+            case 1:
+                if (open) {
+                    gates = getNearby(player, object, (t1, t2) -> {
+                        return t1.getX() > t2.getX();
+                    }, object.transform(1, 0, 0), object.transform(-1, 0, 0));
+                } else {
+                    gates = getNearby(player, object, (t1, t2) -> {
+                        return t1.getY() > t2.getY();
+                    }, object.transform(0, 1, 0), object.transform(0, -1, 0));
+                }
+                if (gates == null) {
+                    handleDoor(player, object);
+                    return;
+                }
+                if (tempMove) {
+                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, 1, 0)), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(-1, 2, 0)), 4);
+                    player.addWalkSteps(object.transform(0, player.getY() <= object.getY() ? 1 : 0, 0), 3, false);
+                } else {
+                	GameObject.removeObject(gates[0]);
+                	GameObject.removeObject(gates[1]);
+                	GameObject.spawnObject(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(0, 1, 0) : gates[0].transform(0, -1, 0)));
+                	GameObject.spawnObject(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(-1, 2, 0) : gates[1].transform(1, -2, 0)));
+                }
+                break;
+            case 2:
+                if (open) {
+                    gates = getNearby(player, object, (t1, t2) -> {
+                        return t1.getY() < t2.getY();
+                    }, object.transform(0, 1, 0), object.transform(0, -1, 0));
+                } else {
+                    gates = getNearby(player, object, (t1, t2) -> {
+                        return t1.getX() > t2.getX();
+                    }, object.transform(1, 0, 0), object.transform(-1, 0, 0));
+                }
+                if (gates == null) {
+                    handleDoor(player, object);
+                    return;
+                }
+                if (tempMove) {
+                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(1, 0, 0) : gates[0].transform(-1, 0, 0)), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(2, 1, 0) : gates[1].transform(-2, -1, 0)), 4);
+                    player.addWalkSteps(object.transform(player.getX() > object.getX() ? 0 : 1, 0, 0), 3, false);
+                } else {
+                    GameObject.removeObject(gates[0]);
+                    GameObject.removeObject(gates[1]);
+                    GameObject.spawnObject(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(1, 0, 0) : gates[0].transform(-1, 0, 0)));
+                    GameObject.spawnObject(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(2, 1, 0) : gates[1].transform(-2, -1, 0)));
+                }
+                break;
+            case 3:
+                if (open) {
+                    gates = getNearby(player, object, (t1, t2) -> {
+                        return t1.getX() < t2.getX();
+                    }, object.transform(1, 0, 0), object.transform(-1, 0, 0));
+                } else {
+                    gates = getNearby(player, object, (t1, t2) -> {
+                        return t1.getY() < t2.getY();
+                    }, object.transform(0, 1, 0), object.transform(0, -1, 0));
+                }
+                if (gates == null) {
+                    handleDoor(player, object);
+                    return;
+                }
+                if (tempMove) {
+                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, -1, 0)), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(1, -2, 0)), 4);
+                    player.addWalkSteps(object.transform(0, player.getY() < object.getY() ? 0 : -1, 0), 3, false);
+                } else {
+                    GameObject.removeObject(gates[0]);
+                    GameObject.removeObject(gates[1]);
+                    GameObject.spawnObject(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(0, -1, 0) : gates[0].transform(0, 1, 0)));
+                    GameObject.spawnObject(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(1, -2, 0) : gates[1].transform(-1, 2, 0)));
+                }
+                break;
+        }
+    }
+
 
 	public static void handleClosedDoor(Player player, GameObject object) {
 		boolean open = object.getDefinitions().containsOption("Open");

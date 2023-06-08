@@ -2710,15 +2710,6 @@
   },
   {
     "tile": {
-      "plane": 1,
-      "x": 3106,
-      "y": 3159
-    },
-    "comment": "Wizard Finix added by trent",
-    "npcId": 15417
-  },
-  {
-    "tile": {
       "plane": 0,
       "x": 1542,
       "y": 4383
@@ -44773,24 +44764,6 @@
     },
     "comment": "Zanik",
     "npcId": 8655
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 3099,
-      "y": 3169
-    },
-    "comment": "Ariane",
-    "npcId": 13942
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 3099,
-      "y": 3168
-    },
-    "comment": "Wizard",
-    "npcId": 13945
   },
   {
     "tile": {
