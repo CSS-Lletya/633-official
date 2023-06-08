@@ -8,7 +8,7 @@ import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
-@ObjectSignature(objectId = { 47643, 164, 47364, 47657, 6435, 47574, 47575, 6435, 46243, 26518, 32015, 12536,12536,12538,12537, 2147, 6434}, name = {})
+@ObjectSignature(objectId = { 47643, 164, 47364, 47657, 6435, 47574, 47575, 6435, 46243, 26518, 32015, 12536,12536,12538,12537, 2147, 6434, 7057, 7056, 46244,46245}, name = {})
 public class DraynorRegionObjectPlugin extends ObjectListener {
 
 	@Override
@@ -64,6 +64,18 @@ public class DraynorRegionObjectPlugin extends ObjectListener {
 		}
 		if (object.getId() == 2147) {
 			player.getMovement().move(false, new WorldTile(3104, 9576, 0), TeleportType.BLANK);
+		}
+		if (object.getId() == 7057) {
+			player.getMovement().move(false, new WorldTile(3093, 3251, 1), TeleportType.BLANK);
+		}
+		if (object.getId() == 7056) {
+			player.getMovement().move(false, new WorldTile(3089, 3251, 0), TeleportType.BLANK);
+		}
+		if (object.getId() == 46244) {
+			player.getMovement().move(false, new WorldTile(player.getX() + 4, player.getY(), 1), TeleportType.BLANK);
+		}
+		if (object.getId() == 46245) {
+			player.getMovement().move(false, new WorldTile(player.getX() - 4, player.getY(), 0), TeleportType.BLANK);
 		}
 	}
 }
