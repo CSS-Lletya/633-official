@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.InterfaceVars;
+import com.rs.constants.Sounds;
 import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.cores.WorldThread;
 import com.rs.game.item.Item;
@@ -695,7 +696,7 @@ public class Potions {
 				player.getDetails().getDrinks().reset();
 				effect.accept(player);
 				player.setNextAnimation(Animations.CONSUMING_ITEM);
-				player.getPackets().sendSound(4580, 0, 1);
+				player.getAudioManager().sendSound(Sounds.DRINKING_POTION);
 				player.getPackets().sendGameMessage("You drink some of your " + ItemDefinitions.getItemDefinitions(itemId).name.toLowerCase().replace(" (1)", "").replace(" (2)", "").replace(" (3)", "").replace(" (4)", "").replace(" (5)", "").replace(" (6)", "") + ".", true);
 			}
 		}

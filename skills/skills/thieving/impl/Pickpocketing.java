@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Hit;
@@ -137,6 +138,7 @@ public final class Pickpocketing extends Thieving {
 			getPlayer().setNextGraphics(STUN_GRAPHIC);
 			getPlayer().getMovement().lock(definition.seconds);
 			getPlayer().getDetails().getStatistics().addStatistic("Failed_Pickpockets");
+			player.getAudioManager().setDelay(Sounds.PLAYER_STUNNED);
 		} else {
 			getPlayer().getInventory().addItem(loot);
 			getPlayer().getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(loot.getId()).getName() + "_Pickpocketed").addStatistic("Successful_Pickpockets");

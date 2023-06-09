@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -76,6 +77,7 @@ public enum BirdNest {
 			FloorItem.addGroundItem(new Item(randomNest.nest), player, 60);
 			player.getPackets().sendGameMessage("A bird's nest falls out of the tree.");
 			player.getDetails().getStatistics().addStatistic("Birds_Nest_Found");
+			player.getAudioManager().sendSound(Sounds.BIRDS_NEST);
 		}
 	}
 }

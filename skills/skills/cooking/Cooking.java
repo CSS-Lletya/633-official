@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
@@ -48,6 +49,7 @@ public final class Cooking extends ProducingSkillAction {
 		if(success) {
 			player.setNextAnimation(spell ? Animations.BAKE_PIE_SPELL : !cookStove ? Animations.COOKING_ON_FIRE : Animations.COOKING_ON_STOVE);
 			if(!spell) {
+				player.getAudioManager().sendSound(Sounds.COOKING_SOUND);
 				player.getDetails().getStatistics().addStatistic(burned ? ItemDefinitions.getItemDefinitions(data.getBurntId()).getName() + "_Burnt" : ItemDefinitions.getItemDefinitions(data.getCookedId()).getName() + "_Cooked").addStatistic("Food_Prepared");
 				player.getPackets().sendGameMessage((burned ? "Oops! You accidently burn the " : "You cook the ").concat(ItemDefinitions.getItemDefinitions(data.getRawId()).getName()));
 			}

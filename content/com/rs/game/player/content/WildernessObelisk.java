@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
+import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
@@ -52,6 +53,7 @@ public class WildernessObelisk {
 							continue;
 						int offsetX = p.getX() - center.getX();
 						int offsetY = p.getY() - center.getY();
+						player.getAudioManager().sendSound(Sounds.WILDERNESS_OBELISK_TELEPORING);
 						Magic.sendTeleportSpell(p, 8939, 8941, 1690, -1, 0, 0,
 								new WorldTile(newCenter.getX() + offsetX, newCenter.getY() + offsetY, 0), 3, false,
 								Magic.OBJECT_TELEPORT);

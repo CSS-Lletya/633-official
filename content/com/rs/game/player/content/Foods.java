@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
@@ -600,6 +601,7 @@ public class Foods {
 		int foodDelay = name.contains("half") ? 2 : 3;
 		if (!player.getDetails().getFood().elapsed(foodDelay * 600))
 			return false;
+		player.getAudioManager().setDelay(1).sendSound(Sounds.EATING_FOOD);
 		player.getPackets().sendGameMessage("You eat the " + name + ".");
 		player.setNextAnimation(Animations.CONSUMING_ITEM);
 		player.getDetails().getFood().reset();

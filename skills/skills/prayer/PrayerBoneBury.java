@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -36,6 +37,7 @@ public final class PrayerBoneBury extends DestructionSkillAction {
 	public void onDestruct(Task t, boolean success) {
 		if(success) {
 			getPlayer().setNextAnimation(Animations.TOUCH_GROUND);
+			getPlayer().getAudioManager().sendSound(Sounds.BURY_BONE);
 			getPlayer().getPackets().sendGameMessage("You bury the " + bone + ".");
 			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(itemId).getName() + "_Buried").addStatistic("Bones_Buried");
 			getPlayer().getDetails().getBoneBury().reset();

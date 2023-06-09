@@ -241,6 +241,8 @@ public class Player extends Entity {
 	
 	private transient ItemsContainer<Item> clueScrollRewards;
 	
+	private transient AudioManager audioManager;
+	
     private TreasureTrailsManager treasureTrailsManager;
 
 	private PuzzleBox puzzleBox;
@@ -361,6 +363,7 @@ public class Player extends Entity {
 		treasureTrailsManager = new TreasureTrailsManager();
 		clueScrollRewards = new ItemsContainer<Item>(10, true);
 		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
+		audioManager = new AudioManager(this);
 	}
 
 	/**
@@ -428,6 +431,8 @@ public class Player extends Entity {
         interfaceManager = new InterfaceManager(this);
         if (dialogueInterpreter == null)
 			dialogueInterpreter = new ScriptDialogueInterpreter(this);
+        if (audioManager == null)
+        	audioManager = new AudioManager(this);
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);

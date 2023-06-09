@@ -2,6 +2,7 @@ package skills.prayer.newprayer;
 
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import com.rs.constants.Sounds;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.InterfaceManager.Tabs;
 import com.rs.game.player.Player;
@@ -223,7 +224,7 @@ public class PrayerManager {
 			active.add(prayer);
 			if (isOverhead(prayer))
 				player.getAppearance().generateAppearenceData();
-			player.getPackets().sendSound(2662, 0, 1);
+			player.getAudioManager().sendSound(isOverhead(prayer) ? Sounds.PRAYER_OVERHEAD_ACTIVATING : Sounds.PRAYER_ACTIVATING);
 		}
 		refresh();
 		return true;
@@ -276,7 +277,7 @@ public class PrayerManager {
 		active.remove(prayer);
 		if (isOverhead(prayer))
 			player.getAppearance().generateAppearenceData();
-		player.getPackets().sendSound(2663, 0, 1);
+		player.getAudioManager().sendSound(Sounds.PRAYER_DISABLING);
 		if (active.isEmpty())
 			setQuickPrayersOn(false);
 		refresh();
@@ -458,7 +459,7 @@ public class PrayerManager {
 
 	public boolean checkPrayer() {
 		if (points <= 0) {
-			player.getPackets().sendSound(2672, 0, 1);
+			player.getAudioManager().sendSound(Sounds.PRAYER_RUN_OUT_OF_POINTS);
 			player.getPackets().sendGameMessage("Please recharge your prayer at the Lumbridge Church.");
 			return false;
 		}

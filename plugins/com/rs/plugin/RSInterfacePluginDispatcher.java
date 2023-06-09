@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.player.CombatDefinitions;
@@ -134,6 +135,7 @@ public final class RSInterfacePluginDispatcher {
 			return;
 		player.getEquipment().getItems().set(slotId, null);
 		player.getEquipment().refresh(slotId);
+		player.getAudioManager().sendSound(Sounds.REMOVE_WORN_ITEM);
 		player.getAppearance().generateAppearenceData();
 		player.getPackets().sendGlobalConfig(779, player.getEquipment().getWeaponRenderEmote());
 		isWearingTiara(player, () -> player.getVarsManager().sendVar(InterfaceVars.RUNECRAFTING_ALTARS_OPTIONS, 0).submitVarToMap(InterfaceVars.RUNECRAFTING_ALTARS_OPTIONS, 0));
@@ -232,7 +234,7 @@ public final class RSInterfacePluginDispatcher {
 		player.getEquipment().getItems().set(targetSlot, item2);
 		player.getEquipment().refresh(targetSlot, targetSlot == 3 ? 5 : targetSlot == 3 ? 0 : 3);
 		player.getAppearance().generateAppearenceData();
-		player.getPackets().sendSound(2240, 0, 1);
+		player.getAudioManager().sendSound(Sounds.WEARING_ITEM_2);
 		if (targetSlot == 3)
 			player.getCombatDefinitions().decreaseSpecialAttack(0);
 		player.getDetails().getCharges().wear(targetSlot);
@@ -353,7 +355,7 @@ public final class RSInterfacePluginDispatcher {
 		player.getInventory().refreshItems(copy);
 		if (worn) {
 			player.getAppearance().generateAppearenceData();
-			player.getPackets().sendSound(2240, 0, 1);
+			player.getAudioManager().sendSound(Sounds.WEARING_ITEM_2);
 		}
 		
 	}

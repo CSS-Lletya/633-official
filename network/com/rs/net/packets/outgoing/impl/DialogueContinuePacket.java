@@ -3,6 +3,7 @@ package com.rs.net.packets.outgoing.impl;
 import java.util.List;
 
 import com.rs.GameConstants;
+import com.rs.constants.Sounds;
 import com.rs.game.dialogue.DialogueAction;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
@@ -47,6 +48,7 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 				player.getInventory().deleteItem(new Item(player.getAttributes().get(Attribute.DESTROY_ITEM_ID).getInt()));
 			player.getInterfaceManager().closeChatBoxInterface();
 			player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(null);
+			player.getAudioManager().sendSound(Sounds.DESTOY_ITEM);
 			return;
 		}
 		

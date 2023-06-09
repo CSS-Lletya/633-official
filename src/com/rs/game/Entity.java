@@ -1000,17 +1000,7 @@ public abstract class Entity extends WorldTile {
 		setForceMultiArea(forceMultiArea);
 		checkMultiArea();
 	}
-
-	public void playSound(int soundId, int type) {
-		for (int regionId : getMapRegionsIds()) {
-			ObjectArrayList<Short> playerIndexes = World.getRegion(regionId).getPlayersIndexes();
-			if (playerIndexes != null) {
-				World.players().filter(p -> !withinDistance(p))
-						.forEach(p -> p.getPackets().sendSound(soundId, 0, type));
-			}
-		}
-	}
-
+	
 	public boolean addWalkStepsInteract(int destX, int destY, int maxStepsCount, int size, boolean calculate) {
 		return addWalkStepsInteract(destX, destY, maxStepsCount, size, size, calculate);
 	}

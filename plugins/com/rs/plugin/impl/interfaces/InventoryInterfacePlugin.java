@@ -5,6 +5,7 @@ import java.util.List;
 import com.rs.GameConstants;
 import com.rs.cache.io.InputStream;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Sounds;
 import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.cores.WorldThread;
 import com.rs.game.item.FloorItem;
@@ -150,7 +151,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 					FloorItem.updateGroundItem(item, new WorldTile(player), player, 1, 0);
 				else
 					FloorItem.updateGroundItem(item, new WorldTile(player), player, 1, 0);
-				player.getPackets().sendSound(2739, 0, 1);
+				player.getAudioManager().sendSound(Sounds.ITEM_DROPPING_TO_GROUND);
 				break;
 			}
 		}
@@ -229,7 +230,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 		player.getInventory().refreshItems(copy);
 		if (worn) {
 			player.getAppearance().generateAppearenceData();
-			player.getPackets().sendSound(2240, 0, 1);
+			player.getAudioManager().sendSound(Sounds.WEARING_ITEM);
 		}
 	}
 
@@ -325,7 +326,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 	        player.getEquipment().getItems().set(targetSlot, item2);
 	        player.getEquipment().refresh(targetSlot, targetSlot == 3 ? 5 : targetSlot == 3 ? 0 : 3);
 	        player.getAppearance().generateAppearenceData();
-	        player.getPackets().sendSound(2240, 0, 1);
+	        player.getAudioManager().sendSound(Sounds.WEARING_ITEM);
 	        if (targetSlot == 3)
 	            player.getCombatDefinitions().decreaseSpecialAttack(0);
 	        if (targetSlot == Equipment.SLOT_WEAPON) {

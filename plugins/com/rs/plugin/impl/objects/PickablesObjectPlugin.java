@@ -2,6 +2,7 @@ package com.rs.plugin.impl.objects;
 
 import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
@@ -24,6 +25,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 		object.doAction(optionId, "Flax", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.FLAX_1779))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
+				player.getAudioManager().sendSound(Sounds.PICK_FLAX);
 				if (RandomUtils.percentageChance(18))
 					GameObject.removeObjectTemporary(object, Ticks.fromSeconds(6));
 			}

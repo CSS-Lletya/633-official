@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.interfaces;
 
+import com.rs.constants.Sounds;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
@@ -31,6 +32,7 @@ public class ExperienceLampInterfacePlugin extends RSInterfaceListener {
 				player.getInventory().deleteItem(lamp, 1);
 				player.getSkills().addXpNormal(getSkill(), getExperience(player));
 				player.getDetails().getStatistics().addStatistic("Experience_Lamps_Used");
+				player.getAudioManager().sendSound(Sounds.EXPERIENCE_LAMP_USED);
 				setSkill(-1);
 			}
 		} else {
