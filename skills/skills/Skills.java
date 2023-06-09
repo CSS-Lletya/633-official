@@ -6,7 +6,6 @@ import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
-import com.rs.constants.Sounds;
 import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
@@ -279,7 +278,8 @@ public class Skills {
 	 */
 	public void refresh(int skill) {
 		player.getPackets().sendSkillLevel(skill);
-		player.getAudioManager().sendSound(Sounds.SKILL_RESTORING);
+		//this sounds quite annoying on login.
+//		player.getAudioManager().sendSound(Sounds.SKILL_RESTORING);
 	}
 
 	/**

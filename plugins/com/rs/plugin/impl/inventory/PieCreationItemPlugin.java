@@ -12,7 +12,7 @@ import skills.cooking.PieCreation;
 public class PieCreationItemPlugin extends InventoryListener {
 	
 	@Override
-	public void execute(Player player, Item firstItem, Item secondItem) {
+	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
 		PieCreation.create(player, firstItem, secondItem);
 	}
 }

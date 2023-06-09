@@ -12,7 +12,7 @@ public class WineMixingItemPlugin extends InventoryListener {
 	
 	
 	@Override
-	public void execute(Player player, Item firstItem, Item secondItem) {
+	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
 		if (firstItem.getId() == 1937 || secondItem.getId() == 1937 && firstItem.getId() == 1987 || secondItem.getId() == 1987) {
 			new WineCrafting(player, firstItem.getId()).start();
 		}

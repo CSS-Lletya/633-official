@@ -11,7 +11,7 @@ import skills.cooking.TeaCrafting;
 public class TeaCraftingItemPlugin extends InventoryListener {
 
 	@Override
-	public void execute(Player player, Item firstItem, Item secondItem) {
+	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
 		TeaCrafting.execute(player, firstItem, secondItem);
 	}
 }

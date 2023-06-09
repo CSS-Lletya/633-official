@@ -4,6 +4,10 @@ package com.rs.constants;
  * A collection of useful type-safe Sounds designed to provide better
  * readability and code base flow.
  * 
+ * Note-worthy lists:
+ * https://oldschool.runescape.wiki/w/List_of_in-game_sound_IDs
+ * https://github.com/JesseGuerrero/DarkanTools/blob/windows/static/essentialIgnored/effectsSolved.txt
+ * 
  * @author Dennis
  *
  */
@@ -62,7 +66,19 @@ public interface Sounds {
 	int BURY_BONE = 2738;
 	int COOKING_SOUND = 65;
 	int REMOVE_WORN_ITEM = 2238;
-	
+	int DOOR_CLOSING = 60;
+	int DOOR_OPENING = 62;
+	int GATE_CLOSING = 66;
+	int GATE_OPENING = 67;
+	int CHEST_OPEN = 51;
+	int CHEST_CLOSED = 52;
+	int DRAWER_CLOSED = 63;
+	int DRAWER_OPEN = 64;
+	int BOLT_ENCHANTING = 2921;
+	int FALLING_TREE = 2734;
+	int LIGHT_CANDLE = 3226;
+	int EXTINGUISH_LIGHT_SOURCE = 1463;
+	int GRAND_EXCHANGE_FINISH = 2115;
 	
 	
 	//combat specials, rest of combat will be defined after rework

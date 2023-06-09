@@ -11,7 +11,7 @@ import skills.cooking.PizzaTopping;
 public class PizzaCreationItemPlugin extends InventoryListener {
 	
 	@Override
-	public void execute(Player player, Item firstItem, Item secondItem) {
+	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
 		PizzaTopping.add(player, firstItem, secondItem);
 	}
 }

@@ -57,6 +57,19 @@ public class AudioManager {
 	}
 	
 	/**
+	 * Sends a sound to everyone ingame, usually nice to events taking place like
+	 * shooting star or something similar.
+	 * 
+	 * @param soundId
+	 * @param distance
+	 * @return
+	 */
+	public AudioManager sendGlobalSound(int soundId, int distance) {
+		World.players().forEach(p -> sendSound(soundId));
+		return this;
+	}
+	
+	/**
 	 * Sends the index 2 sound version. This is complately different, and don't think it'll be used.
 	 * @param soundId
 	 * @return

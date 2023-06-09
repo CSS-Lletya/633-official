@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Action;
@@ -88,6 +89,7 @@ public class EnchantingBolts extends Action {
         player.getInventory().deleteItem(enchant.getBaseId(), amount);
         player.setNextAnimation(new Animation(4462));
         player.setNextGraphics(new Graphics(759));
+        player.getAudioManager().sendSound(Sounds.BOLT_ENCHANTING);
         player.getPackets().sendGameMessage("You enchant " + amount + " "
                 + ItemDefinitions.getItemDefinitions(enchant.getNewId()).getName() + ".");
         player.getSkills().addXp(Skills.MAGIC, enchant.getXp() * amount);

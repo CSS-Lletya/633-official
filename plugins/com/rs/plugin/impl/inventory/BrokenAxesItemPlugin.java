@@ -14,7 +14,7 @@ import skills.mining.AxeAssembly.AxeData;
 public class BrokenAxesItemPlugin extends InventoryListener {
 
 	@Override
-	public void execute(Player player, Item firstItem, Item secondItem) {
+	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
 		Arrays.stream(AxeData.values())
 				.filter(axe -> firstItem.getId() == axe.head && secondItem.getId() == 466 || secondItem.getId() == axe.head && firstItem.getId() == 466)
 				.forEach(axe -> new AxeAssembly(player, axe).start());

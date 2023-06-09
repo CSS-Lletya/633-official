@@ -58,7 +58,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				return;
 			}
 		}
-		InventoryPluginDispatcher.execute(player, new Item(fromItemId), new Item(toItemId));
+		InventoryPluginDispatcher.execute(player, new Item(fromItemId), new Item(toItemId), toSlotId, fromSlotId);
 		if (Firemaking.execute(player, new Item(fromItemId), new Item(toItemId), false))
 			return;
 		if (GameConstants.DEBUG)

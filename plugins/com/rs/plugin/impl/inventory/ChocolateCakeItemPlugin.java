@@ -12,7 +12,7 @@ import skills.cooking.ChocolateCake;
 public class ChocolateCakeItemPlugin extends InventoryListener {
 	
 	@Override
-	public void execute(Player player, Item firstItem, Item secondItem) {
+	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
 		new UseWith(firstItem, secondItem, () -> new ChocolateCake(player).start());
 	}
 }

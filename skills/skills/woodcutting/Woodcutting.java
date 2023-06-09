@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
@@ -107,6 +108,7 @@ public class Woodcutting extends HarvestingSkillAction {
 				}
 			}
 			if(obj != null) {
+				player.getAudioManager().sendSound(Sounds.FALLING_TREE);
 				GameObject.spawnTempGroundObject(new GameObject(obj.getTransformable(), 10, 0, object), tree.getRespawnTime());
 				t.cancel();
 			}

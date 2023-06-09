@@ -4,6 +4,7 @@ import java.util.function.BiFunction;
 import java.util.stream.IntStream;
 
 import com.rs.cache.loaders.ObjectDefinitions;
+import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
@@ -26,6 +27,7 @@ public class Doors {
 	
     public static void handleGate(Player player, GameObject object) {
         boolean open = object.getDefinitions().containsOption("Open");
+        player.getAudioManager().sendSound(open ? Sounds.GATE_OPENING : Sounds.GATE_CLOSING);
         int rotation = object.getRotation(open ? 0 : 1);
         ObjectDefinitions openedDef = ObjectDefinitions.getObjectDefinitions(DoorPair.getOpposingDoor(player, object));
         boolean tempMove = !((openedDef.containsOption("Open") || openedDef.containsOption("Close")) && openedDef.secondInt != 0);
@@ -145,6 +147,7 @@ public class Doors {
 
 	public static void handleClosedDoor(Player player, GameObject object) {
 		boolean open = object.getDefinitions().containsOption("Open");
+		player.getAudioManager().sendSound(open ? Sounds.DOOR_OPENING : Sounds.DOOR_CLOSING);
 		int rotation = object.getRotation(open ? 0 : -1);
 		WorldTile adjusted = new WorldTile(object);
 		switch (rotation) {
@@ -264,6 +267,7 @@ public class Doors {
 	public static void handleDoor(Player player, GameObject object, int offset) {
 		boolean open = object.getDefinitions().containsOption("Open");
 		int rotation = object.getRotation(open ? offset : -1 + offset);
+		player.getAudioManager().sendSound(open ? Sounds.DOOR_OPENING : Sounds.DOOR_CLOSING);
 		if (IntStream.of(8958, 8959, 8960).anyMatch(id -> id == object.getId())) {
 			GameObject.removeObjectTemporary(object, Ticks.fromMinutes(1));
 			return;
@@ -317,6 +321,7 @@ public class Doors {
 
 	public static void handleOneWayDoor(Player player, GameObject object, int rotation) {
 		boolean open = object.getDefinitions().containsOption("Open");
+		player.getAudioManager().sendSound(open ? Sounds.DOOR_OPENING : Sounds.DOOR_CLOSING);
 		WorldTile adjusted = new WorldTile(object);
 		switch (rotation) {
 		case 0:
@@ -370,6 +375,7 @@ public class Doors {
 		boolean open = object.getDefinitions().containsOption("Open");
 		ObjectDefinitions openedDef = ObjectDefinitions.getObjectDefinitions(DoorPair.getOpposingDoor(player, object));
 		boolean tempMove = isTempMove(player, openedDef);
+		player.getAudioManager().sendSound(open ? Sounds.DOOR_OPENING : Sounds.DOOR_CLOSING);
 		GameObject[] doors = getNearby(player, object, (t1, t2) -> {
 			return t1.getY() > t2.getY();
 		}, object.transform(0, 1, 0), object.transform(0, -1, 0));

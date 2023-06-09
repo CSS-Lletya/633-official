@@ -1,6 +1,8 @@
 package com.rs.plugin.impl.objects;
 
+import com.rs.cache.loaders.ObjectDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
@@ -22,6 +24,7 @@ public class SearchablesObjectPlugin extends ObjectListener {
 				interacting = new GameObject(getOpenId(object.getId()), object.getType(),
                         object.getRotation(), object.getX(), object.getY(), object.getPlane());
                 player.faceObject(interacting);
+                player.getAudioManager().sendSound(Sounds.DRAWER_OPEN);
                 player.getMovement().lock(2);
                 GameObject.spawnObjectTemporary(interacting, 60);
                 player.setNextAnimation(Animations.SIMPLE_GRAB);
@@ -30,6 +33,7 @@ public class SearchablesObjectPlugin extends ObjectListener {
 				interacting = new GameObject(getCloseId(object.getId()), object.getType(), object.getRotation(),
 						object.getX(), object.getY(), object.getPlane());
 				player.faceObject(interacting);
+				player.getAudioManager().sendSound(Sounds.DRAWER_CLOSED);
                 player.getMovement().lock(2);
 				GameObject.removeObject(interacting);
 				player.setNextAnimation(Animations.SIMPLE_GRAB);
@@ -37,8 +41,12 @@ public class SearchablesObjectPlugin extends ObjectListener {
 		}
 		if (object.getDefinitions().getNameContaining("closed chest") || object.getDefinitions().getNameContaining("open chest")) {
 			object.doAction(optionId, object.getId(), "open", () -> {
+				boolean nextItemChest = ObjectDefinitions.getObjectDefinitions(object.getId() + 1).getName().contains("chest");
+				if (!nextItemChest)
+					return;
 				interacting = new GameObject(getOpenId(object.getId()), object.getType(), object.getRotation(), object.getX(), object.getY(), object.getPlane());
-                player.faceObject(interacting);
+				player.faceObject(interacting);
+				player.getAudioManager().sendSound(Sounds.CHEST_OPEN);
                 player.getMovement().lock(2);
                 GameObject.spawnObjectTemporary(interacting, 60);
                 player.setNextAnimation(Animations.SIMPLE_GRAB);
@@ -47,6 +55,7 @@ public class SearchablesObjectPlugin extends ObjectListener {
 				interacting = new GameObject(getCloseId(object.getId()), object.getType(), object.getRotation(),
 						object.getX(), object.getY(), object.getPlane());
 				player.faceObject(interacting);
+				player.getAudioManager().sendSound(Sounds.CHEST_CLOSED);
                 player.getMovement().lock(2);
 				GameObject.removeObject(interacting);
 				player.setNextAnimation(Animations.SIMPLE_GRAB);

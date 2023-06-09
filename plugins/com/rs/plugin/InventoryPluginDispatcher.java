@@ -47,8 +47,8 @@ public class InventoryPluginDispatcher {
 	 * @param player the player executing the interface.
 	 * @param parts  the string which represents a interface.
 	 */
-	public static void execute(Player player, Item firstItem, Item secondItem) {
-		getItem(firstItem.getId()).ifPresent(inter -> inter.execute(player, firstItem, secondItem));
+	public static void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
+		getItem(firstItem.getId()).ifPresent(inter -> inter.execute(player, firstItem, secondItem, slot, toSlot));
 	}
 
 	/**
