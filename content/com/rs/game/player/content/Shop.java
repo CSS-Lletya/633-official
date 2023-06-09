@@ -9,9 +9,14 @@ import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
+import com.rs.utilities.ItemExamines;
+import com.rs.utilities.Utility;
 
 public class Shop {
 
+	private static final int INTERFACE = 620;
+	private static final int INVENTORY_INTERFACE = 621;
+	
 	private static final int MAX_SHOP_ITEMS = 40;
 	public static final int COINS = 995, TOKKUL = 6529;
 
@@ -40,7 +45,7 @@ public class Shop {
 
 	public void addPlayer(final Player player) {
 		viewingPlayers.add(player);
-		player.getAttributes().get(Attribute.SHOP).set(this);//may not be correct. need to redo shops
+		player.getAttributes().get(Attribute.SHOP).set(this);
 		player.setCloseInterfacesEvent(() -> {
 			viewingPlayers.remove(player);
 			player.getAttributes().get(Attribute.SHOP).set(null);
@@ -49,26 +54,17 @@ public class Shop {
 			player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).set(null);
 			player.getAttributes().get(Attribute.SHOP_SELECTED_INVENTORY).set(null);
 		});
-//		player.getVarsManager().sendVar(118,
-//				generalStock != null ? 139 : MAIN_STOCK_ITEMS_KEY);
+		player.getVarsManager().sendVar(InterfaceVars.SHOP_ITEM_COMPONENTS, 4);
 		player.getVarsManager().sendVar(InterfaceVars.SHOP_KEY, -1); // sample items container id
 													// (TODO: add support for
 													// it)
 		player.getVarsManager().sendVar(InterfaceVars.SHOP_CURRENCY, money);
-		resetSelected(player);
 		sendStore(player);
-		player.getInterfaceManager().sendInterface(1265); // opens sho
-		resetTransaction(player);
+		player.getInterfaceManager().sendInterface(INTERFACE); // opens sho
 		setBuying(player, true);
-		if (generalStock != null)
-			player.getPackets().sendHideIComponent(1265, 19, false); // unlocks
-																		// general
-																		// store
-																		// icon
-		player.getPackets().sendIComponentSettings(1265, 20, 0, getStoreSize(),
-				1150); // unlocks stock slots
+		refreshShop();
 		sendInventory(player);
-		player.getPackets().sendIComponentText(1265, 85, name);
+		player.getPackets().sendIComponentText(INTERFACE, 20, name);
 	}
 
 	public void resetTransaction(Player player) {
@@ -139,11 +135,11 @@ public class Shop {
 	}
 
 	public void sendInventory(Player player) {
-		player.getInterfaceManager().sendInventoryInterface(1266);
+		player.getInterfaceManager().sendInventoryInterface(INVENTORY_INTERFACE);
 		player.getPackets().sendItems(93, player.getInventory().getItems());
-		player.getPackets().sendUnlockIComponentOptionSlots(1266, 0, 0, 27, 0,
+		player.getPackets().sendUnlockIComponentOptionSlots(INVENTORY_INTERFACE, 0, 0, 27, 0,
 				1, 2, 3, 4, 5);
-		player.getPackets().sendInterSetItemsOptionsScript(1266, 0, 93, 4, 7,
+		player.getPackets().sendInterSetItemsOptionsScript(INVENTORY_INTERFACE, 0, 93, 4, 7,
 				"Value", "Sell 1", "Sell 5", "Sell 10", "Sell 50", "Examine");
 	}
 
@@ -223,7 +219,7 @@ public class Shop {
 				needRefresh = true;
 			}
 		}
-		if (generalStock != null) {
+		if (isGeneralStore()) {
 			for (int i = 0; i < generalStock.length; i++) {
 				Item item = generalStock[i];
 				if (item == null)
@@ -246,7 +242,7 @@ public class Shop {
 				return true;
 			}
 		}
-		if (generalStock != null) {
+		if (isGeneralStore()) {
 			for (Item item : generalStock) {
 				if (item == null)
 					continue;
@@ -355,78 +351,30 @@ public class Shop {
 			return;
 		if (item.getDefinitions().isNoted())
 			item = new Item(item.getDefinitions().getCertId(), item.getAmount());
-		if (inventory
-				&& (!ItemConstants.isTradeable(item) || item.getId() == money)) {
+		if (inventory && (!ItemConstants.isTradeable(item) || item.getId() == money)) {
 			player.getPackets().sendGameMessage("You can't sell this item.");
-			resetSelected(player);
 			return;
 		}
-		resetTransaction(player);
-		player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).set(slotId);
-		player.getAttributes().get(Attribute.SHOP_SELECTED_INVENTORY).set(inventory);
-//		player.getVarsManager().sendVar(
-//				2561,
-//				inventory ? 93 : generalStock != null ? 139
-//						: MAIN_STOCK_ITEMS_KEY); // inv key
-		player.getVarsManager().sendVar(InterfaceVars.SHOP_ITEM_ID, item.getId());
-		player.getVarsManager().sendVar(InterfaceVars.SHOP_RESET_SELECTED, slotId);
-//		player.getPackets().sendGlobalString(362, ItemExamines.getExamine(item));
-		player.getPackets().sendGlobalConfig(1876,
-				item.getDefinitions().isWearItem() ? 0 : -1); // TODO item pos
-																// or usage if
-																// has one,
-																// setting 0 to
-																// allow see
-																// stats
-		int price = inventory ? getSellPrice(item,
-				getDefaultQuantity(item.getId())) : getBuyPrice(item,
-				slotId >= mainStock.length ? 0 : defaultQuantity[slotId]);
-		player.getPackets().sendGameMessage(
-				item.getDefinitions().getName()
-						+ ": shop will "
-						+ (inventory ? "buy" : "sell")
-						+ " for: "
-						+ price
-						+ " "
-						+ ItemDefinitions.getItemDefinitions(money).getName()
-								.toLowerCase());
+		int price = inventory ? getSellPrice(item, getDefaultQuantity(item.getId()))
+				: getBuyPrice(item, slotId >= mainStock.length ? 0 : defaultQuantity[slotId]);
+		player.getPackets()
+				.sendGameMessage(item.getDefinitions().getName() + ": shop will " + (inventory ? "buy" : "sell")
+						+ " for: " + Utility.getFormattedNumber(price) + " " + ItemDefinitions.getItemDefinitions(money).getName().toLowerCase());
 	}
 
-	/*
-	 * [clientscript] int get_buy_price(int arg0) { int ivar1; if (arg0 == -1) {
-	 * return 0; } arg0 = getRealItem(arg0); ivar1 = getDataByKey('o', 'i', 731,
-	 * arg0); if (standart_config_532 == 6529 && ivar1 != -1 && ivar1 > 0) {
-	 * return ivar1; } ivar1 = getDataByKey('o', 'i', 733, arg0); if (ivar1 !=
-	 * -1 && ivar1 > 0) { return ivar1; } if (getItemAttribute(arg0, 258) == 1
-	 * || getItemAttribute(arg0, 259) == 1) { return 99000; } ivar1 =
-	 * getItemValue(arg0); if (standart_config_532 == 6529) { ivar1 =
-	 * multiplyDivide(3, 2, ivar1); } return max(ivar1, 1); }
-	 */
-
 	public int getBuyPrice(Item item, int dq) {
-		switch (money) {
-		case 24444: // TROHPY
-			if (item.getId() >= 24450 && item.getId() <= 24454)
-				return 30 + (item.getId() - 24450) * 5;
-			if (item.getId() >= 24455 && item.getId() <= 24457)
-				return 1500;
-			break;
-		default:
-			int price = ClientScriptMap.getMap(731).getIntValue(item.getId());
-			if (money == TOKKUL && price > 0)
-				return price;
-			price = ClientScriptMap.getMap(733).getIntValue(item.getId());
-			if (price > 0)
-				return price;
-			if (item.getDefinitions().hasShopPriceAttributes())
-				return 99000;
-			price = item.getDefinitions().getValue();
-			if (money == TOKKUL)
-				price = (price * 3) / 2;
-			return Math.max(price, 1);
-
-		}
-		return 1;
+		int price = ClientScriptMap.getMap(731).getIntValue(item.getId());
+		if (money == TOKKUL && price > 0)
+			return price;
+		price = ClientScriptMap.getMap(733).getIntValue(item.getId());
+		if (price > 0)
+			return price;
+		if (item.getDefinitions().hasShopPriceAttributes())
+			return 99000;
+		price = item.getDefinitions().getValue();
+		if (money == TOKKUL)
+			price = (price * 3) / 2;
+		return Math.max(price, 1);
 	}
 
 	/*
@@ -456,31 +404,26 @@ public class Shop {
 				- mainStock.length] : mainStock[slotId];
 		if (item == null)
 			return;
-//		player.getPackets().sendGameMessage(ItemExamines.getExamine(item));
+		player.getPackets().sendGameMessage(ItemExamines.getExamine(item));
 	}
 
 	public void refreshShop() {
 		for (Player player : viewingPlayers) {
 			sendStore(player);
-			player.getPackets().sendIComponentSettings(620, 25, 0,
-					getStoreSize() * 6, 1150);
+			player.getPackets().sendIComponentSettings(INTERFACE, 25, 0, 240, 1150);
 		}
 	}
-
+	
 	public int getStoreSize() {
 		return mainStock.length
-				+ (generalStock != null ? generalStock.length : 0);
+				+ (isGeneralStore() ? generalStock.length : 40);
 	}
 
 	public void sendStore(Player player) {
-		Item[] stock = new Item[mainStock.length
-				+ (generalStock != null ? generalStock.length : 0)];
+		Item[] stock = new Item[mainStock.length + (isGeneralStore() ? generalStock.length : 0)];
 		System.arraycopy(mainStock, 0, stock, 0, mainStock.length);
-		if (generalStock != null)
-			System.arraycopy(generalStock, 0, stock, mainStock.length,
-					generalStock.length);
-//		player.getPackets().sendItems(
-//				generalStock != null ? 139 : MAIN_STOCK_ITEMS_KEY, stock);
+		if (isGeneralStore())
+			System.arraycopy(generalStock, 0, stock, mainStock.length, generalStock.length);
+		player.getPackets().sendItems(isGeneralStore() ? 139 : 4, stock);
 	}
-
 }

@@ -335,4 +335,6 @@ public interface InterfaceVars {
 	 * Represents global {@link Runecrafting} altars giving action menus
 	 */
 	int RUNECRAFTING_ALTARS_OPTIONS = 492;
+	
+	int SHOP_ITEM_COMPONENTS = 118;
 }

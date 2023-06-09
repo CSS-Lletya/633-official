@@ -113,6 +113,7 @@ public class GameLoader {
 			QuestManager.load();
 			ItemWeights.init();
 			DoorPair.loadPairs();
+			ShopsHandler.init();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Host files.");
