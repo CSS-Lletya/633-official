@@ -1,0 +1,17 @@
+{
+  "name": "Candle Shop",
+  "generalStore": false,
+  "buyOnly": false,
+  "currency": 995,
+  "items": [
+    {
+      "item": {
+        "id": 36,
+        "amount": 10
+      }
+    }
+  ],
+  "npcIds": [
+    562
+  ]
+}

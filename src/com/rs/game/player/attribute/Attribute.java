@@ -71,11 +71,10 @@ public interface Attribute {
 	/**
 	 * Represents the Dialogue event state
 	 */
-	public String BLANK_DIALOGUE_EVENT = "SkillingDialogueEvent";
+	public String BLANK_DIALOGUE_EVENT = "BlankDialogueEvent";
 	
 	/**
 	 * Represents the max skill quantity for skilling menu (fletching, such)
-	 * TODO: Implement proper system
 	 */
 	public String SKILL_DIALOGUE_MAX_QUANTITY = "SkillsDialogueMaxQuantity";
 	

@@ -13,7 +13,6 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 import java.util.HashMap;
 
-import com.rs.GameConstants;
 import com.rs.game.item.Item;
 
 public class ItemExamines {
@@ -23,14 +22,9 @@ public class ItemExamines {
 	private final static String UNPACKED_PATH = "data/items/unpackedExamines.txt";
 
 	public static final String getExamine(Item item) {
-		if (item.getAmount() >= 10000)
-			return item.getAmount() + "x of " + item.getDefinitions().getName() + ".";
 		if (item.getDefinitions().isNoted())
 			return "Swap this note at any bank for the equivalent item.";
-		if (GameConstants.DEBUG)
-			return "id: " + item.getId();
-		String examine = itemExamines.get(item.getId());
-		return examine;
+		return itemExamines.get(item.getId());
 	}
 
 	public static final void init() {

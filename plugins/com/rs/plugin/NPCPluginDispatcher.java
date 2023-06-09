@@ -20,6 +20,7 @@ import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.loaders.ShopsHandler;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -184,7 +185,11 @@ public class NPCPluginDispatcher {
 			}
 			if (player.getQuestManager().handleNPC(player, npc, optionId))
 				return;
-			
+			String key = ShopsHandler.getShopForNpc(npc.getId());
+			if (key == null)
+				return;
+			npc.doAction(optionId, "Trade", () -> ShopsHandler.openShop(player, key));
+			npc.doAction(optionId, "Shop", () -> ShopsHandler.openShop(player, key));
 		}, npc.getDefinitions().name.toLowerCase().equalsIgnoreCase("Banker")));
 
 	}

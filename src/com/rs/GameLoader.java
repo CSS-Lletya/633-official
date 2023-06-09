@@ -107,13 +107,12 @@ public class GameLoader {
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Miscellaneous Files.");
 			MusicHints.init();
-			ShopsHandler.init();
 			FriendChatsManager.init();
 			AttributeKey.init();
 			QuestManager.load();
 			ItemWeights.init();
 			DoorPair.loadPairs();
-			ShopsHandler.init();
+			ShopsHandler.loadShops();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Host files.");
