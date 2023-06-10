@@ -19,6 +19,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 		object.doAction(optionId, "Banana Tree", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.BANANA_1963))) {
 				player.setNextAnimation(Animations.TWO_HANDED_GRAB);
+				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				player.getPackets().sendGameMessage("You pick a Banana from the Banana tree");
 			}
 		});
@@ -33,24 +34,28 @@ public class PickablesObjectPlugin extends ObjectListener {
 		object.doAction(optionId, "Onion", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.ONION_1957))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
+				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
 			}
 		});
 		object.doAction(optionId, "Cabbage", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.CABBAGE_1965))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
+				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
 			}
 		});
 		object.doAction(optionId, "Wheat", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.GRAIN_1947))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
+				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
 			}
 		});
 		object.doAction(optionId, "Potato", "Pick", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.POTATO_1942))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
+				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				GameObject.removeObjectTemporary(object, Ticks.fromSeconds(30));
 			}
 		});
@@ -61,6 +66,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 			}
 			if (player.getInventory().addItem(new Item(ItemNames.CADAVA_BERRIES_753))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
+				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				if (RandomUtils.percentageChance(18))
 					GameObject.spawnTempGroundObject(new GameObject(23627, 10, 0, object), Ticks.fromSeconds(6));
 			}
@@ -72,6 +78,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 			}
 			if (player.getInventory().addItem(new Item(ItemNames.CADAVA_BERRIES_753))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
+				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				if (RandomUtils.percentageChance(18))
 					GameObject.spawnTempGroundObject(new GameObject(23627, 10, 0, object), Ticks.fromSeconds(6));
 			}
@@ -82,6 +89,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 				return;
 			}
 			if (player.getInventory().addItem(new Item(ItemNames.REDBERRIES_1951))){
+				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				player.setNextAnimation(Animations.TOUCH_GROUND);
 				if (RandomUtils.percentageChance(18))
 					GameObject.spawnTempGroundObject(new GameObject(23630, 10, 0, object), Ticks.fromSeconds(6));

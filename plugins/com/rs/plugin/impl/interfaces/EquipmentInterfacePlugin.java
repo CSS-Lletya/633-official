@@ -2,10 +2,14 @@ package com.rs.plugin.impl.interfaces;
 
 import java.util.stream.IntStream;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
+import com.rs.game.map.GameObject;
+import com.rs.game.map.World;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
+import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
@@ -72,8 +76,28 @@ public class EquipmentInterfacePlugin extends RSInterfaceListener {
 	
 	@Override
 	public void executeEquipment(Player player, Item item, int componentId, int packetId) {
-		if (componentId == 23 && packetId == 29)
-			System.out.println(item.getId());
+		if (componentId == 17 && packetId == 29 && item.getId() == 2963) {
+			if (player.getPrayer().getPoints() >= 6) {
+                player.getPrayer().drainPrayer(6);
+                player.getMovement().lock(2);
+                player.setNextAnimation(Animations.CAST_BLOOM);
+                for (GameObject object : World.getRegion(player.getRegionId()).getAllObjects()) {
+                    if (object.withinDistance(player, 2)) {
+                        switch (object.getId()) {
+                            case 3512:
+                            case 3510:
+                            case 3508:
+                            	GameObject.spawnTempGroundObject(new GameObject(object.getId() + 1,
+                                        object.getType(), object.getRotation(), object.getX(),
+                                        object.getY(), object.getPlane()), 30);
+                                World.sendGraphics(player, new Graphics(263), object);
+                                break;
+                        }
+                    }
+                }
+            }
+            player.getPackets().sendGameMessage("You need more prayer points to do this.");
+        }
 	}
 
 	public static void sendItemStats(final Player player, Item item) {

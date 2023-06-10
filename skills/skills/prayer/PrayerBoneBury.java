@@ -37,7 +37,7 @@ public final class PrayerBoneBury extends DestructionSkillAction {
 	public void onDestruct(Task t, boolean success) {
 		if(success) {
 			getPlayer().setNextAnimation(Animations.TOUCH_GROUND);
-			getPlayer().getAudioManager().sendSound(Sounds.BURY_BONE);
+			getPlayer().getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 			getPlayer().getPackets().sendGameMessage("You bury the " + bone + ".");
 			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(itemId).getName() + "_Buried").addStatistic("Bones_Buried");
 			getPlayer().getDetails().getBoneBury().reset();
