@@ -10,7 +10,10 @@ import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.rs.GameConstants;
 import com.rs.cache.Cache;
@@ -731,4 +734,16 @@ public final class Utility {
         }
         return newText.toString();
     }
+    
+    public static Map<String, Object> cloneMap(Map<String, Object> from) {
+		if (from == null)
+			return null;
+		Map<String, Object> newMap = new HashMap<String, Object>();
+
+		for (Entry<String, Object> entry : from.entrySet()) {
+			newMap.put(entry.getKey(), entry.getValue());
+		}
+
+		return newMap;
+	}
 }
