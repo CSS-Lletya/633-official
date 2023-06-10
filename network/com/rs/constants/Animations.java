@@ -110,6 +110,8 @@ public final class Animations {
 	public static final Animation ATTEMPT_FIRE_LIGHTING = new Animation(733);
 	public static final Animation SPADE_DIG = new Animation(830);
 	public static final Animation CAST_BLOOM = new Animation(9104);
+	public static final Animation COW_MILKING = new Animation(2305);
+	
 	
 	/**
 	 * Object Based Animations

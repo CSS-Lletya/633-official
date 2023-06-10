@@ -266,6 +266,11 @@ public final class Inventory {
 		refresh(slot);
 	}
 	
+	public void replaceItems(Item itemOne, Item itemTwo) {
+		deleteItem(itemOne);
+		addItem(itemTwo);
+	}
+	
 	public boolean addItems(Item... list) {
 		for (Item item : list) {
 			if (item == null)
