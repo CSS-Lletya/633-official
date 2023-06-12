@@ -111,6 +111,8 @@ public final class Animations {
 	public static final Animation SPADE_DIG = new Animation(830);
 	public static final Animation CAST_BLOOM = new Animation(9104);
 	public static final Animation COW_MILKING = new Animation(2305);
+	//Fletching animations are not archived. Seems a bit much to do for simplicity sake
+	public static final Animation BOLT_CREATION = new Animation(6702);
 	
 	
 	/**

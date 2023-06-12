@@ -179,7 +179,7 @@ public final class Pickpocketing extends Thieving {
 		WARRIOR_WOMAN(new int[]{15}, new Item[]{new Item(995, 18)}, 25, 26, 3, 20),
 		AL_KHARID_WARRIOR(new int[]{18}, new Item[]{new Item(995, 18)}, 25, 26, 3, 20),
 		ROGUE(new int[]{187, 2267, 2268, 2269, 8122}, new Item[]{new Item(995, 120), new Item(556, 8), new Item(1523, 1), new Item(1219, 1), new Item(1993, 1), new Item(2357, 1), new Item(1227, 1)}, 32, 35.5, 3, 20),
-		GUARD(new int[]{9, 10, 5920, 3408}, new Item[]{new Item(995, 700), new Item(2351, 1), new Item(199, 1), new Item(313, 4), new Item(453, 1), new Item(562, 12), new Item(712, 1), new Item(950, 1), new Item(1623, 1)}, 40, 46.5, 3, 20),
+		GUARD(new int[]{5919, 9, 10, 5920, 3408}, new Item[]{new Item(995, 700), new Item(2351, 1), new Item(199, 1), new Item(313, 4), new Item(453, 1), new Item(562, 12), new Item(712, 1), new Item(950, 1), new Item(1623, 1)}, 40, 46.5, 3, 20),
 		POLLNIVIAN_BEARDED_BANDIT(new int[]{1880, 1881}, new Item[]{new Item(995, 40)}, 45, 65, 3, 50),
 		DESERT_BANDIT(new int[]{1926, 1927, 1928, 1929, 1930, 1931}, new Item[]{new Item(995, 30), new Item(179, 1), new Item(1523, 1)}, 53, 79.5, 3, 30),
 		KNIGHT_OF_ARDOUGNE(new int[]{23, 26}, new Item[]{new Item(995, 50)}, 55, 84.3, 3, 30),
