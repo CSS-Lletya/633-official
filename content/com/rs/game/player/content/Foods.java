@@ -611,6 +611,7 @@ public class Foods {
 		player.heal(food.getHeal() * 10, food.getExtraHP() * 10);
 		if (player.getHitpoints() > hp)
 			player.getPackets().sendGameMessage("It heals some health.");
+		player.getInterfaceManager().refreshHitPoints();
 		player.getInventory().refresh();
 		if (food.effect != null)
 			food.effect.effect(player);
