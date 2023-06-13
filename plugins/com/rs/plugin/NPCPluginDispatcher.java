@@ -188,9 +188,11 @@ public class NPCPluginDispatcher {
 			String key = ShopsHandler.getShopForNpc(npc.getId());
 			if (key == null)
 				return;
-			npc.doAction(optionId, "Trade", () -> ShopsHandler.openShop(player, key));
-			npc.doAction(optionId, "Shop", () -> ShopsHandler.openShop(player, key));
-		}, npc.getDefinitions().name.toLowerCase().equalsIgnoreCase("Banker")));
+			if (optionId == 2) {
+				npc.doAction(optionId, "trade", () -> ShopsHandler.openShop(player, key));
+				npc.doAction(optionId, "shop", () -> ShopsHandler.openShop(player, key));
+			}
+		}, npc.getDefinitions().getName().toLowerCase().contains("Banker")));
 
 	}
 	

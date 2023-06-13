@@ -460,7 +460,11 @@ public class NPC extends Entity {
 	 * @param action
 	 */
 	public void doAction(int option, String searchedOption, Runnable action) {
-		if (getDefinitions().options[option].equalsIgnoreCase(searchedOption))
+		if (getDefinitions().options[option] != null && getDefinitions().options[option].toLowerCase().contains(searchedOption))
+			action.run();
+	}
+	public void doAction(int option, int id, String searchedOption, Runnable action) {
+		if (id == getDefinitions().getId() && getDefinitions().options[option] != null && getDefinitions().options[option].toLowerCase().contains(searchedOption))
 			action.run();
 	}
 }
