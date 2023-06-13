@@ -11,7 +11,8 @@ import it.unimi.dsi.fastutil.objects.ObjectList;
 import skills.Skills;
 
 public enum Tool {
-	NET(303, 1, -1, 0.35, Animations.NET_FISHING, new Catchable[]{Catchable.SHRIMP, Catchable.ANCHOVY, Catchable.MONKFISH}) {
+	CRAYFISH_CAGE(13431, 1, -1, 0.47, Animations.CRAYFISH_FISHING, new Catchable[]{Catchable.CRAYFISH}),
+	NET(303, 1, -1, 0.35, Animations.NET_FISHING, new Catchable[]{Catchable.CRAYFISH, Catchable.ANCHOVY, Catchable.MONKFISH}) {
 		@Override
 		public Catchable catchable() {
 			return Catchable.SHRIMP;

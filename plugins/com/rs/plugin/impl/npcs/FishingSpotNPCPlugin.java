@@ -20,42 +20,37 @@ public class FishingSpotNPCPlugin implements NPCListener {
 				if (i == 312 || i == 313 || i == 316)
 					continue;
 				if (mob.getId() == i) {
-					Fishing lobster_pot = new Fishing(player, Tool.LOBSTER_POT, Optional.of(mob.getLastWorldTile()));
-					lobster_pot.start();
+					new Fishing(player, Tool.LOBSTER_POT, Optional.of(mob.getLastWorldTile())).start();
 				}
 			}
 			for (int i = 233; i <= 236; i++) {
 				if (mob.getId() == i) {
-					Fishing fly_fishing = new Fishing(player, Tool.FLY_FISHING_ROD, Optional.of(mob.getLastWorldTile()));
-					fly_fishing.start();
+					new Fishing(player, Tool.FLY_FISHING_ROD, Optional.of(mob.getLastWorldTile())).start();
 				}
 			}
 			switch (mob.getId()) {
+			case 6267:
+				new Fishing(player, Tool.CRAYFISH_CAGE, Optional.of(mob.getLastWorldTile())).start();
+				break;
 			case 329:
-				Fishing fly_fishing = new Fishing(player, Tool.FLY_FISHING_ROD, Optional.of(mob.getLastWorldTile()));
-				fly_fishing.start();
+				new Fishing(player, Tool.FLY_FISHING_ROD, Optional.of(mob.getLastWorldTile())).start();
 				break;
 			case 312:
-				Fishing big_net = new Fishing(player, Tool.BIG_NET, Optional.of(mob.getLastWorldTile()));
-				big_net.start();
+				new Fishing(player, Tool.BIG_NET, Optional.of(mob.getLastWorldTile())).start();
 				break;
 			case 313:
-				Fishing net = new Fishing(player, Tool.NET, Optional.of(mob.getLastWorldTile()));
-				net.start();
+				new Fishing(player, Tool.NET, Optional.of(mob.getLastWorldTile())).start();
 				break;
 			case 316:
 			case 319:
-				Fishing net_monkfish = new Fishing(player, Tool.NET_MONKFISH, Optional.of(mob.getLastWorldTile()));
-				net_monkfish.start();
+				new Fishing(player, Tool.NET_MONKFISH, Optional.of(mob.getLastWorldTile())).start();
 				break;
 			case 322:
-				Fishing rod = new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile()));
-				rod.start();
+				new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile())).start();
 				break;
 			case 8841:
 			case 8842:
-				Fishing rocktail = new Fishing(player, Tool.FISHING_ROD_, Optional.of(mob.getLastWorldTile()));
-				rocktail.start();
+				new Fishing(player, Tool.FISHING_ROD_, Optional.of(mob.getLastWorldTile())).start();
 				break;
 			}
 		}
@@ -64,17 +59,14 @@ public class FishingSpotNPCPlugin implements NPCListener {
 				if (i == 312 || i == 313 || i == 316)
 					continue;
 				if (mob.getId() == i) {
-					Fishing lobster_pot = new Fishing(player, Tool.HARPOON, Optional.of(mob.getLastWorldTile()));
-					lobster_pot.start();
+					new Fishing(player, Tool.HARPOON, Optional.of(mob.getLastWorldTile())).start();
 				}
 			}
 			if (mob.getId() == 312 || mob.getId() == 322) {
-				Fishing lobster_pot = new Fishing(player, Tool.SHARK_HARPOON, Optional.of(mob.getLastWorldTile()));
-				lobster_pot.start();
+				 new Fishing(player, Tool.SHARK_HARPOON, Optional.of(mob.getLastWorldTile())).start();
 			}
 			if (mob.getId() == 322 || mob.getId() == 329) {
-				Fishing rod = new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile()));
-				rod.start();
+				new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile())).start();
 			}
 		}
 	}

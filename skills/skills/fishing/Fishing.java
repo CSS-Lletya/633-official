@@ -24,15 +24,12 @@ public final class Fishing extends HarvestingSkillAction {
 	@Override
 	public void onHarvest(Task t, Item[] items, boolean success) {
 		if(success) {
-			@SuppressWarnings("unused")
-			int count = 0;
 			for(Item item : items) {
 				if(item == null)
 					continue;
 				Catchable catchable = Catchable.getCatchable(item.getId()).orElse(null);
 				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(catchable.getId()).getName() + "_Caught").addStatistic("Fish_Caught");
 				getPlayer().getSkills().addXp(getSkillId(), catchable.getExperience());
-				count += item.getAmount();
 			}
 		}
 	}
@@ -59,10 +56,7 @@ public final class Fishing extends HarvestingSkillAction {
 	
 	@Override
 	public Optional<Item[]> removeItems() {
-		if(tool.needed <= 0) {
-			return Optional.empty();
-		}
-		return Optional.of(new Item[]{new Item(tool.needed, 1)});
+		return tool.needed <= 0 ? Optional.empty() : Optional.of(new Item[]{new Item(tool.needed, 1)});
 	}
 	
 	@Override
@@ -89,7 +83,6 @@ public final class Fishing extends HarvestingSkillAction {
 	public boolean canExecute() {
 		return checkFishing();
 	}
-	
 	
 	/**
 	 * Experience is handled elsewhere.
