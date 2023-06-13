@@ -53,6 +53,7 @@ public enum Tool {
 			return Catchable.TUNA;
 		}
 	},
+	VESSEL(3159, 65, -1, 0.38, Animations.VESSEL_FISHING, new Catchable[]{Catchable.KARAMBWAN}),
 	SHARK_HARPOON(311, 76, -1, 0.15, Animations.HARPOON, new Catchable[]{Catchable.SHARK, Catchable.MANTAS}),
 	LOBSTER_POT(301, 40, -1, 0.25, Animations.LOBSTER_POT, new Catchable[]{Catchable.LOBSTER});
 

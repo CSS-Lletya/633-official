@@ -114,6 +114,7 @@ public final class Animations {
 	//Fletching animations are not archived. Seems a bit much to do for simplicity sake
 	public static final Animation BOLT_CREATION = new Animation(6702);
 	public static final Animation CRAYFISH_FISHING = new Animation(10009);
+	public static final Animation VESSEL_FISHING = new Animation(1193);
 	
 	
 	/**

@@ -42,7 +42,11 @@ public class FishingSpotNPCPlugin implements NPCListener {
 			case 8842:// rocktails
 				new Fishing(player, Tool.FISHING_ROD_, mob).start();
 				break;
+			case 1178:
+				new Fishing(player, Tool.VESSEL, mob).start();
+				break;
 			}
+			
 		}
 		if (option == 2) {
 			if (IntStream.of(309, 310, 311, 314, 315, 317, 318, 319, 324).anyMatch(id -> mob.getId() == id))

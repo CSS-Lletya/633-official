@@ -47,6 +47,7 @@ public enum Catchable {
 			return WildernessMapZone.isAtWild(player);
 		}
 	},
+	KARAMBWAN(3142, 65, 0.15, 105),
 	MONKFISH(7944, 62, 0.12, 120),
 	SHARK(383, 76, 0.1, 110),
 	MANTAS(389, 81, 0.1, 140),
