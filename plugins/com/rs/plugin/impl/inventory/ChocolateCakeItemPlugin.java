@@ -13,6 +13,6 @@ public class ChocolateCakeItemPlugin extends InventoryListener {
 	
 	@Override
 	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
-		new UseWith(firstItem, secondItem, () -> new ChocolateCake(player).start());
+		new UseWith(new Item(1973), new Item(1891)).execute(firstItem, secondItem, () -> new ChocolateCake(player).start());
 	}
 }

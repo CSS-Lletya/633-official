@@ -65,6 +65,12 @@ public final class FinishedPotion extends ProducingSkillAction {
 	public void onProduce(Task t, boolean success) {
 		if(success) {
 			getPlayer().setNextAnimation(ANIMATION);
+			StringBuilder ingrediants = new StringBuilder();
+			for (Item ri : definition.requiredItem) {
+				ingrediants.append(ri.getDefinitions().getName());
+			}
+			
+			player.getPackets().sendGameMessage("You mix the " + ingrediants + " into your potion.");
 		}
 	}
 	
@@ -130,6 +136,7 @@ public final class FinishedPotion extends ProducingSkillAction {
 	 * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
 	 */
 	private enum FinishedPotionData {
+		COCONUT_MILK(5935, 229, 5976, 1, 0),
 		ATTACK_POTION(121, 91, 221, 1, 25),
 		RANGING_POTION(169, 109, 245, 3, 30),
 		MAGIC_POTION(3042, 2483, 3138, 5, 35),

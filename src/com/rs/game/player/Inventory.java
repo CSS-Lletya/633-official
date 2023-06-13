@@ -349,4 +349,16 @@ public final class Inventory {
         }
         return freeSlots >= neededSlots;
     }
+
+	/*
+	 * returns the other
+	 */
+	public static Item contains(int id1, Item item1, Item item2) {
+		if (item1.getId() == id1)
+			return item2;
+		if (item2.getId() == id1)
+			return item1;
+		return null;
+	}
+
 }

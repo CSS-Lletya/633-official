@@ -68,6 +68,7 @@ public final class UnfinishedPotion extends ProducingSkillAction {
 	@Override
 	public void onProduce(Task t, boolean success) {
 		if(success) {
+			player.getPackets().sendGameMessage("You put the " + definition.getHerb().getName() + " Leaf into the vial of water.");
 			getPlayer().setNextAnimation(ANIMATION);
 		}
 	}
