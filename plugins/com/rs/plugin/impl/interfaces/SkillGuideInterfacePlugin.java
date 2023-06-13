@@ -14,62 +14,60 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
-		if (player.getInterfaceManager().containsChatBoxInter())
-			player.getInterfaceManager().closeChatBoxInterface();
-		player.getMovement().stopAll();
-		if (interfaceId == 499)
-			updateSkillGuide(player, componentId);
-		if (packetId == 11)
-			sendSkillGuide(player, componentId);
-		if (packetId == 9) {
-			int skillComponentId = player.getSkills().getTargetIdByComponentId(componentId);
-			player.getSkills().setSkillTargetEnabled(skillComponentId, false);
-			player.getSkills().setSkillTargetValue(skillComponentId, 0);
-			player.getSkills().setSkillTargetUsingLevelMode(skillComponentId, false);
-		}
-		if (packetId == 31 || packetId == 29) {
-			int skillComponentId = player.getSkills().getTargetIdByComponentId(componentId);
-			boolean usingLevel = packetId == 29;
-			player.getAttributes().get((usingLevel ? Attribute.SET_LEVEL : Attribute.SET_XP)).set(skillComponentId);
-			player.getPackets().sendInputIntegerScript(
-					"Please enter target " + (usingLevel ? "level" : "xp") + " you want to set: ",
-					new IntegerInputAction() {
-						@Override
-						public void handle(int input) {
-							if (usingLevel) {
-								int levelTarget = input;
-								Integer skillId = player.getAttributes().get(Attribute.SET_LEVEL).getInt();
-								int curLevel = player.getSkills()
-										.getLevelForXp(player.getSkills().getSkillIdByTargetId(skillId));
-								if (curLevel >= (skillId == 24 ? 120 : 99)) {
-									return;
+		if (interfaceId == 320) {
+			if (packetId == 11)
+				sendSkillGuide(player, componentId);
+			if (packetId == 9) {
+				int skillComponentId = player.getSkills().getTargetIdByComponentId(componentId);
+				player.getSkills().setSkillTargetEnabled(skillComponentId, false);
+				player.getSkills().setSkillTargetValue(skillComponentId, 0);
+				player.getSkills().setSkillTargetUsingLevelMode(skillComponentId, false);
+			}
+			if (packetId == 31 || packetId == 29) {
+				int skillComponentId = player.getSkills().getTargetIdByComponentId(componentId);
+				boolean usingLevel = packetId == 29;
+				player.getAttributes().get((usingLevel ? Attribute.SET_LEVEL : Attribute.SET_XP)).set(skillComponentId);
+				player.getPackets().sendInputIntegerScript(
+						"Please enter target " + (usingLevel ? "level" : "xp") + " you want to set: ",
+						new IntegerInputAction() {
+							@Override
+							public void handle(int input) {
+								if (usingLevel) {
+									int levelTarget = input;
+									Integer skillId = player.getAttributes().get(Attribute.SET_LEVEL).getInt();
+									int curLevel = player.getSkills()
+											.getLevelForXp(player.getSkills().getSkillIdByTargetId(skillId));
+									if (curLevel >= (skillId == 24 ? 120 : 99)) {
+										return;
+									}
+									if (levelTarget > (skillId == 24 ? 120 : 99)) {
+										levelTarget = skillId == 24 ? 120 : 99;
+									}
+									if (levelTarget < player.getSkills()
+											.getLevel(player.getSkills().getSkillIdByTargetId(skillId))) {
+										return;
+									}
+									System.out.println("id: " + input);
+									player.getSkills().setSkillTarget(true, skillId, input);
+								} else {
+									int xpTarget = input;
+									Integer skillId = player.getAttributes().get(Attribute.SET_XP).getInt();
+									if (xpTarget < player.getSkills()
+											.getXp(player.getSkills().getSkillIdByTargetId(skillId))
+											|| player.getSkills()
+													.getXp(player.getSkills().getSkillIdByTargetId(skillId)) >= 200000000) {
+										return;
+									}
+									if (xpTarget > 200000000) {
+										xpTarget = 200000000;
+									}
+									player.getSkills().setSkillTarget(false, skillId, xpTarget);
 								}
-								if (levelTarget > (skillId == 24 ? 120 : 99)) {
-									levelTarget = skillId == 24 ? 120 : 99;
-								}
-								if (levelTarget < player.getSkills()
-										.getLevel(player.getSkills().getSkillIdByTargetId(skillId))) {
-									return;
-								}
-								System.out.println("id: " + input);
-								player.getSkills().setSkillTarget(true, skillId, input);
-							} else {
-								int xpTarget = input;
-								Integer skillId = player.getAttributes().get(Attribute.SET_XP).getInt();
-								if (xpTarget < player.getSkills()
-										.getXp(player.getSkills().getSkillIdByTargetId(skillId))
-										|| player.getSkills()
-												.getXp(player.getSkills().getSkillIdByTargetId(skillId)) >= 200000000) {
-									return;
-								}
-								if (xpTarget > 200000000) {
-									xpTarget = 200000000;
-								}
-								player.getSkills().setSkillTarget(false, skillId, xpTarget);
 							}
-						}
-					});
-		}
+						});
+			}
+		} else
+			updateSkillGuide(player, componentId);
 	}
 
 	/**
