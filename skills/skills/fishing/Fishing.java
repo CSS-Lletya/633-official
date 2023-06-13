@@ -3,11 +3,14 @@ package skills.fishing;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
+import com.rs.utilities.RandomUtils;
 
 import skills.HarvestingSkillAction;
 import skills.Skills;
@@ -16,8 +19,8 @@ public final class Fishing extends HarvestingSkillAction {
 	
 	private final Tool tool;
 	
-	public Fishing(Player player, Tool tool, Optional<WorldTile> position) {
-		super(player, position);
+	public Fishing(Player player, Tool tool, WorldTile position) {
+		super(player, Optional.of(position));
 		this.tool = tool;
 	}
 
@@ -27,6 +30,12 @@ public final class Fishing extends HarvestingSkillAction {
 			for(Item item : items) {
 				if(item == null)
 					continue;
+				if (hasBarbtailHarpoon() && RandomUtils.percentageChance(10)) {
+					Catchable catchable = Catchable.getCatchable(item.getId()).orElse(null);
+					player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(catchable.getId()).getName() + "_Caught").addStatistic("Fish_Caught");
+					getPlayer().getSkills().addXp(getSkillId(), catchable.getExperience());
+					player.getPackets().sendGameMessage("You catch an extra fish!");
+				}
 				Catchable catchable = Catchable.getCatchable(item.getId()).orElse(null);
 				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(catchable.getId()).getName() + "_Caught").addStatistic("Fish_Caught");
 				getPlayer().getSkills().addXp(getSkillId(), catchable.getExperience());
@@ -34,9 +43,13 @@ public final class Fishing extends HarvestingSkillAction {
 		}
 	}
 	
+	private boolean hasBarbtailHarpoon() {
+		return player.getInventory().containsAny(ItemNames.BARB_TAIL_HARPOON_10129) || player.getEquipment().containsAny(ItemNames.BARB_TAIL_HARPOON_10129) && tool == Tool.HARPOON;
+	}
+	
 	@Override
 	public void onStop() {
-		getPlayer().setNextAnimation(null);
+		getPlayer().setNextAnimation(Animations.RESET_ANIMATION);
 	}
 	
 	@Override
@@ -71,9 +84,8 @@ public final class Fishing extends HarvestingSkillAction {
 	
 	@Override
 	public boolean initialize() {
-		if(!checkFishing()) {
+		if(!checkFishing())
 			return false;
-		}
 		getPackets().sendGameMessage("You begin to fish...");
 		getPlayer().setNextAnimation(tool.animation);
 		return true;
@@ -93,8 +105,12 @@ public final class Fishing extends HarvestingSkillAction {
 	}
 	
 	private boolean checkFishing() {
-		if(!getPlayer().getInventory().containsItem(new Item(tool.id))) {
-			getPackets().sendGameMessage("You need a " + tool + " to fish here!");
+		if (player.getSkills().getLevel(Skills.FISHING) <  tool.level) {
+			getPackets().sendGameMessage("You must have a Fishing level of " + tool.level + " to fish here.");
+			return false;
+		}
+		if(getPlayer().getInventory().getFreeSlots() < 1) {
+			getPackets().sendGameMessage("You do not have any space left in your inventory.");
 			return false;
 		}
 		if(tool.needed > 0) {
@@ -103,12 +119,11 @@ public final class Fishing extends HarvestingSkillAction {
 				return false;
 			}
 		}
-		if(getPlayer().getInventory().getFreeSlots() < 1) {
-			getPackets().sendGameMessage("You do not have any space left in your inventory.");
-			return false;
+		if (hasBarbtailHarpoon()) {
+			return true;
 		}
-		if (!(player.getSkills().getLevel(Skills.FISHING) >= tool.level)) {
-			getPackets().sendGameMessage("You must have a Fishing level of " + tool.level + " to use this tool.");
+		if(!getPlayer().getInventory().containsItem(new Item(tool.id))) {
+			getPackets().sendGameMessage("You need a " + tool + " to fish here!");
 			return false;
 		}
 		return true;
