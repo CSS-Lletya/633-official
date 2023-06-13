@@ -79,6 +79,9 @@ public interface Sounds {
 	int LIGHT_CANDLE = 3226;
 	int EXTINGUISH_LIGHT_SOURCE = 1463;
 	int GRAND_EXCHANGE_FINISH = 2115;
+	int PICKING_LOCK = 1228;
+	int PICKING_LOCK_MANY = 2407;
+	int PICKAXE_LOST = 2306;
 	
 	
 	//combat specials, rest of combat will be defined after rework

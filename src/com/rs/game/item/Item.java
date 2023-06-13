@@ -73,7 +73,7 @@ public class Item {
 	 * @param id the array to convert into an item array.
 	 * @return the item array containing the values from the int array.
 	 */
-	public static final Item[] convert(int... id) {
+	public static final Item[] toList(int... id) {
 		ObjectList<Item> items = new ObjectArrayList<>();
 		for(int identifier : id) {
 			items.add(new Item(identifier));

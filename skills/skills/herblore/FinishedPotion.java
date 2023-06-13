@@ -216,7 +216,7 @@ public final class FinishedPotion extends ProducingSkillAction {
 		FinishedPotionData(int finishedPotion, int unfinishedPotion, int[] requiredItem, int level, double experience) {
 			this.finishedPotion = new Item(finishedPotion);
 			this.unfinishedPotion = new Item(unfinishedPotion);
-			this.requiredItem = Item.convert(requiredItem);
+			this.requiredItem = Item.toList(requiredItem);
 			this.level = level;
 			this.experience = experience;
 		}

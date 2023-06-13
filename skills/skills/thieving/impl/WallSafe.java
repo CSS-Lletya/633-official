@@ -3,6 +3,7 @@ package skills.thieving.impl;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Hit;
@@ -55,6 +56,7 @@ public class WallSafe extends Thieving {
 		}
 		player.getPackets().sendGameMessage("You attempt to pick the lock...");
 		player.setNextAnimation(new Animation(2247));
+		player.getAudioManager().sendSound(Sounds.PICKING_LOCK_MANY);
 	}
 	
 	@Override

@@ -73,9 +73,10 @@ public final class ActionManager {
 	 * Forcivly stops the Players current Action
 	 */
 	public void forceStop() {
-		getAction().ifPresent(presentAction ->  {
-			presentAction.stop(player);
-		});
+		if (getAction().isPresent() && getAction().get() instanceof WineTask){
+			return;
+		}
+		getAction().ifPresent(presentAction -> presentAction.stop(player));
 		action = Optional.empty();
 	}
 

@@ -42,12 +42,6 @@ public enum BarbarianPotion {
 		this.exp = exp;
 		this.both = both;
 	}
-	
-	public static void main(String[] args) {
-		for (BarbarianPotion pots : BarbarianPotion.values()) {
-			System.out.println(pots.item + ",");
-		}
-	}
 
 	/**
 	 * The item id.

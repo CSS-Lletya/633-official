@@ -3,6 +3,7 @@ package skills.mining;
 import java.util.Optional;
 
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
@@ -33,14 +34,9 @@ public final class Mining extends HarvestingSkillAction {
 	private final GameObject object;
 
 	/**
-	 * An array holding all the possible gems which can be obtained while mining.
+	 * An array holding all the possible gems which can be obtained while mining or during Gem Rocks event
 	 */
-	private static final Item[] GEMS = Item.convert(1623, 1621, 1603, 1617);
-
-	/**
-	 * An array holding all the possible glory's a player can wield in order to mine for gems.
-	 */
-	private static final Item[] GLORY = Item.convert(1704, 1706, 1708, 1710, 1712);
+	public static final Item[] GEMS = Item.toList(1623, 1621, 1603, 1617, 1625, 1627, 1629);
 
 	/**
 	 * Constructs a new {@link Mining}.
@@ -76,7 +72,7 @@ public final class Mining extends HarvestingSkillAction {
 		if (object.getLife() <= 0 && !object.isDisabled()) {
 			for (int ob : rock.getObject()) {
 				if (ob == object.getId())
-					GameObject.spawnTempGroundObject(new GameObject(450, 10, 0, object), rock.getRespawnTime());
+					GameObject.spawnTempGroundObject(new GameObject(rock == RockData.GEM_ROCK ? 11193: 450 , 10, 0, object), rock.getRespawnTime());
 			}
 			this.onStop();
 			t.cancel();
@@ -104,7 +100,7 @@ public final class Mining extends HarvestingSkillAction {
 
 	@Override
 	public Item[] harvestItems() {
-		return new Item[]{rock.getItem()};
+		return new Item[]{rock == RockData.GEM_ROCK ? RandomUtils.random(rock.getItem()): rock.getItem()[0]};
 	}
 
 	@Override
@@ -163,6 +159,7 @@ public final class Mining extends HarvestingSkillAction {
 				}
 				FloorItem.addGroundItem(pickaxe.getHead(), getPlayer().getLastWorldTile(), player, true, 180);
 				getPlayer().getPackets().sendGameMessage("Your pickaxe dismantled during the mining process.");
+				player.getAudioManager().sendSound(Sounds.PICKAXE_LOST);
 			}
 		}
 		return;
@@ -170,7 +167,6 @@ public final class Mining extends HarvestingSkillAction {
 
 	private boolean checkMining() {
 		if(rock == null) {
-			getPlayer().getPackets().sendGameMessage("Rock is null.");
 			return false;
 		}
 		if(PickaxeData.getDefinition(getPlayer()).orElse(null) == null) {
@@ -189,11 +185,20 @@ public final class Mining extends HarvestingSkillAction {
 			getPlayer().getPackets().sendGameMessage("You do not have any space left in your inventory.");
 			return false;
 		}
-		if(getPlayer().getEquipment().contains(GLORY)) {
-			int chance = !getPlayer().getEquipment().containsAny(new Item(GLORY[0]).getId()) ? 282 : 250;
-			if(RandomUtils.nextInt(chance) == 1) {
-				getPlayer().getInventory().addItem(new Item(GEMS[RandomUtils.nextInt(GEMS.length)]));
-				getPlayer().getPackets().sendGameMessage("You found a gem.");
+		
+		int chance = 282;
+		if (player.getEquipment().getItem(Equipment.SLOT_RING).getId() == 2572) {
+			chance /= 1.5; 
+		}
+		Item necklace = player.getEquipment().getItem(Equipment.SLOT_AMULET);
+		if (necklace != null && (necklace.getId() > 1705 && necklace.getId() < 1713)) {
+			chance /= 1.5;
+		}
+		if (RandomUtils.random(chance) == 0) {
+			Item gem = RandomUtils.random(GEMS);
+			player.getPackets().sendGameMessage("You find a " + gem.getName() + "!");
+			if (!player.getInventory().addItem(gem)) {
+				player.getPackets().sendGameMessage("You do not have enough space in your inventory, so you drop the gem on the floor.");
 			}
 		}
 		return true;

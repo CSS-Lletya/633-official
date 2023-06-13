@@ -58,7 +58,7 @@ public enum BirdNest {
 	private BirdNest(int nest, int rarity, int... reward) {
 		this.nest = nest;
 		this.rarity = rarity;
-		this.reward = Item.convert(reward);
+		this.reward = Item.toList(reward);
 	}
 
 	/**
