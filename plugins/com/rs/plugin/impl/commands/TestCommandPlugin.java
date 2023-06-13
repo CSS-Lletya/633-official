@@ -19,7 +19,8 @@ public class TestCommandPlugin implements CommandListener {
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
 //		player.getDialogueInterpreter().open(7888);
-		EasyRewards.generateRewards(player);
-		 player.getTreasureTrailsManager().openReward(TreasureTrailsManager.getScrollLevel(2677));
+		for (int i = 180; i < 240; i++) {
+			player.getPackets().sendMessage(i, "test", player);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.rs.game.player.content.trails;
 
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemsContainer;
 import com.rs.game.player.Player;
@@ -48,6 +49,7 @@ public class PuzzleBox {
         currentPuzzle.get(slotId).setId(-1);
         player.getPackets().sendItems(140, currentPuzzle);
         emptySlot = slotId;
+        player.getAudioManager().sendSound(Sounds.PUZZLE_SHIFT);
         player.getPackets().sendUpdateItems(140, currentPuzzle, slotId, emptySlot, slotId);
         checkCompletion();
     }
@@ -64,6 +66,7 @@ public class PuzzleBox {
                 player.getInventory().addItem(puzzle.getSolvedPuzzleId(), 1);
             }
         }
+        player.getAudioManager().sendSound(Sounds.PUZZLE_COMPLETE);
         player.getPackets().sendGameMessage("Congratulations! You've solved the puzzle!");
         return;
     }

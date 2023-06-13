@@ -2,6 +2,7 @@ package com.rs.plugin.impl.objects;
 
 import java.util.Arrays;
 
+import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
@@ -46,6 +47,7 @@ public class MiningOresObjectPlugin extends ObjectListener {
 				World.get().submit(new Task(data.getProspectdelay(), false) {
 					@Override
 					public void execute() {
+						player.getAudioManager().sendSound(Sounds.PROSPECTING);
 						player.getPackets().sendGameMessage("... this rock contains " + message + ".");
 						cancel();
 					}

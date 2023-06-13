@@ -380,7 +380,7 @@ public class WorldPacketsEncoder extends Encoder {
 	}
 
 	public WorldPacketsEncoder sendTradeRequestMessage(Player p) {
-		sendMessage(100, "wishes to trade with you.", p);
+		sendMessage(100, "wishes to trade with you.", p);//not showing up
 		return this;
 	}
 

@@ -196,6 +196,7 @@ public final class Mining extends HarvestingSkillAction {
 		}
 		if (RandomUtils.random(chance) == 0) {
 			Item gem = RandomUtils.random(GEMS);
+			player.getAudioManager().sendSound(Sounds.FINDING_GEM);
 			player.getPackets().sendGameMessage("You find a " + gem.getName() + "!");
 			if (!player.getInventory().addItem(gem)) {
 				player.getPackets().sendGameMessage("You do not have enough space in your inventory, so you drop the gem on the floor.");

@@ -82,6 +82,10 @@ public interface Sounds {
 	int PICKING_LOCK = 1228;
 	int PICKING_LOCK_MANY = 2407;
 	int PICKAXE_LOST = 2306;
+	int FINDING_GEM = 2655;
+	int PROSPECTING = 2661;
+	int PUZZLE_COMPLETE = 3283;
+	int PUZZLE_SHIFT = 1859;
 	
 	
 	//combat specials, rest of combat will be defined after rework
