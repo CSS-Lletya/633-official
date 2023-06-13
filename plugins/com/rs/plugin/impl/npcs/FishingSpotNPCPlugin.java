@@ -24,13 +24,17 @@ public class FishingSpotNPCPlugin implements NPCListener {
 					lobster_pot.start();
 				}
 			}
-			for (int i = 233; i < 235; i++) {
+			for (int i = 233; i <= 236; i++) {
 				if (mob.getId() == i) {
 					Fishing fly_fishing = new Fishing(player, Tool.FLY_FISHING_ROD, Optional.of(mob.getLastWorldTile()));
 					fly_fishing.start();
 				}
 			}
 			switch (mob.getId()) {
+			case 329:
+				Fishing fly_fishing = new Fishing(player, Tool.FLY_FISHING_ROD, Optional.of(mob.getLastWorldTile()));
+				fly_fishing.start();
+				break;
 			case 312:
 				Fishing big_net = new Fishing(player, Tool.BIG_NET, Optional.of(mob.getLastWorldTile()));
 				big_net.start();
@@ -45,8 +49,8 @@ public class FishingSpotNPCPlugin implements NPCListener {
 				net_monkfish.start();
 				break;
 			case 322:
-				Fishing lobster_pot = new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile()));
-				lobster_pot.start();
+				Fishing rod = new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile()));
+				rod.start();
 				break;
 			case 8841:
 			case 8842:
@@ -67,6 +71,10 @@ public class FishingSpotNPCPlugin implements NPCListener {
 			if (mob.getId() == 312 || mob.getId() == 322) {
 				Fishing lobster_pot = new Fishing(player, Tool.SHARK_HARPOON, Optional.of(mob.getLastWorldTile()));
 				lobster_pot.start();
+			}
+			if (mob.getId() == 322 || mob.getId() == 329) {
+				Fishing rod = new Fishing(player, Tool.FISHING_ROD, Optional.of(mob.getLastWorldTile()));
+				rod.start();
 			}
 		}
 	}

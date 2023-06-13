@@ -22,7 +22,7 @@ We have our own community discord server where you can join in and recieve lates
 [Official Rune-Server Project thread](https://www.rune-server.ee/runescape-development/rs-503-client-server/projects/698925-open633-new-revision-development.html)
 
 # 🗨️ Our Trello Board 🗨️
-To maintain easier workflow and project management we have now officially launched our very own [Trello Board](https://trello.com/b/HHcJ6zq8/open-633). You'll need to DM Zed ([Via Discord - click here](https://discord.gg/zuqCZhHQaG) to gain access to this board firstly. Once granted access you'll be able to see what's needed to be done, being worked on, finished task, such.. with much more ease.
+To maintain easier workflow and project management we have now officially launched our very own [Trello Board](https://trello.com/b/HHcJ6zq8/open-633). You'll need to DM Zed ([Via Discord - click here])(https://discord.gg/zuqCZhHQaG) to gain access to this board firstly. Once granted access you'll be able to see what's needed to be done, being worked on, finished task, such.. with much more ease.
 # 🛠️ Installation 🛠️
 There's a few ways to begin development (or testing). Follow any of the applicable options below to get started! It's recommended to use [Intelij](https://www.jetbrains.com/idea/) over [Eclipse](https://www.eclipse.org/ide/), however it's your choice in the end!
 
