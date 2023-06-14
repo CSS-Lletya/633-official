@@ -86,6 +86,7 @@ public interface Sounds {
 	int PROSPECTING = 2661;
 	int PUZZLE_COMPLETE = 3283;
 	int PUZZLE_SHIFT = 1859;
+	int SAWMILL_PLANK_CONVERT = 1386;//custom (accurate enough) - saw_rise_and_spin
 	
 	
 	//combat specials, rest of combat will be defined after rework

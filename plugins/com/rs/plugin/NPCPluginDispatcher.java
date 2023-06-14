@@ -192,8 +192,13 @@ public class NPCPluginDispatcher {
 				npc.doAction(optionId, "trade", () -> ShopsHandler.openShop(player, key));
 				npc.doAction(optionId, "shop", () -> ShopsHandler.openShop(player, key));
 			}
-		}, npc.getDefinitions().getName().toLowerCase().contains("Banker")));
+		}, forceReachNPC(npc.getDefinitions().getName())));
 
+	}
+	
+	public static boolean forceReachNPC(String name) {
+		String[] NPC_NAMES = {"banker", "sawmill"};
+		return Arrays.stream(NPC_NAMES).anyMatch(names -> name.toLowerCase().contains(names));
 	}
 	
 	public static void handleItemOnNPC(final Player player, final NPC npc, final Item item) {

@@ -1,0 +1,41 @@
+{
+  "name": "Sawmill operator",
+  "generalStore": false,
+  "buyOnly": false,
+  "currency": 995,
+ "items": [
+    {
+      "item": {
+        "id": 8794,
+        "amount": 1000
+      }
+    },
+    {
+      "item": {
+        "id": 8790,
+        "amount": 1000
+      }
+    },
+    {
+      "item": {
+        "id": 4819,
+        "amount": 1000
+      }
+    },
+    {
+      "item": {
+        "id": 4820,
+        "amount": 1000
+      }
+    },
+{
+      "item": {
+        "id": 1539,
+        "amount": 1000
+      }
+    }
+  ],
+  "npcIds": [
+    4250
+  ]
+}
