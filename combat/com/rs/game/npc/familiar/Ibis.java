@@ -76,8 +76,8 @@ public class Ibis extends Familiar {
 		setNextAnimation(new Animation(8201));
 		final WorldTile firstTile = new WorldTile(player.getX() + 1, player.getY() + 1, player.getPlane());
 		final WorldTile secondTile = new WorldTile(player.getX() - 1, player.getY() - 1, player.getPlane());
-		World.sendGraphics(player, new Graphics(1337), firstTile);
-		World.sendGraphics(player, new Graphics(1337), secondTile);
+		World.sendGraphics(new Graphics(1337), firstTile);
+		World.sendGraphics(new Graphics(1337), secondTile);
 		World.get().submit(new Task(2) {
 			@Override
 			protected void execute() {

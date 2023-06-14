@@ -682,11 +682,11 @@ public class PrayerManager {
 
 	public void setPoints(double points) {
 		this.points = points;
-		refreshPoints();
 	}
 
 	public void refreshPoints() {
-		player.getVarsManager().sendVar(2382, (int) points);
+		int points = (int) (this.points / 10);
+		player.getSkills().set(Skills.PRAYER, points);
 	}
 
 	public boolean hasFullPoints() {
@@ -702,13 +702,12 @@ public class PrayerManager {
 	}
 	
 	public void drainPrayer() {
-
 		this.points = 0;
 		refreshPoints();
 	}
 
 	public void restorePrayer(double amount) {
-		int maxPrayer = player.getSkills().getLevelForXp(Skills.PRAYER);
+		int maxPrayer = player.getSkills().getLevelForXp(Skills.PRAYER) * 10;
 		if ((points + amount) <= maxPrayer)
 			points += amount;
 		else

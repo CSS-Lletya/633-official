@@ -241,7 +241,7 @@ public abstract class Entity extends WorldTile {
 					setNextGraphics(Graphic.HEALING_BARRIER);
 					setHitpoints((int) (getHitpoints() + player.getSkills().getLevelForXp(Skills.PRAYER) * 2.5));
 					player.getSkills().set(Skills.PRAYER, 0);
-					player.getPrayer().setPoints(0);
+					player.getPrayer().drainPrayer();
 				} else if (player.getEquipment().getAmuletId() != 11090 && player.getEquipment().getRingId() == 11090
 						&& player.getHitpoints() <= player.getMaxHitpoints() * 0.1) {
 					player.getMovement().move(true, GameConstants.START_PLAYER_LOCATION, TeleportType.BLANK);
@@ -856,6 +856,7 @@ public abstract class Entity extends WorldTile {
 	public void processEntity() { }
 
 	public void loadMapRegions() {
+		final boolean wasAtDynamicRegion = isAtDynamicRegion();
 		getMapRegionsIds().clear();
 		setAtDynamicRegion(false);
 		int chunkX = getChunkX();
@@ -872,7 +873,6 @@ public abstract class Entity extends WorldTile {
 			}
 		setLastLoadedMapRegionTile(new WorldTile(this));
 		ifPlayer(player -> {
-			boolean wasAtDynamicRegion = isAtDynamicRegion();
 			player.setClientLoadedMapRegion(false);
 			if (isAtDynamicRegion()) {
 				player.getPackets().sendDynamicGameScene(!player.isStarted());

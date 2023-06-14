@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import java.util.Objects;
+
 public class PublicChatMessage extends ChatMessage {
 
 	@Getter
@@ -21,13 +23,14 @@ public class PublicChatMessage extends ChatMessage {
 
 	@NonNull
 	public void sendPublicChatMessage(Player player, PublicChatMessage message) {
-		player.getMapRegionsIds().stream().filter(regionalPlayer -> regionalPlayer != null).forEach(regionalPlayer -> {
+		player.getMapRegionsIds().stream().filter(Objects::nonNull).forEach(regionalPlayer -> {
 			ObjectArrayList<Short> playersIndexes = World.getRegion(regionalPlayer).getPlayersIndexes();
-			playersIndexes.iterator().forEachRemaining(p -> {
-				World.players().filter(
-						playerIndex -> playerIndex.getLocalPlayerUpdate().getLocalPlayers()[player.getIndex()] != null)
-						.forEach(worldPlayer -> worldPlayer.getPackets().sendPublicMessage(player, message));
-			});
+			if (playersIndexes != null) {
+				playersIndexes.iterator().forEachRemaining(p -> {
+					World.players().filter(playerIndex -> playerIndex.getLocalPlayerUpdate().getLocalPlayers()[player.getIndex()] != null).
+							forEach(worldPlayer -> worldPlayer.getPackets().sendPublicMessage(player, message));
+				});
+			}
 		});
 	}
 }

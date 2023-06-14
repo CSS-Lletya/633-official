@@ -165,11 +165,15 @@ public class DynamicRegion extends Region {
 									ObjectDefinitions definition = ObjectDefinitions.getObjectDefinitions(objectId);
 									int[] coords = translate(x & 0x7, y & 0x7, rotation, definition.sizeX,
 											definition.sizeY, rot);
-									spawnObject(
-											new GameObject(objectId, type, (rotation + rot) & 0x3,
-													(dynX << 3) + coords[0] + ((getRegionId() >> 8) << 6),
-													(dynY << 3) + coords[1] + ((getRegionId() & 0xFF) << 6), dynZ),
-											dynZ, (dynX << 3) + coords[0], (dynY << 3) + coords[1], true);
+									final int clx = (dynX << 3) + coords[0];
+									final int cly = (dynY << 3) + coords[1];
+									if (clx < 0 || cly < 0 || clx > 63 || cly > 63) {
+										continue;
+									}
+									spawnObject(new GameObject(objectId, type, (rotation + rot) & 0x3,
+													clx + ((getRegionId() >> 8) << 6),
+													cly + ((getRegionId() & 0xFF) << 6), dynZ),
+											dynZ, clx, cly, true);
 								}
 							}
 						}

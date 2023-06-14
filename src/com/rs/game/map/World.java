@@ -522,25 +522,11 @@ public final class World {
 		}, delay);
 	}
 
-	public static final void sendGraphics(Entity creator, Graphics graphics, WorldTile tile) {
-		if (creator == null) {
-			for (Player player : World.getPlayers()) {
-				if (player == null || !player.isStarted() || player.isFinished() || !player.withinDistance(tile))
-					continue;
-				player.getPackets().sendGraphics(graphics, tile);
-			}
-		} else {
-			for (int regionId : creator.getMapRegionsIds()) {
-				List<Short> playersIndexes = getRegion(regionId).getPlayersIndexes();
-				if (playersIndexes == null)
-					continue;
-				for (Short playerIndex : playersIndexes) {
-					Player player = players.get(playerIndex);
-					if (player == null || !player.isStarted() || player.isFinished() || !player.withinDistance(tile))
-						continue;
-					player.getPackets().sendGraphics(graphics, tile);
-				}
-			}
+	public static final void sendGraphics(Graphics graphics, WorldTile tile) {
+		for (Player player : World.getPlayers()) {
+			if (player == null || !player.isStarted() || player.isFinished() || !player.withinDistance(tile))
+				continue;
+			player.getPackets().sendGraphics(graphics, tile);
 		}
 	}
 
