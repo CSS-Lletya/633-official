@@ -24,6 +24,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.movement.ForcedMovement;
 import com.rs.game.movement.route.RouteFinder;
 import com.rs.game.movement.route.strategy.EntityStrategy;
+import com.rs.game.movement.route.strategy.FixedTileStrategy;
 import com.rs.game.movement.route.strategy.ObjectStrategy;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
@@ -637,8 +638,9 @@ public abstract class Entity extends WorldTile {
 	public boolean calcFollow(WorldTile target, int maxStepsCount, boolean calculate, boolean inteligent) {
 		if (inteligent) {
 			int steps = RouteFinder.findRoute(RouteFinder.WALK_ROUTEFINDER, getX(), getY(), getPlane(), getSize(),
-					target instanceof GameObject ? new ObjectStrategy((GameObject) target)
-							: new EntityStrategy((Entity) target),
+					 target instanceof GameObject ? new ObjectStrategy((GameObject) target)
+	                            : target instanceof Entity ? new EntityStrategy((Entity) target)
+	                            : new FixedTileStrategy(target.getX(), target.getY()),
 					true);
 			if (steps == -1)
 				return false;
@@ -652,7 +654,7 @@ public abstract class Entity extends WorldTile {
 			}
 			return true;
 		}
-		return findBasicRoute(this, (Entity) target, maxStepsCount, true);
+		return findBasicRoute(this, target, maxStepsCount, true);
 	}
 
 	// used for normal npc follow
