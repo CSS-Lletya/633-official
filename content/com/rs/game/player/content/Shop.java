@@ -326,7 +326,7 @@ public class Shop {
 		price = ClientScriptMap.getMap(1441).getIntValue(item.getId());
 		if (price > 0)
 			return price;
-		return Math.max(1, (item.getDefinitions().getValue() * 30) / 100);
+		return Math.max(1, (item.getDefinitions().getSellPrice()));
 
 	}
 

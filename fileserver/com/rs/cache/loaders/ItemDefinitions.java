@@ -717,4 +717,12 @@ public final class ItemDefinitions {
 			return (int) attackSpeed;
 		return 4;
 	}
+
+	public int getSellPrice() {
+		return (int) (value / (10.0 / 3.0));
+	}
+
+	public int getHighAlchPrice() {
+		return (int) (value / (10.0 / 6.0));
+	}
 }

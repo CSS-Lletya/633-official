@@ -3,7 +3,6 @@ package com.rs.game.player;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemsContainer;
-import com.rs.utilities.Colors;
 import com.rs.utilities.ItemExamines;
 import com.rs.utilities.Utility;
 

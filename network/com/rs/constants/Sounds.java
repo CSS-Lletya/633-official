@@ -20,7 +20,7 @@ public interface Sounds {
 	int CUTTING_GEMS = 2586;
 	int CANCELING_PIN = 1042;
 	int HIGH_ALCHEMY_SPELL = 97;
-	int LOW_ALCHEMY_SPELL = 98;
+	int LOW_ALCHEMY_SPELL = 98;//invalid, use h.a instead
 	int HUMIDIFY_SPELL = 3614;
 	int MONSTER_EXAMINE_SPELL = 3621;
 	int STAT_SPY_SPELL = 3620;
@@ -87,7 +87,12 @@ public interface Sounds {
 	int PUZZLE_COMPLETE = 3283;
 	int PUZZLE_SHIFT = 1859;
 	int SAWMILL_PLANK_CONVERT = 1386;//custom (accurate enough) - saw_rise_and_spin
-	
+	int ONYX_ENCHANT = 144;
+	int DIAMOND_ENCHANT = 138;
+	int DRAGONSTONE_ENCHANT = 140;
+	int EMERALD_ENCHANT = 142;
+	int RUBY_ENCHANT = 146;
+	int SAPPHIRE_ENCHANT = 147;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;

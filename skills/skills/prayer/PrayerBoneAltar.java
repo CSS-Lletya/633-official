@@ -7,11 +7,10 @@ import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
-import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-
 import com.rs.net.encoders.other.Graphics;
+
 import skills.DestructionSkillAction;
 import skills.Skills;
 
@@ -19,7 +18,6 @@ public final class PrayerBoneAltar extends DestructionSkillAction {
 
 	private static final Graphics GFX = new Graphics(624);
 	private final Bone bone;
-	@SuppressWarnings("unused")
 	private final GameObject altar;
 	
 	public PrayerBoneAltar(Player player, GameObject object, Bone bone) {

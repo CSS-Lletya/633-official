@@ -16,7 +16,6 @@ public class EmptyItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int slotId, int option) {
-		System.out.println(option);
 		if (option == 6) {
 			Arrays.stream(EmptyData.values()).filter(toEmpty -> toEmpty.toEmpty == item.getId())
 			.forEach(toEmpty -> {

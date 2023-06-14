@@ -17,6 +17,6 @@ public class TestCommandPlugin implements CommandListener {
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
 //		player.getDialogueInterpreter().open(7888);
-		player.getInterfaceManager().sendOverlay(766);
+		 player.getHintIconsManager().addHintIcon(player, 2, -1, true);
 	}
 }

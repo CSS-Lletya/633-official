@@ -14,6 +14,7 @@ import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
 import skills.firemaking.Firemaking;
+import skills.magic.Enchanting;
 
 @OutgoingPacketSignature(packetId = 33, description = "Represents an Interface being used on another Interface")
 public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
@@ -59,7 +60,11 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 			}
 		}
 		InventoryPluginDispatcher.execute(player, new Item(fromItemId), new Item(toItemId), toSlotId, fromSlotId);
-		if (Firemaking.execute(player, new Item(fromItemId), new Item(toItemId), false))
+		System.out.println(fromButtonId);
+		if (Enchanting.cast(player, new Item(toItemId), fromButtonId, toItemId)) {
+			return;
+		}
+		if (Firemaking.execute(player, new Item(toItemId), new Item(toItemId), false, false, player))
 			return;
 		if (GameConstants.DEBUG)
 			LogUtility.log(LogType.INFO, "ItemOnItem " + fromInterfaceId + ", " + fromButtonId + ", " + fromSlotId + ", " + fromItemId + ", "
