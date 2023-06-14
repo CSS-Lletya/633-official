@@ -392,4 +392,16 @@ public final class ItemsContainer<T extends Item> {
 		}
 		return items;
 	}
+
+	public boolean goesOverAmount(ItemsContainer<T> container) {
+		for (int i = 0; i < container.getSize(); i++) {
+			Item item = container.get(i);
+			if (item != null) {
+				if (getNumberOf(item) + item.getAmount() < 0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
