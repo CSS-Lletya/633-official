@@ -67,7 +67,7 @@ public class Macaw extends Familiar {
 		World.get().submit(new Task(2) {
 			@Override
 			protected void execute() {
-				World.sendGraphics(getOwner(), new Graphics(1321), tile);
+				World.sendGraphics(new Graphics(1321), tile);
 				World.get().submit(new Task(2) {
 					@Override
 					protected void execute() {

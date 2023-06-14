@@ -54,7 +54,7 @@ public class Spiritspider extends Familiar {
 			tile = new WorldTile(this, 2);
 			if (World.isTileFree(this.getPlane(), tile.getX(), tile.getY(), player.getSize()))
 				return true;
-			World.sendGraphics(player, new Graphics(1342), tile);
+			World.sendGraphics(new Graphics(1342), tile);
 			FloorItem.addGroundItem(new Item(223, 1), tile, player, true, 120);
 		}
 		return true;

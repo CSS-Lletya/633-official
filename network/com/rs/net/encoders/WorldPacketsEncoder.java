@@ -804,25 +804,13 @@ public class WorldPacketsEncoder extends Encoder {
 		return this;
 	}
 
-	public WorldPacketsEncoder sendGraphics(Graphics graphics, Object target) {
+	public WorldPacketsEncoder sendGraphics(Graphics graphics, WorldTile tile) {
 		OutputStream stream = new OutputStream(13);
-		int hash = 0;
-		if (((Entity) target).isPlayer()) {
-			Player p = (Player) target;
-			hash = p.getIndex() & 0xffff | 1 << 28;
-		} else if (((Entity) target).isNPC()) {
-			NPC n = (NPC) target;
-			hash = n.getIndex() & 0xffff | 1 << 29;
-		} else {
-			WorldTile tile = (WorldTile) target;
-			hash = tile.getPlane() << 28 | tile.getX() << 14 | tile.getY() & 0x3fff | 1 << 30;
-		}
 		stream.writePacket(getPlayer(), 80);
-		// stream.writeByte128(0); // slot id used for entitys
 		stream.writeShort128(graphics.getSpeed());
 		stream.writeShortLE128(graphics.getId());
 		stream.writeShort128(graphics.getHeight());
-		stream.writeIntLE(hash);
+		stream.writeIntLE(tile.getPlane() << 28 | tile.getX() << 14 | tile.getY() & 0x3fff | 1 << 30);
 		stream.writeByte(graphics.getSettings2Hash());
 		getSession().write(stream);
 		return this;
@@ -1351,19 +1339,18 @@ public class WorldPacketsEncoder extends Encoder {
 	 */
 	public WorldPacketsEncoder sendDynamicGameScene(boolean sendLswp) {
 		OutputStream stream = new OutputStream();
-		stream.writePacketVarShort(getPlayer(), 144);
+		stream.writePacketVarShort(getPlayer(), 12);
 		if (sendLswp) // exists on newer protocol, sends all player encoded
 			// region ids, afterwards new pupdate protocol is
 			// regionbased
 			getPlayer().getLocalPlayerUpdate().init(stream);
 		int middleChunkX = getPlayer().getChunkX();
 		int middleChunkY = getPlayer().getChunkY();
-		stream.write128Byte(2); // exists on newer protocol, triggers a
-		// gamescene supporting npcs
-		stream.writeShortLE(middleChunkY);
-		stream.writeShortLE128(middleChunkX);
-		stream.write128Byte(getPlayer().getDetails().isForceNextMapLoadRefresh() ? 1 : 0);
-		stream.writeByteC(getPlayer().getMapSize());
+		stream.writeByte(1);
+		stream.writeByteC(getPlayer().getDetails().isForceNextMapLoadRefresh() ? 1 : 0);
+		stream.writeShort128(middleChunkY);
+		stream.writeShort(middleChunkX);
+		stream.write128Byte(getPlayer().getMapSize());
 		stream.initBitAccess();
 		/*
 		 * cene length in chunks. scene tiles length / 16, 8 is a chunk size, 16 because
@@ -1429,7 +1416,7 @@ public class WorldPacketsEncoder extends Encoder {
 				stream.writeInt(xteas[keyIndex]);
 		}
 		stream.endPacketVarShort();
-		// ////getSession().write(stream);
+		getSession().write(stream);
 		return this;
 	}
 

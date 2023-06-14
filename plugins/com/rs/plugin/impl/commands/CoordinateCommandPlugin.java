@@ -16,7 +16,9 @@ public final class CoordinateCommandPlugin implements CommandListener {
 	
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		player.getPackets().sendGameMessage("x: "+ player.getX() + " y: " + player.getY() + " h: " + player.getPlane());
-		System.out.println(player.getX() + ", " + player.getY() + ", " + player.getPlane() + ", region: " + player.getRegionId());
+		final String msg = "x: "+ player.getX() + " y: " + player.getY() + " h: " + player.getPlane()
+				+ " region: " + player.getRegionId() + " cx: " + player.getChunkX() + " cy: " + player.getChunkY();
+		player.getPackets().sendGameMessage(msg);
+		System.out.println(msg);
 	}
 }

@@ -130,6 +130,9 @@ public class Skills {
 	public void set(int skill, int newLevel) {
 		level[skill] = (byte) newLevel;
 		refresh(skill);
+		if (skill == Skills.PRAYER) {
+			player.getPrayer().setPoints(newLevel * 10);
+		}
 	}
 
 	/**

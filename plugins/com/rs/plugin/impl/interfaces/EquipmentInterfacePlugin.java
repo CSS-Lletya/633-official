@@ -90,7 +90,7 @@ public class EquipmentInterfacePlugin extends RSInterfaceListener {
                             	GameObject.spawnTempGroundObject(new GameObject(object.getId() + 1,
                                         object.getType(), object.getRotation(), object.getX(),
                                         object.getY(), object.getPlane()), 30);
-                                World.sendGraphics(player, new Graphics(263), object);
+                                World.sendGraphics(new Graphics(263), object);
                                 break;
                         }
                     }
