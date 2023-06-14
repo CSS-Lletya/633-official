@@ -1,12 +1,17 @@
-package skills.woodcutting;
+package skills.woodcutting.sawmill;
 
 import com.rs.constants.Sounds;
+import com.rs.content.mapzone.impl.SawmillMapZone;
+import com.rs.game.Entity;
+import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
+import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.utilities.IntegerInputAction;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import skills.Skills;
 
 public class Sawmill {
 
@@ -70,5 +75,60 @@ public class Sawmill {
     	
     	@Getter
         private int id, logId, cost;
+    }
+    
+    public static Plank getPlankForLog(int id) {
+        for (Plank plank : Plank.values())
+            if (plank.logId == id)
+                return plank;
+        return null;
+    }
+
+    public static Plank getPlank(int id) {
+        for (Plank plank : Plank.values())
+            if (plank.id == id)
+                return plank;
+        return null;
+    }
+
+    public static boolean hasPlanksOrLogs(Player player) {
+        for (Item item : player.getInventory().getItems().getItems()) {
+            if (item != null && (getPlankForLog(item.getId()) != null || getPlank(item.getId()) != null))
+                return true;
+        }
+        return false;
+    }
+
+    public static void enter(Player player, GameObject object) {
+        if (player.getSkills().getLevel(Skills.WOODCUTTING) < 80) {
+        	player.dialog(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
+				@Override
+				public void start() {
+					npc(sad,"Sorry, we don't need inexperienced woodcutters.");
+				}
+			});
+            return;
+        }
+        if (player.getInventory().containsAny((946))) {
+        	player.dialog(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
+				@Override
+				public void start() {
+					npc(sad,"Sorry, but we don't allow any fletching knives to be brought in here.");
+				}
+			});
+            return;
+        }
+        if (hasPlanksOrLogs(player)) {
+        	player.dialog(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
+				@Override
+				public void start() {
+					npc(sad,"Sorry, you can't bring any planks or logs in with you. You might get them muddled with ours.");
+				}
+			});
+            return;
+        }
+        player.getMovement().lock(2);
+        player.addWalkSteps(object.getX() + 1, object.getY(), 1, false);
+        player.getMapZoneManager().submitMapZone(player, new SawmillMapZone());
     }
 }

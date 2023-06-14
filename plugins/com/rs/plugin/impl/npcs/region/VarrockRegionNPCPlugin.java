@@ -7,7 +7,7 @@ import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.loaders.ShopsHandler;
 
-import skills.woodcutting.Sawmill;
+import skills.woodcutting.sawmill.Sawmill;
 
 @NPCSignature(name = {}, npcId = {4250})
 public class VarrockRegionNPCPlugin implements NPCListener {

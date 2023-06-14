@@ -423,4 +423,11 @@ public abstract class MapZone {
 	public void sendInterfaces(Player player) {
 
 	}
+    public final void setArguments(Player player, Object[] objects) {
+        player.setLastControlerArguments(objects);
+    }
+    
+    public final Object[] getArguments(Player player) {
+        return player.getLastControlerArguments();
+    }
 }

@@ -1263,4 +1263,21 @@ public abstract class Entity extends WorldTile {
             return new Vec2(this);
         return new Vec2(getX() + (size - 1) / 2.0f, getY() + (size - 1) / 2.0f);
     }
+    
+    /**
+	 * Find a non-player character.
+	 * @param npcId The non-player character's id.
+	 * @return The non-player character's node.
+	 */
+	public static NPC findNPC(int npcId) {
+		for (NPC npc : World.getNPCs()) {
+			if (npc == null) {
+				continue;
+			}
+			if (npc.getId() == npcId) {
+				return npc;
+			}
+		}
+		return null;
+	}
 }

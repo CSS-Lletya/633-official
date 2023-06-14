@@ -4,7 +4,7 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
-import skills.woodcutting.Sawmill;
+import skills.woodcutting.sawmill.Sawmill;
 
 @RSInterfaceSignature(interfaceId = { 403 })
 public class SawmillPlankConvertingInterfacePlugin extends RSInterfaceListener {

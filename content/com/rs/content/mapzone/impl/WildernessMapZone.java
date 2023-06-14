@@ -239,7 +239,7 @@ public class WildernessMapZone extends MapZone {
 	}
 	
 	public void showSkull(Player player) {
-		player.getInterfaceManager().setOverlay(381, false);
+		player.getInterfaceManager().sendWildyOverlay();
 	}
 
 	public static boolean isDitch(int id) {

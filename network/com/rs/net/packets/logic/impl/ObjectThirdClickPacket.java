@@ -47,7 +47,7 @@ public class ObjectThirdClickPacket implements LogicPacketListener {
 			player.setRun(forceRun);
 		
 		player.setRouteEvent(new RouteEvent(worldObject, () -> {
-			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectClick4(player, worldObject)))
+			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectClick3(player, worldObject)))
 				return;
 			ObjectPluginDispatcher.execute(player, worldObject, 3);
 		}, true));

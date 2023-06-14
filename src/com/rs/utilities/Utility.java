@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 
 import com.rs.GameConstants;
 import com.rs.cache.Cache;
+import com.rs.cores.WorldThread;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
@@ -746,4 +747,8 @@ public final class Utility {
 
 		return newMap;
 	}
+
+    public static long currentWorldCycle() {
+        return WorldThread.LAST_CYCLE_CTM;
+    }
 }

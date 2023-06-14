@@ -84,20 +84,24 @@ public class InterfaceManager {
 
 	//assuming we're not in fullscreen only
 	public void sendOverlay(int interfaceId) {
-		setWindowInterface(isResizableScreen() ? 11 : 0, interfaceId);
+		setWindowInterface(isResizableScreen() ? 6 : 7, interfaceId);
+	}
+	
+	public void sendWildyOverlay() {
+		setWindowInterface(isResizableScreen() ? 7: 16, 381);
 	}
 
-	public void setOverlay(int interfaceId, boolean fullScreen) {
-		setWindowInterface(isResizableScreen() ? fullScreen ? 1 : 11 : 0, interfaceId);
+	public void sendOverlay(int interfaceId, boolean fullScreen) {
+		setWindowInterface(isResizableScreen() ? fullScreen ? 6 : 7 : 0, interfaceId);
 	}
 
 	//assuming we're not in fullscreen only
 	public void removeOverlay() {
-		removeWindowInterface(isResizableScreen() ? 11 : 0);
+		removeWindowInterface(isResizableScreen() ? 6 : 7);
 	}
 
 	public void removeOverlay(boolean fullScreen) {
-		removeWindowInterface(isResizableScreen() ? fullScreen ? 1 : 11 : 0);
+		removeWindowInterface(isResizableScreen() ? fullScreen ? 6 : 7 : 0);
 	}
 
 	public void sendInterface(int interfaceId) {

@@ -232,7 +232,7 @@ public class Player extends Entity {
 	/**
 	 * Represents the Map Zone Manager
 	 */
-	private transient MapZoneManager mapZoneManager = new MapZoneManager();
+	private transient MapZoneManager mapZoneManager;
 	
 	/**
 	 * The dialogue interpreter.
@@ -332,6 +332,7 @@ public class Player extends Entity {
 	 */
 	private QuestManager questManager;
 	
+	private Object[] lastControlerArguments;
 
 	/**
 	 * Constructs a new Player
@@ -425,7 +426,7 @@ public class Player extends Entity {
 		setSwitchItemCache(new ObjectArrayList<Byte>());
 		if (getAction() == null)
 			setAction(new ActionManager(this));
-		if (getMapZoneManager() == null)
+		if (mapZoneManager == null)
 			mapZoneManager = new MapZoneManager();
         questManager.setPlayer(this);
         interfaceManager = new InterfaceManager(this);
@@ -482,15 +483,15 @@ public class Player extends Entity {
 			int delayPassed = (int) ((Utility.currentTimeMillis() - World.get().exiting_start) / 1000);
 			getPackets().sendSystemUpdate(World.get().exiting_delay - delayPassed);
 		}
-		checkMultiArea();
+//		checkMultiArea();
 		Gravestone.login(this);
 		getDetails().setLastIP(getSession().getIP());
 		getAppearance().generateAppearenceData();
 		getPackets().sendLocalPlayersUpdate();
 		getInterfaceManager().sendInterfaces();
 		getPackets().sendRunEnergy().sendGameBarStages().sendGameMessage("Welcome to " + GameConstants.SERVER_NAME + ".");
-		CombatEffect.values().parallelStream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
-		GameConstants.STAFF.entrySet().parallelStream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
+		CombatEffect.values().stream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
+		GameConstants.STAFF.entrySet().stream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
 		getVarsManager().varMap.forEach((k, v) -> getVarsManager().sendVar(k, v));
 		if (getDetails().getCurrentFriendChatOwner() != null) {
 			FriendChatsManager.joinChat(getUsername(), this);
