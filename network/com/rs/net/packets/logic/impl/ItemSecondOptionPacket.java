@@ -1,12 +1,16 @@
 package com.rs.net.packets.logic.impl;
 
 import com.rs.game.item.FloorItem;
+import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
+import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
+
+import skills.firemaking.Firemaking;
 
 /**
  * @author Savions.
@@ -26,9 +30,16 @@ public class ItemSecondOptionPacket implements LogicPacketListener {
 		final WorldTile tile = new WorldTile(x, y, player.getPlane());
 		final int regionId = tile.getRegionId();
 
+		if (forceRun)
+			player.setRun(forceRun);
 		if (!player.getMapRegionsIds().contains(regionId))
 			return;
 		final FloorItem item = World.getRegion(regionId).getGroundItem(id, tile, player);
 
+		player.setRouteEvent(new RouteEvent(item, () -> {
+			if (Firemaking.execute(player, new Item(590), new Item(item.getId()), false, true, tile))
+				return;
+		}));
+		
 	}
 }
