@@ -67,6 +67,10 @@ public class Shop {
 			player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).set(null);
 			player.getAttributes().get(Attribute.SHOP_SELECTED_INVENTORY).set(null);
 		});
+		for (int i = 0; i < MAX_SHOP_ITEMS; i++) {
+			player.getPackets().sendGlobalConfig(946 + i,
+					i < defaultQuantity.length ? defaultQuantity[i] : generalStock != null ? 0 : -1);// prices
+		}
 		sendStore(player);
 		sendInventory(player);
 		player.getVarsManager().sendVar(InterfaceVars.SHOP_ITEM_COMPONENTS, 4);
