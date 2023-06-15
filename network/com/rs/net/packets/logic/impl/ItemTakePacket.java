@@ -1,6 +1,7 @@
 package com.rs.net.packets.logic.impl;
 
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
@@ -44,12 +45,14 @@ public class ItemTakePacket implements LogicPacketListener {
 				if (FloorItem.removeGroundItem(player, item)) {
 					player.setNextFaceWorldTile(tile);
 					player.setNextAnimation(Animations.SIMPLE_GRAB);
+					player.getAudioManager().sendSound(Sounds.PICK_FLAX);
 				}
 			}, false));
 			return;
 		}
 		player.setRouteEvent(new RouteEvent(item, () -> {
 			if (FloorItem.removeGroundItem(player, item)) {
+				player.getAudioManager().sendSound(Sounds.PICK_FLAX);
 				LogUtility.log(LogType.INFO,
 						player.getDisplayName() + " " + player.getSession().getIP() + " - has picked up item [ id: "
 								+ item.getId() + ", amount: " + item.getAmount() + " ] originally owned to "
