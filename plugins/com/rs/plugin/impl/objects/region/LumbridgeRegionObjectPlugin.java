@@ -47,7 +47,10 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 		object.doAction(optionId, 12348, "open", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));
 		object.doAction(optionId, 36771, "climb-up", () -> player.getMovement().move(true, new WorldTile(3207, 3222, 3), TeleportType.LADDER));
 		object.doAction(optionId, 36772, "climb-down", () -> player.getMovement().move(true, new WorldTile(3207, 3224, 2), TeleportType.LADDER));
-		object.doAction(optionId, 37335, "Raise", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));
+		object.doAction(optionId, 37335, "Raise", () -> {
+			player.setNextAnimation(new Animation(9977));
+			GameObject.sendObjectAnimation(object, new Animation(9979));
+		});
 		//outside stairs
 		object.doAction(optionId, 36768, "climb-up", () -> new StairsLaddersDialogue(object).execute(player, optionId));
 		object.doAction(optionId, 36769, "climb", () -> new StairsLaddersDialogue(object).execute(player, optionId));
@@ -64,7 +67,7 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 		object.doAction(optionId, 36989, "climb-up", () -> player.getMovement().move(true, new WorldTile(3242, 3206, 2), TeleportType.LADDER));
 		object.doAction(optionId, 36991, "climb-down", () -> player.getMovement().move(true, new WorldTile(3241, 3207, 1), TeleportType.LADDER));
 		object.doAction(optionId, 36990, "climb-down", () -> player.getMovement().move(true, new WorldTile(3246, 3207, 1), TeleportType.LADDER));
-		object.doAction(optionId, 36976, "ring", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));
+		object.doAction(optionId, 36976, "ring", () -> player.getPackets().sendGameMessage("The towns people wouldn't appreciate you ringing their bell."));
 		object.doAction(optionId, 36978, "play", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));
 		
 		//market area (guess that name will do lol)

@@ -114,6 +114,8 @@ public class Foods {
 		JUBBLY(7568, 15),
 
 		OOMILE(2343, 14),
+		
+		PEACH(6883, 8),
 
 		/**
 		 * Pies
