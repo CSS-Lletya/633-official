@@ -41,6 +41,7 @@ public class ChargeSpellPlugin implements PassiveSpellListener {
 		player.setNextGraphics(Graphic.CHARGE_SPELL);
 		player.getAudioManager().sendSound(Sounds.CHARGE_SPELL);
 		player.getPackets().sendGameMessage("You feel charged with magic power.");
+		player.getDetails().getStatistics().addStatistic("Charges_Performed");
 	}
 
 	@Override

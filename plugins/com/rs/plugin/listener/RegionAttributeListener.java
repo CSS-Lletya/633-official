@@ -1,6 +1,6 @@
 package com.rs.plugin.listener;
 
-import com.rs.game.map.WorldTile;
+import com.rs.game.Entity;
 
 /**
  *
@@ -9,5 +9,5 @@ import com.rs.game.map.WorldTile;
  */
 public interface RegionAttributeListener {
 	
-	public boolean withinMultiZonedBoundaries(WorldTile tile);
+	public boolean withinMultiZonedBoundaries(Entity tile);
 }

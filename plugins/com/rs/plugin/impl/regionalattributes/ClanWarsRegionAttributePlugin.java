@@ -1,6 +1,6 @@
 package com.rs.plugin.impl.regionalattributes;
 
-import com.rs.game.map.WorldTile;
+import com.rs.game.Entity;
 import com.rs.plugin.listener.RegionAttributeListener;
 import com.rs.plugin.wrapper.RegionAttributeSignature;
 
@@ -8,7 +8,7 @@ import com.rs.plugin.wrapper.RegionAttributeSignature;
 public class ClanWarsRegionAttributePlugin implements RegionAttributeListener {
 
 	@Override
-	public boolean withinMultiZonedBoundaries(WorldTile tile) {
+	public boolean withinMultiZonedBoundaries(Entity tile) {
 		int destX = tile.getX();
 		int destY = tile.getY();
 		return destX >= 2365 && destY >= 9470 && destX <= 2436 && destY <= 9532

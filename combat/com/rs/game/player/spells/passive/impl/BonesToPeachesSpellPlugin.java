@@ -2,6 +2,7 @@ package com.rs.game.player.spells.passive.impl;
 
 import java.util.Arrays;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.ItemNames;
@@ -39,6 +40,9 @@ public class BonesToPeachesSpellPlugin implements PassiveSpellListener {
 			int amount = player.getInventory().getAmountOf(bone);
 			player.getInventory().deleteItem(new Item(bone, amount));
 			player.getInventory().addItem(new Item(ItemNames.PEACH_6883, amount));
+			player.getDetails().getStatistics()
+			.addStatistic(ItemDefinitions.getItemDefinitions(bone).getName() + "_To_Peaches")
+			.addStatistic("To_Peaches_Spell");
 		});
 	}
 
