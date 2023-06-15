@@ -60,7 +60,6 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 			}
 		}
 		InventoryPluginDispatcher.execute(player, new Item(fromItemId), new Item(toItemId), toSlotId, fromSlotId);
-		System.out.println(fromButtonId);
 		if (Enchanting.cast(player, new Item(toItemId), fromButtonId, toItemId)) {
 			return;
 		}

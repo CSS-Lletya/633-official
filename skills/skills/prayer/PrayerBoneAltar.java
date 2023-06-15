@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
@@ -44,6 +45,7 @@ public final class PrayerBoneAltar extends DestructionSkillAction {
 	@Override
 	public void onDestruct(Task t, boolean success) {
 		if(success) {
+			player.getAudioManager().sendSound(Sounds.OFFER_BONES_ON_ALTAR);
 			World.sendGraphics(GFX, altar);
 			getPlayer().setNextAnimation(Animations.BONE_ON_ALTAR);
 			getPlayer().getPackets().sendGameMessage("You offer the " + bone + " to the gods... they seem pleased.");

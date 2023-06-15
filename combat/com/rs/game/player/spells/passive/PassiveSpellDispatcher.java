@@ -38,7 +38,6 @@ public final class PassiveSpellDispatcher {
 		spell.ifPresent(caster -> {
 			Optional<PassiveSpellListener> verifiedSpell = getVerifiedSpell(spellButton);
 			if (!verifiedSpell.get().canExecute(player)) {
-				player.getPackets().sendGameMessage("You don't meet the requirements to cast this spell.");
 				setCanCast(false);
 				return;
 			}

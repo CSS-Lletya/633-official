@@ -115,6 +115,7 @@ public final class Animations {
 	public static final Animation BOLT_CREATION = new Animation(6702);
 	public static final Animation CRAYFISH_FISHING = new Animation(10009);
 	public static final Animation VESSEL_FISHING = new Animation(1193);
+	public static final Animation ITEM_SPELL_CONVERTING = new Animation(722);
 	
 	
 	/**
