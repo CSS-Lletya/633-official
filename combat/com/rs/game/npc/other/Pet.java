@@ -18,7 +18,7 @@ import com.rs.utilities.Utility;
  * @author Emperor
  * 
  */
-public final class Pet extends NPC {
+public class Pet extends NPC {
 
 	/**
 	 * The owner.
@@ -71,6 +71,10 @@ public final class Pet extends NPC {
 
 	@Override
 	public void processNPC() {
+		if (owner.getPlane() != getPlane()) {
+			setNextWorldTile(owner);
+			call();
+		}
 		unlockOrb();
 		if (details.getHunger() >= 90.0 && details.getHunger() < 90.025) {
 			owner.getPackets().sendGameMessage("<col=ff0000>Your pet is starving, feed it before it runs off.</col>");

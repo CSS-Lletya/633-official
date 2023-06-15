@@ -18,7 +18,7 @@ import com.rs.utilities.RandomUtils;
 import skills.DestructionSkillAction;
 import skills.Skills;
 
-public final class Firemaking extends DestructionSkillAction {
+public class Firemaking extends DestructionSkillAction {
 	
 	/**
 	 * Determines if this firemaking action is being executed because of a familiar.
@@ -60,7 +60,7 @@ public final class Firemaking extends DestructionSkillAction {
 			firemaking.start();
 			return true;
 		}
-		if(!isGround && firemaking.log == null || firemaking.lighter == null) {
+		if(firemaking.log == null || firemaking.lighter == null) {
 			return false;
 		}
 		if(firstItem.getId() == firemaking.lighter.getItem() && secondItem.equals(firemaking.log.getLog()) || firstItem.equals(firemaking.log.getLog()) && secondItem.getId() == firemaking.lighter.getItem()) {
@@ -80,9 +80,6 @@ public final class Firemaking extends DestructionSkillAction {
 			if(!familiar) {
 				World.get().submit(new FiremakingTask(this, toTile));
 			}
-//			if(!isGroundLog || !familiar && lighter != null && lighter != FireLighter.TINDERBOX) {
-//				player.getInventory().deleteItem(new Item(lighter.getItem(), 1));
-//			}
 			if(!familiar) {
 		        if (!player.addWalkSteps(player.getX() - 1, player.getY(), 1))
 		            if (!player.addWalkSteps(player.getX() + 1, player.getY(), 1))

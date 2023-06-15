@@ -63,7 +63,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 		if (Enchanting.cast(player, new Item(toItemId), fromButtonId, toItemId)) {
 			return;
 		}
-		if (Firemaking.execute(player, new Item(toItemId), new Item(toItemId), false, false, player))
+		if (Firemaking.execute(player, new Item(toItemId), new Item(fromItemId), false, false, player))
 			return;
 		if (GameConstants.DEBUG)
 			LogUtility.log(LogType.INFO, "ItemOnItem " + fromInterfaceId + ", " + fromButtonId + ", " + fromSlotId + ", " + fromItemId + ", "

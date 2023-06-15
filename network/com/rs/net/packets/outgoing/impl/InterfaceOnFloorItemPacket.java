@@ -48,6 +48,7 @@ public class InterfaceOnFloorItemPacket implements OutgoingPacketListener {
         if (item == null)
             return;
         player.getMovement().stopAll(false);
+        if (interfaceId == 192) {
         if (player.getSkills().getLevel(Skills.MAGIC) < 33) {
             player.getPackets().sendGameMessage("You do not have the required level to cast this spell.");
             return;
@@ -88,6 +89,7 @@ public class InterfaceOnFloorItemPacket implements OutgoingPacketListener {
                 }, Ticks.fromSeconds(2));
             }
         }));
+        }
         
 		System.out.println("Unhandled Inter on floor item packet; component: " + interfaceId + ", " + buttonId + ", " + slotId + ", " + componentItemId +
 				", -> item: " + floorItemId + ", coords[" + xCoord + ", " + yCoord + "], forceRun " + forceRun);
