@@ -473,6 +473,8 @@ public class Player extends Entity {
 		getDetails().getCharges().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
+		if (getDetails().getChargeDelay().get() > 0)
+			getDetails().getChargeDelay().getAndDecrement();
 	}
 
 	/**

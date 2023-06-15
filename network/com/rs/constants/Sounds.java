@@ -95,6 +95,8 @@ public interface Sounds {
 	int SAPPHIRE_ENCHANT = 147;
 	int OFFER_BONES_ON_ALTAR = 958;
 	int BONES_TO = 114;//cant find peaches, maybe same.
+	int CHARGE_SPELL = 1651;
+	int CHARGE_SPELL_REMOVED = 1650;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;

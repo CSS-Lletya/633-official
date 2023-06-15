@@ -11,6 +11,8 @@ import com.rs.game.player.Player;
 import com.rs.game.player.spells.passive.PassiveSpellListener;
 import com.rs.game.player.spells.passive.PassiveSpellSignature;
 
+import skills.Skills;
+
 @PassiveSpellSignature(spellButton = 65, spellLevelRequirement = 60)
 public class BonesToPeachesSpellPlugin implements PassiveSpellListener {
 
@@ -31,6 +33,7 @@ public class BonesToPeachesSpellPlugin implements PassiveSpellListener {
 			player.getAudioManager().sendSound(Sounds.BONES_TO);
 			player.setNextAnimation(Animations.ITEM_SPELL_CONVERTING);
 			player.setNextGraphics(Graphic.BONES_TO_SPELL);
+			player.getSkills().addXp(Skills.MAGIC, 35.5);
 		}
 		Arrays.stream(BONES).filter(bone -> player.getInventory().containsAny(bone)).forEach(bone -> {
 			int amount = player.getInventory().getAmountOf(bone);

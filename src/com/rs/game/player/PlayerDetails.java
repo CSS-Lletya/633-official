@@ -182,7 +182,7 @@ public final class PlayerDetails {
 	/**
 	 * Mutable values stored for specified uses
 	 */
-	private final MutableNumber poisonImmunity = new MutableNumber(), skullTimer = new MutableNumber(), teleBlockDelay = new MutableNumber(), prayerDelay = new MutableNumber();
+	private final MutableNumber poisonImmunity = new MutableNumber(), skullTimer = new MutableNumber(), teleBlockDelay = new MutableNumber(), chargeDelay = new MutableNumber(), prayerDelay = new MutableNumber();
 
 	/**
 	 * Holds an optional wrapped inside the Antifire details.

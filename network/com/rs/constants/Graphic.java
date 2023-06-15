@@ -48,6 +48,7 @@ public final class Graphic {
 	public static final Graphics TASK_MASTER = new Graphics(2930);
 	public static final Graphics RUNECRAFTING = new Graphics(186);
 	public static final Graphics BONES_TO_SPELL = new Graphics(141,0, 96);
+	public static final Graphics CHARGE_SPELL = new Graphics(6,0, 96);
 	
 	/**
 	 * Object Based Graphics
