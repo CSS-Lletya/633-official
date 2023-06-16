@@ -8,7 +8,7 @@ import com.rs.utilities.Utility;
 
 import lombok.SneakyThrows;
 
-public final class FadingScreen {
+public class FadingScreen {
 	
 	public static void fade(final Player player, final Runnable event) {
 		player.getMovement().lock();
@@ -36,9 +36,8 @@ public final class FadingScreen {
 		World.get().submit(new Task(0) {
 			@Override
 			protected void execute() {
-				player.getInterfaceManager().sendInterface(false, 170);
 				CoresManager.schedule(() -> {
-					player.getInterfaceManager().closeFadingInterface();
+					player.getInterfaceManager().closeInterfaces();
 					player.getMovement().unlock();
 				}, 2);
 				this.cancel();
@@ -47,7 +46,7 @@ public final class FadingScreen {
 	}
 
 	public static long fade(Player player, long fadeTime) {
-		player.getInterfaceManager().sendInterface(false, 115);
+		player.getInterfaceManager().sendFullscreenInterface(0, 115);
 		return Utility.currentTimeMillis() + fadeTime;
 	}
 
