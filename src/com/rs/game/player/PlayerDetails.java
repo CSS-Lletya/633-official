@@ -202,6 +202,8 @@ public final class PlayerDetails {
 	
 	private int gravestone;
 	
+	private int essenceTeleporter;
+	
 	private Statistics statistics;
 	
     public void restoreRunEnergy(double energy) {
