@@ -132,4 +132,5 @@ public final class Animations {
 	 * NPC Based Animations
 	 */
 	public static final Animation NPC_PICKPOCKET_FAIL_RESPONSE = new Animation(422);
+	public static final Animation WIZARD_ESSENCE_MINE_TELEPORT = new Animation(1818);
 }

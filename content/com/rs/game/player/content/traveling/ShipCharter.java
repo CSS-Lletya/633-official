@@ -1,10 +1,11 @@
-package com.rs.game.player.content;
+package com.rs.game.player.content.traveling;
 
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.FadingScreen;
 import com.rs.game.task.Task;
 import com.rs.utilities.TextUtils;
 import com.rs.utilities.Utility;

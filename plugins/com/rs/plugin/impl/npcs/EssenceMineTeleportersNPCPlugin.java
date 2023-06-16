@@ -1,9 +1,10 @@
 package com.rs.plugin.impl.npcs;
 
+import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.listener.NPCListener;
@@ -31,8 +32,8 @@ public class EssenceMineTeleportersNPCPlugin implements NPCListener {
 			player.getDetails().setEssenceTeleporter(npc.getId());
 			npc.faceEntity(player);
 			npc.setNextForceTalk(new ForceTalk("Senventior Disthine Molenko!"));
-	        npc.setNextAnimation(new Animation(1818));
-	        npc.setNextGraphics(new Graphics(108));
+	        npc.setNextAnimation(Animations.WIZARD_ESSENCE_MINE_TELEPORT);
+	        npc.setNextGraphics(Graphic.SMALL_TELEPORTING_RINGS_VIA_HANDS);
 	        player.setNextGraphics(new Graphics(110));
 	        player.task(3, p -> p.setNextWorldTile(RandomUtils.random(new WorldTile[]{new WorldTile(2901, 4816), new WorldTile(2888, 4845), new WorldTile(2926, 4842), new WorldTile(2921, 4811)})));
 			break;

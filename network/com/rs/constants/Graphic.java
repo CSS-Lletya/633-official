@@ -54,4 +54,9 @@ public final class Graphic {
 	 * Object Based Graphics
 	 */
 	public static final Graphics BONE_ON_ALTER = new Graphics(186);
+	
+	/**
+	 * NPC Based Graphics
+	 */
+	public static final Graphics SMALL_TELEPORTING_RINGS_VIA_HANDS = new Graphics(108);
 }

@@ -14,6 +14,16 @@ public interface Attribute {
 	public String TRADE_TARGET = "TradeTarget";
 	
 	/**
+	 * Represents the Target Player to trade with
+	 */
+	public String TRADE_ITEM_X_SLOT = "TradeItemXSlot";
+	/**
+	 * Represents the Target Player to trade with
+	 */
+	public String TRADE_IS_REMOVE = "TtradeIsRemove";
+	
+	
+	/**
 	 * Represents the Familiar Special active state
 	 */
 	public String FAMILIAR_SPECIAL = "FamiliarSpec";
@@ -169,4 +179,8 @@ public interface Attribute {
 	 * Represents the Wheat deposited state
 	 */
 	public String WHEAT_DEPOSITED = "WheatDeposited";
+	
+	//unused for now
+	public String BOW_FLETCHING = "BowFletching";
+	public String BOW_FLETCHING_CARVING = "BowFletchingCarving";
 }

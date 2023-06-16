@@ -38,6 +38,8 @@ public final class AttributeKey<T> {
 //		AttributeKey.forTransient("", false);//doesn't save
 		
 		AttributeKey.forTransient(Attribute.TRADE_TARGET, false);
+		AttributeKey.forTransient(Attribute.TRADE_IS_REMOVE, false);
+		AttributeKey.forTransient(Attribute.TRADE_ITEM_X_SLOT, -1);
 		AttributeKey.forTransient(Attribute.FAMILIAR_SPECIAL, 100);
 		AttributeKey.forTransient(Attribute.INTEGER_INPUT_ACTION, -1);
 		AttributeKey.forTransient(Attribute.STRING_INPUT_ACTION, "");
@@ -66,9 +68,10 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.SET_XP, -1);
 		AttributeKey.forTransient(Attribute.SPECIAL_RECOVERY, -1);
 		AttributeKey.forTransient(Attribute.FAIRY_RING_LOCATION_ARRAY, new int[] {});
-		
 		AttributeKey.forPersistent(Attribute.WHEAT_GRINDED, false);
 		AttributeKey.forPersistent(Attribute.WHEAT_DEPOSITED, false);
+		AttributeKey.forPersistent(Attribute.BOW_FLETCHING, false);
+		AttributeKey.forPersistent(Attribute.BOW_FLETCHING_CARVING, false);
 	}
 	
 	/**

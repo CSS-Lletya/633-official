@@ -1,7 +1,7 @@
 package com.rs.plugin.impl.interfaces;
 
 import com.rs.game.player.Player;
-import com.rs.game.player.content.ShipCharter;
+import com.rs.game.player.content.traveling.ShipCharter;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 

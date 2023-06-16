@@ -54,9 +54,9 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 		
 		if (player.getDialogueInterpreter().getDialogue() == null && player.getDialogueInterpreter().getDialogueStage() == null) {
 			player.getInterfaceManager().closeChatBoxInterface();
-			if (DialogueEventListener.continueBlankDialogue(player, componentId))
-				return;
 			if(DialogueEventListener.continueDialogue(player, componentId))
+				return;
+			if (DialogueEventListener.continueBlankDialogue(player, componentId))
 				return;
 			if (EniolaBanker.sendInterfaceFunctionality(player, componentId))
 				return;

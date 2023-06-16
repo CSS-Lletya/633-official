@@ -2,7 +2,7 @@ package com.rs.plugin.impl.npcs;
 
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.ShipCharter;
+import com.rs.game.player.content.traveling.ShipCharter;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.loaders.ShopsHandler;
