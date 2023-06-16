@@ -208,7 +208,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				return;
 			}
 			if (npc instanceof Pet) {
-				player.setNextFaceEntity(npc);
+				player.faceEntity(npc);
 				player.getPetManager().eat(item.getId(), (Pet) npc);
 				return;
 			}

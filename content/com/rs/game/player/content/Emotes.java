@@ -372,13 +372,12 @@ public class Emotes {
 								player.getAppearance().transformIntoNPC(11229);
 								player.setNextAnimation(new Animation(14608));
 								dung1 = new NPC(-1, new WorldTile(player.getX(), player.getY() - 1, player.getPlane()), null, false);
-								player.setNextFaceEntity(dung1);
+								player.faceEntity(dung1);
 								dung1.setLocation(dung1);
 								dung1.setNextGraphics(new Graphics(2777));
 								dung2 = new NPC(-1, new WorldTile(player.getX() + 1, player.getY() - 1, player.getPlane()), null, false);
 							}
 							if (step == 2) {
-								player.setNextFaceEntity(null);
 								dung1.deregister();
 								player.getAppearance().transformIntoNPC(11228);
 								dung2.setLocation(dung2);
@@ -393,13 +392,12 @@ public class Emotes {
 								player.getAppearance().transformIntoNPC(11227);
 								dung3.setLocation(dung3);
 								dung4.setLocation(dung4);
-								dung4.setNextFaceEntity(player);
+								dung4.faceEntity(player);
 								player.setNextAnimation(new Animation(14610));
 								dung3.setNextGraphics(new Graphics(2779));
 								dung4.setNextGraphics(new Graphics(2780));
 							}
 							if (step > 4) {
-								dung4.setNextFaceEntity(null);
 								player.getAppearance().transformIntoNPC(-1);
 								dung3.deregister();
 								dung4.deregister();

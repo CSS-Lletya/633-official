@@ -171,7 +171,7 @@ public class NPCPluginDispatcher {
 					player.setNextAnimation(Animations.TOUCH_GROUND);
 					pet.pickup();
 				} else if (optionId == 2) {
-					player.setNextFaceEntity(npc);
+					player.faceEntity(npc);
 					player.dialogue(d -> d.player(Expression.laugh_happy, "Who's loves me? You? yay!"));
 				}
 			}

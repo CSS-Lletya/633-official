@@ -963,6 +963,16 @@ public abstract class Entity extends WorldTile {
 		}
 	}
 
+	/**
+	 * A simple way to create the effect of looking at an npc
+	 * without the abnormal after effects.
+	 * @param entity
+	 */
+	public void faceEntity(Entity entity) {
+		setNextFaceEntity(entity);
+		task(1, p -> setNextFaceEntity(null));
+	}
+	
 	public double getMagePrayerMultiplier() {
 		return isPlayer() ? 0.6 : 0;
 	}
