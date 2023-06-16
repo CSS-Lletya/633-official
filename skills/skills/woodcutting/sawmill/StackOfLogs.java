@@ -1,9 +1,10 @@
 package skills.woodcutting.sawmill;
 
+import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Action;
-import com.rs.net.encoders.other.Animation;
 
 public class StackOfLogs extends Action {
 
@@ -33,7 +34,8 @@ public class StackOfLogs extends Action {
 
     @Override
     public int processWithDelay(Player player) {
-        player.setNextAnimation(new Animation(8908));
+    	player.getAudioManager().sendSound(Sounds.PICK_FLAX);
+        player.setNextAnimation(Animations.DROP_SOMETHING_SLOWLY);
         player.getInventory().addItem(new Item(1511));
         return amount-- == 1 ? -1 : 1;
     }

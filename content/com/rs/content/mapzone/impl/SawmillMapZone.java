@@ -1,5 +1,6 @@
 package com.rs.content.mapzone.impl;
 
+import com.rs.constants.Sounds;
 import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.ZoneRestriction;
 import com.rs.game.Entity;
@@ -114,6 +115,7 @@ public class SawmillMapZone extends MapZone {
 			player.getMovement().lock(2);
 			player.getInventory().addItem(8794, 1);
 			player.getPackets().sendGameMessage("You search in the crate to find a saw.");
+			player.getAudioManager().sendSound(Sounds.PICK_FLAX);
 			return false;
 		}
 		if (object.getId() == 46296) { // job board

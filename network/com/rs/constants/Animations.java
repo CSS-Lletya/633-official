@@ -117,6 +117,10 @@ public final class Animations {
 	public static final Animation VESSEL_FISHING = new Animation(1193);
 	public static final Animation ITEM_SPELL_CONVERTING = new Animation(722);
 	public static final Animation CHARGE_SPELL = new Animation(811);
+	public static final Animation DROP_SOMETHING_SLOWLY = new Animation(8908);
+	public static final Animation PLACING_SOMETHING_OVERHEAD = new Animation(12398);
+	public static final Animation CRYSTAL_SAW_SAWING = new Animation(12382);
+	public static final Animation REGULAR_SAWING = new Animation(12379);
 	
 	
 	/**

@@ -1,10 +1,10 @@
 package skills.woodcutting.sawmill;
 
+import com.rs.constants.Animations;
 import com.rs.content.mapzone.impl.SawmillMapZone;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Action;
-import com.rs.net.encoders.other.Animation;
 
 public class ConveyorBeltHopper extends Action {
 
@@ -36,7 +36,7 @@ public class ConveyorBeltHopper extends Action {
 
     @Override
     public int processWithDelay(Player player) {
-        player.setNextAnimation(new Animation(12398));
+        player.setNextAnimation(Animations.PLACING_SOMETHING_OVERHEAD);
         player.getInventory().deleteItem(new Item(1511));
         sawmill.addPlank(player);
         return 2;

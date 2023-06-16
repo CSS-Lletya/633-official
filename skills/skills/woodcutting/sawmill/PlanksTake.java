@@ -1,10 +1,10 @@
 package skills.woodcutting.sawmill;
 
+import com.rs.constants.Animations;
 import com.rs.content.mapzone.impl.SawmillMapZone;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Action;
-import com.rs.net.encoders.other.Animation;
 
 public class PlanksTake extends Action {
 
@@ -36,7 +36,7 @@ public class PlanksTake extends Action {
 
     @Override
     public int processWithDelay(Player player) {
-        player.setNextAnimation(new Animation(8908));
+        player.setNextAnimation(Animations.DROP_SOMETHING_SLOWLY);
         player.getInventory().addItem(new Item(960));
         sawmill.removePlank(player);
         return amount-- == 1 ? -1 : 1;
