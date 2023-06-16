@@ -439,4 +439,28 @@ public final class TextUtils {
 		}
 		return new String(cs, 0, i);
 	}
+	
+	/**
+	 * Formats the string as display name.
+	 * @param name  The string to format.
+	 * @return The formatted name.
+	 */
+	public static String formatEnumNaming(String name) {
+		name = name.replaceAll("_", " ");
+		name = name.toLowerCase();
+		StringBuilder newName = new StringBuilder();
+		boolean wasSpace = true;
+		for (int i = 0; i < name.length(); i++) {
+			if (wasSpace) {
+				newName.append((new String() + name.charAt(i)).toUpperCase());
+				wasSpace = false;
+			} else {
+				newName.append(name.charAt(i));
+			}
+			if (name.charAt(i) == ' ') {
+				wasSpace = true;
+			}
+		}
+		return newName.toString();
+	}
 }

@@ -20864,51 +20864,6 @@
   {
     "tile": {
       "plane": 0,
-      "x": 2584,
-      "y": 2856
-    },
-    "comment": "Rutmir Arnhold",
-    "npcId": 15044
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2579,
-      "y": 2864
-    },
-    "comment": "Snarrk",
-    "npcId": 15238
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2602,
-      "y": 2862
-    },
-    "comment": "I\u0027rk",
-    "npcId": 15239
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2581,
-      "y": 2863
-    },
-    "comment": "Grubb",
-    "npcId": 15243
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2598,
-      "y": 2865
-    },
-    "comment": "Grunther",
-    "npcId": 15244
-  },
-  {
-    "tile": {
-      "plane": 0,
       "x": 2609,
       "y": 2922
     },

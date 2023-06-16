@@ -471,7 +471,7 @@ public class InterfaceManager {
 
 	public void closeInterfaces() {
 		removeScreenInterface();
-		IntStream.of(499, 741, 135).forEach(id -> removeInterface(id));
+		IntStream.of(499, 741, 135, 115).forEach(id -> removeInterface(id));
 		if (containsInventoryInter())
 			removeInventoryInterface();
 		if (containsChatBoxInter())

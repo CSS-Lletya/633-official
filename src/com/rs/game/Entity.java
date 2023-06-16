@@ -114,8 +114,6 @@ public abstract class Entity extends WorldTile {
 	 */
 	private PoisonType poisonType;
 	
-//	private Map<Effect, Long> effects = new HashMap<>();
-	
 	private int hitpoints;
 	private boolean run;
 

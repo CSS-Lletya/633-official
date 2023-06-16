@@ -360,5 +360,13 @@ public final class Inventory {
 			return item1;
 		return null;
 	}
+	
+	public boolean canPay(int cost) {
+		if (containsAny(995) && getNumberOf(995) > cost) {
+			deleteItem(995, cost);
+			return true;
+		}
+		return false;
+	}
 
 }
