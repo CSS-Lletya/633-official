@@ -116,6 +116,8 @@ public class Foods {
 		OOMILE(2343, 14),
 		
 		PEACH(6883, 8),
+		
+		CHOCOLATE_MILK(1977, 4, 1925),
 
 		/**
 		 * Pies

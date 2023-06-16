@@ -11,7 +11,6 @@ import skills.herblore.FinishedPotion;
 import skills.herblore.Grinding;
 import skills.herblore.Herb;
 import skills.herblore.Herb.GrimyHerb;
-import skills.herblore.TarCreation;
 import skills.herblore.UnfinishedPotion;
 
 @InventoryWrapper(itemId = {
@@ -23,8 +22,7 @@ import skills.herblore.UnfinishedPotion;
 		3042,9594,169,12539,139,4255,269,15309,15313,15317,15321,15325,
 		//grinding
 		237,1973,5075,10109,243,14703,9735,6466,4698,592, 401,403, 530, 973, 341,7516,7418,11156,9079,3263,1550,4620,
-		//tar creations
-		1939,233, 249,251,253,255,
+		//tar creations - moved to: PestleAndMorterItemPlugin
 		//herb cleaning
 		199,1533,1525,201,203,205,207,3049,209,211,213,3051,215,2485,217,219
 }, itemNames = {  })
@@ -47,9 +45,6 @@ public class HerbloreItemsCreationItemPlugin extends InventoryListener {
 			return;
 		}
 		if(FinishedPotion.produce(player, firstItem, secondItem)) {
-			return;
-		}
-		if(TarCreation.produce(player, firstItem, secondItem)) {
 			return;
 		}
 	}
