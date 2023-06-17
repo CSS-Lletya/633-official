@@ -448,7 +448,6 @@ public final class RSInterfacePluginDispatcher {
 		player.getPackets().sendUnlockIComponentOptionSlots(670, 0, 0, 27, 0, 1, 2, 3);
 		player.getPackets().sendIComponentSettings(667, 7, 0, 14, 1538);
 		player.getPackets().sendGlobalConfig(779, player.getEquipment().getWeaponRenderEmote());
-		player.getPackets().sendWeight();
 		refreshEquipBonuses(player);
 		if (banking) {
 			player.setCloseInterfacesEvent(() -> {
