@@ -7,6 +7,8 @@ import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
+import com.rs.game.npc.NPCClueDrops;
+import com.rs.game.npc.drops.DropTable;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.Player;
@@ -140,7 +142,14 @@ public final class Pickpocketing extends Thieving {
 			getPlayer().getDetails().getStatistics().addStatistic("Failed_Pickpockets");
 			player.getAudioManager().setDelay(Sounds.PLAYER_STUNNED);
 		} else {
-			getPlayer().getInventory().addItem(loot);
+			if (definition == PickpocketData.MALE_HAM_MEMBER || definition == PickpocketData.FEMALE_HAM_MEMBER || definition == PickpocketData.HAM_GUARD) {
+				Item[] clues = DropTable.calculateDrops(getPlayer(), NPCClueDrops.rollClues(1714));
+		        for (Item item : clues) {
+		        	if (RandomUtils.random(250) <= 5 && !player.hasItem(item)) {
+						player.getInventory().addItemDrop(item.getId(), 1);
+					}
+		        }
+			}
 			getPlayer().getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(loot.getId()).getName() + "_Pickpocketed").addStatistic("Successful_Pickpockets");
 			getPlayer().getPackets().sendGameMessage("You pick the victims pocket.");
 		}
@@ -173,9 +182,9 @@ public final class Pickpocketing extends Thieving {
 	            12345, 12346, 12347, 25, 352, 353, 354, 360, 361, 362, 363, 2776, 3226, 5924, 7880,
 	            7881, 7882, 7883, 7884, 8012, 8013}, new Item[]{new Item(995, 3)}, 1, 8, 3, 10),
 		FARMER(new int[]{7, 291, 1377, 1757, 1758, 1759, 1760, 1761, 3917, 4925, 7128, 7129, 7130, 7131}, new Item[]{new Item(995, 9), new Item(5318, 1)}, 10, 14.5, 3, 10),
-		FEMALE_HAM_MEMBER(new int[]{1715}, new Item[]{new Item(882, 20), new Item(1351, 1), new Item(1265, 1), new Item(1349, 1), new Item(1267, 1), new Item(886, 20), new Item(1353, 1), new Item(1207, 1), new Item(1129, 1), new Item(4170, 1), new Item(4302, 1), new Item(4298, 1), new Item(4300, 1), new Item(4304, 1), new Item(4306, 1), new Item(4308, 1), new Item(4310, 1), new Item(995, 21), new Item(319, 1), new Item(2138, 1), new Item(668, 1), new Item(453, 1), new Item(440, 1), new Item(1739, 1), new Item(314, 5), new Item(1734, 6), new Item(1733, 1), new Item(1511, 1), new Item(686, 1), new Item(697, 1), new Item(1625, 1), new Item(1627, 1), new Item(1617, 1), new Item(199, 1), new Item(201, 1), new Item(203, 1)}, 15, 18.5, 3, 30),
-		MALE_HAM_MEMBER(new int[]{1714, 1716}, new Item[]{new Item(882, 20), new Item(1351, 1), new Item(1265, 1), new Item(1349, 1), new Item(1267, 1), new Item(886, 20), new Item(1353, 1), new Item(1207, 1), new Item(1129, 1), new Item(4170, 1), new Item(4302, 1), new Item(4298, 1), new Item(4300, 1), new Item(4304, 1), new Item(4306, 1), new Item(4308, 1), new Item(4310, 1), new Item(995, 21), new Item(319, 1), new Item(2138, 1), new Item(668, 1), new Item(453, 1), new Item(440, 1), new Item(1739, 1), new Item(314, 5), new Item(1734, 6), new Item(1733, 1), new Item(1511, 1), new Item(686, 1), new Item(697, 1), new Item(1625, 1), new Item(1627, 1), new Item(199, 1), new Item(201, 1), new Item(203, 1)}, 20, 22.5, 3, 30),
-		HAM_GUARD(new int[]{1710, 1711, 1712}, new Item[]{new Item(882, 20), new Item(1351, 1), new Item(1265, 1), new Item(1349, 1), new Item(1267, 1), new Item(886, 20), new Item(1353, 1), new Item(1207, 1), new Item(1129, 1), new Item(4170, 1), new Item(4302, 1), new Item(4298, 1), new Item(4300, 1), new Item(4304, 1), new Item(4306, 1), new Item(4308, 1), new Item(4310, 1), new Item(995, 21), new Item(319, 1), new Item(2138, 1), new Item(668, 1), new Item(453, 1), new Item(440, 1), new Item(1739, 1), new Item(314, 5), new Item(1734, 6), new Item(1733, 1), new Item(1511, 1), new Item(686, 1), new Item(697, 1), new Item(1625, 1), new Item(1627, 1), new Item(199, 1), new Item(201, 1), new Item(203, 1), new Item(5321, 4), new Item(5323, 4), new Item(5319, 4), new Item(5324, 1)}, 20, 22.5, 3, 30),
+		FEMALE_HAM_MEMBER(new int[]{1715}, new Item[]{new Item(882, 20), new Item(1351, 1), new Item(1265, 1), new Item(1349, 1), new Item(1267, 1), new Item(886, 20), new Item(1353, 1), new Item(1207, 1), new Item(1129, 1), new Item(4302, 1), new Item(4298, 1), new Item(4300, 1), new Item(4304, 1), new Item(4306, 1), new Item(4308, 1), new Item(4310, 1), new Item(995, 21), new Item(319, 1), new Item(2138, 1), new Item(668, 1), new Item(453, 1), new Item(440, 1), new Item(1739, 1), new Item(314, 5), new Item(1734, 6), new Item(1733, 1), new Item(1511, 1), new Item(686, 1), new Item(697, 1), new Item(1625, 1), new Item(1627, 1), new Item(1617, 1), new Item(199, 1), new Item(201, 1), new Item(203, 1)}, 15, 18.5, 3, 30),
+		MALE_HAM_MEMBER(new int[]{1714, 1716}, new Item[]{new Item(882, 20), new Item(1351, 1), new Item(1265, 1), new Item(1349, 1), new Item(1267, 1), new Item(886, 20), new Item(1353, 1), new Item(1207, 1), new Item(1129, 1), new Item(4302, 1), new Item(4298, 1), new Item(4300, 1), new Item(4304, 1), new Item(4306, 1), new Item(4308, 1), new Item(4310, 1), new Item(995, 21), new Item(319, 1), new Item(2138, 1), new Item(668, 1), new Item(453, 1), new Item(440, 1), new Item(1739, 1), new Item(314, 5), new Item(1734, 6), new Item(1733, 1), new Item(1511, 1), new Item(686, 1), new Item(697, 1), new Item(1625, 1), new Item(1627, 1), new Item(199, 1), new Item(201, 1), new Item(203, 1)}, 20, 22.5, 3, 30),
+		HAM_GUARD(new int[]{1710, 1711, 1712}, new Item[]{new Item(882, 20), new Item(1351, 1), new Item(1265, 1), new Item(1349, 1), new Item(1267, 1), new Item(886, 20), new Item(1353, 1), new Item(1207, 1), new Item(1129, 1), new Item(4302, 1), new Item(4298, 1), new Item(4300, 1), new Item(4304, 1), new Item(4306, 1), new Item(4308, 1), new Item(4310, 1), new Item(995, 21), new Item(319, 1), new Item(2138, 1), new Item(668, 1), new Item(453, 1), new Item(440, 1), new Item(1739, 1), new Item(314, 5), new Item(1734, 6), new Item(1733, 1), new Item(1511, 1), new Item(686, 1), new Item(697, 1), new Item(1625, 1), new Item(1627, 1), new Item(199, 1), new Item(201, 1), new Item(203, 1), new Item(5321, 4), new Item(5323, 4), new Item(5319, 4), new Item(5324, 1)}, 20, 22.5, 3, 30),
 		WARRIOR_WOMAN(new int[]{15}, new Item[]{new Item(995, 18)}, 25, 26, 3, 20),
 		AL_KHARID_WARRIOR(new int[]{18}, new Item[]{new Item(995, 18)}, 25, 26, 3, 20),
 		ROGUE(new int[]{187, 2267, 2268, 2269, 8122}, new Item[]{new Item(995, 120), new Item(556, 8), new Item(1523, 1), new Item(1219, 1), new Item(1993, 1), new Item(2357, 1), new Item(1227, 1)}, 32, 35.5, 3, 20),

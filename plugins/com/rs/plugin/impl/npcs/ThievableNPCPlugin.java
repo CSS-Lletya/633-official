@@ -27,7 +27,7 @@ public class ThievableNPCPlugin implements NPCListener {
 	            7881, 7882, 7883, 7884, 8012, 8013).anyMatch(id -> npc.getId() == id)) {
 			player.getDialogueInterpreter().open(3);
 		} else
-			npc.doAction(option, "Pickpocket", () -> {
+			npc.doAction(option, "pickpocket", () -> {
 				Arrays.stream(PickpocketData.values())
 						.forEach(data -> IntStream.of(data.npcId).filter(mob -> mob == npc.getId())
 								.forEach(mob -> new Pickpocketing(player, data, npc).start()));
