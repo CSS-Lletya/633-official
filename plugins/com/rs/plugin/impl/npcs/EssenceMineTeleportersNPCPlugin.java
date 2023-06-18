@@ -13,7 +13,7 @@ import com.rs.utilities.RandomUtils;
 import com.rs.utilities.loaders.ShopsHandler;
 
 @NPCSignature(name = { "Brimstail", "Aubury", "Archmage Sedridor", "Wizard Distentor", "Wizard Cromperty",
-		"Carwen Essencebinder" }, npcId = {})
+		"Carwen Essencebinder"}, npcId = {300})
 public class EssenceMineTeleportersNPCPlugin implements NPCListener {
 
 	@Override
@@ -23,6 +23,10 @@ public class EssenceMineTeleportersNPCPlugin implements NPCListener {
 			//dialogue
 			break;
 		case 2:
+			if (npc.getId() == 300) {
+				execute(player, npc, 3);
+				return;
+			}
 			String key = ShopsHandler.getShopForNpc(npc.getId());
 			if (key == null)
 				return;

@@ -63,14 +63,16 @@ public final class Mining extends HarvestingSkillAction {
 
 	@Override
 	public void onHarvest(Task t, Item[] items, boolean success) {
-		if (rock == RockData.LRC_COAL || rock == RockData.LRC_GOLD || rock == RockData.LRC_MINERALS ||rock == RockData.ESSENCE || rock == RockData.PURE_ESSENCE)
+		if (rock == RockData.LRC_COAL || rock == RockData.LRC_GOLD || rock == RockData.LRC_MINERALS || rock == RockData.ESSENCE || rock == RockData.PURE_ESSENCE)
 			return;
 		if (success) {
 			randomEvent();
 			object.setLife(object.getLife() - 1);
+			canFindGem(player);
 		}
 		if (object.getLife() <= 0 && !object.isDisabled()) {
 			for (int ob : rock.getObject()) {
+				player.getMovement().stopAll(true, false, true);
 				if (ob == object.getId())
 					GameObject.spawnTempGroundObject(new GameObject(rock == RockData.GEM_ROCK ? 11193: 450 , 10, 0, object), rock.getRespawnTime());
 			}
@@ -185,23 +187,30 @@ public final class Mining extends HarvestingSkillAction {
 			getPlayer().getPackets().sendGameMessage("You do not have any space left in your inventory.");
 			return false;
 		}
-		
-		int chance = 282;
-		if (player.getEquipment().getItem(Equipment.SLOT_RING).getId() == 2572) {
-			chance /= 1.5; 
-		}
-		Item necklace = player.getEquipment().getItem(Equipment.SLOT_AMULET);
-		if (necklace != null && (necklace.getId() > 1705 && necklace.getId() < 1713)) {
-			chance /= 1.5;
-		}
-		if (RandomUtils.random(chance) == 0) {
-			Item gem = RandomUtils.random(GEMS);
-			player.getAudioManager().sendSound(Sounds.FINDING_GEM);
-			player.getPackets().sendGameMessage("You find a " + gem.getName() + "!");
-			if (!player.getInventory().addItem(gem)) {
-				player.getPackets().sendGameMessage("You do not have enough space in your inventory, so you drop the gem on the floor.");
-			}
-		}
 		return true;
 	}
+	
+	public boolean canFindGem(Player player) {
+		if (rock != RockData.ESSENCE || rock != RockData.PURE_ESSENCE) {
+			int chance = 282;
+			if (player.getEquipment().getRingId() == 2572) {
+				chance /= 1.5;
+			}
+			Item necklace = player.getEquipment().getItem(Equipment.SLOT_AMULET);
+			if (necklace != null && (necklace.getId() > 1705 && necklace.getId() < 1713)) {
+				chance /= 1.5;
+			}
+			if (RandomUtils.random(chance) == 0) {
+				Item gem = RandomUtils.random(GEMS);
+				player.getAudioManager().sendSound(Sounds.FINDING_GEM);
+				player.getPackets().sendGameMessage("You find a " + gem.getName() + "!");
+				if (!player.getInventory().addItem(gem)) {
+					player.getPackets().sendGameMessage(
+							"You do not have enough space in your inventory, so you drop the gem on the floor.");
+				}
+			}
+		}
+		return rock == RockData.ESSENCE || rock == RockData.PURE_ESSENCE;
+	}
+	
 }

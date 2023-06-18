@@ -8,8 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum RockData {
 	
-	PURE_ESSENCE(new int[] {2491}, new Item[] { new Item(7936)}, 1, 5.0, 2, 1, 500, 1),
-	ESSENCE(new int[] {2491}, new Item[] { new Item(1436, 1)}, 1, 5.0, 2, 1, 500, 1),
+	PURE_ESSENCE(new int[] {2491}, new Item[] { new Item(7936)}, 1, 5.0, 2, 1, 1, 1),
+	ESSENCE(new int[] {2491}, new Item[] { new Item(1436, 1)}, 1, 5.0, 2, 1, 1, 1),
 	GEM_ROCK(new int[] {11194,11195, 11364}, Mining.GEMS, 40, 65.0, 150, 6, 4, 0.06),
 	CLAY(new int[] {11189, 11190, 11191, 15503, 15504, 15505, 31062, 31063, 31064, 32429, 32430, 32431}, new Item[] { new Item(434)}, 1, 5.0, 2, 1, 5, 0.3),
 	TIN(new int[] {5776, 5777, 5778, 11933, 11934, 11935, 11957, 11958, 11959, 31077, 31078, 31079, }, new Item[] { new Item(438)}, 1, 17.5, 5, 1, 1, 0.5),
