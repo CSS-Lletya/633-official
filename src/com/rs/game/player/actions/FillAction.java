@@ -23,6 +23,7 @@ import java.util.Map;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
@@ -105,6 +106,7 @@ public class FillAction extends Action {
 	@Override
 	public int processWithDelay(Player player) {
 		amount--;
+		player.getAudioManager().sendSound(Sounds.FILL_FROM_WATER_SOURCE);
 		player.setNextAnimation(FILLING);
 		player.getInventory().deleteItem(fil.getEmptyItem().getId(), 1);
 		player.getInventory().addItem(fil.getFilledItem().getId(), 1);

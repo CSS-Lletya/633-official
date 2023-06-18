@@ -48,8 +48,11 @@ public final class WorldPacketsDecoder extends Decoder {
 	public final static int RECEIVE_PACKET_COUNT_PACKET = 71;
 	private final static int OBJECT_CLICK1_PACKET = 75;
 	private final static int OBJECT_CLICK2_PACKET = 26;
-	private final static int OBJECT_CLICK3_PACKET = 6;
+	private final static int OBJECT_CLICK3_PACKET = 37;
 	private final static int OBJECT_CLICK4_PACKET = 13; 
+	private final static int CAMERA_MOVEMENT_PACKET = 5;
+	//World List Decoder 
+	private final static int WORLD_LIST_UPDATE = 60;
 	
 	//TODO: Convert; check -1 packets in new handler as well.
 	private final static int PLAYER_OPTION_6_PACKET = -1;
@@ -86,7 +89,7 @@ public final class WorldPacketsDecoder extends Decoder {
 		PACKET_SIZES[16] = 1;
 		PACKET_SIZES[19] = 8;
 		PACKET_SIZES[61] = 6;
-		PACKET_SIZES[7] = -1;
+		PACKET_SIZES[7] = 2;
 		PACKET_SIZES[32] = 8;
 		PACKET_SIZES[56] = 4;
 		PACKET_SIZES[41] = 2;
@@ -115,7 +118,7 @@ public final class WorldPacketsDecoder extends Decoder {
 		PACKET_SIZES[79] = -1;
 		PACKET_SIZES[80] = 3;
 		PACKET_SIZES[60] = 4;
-		PACKET_SIZES[2] = 11;
+		PACKET_SIZES[2] = 9;
 		PACKET_SIZES[51] = 3;
 		PACKET_SIZES[30] = 7;
 		PACKET_SIZES[55] = 6;
@@ -140,11 +143,10 @@ public final class WorldPacketsDecoder extends Decoder {
 		PACKET_SIZES[4] = 0;
 		PACKET_SIZES[66] = 15;
 		PACKET_SIZES[73] = -1;
-		PACKET_SIZES[6] = 7;
 		PACKET_SIZES[15] = 2;
 		PACKET_SIZES[47] = 3;
 		PACKET_SIZES[0] = 7;
-
+		PACKET_SIZES[60] = 4;
 	}
 	public WorldPacketsDecoder(Session session, Player player) {
 		super(session);
@@ -189,12 +191,16 @@ public final class WorldPacketsDecoder extends Decoder {
 			OutgoingPacketDispatcher.execute(player, stream, packetId);
 			
 			stream.setOffset(startOffset + length);
+//			if (GameConstants.DEBUG && packetId != 39 && packetId != 3)
+//				System.out.println( "Missing packet " + packetId
+//						+ ", expected size: " + length + ", actual size: "
+//						+ PACKET_SIZES[packetId]);
 		}
 	}
 	
 	private final int[] LOGICAL_PACKETS = {
 			WALKING_PACKET,MINI_WALKING_PACKET,ITEM_TAKE_PACKET,PLAYER_OPTION_1_PACKET,PLAYER_OPTION_2_PACKET,PLAYER_OPTION_3_PACKET,PLAYER_OPTION_4_PACKET,PLAYER_OPTION_6_PACKET, PLAYER_OPTION_9_PACKET,
-			ATTACK_NPC,INTERFACE_ON_PLAYER,INTERFACE_ON_NPC,NPC_CLICK1_PACKET,NPC_CLICK2_PACKET,NPC_CLICK3_PACKET,NPC_CLICK4_PACKET, 
+			ATTACK_NPC,INTERFACE_ON_PLAYER,INTERFACE_ON_NPC,NPC_CLICK1_PACKET,NPC_CLICK2_PACKET,NPC_CLICK3_PACKET,NPC_CLICK4_PACKET, 16, CAMERA_MOVEMENT_PACKET, 
 			OBJECT_CLICK1_PACKET,OBJECT_CLICK2_PACKET,OBJECT_CLICK3_PACKET,OBJECT_CLICK4_PACKET,INTERFACE_ON_OBJECT,SWITCH_INTERFACE_COMPONENTS_PACKET,ITEM_SECOND_OPTION_PACKET
 	};
 }

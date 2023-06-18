@@ -44,7 +44,7 @@ public interface Sounds {
 	int TELEPORING_WARPING = 200;
 	int TELEPORT_OTHER = 199;
 	int TELEPORT_TAB_BREAKING = 979;
-	int TELE_GRAB_SPELL = 3008;
+	int TELE_GRAB_SPELL = 192;//3008 is ending, 192 is full spell (seemingly)
 	int WARRIORS_GUILD_ANIMATOR_HUMMING = 1909;//not working?
 	int SKILL_RESTORING = 2674;
 	int PLAYER_HEAVY_STUNNED_STATE = 3201;
@@ -97,6 +97,15 @@ public interface Sounds {
 	int BONES_TO = 114;//cant find peaches, maybe same.
 	int CHARGE_SPELL = 1651;
 	int CHARGE_SPELL_REMOVED = 1650;
+	int COINS_DROPPING_TO_GROUND = 1015;
+	int ROCKCAKE_DROP_TO_GROUND = 1014;
+	int FILL_FROM_WATER_SOURCE = 1004;
+	int EAT_ROCKCAKE = 1018;
+	int CHARGE_EARTH_ORB = 115;
+	int CHARGE_AIR_ORB = 116;
+	int CHARGE_FIRE_ORB = 117;
+	int CHARGE_WATER_ORB = 118;
+	
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -117,5 +126,7 @@ public interface Sounds {
 	 * NPC Based Animations
 	 */
 	//npc combat-based sounds will be added after combat rework
-	int SHEEP_FAILED_SHEERING = 756;
+	int SHEEP_FAILED_SHEERING = 755;
+	
+	
 }

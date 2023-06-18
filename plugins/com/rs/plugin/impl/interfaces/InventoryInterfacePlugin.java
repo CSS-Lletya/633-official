@@ -151,10 +151,18 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 					FloorItem.updateGroundItem(item, new WorldTile(player), player, 1, 0);
 				else
 					FloorItem.updateGroundItem(item, new WorldTile(player), player, 1, 0);
-				player.getAudioManager().sendSound(Sounds.ITEM_DROPPING_TO_GROUND);
+				player.getAudioManager().sendSound(getDropSound(item.getId()));
 				break;
 			}
 		}
+	}
+	
+	private final int getDropSound(int item) {
+		if (item == 995)
+			return Sounds.COINS_DROPPING_TO_GROUND;
+		if (item == 7509)
+			return Sounds.ROCKCAKE_DROP_TO_GROUND;
+		return Sounds.ITEM_DROPPING_TO_GROUND;
 	}
 
 	public static void handleItemOnItem(final Player player, InputStream stream) {

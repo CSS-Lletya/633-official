@@ -1,5 +1,8 @@
 package com.rs.net.packets.outgoing.impl;
 
+import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
+import com.rs.constants.Sounds;
 import com.rs.cores.CoresManager;
 import com.rs.game.item.FloorItem;
 import com.rs.game.map.World;
@@ -23,7 +26,8 @@ import skills.Skills;
 @OutgoingPacketSignature(packetId = 66, description = "Represents an interface being used on a floor item")
 public class InterfaceOnFloorItemPacket implements OutgoingPacketListener {
 
-	@Override public void execute(Player player, InputStream stream) {
+	@Override
+	public void execute(Player player, InputStream stream) {
 		final int interfaceBitMap = stream.readIntV1();
 		final int interfaceId = interfaceBitMap >> 16;
 		final int buttonId = interfaceBitMap & 0XFF;
@@ -49,49 +53,41 @@ public class InterfaceOnFloorItemPacket implements OutgoingPacketListener {
             return;
         player.getMovement().stopAll(false);
         if (interfaceId == 192) {
-        if (player.getSkills().getLevel(Skills.MAGIC) < 33) {
-            player.getPackets().sendGameMessage("You do not have the required level to cast this spell.");
-            return;
-        }
-        player.getAction().setAction(new PreciseDistanceInteraction(item.getTile(), (byte) 7, PreciseDistanceInteraction.Type.SMART, p -> {
-            if (player.getEquipment().getWeaponId() == 1381 || player.getEquipment().getWeaponId() == 1397
-                    || player.getEquipment().getWeaponId() == 1405) {
-                if (!player.getInventory().containsItem(563, 1)) {
-                    player.getPackets().sendGameMessage("You do not have the required runes to cast this spell.");
-                    return;
-                }
-                player.setNextAnimation(new Animation(711));
-                player.getSkills().addXp(Skills.MAGIC, 10);
-                World.sendProjectile(player, new WorldTile(xCoord, yCoord, player.getPlane()), 142, 18, 5, 20, 50,
-                        0, 0);
-                CoresManager.schedule(() -> {
-                    World.sendGraphics(new Graphics(144), tile);
-                    player.getInventory().deleteItem(563, 1);
-                    FloorItem.removeGroundItem(player, item);
-                }, Ticks.fromSeconds(2));
-            } else {
-                if (!player.getInventory().containsItem(563, 1) || !player.getInventory().containsItem(556, 1)) {
-                    player.getPackets().sendGameMessage("You do not have the required runes to cast this spell.");
-                    return;
-                }
-                player.setNextAnimation(new Animation(711));
-                player.getSkills().addXp(Skills.MAGIC, 10);
-                World.sendProjectile(player, new WorldTile(xCoord, yCoord, player.getPlane()), 142, 18, 5, 20, 50,
-                        0, 0);
-                CoresManager.schedule(() -> {
-                    World.sendGraphics(new Graphics(144), tile);
-                    player.getInventory().deleteItem(563, 1);
-                    player.getInventory().deleteItem(556, 1);
-                    FloorItem.removeGroundItem(player, item);
-                    if (!player.getInventory().hasFreeSlots()) {
-                        player.getPackets().sendGameMessage("You don't have enough inventory space.");
-                    }
-                }, Ticks.fromSeconds(2));
-            }
-        }));
+	        if (player.getSkills().getLevel(Skills.MAGIC) < 33) {
+	            player.getPackets().sendGameMessage("You do not have the required level to cast this spell.");
+	            return;
+	        }
+	        player.getAction().setAction(new PreciseDistanceInteraction(item.getTile(), (byte) 7, PreciseDistanceInteraction.Type.SMART, p -> {
+					if (!player.getInventory().hasFreeSlots()) {
+						player.getPackets().sendGameMessage("You don't have enough inventory space.");
+						return;
+					}
+	                if (!player.getInventory().containsItem(563, 1) || (!wearingStaff(player, item.getId()) && !player.getInventory().containsItem(556, 1))) {
+	                    player.getPackets().sendGameMessage("You do not have the required runes to cast this spell.");
+	                    return;
+	                }
+	                player.getAudioManager().sendSound(Sounds.TELE_GRAB_SPELL);
+	                player.setNextAnimation(Animations.TELEGRAB_SPELL);
+	                player.getSkills().addXp(Skills.MAGIC, 10);
+	                World.sendProjectile(player, new WorldTile(xCoord, yCoord, player.getPlane()), 142, 18, 5, 20, 50, 0, 0);
+	                CoresManager.schedule(() -> {
+	                    World.sendGraphics(Graphic.TELEGRAB_SPELL, tile);
+	                    if (!wearingStaff(player, item.getId())) {
+	                    	player.getInventory().deleteItem(563, 1);
+	                    }
+	                    player.getInventory().deleteItem(556, 1);
+	                    FloorItem.removeGroundItem(player, item);
+	                }, Ticks.fromSeconds(2));
+	            
+	        }));
         }
         
 		System.out.println("Unhandled Inter on floor item packet; component: " + interfaceId + ", " + buttonId + ", " + slotId + ", " + componentItemId +
 				", -> item: " + floorItemId + ", coords[" + xCoord + ", " + yCoord + "], forceRun " + forceRun);
+	}
+	
+	private boolean wearingStaff(Player player, int itemId) {
+		return player.getEquipment().getWeaponId() == 1381 || player.getEquipment().getWeaponId() == 1397
+                || player.getEquipment().getWeaponId() == 1405;
 	}
 }

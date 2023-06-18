@@ -59,4 +59,9 @@ public final class Graphic {
 	 * NPC Based Graphics
 	 */
 	public static final Graphics SMALL_TELEPORTING_RINGS_VIA_HANDS = new Graphics(108);
+	
+	/**
+	 * Other/Tile
+	 */
+	public static final Graphics TELEGRAB_SPELL = new Graphics(144);
 }

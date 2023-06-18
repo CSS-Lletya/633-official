@@ -6,7 +6,7 @@ import com.rs.game.player.actions.Rest;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 
-@NPCSignature(name = { "Musician" }, npcId = {})
+@NPCSignature(name = { "Musician" }, npcId = {8722})
 public class MusicianNPCPlugin implements NPCListener {
 
 	@Override
@@ -14,6 +14,6 @@ public class MusicianNPCPlugin implements NPCListener {
 		if (option == 1)
 			player.getDialogueInterpreter().open(29);
 		else
-			npc.doAction(option, "Listen-to", () -> player.getAction().setAction(new Rest(4)));
+			player.getAction().setAction(new Rest(4));
 	}
 }

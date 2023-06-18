@@ -121,6 +121,8 @@ public final class Animations {
 	public static final Animation PLACING_SOMETHING_OVERHEAD = new Animation(12398);
 	public static final Animation CRYSTAL_SAW_SAWING = new Animation(12382);
 	public static final Animation REGULAR_SAWING = new Animation(12379);
+	public static final Animation CHARGE_ORB = new Animation(726);
+	public static final Animation TELEGRAB_SPELL = new Animation(711);
 	
 	
 	/**
