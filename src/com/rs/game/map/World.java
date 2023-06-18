@@ -41,6 +41,8 @@ public final class World {
 	@Getter
 	@Setter
 	public long exiting_start;
+	
+	private static final EntityList<Player> lobbyPlayers = new EntityList<Player>(GameConstants.PLAYERS_LIMIT, true);
 
 	private static final Predicate<Player> VALID_PLAYER = (player) -> player != null && player.isStarted() && !player.isFinished();
 	private static final Predicate<NPC> VALID_NPC = (npc) -> npc != null && !npc.isFinished();
@@ -90,15 +92,71 @@ public final class World {
 		return region;
 	}
 
+	public static final Player getLobbyPlayerByDisplayName(String username) {
+		String formatedUsername = Utility.formatPlayerNameForDisplay(username);
+		for (Player player : getLobbyPlayers()) {
+			if (player == null) {
+				continue;
+			}
+			if (player.getUsername().equalsIgnoreCase(formatedUsername)
+					|| player.getDisplayName().equalsIgnoreCase(formatedUsername)) {
+				return player;
+			}
+		}
+		return null;
+	}
+	
+	public static final EntityList<Player> getLobbyPlayers() {
+		return lobbyPlayers;
+	}
+	
+	public static final boolean containsLobbyPlayer(String username) {
+		for (Player p2 : lobbyPlayers) {
+			if (p2 == null) {
+				continue;
+			}
+			if (p2.getUsername().equalsIgnoreCase(username)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static final void addPlayer(Player player) {
 		players.add(player);
+		if (World.containsLobbyPlayer(player.getUsername())) {
+			World.removeLobbyPlayer(player);
+			AntiFlood.remove(player.getSession().getIP());
+		}
+		AntiFlood.add(player.getSession().getIP());
+	}
+	
+	public static final void addLobbyPlayer(Player player) {
+		lobbyPlayers.add(player);
 		AntiFlood.add(player.getSession().getIP());
 	}
 
 	public static void removePlayer(Player player) {
-		players.remove(player);
+		for (Player p : players) {
+			if (p.getUsername().equalsIgnoreCase(player.getUsername())) {
+				players.remove(p);
+			}
+		}
 		AntiFlood.remove(player.getSession().getIP());
 	}
+	
+	public static void removeLobbyPlayer(Player player) {
+		for (Player p : lobbyPlayers) {
+			if (p.getUsername().equalsIgnoreCase(player.getUsername())) {
+				if (player.getCurrentFriendChat() != null) {
+					player.getCurrentFriendChat().leaveChat(player, true);
+				}
+				lobbyPlayers.remove(p);
+			}
+		}
+		AntiFlood.remove(player.getSession().getIP());
+	}
+
 
 	public static final void addNPC(NPC npc) {
 		npcs.add(npc);

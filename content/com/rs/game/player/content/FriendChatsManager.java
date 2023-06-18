@@ -330,6 +330,8 @@ public class FriendChatsManager {
 			FriendChatsManager chat = cachedFriendChats.get(formatedName);
 			Player owner = World.getPlayerByDisplayName(ownerName);
 			if (chat == null) {
+				if (owner == null)
+					owner = World.getLobbyPlayerByDisplayName(ownerName);
 				if (owner == null) {
 					if (!AccountCreation.exists(formatedName)) {
 						player.getPackets().sendGameMessage("The channel you tried to join does not exist.");

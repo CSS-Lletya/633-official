@@ -9,6 +9,7 @@ public class LogoutInterfacePlugin extends RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
-		player.getSession().logout(player);
+		 if (componentId == 5 || componentId == 10)
+             player.getSession().logout(player, componentId == 5);
 	}
 }

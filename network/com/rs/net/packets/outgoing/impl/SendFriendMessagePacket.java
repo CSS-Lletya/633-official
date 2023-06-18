@@ -14,7 +14,7 @@ public class SendFriendMessagePacket implements OutgoingPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream stream) {
-		if (!player.isStarted())
+		if (!player.isStarted() && !World.containsLobbyPlayer(player.getUsername()))
 			return;
 		if (player.getDetails().getMuted() > Utility.currentTimeMillis()) {
 			player.getPackets().sendGameMessage(
@@ -23,8 +23,12 @@ public class SendFriendMessagePacket implements OutgoingPacketListener {
 		}
 		String username = stream.readString();
 		Player p2 = World.getPlayerByDisplayName(username);
-		if (p2 == null)
-			return;
+		if (p2 == null) {
+			p2 = World.getLobbyPlayerByDisplayName(username);
+			if (p2 == null) {
+				return;
+			}
+		}
 
 		player.getFriendsIgnores().sendMessage(p2,
 				new ChatMessage(Huffman.readEncryptedMessage(150, stream)));

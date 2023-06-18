@@ -12,6 +12,7 @@ import com.rs.constants.InterfaceVars;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
+import com.rs.game.map.World;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
@@ -107,8 +108,10 @@ public final class RSInterfacePluginDispatcher {
 		if (Utility.getInterfaceDefinitionsSize() <= interfaceId) {
 			return;
 		}
-		if (player.isDead() || !player.getInterfaceManager().containsInterface(interfaceId)) {
-			return;
+		if (!World.containsLobbyPlayer(player.getUsername())) {
+			if (player.isDead() || !player.getInterfaceManager().containsInterface(interfaceId)) {
+				return;
+			}
 		}
 		final int componentId = interfaceHash - (interfaceId << 16);
 		if (componentId != 65535 && Utility.getInterfaceDefinitionsComponentsSize(interfaceId) <= componentId) {

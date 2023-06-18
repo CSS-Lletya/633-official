@@ -165,7 +165,7 @@ public class Session {
 	 * 
 	 * @param lobby If we're logging out to the lobby.
 	 */
-	public void logout(Player player) {
+	public void logout(Player player, boolean lobby) {
 		if (!player.isRunning())
 			return;
 		long currentTime = Utility.currentTimeMillis();
@@ -181,12 +181,12 @@ public class Session {
 			player.getPackets().sendGameMessage("You can't log out while performing an action.");
 			return;
 		}
-		player.getPackets().sendLogout();
+		player.getPackets().sendLogout(lobby);
 		player.setRunning(false);
-	}
+	} 
 
 	public void forceLogout(Player player) {
-		player.getPackets().sendLogout();
+		player.getPackets().sendLogout(false);
 		player.setRunning(false);
 		realFinish(player, false);
 	}
@@ -201,10 +201,20 @@ public class Session {
 
 	@SneakyThrows(Throwable.class)
 	public void finish(Player player, final int tryCount) {
-		if (player.isFinishing() || player.isFinished())
+		if (player.isFinishing() || player.isFinished()) { 
+			if (World.containsPlayer(player.getDisplayName()).isPresent()) {// i couldnt figure this out last time.
+				World.removePlayer(player);
+			}
+			if (World.containsLobbyPlayer(player.getDisplayName())) {
+				World.removeLobbyPlayer(player);
+			}
 			return;
+		}
 		player.setFinishing(true);
+		// if combating doesnt stop when xlog this way ends combat
+		if (!World.containsLobbyPlayer(player.getDisplayName())) {
 		player.getMovement().stopAll(false, true, !(player.getAction().getAction().isPresent() && player.getAction().getAction().get() instanceof PlayerCombat));
+		}
 		if (player.isDead() || (player.getCombatDefinitions().isUnderCombat() && tryCount < 6)
 				|| player.getMovement().isLocked() || Emote.isDoingEmote(player)) {
 			CoresManager.schedule(() -> {
@@ -217,8 +227,15 @@ public class Session {
 	}
 
 	public void realFinish(Player player, boolean shutdown) {
-		if (player.isFinished())
+		if (player.isFinished()) {
 			return;
+		}
+		if (!World.containsLobbyPlayer(player.getDisplayName())) {//Keep this here because when we login to the lobby
+			//the player does NOT login to the controller or the cutscene
+			player.getMovement().stopAll();
+			if (player.getCurrentFriendChat() != null)
+				player.getCurrentFriendChat().leaveChat(player, true);
+		}
 		LogUtility.log(LogType.INFO, player.getDisplayName() + " has logged out.");
 		player.getMovement().stopAll();
 		player.getMapZoneManager().executeVoid(player, controller -> controller.logout(player));
@@ -235,8 +252,14 @@ public class Session {
 		player.getSkillAction().ifPresent(skill -> skill.cancel());
 		player.getSession().setDecoder(-1);
 		AccountCreation.savePlayer(player);
+		if (World.containsLobbyPlayer(player.getDisplayName())) {
+			World.removeLobbyPlayer(player);
+		}
 		player.updateEntityRegion(player);
-		World.removePlayer(player);
+		if (World.containsPlayer(player.getDisplayName()).isPresent()) {
+			World.removePlayer(player);
+		}
+		
 	}
 
 	public final ChannelFuture writeWithFuture(OutputStream outStream) {

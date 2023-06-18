@@ -366,6 +366,15 @@ public class Player extends Entity {
 		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
 		audioManager = new AudioManager(this);
 	}
+	
+	public void init(Session session, String string, IsaacKeyPair isaacKeyPair) {
+		username = string;
+		this.session = session;
+		this.isaacKeyPair = isaacKeyPair;
+		World.addLobbyPlayer(this);
+		if (GameConstants.DEBUG)
+			LogUtility.log(LogType.INFO, "Initiated Lobby player: " + username + ", pass: " + getDetails().getPassword());
+	}
 
 	/**
 	 * Logs In & creates a session with the game server
@@ -441,6 +450,21 @@ public class Player extends Entity {
 			LogUtility.log(LogType.INFO, "Initiated player: " + username + ", pass: "
 					+ getDetails().getPassword());
 		getSession().updateIPnPass(this);
+	}
+	
+	/**
+	 * Starts Lobby rendering, etc..
+	 */
+	public void startLobby(Player player) {
+		friendsIgnores.setPlayer(this);
+		friendsIgnores.init();
+		if (getDetails().getCurrentFriendChatOwner() != null) {
+			FriendChatsManager.joinChat(getUsername(), this);
+			if (currentFriendChat == null)
+				getDetails().currentFriendChatOwner = null;
+		}
+		player.getPackets().sendFriendsChatChannel();
+		friendsIgnores.sendFriendsMyStatus(true);
 	}
 
 	/**

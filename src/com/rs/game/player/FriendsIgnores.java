@@ -108,14 +108,20 @@ public class FriendsIgnores {
 			return;
 		if (online && !isOnline(p2))
 			online = false;
-		player.getPackets().sendFriend(Utility.formatPlayerNameForDisplay(p2.getUsername()), p2.getDisplayName(), 1,
-				online, true);
+		player.getPackets().sendFriend(Utility.formatPlayerNameForDisplay(p2.getUsername()), p2.getDisplayName(), 1, online, true, p2 != null && World.containsLobbyPlayer(p2.getUsername()));
 	}
 
 	public void sendFriendsMyStatus(boolean online) {
 		for (Player p2 : World.getPlayers()) {
 			if (p2 == null || !p2.isStarted() || p2.isFinished())
 				continue;
+			p2.getFriendsIgnores().changeFriendStatus(player, online);
+		}
+		
+		for (Player p2 : World.getLobbyPlayers()) {
+			if (p2 == null || p2.isFinished()) {
+				continue;
+			}
 			p2.getFriendsIgnores().changeFriendStatus(player, online);
 		}
 	}
@@ -147,12 +153,14 @@ public class FriendsIgnores {
 		getFriendsChatRanks().put(formatedUsername, rank);
 		String displayName;
 		Player p2 = World.getPlayerByDisplayName(username);
+		if (p2 == null)
+			p2 = World.getLobbyPlayerByDisplayName(username);
 		if (p2 != null)
 			displayName = p2.getDisplayName();
 		else
 			displayName = Utility.formatPlayerNameForDisplay(username);
 		boolean online = p2 != null && isOnline(p2);
-		player.getPackets().sendFriend(Utility.formatPlayerNameForDisplay(username), displayName, 1, online, true);
+		player.getPackets().sendFriend(Utility.formatPlayerNameForDisplay(username), displayName, 1, online, true, p2 != null && World.containsLobbyPlayer(p2.getUsername()));
 		FriendChatsManager.refreshChat(player);
 	}
 
@@ -394,6 +402,8 @@ public class FriendsIgnores {
 			return;
 		}
 		Player p2 = World.getPlayerByDisplayName(username);
+		if (p2 == null)
+			p2 = World.getLobbyPlayerByDisplayName(username);
 		String formatedUsername = p2 != null ? p2.getUsername() : Utility.formatPlayerNameForProtocol(username);
 		if (friends.contains(formatedUsername)) {
 			player.getPackets().sendGameMessage("Please remove " + formatedUsername + " from your friends list first.");
@@ -419,6 +429,8 @@ public class FriendsIgnores {
 	public void removeIgnore(String username) {
 		String formatedUsername = Utility.formatPlayerNameForProtocol(username);
 		Player p2 = World.getPlayerByDisplayName(username);
+		if (p2 == null)
+			p2 = World.getLobbyPlayerByDisplayName(username);
 		if (!ignores.remove(formatedUsername) && !tillLogoutIgnores.remove(formatedUsername)) {
 			if (p2 == null)
 				return;
@@ -435,6 +447,8 @@ public class FriendsIgnores {
 		username = Utility.formatPlayerNameForProtocol(username);
 		String displayName;
 		Player p2 = World.getPlayerByDisplayName(username);
+		if (p2 == null)
+			p2 = World.getLobbyPlayerByDisplayName(username);
 		if (p2 != null) {
 			displayName = p2.getDisplayName();
 			username = p2.getUsername();
@@ -456,7 +470,7 @@ public class FriendsIgnores {
 		getFriendsChatRanks().put(username, 0);
 		FriendChatsManager.refreshChat(player);
 		boolean online = p2 != null && isOnline(p2);
-		player.getPackets().sendFriend(Utility.formatPlayerNameForDisplay(username), displayName, 1, online, online);
+		player.getPackets().sendFriend(Utility.formatPlayerNameForDisplay(username), displayName, 1, online, online, p2 != null && World.containsLobbyPlayer(p2.getUsername()));
 		if (privateStatus == 1 && p2 != null)
 			p2.getFriendsIgnores().changeFriendStatus(player, true);
 	}
@@ -464,6 +478,8 @@ public class FriendsIgnores {
 	public void removeFriend(String username) {
 		username = Utility.formatPlayerNameForProtocol(username);
 		Player p2 = World.getPlayerByDisplayName(username);
+		if (p2 == null)
+			p2 = World.getLobbyPlayerByDisplayName(username);
 		if (!friends.remove(username)) {
 			if (p2 == null)
 				return;

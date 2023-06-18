@@ -1,6 +1,7 @@
 package com.rs.net.packets.outgoing.impl;
 
 import com.rs.GameConstants;
+import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.Huffman;
@@ -19,7 +20,7 @@ public class ChatPacket implements OutgoingPacketListener {
 	
 	@Override
 	public void execute(Player player, InputStream stream) {
-		if (!player.isStarted())
+		if (!player.isStarted() && !World.containsLobbyPlayer(player.getUsername()))
 			return;
 		if (player.getLastPublicMessage() > Utility.currentTimeMillis())
 			return;

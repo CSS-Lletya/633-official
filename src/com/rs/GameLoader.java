@@ -25,6 +25,7 @@ import com.rs.net.host.HostListType;
 import com.rs.net.host.HostManager;
 import com.rs.net.packets.logic.LogicPacketDispatcher;
 import com.rs.net.packets.outgoing.OutgoingPacketDispatcher;
+import com.rs.net.wordlist.WorldList;
 import com.rs.network.sql.GameDatabase;
 import com.rs.network.sql.PassiveDatabaseWorker;
 import com.rs.plugin.CommandPluginDispatcher;
@@ -92,6 +93,7 @@ public class GameLoader {
 			Huffman.init();
 			MapArchiveKeys.init();
 			MapBuilder.init();
+			WorldList.init();
 		});
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Bonuses.");
