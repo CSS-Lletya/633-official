@@ -8,7 +8,7 @@ import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
-@ObjectSignature(objectId = { 47643, 164, 47364, 47657, 6435, 47574, 47575, 6435, 46243, 26518, 32015, 12536,12536,12538,12537, 2147, 6434, 7057, 7056, 46244,46245}, name = {})
+@ObjectSignature(objectId = { 47643, 164, 47364, 47657, 6435, 47574, 47575, 6435, 46243, 12536,12536,12538,12537, 2147, 6434, 7057, 7056, 46244,46245}, name = {})
 public class DraynorRegionObjectPlugin extends ObjectListener {
 
 	@Override
@@ -48,16 +48,6 @@ public class DraynorRegionObjectPlugin extends ObjectListener {
 		}
 		if (object.getId() == 46243) {
 			player.getPackets().sendGameMessage("The chest is locked...");
-		}
-		if (object.getId() == 26518 || object.getId() == 32015) {
-			if(object.matches(new WorldTile(3084, 9672, 0)))//north
-				player.getMovement().move(false, new WorldTile(3083, 3272, 0), TeleportType.LADDER);
-			if(object.matches(new WorldTile(3118, 9643, 0)))//north
-				player.getMovement().move(false, new WorldTile(3118, 3245, 0), TeleportType.LADDER);
-			if(object.matches(new WorldTile(3084, 9672, 0)))//south
-				player.getMovement().move(false, new WorldTile(3084, 3273, 0), TeleportType.LADDER);
-			if(object.matches(new WorldTile(3103, 9576, 0)))//north
-				player.getMovement().move(false, new WorldTile(3105, 3162, 0), TeleportType.LADDER);
 		}
 		if (object.getId() == 12536 || object.getId() == 12537 || object.getId() == 12538) {
 			new StairsLaddersDialogue(object).execute(player, optionId);

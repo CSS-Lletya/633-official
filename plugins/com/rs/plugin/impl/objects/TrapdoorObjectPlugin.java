@@ -14,20 +14,25 @@ import com.rs.utilities.RandomUtils;
 
 import skills.Skills;
 
-@ObjectSignature(objectId = { 5492 }, name = {})
+@ObjectSignature(objectId = { 5492, 26933 }, name = {})
 public class TrapdoorObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		//options for this object actions returns null, so have to use legacy style.
+		// options for this object actions returns null, so have to use legacy style.
 		if (optionId == 2 && player.getVarsManager().getBitValue(235) == 1) {
 			player.getVarsManager().sendVarBit(235, 0);
 		}
 		if (optionId == 1) {
-			if (player.getVarsManager().getBitValue(235) == 1) {
-				player.getMovement().move(false, new WorldTile(3149, 9652, 0), TeleportType.BLANK);
-			} else
-				player.getPackets().sendGameMessage("This trapdoor is sealed shut.");
+			if (object.getId() == 5492) {
+				if (player.getVarsManager().getBitValue(235) == 1) {
+					player.getMovement().move(false, new WorldTile(3149, 9652, 0), TeleportType.BLANK);
+				} else
+					player.getPackets().sendGameMessage("This trapdoor is sealed shut.");
+			}
+			if (object.getId() == 26933) {
+				player.getMovement().move(false, new WorldTile(3096, 9867, 0), TeleportType.BLANK);
+			}
 		}
 		if (optionId == 3) {
 			if (!player.getInventory().containsAny(ItemNames.LOCKPICK_1523)) {
@@ -52,8 +57,8 @@ public class TrapdoorObjectPlugin extends ObjectListener {
 					}
 					player.getPackets().sendGameMessage("You successfully picklock the trapdoor.");
 					player.getSkills().addXp(Skills.THIEVING, 4);
-					new LinkedTaskSequence().connect(1, () -> player.getVarsManager().sendVarBit(235, 1)).connect(15,
-							() -> player.getVarsManager().sendVarBit(235, 0)).start();
+					new LinkedTaskSequence().connect(1, () -> player.getVarsManager().sendVarBit(235, 1))
+							.connect(15, () -> player.getVarsManager().sendVarBit(235, 0)).start();
 					cancel();
 				}
 			});

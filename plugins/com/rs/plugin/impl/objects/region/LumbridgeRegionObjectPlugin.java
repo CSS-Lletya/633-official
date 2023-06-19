@@ -27,8 +27,6 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 				GameObject.spawnTempGroundObject(new GameObject(36975, 10, 0, object), 30);
 		});/*.doAction(option, objectId, searchedOption, action);*/
 		//basement
-		object.doAction(optionId, 36687, "climb-down", () -> player.getMovement().move(true, new WorldTile(3208, 9616, 0), TeleportType.BLANK));
-		object.doAction(optionId, 29355, "climb-up", () -> player.getMovement().move(true, new WorldTile(3210, 3216, 0), TeleportType.BLANK));
 		object.doAction(optionId, 12309, "bank", () -> player.getBank().openBank());
 		object.doAction(optionId, 12309, "buy-food", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));
 		object.doAction(optionId, 12309, "buy-items", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));
