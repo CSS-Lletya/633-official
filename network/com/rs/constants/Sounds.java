@@ -105,7 +105,11 @@ public interface Sounds {
 	int CHARGE_AIR_ORB = 116;
 	int CHARGE_FIRE_ORB = 117;
 	int CHARGE_WATER_ORB = 118;
-	
+	int OPENING_TRAPDOOR = 89;
+	int CLOSING_TRAPDOOR = 88;
+	int FAIRY_RING_TELEPORING = 1098;
+	int PIT_FALL = 1171;
+	int BLOW_KISS = 1854;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -127,6 +131,5 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
-	
 	
 }

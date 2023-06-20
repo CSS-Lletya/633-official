@@ -144,7 +144,7 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 		object.doAction(optionId, 2145, "search", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));
 		object.doAction(optionId, 2145, "open", () -> player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT));
 		
-		object.doAction(optionId, 52308, "climb-up", () ->  player.getMovement().move(true, new WorldTile(3222, 3268), TeleportType.LADDER));
+		object.doAction(optionId, 52308, "Climb-up", () ->  player.getMovement().move(true, new WorldTile(3222, 3268), TeleportType.LADDER));
 		object.doAction(optionId, 52309, "enter", () -> player.getMovement().move(true, new WorldTile(4762, 5891), TeleportType.BLANK));
 		
 		

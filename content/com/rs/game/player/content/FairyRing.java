@@ -1,5 +1,6 @@
 package com.rs.game.player.content;
 
+import com.rs.constants.Sounds;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
@@ -117,6 +118,7 @@ public class FairyRing {
             sendTeleport(player, new WorldTile(FAIRY_SOURCE, 2));
             return false;
         }
+        player.getAudioManager().sendSound(Sounds.FAIRY_RING_TELEPORING);
         sendTeleport(player, ring.getTile());
         player.getDetails().getStatistics().addStatistic("Fairy_Rings_Teleports");
         return true;

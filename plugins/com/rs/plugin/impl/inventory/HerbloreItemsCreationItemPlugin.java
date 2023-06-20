@@ -30,6 +30,10 @@ public class HerbloreItemsCreationItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int slot, int option) {
+		if (option == 6 && item.getId() == 227) {
+			player.getInventory().replaceItems(item, new Item(229));
+			return;
+		}
 		Arrays.stream(GrimyHerb.values())
 	    .filter(herb -> item.getId() == herb.grimy.getId())
 	    .map(herb -> new Herb(player, herb))

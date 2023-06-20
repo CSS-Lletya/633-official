@@ -7,7 +7,7 @@ import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
-@ObjectSignature(objectId = {29355, 29358, 55404, 26518, 32015, 36687, 1756}, name = {"Ladder"})
+@ObjectSignature(objectId = {29355, 29358, 55404, 26518, 32015, 36687, 1756, 52547, 52546}, name = {"Ladder"})
 public class LadderObjectPlugin extends ObjectListener {
 
 	@Override
@@ -51,6 +51,12 @@ public class LadderObjectPlugin extends ObjectListener {
 		if (object.getId() == 1756) {//camelot water obelisk
 			if (object.matches(new WorldTile(2842, 3424)))
 				player.getMovement().move(true, new WorldTile(2842, 9825, 0), TeleportType.BLANK);
+		}
+		if (object.getId() == 52546) {//tav
+			player.getMovement().move(true, new WorldTile(2403, 4457, 1), TeleportType.LADDER);
+		}
+		if (object.getId() == 52547) {//tav
+			player.getMovement().move(true, new WorldTile(2403, 4459, 0), TeleportType.BLANK);
 		}
 	}
 }

@@ -11,7 +11,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
 import skills.cooking.CookingData;
 import skills.firemaking.FireLighter;
 
-@ObjectSignature(objectId = {}, name = { "Fire", "Cooking range" })
+@ObjectSignature(objectId = {}, name = { "Fire", "Cooking range", "range" })
 public class CookingObjectPlugin extends ObjectListener {
 	
 	@Override

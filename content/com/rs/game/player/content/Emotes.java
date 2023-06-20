@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
+import com.rs.constants.Sounds;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
@@ -121,6 +122,8 @@ public class Emotes {
 	    		return;
 			for (Emote emote : Emote.values()) {
 				if (buttonId == emote.getButtonId()) {
+					if (emote == Emote.BLOW_KISS)
+						player.getAudioManager().setDelay(2).sendSound(Sounds.BLOW_KISS);
 					emote.getSpecialEmote().ifPresent(user -> user.handleSpecialEmote(player));
 					emote.getAnimation().ifPresent(player::setNextAnimation);
 					emote.getGraphics().ifPresent(player::setNextGraphics);

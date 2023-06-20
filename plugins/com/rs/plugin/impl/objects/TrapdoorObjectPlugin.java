@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.objects;
 
 import com.rs.constants.ItemNames;
+import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
@@ -21,6 +22,7 @@ public class TrapdoorObjectPlugin extends ObjectListener {
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		// options for this object actions returns null, so have to use legacy style.
 		if (optionId == 2 && player.getVarsManager().getBitValue(235) == 1) {
+			player.getAudioManager().sendSound(Sounds.CLOSING_TRAPDOOR);
 			player.getVarsManager().sendVarBit(235, 0);
 		}
 		if (optionId == 1) {
@@ -55,6 +57,7 @@ public class TrapdoorObjectPlugin extends ObjectListener {
 						cancel();
 						return;
 					}
+					player.getAudioManager().sendSound(Sounds.OPENING_TRAPDOOR);
 					player.getPackets().sendGameMessage("You successfully picklock the trapdoor.");
 					player.getSkills().addXp(Skills.THIEVING, 4);
 					new LinkedTaskSequence().connect(1, () -> player.getVarsManager().sendVarBit(235, 1))

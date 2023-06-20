@@ -16,7 +16,7 @@ public class FadingScreen {
 	}
 
 	public static void unfade(final Player player, long startTime, final Runnable event) {
-		unfade(player, 2500, startTime, event);
+		unfade(player, 2, startTime, event);
 	}
 
 	@SneakyThrows(Throwable.class)
@@ -33,7 +33,7 @@ public class FadingScreen {
 	@SneakyThrows(Throwable.class)
 	public static void unfade(final Player player, Runnable event) {
 		event.run();
-		World.get().submit(new Task(0) {
+		World.get().submit(new Task(1) {
 			@Override
 			protected void execute() {
 				CoresManager.schedule(() -> {
