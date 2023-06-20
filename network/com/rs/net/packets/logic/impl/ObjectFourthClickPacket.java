@@ -10,17 +10,15 @@ import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.plugin.ObjectPluginDispatcher;
 
-@LogicPacketSignature(packetId = 13, packetSize = 7, description = "Fourth click packet")
+@LogicPacketSignature(packetId = 37, packetSize = 7, description = "Fourth click packet")
 public class ObjectFourthClickPacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream input) {
-		// TODO: verify this with an object using 4 options
-		int x = input.readUnsignedShortLE();
-		int y = input.readUnsignedShort128();
-		int id = input.readUnsignedShortLE128();
-		boolean forceRun = input.readUnsignedByteC() == 1;
-
+		int x = input.readShortLE();
+		int id = input.readShort128();
+		boolean forceRun = input.readUnsignedByte128() == 1;
+		int y = input.readShort128();
 		if (GameConstants.DEBUG)
 			System.out.println("id " + id + " x " + x + " y " + y + " run? " + forceRun);
 		final WorldTile tile = new WorldTile(x, y, player.getPlane());
@@ -46,11 +44,8 @@ public class ObjectFourthClickPacket implements LogicPacketListener {
 		player.getMovement().stopAll();
 		if (forceRun)
 			player.setRun(forceRun);
-		
 		player.setRouteEvent(new RouteEvent(worldObject, () -> {
 			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectClick4(player, worldObject)))
-				return;
-			if (player.getQuestManager().handleObject(player, worldObject))
 				return;
 			ObjectPluginDispatcher.execute(player, worldObject, 4);
 		}, true));
