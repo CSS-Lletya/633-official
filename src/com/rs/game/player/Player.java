@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import com.alex.utils.VarsManager;
 import com.rs.GameConstants;
+import com.rs.constants.Sounds;
 import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.MapZoneManager;
 import com.rs.content.quests.QuestManager;
@@ -497,8 +498,11 @@ public class Player extends Entity {
 		getDetails().getCharges().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
-		if (getDetails().getChargeDelay().get() > 0)
+		if (getDetails().getChargeDelay().get() > 0) {
+			if (getDetails().getChargeDelay().get() == 1)
+				getAudioManager().sendSound(Sounds.CHARGE_SPELL_REMOVED);
 			getDetails().getChargeDelay().getAndDecrement();
+		}
 	}
 
 	/**

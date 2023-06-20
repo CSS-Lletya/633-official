@@ -110,6 +110,11 @@ public interface Sounds {
 	int FAIRY_RING_TELEPORING = 1098;
 	int PIT_FALL = 1171;
 	int BLOW_KISS = 1854;
+	int YO_YO_ONE = 2261;
+	int YO_YO_TWO = 2262;
+	int YO_YO_THREE = 2263;
+	int YO_YO_FOUR = 2264;
+	int YO_YO_WIND = 2265;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
