@@ -361,6 +361,18 @@ public final class Inventory {
 		return null;
 	}
 	
+    public static boolean contains(int id1, int id2, Item... items) {
+        boolean containsId1 = false;
+        boolean containsId2 = false;
+        for (Item item : items) {
+            if (item.getId() == id1)
+                containsId1 = true;
+            else if (item.getId() == id2)
+                containsId2 = true;
+        }
+        return containsId1 && containsId2;
+    }
+	
 	public boolean canPay(int cost) {
 		if (containsAny(995) && getNumberOf(995) > cost) {
 			deleteItem(995, cost);

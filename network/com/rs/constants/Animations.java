@@ -123,6 +123,7 @@ public final class Animations {
 	public static final Animation REGULAR_SAWING = new Animation(12379);
 	public static final Animation CHARGE_ORB = new Animation(726);
 	public static final Animation TELEGRAB_SPELL = new Animation(711);
+	public static final Animation TREE_PICKING = new Animation(2280);
 	
 	
 	/**

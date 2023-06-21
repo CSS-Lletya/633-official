@@ -32,14 +32,14 @@ public class InventoryPluginDispatcher {
 	 * @param parts the string which represents a item.
 	 */
 	public static boolean execute(Player player, Item item, int slot, int optionId) {
-	    Optional<InventoryListener> optionalItem = getItem(item.getId());
-	    if (optionalItem.isPresent()) {
-	        InventoryListener specifiedItem = optionalItem.get();
-	        specifiedItem.execute(player, item, slot, optionId);
-	        return true;
-	    }
-	    return false;
+	    return getItem(item.getId())
+	            .map(specifiedItem -> {
+	                specifiedItem.execute(player, item, slot, optionId);
+	                return true;
+	            })
+	            .orElse(false);
 	}
+
 
 	/**
 	 * Executes the specified interface if it's registered.
