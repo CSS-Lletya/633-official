@@ -26,6 +26,7 @@ import com.rs.game.player.content.Potions.Potion;
 import com.rs.game.task.Task;
 import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.plugin.InventoryPluginDispatcher;
+import com.rs.plugin.RSInterfacePluginDispatcher.EquipSounds;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.LogUtility;
@@ -234,11 +235,11 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				continue;
 			if (sendWear2(player, slotId, item.getId()))
 				worn = true;
+			EquipSounds.executeSound(player, item);
 		}
 		player.getInventory().refreshItems(copy);
 		if (worn) {
 			player.getAppearance().generateAppearenceData();
-			player.getAudioManager().sendSound(Sounds.WEARING_ITEM);
 		}
 	}
 

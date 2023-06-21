@@ -2,13 +2,17 @@ package com.rs.plugin;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
+import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
@@ -26,6 +30,7 @@ import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import lombok.AllArgsConstructor;
 import skills.Skills;
 
 /**
@@ -237,10 +242,10 @@ public final class RSInterfacePluginDispatcher {
 		player.getEquipment().getItems().set(targetSlot, item2);
 		player.getEquipment().refresh(targetSlot, targetSlot == 3 ? 5 : targetSlot == 3 ? 0 : 3);
 		player.getAppearance().generateAppearenceData();
-		player.getAudioManager().sendSound(Sounds.WEARING_ITEM_2);
 		if (targetSlot == 3)
 			player.getCombatDefinitions().decreaseSpecialAttack(0);
 		player.getDetails().getCharges().wear(targetSlot);
+		EquipSounds.executeSound(player, item);
 		return true;
 	}
 
@@ -358,7 +363,6 @@ public final class RSInterfacePluginDispatcher {
 		player.getInventory().refreshItems(copy);
 		if (worn) {
 			player.getAppearance().generateAppearenceData();
-			player.getAudioManager().sendSound(Sounds.WEARING_ITEM_2);
 		}
 		
 	}
@@ -489,5 +493,52 @@ public final class RSInterfacePluginDispatcher {
 		run.run();
 		return IntStream.of(1438, 1448, 1444, 1440, 1442, 1446, 1454, 1452, 1462, 1458, 1456, 1450)
 				.anyMatch(id -> player.getEquipment().containsOneItem(id));
+	}
+	
+	@AllArgsConstructor
+	public enum EquipSounds {
+	    AXE(2229, new String[]{"hatchet"}),
+	    STAFF(2247, new String[] {"staff"}),//hmm - 2230
+	    BANNER(2231, new String[] {"banner"}),
+	    BATTLEAXE(2232, new String[] {"battleaxe"}),
+	    BLUNT(2233, new String[] {"mace", "hammer", "halberd", "maul", "balmung", "ket-om", "club", "adze", "anchor", "-ak", "-ek", "-tal", "greataxe"}),
+	    BODY(2234, new String[]{"body", "bodies"}),
+	    BOLT(2235, new String[]{"bolts"}),
+	    HANDS(2236, new String[]{"glove", "gauntlets", "vamb"}),
+	    FEET(2237, new String[]{"boot"}),
+	    FUN(2238, new String[]{"chicken", "yo-yo", "etc stuff"}),
+	    METAL_BODY(2239, new String[]{"platebody", "chain", "hauberk", "decorative", "chestplate"}),
+	    HELMET(2240, new String[]{"helm", "full", "mask", "sallet", "hat", "helm"}),
+	    LEATHER(2241, new String[]{"d'hide", "leather", "coif", "hardleather", "studded", "dragonhide", "cowl", "chaps", "legs", "top", "mitre", "torso", "ranger", "robin"}),
+	    LEGS(2242, new String[]{"chaps", "shorts", "skirt", "prob more.."}),
+	    METAL_LEGS(2243, new String[]{"plateskirt", "platelegs", "cuisse", "tassets"}),
+	    RANGED_WEAPON(2244, new String[]{"bow", "crossbow", "knife", "javelin", "dart", "seercull"}),
+	    SHIELD(2245, new String[]{"shield", "sq", "defender", "deflector", "xil", "kiteshield", "throwing", "chinchompa", "-ul"}),
+	    CLAWS(1003, new String[]{"claw"}),
+	    SPIKED(2246, new String[]{"spike", "climbing"}),
+	    SWORD(2247, new String[]{"sword", "scimitar", "dagger", "longsword", "spear", "mjolnir", "excalibur", "blade", "sabre", "rapier", "keris", "godsword"}),
+	    WHIP(2248, new String[]{"whip"}),
+	    WOODEN(2249, new String[]{"wooden"}),
+	    DARK_BOW(3738, new String[]{"darkbow"}),
+	    WAND(3738, new String[]{"wand"}),
+	    HWEEN(3227, new String[]{"h'ween mask"}),
+	    SILVERLIGHT(2990, new String[]{"silverlight"}),
+	    ;
+	    private final int sound;
+	    private final String[] itemNames;
+
+	    public static final ImmutableSet<EquipSounds> VALUES = Sets.immutableEnumSet(EnumSet.allOf(EquipSounds.class));
+
+	    public static void executeSound(Player player, Item item) {
+	        String itemName = item.getDefinitions().getName().toLowerCase();
+	        boolean foundMatch = VALUES.stream()
+	                .filter(sound -> Arrays.stream(sound.itemNames).anyMatch(itemName::contains))
+	                .peek(sound -> player.getAudioManager().sendSound(sound.sound))
+	                .findAny()
+	                .isPresent();
+	        if (!foundMatch) {
+	            player.getAudioManager().sendSound(Sounds.WEARING_ITEM_2);
+	        }
+	    }
 	}
 }
