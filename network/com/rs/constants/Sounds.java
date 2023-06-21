@@ -118,6 +118,8 @@ public interface Sounds {
 	int FAILED_SPELL = 227;
 	int BROKEN_AXE = 2514;
 	int CHISELING = 2586;
+	int SPINNING = 2590;
+	int FILL_BUCKET_WITH_SAND = 2584;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -139,5 +141,7 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
+
+	
 	
 }
