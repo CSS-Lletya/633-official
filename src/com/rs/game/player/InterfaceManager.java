@@ -211,6 +211,8 @@ public class InterfaceManager {
 		player.getPackets().sendIComponentSettings(190, 18, 0, 170, 300);
 		player.getVarsManager().sendVar(904, 310);//43 f2p quest - 310 all quest (max points)
 		player.getVarsManager().sendVar(101, player.getDetails().getQuestPoints());//send this on completion
+		player.getVarsManager().setVarBit(4536, player.getDetails().isSort() ? 1 : 0);
+		player.getVarsManager().setVarBit(7264, player.getDetails().isHideDone() ? 0 : 1);
 	}
 
 	public void sendFriends() {

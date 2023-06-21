@@ -5,13 +5,12 @@ import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 
-@LogicPacketSignature(packetId = 5, packetSize = 4, description = "Represents the Camera movement state changing")
-public class CameraMovementPacket implements LogicPacketListener {
+@LogicPacketSignature(packetId = 3, packetSize = -1, description = "Mouse Movement packet. NOT FINISHED PACKET")
+public class MouseMovementPacket implements LogicPacketListener {
 
-	@SuppressWarnings("unused")
 	@Override
 	public void execute(Player player, InputStream stream) {
-		int a = stream.readShort();
-		int b = stream.readShort();
+		//search client for code. 
+		// if ((i_64_ ^ 0xffffffff) != (Class120.anInt1628 ^ 0xffffffff)
 	}
 }

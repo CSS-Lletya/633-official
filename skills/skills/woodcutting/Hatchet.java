@@ -10,15 +10,15 @@ import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 
 public enum Hatchet {
-	BRONZE(1351, 1, 879, 0.1),
-	IRON(1349, 1, 877, 0.2),
-	STEEL(1353, 6, 875, 0.3),
-	BLACK(1361, 6, 873, 0.4),
-	MITHRIL(1355, 21, 871, 0.5),
-	ADAMANT(1357, 31, 869, 0.6),
-	RUNE(1359, 41, 867, 0.75),
-	INFERNO_ADZE(13661, 61, 10251, 0.80),
-	DRAGON(6739, 61, 2846, 0.85);
+	BRONZE(1351, 1, 879, 0.1, 508),
+	IRON(1349, 1, 877, 0.2, 510),
+	STEEL(1353, 6, 875, 0.3, 512),
+	BLACK(1361, 6, 873, 0.4, 514),
+	MITHRIL(1355, 21, 871, 0.5, 516),
+	ADAMANT(1357, 31, 869, 0.6,518),
+	RUNE(1359, 41, 867, 0.75, 520),
+	INFERNO_ADZE(13661, 61, 10251, 0.80, -1),
+	DRAGON(6739, 61, 2846, 0.85, 6743);
 
 	/**
 	 * Caches our enum values.
@@ -44,6 +44,8 @@ public enum Hatchet {
 	 * The speed of this hatchet.
 	 */
 	private final double speed;
+	
+	private final int headId;
 
 	/**
 	 * Constructs a new {@link Hatchet} enumerator.
@@ -52,11 +54,12 @@ public enum Hatchet {
 	 * @param animation {@link #animation}.
 	 * @param speed {@link #speed}.
 	 */
-	private Hatchet(int item, int requirement, int animation, double speed) {
+	private Hatchet(int item, int requirement, int animation, double speed, int headId) {
 		this.item = new Item(item);
 		this.requirement = requirement;
 		this.animation = new Animation(animation);
 		this.speed = speed;
+		this.headId = headId;
 	}
 
 	/**
@@ -85,6 +88,10 @@ public enum Hatchet {
 	 */
 	public double getSpeed() {
 		return speed;
+	}
+	
+	public int getHead() {
+		return headId;
 	}
 
 	/**

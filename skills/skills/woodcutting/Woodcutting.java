@@ -6,11 +6,14 @@ import java.util.Optional;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
+import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
+import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
+import com.rs.utilities.RandomUtils;
 
 import skills.HarvestingSkillAction;
 import skills.Skills;
@@ -93,6 +96,7 @@ public class Woodcutting extends HarvestingSkillAction {
 	@Override
 	public void onHarvest(Task t, Item[] items, boolean success) {
 		if(success) {
+			randomEvent();
 			BirdNest.drop(getPlayer());
 			player.getDetails().getStatistics()
 			.addStatistic(ItemDefinitions.getItemDefinitions(tree.getItem().getId()).getName() + "_Chopped")
@@ -166,5 +170,27 @@ public class Woodcutting extends HarvestingSkillAction {
 	
 	private static boolean fullLumberJack(Player player) {
 		return player.getEquipment() != null && player.getEquipment().containsAll(10933, 10939, 10940, 10941);
+	}
+	
+	private void randomEvent() {
+		if((RandomUtils.nextInt(1000) - (hatchet.ordinal() * 10)) > 900) {
+	        if(RandomUtils.nextBoolean()) {
+				if(getPlayer().getEquipment().containsAny(hatchet.getHatchet().getId())) {
+					player.getEquipment().getItems().set(Equipment.SLOT_WEAPON, null);
+					player.getEquipment().refresh(Equipment.SLOT_WEAPON);
+					player.getAppearance().generateAppearenceData();
+				} else {
+					player.getInventory().deleteItem(hatchet.getHatchet());
+				}
+				if(getPlayer().getInventory().hasFreeSlots()) {
+					getPlayer().getInventory().addItem(new Item(462));
+				} else {
+					FloorItem.addGroundItem(new Item(462), getPlayer().getLastWorldTile(), player, true, 180);
+				}
+				FloorItem.addGroundItem(new Item(hatchet.getHead()), getPlayer().getLastWorldTile(), player, true, 180);
+				getPlayer().getPackets().sendGameMessage("Your hatchet dismantled during the chopping process.");
+				player.getAudioManager().sendSound(Sounds.BROKEN_AXE);
+			}
+		}
 	}
 }

@@ -116,6 +116,8 @@ public interface Sounds {
 	int YO_YO_FOUR = 2264;
 	int YO_YO_WIND = 2265;
 	int FAILED_SPELL = 227;
+	int BROKEN_AXE = 2514;
+	int CHISELING = 2586;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;

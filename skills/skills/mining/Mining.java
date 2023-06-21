@@ -164,7 +164,6 @@ public final class Mining extends HarvestingSkillAction {
 				player.getAudioManager().sendSound(Sounds.PICKAXE_LOST);
 			}
 		}
-		return;
 	}
 
 	private boolean checkMining() {

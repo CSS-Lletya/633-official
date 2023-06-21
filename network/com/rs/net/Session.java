@@ -201,6 +201,9 @@ public class Session {
 
 	@SneakyThrows(Throwable.class)
 	public void finish(Player player, final int tryCount) {
+		if (player.getCurrentFriendChat() != null)
+			player.getCurrentFriendChat().leaveChat(player, true);
+		player.getFriendsIgnores().sendFriendsMyStatus(false);
 		if (player.isFinishing() || player.isFinished()) { 
 			if (World.containsPlayer(player.getDisplayName()).isPresent()) {// i couldnt figure this out last time.
 				World.removePlayer(player);
@@ -227,6 +230,9 @@ public class Session {
 	}
 
 	public void realFinish(Player player, boolean shutdown) {
+		if (player.getCurrentFriendChat() != null)
+			player.getCurrentFriendChat().leaveChat(player, true);
+		player.getFriendsIgnores().sendFriendsMyStatus(false);
 		if (player.isFinished()) {
 			return;
 		}
@@ -240,9 +246,6 @@ public class Session {
 		player.getMovement().stopAll();
 		player.getMapZoneManager().executeVoid(player, controller -> controller.logout(player));
 		player.setRunning(false);
-		player.getFriendsIgnores().sendFriendsMyStatus(false);
-		if (player.getCurrentFriendChat() != null)
-			player.getCurrentFriendChat().leaveChat(player, true);
 		if (player.getFamiliar() != null && !player.getFamiliar().isFinished())
 			player.getFamiliar().dissmissFamiliar(true);
 		else if (player.getPet() != null)
@@ -256,9 +259,9 @@ public class Session {
 			World.removeLobbyPlayer(player);
 		}
 		player.updateEntityRegion(player);
-		if (World.containsPlayer(player.getDisplayName()).isPresent()) {
+		//if (World.containsPlayer(player.getDisplayName()).isPresent()) {
 			World.removePlayer(player);
-		}
+		//}
 		
 	}
 

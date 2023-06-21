@@ -5,13 +5,11 @@ import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 
-@LogicPacketSignature(packetId = 5, packetSize = 4, description = "Represents the Camera movement state changing")
-public class CameraMovementPacket implements LogicPacketListener {
+@LogicPacketSignature(packetId = 71, packetSize = 2, description = "Report Abuse Packet, not finished packet.")
+public class ReportAbusePacket implements LogicPacketListener {
 
-	@SuppressWarnings("unused")
 	@Override
 	public void execute(Player player, InputStream stream) {
-		int a = stream.readShort();
-		int b = stream.readShort();
+		stream.readUnsignedShort();
 	}
 }

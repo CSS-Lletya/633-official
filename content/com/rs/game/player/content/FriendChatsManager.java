@@ -236,7 +236,11 @@ public class FriendChatsManager {
 				stream.writeShort(1);
 				int rank = getRank(player.getDetails().getRights().getValue(), player.getUsername());
 				stream.writeByte(rank);
-				stream.writeString(GameConstants.SERVER_NAME);
+				Player p2 = World.getPlayerByDisplayName(name);
+				if (p2 == null) { //try that
+					p2 = World.getLobbyPlayerByDisplayName(name);
+				}
+				stream.writeString(p2 != null && World.containsLobbyPlayer(p2.getUsername()) ? "<col=FFFF00>Lobby" : "<col=00FF00>" + GameConstants.SERVER_NAME + "</col>");
 			}
 			dataBlock = new byte[stream.getOffset()];
 			stream.setOffset(0);
