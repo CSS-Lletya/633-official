@@ -12,7 +12,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
-import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
