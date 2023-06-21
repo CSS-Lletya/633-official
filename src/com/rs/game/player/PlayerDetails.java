@@ -195,6 +195,7 @@ public final class PlayerDetails {
 	private Stopwatch boneBury = new Stopwatch(), thievingStun = new Stopwatch(), drinks = new Stopwatch(), food = new Stopwatch(), tolerance = new Stopwatch();
 
 	public int questPoints;
+	boolean sort, hideDone;
 	
 	private boolean[] seenDungeon;
 	

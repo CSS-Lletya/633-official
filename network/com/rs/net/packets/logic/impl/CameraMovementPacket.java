@@ -12,7 +12,5 @@ public class CameraMovementPacket implements LogicPacketListener {
 	public void execute(Player player, InputStream stream) {
 		int a = stream.readShort();
 		int b = stream.readShort();
-		System.out.println(a + " - " + b);
-		
 	}
 }

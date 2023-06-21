@@ -160,7 +160,7 @@ public class InterfaceManager {
 		sendAchievement();
 		sendSummoning();
 		sendSkills();
-//		sendQuest();
+		sendQuest();
 		sendInventory();
 		sendEquipment();
 		sendPrayerBook();
@@ -208,6 +208,9 @@ public class InterfaceManager {
 
 	public void sendQuest() {
 		setWindowInterface(isResizableScreen() ? RESIZABLE_TAB_OFFSET + Tab.QUEST : FIXED_TAB_OFFSET + Tab.QUEST, 190);
+		player.getPackets().sendIComponentSettings(190, 18, 0, 170, 300);
+		player.getVarsManager().sendVar(904, 310);//43 f2p quest - 310 all quest (max points)
+		player.getVarsManager().sendVar(101, player.getDetails().getQuestPoints());//send this on completion
 	}
 
 	public void sendFriends() {
