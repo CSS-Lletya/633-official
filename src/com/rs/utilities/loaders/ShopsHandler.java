@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Shop;
-import com.rs.utilities.json.GSONParser;
+import com.rs.utilities.GSONParser;
 
 public class ShopsHandler {
 

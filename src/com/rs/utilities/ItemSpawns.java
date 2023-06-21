@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.rs.game.item.ItemSpawn;
-import com.rs.utilities.json.GSONParser;
 
 public final class ItemSpawns {
 

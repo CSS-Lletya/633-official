@@ -647,15 +647,13 @@ public class Player extends Entity {
 		return inventory.getInventoryWeight() + equipment.getEquipmentWeight();
 	}
 
-    /**
-     * Checks if the Player has the item.
-     *
-     * @param item The item to check.
-     * @return if has item or not.
-     */
-    public boolean hasItem(Item item) {
-        return getBank().getItem(item.getId()) != null || getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId());
+    public boolean hasItem(Item... items) {
+        return Arrays.stream(items)
+                .anyMatch(item -> getBank().getItem(item.getId()) != null
+                        || getEquipment().containsAny(item.getId())
+                        || getInventory().containsAny(item.getId()));
     }
+
     
     public void toogleLootShare() {
     	getDetails().setToogleLootShare(!getDetails().isToogleLootShare());

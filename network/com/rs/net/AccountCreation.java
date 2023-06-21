@@ -3,7 +3,7 @@ package com.rs.net;
 import java.io.File;
 
 import com.rs.game.player.Player;
-import com.rs.utilities.json.GSONParser;
+import com.rs.utilities.GSONParser;
 
 public class AccountCreation {
 

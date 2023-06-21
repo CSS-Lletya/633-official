@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 import com.google.gson.JsonIOException;
 import com.rs.cache.loaders.NPCDefinitions;
-import com.rs.utilities.json.GSONParser;
+import com.rs.utilities.GSONParser;
 
 public class DropSets {
 

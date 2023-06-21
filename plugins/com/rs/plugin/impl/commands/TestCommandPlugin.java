@@ -1,9 +1,8 @@
 package com.rs.plugin.impl.commands;
 
-import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
-import com.rs.game.player.content.InterfaceCreator;
+import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
@@ -19,6 +18,6 @@ public class TestCommandPlugin implements CommandListener {
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
 //		player.getDialogueInterpreter().open(7888);
-		new InterfaceCreator(player, 277).showRawIds(0, 11).writeString(3, "Neat title").hideComponent(6).sendItemToComponent(5, new Item(1050)).reset();
+		player.getPackets().sendGraphics(new Graphics(68), player);
 	}
 }

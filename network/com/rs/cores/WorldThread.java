@@ -23,7 +23,7 @@ public final class WorldThread extends Thread {
 			long currentTime = Utility.currentTimeMillis();
 			Try.run(() -> {
 				
-				World.get().getTaskManager().sequence();
+				
 				World.players().forEach(player -> player.processEntity());
 				World.npcs().forEach(npc -> npc.processEntity());
 
@@ -37,6 +37,7 @@ public final class WorldThread extends Thread {
 				
 				World.players().forEach(Player::resetMasks);
 				World.npcs().forEach(NPC::resetMasks);
+				World.get().getTaskManager().sequence();
 			}).onFailure(Throwable::printStackTrace);
 			LAST_CYCLE_CTM = Utility.currentTimeMillis();
 			long sleepTime = GameConstants.WORLD_CYCLE_MS + currentTime - LAST_CYCLE_CTM;

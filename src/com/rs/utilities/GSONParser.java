@@ -1,4 +1,4 @@
-package com.rs.utilities.json;
+package com.rs.utilities;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rs.content.quests.Quest;
 import com.rs.game.player.Player;
-import com.rs.utilities.QuestJsonAdapter;
 
 import lombok.SneakyThrows;
 

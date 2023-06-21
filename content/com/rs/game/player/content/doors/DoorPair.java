@@ -22,7 +22,7 @@ import java.util.Map;
 
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
-import com.rs.utilities.json.GSONParser;
+import com.rs.utilities.GSONParser;
 
 public class DoorPair {
 

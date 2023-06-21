@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.interfaces;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
 import com.rs.cache.io.InputStream;
@@ -146,6 +147,10 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				}
 				InventoryPluginDispatcher.execute(player, item, slotId, 7);
 				player.getInventory().deleteItem(slotId, item);
+				if (IntStream.of(2412, 2413, 2414).anyMatch(cape -> item.getId() == cape)) {
+					player.getPackets().sendGameMessage("The cape disintegrates as it touches the ground");
+					return;
+				}
 				if (player.getDetails().getCharges().degradeCompletly(item))
 					return;
 				if (WildernessMapZone.isAtWild(player) && ItemConstants.isTradeable(item))

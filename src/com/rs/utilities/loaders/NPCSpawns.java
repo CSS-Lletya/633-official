@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rs.game.npc.NPCSpawn;
-import com.rs.utilities.json.GSONParser;
+import com.rs.utilities.GSONParser;
 
 public final class NPCSpawns {
 
