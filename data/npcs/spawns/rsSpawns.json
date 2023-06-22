@@ -34966,276 +34966,6 @@
   },
   {
     "tile": {
-      "plane": 1,
-      "x": 2905,
-      "y": 3515
-    },
-    "comment": "Ariane",
-    "npcId": 13935
-  },
-  {
-    "tile": {
-      "plane": 1,
-      "x": 2906,
-      "y": 3517
-    },
-    "comment": "Xenia",
-    "npcId": 13950
-  },
-  {
-    "tile": {
-      "plane": 1,
-      "x": 2907,
-      "y": 3517
-    },
-    "comment": "Ozan",
-    "npcId": 13965
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2925,
-      "y": 3488
-    },
-    "comment": "Poletax",
-    "npcId": 14854
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2917,
-      "y": 3474
-    },
-    "comment": "Alison Elmshaper",
-    "npcId": 14858
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2885,
-      "y": 3475
-    },
-    "comment": "Head Farmer Jones",
-    "npcId": 14860
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2907,
-      "y": 3485
-    },
-    "comment": "Ayleth Beaststalker",
-    "npcId": 14864
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2881,
-      "y": 3504
-    },
-    "comment": "Tobias Bronzearms",
-    "npcId": 14870
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2890,
-      "y": 3506
-    },
-    "comment": "Martin Steelweaver",
-    "npcId": 14874
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2887,
-      "y": 3501
-    },
-    "comment": "Jack Oval",
-    "npcId": 14877
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2901,
-      "y": 3472
-    },
-    "comment": "Nicholas Angle",
-    "npcId": 14879
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2925,
-      "y": 3477
-    },
-    "comment": "Marcus Everburn",
-    "npcId": 14883
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2923,
-      "y": 3501
-    },
-    "comment": "Chaplain Sarah",
-    "npcId": 14887
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2912,
-      "y": 3461
-    },
-    "comment": "Fishing spot",
-    "npcId": 14907
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2912,
-      "y": 3462
-    },
-    "comment": "Fishing spot",
-    "npcId": 14907
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2912,
-      "y": 3463
-    },
-    "comment": "Fishing spot",
-    "npcId": 14907
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2901,
-      "y": 3469
-    },
-    "comment": "Fishing spot",
-    "npcId": 14907
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2923,
-      "y": 3468
-    },
-    "comment": "Pompous Merchant",
-    "npcId": 14911
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2915,
-      "y": 3472
-    },
-    "comment": "Pompous Merchant",
-    "npcId": 14911
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2930,
-      "y": 3479
-    },
-    "comment": "Pompous Merchant",
-    "npcId": 14911
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2919,
-      "y": 3460
-    },
-    "comment": "Fred Binder",
-    "npcId": 14912
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2922,
-      "y": 3456
-    },
-    "comment": "Guard",
-    "npcId": 14920
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2884,
-      "y": 3516
-    },
-    "comment": "Troll commando",
-    "npcId": 14926
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2934,
-      "y": 3508
-    },
-    "comment": "Troll ranger commando",
-    "npcId": 14927
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2887,
-      "y": 3517
-    },
-    "comment": "Troll ranger commando",
-    "npcId": 14927
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2887,
-      "y": 3512
-    },
-    "comment": "Troll mage commando",
-    "npcId": 14928
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2927,
-      "y": 3475
-    },
-    "comment": "Druid Elementalist",
-    "npcId": 14937
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2924,
-      "y": 3469
-    },
-    "comment": "Asbestix",
-    "npcId": 14939
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2923,
-      "y": 3472
-    },
-    "comment": "Druid Elementalist",
-    "npcId": 14942
-  },
-  {
-    "tile": {
-      "plane": 0,
-      "x": 2929,
-      "y": 3468
-    },
-    "comment": "Druid Elementalist",
-    "npcId": 14944
-  },
-  {
-    "tile": {
       "plane": 0,
       "x": 2922,
       "y": 3575
@@ -143158,7 +142888,7 @@
     "comment": "ge banker",
     "npcId": 494
   },
-       {
+  {
     "dir": "EAST",
     "tile": {
       "plane": 0,
@@ -143167,5 +142897,55 @@
     },
     "comment": "ge banker",
     "npcId": 494
+  },
+    {
+    "dir": "EAST",
+    "tile": {
+      "plane": 0,
+      "x": 2936,
+      "y": 3516
+    },
+    "comment": "monk of zamorak",
+    "npcId": 189
+  },
+      {
+    "dir": "EAST",
+    "tile": {
+      "plane": 0,
+      "x": 2938,
+      "y": 3517
+    },
+    "comment": "monk of zamorak",
+    "npcId": 189
+  },
+      {
+    "dir": "EAST",
+    "tile": {
+      "plane": 0,
+      "x": 2934,
+      "y": 3516
+    },
+    "comment": "monk of zamorak",
+    "npcId": 189
+  },
+      {
+    "dir": "EAST",
+    "tile": {
+      "plane": 0,
+      "x": 2936,
+      "y": 3514
+    },
+    "comment": "monk of zamorak",
+    "npcId": 189
+  },
+      {
+    "dir": "EAST",
+    "tile": {
+      "plane": 0,
+      "x": 2932,
+      "y": 3514
+    },
+    "comment": "monk of zamorak",
+    "npcId": 189
   },
 ]

@@ -4658,5 +4658,15 @@
       "y": 9767,
       "plane": 0
     }
+  },
+    {
+    "comment": "Wine of Zamorak",
+    "itemId": 245,
+    "amount": 1,
+    "tile": {
+      "x": 2931,
+      "y": 3515,
+      "plane": 0
+    }
   }
 ]

@@ -39,6 +39,12 @@ public class ItemTakePacket implements LogicPacketListener {
 		if (forceRun)
 			player.setRun(forceRun);
 		player.getMovement().stopAll();
+		
+		if (item.getId() == 3515 && tile.matches(new WorldTile(2931, 3515))) {
+			//make zamorak npcs attack you, player only can do telegrab here.
+			//combat related; will finish when combat rework is done
+			return;
+		}
 
 		if (!World.isFloorFree(tile.getPlane(), x, y)) {
 			player.setRouteEvent(new RouteEvent(item, () ->  {
