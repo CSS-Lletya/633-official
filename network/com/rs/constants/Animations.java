@@ -125,6 +125,7 @@ public final class Animations {
 	public static final Animation TELEGRAB_SPELL = new Animation(711);
 	public static final Animation TREE_PICKING = new Animation(2280);
 	public static final Animation BUCKET_SCOOPING = new Animation(895);
+	public static final Animation KNIFE_SLASHING_WEB = new Animation(911);
 	
 	/**
 	 * Object Based Animations
