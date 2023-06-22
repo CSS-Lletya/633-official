@@ -523,7 +523,7 @@ public class WorldPacketsEncoder extends Encoder {
 
 	public WorldPacketsEncoder sendLogout(boolean lobby) {
 		OutputStream stream = new OutputStream();
-		stream.writePacket(getPlayer(), lobby ? 26 : 26);//need to fix regular logout
+		stream.writePacket(getPlayer(), lobby ? 26 : 10);//need to fix regular logout
 		ChannelFuture future = getSession().write(stream);
 		if (future != null)
 			future.addListener(ChannelFutureListener.CLOSE);
