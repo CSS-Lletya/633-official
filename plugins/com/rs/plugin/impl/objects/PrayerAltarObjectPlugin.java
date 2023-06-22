@@ -11,7 +11,7 @@ import skills.Skills;
 import skills.prayer.Bone;
 import skills.prayer.PrayerBoneAltar;
 
-@ObjectSignature(objectId = {409, 36972}, name = {"Altar"})
+@ObjectSignature(objectId = {409, 36972}, name = {})
 public class PrayerAltarObjectPlugin extends ObjectListener {
 
 	@Override

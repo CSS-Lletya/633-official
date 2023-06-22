@@ -120,6 +120,9 @@ public interface Sounds {
 	int CHISELING = 2586;
 	int SPINNING = 2590;
 	int FILL_BUCKET_WITH_SAND = 2584;
+	int EMPTY_ITEM = 2610;//is actually only used for vial, but we can use for other empty items.
+	int MANHOLE_OPENING = 74;
+	int MANHOLE_CLOSING = 75;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -141,7 +144,5 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
-
-	
 	
 }

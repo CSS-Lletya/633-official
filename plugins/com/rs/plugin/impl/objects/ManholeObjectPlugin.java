@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.objects;
 
+import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
@@ -17,11 +18,12 @@ public class ManholeObjectPlugin extends ObjectListener {
 		object.doAction(optionId, object.getId(), "open", () -> {
 			interacting = new GameObject(object.getId() + 1, object.getType(), object.getRotation(), object.getX(), object.getY(), object.getPlane());
 			player.faceObject(interacting);
-			GameObject.spawnObjectTemporary(interacting, 60);
+			GameObject.spawnTempGroundObject(interacting, 60, () -> player.getAudioManager().sendSound(Sounds.MANHOLE_OPENING));
 		});
 		object.doAction(optionId, object.getId(), "close", () -> {
 			interacting = new GameObject(getCloseId(object.getId()), object.getType(), object.getRotation(), object.getX(), object.getY(), object.getPlane());
 			player.faceObject(interacting);
+			player.getAudioManager().sendSound(Sounds.MANHOLE_CLOSING);
 			GameObject.removeObject(interacting);
 		});
 		

@@ -3,6 +3,7 @@ package com.rs.plugin.impl.inventory;
 import java.util.Arrays;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
@@ -19,6 +20,7 @@ public class EmptyItemPlugin extends InventoryListener {
 		if (option == 6) {
 			Arrays.stream(EmptyData.values()).filter(toEmpty -> toEmpty.toEmpty == item.getId())
 			.forEach(toEmpty -> {
+				player.getAudioManager().sendSound(Sounds.EMPTY_ITEM);
 				player.getInventory().getItems().set(slotId, new Item(toEmpty.getResult()));
                 player.getInventory().refresh();
                 player.getPackets().sendGameMessage("You empty out the " + ItemDefinitions.getItemDefinitions(item.getId()).getName() + ".");
