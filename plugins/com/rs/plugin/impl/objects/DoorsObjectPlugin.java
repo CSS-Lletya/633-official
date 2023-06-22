@@ -24,12 +24,18 @@ import com.rs.plugin.wrapper.ObjectSignature;
 		39976, 39978, 39979, 41131, 41132, 41133, 41134, 41174, 41175, 41178, 41179, 45964, 45965, 45966, 45967, 47240,
 		47241, 47421, 47424, 48938, 48939, 48940, 48941, 48942, 48943, 48944, 48945, 49014, 49016, 52176, 52183, 52381,
 		52313, 52382, 52315, 53671, 53672, 53674, 53675, 59958, 59961, 61051, 61052, 61053, 61054, 64835, 64837, 66599,
-		66601, 66938, 66940, 66941, 66942, 14931, 14929, 8958, 8959, 8960, 37000, 37003}, name = {})
+		66601, 66938, 66940, 66941, 66942, 14931, 14929, 8958, 8959, 8960, 37000, 37003, 1804}, name = {})
 public class DoorsObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		Doors.handleDoubleDoor(player, object);
+		if (object.getId() == 1804) {
+			if (!player.getInventory().containsAny(983)) {
+				player.getPackets().sendGameMessage("This door is locked.");
+				return;
+			}
+		}
+		Doors.handleDoor(player, object);
 		if (object.getId() == 37000 || object.getId() ==37003) {
 			Doors.handleDoubleDoor(player, object, true);
 		}
