@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.objects.region;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
@@ -25,7 +26,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		if (object.getId() == 2873 || object.getId() == 2874 || object.getId() == 2875) {
-			if (player.hasItem(new Item(2412)) || player.hasItem(new Item(2413)) || player.hasItem(new Item(2414))) {
+			if (player.hasItem(new Item(2412), new Item(2413), new Item(2414))) {
 				player.getPackets().sendGameMessage("You already have a God cape.");
 				return;
 			}
@@ -49,7 +50,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 				@Override
 				protected void execute() {
 					player.getInterfaceManager().closeInterfaces();
-					handlePool(player, true, destination, object);
+					handlePool(player, destination, object);
 					cancel();
 				}
 			});
@@ -61,7 +62,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 	private static void process(GameObject object, int cape, Player player) {
 		String capeType = ItemDefinitions.getItemDefinitions(cape).getName().replace(" cape", "");
 		WorldTile capeTile = new WorldTile(player);
-		player.setNextAnimation(new Animation(645));
+		player.setNextAnimation(Animations.PRAYING_TO_ALTAR);
 		player.getPackets().sendGameMessage("You kneel and begin to chant to " + capeType + "...");
 		player.task(3, p -> p.addWalkSteps(player.getX(), player.getY() - 1));
 		World.get().submit(new Task(6) {
@@ -81,31 +82,28 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 		});
 	}
 	
-	public void handlePool(final Player player, boolean enter, final WorldTile dest, final GameObject object) {
-		final WorldTile end = (object.matches(new WorldTile(2508,4686)) ? new WorldTile(2542, 4718) : new WorldTile(2509, 4689));
+	public void handlePool(final Player player, final WorldTile dest, final GameObject object) {
+		final WorldTile end = (object.matches(new WorldTile(2508, 4686)) ? new WorldTile(2542, 4718)
+				: new WorldTile(2509, 4689));
 		final WorldTile middle = object.getId() == 2879 ? new WorldTile(2509, 4687, 0) : new WorldTile(2542, 4720, 0);
 		player.getPackets().sendGameMessage("You step into the pool.");
 		player.setNextWorldTile(middle);
-		player.setNextAnimation(new Animation(7269));
-		if (enter) {
-			World.get().submit(new Task(1) {
-				int tick;
-				@Override
-				protected void execute() {
-					switch(tick++) {
-					case 1:
-						FadingScreen.fade(player, () -> {
-							player.setNextAnimation(new Animation(7269));
-							player.getPackets().sendGraphics(new Graphics(68), middle);
-						});
-						break;
-					case 2:
-						player.task(2, p -> p.setNextWorldTile(end));
-						cancel();
-						break;
-					}
+		player.setNextAnimation(Animations.JUMPING_INTO_SOMETHING);
+		player.task(3, p -> p.toPlayer().getPackets().sendGraphics(new Graphics(68), middle));
+		World.get().submit(new Task(1) {
+			int tick;
+			@Override
+			protected void execute() {
+				switch (tick++) {
+				case 1:
+					FadingScreen.fade(player, () -> player.setNextAnimation(new Animation(7269)));
+					break;
+				case 2:
+					player.task(2, p -> p.setNextWorldTile(end));
+					cancel();
+					break;
 				}
-			});
-		}
+			}
+		});
 	}
 }
