@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.objects.region;
 
+import com.rs.constants.Sounds;
 import com.rs.game.dialogue.impl.StairsLaddersDialogue;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
@@ -47,6 +48,7 @@ public class DraynorRegionObjectPlugin extends ObjectListener {
 				player.getMovement().move(false, new WorldTile(3118, 9643, 0), TeleportType.BLANK);
 		}
 		if (object.getId() == 46243) {
+			player.getAudioManager().sendSound(Sounds.LOCKED);
 			player.getPackets().sendGameMessage("The chest is locked...");
 		}
 		if (object.getId() == 12536 || object.getId() == 12537 || object.getId() == 12538) {

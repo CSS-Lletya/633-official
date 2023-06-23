@@ -2,6 +2,7 @@ package com.rs.content.mapzone.impl;
 
 import java.util.Optional;
 
+import com.rs.constants.Sounds;
 import com.rs.content.mapzone.MapZone;
 import com.rs.game.Entity;
 import com.rs.game.map.GameObject;
@@ -118,6 +119,7 @@ public class WildernessMapZone extends MapZone {
 	@Override
 	public boolean processObjectClick1(Player player, final GameObject object) {
 		if (object.getId() == 2557 || object.getId() == 65717) {
+			player.getAudioManager().sendSound(Sounds.LOCKED);
 			player.getPackets().sendGameMessage("It seems it is locked, maybe you should try something else.");
 			return false;
 		}

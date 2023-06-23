@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.objects;
 
+import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
@@ -21,6 +22,7 @@ public class LeverPullObjectPlugin extends ObjectListener {
 			protected void execute() {
 				switch(tick++) {
 				case 0:
+					player.getAudioManager().sendSound(Sounds.PULLING_LEVER);
 					player.setNextAnimation(new Animation(2140));
 					break;
 				case 2:

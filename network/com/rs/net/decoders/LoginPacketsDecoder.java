@@ -41,7 +41,6 @@ public final class LoginPacketsDecoder extends Decoder {
 			session.getLoginPackets().sendClientPacket(6);
 			return;
 		}
-		System.out.println(packetId);
 		if (packetId == 16 || packetId == 18) { // 16 world login
 			decodeWorldLogin(stream);
 		} else if (packetId == 19) {

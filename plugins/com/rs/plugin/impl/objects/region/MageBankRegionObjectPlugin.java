@@ -2,6 +2,7 @@ package com.rs.plugin.impl.objects.region;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
@@ -89,6 +90,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 		player.getPackets().sendGameMessage("You step into the pool.");
 		player.setNextWorldTile(middle);
 		player.setNextAnimation(Animations.JUMPING_INTO_SOMETHING);
+		player.getAudioManager().sendSound(Sounds.WATER_SPLASHING);
 		player.task(3, p -> p.toPlayer().getPackets().sendGraphics(new Graphics(68), middle));
 		World.get().submit(new Task(1) {
 			int tick;

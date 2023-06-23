@@ -122,7 +122,14 @@ public interface Sounds {
 	int FILL_BUCKET_WITH_SAND = 2584;
 	int EMPTY_ITEM = 2610;//is actually only used for vial, but we can use for other empty items.
 	int MANHOLE_OPENING = 74;
-	int MANHOLE_CLOSING = 75;
+	int MANHOLE_CLOSING = 75; //2969
+	int PULLING_LEVER = 2400;
+	int LOCKED = 2402; //not sure if it's related to objects being "locked", but indefinitely states "Lock"
+	int HOPPER_LEVER_PULLING = 2575;
+	int FANFARE = 2930; //funny TADA! sound effect. kek.
+	int UNLOCK_AND_MOVE = 1473;
+	int WATER_SPLASHING = 2496; //linked to JUMPING_INTO, or anything relevant too.
+	int LOOM_WEAVING = 2587;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -144,5 +151,6 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
+	
 	
 }

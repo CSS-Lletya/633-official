@@ -25,6 +25,7 @@ public class DualLeverPullingObjectPlugin extends ObjectListener {
 			player.getPackets().sendGameMessage("You pull the lever.");
 			if (player.getAttributes().get(Attribute.WHEAT_DEPOSITED).getBoolean()) {
 				player.getAttributes().get(Attribute.WHEAT_GRINDED).set(true);
+				player.getAudioManager().sendSound(Sounds.HOPPER_LEVER_PULLING);
 				player.getAudioManager().sendSound(Sounds.PIT_FALL);
 				player.getPackets().sendGameMessage("You hear the grinding of stones and the wheat falls below.");
 				LumbridgeRegionObjectPlugin.updateWheat(player);
@@ -35,6 +36,7 @@ public class DualLeverPullingObjectPlugin extends ObjectListener {
 				player.getPackets().sendGameMessage("You pull the lever.");
 				if (player.getAttributes().get(Attribute.WHEAT_DEPOSITED).getBoolean()) {
 					player.getAttributes().get(Attribute.WHEAT_GRINDED).set(true);
+					player.getAudioManager().sendSound(Sounds.HOPPER_LEVER_PULLING);
 					player.getAudioManager().sendSound(Sounds.PIT_FALL);
 					player.getPackets().sendGameMessage("You hear the grinding of stones and the wheat falls below.");
 					LumbridgeRegionObjectPlugin.updateWheat(player);
