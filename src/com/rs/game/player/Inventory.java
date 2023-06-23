@@ -1,5 +1,6 @@
 package com.rs.game.player;
 
+import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemWeights;
@@ -275,6 +276,9 @@ public final class Inventory {
 		for (Item item : list) {
 			if (item == null)
 				continue;
+			if (item.getId() == 1633) {
+				player.getAudioManager().sendSound(Sounds.GEM_SMASHING);
+			}
 			addItem(item);
 		}
 		return true;
