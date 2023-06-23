@@ -131,6 +131,7 @@ public interface Sounds {
 	int WATER_SPLASHING = 2496; //linked to JUMPING_INTO, or anything relevant too.
 	int LOOM_WEAVING = 2587;
 	int GEM_SMASHING = 2589;
+	int AMULET_STRINGING = 2593;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -152,5 +153,6 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
+	
 	
 }
