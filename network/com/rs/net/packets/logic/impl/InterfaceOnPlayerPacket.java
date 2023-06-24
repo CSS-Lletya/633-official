@@ -3,6 +3,7 @@ package com.rs.net.packets.logic.impl;
 import java.util.Optional;
 
 import com.rs.GameConstants;
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
@@ -11,6 +12,7 @@ import com.rs.game.npc.familiar.Familiar.SpecialAttack;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
+import com.rs.game.player.content.ChrismasCracker;
 import com.rs.game.player.content.Magic;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacketListener;
@@ -49,10 +51,6 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 		if (forceRun)
 			player.setRun(forceRun);
 		switch (interfaceId) {
-		case 1110:
-			if (componentId == 87)
-//				ClansManager.invite(player, p2);
-				break;
 		case Inventory.INVENTORY_INTERFACE:
 			final Item item = player.getInventory().getItem(interfaceSlot);
 			if (item == null || item.getId() != itemId)
@@ -60,8 +58,8 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 			player.setRouteEvent(new RouteEvent(p2, () -> {
 				if (player.getMapZoneManager().execute(player, controller -> !controller.processItemOnPlayer(player, p2, item)))
 					return;
-//				if (itemId == 4155)
-//					player.getSlayerManager().invitePlayer(p2);
+				if (item.getId() == ItemNames.CHRISTMAS_CRACKER_962)
+					ChrismasCracker.splitCracker(player, p2, item);
 			}));
 			break;
 		case 662:
