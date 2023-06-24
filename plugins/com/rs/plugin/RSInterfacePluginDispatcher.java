@@ -245,6 +245,7 @@ public final class RSInterfacePluginDispatcher {
 			player.getCombatDefinitions().decreaseSpecialAttack(0);
 		player.getDetails().getCharges().wear(targetSlot);
 		EquipSounds.executeSound(player, item);
+		player.getPackets().sendGlobalConfig(779, player.getEquipment().getWeaponRenderEmote());
 		return true;
 	}
 
@@ -343,6 +344,7 @@ public final class RSInterfacePluginDispatcher {
 		if (targetSlot == 3)
 			player.getCombatDefinitions().decreaseSpecialAttack(0);
 		player.getDetails().getCharges().wear(targetSlot);
+		player.getPackets().sendGlobalConfig(779, player.getEquipment().getWeaponRenderEmote());
 		return true;
 	}
 
