@@ -5,6 +5,7 @@ import com.rs.game.item.Item;
 import com.rs.game.npc.familiar.Familiar.SpecialAttack;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.ItemCombine;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
@@ -65,6 +66,9 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 		}
 		if (Firemaking.execute(player, new Item(toItemId), new Item(fromItemId), false, false, player))
 			return;
+		if (ItemCombine.handle(player, player.getInventory(), new Item(toItemId), new Item(fromItemId))){
+			return;
+		}
 		if (GameConstants.DEBUG)
 			LogUtility.log(LogType.INFO, "ItemOnItem " + fromInterfaceId + ", " + fromButtonId + ", " + fromSlotId + ", " + fromItemId + ", "
 					+ toInterfaceId + ", " + toButtonId + ", " + toSlotId + ", " + toItemId);

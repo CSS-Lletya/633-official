@@ -132,6 +132,8 @@ public interface Sounds {
 	int LOOM_WEAVING = 2587;
 	int GEM_SMASHING = 2589;
 	int AMULET_STRINGING = 2593;
+	int ANTIFIRE_EFFECTS_REMOVED = 2607;
+	int ATTACH_SOMETHING = 2287;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -153,6 +155,5 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
-	
 	
 }

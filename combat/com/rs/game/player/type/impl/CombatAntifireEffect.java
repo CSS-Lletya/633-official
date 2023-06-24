@@ -2,6 +2,7 @@ package com.rs.game.player.type.impl;
 
 import java.util.Optional;
 
+import com.rs.constants.Sounds;
 import com.rs.game.Entity;
 import com.rs.game.player.Player;
 import com.rs.game.player.type.CombatEffect;
@@ -62,6 +63,7 @@ public final class CombatAntifireEffect extends CombatEffect {
 				}
 				if (count < 1) {
 					player.getDetails().setAntifireDetails(Optional.empty());
+					player.getAudioManager().sendSound(Sounds.ANTIFIRE_EFFECTS_REMOVED);
 					player.getPackets().sendGameMessage("Your resistance to dragon fire has worn off!");
 				}
 			}
