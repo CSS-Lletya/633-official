@@ -44,9 +44,9 @@ public class ChatPacket implements OutgoingPacketListener {
 		}
 		int effects = (colorEffect << 8) | (moveEffect & 0xff);
 		if (chatType == 1) {
-			player.getCurrentFriendChat().sendMessage(player, new ChatMessage(message));
+			player.getCurrentFriendChat().sendMessage(player, new ChatMessage(player, message));
 		} else {
-			PublicChatMessage chatMessage = new PublicChatMessage(message, effects);
+			PublicChatMessage chatMessage = new PublicChatMessage(player, message, effects);
 			chatMessage.sendPublicChatMessage(player, chatMessage);
 		}
 		if (GameConstants.DEBUG)

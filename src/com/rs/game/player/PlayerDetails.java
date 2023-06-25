@@ -205,6 +205,8 @@ public final class PlayerDetails {
 	
 	private int essenceTeleporter;
 	
+	private int censoredWordCount;
+	
 	private Statistics statistics;
 	
     public void restoreRunEnergy(double energy) {

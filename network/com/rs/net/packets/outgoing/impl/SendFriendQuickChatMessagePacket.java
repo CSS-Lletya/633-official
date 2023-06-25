@@ -33,6 +33,6 @@ public class SendFriendQuickChatMessagePacket implements OutgoingPacketListener 
 			}
 		}
 		player.getFriendsIgnores().sendQuickChatMessage(p2,
-				new QuickChatMessage(fileId, data));
+				new QuickChatMessage(player, fileId, data));
 	}
 }

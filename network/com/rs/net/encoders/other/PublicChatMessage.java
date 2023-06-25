@@ -16,8 +16,8 @@ public class PublicChatMessage extends ChatMessage {
 	@Setter
 	private int effects;
 
-	public PublicChatMessage(String message, int effects) {
-		super(message);
+	public PublicChatMessage(Player player, String message, int effects) {
+		super(player, message);
 		setEffects(effects);
 	}
 

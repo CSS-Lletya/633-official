@@ -31,6 +31,6 @@ public class SendFriendMessagePacket implements OutgoingPacketListener {
 		}
 
 		player.getFriendsIgnores().sendMessage(p2,
-				new ChatMessage(Huffman.readEncryptedMessage(150, stream)));
+				new ChatMessage(player, Huffman.readEncryptedMessage(150, stream)));
 	}
 }

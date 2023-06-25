@@ -11,6 +11,9 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
+import com.rs.game.player.Player;
+import com.rs.net.host.HostListType;
+import com.rs.net.host.HostManager;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.TextUtils;
@@ -33,7 +36,7 @@ public class Censor {
 			loadUnpackedCensoredWords();
 	}
 
-	public static String getFilteredMessage(String message) {
+	public static String getFilteredMessage(Player player, String message) {
 		message = message.toLowerCase();
 		for (String word : censoredWords) {
 			if (message.contains(word)) {
@@ -41,6 +44,11 @@ public class Censor {
 				for (int i = 0; i < word.length(); i++)
 					sb.append("*");
 				message = message.replace(word, sb.toString());
+				player.getDetails().setCensoredWordCount(player.getDetails().getCensoredWordCount() + 1);
+				if (player.getDetails().getCensoredWordCount() % 50 == 0) {
+					HostManager.add(player, HostListType.MUTED_IP, true);
+					player.getPackets().sendGameMessage("You have been temporarily muted for excessive use of vulgar language.");
+				}
 			}
 		}
 		return TextUtils.fixChatMessage(message);

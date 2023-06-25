@@ -2,6 +2,8 @@ package com.rs.net.encoders.other;
 
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
+import com.rs.net.host.HostListType;
+import com.rs.net.host.HostManager;
 import com.rs.utilities.TextUtils;
 import com.rs.utilities.loaders.Censor;
 
@@ -10,9 +12,12 @@ public class ChatMessage {
 	private String message;
 	private String filteredMessage;
 
-	public ChatMessage(String message) {
+	public ChatMessage(Player player, String message) {
+		if (HostManager.contains(player.getUsername(), HostListType.MUTED_IP) && !(this instanceof QuickChatMessage)) {
+			return;
+		}
 		if (!(this instanceof QuickChatMessage)) {
-			filteredMessage = Censor.getFilteredMessage(message);
+			filteredMessage = Censor.getFilteredMessage(player, message);
 			this.message = TextUtils.fixChatMessage(message);
 		} else
 			this.message = message;
