@@ -25,8 +25,6 @@ public final class Notes {
 		player.getPackets().sendIComponentSettings(34, 9, 0, 30, 2621470);
 		player.getPackets().sendHideIComponent(34, 3, false);
 		player.getPackets().sendHideIComponent(34, 44, false);
-		player.getVarsManager().sendVar(InterfaceVars.UNLOCK_MANAGE_NOTES, 1); // unlocks add notes
-		player.getVarsManager().sendVar(InterfaceVars.SET_NOTE_INDEX, -1);
 		refresh();
 	}
 

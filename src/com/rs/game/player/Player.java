@@ -523,6 +523,7 @@ public class Player extends Entity {
 		CombatEffect.values().stream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
 		GameConstants.STAFF.entrySet().stream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
 		getVarsManager().varMap.forEach((k, v) -> getVarsManager().sendVar(k, v));
+		getVarsManager().loadDefaultVars();
 		if (getDetails().getCurrentFriendChatOwner() != null) {
 			FriendChatsManager.joinChat(getUsername(), this);
 			if (currentFriendChat == null)

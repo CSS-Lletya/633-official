@@ -24,6 +24,18 @@ public class VarsManager {
 			i += i;
 		}
 	}
+	
+	/**
+	 * A collections of default vars that are loaded on login.
+	 * (Only used if you're not doing a remake and just want things enabled)
+	 */
+	public void loadDefaultVars() {
+		sendVarBit(1766, 1);//killerwat
+		sendVar(InterfaceVars.CLOSE_CHAT_TOOLBELT, 1000);
+		sendVar(InterfaceVars.TOTAL_QUEST_POINTS, 310);//43 f2p quest - 310 all quest (max points)
+		sendVar(InterfaceVars.UNLOCK_MANAGE_NOTES, 1); // unlocks add notes
+		sendVar(InterfaceVars.SET_NOTE_INDEX, -1);
+	}
 
 	public VarsManager() {
 		values = new int[Cache.STORE.getIndexes()[2].getLastFileId(16) + 1];

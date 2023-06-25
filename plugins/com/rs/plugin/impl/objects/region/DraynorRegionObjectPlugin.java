@@ -9,7 +9,7 @@ import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
-@ObjectSignature(objectId = { 47643, 164, 47364, 47657, 6435, 47574, 47575, 6435, 46243, 12536,12536,12538,12537, 2147, 6434, 7057, 7056, 46244,46245}, name = {})
+@ObjectSignature(objectId = { 47643, 164, 47364, 47657, 6435, 47574, 47575, 6435, 46243, 12536,12536,12538,12537, 2147, 6434, 7057, 7056, 46244,46245,11355,11356}, name = {})
 public class DraynorRegionObjectPlugin extends ObjectListener {
 
 	@Override
@@ -68,6 +68,12 @@ public class DraynorRegionObjectPlugin extends ObjectListener {
 		}
 		if (object.getId() == 46245) {
 			player.getMovement().move(false, new WorldTile(player.getX() - 4, player.getY(), 0), TeleportType.BLANK);
+		}
+		if (object.getId() == 11355) {
+			player.getMovement().move(false, new WorldTile(2677, 5215, 2), TeleportType.BLANK);
+		}
+		if (object.getId() == 11356) {
+			player.getMovement().move(false, new WorldTile(3110, 3363, 2), TeleportType.BLANK);
 		}
 	}
 }

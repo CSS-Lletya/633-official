@@ -336,5 +336,13 @@ public interface InterfaceVars {
 	 */
 	int RUNECRAFTING_ALTARS_OPTIONS = 492;
 	
+	/**
+	 * Shop Item slot components to display
+	 */
 	int SHOP_ITEM_COMPONENTS = 118;
+	
+	/**
+	 * An immutable number that is to show only the total quest points to earn
+	 */
+	int TOTAL_QUEST_POINTS = 904;
 }
