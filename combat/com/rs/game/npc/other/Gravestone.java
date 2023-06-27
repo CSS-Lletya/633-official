@@ -32,11 +32,11 @@ public class Gravestone extends NPC {
 		player.getInterfaceManager().sendInterface(652);
 		player.getPackets().sendUnlockIComponentOptionSlots(652, 31, 0, 78, 0, 1);
 		player.getPackets().sendUnlockIComponentOptionSlots(652, 34, 0, 13, 0, 1);
-		player.getVarsManager().sendVar(1146, player.getDetails().getGravestone() | 262112);
+		player.getVarsManager().sendVar(1146, player.getDetails().getGravestone().get() | 262112);
 	}
 	
 	public static final void sendBuySelection(Player player, int option) {
-		if (player.getDetails().getGravestone() == option) {
+		if (player.getDetails().getGravestone().get() == option) {
 			player.getPackets().sendGameMessage("You already have this gravestone.");
 			return;
 		}
@@ -45,7 +45,7 @@ public class Gravestone extends NPC {
 			return;
 		}
 		if(player.getInventory().canRemove(995, PRICES[option])){
-			player.getDetails().setGravestone(option);
+			player.getDetails().getGravestone().set(option);
 			player.getInterfaceManager().closeInterfaces();
 		}
 	}
@@ -55,8 +55,8 @@ public class Gravestone extends NPC {
 	};
 
 	public Gravestone(Player player, WorldTile deathTile) {
-		super(getNPCId(player.getDetails().getGravestone()), deathTile, null, true);
-		gravestone = player.getDetails().getGravestone();
+		super(getNPCId(player.getDetails().getGravestone().get()), deathTile, null, true);
+		gravestone = player.getDetails().getGravestone().get();
 		setDirection(Utility.getFaceDirection(0, -1));
 		setNextAnimation(new Animation(gravestone == 1 ? 7396 : 7394));
 		username = player.getUsername();

@@ -2,10 +2,10 @@
 package com.rs.game.player.type;
 
 import com.rs.game.Entity;
-import com.rs.game.player.content.Potions;
 import com.rs.utilities.Colors;
 
 import skills.Skills;
+import skills.herblore.Potions;
 
 public enum Effect {
 	ANTIPOISON("poison immunity") {

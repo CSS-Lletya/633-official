@@ -22,8 +22,6 @@ import com.rs.game.player.Equipment;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.game.player.content.Foods;
-import com.rs.game.player.content.Potions.Potion;
 import com.rs.game.task.Task;
 import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.plugin.InventoryPluginDispatcher;
@@ -36,6 +34,8 @@ import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import skills.Skills;
+import skills.cooking.Foods;
+import skills.herblore.Potions.Potion;
 
 @RSInterfaceSignature(interfaceId = { 149 })
 public class InventoryInterfacePlugin extends RSInterfaceListener {
@@ -151,12 +151,10 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 					player.getPackets().sendGameMessage("The cape disintegrates as it touches the ground");
 					return;
 				}
-				if (player.getDetails().getCharges().degradeCompletly(item))
-					return;
 				if (WildernessMapZone.isAtWild(player) && ItemConstants.isTradeable(item))
 					FloorItem.updateGroundItem(item, new WorldTile(player), player, 1, 0);
 				else
-					FloorItem.updateGroundItem(item, new WorldTile(player), player, 1, 0);
+					FloorItem.updateGroundItem(item, new WorldTile(player), player, 60, 0);
 				player.getAudioManager().sendSound(getDropSound(item.getId()));
 				break;
 			}

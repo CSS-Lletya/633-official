@@ -7,11 +7,11 @@ import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.Potions;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
 
 import skills.Skills;
+import skills.herblore.Potions;
 
 /**
  * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
@@ -72,7 +72,7 @@ public final class OverloadEffectTask extends Task {
 	@Override
 	public void onCancel() {
 		restoreSkills();
-		player.resetOverloadEffect(false);
+		resetOverloadEffect(false);
 	}
 	
 	/**
@@ -87,5 +87,26 @@ public final class OverloadEffectTask extends Task {
 	 */
 	private void restoreSkills() {
 		IntStream.range(0, 6).filter(i -> i != Skills.PRAYER).forEach(i -> player.getSkills().restoreSkill(i));
+	}
+	
+	/**
+	 * Applies the overload effect for the specified player.
+	 */
+	public void applyOverloadEffect() {
+		OverloadEffectTask effect = new OverloadEffectTask(player);
+		player.setOverloadEffect(effect);
+		effect.submit();
+	}
+	
+	/**
+	 * Resets the overload effect.
+	 */
+	public void resetOverloadEffect(boolean stopTask) {
+		if(player.getOverloadEffect() != null) {
+			if(player.getOverloadEffect().isRunning() && stopTask) {
+				player.getOverloadEffect().cancel();
+			}
+			player.setOverloadEffect(null);
+		}
 	}
 }

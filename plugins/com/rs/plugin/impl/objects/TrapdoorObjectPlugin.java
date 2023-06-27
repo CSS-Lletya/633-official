@@ -6,7 +6,6 @@ import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.TeleportType;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
 import com.rs.plugin.listener.ObjectListener;
@@ -14,6 +13,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
 import com.rs.utilities.RandomUtils;
 
 import skills.Skills;
+import skills.magic.TeleportType;
 
 @ObjectSignature(objectId = { 5492, 26933 }, name = {})
 public class TrapdoorObjectPlugin extends ObjectListener {

@@ -44,8 +44,8 @@ public class Censor {
 				for (int i = 0; i < word.length(); i++)
 					sb.append("*");
 				message = message.replace(word, sb.toString());
-				player.getDetails().setCensoredWordCount(player.getDetails().getCensoredWordCount() + 1);
-				if (player.getDetails().getCensoredWordCount() % 50 == 0) {
+				player.getDetails().getCensoredWordCount().getAndIncrement();
+				if (player.getDetails().getCensoredWordCount().getEvery(50)) {
 					HostManager.add(player, HostListType.MUTED_IP, true);
 					player.getPackets().sendGameMessage("You have been temporarily muted for excessive use of vulgar language.");
 				}

@@ -5,10 +5,10 @@ import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
+import skills.magic.TeleportType;
 import skills.woodcutting.sawmill.Sawmill;
 
 @ObjectSignature(objectId = {46034, 24367, 24359, 24360, 24350, 24352, 24353, 24361, 24362, 24349, 24354, 37116, 24355, 46307}, name = {})

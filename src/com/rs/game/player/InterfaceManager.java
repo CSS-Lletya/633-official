@@ -208,13 +208,13 @@ public class InterfaceManager {
 	public void sendQuest() {
 		setWindowInterface(isResizableScreen() ? RESIZABLE_TAB_OFFSET + Tab.QUEST : FIXED_TAB_OFFSET + Tab.QUEST, 190);
 		player.getPackets().sendIComponentSettings(190, 18, 0, 170, 300);
-		player.getVarsManager().sendVar(101, player.getDetails().getQuestPoints());//send this on completion
+		player.getVarsManager().sendVar(101, player.getDetails().getQuestPoints().get());//send this on completion
 		player.getVarsManager().setVarBit(4536, player.getDetails().isSort() ? 1 : 0);
 		player.getVarsManager().setVarBit(7264, player.getDetails().isHideDone() ? 0 : 1);
 	}
 	
 	public void updateQuestTab() {
-		player.getVarsManager().sendVar(101, player.getDetails().getQuestPoints());//send this on completion
+		player.getVarsManager().sendVar(101, player.getDetails().getQuestPoints().get());//send this on completion
 	}
 
 	public void sendFriends() {

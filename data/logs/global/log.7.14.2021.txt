@@ -1,2 +1,0 @@
-[04:01:54 EDT]127.0.0.1 - zed [  has logged in. ]
-[04:03:02 EDT]127.0.0.1 - zed [  has logged in. ]

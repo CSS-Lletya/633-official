@@ -7,12 +7,13 @@ import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
 import com.rs.game.player.Hit.HitLook;
-import com.rs.game.player.content.Summoning.Pouch;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.utilities.RandomUtils;
+
+import skills.summoning.Summoning.Pouch;
 
 public class Forgeregent extends Familiar {
 

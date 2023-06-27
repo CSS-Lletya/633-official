@@ -8,11 +8,16 @@ import com.rs.constants.InterfaceVars;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Emotes.Emote;
 
+import lombok.Getter;
+
 public class VarsManager {
 
 	private transient int[] values;
 	private transient Player player;
+	
+	@Getter
 	public HashMap<Integer,Integer> varMap = new HashMap<Integer,Integer>();
+	@Getter
 	public HashMap<Integer,Integer> varBitMap = new HashMap<Integer,Integer>();
 	
 	private transient final int[] masklookup = new int[32];
@@ -29,12 +34,13 @@ public class VarsManager {
 	 * A collections of default vars that are loaded on login.
 	 * (Only used if you're not doing a remake and just want things enabled)
 	 */
-	public void loadDefaultVars() {
+	public VarsManager loadDefaultVars() {
 		sendVarBit(1766, 1);//killerwat
 		sendVar(InterfaceVars.CLOSE_CHAT_TOOLBELT, 1000);
 		sendVar(InterfaceVars.TOTAL_QUEST_POINTS, 310);//43 f2p quest - 310 all quest (max points)
 		sendVar(InterfaceVars.UNLOCK_MANAGE_NOTES, 1); // unlocks add notes
 		sendVar(InterfaceVars.SET_NOTE_INDEX, -1);
+		return this;
 	}
 
 	public VarsManager() {

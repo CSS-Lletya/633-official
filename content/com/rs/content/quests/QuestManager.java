@@ -11,7 +11,6 @@ import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.ScrollInterface;
 import com.rs.utilities.Colors;
 import com.rs.utilities.Utility;
 

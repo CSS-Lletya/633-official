@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 
+import skills.magic.TeleportType;
 import skills.runecrafting.Altar;
 
 /**

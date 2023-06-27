@@ -7,6 +7,8 @@ import com.rs.io.InputStream;
 import com.rs.net.AccountCreation;
 import com.rs.net.IsaacKeyPair;
 import com.rs.net.Session;
+import com.rs.net.host.HostListType;
+import com.rs.net.host.HostManager;
 import com.rs.utilities.AntiFlood;
 import com.rs.utilities.BlowFishCryptService;
 import com.rs.utilities.LogUtility;
@@ -130,8 +132,7 @@ public final class LoginPacketsDecoder extends Decoder {
 				return;
 			}
 		}
-		if ((player.getDetails().isPermBanned()
-				|| player.getDetails().getBanned() > Utility.currentTimeMillis())) {
+		if ((HostManager.contains(player.getUsername(), HostListType.BANNED_IP))) {
 			session.getLoginPackets().sendClientPacket(4);
 			return;
 		}
@@ -216,8 +217,7 @@ public final class LoginPacketsDecoder extends Decoder {
 				return;
 			}
 		}
-		if ((player.getDetails().isPermBanned()
-				|| player.getDetails().getBanned() > Utility.currentTimeMillis())) {
+		if ((HostManager.contains(player.getUsername(), HostListType.BANNED_IP))) {
 			session.getLoginPackets().sendClientPacket(4);
 			return;
 		}

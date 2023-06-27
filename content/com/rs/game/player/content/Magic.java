@@ -21,6 +21,7 @@ import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.Skills;
+import skills.magic.TeleportType;
 
 /*
  * content package used for static stuff

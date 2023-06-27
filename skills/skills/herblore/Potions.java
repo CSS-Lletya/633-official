@@ -14,7 +14,7 @@
 //  Copyright (C) 2021 Trenton Kress
 //  This file is part of project: Darkan
 //
-package com.rs.game.player.content;
+package skills.herblore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -180,21 +180,21 @@ public class Potions {
 			p.heal(30);
 		}),
 
-		ENERGY_POTION(VIAL, new int[] { 3008, 3010, 3012, 3014 }, p -> p.getDetails().restoreRunEnergy(20)),
+		ENERGY_POTION(VIAL, new int[] { 3008, 3010, 3012, 3014 }, p -> restoreRunEnergy(p, 20)),
 		ENERGY_MIX(VIAL, new int[] { 11453, 11455 }, p -> {
-			p.getDetails().restoreRunEnergy(20);
+			restoreRunEnergy(p, 20);
 			p.heal(30);
 		}),
 
-		SUPER_ENERGY(VIAL, new int[] { 3016, 3018, 3020, 3022 }, p -> p.getDetails().restoreRunEnergy(40)),
-		CW_SUPER_ENERGY_POTION(-1, new int[] { 18727, 18728, 18729, 18730 }, p -> p.getDetails().restoreRunEnergy(40)),
+		SUPER_ENERGY(VIAL, new int[] { 3016, 3018, 3020, 3022 }, p -> restoreRunEnergy(p, 40)),
+		CW_SUPER_ENERGY_POTION(-1, new int[] { 18727, 18728, 18729, 18730 }, p -> restoreRunEnergy(p, 40)),
 		SUPER_ENERGY_MIX(VIAL, new int[] { 11481, 11483 }, p -> {
-			p.getDetails().restoreRunEnergy(40);
+			restoreRunEnergy(p, 40);
 			p.heal(30);
 		}),
 
 		GUTHIX_REST(VIAL, new int[] { 4417, 4419, 4421, 4423 }, p -> {
-			p.getDetails().restoreRunEnergy(5);
+			restoreRunEnergy(p, 5);
 			p.heal(50, 50);
 			p.getPoisonDamage().set(p.getPoisonDamage().get() - 10);
 		}),
@@ -285,7 +285,7 @@ public class Potions {
 		SUPER_PRAYER(VIAL, new int[] { 15328, 15329, 15330, 15331 }, p -> p.getPrayer().restorePrayer(((int) (70 + (p.getSkills().getLevelForXp(Skills.PRAYER) * 3.43))))),
 		DOM_SUPER_PRAYER(-1, new int[] { 22375, 22376 }),
 
-		OVERLOAD(VIAL, new int[] { 15332, 15333, 15334, 15335 }, true, p -> p.applyOverloadEffect()) {
+		OVERLOAD(VIAL, new int[] { 15332, 15333, 15334, 15335 }, true, p -> p.getOverloadEffect().applyOverloadEffect()) {
 			@Override
 			public boolean canDrink(Player player) {
 				if(WildernessMapZone.isAtWild(player)) {
@@ -376,7 +376,7 @@ public class Potions {
 			//TODO
 		}),
 
-		STRANGE_FRUIT(-1, 464, p -> p.getDetails().restoreRunEnergy(30)),
+		STRANGE_FRUIT(-1, 464, p -> restoreRunEnergy(p, 30)),
 
 
 		KARAMJAN_RUM(-1, 431, p -> {
@@ -867,4 +867,11 @@ public class Potions {
 			}
 		}
 	}
+	
+    public static void restoreRunEnergy(Player player, double energy) {
+        if (player.getDetails().getRunEnergy() + energy > 100.0)
+        	player.getDetails().setRunEnergy(100);
+        else
+        	player.getDetails().setRunEnergy(player.getDetails().getRunEnergy() + 1);
+    }
 }

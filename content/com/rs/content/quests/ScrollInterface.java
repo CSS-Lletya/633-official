@@ -1,4 +1,4 @@
-package com.rs.game.player.content;
+package com.rs.content.quests;
 
 import java.util.ArrayList;
 import java.util.List;

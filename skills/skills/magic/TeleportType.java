@@ -1,4 +1,4 @@
-package com.rs.game.player.content;
+package skills.magic;
 
 import java.util.Optional;
 

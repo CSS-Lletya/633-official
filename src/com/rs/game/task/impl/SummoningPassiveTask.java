@@ -15,11 +15,9 @@ public final class SummoningPassiveTask extends Task {
 	
 	@Override
 	public void execute() {
-		World.players().filter(p -> p.getFamiliar() != null).forEach(p -> {
-			if (p.getFamiliar().getOriginalId() == 6814) {
-				p.heal(20);
-				p.setNextGraphics(new Graphics(1507));
-			}
+		World.players().filter(p -> p.getFamiliar() != null && p.getFamiliar().getOriginalId() == 6814).forEach(p -> {
+			p.heal(20);
+			p.setNextGraphics(new Graphics(1507));
 		});
 	}
 	

@@ -5,9 +5,10 @@ import com.rs.game.dialogue.impl.StairsLaddersDialogue;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
+
+import skills.magic.TeleportType;
 
 @ObjectSignature(objectId = { 47643, 164, 47364, 47657, 6435, 47574, 47575, 6435, 46243, 12536,12536,12538,12537, 2147, 6434, 7057, 7056, 46244,46245,11355,11356}, name = {})
 public class DraynorRegionObjectPlugin extends ObjectListener {

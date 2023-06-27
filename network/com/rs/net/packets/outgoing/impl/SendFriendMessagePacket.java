@@ -5,9 +5,10 @@ import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.Huffman;
 import com.rs.net.encoders.other.ChatMessage;
+import com.rs.net.host.HostListType;
+import com.rs.net.host.HostManager;
 import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
-import com.rs.utilities.Utility;
 
 @OutgoingPacketSignature(packetId = 40, description = "Represents sending a Message to another Player (Privately)")
 public class SendFriendMessagePacket implements OutgoingPacketListener {
@@ -16,9 +17,7 @@ public class SendFriendMessagePacket implements OutgoingPacketListener {
 	public void execute(Player player, InputStream stream) {
 		if (!player.isStarted() && !World.containsLobbyPlayer(player.getUsername()))
 			return;
-		if (player.getDetails().getMuted() > Utility.currentTimeMillis()) {
-			player.getPackets().sendGameMessage(
-					"You temporary muted. Recheck in 48 hours.");
+		if (HostManager.contains(player.getUsername(), HostListType.MUTED_IP)) {
 			return;
 		}
 		String username = stream.readString();

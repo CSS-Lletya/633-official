@@ -240,12 +240,29 @@ public class Player extends Entity {
 	 */
 	private transient ScriptDialogueInterpreter dialogueInterpreter;
 	
+	/**
+	 * Represents a transient Clue scroll rewards item container
+	 */
 	private transient ItemsContainer<Item> clueScrollRewards;
-	
+
+	/**
+	 * Represents the Audio manager for sending Sounds
+	 */
 	private transient AudioManager audioManager;
 	
+	/**
+	 * Represents an instance of the Overload effects task
+	 */
+	private transient OverloadEffectTask overloadEffect;
+	
+	/**
+	 * Represents the Treasure Trails management
+	 */
     private TreasureTrailsManager treasureTrailsManager;
 
+    /**
+	 * Represents the Treasure Trails Puzzle Box management
+	 */
 	private PuzzleBox puzzleBox;
 	
 	/**
@@ -329,11 +346,14 @@ public class Player extends Entity {
 	private Optional<MapZone> currentMapZone = Optional.empty();
 	
 	/**
+	 * A collection of mapzone attributes
+	 */
+	private Object[] mapZoneAttributes;
+	
+	/**
 	 * Represents a Quest Manager
 	 */
 	private QuestManager questManager;
-	
-	private Object[] lastControlerArguments;
 
 	/**
 	 * Constructs a new Player
@@ -360,21 +380,27 @@ public class Player extends Entity {
 		setVarsManager(new VarsManager());
 		if (!getCurrentMapZone().isPresent())
 			setCurrentMapZone(getCurrentMapZone());
-		questManager = new QuestManager();
-		dialogueInterpreter = new ScriptDialogueInterpreter(this);
-		treasureTrailsManager = new TreasureTrailsManager();
-		clueScrollRewards = new ItemsContainer<Item>(10, true);
+		setQuestManager(new QuestManager());
+		setDialogueInterpreter(new ScriptDialogueInterpreter(this));
+		setTreasureTrailsManager(new TreasureTrailsManager());
+		setClueScrollRewards(new ItemsContainer<Item>(10, true));
 		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
-		audioManager = new AudioManager(this);
+		setAudioManager(new AudioManager(this));
 	}
 	
-	public void init(Session session, String string, IsaacKeyPair isaacKeyPair) {
-		username = string;
-		this.session = session;
-		this.isaacKeyPair = isaacKeyPair;
+	/**
+	 * Logs the Player into the lobby
+	 * @param session
+	 * @param user
+	 * @param isaacKeyPair
+	 */
+	public void init(Session session, String user, IsaacKeyPair isaacKeyPair) {
+		setUsername(user);
+		setSession(session);
+		setIsaacKeyPair(isaacKeyPair);
 		World.addLobbyPlayer(this);
 		if (GameConstants.DEBUG)
-			LogUtility.log(LogType.INFO, "Initiated Lobby player: " + username + ", pass: " + getDetails().getPassword());
+			LogUtility.log(LogType.INFO, "Initiated Lobby player: " + getUsername() + ", pass: " + getDetails().getPassword());
 	}
 
 	/**
@@ -416,19 +442,18 @@ public class Player extends Entity {
 		getCombatDefinitions().setPlayer(this);
 		getPrayer().setPlayer(this);
 		getBank().setPlayer(this);
-		if (clueScrollRewards == null)
-            clueScrollRewards = new ItemsContainer<>(10, true);
+		if (getClueScrollRewards() == null)
+			setClueScrollRewards(new ItemsContainer<>(10, true));
 		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
-		if (treasureTrailsManager == null)
-            treasureTrailsManager = new TreasureTrailsManager();
-        treasureTrailsManager.setPlayer(this);
-		if (questManager == null)
-            questManager = new QuestManager();
+		if (getTreasureTrailsManager() == null)
+			setTreasureTrailsManager(new TreasureTrailsManager());
+        getTreasureTrailsManager().setPlayer(this);
+		if (getQuestManager() == null)
+			setQuestManager(new QuestManager());
 		getMusicsManager().setPlayer(this);
 		getNotes().setPlayer(this);
 		getCombatDefinitions().setPlayer(this);
 		getFriendsIgnores().setPlayer(this);
-		getDetails().getCharges().setPlayer(this);
 		getPetManager().setPlayer(this);
 		setDirection((byte) Utility.getFaceDirection(0, -1));
 		setTemporaryMovementType((byte) -1);
@@ -436,14 +461,14 @@ public class Player extends Entity {
 		setSwitchItemCache(new ObjectArrayList<Byte>());
 		if (getAction() == null)
 			setAction(new ActionManager(this));
-		if (mapZoneManager == null)
-			mapZoneManager = new MapZoneManager();
-        questManager.setPlayer(this);
-        interfaceManager = new InterfaceManager(this);
-        if (dialogueInterpreter == null)
-			dialogueInterpreter = new ScriptDialogueInterpreter(this);
-        if (audioManager == null)
-        	audioManager = new AudioManager(this);
+		if (getMapZoneManager() == null)
+			setMapZoneManager(new MapZoneManager());
+        getQuestManager().setPlayer(this);
+        setInterfaceManager(new InterfaceManager(this));
+        if (getDialogueInterpreter() == null)
+        	setDialogueInterpreter(new ScriptDialogueInterpreter(this));
+        if (getAudioManager() == null)
+        	setAudioManager(new AudioManager(this));
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -457,15 +482,15 @@ public class Player extends Entity {
 	 * Starts Lobby rendering, etc..
 	 */
 	public void startLobby(Player player) {
-		friendsIgnores.setPlayer(this);
-		friendsIgnores.init();
+		getFriendsIgnores().setPlayer(this);
+		getFriendsIgnores().init();
 		if (getDetails().getCurrentFriendChatOwner() != null) {
 			FriendChatsManager.joinChat(getUsername(), this);
-			if (currentFriendChat == null)
-				getDetails().currentFriendChatOwner = null;
+			if (getCurrentFriendChat() == null)
+				getDetails().setCurrentFriendChatOwner(null);
 		}
 		player.getPackets().sendFriendsChatChannel();
-		friendsIgnores.sendFriendsMyStatus(true);
+		getFriendsIgnores().sendFriendsMyStatus(true);
 	}
 
 	/**
@@ -495,7 +520,6 @@ public class Player extends Entity {
 		getAction().process();
 		getPrayer().processPrayer();
 		getMapZoneManager().executeVoid(this, zone -> zone.process(this));
-		getDetails().getCharges().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
 		if (getDetails().getChargeDelay().get() > 0) {
@@ -509,11 +533,11 @@ public class Player extends Entity {
 	 * Sends important information & data for login for the player to see
 	 */
 	public void login() {
-		if (World.get().exiting_start != 0) {
-			int delayPassed = (int) ((Utility.currentTimeMillis() - World.get().exiting_start) / 1000);
-			getPackets().sendSystemUpdate(World.get().exiting_delay - delayPassed);
+		if (World.get().getExiting_start() != 0) {
+			int delayPassed = (int) ((Utility.currentTimeMillis() - World.get().getExiting_start()) / 1000);
+			getPackets().sendSystemUpdate(World.get().getExiting_delay() - delayPassed);
 		}
-//		checkMultiArea();
+		checkMultiArea();
 		Gravestone.login(this);
 		getDetails().setLastIP(getSession().getIP());
 		getAppearance().generateAppearenceData();
@@ -522,12 +546,12 @@ public class Player extends Entity {
 		getPackets().sendRunEnergy().sendGameBarStages().sendGameMessage("Welcome to " + GameConstants.SERVER_NAME + ".");
 		CombatEffect.values().stream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
 		GameConstants.STAFF.entrySet().stream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
-		getVarsManager().varMap.forEach((k, v) -> getVarsManager().sendVar(k, v));
+		getVarsManager().getVarMap().forEach((k, v) -> getVarsManager().sendVar(k, v));
 		getVarsManager().loadDefaultVars();
 		if (getDetails().getCurrentFriendChatOwner() != null) {
 			FriendChatsManager.joinChat(getUsername(), this);
-			if (currentFriendChat == null)
-				getDetails().currentFriendChatOwner = null;
+			if (getCurrentFriendChat() == null)
+				getDetails().setCurrentFriendChatOwner(null);;
 		}
 		getInventory().init();
 		getEquipment().checkItems();
@@ -545,7 +569,6 @@ public class Player extends Entity {
 			getPetManager().init();
 		setRunning(true);
 		setUpdateMovementType(true);
-		OwnedObjectManager.linkKeys(this);
 		getMapZoneManager().execute(this, controller -> controller.login(this));
 		if (HostManager.contains(getUsername(), HostListType.MUTED_IP)) {
 			getPackets()
@@ -632,7 +655,6 @@ public class Player extends Entity {
 	
 	/**
 	 * A cleaner simpler way to do quick easy dialogues!
-	 * TODO: Convert current to use this.
 	 * @param listener
 	 */
 	public void dialogue(Consumer<DialogueEventListener> listener) {
@@ -645,60 +667,38 @@ public class Player extends Entity {
 	}
 	
 	/**
-	 * Total player weight.
-	 * 
-	 * @return the weight as a Double Integer.
+	 * A cleaner simpler way to do quick easy dialogues!
+	 * This method supports NPC dialogues
+	 * @param listener
 	 */
-	public double getWeight() {
-		return inventory.getInventoryWeight() + equipment.getEquipmentWeight();
+	public void dialogue(int npcId, Consumer<DialogueEventListener> listener) {
+		dialog(new DialogueEventListener(this, Entity.findNPC(npcId)) {
+			@Override
+			public void start() {
+				listener.accept(this);
+			}
+		});
 	}
 
-    public boolean hasItem(Item... items) {
+	/**
+	 * Checks to see if the player owns the item (if exists in Bank, Inventory, or Equipment).
+	 * @param items
+	 * @return
+	 */
+    public boolean ownsItems(Item... items) {
         return Arrays.stream(items)
                 .anyMatch(item -> getBank().getItem(item.getId()) != null
                         || getEquipment().containsAny(item.getId())
                         || getInventory().containsAny(item.getId()));
     }
-
     
-    public void toogleLootShare() {
-    	getDetails().setToogleLootShare(!getDetails().isToogleLootShare());
-        refreshToogleLootShare();
+    /**
+	 * Checks to see if the player is carrying the item (if exists in Inventory, or Equipment).
+	 * @param items
+	 * @return
+	 */
+    public boolean carringItems(Item... items) {
+        return Arrays.stream(items)
+                .anyMatch(item -> getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId()));
     }
-
-    public void refreshToogleLootShare() {
-        getVarsManager().forceSendVarBit(4071, getDetails().isToogleLootShare() ? 1 : 0);
-    }
-
-
-    private transient OverloadEffectTask overloadEffect;
-    
-	/**
-	 * Gets the overload effect if there is any.
-	 * @return the overload effect.
-	 */
-	public OverloadEffectTask getOverloadEffect() {
-		return overloadEffect;
-	}
-	
-	/**
-	 * Applies the overload effect for the specified player.
-	 */
-	public void applyOverloadEffect() {
-		OverloadEffectTask effect = new OverloadEffectTask(this);
-		overloadEffect = effect;
-		effect.submit();
-	}
-	
-	/**
-	 * Resets the overload effect.
-	 */
-	public void resetOverloadEffect(boolean stopTask) {
-		if(overloadEffect != null) {
-			if(overloadEffect.isRunning() && stopTask) {
-				overloadEffect.cancel();
-			}
-			overloadEffect = null;
-		}
-	}
 }

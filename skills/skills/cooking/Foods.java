@@ -1,4 +1,4 @@
-package com.rs.game.player.content;
+package skills.cooking;
 
 
 import java.util.HashMap;

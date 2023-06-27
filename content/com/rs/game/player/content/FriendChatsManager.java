@@ -314,15 +314,15 @@ public class FriendChatsManager {
     public static void toogleLootShare(Player player) {
         if (player.getCurrentFriendChat() == null) {
             player.getPackets().sendGameMessage("You need to be in a clan chat channel to activate LootShare.");
-            player.refreshToogleLootShare();
+            refreshToogleLootShare(player);
             return;
         }
         if (!player.getUsername().equals(player.getCurrentFriendChat().getOwnerName())) {
             player.getPackets().sendGameMessage("Only the owner of the clan chat can toggle Lootshare.");
-            player.refreshToogleLootShare();
+            refreshToogleLootShare(player);
             return;
         }
-        player.getCurrentFriendChat().players.forEach(cm -> cm.toogleLootShare());
+        player.getCurrentFriendChat().players.forEach(cm -> toogleLootShare(cm));
         player.getPackets().sendGameMessage("LootShare is now " + (player.getDetails().isToogleLootShare() ? "active." :"deactivated."));
     }
 	public static void joinChat(String ownerName, Player player) {
@@ -391,5 +391,14 @@ public class FriendChatsManager {
 		if (player.getCurrentFriendChat() == null)
 			return;
 		player.getCurrentFriendChat().sendQuickMessage(player, message);
+	}
+	
+	public static void setLootShare(Player player) {
+		player.getDetails().setToogleLootShare(!player.getDetails().isToogleLootShare());
+		refreshToogleLootShare(player);
+	}
+
+	public static void refreshToogleLootShare(Player player) {
+		player.getVarsManager().forceSendVarBit(4071, player.getDetails().isToogleLootShare() ? 1 : 0);
 	}
 }

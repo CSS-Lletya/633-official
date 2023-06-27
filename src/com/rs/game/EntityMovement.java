@@ -6,11 +6,11 @@ import java.util.function.Consumer;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.actions.WineTask;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.game.player.content.TeleportType;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.utilities.Utility;
 
 import lombok.Data;
+import skills.magic.TeleportType;
 
 /**
  * Represents a state of movement for an Entity

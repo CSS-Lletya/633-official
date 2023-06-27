@@ -5,13 +5,13 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
 import com.rs.game.player.Hit.HitLook;
-import com.rs.game.player.content.Summoning.Pouch;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.RandomUtils;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import skills.summoning.Summoning.Pouch;
 
 public class Giantchinchompa extends Familiar {
 

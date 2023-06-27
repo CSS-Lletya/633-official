@@ -13,13 +13,14 @@ import com.rs.game.npc.combat.NPCCombatDefinitions;
 import com.rs.game.player.Player;
 import com.rs.game.player.InterfaceManager.Tabs;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.game.player.content.Summoning;
-import com.rs.game.player.content.Summoning.Pouch;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
+
+import skills.summoning.Summoning;
+import skills.summoning.Summoning.Pouch;
 
 public abstract class Familiar extends NPC {
 

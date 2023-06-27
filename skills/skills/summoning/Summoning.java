@@ -1,4 +1,4 @@
-package com.rs.game.player.content;
+package skills.summoning;
 
 import com.rs.cache.loaders.ClientScriptMap;
 import com.rs.cache.loaders.ItemDefinitions;

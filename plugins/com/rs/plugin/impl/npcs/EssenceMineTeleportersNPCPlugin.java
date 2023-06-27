@@ -33,7 +33,7 @@ public class EssenceMineTeleportersNPCPlugin implements NPCListener {
 			ShopsHandler.openShop(player, key);
 			break;
 		case 3:
-			player.getDetails().setEssenceTeleporter(npc.getId());
+			player.getDetails().getEssenceTeleporter().set(npc.getId());
 			npc.faceEntity(player);
 			npc.setNextForceTalk(new ForceTalk("Senventior Disthine Molenko!"));
 	        npc.setNextAnimation(Animations.WIZARD_ESSENCE_MINE_TELEPORT);

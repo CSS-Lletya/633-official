@@ -3,8 +3,8 @@ package com.rs.game.dialogue.impl;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.SkillsDialogue;
 
+import skills.SkillsDialogue;
 import skills.cooking.DoughCreation;
 import skills.cooking.DoughCreation.DoughData;
 

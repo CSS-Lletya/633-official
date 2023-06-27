@@ -32,7 +32,7 @@ public class RunecraftingPouchDrop {
 	public static void sendPouchDrop(Player player, NPC npc) {
 		Optional<RunePouchDrop> pouches = RunePouchDrop.VALUES.stream()
 				.filter(drop -> player.getSkills().getLevel(Skills.RUNECRAFTING) >= drop.getLevelRequired()
-						&& !player.hasItem(new Item(drop.getPouchId())))
+						&& !player.ownsItems(new Item(drop.getPouchId())))
 				.findFirst();
 		if (pouches.isPresent() && RandomUtils.random(0) == 0 && World.getRegion(npc.getRegionId()).getGroundItems()
 				.stream().noneMatch(drop -> drop.getId() == pouches.get().getPouchId())) {

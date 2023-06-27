@@ -3,9 +3,10 @@ package com.rs.plugin.impl.objects;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
+
+import skills.magic.TeleportType;
 
 @ObjectSignature(objectId = {29355, 29358, 55404, 26518, 32015, 36687, 1756, 52547, 52546}, name = {"Ladder"})
 public class LadderObjectPlugin extends ObjectListener {

@@ -52,6 +52,7 @@ public final class WorldPacketsDecoder extends Decoder {
 	private final static int OBJECT_CLICK4_PACKET = 13; 
 	private final static int CAMERA_MOVEMENT_PACKET = 5;
 	//World List Decoder 
+	@SuppressWarnings("unused")
 	private final static int WORLD_LIST_UPDATE = 60;
 	
 	//TODO: Convert; check -1 packets in new handler as well.
@@ -191,7 +192,7 @@ public final class WorldPacketsDecoder extends Decoder {
 			OutgoingPacketDispatcher.execute(player, stream, packetId);
 			
 			stream.setOffset(startOffset + length);
-//			if (GameConstants.DEBUG && packetId != 39 && packetId != 3)
+//			if (GameConstants.DEBUG && packetId != 39)
 //				System.out.println( "Missing packet " + packetId
 //						+ ", expected size: " + length + ", actual size: "
 //						+ PACKET_SIZES[packetId]);

@@ -3,7 +3,8 @@ package com.rs.game.dialogue;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.CreateAction;
-import com.rs.game.player.content.SkillsDialogue;
+
+import skills.SkillsDialogue;
 
 public class CreateActionD extends DialogueEventListener {
 

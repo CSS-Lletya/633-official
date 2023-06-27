@@ -8,7 +8,6 @@ import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.ScrollInterface;
 import com.rs.utilities.Colors;
 
 public abstract class Quest {
@@ -137,7 +136,7 @@ public abstract class Quest {
             }
             player.getPackets().sendItemOnIComponent(interfaceId, 5, rewardItemForDisplay(), 1);
             player.getInterfaceManager().sendInterface(interfaceId);
-            player.getDetails().setQuestPoints(player.getDetails().getQuestPoints() + questPointReward());
+            player.getDetails().getQuestPoints().getAndIncrement(questPointReward());
             giveRewards(player);
             player.getInterfaceManager().renderQuestStatus();
         }

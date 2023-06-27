@@ -4,9 +4,10 @@ import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.TeleportType;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
+
+import skills.magic.TeleportType;
 
 @ObjectSignature(objectId = {}, name = {"Manhole"})
 public class ManholeObjectPlugin extends ObjectListener {

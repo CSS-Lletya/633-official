@@ -11,7 +11,7 @@ public class SingleTilePortalObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		switch (player.getDetails().getEssenceTeleporter()) {
+		switch (player.getDetails().getEssenceTeleporter().get()) {
 		case 553:
 			player.setNextWorldTile(new WorldTile(3253, 3401, 0));
 			break;

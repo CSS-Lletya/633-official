@@ -3,9 +3,9 @@ package com.rs.game.dialogue.impl;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.TeleportType;
 
 import lombok.Data;
+import skills.magic.TeleportType;
 
 /**
  * This class is used for generic actions. You still need to define object

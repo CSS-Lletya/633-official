@@ -27,7 +27,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		if (object.getId() == 2873 || object.getId() == 2874 || object.getId() == 2875) {
-			if (player.hasItem(new Item(2412), new Item(2413), new Item(2414))) {
+			if (player.ownsItems(new Item(2412), new Item(2413), new Item(2414))) {
 				player.getPackets().sendGameMessage("You already have a God cape.");
 				return;
 			}
@@ -69,7 +69,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 		World.get().submit(new Task(6) {
 			@Override
 			public void execute() {
-				if (player.hasItem(new Item(2412), new Item(2413), new Item(2414))) {
+				if (player.ownsItems(new Item(2412), new Item(2413), new Item(2414))) {
 					player.getPackets().sendGameMessage("You may only possess one sacred cape at a time.<br>The conflicting powers of the capes drive them apart.");
 					return;
 				}

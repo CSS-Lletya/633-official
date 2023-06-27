@@ -4,7 +4,8 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.FillAction;
 import com.rs.game.player.actions.FillAction.Filler;
-import com.rs.game.player.content.SkillsDialogue;
+
+import skills.SkillsDialogue;
 
 public class ItemFillingD extends DialogueEventListener {
 

@@ -2,8 +2,8 @@ package com.rs.game.dialogue.impl;
 
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.SkillsDialogue;
 
+import skills.SkillsDialogue;
 import skills.crafting.Spinning;
 import skills.crafting.Spinning.SpinningData;
 

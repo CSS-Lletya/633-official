@@ -243,6 +243,15 @@ public final class MutableNumber extends Number implements Comparable<MutableNum
 	}
 	
 	/**
+	 * Checks every target value for an event to take place.
+	 * @param target
+	 * @return
+	 */
+	public boolean getEvery(int target) {
+		return value % target == 0;
+	}
+	
+	/**
 	 * Sets the value within this container to {@code value}.
 	 * @param value the new value to set.
 	 */

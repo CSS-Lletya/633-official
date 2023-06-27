@@ -145,7 +145,7 @@ public final class Pickpocketing extends Thieving {
 			if (definition == PickpocketData.MALE_HAM_MEMBER || definition == PickpocketData.FEMALE_HAM_MEMBER || definition == PickpocketData.HAM_GUARD) {
 				Item[] clues = DropTable.calculateDrops(getPlayer(), NPCClueDrops.rollClues(1714));
 		        for (Item item : clues) {
-		        	if (RandomUtils.random(250) <= 5 && !player.hasItem(item)) {
+		        	if (RandomUtils.random(250) <= 5 && !player.ownsItems(item)) {
 						player.getInventory().addItemDrop(item.getId(), 1);
 					}
 		        }

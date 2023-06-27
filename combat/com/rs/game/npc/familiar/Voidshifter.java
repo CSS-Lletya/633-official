@@ -5,7 +5,8 @@ import java.util.Optional;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Magic;
-import com.rs.game.player.content.Summoning.Pouch;
+
+import skills.summoning.Summoning.Pouch;
 
 public class Voidshifter extends Familiar {
 

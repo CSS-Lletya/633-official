@@ -71,7 +71,7 @@ public class Appearance {
 
 		stream.writeByte(flag);
 		stream.writeByte(title);
-		stream.writeByte(hasSkull() ? player.getDetails().getSkullId() : -1);
+		stream.writeByte(hasSkull() ? player.getDetails().getSkullId().get() : -1);
 		stream.writeByte(player.getPrayer().getPrayerHeadIcon()); // prayer icon
 		stream.writeByte(hidePlayer ? 1 : 0);
 		// npc

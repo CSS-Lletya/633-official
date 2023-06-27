@@ -3,8 +3,9 @@ package com.rs.game.npc.familiar;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Magic;
-import com.rs.game.player.content.Summoning.Pouch;
 import com.rs.net.encoders.other.Graphics;
+
+import skills.summoning.Summoning.Pouch;
 
 public class Voidspinner extends Familiar {
 

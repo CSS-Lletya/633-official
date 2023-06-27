@@ -49,7 +49,7 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 	@Override
 	public void postDeath() {
 		getActor().getSkills().restoreSkills();
-		getActor().resetOverloadEffect(false);
+		getActor().getOverloadEffect().resetOverloadEffect(false);
 		getActor().getInterfaceManager().sendInterface(153);
 		getActor().getPackets().sendMusicEffect(90).sendGameMessage("Oh dear, you have died.");
 		getActor().getDetails().getStatistics().addStatistic("Times_Died");
@@ -82,7 +82,6 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 	public void sendItemsOnDeath(Player killer) {
 		if (getActor().getDetails().getRights().isStaff())
 			return;
-		getActor().getDetails().getCharges().die();
 		CopyOnWriteArrayList<Item> containedItems = new CopyOnWriteArrayList<Item>();
 		for (int i = 0; i < 14; i++) {
 			if (getActor().getEquipment().getItem(i) != null && getActor().getEquipment().getItem(i).getId() != -1

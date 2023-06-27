@@ -337,7 +337,7 @@ public class WorldPacketsEncoder extends Encoder {
 	public WorldPacketsEncoder sendWeight() {
 		OutputStream stream = new OutputStream(2);
 		stream.writePacket(getPlayer(), 79);
-		stream.writeShort((int) getPlayer().getWeight());
+		stream.writeShort((int) getPlayer().getDetails().getWeight(getPlayer()));
 		getSession().write(stream);
 		return this;
 	}
@@ -1590,7 +1590,7 @@ public class WorldPacketsEncoder extends Encoder {
 				flags |= 0x8;
 				packet.writeInt(flags); 
 				packet.writeGJString(WorldList.getWorld(world).getActivity());
-				packet.writeGJString(WorldList.WORLDS.get(world).getIP());
+				packet.writeGJString(WorldList.WORLDS.get(world).getIp());
 			}
 			packet.writeInt(-1723296702);
 		}

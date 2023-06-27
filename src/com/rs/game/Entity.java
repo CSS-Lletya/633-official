@@ -34,7 +34,6 @@ import com.rs.game.player.LocalNPCUpdate;
 import com.rs.game.player.LocalPlayerUpdate;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.AttributeMap;
-import com.rs.game.player.content.TeleportType;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.player.type.PoisonType;
 import com.rs.game.task.Task;
@@ -52,6 +51,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import lombok.Setter;
 import skills.Skills;
+import skills.magic.TeleportType;
 import skills.prayer.newprayer.Prayer;
 
 @Getter
@@ -1280,14 +1280,6 @@ public abstract class Entity extends WorldTile {
 	 * @return The non-player character's node.
 	 */
 	public static NPC findNPC(int npcId) {
-		for (NPC npc : World.getNPCs()) {
-			if (npc == null) {
-				continue;
-			}
-			if (npc.getId() == npcId) {
-				return npc;
-			}
-		}
-		return null;
+		return World.npcs().filter(npc -> npc.getId() == npcId).findFirst().orElse(null);
 	}
 }

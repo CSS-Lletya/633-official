@@ -7,11 +7,11 @@ import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.Foods.Food;
-import com.rs.game.player.content.Potions.Potion;
 
 import io.vavr.collection.Array;
 import lombok.Data;
+import skills.cooking.Foods.Food;
+import skills.herblore.Potions.Potion;
 
 /**
  * Represents a Map zone (Controller if it sounds more familiar) where events or
@@ -424,10 +424,10 @@ public abstract class MapZone {
 
 	}
     public final void setArguments(Player player, Object[] objects) {
-        player.setLastControlerArguments(objects);
+        player.setMapZoneAttributes(objects);
     }
     
     public final Object[] getArguments(Player player) {
-        return player.getLastControlerArguments();
+        return player.getMapZoneAttributes();
     }
 }
