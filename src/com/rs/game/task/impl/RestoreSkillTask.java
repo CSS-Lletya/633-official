@@ -5,7 +5,7 @@ import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtils;
 
 import skills.Skills;
-import skills.prayer.newprayer.Prayer;
+import skills.prayer.book.Prayer;
 
 public final class RestoreSkillTask extends Task {
 
@@ -24,7 +24,7 @@ public final class RestoreSkillTask extends Task {
 				ammountTimes += 1;
 			   boolean berserker = player.getPrayer().active(Prayer.BERSERKER);
 			b: for (int skill = 0; skill < 25; skill++) {
-				if (skill == Skills.SUMMONING)
+				if (skill == Skills.SUMMONING || skill == Skills.PRAYER)
 					continue b;
 				c: for (int time = 0; time < ammountTimes; time++) {
 					int currentLevel = player.getSkills().getLevel(skill);

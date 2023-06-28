@@ -225,7 +225,6 @@ public class Pet extends NPC {
 	 * @param enable If the orb should be enabled.
 	 */
 	public void switchOrb(boolean enable) {
-		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_SWITCH_ORB, enable ? getId() : 0);
 		if (enable) {
 			unlock();
 			return;
@@ -238,7 +237,6 @@ public class Pet extends NPC {
 	 */
 	public void unlockOrb() {
 		owner.getPackets().sendHideIComponent(747, 9, false);
-		owner.getVarsManager().sendVar(1160, -1); // unlock summoning orb
 		Familiar.sendLeftClickOption(owner);
 	}
 
@@ -254,7 +252,6 @@ public class Pet extends NPC {
 	 */
 	public void lockOrb() {
 		owner.getPackets().sendHideIComponent(747, 9, true);
-		owner.getVarsManager().sendVar(1160, 0); // unlock summoning orb
 	}
 
 	/**

@@ -27,7 +27,7 @@ import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.Skills;
-import skills.prayer.newprayer.Prayer;
+import skills.prayer.book.Prayer;
 
 public class PlayerCombat extends Action {
 

@@ -1,4 +1,4 @@
-package skills.prayer.newprayer;
+package skills.prayer.book;
 
 import java.util.concurrent.CopyOnWriteArraySet;
 

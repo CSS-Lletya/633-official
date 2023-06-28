@@ -14,7 +14,7 @@
 //  Copyright (C) 2021 Trenton Kress
 //  This file is part of project: Darkan
 //
-package skills.prayer.newprayer;
+package skills.prayer.book;
 
 import com.rs.game.Entity;
 import com.rs.game.player.Player;

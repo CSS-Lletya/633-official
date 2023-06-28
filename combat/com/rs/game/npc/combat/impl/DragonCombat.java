@@ -11,7 +11,7 @@ import com.rs.game.player.type.PoisonType;
 import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.RandomUtils;
 
-import skills.prayer.newprayer.Prayer;
+import skills.prayer.book.Prayer;
 
 @MobCombatSignature(mobId = {50}, mobName = {})
 public class DragonCombat extends MobCombatListener {

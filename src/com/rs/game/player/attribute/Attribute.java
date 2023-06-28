@@ -180,6 +180,11 @@ public interface Attribute {
 	 */
 	public String WHEAT_DEPOSITED = "WheatDeposited";
 	
+	/**
+	 * Represents the current egg id for the Incubator object
+	 */
+	public String INCUBATOR_EGG = "IncubatorEggId";
+	
 	//unused for now
 	public String BOW_FLETCHING = "BowFletching";
 	public String BOW_FLETCHING_CARVING = "BowFletchingCarving";

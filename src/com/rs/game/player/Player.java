@@ -54,7 +54,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import skills.Skills;
-import skills.prayer.newprayer.PrayerManager;
+import skills.prayer.book.PrayerManager;
 
 /**
  * Represents a Player & all of their attributes
@@ -547,6 +547,7 @@ public class Player extends Entity {
 		CombatEffect.values().stream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
 		GameConstants.STAFF.entrySet().stream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
 		getVarsManager().getVarMap().forEach((k, v) -> getVarsManager().sendVar(k, v));
+		getVarsManager().getVarBitMap().forEach((k, v) -> getVarsManager().sendVarBit(k, v));
 		getVarsManager().loadDefaultVars();
 		if (getDetails().getCurrentFriendChatOwner() != null) {
 			FriendChatsManager.joinChat(getUsername(), this);

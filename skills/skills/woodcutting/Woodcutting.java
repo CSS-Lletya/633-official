@@ -153,7 +153,7 @@ public class Woodcutting extends HarvestingSkillAction {
 			return false;
 		}
 		if(player.getSkills().getLevel(Skills.WOODCUTTING) < tree.getRequirement()) {
-			getPlayer().getPackets().sendGameMessage("You need a level of " + tree.getRequirement() + " to cut this " + objectName + "!");
+			getPlayer().getPackets().sendGameMessage("You need a woodcutting level of " + tree.getRequirement() + " to cut this tree!");
 			return false;
 		}
 		if(player.getSkills().getLevel(Skills.WOODCUTTING) < hatchet.getRequirement()) {

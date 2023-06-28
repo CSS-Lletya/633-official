@@ -40,6 +40,8 @@ public class VarsManager {
 		sendVar(InterfaceVars.TOTAL_QUEST_POINTS, 310);//43 f2p quest - 310 all quest (max points)
 		sendVar(InterfaceVars.UNLOCK_MANAGE_NOTES, 1); // unlocks add notes
 		sendVar(InterfaceVars.SET_NOTE_INDEX, -1);
+		setVarBit(4221, 1);//incubator burthrope
+		setVarBit(4277, 1);//incubator yanille
 		return this;
 	}
 

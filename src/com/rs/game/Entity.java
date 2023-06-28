@@ -52,7 +52,7 @@ import lombok.Getter;
 import lombok.Setter;
 import skills.Skills;
 import skills.magic.TeleportType;
-import skills.prayer.newprayer.Prayer;
+import skills.prayer.book.Prayer;
 
 @Getter
 @Setter

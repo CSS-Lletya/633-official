@@ -4,7 +4,7 @@ import com.rs.game.Entity;
 import com.rs.game.player.Player;
 import com.rs.game.player.type.CombatEffect;
 
-import skills.prayer.newprayer.Prayer;
+import skills.prayer.book.Prayer;
 
 /**
  * The combat effect applied when a player needs to be teleblocked.
