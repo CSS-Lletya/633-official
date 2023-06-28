@@ -1,5 +1,6 @@
 package com.rs.net.encoders;
 
+import com.rs.game.player.content.GrandExchangeOffer;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelFutureListener;
 
@@ -529,6 +530,24 @@ public class WorldPacketsEncoder extends Encoder {
 			future.addListener(ChannelFutureListener.CLOSE);
 		else
 			session.getChannel().close();
+		return this;
+	}
+
+	public WorldPacketsEncoder sendGrandExchangeOffer(GrandExchangeOffer offer) {
+		OutputStream stream = new OutputStream();
+		stream.writePacket(getPlayer(), 88);
+		stream.writeByte(offer.getSlot());
+		stream.writeByte(offer.getStage());
+		if (offer.isRemove()) {
+			stream.skip(18);
+		} else {
+			stream.writeShort(offer.getItemId());
+		    stream.writeInt(offer.getTotalPrice());
+			stream.writeInt(offer.getTotalAmount());
+			stream.writeInt(offer.getCurrentAmount());
+			stream.writeInt(offer.getCurrentPrice());
+		}
+		getSession().write(stream);
 		return this;
 	}
 
@@ -1293,7 +1312,7 @@ public class WorldPacketsEncoder extends Encoder {
 	public WorldPacketsEncoder receiveFriendChatMessage(String name, String display, int rights, String chatName,
 			ChatMessage message) {
 		OutputStream stream = new OutputStream();
-		stream.writePacketVarByte(getPlayer(), 139);
+		stream.writePacketVarByte(getPlayer(), 105);
 		stream.writeByte(name.equals(display) ? 0 : 1);
 		stream.writeString(display);
 		if (!name.equals(display))
@@ -1304,7 +1323,7 @@ public class WorldPacketsEncoder extends Encoder {
 		stream.writeByte(rights);
 		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().isProfanityFilter()));
 		stream.endPacketVarByte();
-		// ////getSession().write(stream);
+		getSession().write(stream);
 		return this;
 	}
 

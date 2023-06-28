@@ -1,6 +1,7 @@
 package com.rs.net.packets.outgoing.impl;
 
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
@@ -14,5 +15,6 @@ public class ChatTypePacket implements OutgoingPacketListener {
 	@Override
 	public void execute(Player player, InputStream stream) {
 		chatType = stream.readUnsignedByte();
+		player.getAttributes().get(Attribute.CHAT_TYPE).set(chatType);
 	}
 }

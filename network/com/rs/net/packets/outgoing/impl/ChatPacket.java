@@ -3,6 +3,7 @@ package com.rs.net.packets.outgoing.impl;
 import com.rs.GameConstants;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
+import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
 import com.rs.net.Huffman;
 import com.rs.net.encoders.other.ChatMessage;
@@ -29,6 +30,7 @@ public class ChatPacket implements OutgoingPacketListener {
 		player.setLastPublicMessage(Utility.currentTimeMillis() + 300);
 		int colorEffect = stream.readUnsignedByte();
 		int moveEffect = stream.readUnsignedByte();
+		chatType = player.getAttributes().exist(Attribute.CHAT_TYPE) ? player.getAttributes().get(Attribute.CHAT_TYPE).getInt() : 0;
 		String message = Huffman.readEncryptedMessage(200, stream);
 		if (message == null || message.replaceAll(" ", "").equals(""))
 			return;

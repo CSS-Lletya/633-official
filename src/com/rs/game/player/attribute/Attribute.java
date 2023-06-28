@@ -188,4 +188,5 @@ public interface Attribute {
 	//unused for now
 	public String BOW_FLETCHING = "BowFletching";
 	public String BOW_FLETCHING_CARVING = "BowFletchingCarving";
+	public String CHAT_TYPE = "chatType";
 }
