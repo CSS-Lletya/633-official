@@ -452,19 +452,19 @@ public class Shop {
 			} else
 				player.getPackets().sendGlobalString(26, "<br>Worn on yourself");
 			player.getPackets().sendGlobalString(35,
-					"<br>Attack<br><col=ffff00>+" + bonuses[CombatDefinitions.STAB_ATTACK] + "<br><col=ffff00>+"
-							+ bonuses[CombatDefinitions.SLASH_ATTACK] + "<br><col=ffff00>+"
-							+ bonuses[CombatDefinitions.CRUSH_ATTACK] + "<br><col=ffff00>+"
-							+ bonuses[CombatDefinitions.MAGIC_ATTACK] + "<br><col=ffff00>+"
-							+ bonuses[CombatDefinitions.RANGE_ATTACK] + "<br><col=ffff00>---" + "<br>Strength"
+					"<br>Attack<br><col=ffff00>" + bonuses[CombatDefinitions.STAB_ATTACK] + "<br><col=ffff00>"
+							+ bonuses[CombatDefinitions.SLASH_ATTACK] + "<br><col=ffff00>"
+							+ bonuses[CombatDefinitions.CRUSH_ATTACK] + "<br><col=ffff00>"
+							+ bonuses[CombatDefinitions.MAGIC_ATTACK] + "<br><col=ffff00>"
+							+ bonuses[CombatDefinitions.RANGE_ATTACK] + "<br><col=ffff00>0" + "<br>Strength"
 							+ "<br>Ranged Strength" + "<br>Magic Damage" + "<br>Absorve Melee" + "<br>Absorve Magic"
 							+ "<br>Absorve Ranged" + "<br>Prayer Bonus");
 			player.getPackets().sendGlobalString(36, "<br><br>Stab<br>Slash<br>Crush<br>Magic<br>Ranged<br>Summoning");
-			player.getPackets().sendGlobalString(52, "<<br>Defence<br><col=ffff00>+"
-					+ bonuses[CombatDefinitions.STAB_DEF] + "<br><col=ffff00>+" + bonuses[CombatDefinitions.SLASH_DEF]
-					+ "<br><col=ffff00>+" + bonuses[CombatDefinitions.CRUSH_DEF] + "<br><col=ffff00>+"
-					+ bonuses[CombatDefinitions.MAGIC_DEF] + "<br><col=ffff00>+" + bonuses[CombatDefinitions.RANGE_DEF]
-					+ "<br><col=ffff00>+" + bonuses[CombatDefinitions.SUMMONING_DEF] + "<br><col=ffff00>+"
+			player.getPackets().sendGlobalString(52, "<br>Defence<br><col=ffff00>"
+					+ bonuses[CombatDefinitions.STAB_DEF] + "<br><col=ffff00>" + bonuses[CombatDefinitions.SLASH_DEF]
+					+ "<br><col=ffff00>" + bonuses[CombatDefinitions.CRUSH_DEF] + "<br><col=ffff00>"
+					+ bonuses[CombatDefinitions.MAGIC_DEF] + "<br><col=ffff00>" + bonuses[CombatDefinitions.RANGE_DEF]
+					+ "<br><col=ffff00>" + bonuses[CombatDefinitions.SUMMONING_DEF] + "<br><col=ffff00>"
 					+ bonuses[CombatDefinitions.STRENGTH_BONUS] + "<br><col=ffff00>"
 					+ bonuses[CombatDefinitions.RANGED_STR_BONUS] + "<br><col=ffff00>"
 					+ bonuses[CombatDefinitions.MAGIC_DAMAGE] + "%<br><col=ffff00>"
