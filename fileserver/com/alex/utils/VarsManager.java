@@ -42,6 +42,12 @@ public class VarsManager {
 		sendVar(InterfaceVars.SET_NOTE_INDEX, -1);
 		setVarBit(4221, 1);//incubator burthrope
 		setVarBit(4277, 1);//incubator yanille
+		sendVarBit(2869, 1);//balloon (castle wars)
+		sendVarBit(2871, 1);//balloon (crafting guild)
+		sendVarBit(2870, 1);//balloon (grand tree)
+		sendVarBit(2867, 2);//balloon (entrana) (3 empty, 2 full, 1 half built with fire lit)
+		sendVarBit(2868, 1);//balloon (taverly)
+		sendVarBit(2872, 1);//balloon (varrock)
 		return this;
 	}
 
