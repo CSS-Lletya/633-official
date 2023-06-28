@@ -478,7 +478,8 @@ public class InterfaceManager {
 
 	public void closeInterfaces() {
 		removeScreenInterface();
-		IntStream.of(499, 741, 135, 115).forEach(id -> removeInterface(id));
+		//fullscreen interfaces we will force close
+		IntStream.of(499, 741, 135, 115, 864).forEach(this::removeInterface);
 		if (containsInventoryInter())
 			removeInventoryInterface();
 		if (containsChatBoxInter())
