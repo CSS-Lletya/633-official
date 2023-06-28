@@ -100,8 +100,8 @@ public final class ItemDefinitions {
 	public boolean noted;
 	public boolean lended;
 
-	Object2ObjectArrayMap<Integer, Object> clientScriptData = new Object2ObjectArrayMap<>();
-	Object2ObjectOpenHashMap<Integer, Integer> itemRequiriments = new Object2ObjectOpenHashMap<>();
+	Object2ObjectArrayMap<Integer, Object> clientScriptData;
+	Object2ObjectOpenHashMap<Integer, Integer> itemRequiriments;
 	public int[] unknownArray5;
 	public int[] unknownArray4;
 	public byte[] unknownArray6;

@@ -72,6 +72,7 @@ public final class AttributeKey<T> {
 		AttributeKey.forPersistent(Attribute.WHEAT_DEPOSITED, false);
 		AttributeKey.forPersistent(Attribute.BOW_FLETCHING, false);
 		AttributeKey.forPersistent(Attribute.BOW_FLETCHING_CARVING, false);
+		AttributeKey.forTransient(Attribute.CHAT_TYPE, 0);
 	}
 	
 	/**
