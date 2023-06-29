@@ -16,7 +16,7 @@ import lombok.Data;
 import skills.Skills;
 
 @Data
-public final class ItemDefinitions {
+public class ItemDefinitions {
 
 	static Object2ObjectArrayMap<Integer, ItemDefinitions> itemsDefinitions = new Object2ObjectArrayMap<>();
 
@@ -486,18 +486,184 @@ public final class ItemDefinitions {
 			if (maxedSkill != null)
 				skills.put(maxedSkill, getId() == 19709 ? 120 : 99);
 			itemRequiriments = skills;
-			if (getId() == 7462)
-				itemRequiriments.put(Skills.DEFENCE, 40);
-			else if (getId() == 19784 || getId() == 22401 || getId() == 19780) { // Korasi
-				itemRequiriments.put(Skills.ATTACK, 78);
-				itemRequiriments.put(Skills.STRENGTH, 78);
-			} else if (getId() == 20822 || getId() == 20823 || getId() == 20824
-					|| getId() == 20825 || getId() == 20826)
-				itemRequiriments.put(Skills.DEFENCE, 99);
-			else if (name.equals("Dragon defender")) {
+			
+			if (name.equals("Dragon defender")) {
 				itemRequiriments.put(Skills.ATTACK, 60);
 				itemRequiriments.put(Skills.DEFENCE, 60);
+			} else if (getId() == 8846) {
+				itemRequiriments.put(Skills.DEFENCE, 10);
+			} else if (getId() == 8847) {
+				itemRequiriments.put(Skills.DEFENCE, 10);
+			} else if (getId() == 8848) {
+				itemRequiriments.put(Skills.DEFENCE, 20);
+			} else if (getId() == 8849) {
+				itemRequiriments.put(Skills.DEFENCE, 30);
+			} else if (getId() == 8850) {
+				itemRequiriments.put(Skills.DEFENCE, 40);
 			}
+			if (getId() == 15241) {
+                itemRequiriments.put(Skills.RANGE, 75);
+                itemRequiriments.put(Skills.FIREMAKING, 61);
+            }
+            if (getId() == 18357) {
+                itemRequiriments.put(Skills.RANGE, 80);
+                itemRequiriments.put(Skills.DUNGEONEERING, 80);
+                itemRequiriments.put(Skills.ATTACK, 1);
+            }
+            if (getId() == 18355) {
+                itemRequiriments.put(Skills.MAGIC, 80);
+                itemRequiriments.put(Skills.ATTACK, 1);
+                itemRequiriments.put(Skills.DUNGEONEERING, 80);
+            }
+            else if (name.contains("void")) {
+                itemRequiriments.put(Skills.ATTACK, 42);
+                itemRequiriments.put(Skills.DEFENCE, 42);
+                itemRequiriments.put(Skills.STRENGTH, 42);
+                itemRequiriments.put(Skills.MAGIC, 42);
+                itemRequiriments.put(Skills.PRAYER, 42);
+                itemRequiriments.put(Skills.RANGE, 42);
+            } else if (name.contains("war mace")) {
+                itemRequiriments.put(Skills.ATTACK, 70);
+                itemRequiriments.put(Skills.MAGIC, 70);
+                itemRequiriments.put(Skills.PRAYER, 70);
+            } else if (name.toLowerCase().contains("chaotic") && getId() != 18355 && getId() != 18357) {
+                itemRequiriments.put(Skills.ATTACK, 80);
+                itemRequiriments.put(Skills.DUNGEONEERING, 80);
+            }
+            switch (getId()) {
+            case 10887:
+                itemRequiriments.put(Skills.ATTACK, 60);
+                itemRequiriments.put(Skills.STRENGTH, 40);
+                break;
+            case 13899:
+            case 13902:
+            case 13905:
+                itemRequiriments.put(Skills.ATTACK, 78);
+                break;
+            case 11716:
+            case 11730:
+                itemRequiriments.put(Skills.ATTACK, 70);
+                break;
+            case 4153:
+                itemRequiriments.put(Skills.ATTACK, 50);
+                break;
+            case 4069:
+            case 4070:
+            case 4071:
+            case 4072:
+                itemRequiriments.put(Skills.DEFENCE, 1);
+                break;
+            case 4151:
+                itemRequiriments.put(Skills.ATTACK, 70);
+                break;
+            case 21372:
+            case 21373:
+            case 21374:
+            case 21375:
+                itemRequiriments.put(Skills.ATTACK, 75);
+                break;
+            case 7460:
+                itemRequiriments.put(Skills.DEFENCE, 13);
+                break;
+            case 7461:
+                itemRequiriments.put(Skills.DEFENCE, 35);
+                break;
+            case 7462:
+                itemRequiriments.put(Skills.DEFENCE, 35);
+                break;
+            case 12674:
+            case 12675:
+                itemRequiriments.put(Skills.DEFENCE, 45);
+                break;
+            case 12680:
+            case 12681:
+                itemRequiriments.put(Skills.DEFENCE, 55);
+                break;
+            case 10828:
+                itemRequiriments.put(Skills.CONSTRUCTION, 20);
+                itemRequiriments.put(Skills.WOODCUTTING, 54);
+                itemRequiriments.put(Skills.CRAFTING, 46);
+                itemRequiriments.put(Skills.AGILITY, 40);
+                break;
+            case 2412:
+            case 2413:
+            case 2414:
+                itemRequiriments.put(Skills.MAGIC, 60);
+                break;
+            case 19784:
+            case 19780: // Korasi
+                itemRequiriments.put(Skills.ATTACK, 78);
+                itemRequiriments.put(Skills.STRENGTH, 78);
+                itemRequiriments.put(Skills.MAGIC, 80);
+                itemRequiriments.put(Skills.DEFENCE, 10);
+                itemRequiriments.put(Skills.SUMMONING, 55);
+                break;
+            case 20822:
+            case 20823:
+            case 20824:
+            case 20825:
+            case 20826:
+                itemRequiriments.put(Skills.DEFENCE, 99);
+                break;
+            case 1377:
+            case 1434:
+                itemRequiriments.put(Skills.DEFENCE, 28);
+                break;
+            case 8846:
+                itemRequiriments.put(0, 5);
+                itemRequiriments.put(1, 5);
+                break;
+            case 8847:
+                itemRequiriments.put(Skills.ATTACK, 10);
+                itemRequiriments.put(Skills.DEFENCE, 10);
+                break;
+            case 8848:
+                itemRequiriments.put(Skills.ATTACK, 20);
+                itemRequiriments.put(Skills.DEFENCE, 20);
+                break;
+            case 8849:
+                itemRequiriments.put(Skills.ATTACK, 30);
+                itemRequiriments.put(Skills.DEFENCE, 30);
+                break;
+            case 8850:
+                itemRequiriments.put(Skills.ATTACK, 40);
+                itemRequiriments.put(Skills.DEFENCE, 40);
+                break;
+            case 20072:
+                itemRequiriments.put(Skills.ATTACK, 60);
+                itemRequiriments.put(Skills.DEFENCE, 60);
+                break;
+            case 8839:
+            case 8840:
+            case 8841:
+            case 8842:
+            case 11663:
+            case 11664:
+            case 11665:
+            case 11674:
+            case 11675:
+            case 11676:
+                itemRequiriments.put(Skills.DEFENCE, 42);
+                itemRequiriments.put(Skills.HITPOINTS, 42);
+                itemRequiriments.put(Skills.RANGE, 42);
+                itemRequiriments.put(Skills.ATTACK, 42);
+                itemRequiriments.put(Skills.MAGIC, 42);
+                itemRequiriments.put(Skills.STRENGTH, 42);
+                break;
+            case 19785:
+            case 19786:
+            case 19787:
+            case 19788:
+            case 19789:
+            case 19790:
+                itemRequiriments.put(Skills.ATTACK, 78);
+                itemRequiriments.put(Skills.STRENGTH, 78);
+                itemRequiriments.put(Skills.MAGIC, 80);
+                itemRequiriments.put(Skills.HITPOINTS, 42);
+                itemRequiriments.put(Skills.RANGE, 42);
+                itemRequiriments.put(Skills.PRAYER, 22);
+                break;
+            }
 		}
 		return itemRequiriments;
 	}

@@ -479,17 +479,12 @@ public final class RSInterfacePluginDispatcher {
 			{ 43, CombatDefinitions.ABSORB_MAGIC, "Absorb Magic" },
 			{ 44, CombatDefinitions.ABSORB_RANGE, "Absorb Range" }, { 45, 14, "Strength" }, { 46, 15, "Ranged Str" },
 			{ 47, 16, "Prayer" }, { 48, 17, "Magic Damage" } };
-
-	public static void openSkillGuide(Player player) {
-		player.getInterfaceManager().setScreenInterface(317, 1218);
-		player.getInterfaceManager().setInterface(false, 1218, 1, 1217); // seems
-		// to
-		// fix
-	}
 	
 	//Note: Not sure how come the rest of altars aren't being unlocked, air unlocks for sure!
 	public static boolean isWearingTiara(Player player, Runnable run) {
-		run.run();
+		if (IntStream.of(1438, 1448, 1444, 1440, 1442, 1446, 1454, 1452, 1462, 1458, 1456, 1450)
+				.anyMatch(id -> player.getEquipment().containsOneItem(id)))
+			run.run();
 		return IntStream.of(1438, 1448, 1444, 1440, 1442, 1446, 1454, 1452, 1462, 1458, 1456, 1450)
 				.anyMatch(id -> player.getEquipment().containsOneItem(id));
 	}
