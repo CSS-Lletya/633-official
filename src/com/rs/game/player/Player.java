@@ -26,6 +26,7 @@ import com.rs.game.npc.other.Gravestone;
 import com.rs.game.npc.other.Pet;
 import com.rs.game.player.actions.ActionManager;
 import com.rs.game.player.attribute.Attribute;
+import com.rs.game.player.content.DayOfWeekManager;
 import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.content.MusicsManager;
 import com.rs.game.player.content.Notes;
@@ -354,6 +355,8 @@ public class Player extends Entity {
 	 * Represents a Quest Manager
 	 */
 	private QuestManager questManager;
+	
+	private DayOfWeekManager dayOfWeekManager;
 
 	/**
 	 * Constructs a new Player
@@ -386,6 +389,7 @@ public class Player extends Entity {
 		setClueScrollRewards(new ItemsContainer<Item>(10, true));
 		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
 		setAudioManager(new AudioManager(this));
+		setDayOfWeekManager(new DayOfWeekManager());
 	}
 	
 	/**
@@ -469,6 +473,8 @@ public class Player extends Entity {
         	setDialogueInterpreter(new ScriptDialogueInterpreter(this));
         if (getAudioManager() == null)
         	setAudioManager(new AudioManager(this));
+        if (getDayOfWeekManager() == null)
+        	setDayOfWeekManager(new DayOfWeekManager());
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -520,6 +526,7 @@ public class Player extends Entity {
 		getAction().process();
 		getPrayer().processPrayer();
 		getMapZoneManager().executeVoid(this, zone -> zone.process(this));
+		getDayOfWeekManager().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
 		if (getDetails().getChargeDelay().get() > 0) {
@@ -538,6 +545,7 @@ public class Player extends Entity {
 			getPackets().sendSystemUpdate(World.get().getExiting_delay() - delayPassed);
 		}
 		checkMultiArea();
+		getDayOfWeekManager().init();
 		Gravestone.login(this);
 		getDetails().setLastIP(getSession().getIP());
 		getAppearance().generateAppearenceData();
