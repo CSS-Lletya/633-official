@@ -9,6 +9,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
+import com.rs.game.item.ItemConstants;
 import com.rs.game.player.InterfaceManager.Tabs;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.MagicStaff;
@@ -240,8 +241,17 @@ public class Enchanting extends ProducingSkillAction {
 		HIGH_ALCH(59, 55, 40, new Item[]{}, new Item[]{new Item(561), new Item(554, 5)}, new Animation(713), new Graphics(113)) {
 			@Override
 			public boolean canCast(Player player, Item item) {
-				if(item.getId() == 995) { 
-					player.getPackets().sendGameMessage("You can't cast this spell on this item.");
+				if (item.getId() == 995 || item.getName().equals("Coins")) {
+					player.getPackets().sendGameMessage("You can't cast this spell on an object made of gold.");
+					return false;
+				}
+				if (!ItemConstants.isTradeable(item)) {
+					player.getPackets().sendGameMessage("You can't cast this spell on an object like that.");
+					return false;
+				}
+				Item coins = new Item(995, item.getDefinitions().getHighAlchPrice());
+				if (coins.getAmount() > 1 && !player.getInventory().hasFreeSlots()) {
+					player.getPackets().sendGameMessage("Not enough space in your inventory!");
 					return false;
 				}
 				return true;
@@ -249,6 +259,7 @@ public class Enchanting extends ProducingSkillAction {
 			
 			@Override
 			public void onCast(Player player, Item item, int slot) {
+				System.out.println("?");
 				player.getAudioManager().sendSound(Sounds.HIGH_ALCHEMY_SPELL);
 				player.getInventory().deleteItem(new Item(item.getId(), 1));
 				player.getInventory().addItem(new Item(995, item.getDefinitions().getHighAlchPrice()));
