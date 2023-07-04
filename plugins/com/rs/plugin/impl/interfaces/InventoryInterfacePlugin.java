@@ -134,7 +134,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 					return;
 				if (player.getPetManager().spawnPet(item.getId(), true))
 					return;
-				if (item.getDefinitions().isDestroyItem()) {
+				if (ItemConstants.isDestroyable(item)) {
 					player.getInterfaceManager().sendChatBoxInterface(94);
 					player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(item.getId());
 					player.getPackets().sendIComponentText(94, 2, "Are you sure you want to destroy this item?");

@@ -303,6 +303,16 @@ public class FloorItem extends Item {
             return;
         Player realOwner = floorItem.hasOwner() ? World.getPlayer(floorItem.getOwnerName()).get() : null;
 
+        if (ItemConstants.removeAttachedId(floorItem) != -1) {
+            if (ItemConstants.removeAttachedId2(floorItem) != -1)
+                updateGroundItem(new Item(ItemConstants.removeAttachedId2(floorItem), 1),
+                        new WorldTile(floorItem.getTile()), realOwner, 1, 0);
+            removeGroundItem(floorItem, 0);
+            updateGroundItem(new Item(ItemConstants.removeAttachedId(floorItem), 1), floorItem.getTile(),
+                    realOwner, 1, 0);
+            return;
+        }
+        
         floorItem.setInvisible(false);
 
         for (Player player : World.players) {

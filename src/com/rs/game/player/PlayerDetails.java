@@ -3,6 +3,7 @@ package com.rs.game.player;
 import java.util.Optional;
 
 import com.rs.game.player.type.impl.AntifireDetails;
+import com.rs.utilities.DynamicBoolean;
 import com.rs.utilities.MutableNumber;
 import com.rs.utilities.Stopwatch;
 
@@ -155,4 +156,6 @@ public final class PlayerDetails {
 	public double getWeight(Player player) {
 		return player.getInventory().getInventoryWeight() + player.getEquipment().getEquipmentWeight();
 	}
+	
+	private DynamicBoolean completedFightCaves = new DynamicBoolean(false);
 }

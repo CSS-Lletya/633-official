@@ -22,6 +22,7 @@ public final class GameConstants {
 	public static final long CONNECTION_TIMEOUT = GameProperties.getGameProperties().getInteger("connection_timeout");
 	public static final String SQL_FILE_PATH =  GameProperties.getGameProperties().getString("sql_location");
 	public static final boolean SQL_ENABLED = GameProperties.getGameProperties().getBoolean("sql_state");
+	public static final int TOTAL_QUEST_POINTS = GameProperties.getGameProperties().getInteger("total_quest_points");
 
 	/**
 	 * Player settings
@@ -30,7 +31,6 @@ public final class GameConstants {
 	public static final int COMBAT_XP_RATE = GameProperties.getGameProperties().getInteger("combat_exp_rate");
 	public static final int XP_RATE = GameProperties.getGameProperties().getInteger("exp_rate");
 	public static final int LAMP_XP_RATE = GameProperties.getGameProperties().getInteger("lamp_exp_rate");
-	public static final int DEGRADE_GEAR_RATE = GameProperties.getGameProperties().getInteger("degrade_rate");
 	public static final boolean XP_BONUS_ENABLED = GameProperties.getGameProperties().getBoolean("bonus_exp_enabled");
 	
 	/**

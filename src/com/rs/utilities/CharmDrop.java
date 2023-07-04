@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import com.rs.game.item.ItemConstants;
 import com.rs.game.npc.drops.DropTable;
 
 public class CharmDrop {
@@ -77,7 +76,7 @@ public class CharmDrop {
 		if (charmIndex == -1)
 			return null;
 
-		DropTable charm = new DropTable(0, 0, ItemConstants.CHARM_IDS[charmIndex], amount, amount);
+		DropTable charm = new DropTable(0, 0, CHARM_IDS[charmIndex], amount, amount);
 		return charm;
 	}
 
@@ -112,4 +111,5 @@ public class CharmDrop {
 		}
 	}
 
+	private static int[] CHARM_IDS = { 12158, 12159, 12160, 12163 };
 }

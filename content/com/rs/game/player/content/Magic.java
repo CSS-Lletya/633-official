@@ -406,8 +406,7 @@ public class Magic {
 						.sendGameMessage("You can't cast " + (highAlch ? "high" : "low") + " alchemy on gold.");
 				return;
 			}
-			if (target.getDefinitions().isDestroyItem() || ItemConstants.getItemDefaultCharges(target.getId()) != -1
-					|| !ItemConstants.isTradeable(target)) {
+			if (target.getDefinitions().isDestroyItem() || !ItemConstants.isTradeable(target)) {
 				player.getPackets().sendGameMessage("You can't convert this item..");
 				return;
 			}

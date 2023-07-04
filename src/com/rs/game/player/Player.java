@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import com.alex.utils.VarsManager;
 import com.rs.GameConstants;
+import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.MapZoneManager;
@@ -586,6 +587,16 @@ public class Player extends Entity {
 					.sendGameMessage("To prevent further mute please read the rules.");
 			getInterfaceManager().sendInterface(801);
 		}
+		if (getDetails().getQuestPoints().get() != GameConstants.TOTAL_QUEST_POINTS
+				&& getEquipment().containsAny(ItemNames.QUEST_POINT_CAPE_9813, ItemNames.QUEST_POINT_HOOD_9814)
+				&& getDetails().getRights() != Rights.ADMINISTRATOR) {
+			   getPackets().sendGameMessage(
+                    "One or more Quests has been released, please complete them to continue wearing your Quest Cape.");
+            getEquipment().getItems().set(Equipment.SLOT_CAPE, null);
+            getEquipment().refresh(Equipment.SLOT_CAPE);
+            getAppearance().generateAppearenceData();
+            getInventory().addOrBank(new Item(9813));
+        }
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
 			GameConstants.STATER_KIT.forEach(getInventory()::addItem);
 			HostManager.add(this, HostListType.STARTER_RECEIVED, true);

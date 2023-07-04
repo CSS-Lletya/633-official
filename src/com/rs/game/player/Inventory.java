@@ -385,4 +385,10 @@ public final class Inventory {
 		return false;
 	}
 
+	public void addOrBank(Item item) {
+		if (hasFreeSlots())
+			addItem(item);
+		else
+			player.getBank().addItem(item, true);
+	}
 }
