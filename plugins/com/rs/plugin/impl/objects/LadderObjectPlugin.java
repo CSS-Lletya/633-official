@@ -8,7 +8,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.magic.TeleportType;
 
-@ObjectSignature(objectId = {29355, 29358, 55404, 26518, 32015, 36687, 1756, 52547, 52546}, name = {"Ladder"})
+@ObjectSignature(objectId = {29355, 29358, 55404, 26518, 32015, 36687, 1756, 52547, 52546}, name = {})
 public class LadderObjectPlugin extends ObjectListener {
 
 	@Override

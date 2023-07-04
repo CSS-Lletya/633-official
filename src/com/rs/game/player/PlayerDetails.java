@@ -124,7 +124,8 @@ public final class PlayerDetails {
 	private final MutableNumber poisonImmunity = new MutableNumber(), skullId = new MutableNumber(),
 			questPoints = new MutableNumber(), skullTimer = new MutableNumber(), teleBlockDelay = new MutableNumber(),
 			chargeDelay = new MutableNumber(), prayerDelay = new MutableNumber(), essenceTeleporter = new MutableNumber(),
-			gravestone = new MutableNumber(), censoredWordCount = new MutableNumber(), incubatorTimer = new MutableNumber();
+			gravestone = new MutableNumber(), censoredWordCount = new MutableNumber(), incubatorTimer = new MutableNumber(),
+			strongholdLevels = new MutableNumber(), skullSceptreCharges = new MutableNumber();
 
 	/**
 	 * Holds an optional wrapped inside the Anti-fire details.

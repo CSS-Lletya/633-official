@@ -1,10 +1,10 @@
 package com.rs.net.wordlist;
 
-import java.util.HashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 public class WorldList {
 
-	public static final HashMap<Integer, WorldEntry> WORLDS = new HashMap<Integer, WorldEntry>();
+	public static final Object2ObjectArrayMap<Integer, WorldEntry> WORLDS = new Object2ObjectArrayMap<Integer, WorldEntry>();
 
 	public static void init() {
 		WORLDS.put(1, new WorldEntry("Local Development", "127.0.0.1", 37, "Main", true)); //Local development world
