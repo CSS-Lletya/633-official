@@ -16,6 +16,7 @@ import com.rs.game.player.Player;
 import com.rs.game.player.content.LivingRockCavern;
 import com.rs.game.task.Task;
 import com.rs.game.task.TaskManager;
+import com.rs.game.task.impl.BonusExperienceTimerTask;
 import com.rs.game.task.impl.RestoreHitpoints;
 import com.rs.game.task.impl.RestoreRunEnergyTask;
 import com.rs.game.task.impl.RestoreSkillTask;
@@ -71,6 +72,7 @@ public final class World {
 		World.get().submit(new ShopRestockTask());
 		World.get().submit(new RestoreSkillTask());
 		World.get().submit(new RestoreHitpoints());
+		World.get().submit(new BonusExperienceTimerTask());
 		LivingRockCavern.init();
 	}
 

@@ -66,6 +66,14 @@ public class DayOfWeekManager {
 	}
 
 	/**
+	 * Represents the day check used for Weekend events (Double experience)
+	 * @return
+	 */
+	public boolean isWeekend() {
+		return today == Calendar.FRIDAY || today == Calendar.SATURDAY || today == Calendar.SUNDAY;
+	}
+
+	/**
 	 * Handles a new day event
 	 */
 	private void handleNewDay() {

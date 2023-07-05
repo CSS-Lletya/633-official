@@ -27,7 +27,7 @@ public class Skills {
 	 */
 	public static final int MAXIMUM_EXP = 200000000;
 	
-	public static int MAXIMUM_SKILL_COUNT = 25;
+	public static int MAXIMUM_SKILL_COUNT = 24;
 
 	/**
 	 * Simple Skill name with value constants
@@ -80,7 +80,7 @@ public class Skills {
 		level[HERBLORE] = 3;
 		xp[HERBLORE] = 250;
 		xpCounter = 1434;
-
+		
 		enabledSkillsTargets = new boolean[25];
 		skillsTargetsUsingLevelMode = new boolean[25];
 		skillsTargetsValues = new int[25];
@@ -265,6 +265,8 @@ public class Skills {
 		return skill == DUNGEONEERING ? 120 : 99;
 	}
 
+	private int elapsedBonusMinutes;
+	
 	/**
 	 * Initializes the Player's Skills on login
 	 */
@@ -274,6 +276,14 @@ public class Skills {
 		refreshEnabledSkillsTargets();
         refreshUsingLevelTargets();
         refreshSkillsTargetsValues();
+        
+        if (!GameConstants.XP_BONUS_ENABLED)
+			elapsedBonusMinutes = 0;
+		if (player.getDayOfWeekManager().isWeekend() && GameConstants.XP_BONUS_ENABLED) {
+			player.getVarsManager().sendVarBit(7232, 1);// Bonus xp button, invalid
+			player.getVarsManager().sendVarBit(7233, 170);// 2.5xp
+			refreshXpBonus();
+		}
 	}
 
 	/**
@@ -330,9 +340,18 @@ public class Skills {
 	public double addExperience(int skill, double exp) {
 		int rate = skill == ATTACK || skill == STRENGTH || skill == DEFENCE || skill == HITPOINTS || skill == MAGIC
 				|| skill == RANGE || skill == SUMMONING ? GameConstants.COMBAT_XP_RATE : GameConstants.XP_RATE;
+		
+		if (GameConstants.XP_BONUS_ENABLED) {
+			double newexp = exp * getXpBonusMultiplier();
+			xpBonusTrack += newexp;
+			exp = newexp;
+			refreshBonusXp();
+		}
+		boolean isWeekend = player.getDayOfWeekManager().isWeekend();
 		double modifiedExp = exp * rate;
 		double buffedExp = modifiedExp * additionalExperienceBuff(skill, modifiedExp);
-		return addSkillExperience(skill, buffedExp);
+		double weekendExperience = buffedExp * 2;
+		return addSkillExperience(skill, (isWeekend ? weekendExperience : buffedExp));
 	}
 
 	/**
@@ -353,6 +372,11 @@ public class Skills {
 		if (xp[skill] > MAXIMUM_EXP) {
 			xp[skill] = MAXIMUM_EXP;
 		}
+		int temporaryBonusXp = 10;
+		 temporaryBonusXp += (int) ((exp / 2.5 ) * 10);
+         player.getVarsManager().sendVarBit(1878, temporaryBonusXp);//Bonus xp amount
+         player.getVarsManager().sendVarBit(1878, temporaryBonusXp);//Bonus xp amount
+         player.getPackets().sendRunScript(776);//Script for double xp
 		int newLevel = getTrueLevel(skill);
 		int levelDiff = newLevel - oldLevel;
 		gainedLevels = levelDiff;
@@ -570,5 +594,32 @@ public class Skills {
 			skills[idx++] = i;
 		}
 		return skills;
+	}
+	
+	private double getXpBonusMultiplier() {
+		if (elapsedBonusMinutes >= 600)
+			return 1.1;
+		double hours = elapsedBonusMinutes / 60;
+		return Math.pow((hours - 10) / 7.5, 2) + 1.1;
+	}
+
+	private transient double xpBonusTrack;
+	
+	public void refreshBonusXp() {
+		player.getVarsManager().sendVar(1878, (int) (xpBonusTrack * 10));
+	}
+
+	public void refreshXpBonus() {
+		refreshElapsedBonusMinutes();
+		refreshBonusXp();
+	}
+
+	public void increaseElapsedBonusMinues() {
+		elapsedBonusMinutes++;
+		refreshElapsedBonusMinutes();
+	}
+
+	public void refreshElapsedBonusMinutes() {
+		player.getVarsManager().sendVarBit(7233, elapsedBonusMinutes);
 	}
 }
