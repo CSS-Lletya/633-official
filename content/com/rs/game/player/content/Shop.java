@@ -171,7 +171,7 @@ public class Shop {
 				generalStock[slotId - mainStock.length] = null;
 			refreshShop();
 			resetSelected(player);
-
+			sendInventory(player);
 		}
 	}
 
