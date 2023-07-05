@@ -31,7 +31,7 @@ public class ChargeFireOrb extends Action {
     	if (checkAll(player)) {
     		player.getInventory().replaceItems(new Item(567), new Item(569));
     		player.getAudioManager().sendSound(Sounds.CHARGE_FIRE_ORB);
-		    player.getSkills().addXp(Skills.MAGIC, 73);
+		    player.getSkills().addExperience(Skills.MAGIC, 73);
 		    player.setNextAnimationNoPriority(Animations.CHARGE_ORB);
 			player.getPackets().sendGameMessage("You fill the orb with the power of Fire.", true);
 		} else

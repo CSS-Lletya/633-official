@@ -44,8 +44,8 @@ public class Wolpertinger extends Familiar {
 	public boolean submitSpecial(Object object) {
 		Player player = (Player) object;
 		int newLevel = player.getSkills().getLevel(Skills.MAGIC) + 7;
-		if (newLevel > player.getSkills().getLevelForXp(Skills.MAGIC) + 7)
-			newLevel = player.getSkills().getLevelForXp(Skills.MAGIC) + 7;
+		if (newLevel > player.getSkills().getTrueLevel(Skills.MAGIC) + 7)
+			newLevel = player.getSkills().getTrueLevel(Skills.MAGIC) + 7;
 		player.setNextGraphics(new Graphics(1300));
 		player.setNextAnimation(new Animation(7660));
 		player.getSkills().set(Skills.MAGIC, newLevel);

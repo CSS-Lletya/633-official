@@ -84,7 +84,7 @@ public class CreateAction extends Action {
             for (int i = 0; i < products[choice].length; i++)
                 player.getInventory().addItem(products[choice][i]);
             if (xp != null && skill != -1)
-                player.getSkills().addXp(skill, xp[choice]);
+                player.getSkills().addExperience(skill, xp[choice]);
         }
         return delay;
     }

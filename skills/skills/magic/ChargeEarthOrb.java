@@ -31,7 +31,7 @@ public class ChargeEarthOrb extends Action {
     	if (checkAll(player)) {
     		player.getInventory().replaceItems(new Item(567), new Item(575));
     		player.getAudioManager().sendSound(Sounds.CHARGE_EARTH_ORB);
-		    player.getSkills().addXp(Skills.MAGIC, 70);
+		    player.getSkills().addExperience(Skills.MAGIC, 70);
 		    player.setNextAnimationNoPriority(Animations.CHARGE_ORB);
 			player.getPackets().sendGameMessage("You fill the orb with the power of Earth.", true);
 		} else

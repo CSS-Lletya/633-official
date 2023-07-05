@@ -44,8 +44,8 @@ public class Granitecrab extends Familiar {
 	public boolean submitSpecial(Object object) {
 		Player player = (Player) object;
 		int newLevel = player.getSkills().getLevel(Skills.DEFENCE) + 4;
-		if (newLevel > player.getSkills().getLevelForXp(Skills.DEFENCE) + 4)
-			newLevel = player.getSkills().getLevelForXp(Skills.DEFENCE) + 4;
+		if (newLevel > player.getSkills().getTrueLevel(Skills.DEFENCE) + 4)
+			newLevel = player.getSkills().getTrueLevel(Skills.DEFENCE) + 4;
 		player.setNextGraphics(new Graphics(1300));
 		player.setNextAnimation(new Animation(7660));
 		setNextGraphics(new Graphics(8108));

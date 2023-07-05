@@ -49,8 +49,8 @@ public class Spiritterrorbird extends Familiar {
 		}
 		int newLevel = getOwner().getSkills().getLevel(Skills.AGILITY) + 2;
 		double runEnergy = player.getDetails().getRunEnergy() + (Math.round(newLevel / 2));
-		if (newLevel > getOwner().getSkills().getLevelForXp(Skills.AGILITY) + 2)
-			newLevel = getOwner().getSkills().getLevelForXp(Skills.AGILITY) + 2;
+		if (newLevel > getOwner().getSkills().getTrueLevel(Skills.AGILITY) + 2)
+			newLevel = getOwner().getSkills().getTrueLevel(Skills.AGILITY) + 2;
 		setNextAnimation(new Animation(8229));
 		setNextGraphics(new Graphics(1521));
 		player.setNextGraphics(new Graphics(1300));

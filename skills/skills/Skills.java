@@ -6,9 +6,11 @@ import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
+import com.rs.constants.ItemNames;
 import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -89,14 +91,14 @@ public class Skills {
 	 */
 	public void restoreSkills() {
 		IntStream.range(0, 25).forEach(skill -> {
-			level[skill] = (byte) getLevelForXp(skill);
+			level[skill] = getTrueLevel(skill);
 			refresh(skill);
 		});
 	}
 	
 	public void restoreSkill(int skill) {
 		IntStream.range(0, 25).forEach(skills -> {
-			level[skills] = (byte) getLevelForXp(skills);
+			level[skills] = getTrueLevel(skills);
 			refresh(skills);
 		});
 	}
@@ -161,7 +163,7 @@ public class Skills {
 	 * @return
 	 */
 	public int getSummoningCombatLevel() {
-		return getLevelForXp(Skills.SUMMONING) / 8;
+		return getTrueLevel(Skills.SUMMONING) / 8;
 	}
 
 	/**
@@ -170,13 +172,13 @@ public class Skills {
 	 * @return
 	 */
 	public int getCombatLevel() {
-		int attack = getLevelForXp(0);
-		int defence = getLevelForXp(1);
-		int strength = getLevelForXp(2);
-		int hp = getLevelForXp(3);
-		int prayer = getLevelForXp(5);
-		int ranged = getLevelForXp(4);
-		int magic = getLevelForXp(6);
+		int attack = getTrueLevel(0);
+		int defence = getTrueLevel(1);
+		int strength = getTrueLevel(2);
+		int hp = getTrueLevel(3);
+		int prayer = getTrueLevel(5);
+		int ranged = getTrueLevel(4);
+		int magic = getTrueLevel(6);
 		int combatLevel = 3;
 		combatLevel = (int) ((defence + hp + Math.floor(prayer / 2)) * 0.25) + 1;
 		double melee = (attack + strength) * 0.325;
@@ -249,7 +251,7 @@ public class Skills {
 	 * @param level
 	 * @return level
 	 */
-	public int getLevelForXp(int skill) {
+	public int getTrueLevel(int skill) {
 		double exp = xp[skill];
 		int points = 0;
 		int output = 0;
@@ -267,7 +269,7 @@ public class Skills {
 	 * Initializes the Player's Skills on login
 	 */
 	public void init() {
-		IntStream.range(0, 25).forEach(level -> refresh(level));
+		IntStream.range(0, 25).forEach(this::refresh);
 		refreshXpCounter();
 		refreshEnabledSkillsTargets();
         refreshUsingLevelTargets();
@@ -297,17 +299,41 @@ public class Skills {
 	}
 
 	/**
+	 * 
+	 * Karamja 2 gloves require brim agility (10% buff)
+	 * https://runescape.fandom.com/wiki/Karamja_gloves
+	 * 
+	 * Skipping brawling gloves for now
+	 * Wiki: https://runescape.fandom.com/wiki/Bonus_experience_items
+	 * @param skill
+	 * @param experience
+	 * @return
+	 */
+	private final double additionalExperienceBuff(int skill, double experience) {
+		experience = 1.0;
+		if (player.getEquipment().containsAny(ItemNames.FLAME_GLOVES_13660) && skill == FIREMAKING)
+			experience *= 1.2;
+		if (player.getEquipment().containsAny(ItemNames.RING_OF_FIRE_13659) && skill == FIREMAKING)
+			experience *= 1.2;
+		if (IntStream.rangeClosed(13612, 13628).anyMatch(item -> player.getEquipment().containsAny(item)) && skill == RUNECRAFTING)
+			experience *= 1.1;
+		return experience;
+	}
+	
+	/**
 	 * Adds experience to the specified Skill
 	 * 
 	 * @param skill
 	 * @param exp
 	 * @return
 	 */
-	public double addXp(int skill, double exp) {
+	public double addExperience(int skill, double exp) {
 		int rate = skill == ATTACK || skill == STRENGTH || skill == DEFENCE || skill == HITPOINTS || skill == MAGIC
 				|| skill == RANGE || skill == SUMMONING ? GameConstants.COMBAT_XP_RATE : GameConstants.XP_RATE;
-		exp *= rate;
-		return addXpNormal(skill, exp);
+		System.out.println(exp + " vs " + additionalExperienceBuff(skill, exp));
+		double modifiedExp = exp * rate;
+		double buffedExp = modifiedExp * additionalExperienceBuff(skill, modifiedExp);
+		return addSkillExperience(skill, buffedExp);
 	}
 
 	/**
@@ -317,10 +343,10 @@ public class Skills {
 	 * @param exp
 	 * @return xp
 	 */
-	public double addXpNormal(int skill, double exp) {
+	public double addSkillExperience(int skill, double exp) {
 		if (player.getDetails().getExperienceLocked().isTrue())
 			return 0;
-		int oldLevel = getLevelForXp(skill);
+		int oldLevel = getTrueLevel(skill);
 		xp[skill] += exp;
 		xpCounter += exp;
 		refreshXpCounter();
@@ -328,7 +354,7 @@ public class Skills {
 		if (xp[skill] > MAXIMUM_EXP) {
 			xp[skill] = MAXIMUM_EXP;
 		}
-		int newLevel = getLevelForXp(skill);
+		int newLevel = getTrueLevel(skill);
 		int levelDiff = newLevel - oldLevel;
 		gainedLevels = levelDiff;
 		if (newLevel > oldLevel) {
@@ -353,11 +379,11 @@ public class Skills {
 	 * @param exp
 	 * @return xp
 	 */
-	public double addXpLamp(int skill, double exp) {
+	public double addLampExperience(int skill, double exp) {
 		if (player.getDetails().getExperienceLocked().isTrue())
 			return 0;
 		exp *= GameConstants.LAMP_XP_RATE;
-		int oldLevel = getLevelForXp(skill);
+		int oldLevel = getTrueLevel(skill);
 		xp[skill] += exp;
 		xpCounter += exp;
 		refreshXpCounter();
@@ -365,7 +391,7 @@ public class Skills {
 		if (xp[skill] > MAXIMUM_EXP) {
 			xp[skill] = MAXIMUM_EXP;
 		}
-		int newLevel = getLevelForXp(skill);
+		int newLevel = getTrueLevel(skill);
 		int levelDiff = newLevel - oldLevel;
 		gainedLevels = levelDiff;
 		if (newLevel > oldLevel) {
@@ -407,6 +433,7 @@ public class Skills {
 	/**
 	 * Levelup sounds 1 - 99
 	 */
+	@AllArgsConstructor
 	public enum Musics {
 		ATTACK(29, 30, 0), STRENGTH(65, 66, 2), DEFENCE(37, 38, 1), HITPOINTS(47, 48, 3), RANGE(57, 58, 4),
 		MAGIC(51, 52, 6), PRAYER(55, 56, 5), AGILITY(28, 322, 16), HERBLORE(45, 46, 15), THIEVING(67, 68, 17),
@@ -419,12 +446,6 @@ public class Skills {
 		private int id2;
 		private int skill;
 
-		private Musics(int id, int id2, int skill) {
-			this.id = id;
-			this.id2 = id2;
-			this.skill = skill;
-		}
-
 		public int getId() {
 			return id;
 		}
@@ -432,7 +453,7 @@ public class Skills {
 		public int getId2() {
 			return id2;
 		}
-
+		
 		private static Map<Integer, Musics> musics = new HashMap<Integer, Musics>();
 
 		public static Musics levelup(int skill) {
@@ -445,12 +466,7 @@ public class Skills {
 			}
 		}
 	}
-
-	/**
-	 * Represents the total level of the player
-	 */
-	private transient int totallevel;
-
+	
 	/**
 	 * Gets the total level of a Player note: might need to be tweaked
 	 * 
@@ -458,8 +474,9 @@ public class Skills {
 	 * @return level
 	 */
 	public int getTotalLevel(Player player) {
-		IntStream.range(0, 25).forEach(level -> totallevel += player.getSkills().getLevelForXp(level));
-		return totallevel;
+		 return IntStream.range(0, 25)
+		            .map(level -> player.getSkills().getTrueLevel(level))
+		            .sum();
 	}
 
 	private transient boolean[] leveledUp = new boolean[25];
@@ -535,7 +552,7 @@ public class Skills {
 	}
 
 	public void adjustStat(int baseMod, double mul, boolean boost, int skill) {
-		int realLevel = getLevelForXp(skill);
+		int realLevel = getTrueLevel(skill);
 		int realBoost = (int) (baseMod + (getLevel(skill) * mul));
 		if (realBoost < 0)
 			realLevel = getLevel(skill);

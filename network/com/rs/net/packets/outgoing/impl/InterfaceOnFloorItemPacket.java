@@ -66,7 +66,7 @@ public class InterfaceOnFloorItemPacket implements OutgoingPacketListener {
 	                }
 	                player.getAudioManager().sendSound(Sounds.TELE_GRAB_SPELL);
 	                player.setNextAnimation(Animations.TELEGRAB_SPELL);
-	                player.getSkills().addXp(Skills.MAGIC, 10);
+	                player.getSkills().addExperience(Skills.MAGIC, 10);
 	                World.sendProjectile(player, new WorldTile(xCoord, yCoord, player.getPlane()), 142, 18, 5, 20, 50, 0, 0);
 	                CoresManager.schedule(() -> {
 	                    World.sendGraphics(Graphic.TELEGRAB_SPELL, tile);

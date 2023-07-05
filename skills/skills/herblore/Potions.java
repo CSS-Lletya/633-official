@@ -114,27 +114,27 @@ public class Potions {
 			p.heal(30);
 		}),
 
-		PRAYER_POTION(VIAL, new int[] { 2434, 139, 141, 143 }, p -> p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getLevelForXp(Skills.PRAYER) * 2.5) + 70)))),
+		PRAYER_POTION(VIAL, new int[] { 2434, 139, 141, 143 }, p -> p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getTrueLevel(Skills.PRAYER) * 2.5) + 70)))),
 		PRAYER_MIX(VIAL, new int[] { 11465, 11467 }, p -> {
-			p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getLevelForXp(Skills.PRAYER) * 2.5) + 70)));
+			p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getTrueLevel(Skills.PRAYER) * 2.5) + 70)));
 			p.heal(30);
 		}),
 
 		SUPER_RESTORE(VIAL, new int[] { 3024, 3026, 3028, 3030 }, p -> {
 			p.getSkills().adjustStat(8, 0.25, false, Utility.range(0, Skills.MAXIMUM_SKILL_COUNT-1));
-			p.getPrayer().restorePrayer(((int) (p.getSkills().getLevelForXp(Skills.PRAYER) * 0.33 * 10)));
+			p.getPrayer().restorePrayer(((int) (p.getSkills().getTrueLevel(Skills.PRAYER) * 0.33 * 10)));
 		}),
 		SUPER_RESTORE_FLASK(-1, new int[] { 23399, 23401, 23403, 23405, 23407, 23409 }, p -> {
 			p.getSkills().adjustStat(8, 0.25, false, Utility.range(0, Skills.MAXIMUM_SKILL_COUNT-1));
-			p.getPrayer().restorePrayer(((int) (p.getSkills().getLevelForXp(Skills.PRAYER) * 0.33 * 10)));
+			p.getPrayer().restorePrayer(((int) (p.getSkills().getTrueLevel(Skills.PRAYER) * 0.33 * 10)));
 		}),
 		DOM_SUPER_RESTORE(-1, new int[] { 22379, 22380 }, p -> {
 			p.getSkills().adjustStat(8, 0.25, false, Utility.range(0, Skills.MAXIMUM_SKILL_COUNT-1));
-			p.getPrayer().restorePrayer(((int) (p.getSkills().getLevelForXp(Skills.PRAYER) * 0.33 * 10)));
+			p.getPrayer().restorePrayer(((int) (p.getSkills().getTrueLevel(Skills.PRAYER) * 0.33 * 10)));
 		}),
 		SUPER_RESTORE_MIX(VIAL, new int[] { 11493, 11495 }, p -> {
 			p.getSkills().adjustStat(8, 0.25, false, Utility.range(0, Skills.MAXIMUM_SKILL_COUNT-1));
-			p.getPrayer().restorePrayer(((int) (p.getSkills().getLevelForXp(Skills.PRAYER) * 0.33 * 10)));
+			p.getPrayer().restorePrayer(((int) (p.getSkills().getTrueLevel(Skills.PRAYER) * 0.33 * 10)));
 			p.heal(30);
 		}),
 		ANTIPOISON(VIAL, new int[] { 2446, 175, 177, 179 }, p -> onAntiPoisonEffect(p, false, 100)),
@@ -243,7 +243,7 @@ public class Potions {
 		
 		SANFEW_SERUM(VIAL, new int[] { 10925, 10927, 10929, 10931 }, p -> {
 			p.getSkills().adjustStat(8, 0.25, false, Utility.range(0, Skills.MAXIMUM_SKILL_COUNT -1));
-			p.getPrayer().restorePrayer(((int) (p.getSkills().getLevelForXp(Skills.PRAYER) * 0.33 * 10)));
+			p.getPrayer().restorePrayer(((int) (p.getSkills().getTrueLevel(Skills.PRAYER) * 0.33 * 10)));
 			onAntiPoisonEffect(p, false, 500);
 		}),
 
@@ -282,7 +282,7 @@ public class Potions {
 		
 		EXTREME_RANGING(VIAL, new int[] { 15324, 15325, 15326, 15327 }, true, p -> p.getSkills().adjustStat(4, 0.2, Skills.RANGE)),
 		
-		SUPER_PRAYER(VIAL, new int[] { 15328, 15329, 15330, 15331 }, p -> p.getPrayer().restorePrayer(((int) (70 + (p.getSkills().getLevelForXp(Skills.PRAYER) * 3.43))))),
+		SUPER_PRAYER(VIAL, new int[] { 15328, 15329, 15330, 15331 }, p -> p.getPrayer().restorePrayer(((int) (70 + (p.getSkills().getTrueLevel(Skills.PRAYER) * 3.43))))),
 		DOM_SUPER_PRAYER(-1, new int[] { 22375, 22376 }),
 
 		OVERLOAD(VIAL, new int[] { 15332, 15333, 15334, 15335 }, true, p -> p.getOverloadEffect().applyOverloadEffect()) {
@@ -361,15 +361,15 @@ public class Potions {
 
 		WEAK_REJUVENATION_POTION(17490, 17570, p -> {
 			p.getSkills().adjustStat(5, 0.10, false, Skills.SUMMONING);
-			p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getLevelForXp(Skills.PRAYER)) + 50)));
+			p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getTrueLevel(Skills.PRAYER)) + 50)));
 		}),
 		REJUVENATION_POTION(17490, 17594, p -> {
 			p.getSkills().adjustStat(7, 0.15, false, Skills.SUMMONING);
-			p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getLevelForXp(Skills.PRAYER) * 1.5) + 70)));
+			p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getTrueLevel(Skills.PRAYER) * 1.5) + 70)));
 		}),
 		STRONG_REJUVENATION_POTION(17490, 17618, p -> {
 			p.getSkills().adjustStat(10, 0.22, false, Skills.SUMMONING);
-			p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getLevelForXp(Skills.PRAYER) * 2.2) + 100)));
+			p.getPrayer().restorePrayer(((int) (Math.floor(p.getSkills().getTrueLevel(Skills.PRAYER) * 2.2) + 100)));
 		}),
 
 		POISON_CHALICE(2026, 197, p -> {
@@ -438,22 +438,22 @@ public class Potions {
 		}),
 
 		MIND_BOMB(BEER_GLASS, 1907, p -> {
-			p.getSkills().adjustStat(p.getSkills().getLevelForXp(Skills.MAGIC) >= 50 ? 3 : 2, 0, Skills.MAGIC);
+			p.getSkills().adjustStat(p.getSkills().getTrueLevel(Skills.MAGIC) >= 50 ? 3 : 2, 0, Skills.MAGIC);
 			p.getSkills().adjustStat(-3, 0, Skills.ATTACK);
 			p.getSkills().adjustStat(-4, 0, Skills.STRENGTH, Skills.DEFENCE);
 		}),
 		MIND_BOMB_KEG(EMPTY_KEG, new int[] { 5795, 5797, 5799, 5801 }, p -> {
-			p.getSkills().adjustStat(p.getSkills().getLevelForXp(Skills.MAGIC) >= 50 ? 3 : 2, 0, Skills.MAGIC);
+			p.getSkills().adjustStat(p.getSkills().getTrueLevel(Skills.MAGIC) >= 50 ? 3 : 2, 0, Skills.MAGIC);
 			p.getSkills().adjustStat(-3, 0, Skills.ATTACK);
 			p.getSkills().adjustStat(-4, 0, Skills.STRENGTH, Skills.DEFENCE);
 		}),
 		MIND_BOMB_M(BEER_GLASS, 5741, p -> {
-			p.getSkills().adjustStat(p.getSkills().getLevelForXp(Skills.MAGIC) >= 50 ? 4 : 3, 0, Skills.MAGIC);
+			p.getSkills().adjustStat(p.getSkills().getTrueLevel(Skills.MAGIC) >= 50 ? 4 : 3, 0, Skills.MAGIC);
 			p.getSkills().adjustStat(-5, 0, Skills.ATTACK, Skills.STRENGTH, Skills.DEFENCE);
 			p.heal(10);
 		}),
 		MIND_BOMB_M_KEG(EMPTY_KEG, new int[] { 5875, 5877, 5879, 5881 }, p -> {
-			p.getSkills().adjustStat(p.getSkills().getLevelForXp(Skills.MAGIC) >= 50 ? 4 : 3, 0, Skills.MAGIC);
+			p.getSkills().adjustStat(p.getSkills().getTrueLevel(Skills.MAGIC) >= 50 ? 4 : 3, 0, Skills.MAGIC);
 			p.getSkills().adjustStat(-5, 0, Skills.ATTACK, Skills.STRENGTH, Skills.DEFENCE);
 			p.heal(10);
 		}),
@@ -776,52 +776,52 @@ public class Potions {
 	public static void applyOverLoadEffect(Player player) {
 		if (WildernessMapZone.isAtWild(player)) {
 			int actualLevel = player.getSkills().getLevel(Skills.ATTACK);
-			int realLevel = player.getSkills().getLevelForXp(Skills.ATTACK);
+			int realLevel = player.getSkills().getTrueLevel(Skills.ATTACK);
 			int level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.ATTACK, (int) (level + 5 + (realLevel * 0.15)));
 
 			actualLevel = player.getSkills().getLevel(Skills.STRENGTH);
-			realLevel = player.getSkills().getLevelForXp(Skills.STRENGTH);
+			realLevel = player.getSkills().getTrueLevel(Skills.STRENGTH);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.STRENGTH, (int) (level + 5 + (realLevel * 0.15)));
 
 			actualLevel = player.getSkills().getLevel(Skills.DEFENCE);
-			realLevel = player.getSkills().getLevelForXp(Skills.DEFENCE);
+			realLevel = player.getSkills().getTrueLevel(Skills.DEFENCE);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.DEFENCE, (int) (level + 5 + (realLevel * 0.15)));
 
 			actualLevel = player.getSkills().getLevel(Skills.MAGIC);
-			realLevel = player.getSkills().getLevelForXp(Skills.MAGIC);
+			realLevel = player.getSkills().getTrueLevel(Skills.MAGIC);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.MAGIC, level + 5);
 
 			actualLevel = player.getSkills().getLevel(Skills.RANGE);
-			realLevel = player.getSkills().getLevelForXp(Skills.RANGE);
+			realLevel = player.getSkills().getTrueLevel(Skills.RANGE);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.RANGE, (int) (level + 5 + (realLevel * 0.1)));
 		} else {
 			int actualLevel = player.getSkills().getLevel(Skills.ATTACK);
-			int realLevel = player.getSkills().getLevelForXp(Skills.ATTACK);
+			int realLevel = player.getSkills().getTrueLevel(Skills.ATTACK);
 			int level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.ATTACK, (int) (level + 5 + (realLevel * 0.22)));
 
 			actualLevel = player.getSkills().getLevel(Skills.STRENGTH);
-			realLevel = player.getSkills().getLevelForXp(Skills.STRENGTH);
+			realLevel = player.getSkills().getTrueLevel(Skills.STRENGTH);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.STRENGTH, (int) (level + 5 + (realLevel * 0.22)));
 
 			actualLevel = player.getSkills().getLevel(Skills.DEFENCE);
-			realLevel = player.getSkills().getLevelForXp(Skills.DEFENCE);
+			realLevel = player.getSkills().getTrueLevel(Skills.DEFENCE);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.DEFENCE, (int) (level + 5 + (realLevel * 0.22)));
 
 			actualLevel = player.getSkills().getLevel(Skills.MAGIC);
-			realLevel = player.getSkills().getLevelForXp(Skills.MAGIC);
+			realLevel = player.getSkills().getTrueLevel(Skills.MAGIC);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.MAGIC, level + 7);
 
 			actualLevel = player.getSkills().getLevel(Skills.RANGE);
-			realLevel = player.getSkills().getLevelForXp(Skills.RANGE);
+			realLevel = player.getSkills().getTrueLevel(Skills.RANGE);
 			level = actualLevel > realLevel ? realLevel : actualLevel;
 			player.getSkills().set(Skills.RANGE, (int) (level + 4 + (Math.floor(realLevel / 5.2))));
 		}

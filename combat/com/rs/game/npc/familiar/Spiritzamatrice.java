@@ -71,7 +71,7 @@ public class Spiritzamatrice extends Familiar {
 		setNextGraphics(new Graphics(1467));
 		World.sendProjectile(this, target, 1468, 34, 16, 30, 35, 16, 0);
 		target.ifPlayer(targetSelected -> {
-			int level = targetSelected.getSkills().getLevelForXp(Skills.STRENGTH);
+			int level = targetSelected.getSkills().getTrueLevel(Skills.STRENGTH);
 			int drained = 3;
 			if (level - drained > 0)
 				drained = level;

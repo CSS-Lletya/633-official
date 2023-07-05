@@ -82,7 +82,7 @@ public abstract class Thieving extends SkillHandler {
 			onStop(true);
 			if(!failure()) {
 				getPlayer().getInventory().addItem(loot());
-				getPlayer().getSkills().addXp(Skills.THIEVING, experience());
+				getPlayer().getSkills().addExperience(Skills.THIEVING, experience());
 			}
 		}
 		onStop(false);

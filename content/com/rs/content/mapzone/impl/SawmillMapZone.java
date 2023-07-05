@@ -328,7 +328,7 @@ public class SawmillMapZone extends MapZone {
 		Job job = getJob(player);
 		if (job == null)
 			return;
-		player.getSkills().addXp(Skills.WOODCUTTING, job.jobDetails == Jobs.QUICK ? 4395 / 3 : 8580 / 3);
+		player.getSkills().addExperience(Skills.WOODCUTTING, job.jobDetails == Jobs.QUICK ? 4395 / 3 : 8580 / 3);
 		setJob(player, null);
 		player.getInterfaceManager().closeInterfaces();
 		player.getInterfaceManager().removeOverlay(false);

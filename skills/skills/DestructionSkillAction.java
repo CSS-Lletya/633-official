@@ -59,12 +59,12 @@ public abstract class DestructionSkillAction extends SkillHandler {
 	public final void execute(Task t) {
 		if (manualRemoval()) {
 			onDestruct(t, true);
-			player.getSkills().addXp(getSkillId(), experience());
+			player.getSkills().addExperience(getSkillId(), experience());
 			return;
 		}
 		if (getPlayer().getInventory().canRemove(destructItem().getId(), destructItem().getAmount())) {
 			onDestruct(t, true);
-			player.getSkills().addXp(getSkillId(), experience());
+			player.getSkills().addExperience(getSkillId(), experience());
 			return;
 		}
 		onDestruct(t, false);

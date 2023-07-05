@@ -27,7 +27,7 @@ public class Summoning {
 				|| player.getSkills().getLevel(Skills.SUMMONING) < pouch.getSummoningCost())
 			return;
 		int levelReq = getRequiredLevel(pouch.getRealPouchId());
-		if (player.getSkills().getLevelForXp(Skills.SUMMONING) < levelReq) {
+		if (player.getSkills().getTrueLevel(Skills.SUMMONING) < levelReq) {
 			player.getPackets()
 					.sendGameMessage("You need a summoning level of " + levelReq + " in order to use this pouch.");
 			return;
@@ -349,7 +349,7 @@ public class Summoning {
 				} else if (!player.getInventory().hasFreeSlots()) {
 					player.getPackets().sendGameMessage("You currently have no space in your inventory.");
 					break itemCount;
-				} else if (player.getSkills().getLevelForXp(Skills.SUMMONING) < level) {
+				} else if (player.getSkills().getTrueLevel(Skills.SUMMONING) < level) {
 					player.getPackets()
 							.sendGameMessage("You need a summoning level of " + level + " to create this pouch.");
 					break itemCount;
@@ -359,7 +359,7 @@ public class Summoning {
 				player.getInventory()
 						.addItem(new Item(infusingScroll ? getScrollId(pouch.getRealPouchId()) : pouch.getRealPouchId(),
 								infusingScroll ? 10 : 1));
-				player.getSkills().addXp(Skills.SUMMONING,
+				player.getSkills().addExperience(Skills.SUMMONING,
 						infusingScroll ? pouch.getMinorExperience() : pouch.getExperience());
 			}
 		}

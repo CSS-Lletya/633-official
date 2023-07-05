@@ -71,7 +71,7 @@ public class Spiritguthatrice extends Familiar {
 		setNextGraphics(new Graphics(1467));
 		World.sendProjectile(this, target, 1468, 34, 16, 30, 35, 16, 0);
 		target.ifPlayer(targetSelected -> {
-			int level = targetSelected.getSkills().getLevelForXp(Skills.ATTACK);
+			int level = targetSelected.getSkills().getTrueLevel(Skills.ATTACK);
 			int drained = 3;
 			if (level - drained > 0)
 				drained = level;

@@ -34,7 +34,7 @@ public class BarbarianPotionItemPlugin extends InventoryListener {
 		if (potion.getItem() == firstItem.getId() || potion.getItem() == secondItem.getId()) {
 			player.getInventory().removeItems(new Item(potion.getItem(), 1));
 			player.getInventory().addItem(new Item(potion.getProduct(), 1));
-			player.getSkills().addXp(Skills.HERBLORE, potion.getExp());
+			player.getSkills().addExperience(Skills.HERBLORE, potion.getExp());
 			if (potion.isBoth()) {
 				player.getInventory().removeItems(new Item(11324, 1));
 			}

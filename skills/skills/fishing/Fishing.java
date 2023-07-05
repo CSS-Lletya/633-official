@@ -33,12 +33,12 @@ public final class Fishing extends HarvestingSkillAction {
 				if (hasBarbtailHarpoon() && RandomUtils.percentageChance(10)) {
 					Catchable catchable = Catchable.getCatchable(item.getId()).orElse(null);
 					player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(catchable.getId()).getName() + "_Caught").addStatistic("Fish_Caught");
-					getPlayer().getSkills().addXp(getSkillId(), catchable.getExperience());
+					getPlayer().getSkills().addExperience(getSkillId(), catchable.getExperience());
 					player.getPackets().sendGameMessage("You catch an extra fish!");
 				}
 				Catchable catchable = Catchable.getCatchable(item.getId()).orElse(null);
 				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(catchable.getId()).getName() + "_Caught").addStatistic("Fish_Caught");
-				getPlayer().getSkills().addXp(getSkillId(), catchable.getExperience());
+				getPlayer().getSkills().addExperience(getSkillId(), catchable.getExperience());
 			}
 		}
 	}

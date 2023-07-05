@@ -68,8 +68,8 @@ public class Magpie extends Familiar {
 	public boolean submitSpecial(Object object) {
 		final Player player = (Player) object;
 		int newLevel = player.getSkills().getLevel(Skills.THIEVING) + 2;
-		if (newLevel > player.getSkills().getLevelForXp(Skills.THIEVING) + 2)
-			newLevel = player.getSkills().getLevelForXp(Skills.THIEVING) + 2;
+		if (newLevel > player.getSkills().getTrueLevel(Skills.THIEVING) + 2)
+			newLevel = player.getSkills().getTrueLevel(Skills.THIEVING) + 2;
 		setNextGraphics(new Graphics(1336));
 		setNextAnimation(new Animation(8020));
 		player.setNextAnimation(new Animation(7660));

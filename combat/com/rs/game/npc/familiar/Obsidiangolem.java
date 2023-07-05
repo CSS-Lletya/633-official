@@ -43,7 +43,7 @@ public class Obsidiangolem extends Familiar {
 	@Override
 	public boolean submitSpecial(Object object) {
 		Player player = (Player) object;
-		player.getSkills().set(Skills.STRENGTH, player.getSkills().getLevelForXp(Skills.STRENGTH) + 9);
+		player.getSkills().set(Skills.STRENGTH, player.getSkills().getTrueLevel(Skills.STRENGTH) + 9);
 		player.setNextAnimation(new Animation(7660));
 		player.setNextGraphics(new Graphics(1300));
 		setNextGraphics(new Graphics(1465));

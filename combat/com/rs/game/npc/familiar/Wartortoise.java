@@ -46,8 +46,8 @@ public class Wartortoise extends Familiar {
 		setNextAnimation(new Animation(8288));
 		setNextGraphics(new Graphics(1414));
 		int newLevel = player.getSkills().getLevel(Skills.DEFENCE) + 9;
-		if (newLevel > player.getSkills().getLevelForXp(Skills.DEFENCE) + 9)
-			newLevel = player.getSkills().getLevelForXp(Skills.DEFENCE) + 9;
+		if (newLevel > player.getSkills().getTrueLevel(Skills.DEFENCE) + 9)
+			newLevel = player.getSkills().getTrueLevel(Skills.DEFENCE) + 9;
 		player.setNextGraphics(new Graphics(1300));
 		player.setNextAnimation(new Animation(7660));
 		player.getSkills().set(Skills.DEFENCE, newLevel);

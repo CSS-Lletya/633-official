@@ -42,11 +42,11 @@ public class PrayerManager {
 	
 	//you can remove some conditions or reappply depending on your server theme
 	private boolean canUsePrayer(Prayer prayer) {
-		if (player.getSkills().getLevelForXp(Skills.PRAYER) < prayer.getReq()) {
+		if (player.getSkills().getTrueLevel(Skills.PRAYER) < prayer.getReq()) {
 			player.getPackets().sendGameMessage("You need a prayer level of at least " + prayer.getReq() + " to use this prayer.");
 			return false;
 		}
-		if (prayer.isCurse() && player.getSkills().getLevelForXp(Skills.DEFENCE) < 30) {
+		if (prayer.isCurse() && player.getSkills().getTrueLevel(Skills.DEFENCE) < 30) {
 			player.getPackets().sendGameMessage("You need a Defense level of at least 30 to use this prayer.");
 			return false;
 		}
@@ -71,7 +71,7 @@ public class PrayerManager {
 //			break;
 		case CHIVALRY:
 		case PIETY:
-			if (player.getSkills().getLevelForXp(Skills.DEFENCE) < 70) {
+			if (player.getSkills().getTrueLevel(Skills.DEFENCE) < 70) {
 				player.getPackets().sendGameMessage("You need a defence level of at least 70 to use this prayer.");
 				return false;
 			}
@@ -690,7 +690,7 @@ public class PrayerManager {
 	}
 
 	public boolean hasFullPoints() {
-		return getPoints() >= player.getSkills().getLevelForXp(Skills.PRAYER);
+		return getPoints() >= player.getSkills().getTrueLevel(Skills.PRAYER);
 	}
 
 	public void drainPrayer(double amount) {
@@ -707,7 +707,7 @@ public class PrayerManager {
 	}
 
 	public void restorePrayer(double amount) {
-		int maxPrayer = player.getSkills().getLevelForXp(Skills.PRAYER) * 10;
+		int maxPrayer = player.getSkills().getTrueLevel(Skills.PRAYER) * 10;
 		if ((points + amount) <= maxPrayer)
 			points += amount;
 		else
@@ -765,7 +765,7 @@ public class PrayerManager {
 
 	public void reset() {
 		closeAllPrayers();
-		points = player.getSkills().getLevelForXp(Skills.PRAYER);
+		points = player.getSkills().getTrueLevel(Skills.PRAYER);
 		refreshPoints();
 	}
 

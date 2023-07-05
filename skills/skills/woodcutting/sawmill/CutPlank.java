@@ -43,8 +43,8 @@ public class CutPlank extends Action {
 	public int processWithDelay(Player player) {
 		boolean crystalSaw = player.getInventory().containsItem(9625, 1);
 		player.setNextAnimation(crystalSaw ? Animations.CRYSTAL_SAW_SAWING : Animations.REGULAR_SAWING);
-		player.getSkills().addXp(Skills.WOODCUTTING, crystalSaw ? XP[type] * 2 : XP[type] / 1.3);
-		player.getSkills().addXp(Skills.CONSTRUCTION, crystalSaw ? XP[type] * 2 / 2 : XP[type] / 1.3 / 2);
+		player.getSkills().addExperience(Skills.WOODCUTTING, crystalSaw ? XP[type] * 2 : XP[type] / 1.3);
+		player.getSkills().addExperience(Skills.CONSTRUCTION, crystalSaw ? XP[type] * 2 / 2 : XP[type] / 1.3 / 2);
 		player.getInventory().deleteItem(new Item(960, 1));
 		if (type == 0) {
 			sawmill.addPlank(player, 0, 1);

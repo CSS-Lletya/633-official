@@ -48,12 +48,12 @@ public class WineTask extends Action {
 				if (player.getInventory().containsAny(1995)) {
 					player.getInventory().deleteItem(new Item(1995, 1));
 					player.getInventory().addItem(new Item(determineBadWine(player) ? 1993 : 1991));
-					player.getSkills().addXp(Skills.COOKING, 200 * totalWine);
+					player.getSkills().addExperience(Skills.COOKING, 200 * totalWine);
 				}
 				if (player.getBank().hasItem(1995)) {
 					player.getBank().addItem(new Item(determineBadWine(player) ? 1993 : 1991, player.getBank().getAmountOf(1995)), true);
 					player.getBank().forceDeleteItem(player.getBank().getItemSlot(1995), Integer.MAX_VALUE);
-					player.getSkills().addXp(Skills.COOKING, 200 * totalWine);
+					player.getSkills().addExperience(Skills.COOKING, 200 * totalWine);
 				}
 				player.getDetails().getStatistics().addStatistic("Wine_Crafted").addStatistic("Food_Prepared");
 			}

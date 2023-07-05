@@ -36,7 +36,7 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 									int levelTarget = input;
 									Integer skillId = player.getAttributes().get(Attribute.SET_LEVEL).getInt();
 									int curLevel = player.getSkills()
-											.getLevelForXp(player.getSkills().getSkillIdByTargetId(skillId));
+											.getTrueLevel(player.getSkills().getSkillIdByTargetId(skillId));
 									if (curLevel >= (skillId == 24 ? 120 : 99)) {
 										return;
 									}

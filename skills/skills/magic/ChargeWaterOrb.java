@@ -31,7 +31,7 @@ public class ChargeWaterOrb extends Action {
     	if (checkAll(player)) {
     		player.getInventory().replaceItems(new Item(567), new Item(571));
     		player.getAudioManager().sendSound(Sounds.CHARGE_WATER_ORB);
-		    player.getSkills().addXp(Skills.MAGIC, 66);
+		    player.getSkills().addExperience(Skills.MAGIC, 66);
 		    player.setNextAnimationNoPriority(Animations.CHARGE_ORB);
 			player.getPackets().sendGameMessage("You fill the orb with the power of Water.", true);
 		} else

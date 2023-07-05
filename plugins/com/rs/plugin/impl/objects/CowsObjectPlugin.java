@@ -32,7 +32,7 @@ public class CowsObjectPlugin extends ObjectListener {
 				if (player.getInventory().addItem(new Item(10593))) {
 					player.getMovement().lock(4);
 					player.setNextAnimation(Animations.TWO_HANDED_GRAB);
-					player.getSkills().addXp(Skills.THIEVING, 16);
+					player.getSkills().addExperience(Skills.THIEVING, 16);
 					player.getPackets().sendGameMessage("The cow looks at you angrily..");
 				}
 			}
@@ -55,7 +55,7 @@ public class CowsObjectPlugin extends ObjectListener {
 			if (player.getInventory().addItem(new Item(10593))) {
 				player.getMovement().lock(4);
 				player.setNextAnimation(Animations.TWO_HANDED_GRAB);
-				player.getSkills().addXp(Skills.THIEVING, 16);
+				player.getSkills().addExperience(Skills.THIEVING, 16);
 				player.getPackets().sendGameMessage("The cow looks at you angrily..");
 			}
 		}

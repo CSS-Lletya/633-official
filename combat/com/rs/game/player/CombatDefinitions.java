@@ -663,11 +663,11 @@ public final class CombatDefinitions {
 			player.setNextAnimation(new Animation(1056));
 			player.setNextGraphics(new Graphics(246));
 			player.setNextForceTalk(new ForceTalk("Raarrrrrgggggghhhhhhh!"));
-			int defence = (int) (player.getSkills().getLevelForXp(Skills.DEFENCE) * 0.90D);
-			int attack = (int) (player.getSkills().getLevelForXp(Skills.ATTACK) * 0.90D);
-			int range = (int) (player.getSkills().getLevelForXp(Skills.RANGE) * 0.90D);
-			int magic = (int) (player.getSkills().getLevelForXp(Skills.MAGIC) * 0.90D);
-			int strength = (int) (player.getSkills().getLevelForXp(Skills.STRENGTH) * 1.2D);
+			int defence = (int) (player.getSkills().getTrueLevel(Skills.DEFENCE) * 0.90D);
+			int attack = (int) (player.getSkills().getTrueLevel(Skills.ATTACK) * 0.90D);
+			int range = (int) (player.getSkills().getTrueLevel(Skills.RANGE) * 0.90D);
+			int magic = (int) (player.getSkills().getTrueLevel(Skills.MAGIC) * 0.90D);
+			int strength = (int) (player.getSkills().getTrueLevel(Skills.STRENGTH) * 1.2D);
 			player.getSkills().set(Skills.DEFENCE, defence);
 			player.getSkills().set(Skills.ATTACK, attack);
 			player.getSkills().set(Skills.RANGE, range);
@@ -684,7 +684,7 @@ public final class CombatDefinitions {
 			final boolean enhanced = weaponId == 14632;
 			player.getSkills().set(
 					Skills.DEFENCE,
-					enhanced ? (int) (player.getSkills().getLevelForXp(Skills.DEFENCE) * 1.15D)
+					enhanced ? (int) (player.getSkills().getTrueLevel(Skills.DEFENCE) * 1.15D)
 							: (player.getSkills().getLevel(Skills.DEFENCE) + 8));
 			World.get().submit(new Task(4) {
 				int count = 5;

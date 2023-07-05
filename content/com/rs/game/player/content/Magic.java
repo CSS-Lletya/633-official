@@ -419,7 +419,7 @@ public class Magic {
 			player.getMovement().lock(4);
 			player.getInterfaceManager().sendTab(Tabs.MAGIC);
 			player.getInventory().deleteItem(target.getId(), 1);
-			player.getSkills().addXp(Skills.MAGIC, highAlch ? 65 : 31);
+			player.getSkills().addExperience(Skills.MAGIC, highAlch ? 65 : 31);
 			player.getInventory()
 					.addItem(new Item(995, (int) (target.getDefinitions().getValue() * (highAlch ? 0.6D : 0.3D))));
 			Item weapon = player.getEquipment().getItem(Equipment.SLOT_WEAPON);
@@ -861,7 +861,7 @@ public class Magic {
 					if (!player.getCurrentMapZone().isPresent())
 						teleControlersCheck(player, teleTile);
 					if (xp != 0)
-						player.getSkills().addXp(Skills.MAGIC, xp);
+						player.getSkills().addExperience(Skills.MAGIC, xp);
 					if (downEmoteId != -1)
 						player.setNextAnimation(new Animation(downEmoteId == -2 ? -1 : downEmoteId));
 					if (downGraphicId != -1)

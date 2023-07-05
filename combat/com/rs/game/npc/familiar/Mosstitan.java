@@ -43,9 +43,9 @@ public class Mosstitan extends Familiar {
 	@Override
 	public boolean submitSpecial(Object object) {
 		int newLevel = getOwner().getSkills().getLevel(Skills.DEFENCE)
-				+ (getOwner().getSkills().getLevelForXp(Skills.DEFENCE) / (int) 12.5);
-		if (newLevel > getOwner().getSkills().getLevelForXp(Skills.DEFENCE) + (int) 12.5)
-			newLevel = getOwner().getSkills().getLevelForXp(Skills.DEFENCE) + (int) 12.5;
+				+ (getOwner().getSkills().getTrueLevel(Skills.DEFENCE) / (int) 12.5);
+		if (newLevel > getOwner().getSkills().getTrueLevel(Skills.DEFENCE) + (int) 12.5)
+			newLevel = getOwner().getSkills().getTrueLevel(Skills.DEFENCE) + (int) 12.5;
 		getOwner().setNextGraphics(new Graphics(2011));
 		getOwner().setNextAnimation(new Animation(7660));
 		getOwner().getSkills().set(Skills.DEFENCE, newLevel);

@@ -28,7 +28,7 @@ public final class RestoreSkillTask extends Task {
 					continue b;
 				c: for (int time = 0; time < ammountTimes; time++) {
 					int currentLevel = player.getSkills().getLevel(skill);
-					int normalLevel = player.getSkills().getLevelForXp(skill);
+					int normalLevel = player.getSkills().getTrueLevel(skill);
 					if (currentLevel > normalLevel && time == 0) {
 						if (skill == Skills.ATTACK || skill == Skills.STRENGTH || skill == Skills.DEFENCE
 								|| skill == Skills.RANGE || skill == Skills.MAGIC) {

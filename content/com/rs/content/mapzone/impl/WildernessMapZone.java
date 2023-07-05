@@ -196,31 +196,31 @@ public class WildernessMapZone extends MapZone {
 	
 	public static void checkBoosts(Player player) {
 		boolean changed = false;
-		int level = player.getSkills().getLevelForXp(Skills.ATTACK);
+		int level = player.getSkills().getTrueLevel(Skills.ATTACK);
 		int maxLevel = (int) (level + 5 + (level * 0.15));
 		if (maxLevel < player.getSkills().getLevel(Skills.ATTACK)) {
 			player.getSkills().set(Skills.ATTACK, maxLevel);
 			changed = true;
 		}
-		level = player.getSkills().getLevelForXp(Skills.STRENGTH);
+		level = player.getSkills().getTrueLevel(Skills.STRENGTH);
 		maxLevel = (int) (level + 5 + (level * 0.15));
 		if (maxLevel < player.getSkills().getLevel(Skills.STRENGTH)) {
 			player.getSkills().set(Skills.STRENGTH, maxLevel);
 			changed = true;
 		}
-		level = player.getSkills().getLevelForXp(Skills.DEFENCE);
+		level = player.getSkills().getTrueLevel(Skills.DEFENCE);
 		maxLevel = (int) (level + 5 + (level * 0.15));
 		if (maxLevel < player.getSkills().getLevel(Skills.DEFENCE)) {
 			player.getSkills().set(Skills.DEFENCE, maxLevel);
 			changed = true;
 		}
-		level = player.getSkills().getLevelForXp(Skills.RANGE);
+		level = player.getSkills().getTrueLevel(Skills.RANGE);
 		maxLevel = (int) (level + 5 + (level * 0.1));
 		if (maxLevel < player.getSkills().getLevel(Skills.RANGE)) {
 			player.getSkills().set(Skills.RANGE, maxLevel);
 			changed = true;
 		}
-		level = player.getSkills().getLevelForXp(Skills.MAGIC);
+		level = player.getSkills().getTrueLevel(Skills.MAGIC);
 		maxLevel = level + 5;
 		if (maxLevel < player.getSkills().getLevel(Skills.MAGIC)) {
 			player.getSkills().set(Skills.MAGIC, maxLevel);

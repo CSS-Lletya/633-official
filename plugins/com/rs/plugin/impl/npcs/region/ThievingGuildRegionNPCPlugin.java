@@ -28,7 +28,7 @@ public class ThievingGuildRegionNPCPlugin implements NPCListener {
 		} else if (option == 2) {
 			player.getMovement().lock(2);
 			player.setNextAnimation(Animations.PICKPOCKET);
-			player.getSkills().addXp(Skills.THIEVING, RandomUtils.random(2, 3));
+			player.getSkills().addExperience(Skills.THIEVING, RandomUtils.random(2, 3));
 			timesPickedSession++;
 		} else if (option == 3) {
 			player.dialog(new DialogueEventListener(player, npc) {

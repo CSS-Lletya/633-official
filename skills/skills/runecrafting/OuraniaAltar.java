@@ -27,7 +27,7 @@ public class OuraniaAltar {
         }
         int actualLevel = player.getSkills().getLevel(Skills.RUNECRAFTING);
         double totalXp = 5 * runes;
-        player.getSkills().addXp(Skills.RUNECRAFTING, totalXp);
+        player.getSkills().addExperience(Skills.RUNECRAFTING, totalXp);
         player.setNextGraphics(Graphic.RUNECRAFTING);
         player.setNextAnimation(Animations.RUNECRAFTING);
         player.getMovement().lock(1);

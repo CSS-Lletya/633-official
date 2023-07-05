@@ -44,11 +44,11 @@ public class Compostmound extends Familiar {
 	public boolean submitSpecial(Object object) {
 		Player player = (Player) object;
 		int newLevel = (int) (player.getSkills().getLevel(Skills.FARMING) + 1
-				+ (Math.round(player.getSkills().getLevelForXp(Skills.FARMING) * .02)));
-		if (newLevel > player.getSkills().getLevelForXp(Skills.FARMING) + 1
-				+ (Math.round(player.getSkills().getLevelForXp(Skills.FARMING) * .02)))
-			newLevel = (int) (player.getSkills().getLevelForXp(Skills.FARMING) + 1
-					+ (Math.round(player.getSkills().getLevelForXp(Skills.FARMING) * .02)));
+				+ (Math.round(player.getSkills().getTrueLevel(Skills.FARMING) * .02)));
+		if (newLevel > player.getSkills().getTrueLevel(Skills.FARMING) + 1
+				+ (Math.round(player.getSkills().getTrueLevel(Skills.FARMING) * .02)))
+			newLevel = (int) (player.getSkills().getTrueLevel(Skills.FARMING) + 1
+					+ (Math.round(player.getSkills().getTrueLevel(Skills.FARMING) * .02)));
 		player.setNextGraphics(new Graphics(1300));
 		player.setNextAnimation(new Animation(7660));
 		setNextGraphics(new Graphics(1312));

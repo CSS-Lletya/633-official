@@ -44,27 +44,27 @@ public class Honeybadger extends Familiar {
 	public boolean submitSpecial(Object object) {
 		Player player = getOwner();
 		int actualLevel = player.getSkills().getLevel(Skills.ATTACK);
-		int realLevel = player.getSkills().getLevelForXp(Skills.ATTACK);
+		int realLevel = player.getSkills().getTrueLevel(Skills.ATTACK);
 		int level = actualLevel > realLevel ? realLevel : actualLevel;
 		player.getSkills().set(Skills.ATTACK, (int) (level + (realLevel * 0.15)));
 
 		actualLevel = player.getSkills().getLevel(Skills.STRENGTH);
-		realLevel = player.getSkills().getLevelForXp(Skills.STRENGTH);
+		realLevel = player.getSkills().getTrueLevel(Skills.STRENGTH);
 		level = actualLevel > realLevel ? realLevel : actualLevel;
 		player.getSkills().set(Skills.STRENGTH, (int) (level + (realLevel * 0.15)));
 
 		actualLevel = player.getSkills().getLevel(Skills.DEFENCE);
-		realLevel = player.getSkills().getLevelForXp(Skills.DEFENCE);
+		realLevel = player.getSkills().getTrueLevel(Skills.DEFENCE);
 		level = actualLevel > realLevel ? realLevel : actualLevel;
 		player.getSkills().set(Skills.DEFENCE, (int) (level - (realLevel * 0.15)));
 
 		actualLevel = player.getSkills().getLevel(Skills.MAGIC);
-		realLevel = player.getSkills().getLevelForXp(Skills.MAGIC);
+		realLevel = player.getSkills().getTrueLevel(Skills.MAGIC);
 		level = actualLevel > realLevel ? realLevel : actualLevel;
 		player.getSkills().set(Skills.MAGIC, level - 5);
 
 		actualLevel = player.getSkills().getLevel(Skills.RANGE);
-		realLevel = player.getSkills().getLevelForXp(Skills.RANGE);
+		realLevel = player.getSkills().getTrueLevel(Skills.RANGE);
 		level = actualLevel > realLevel ? realLevel : actualLevel;
 		player.getSkills().set(Skills.RANGE, (int) (level - (realLevel * 0.1)));
 		setNextAnimation(new Animation(7930));

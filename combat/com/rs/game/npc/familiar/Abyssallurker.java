@@ -46,11 +46,11 @@ public class Abyssallurker extends Familiar {
 	public boolean submitSpecial(Object object) {
 		final Player player = (Player) object;
 		int newTheiving = player.getSkills().getLevel(Skills.THIEVING) + 4;
-		if (newTheiving > player.getSkills().getLevelForXp(Skills.THIEVING) + 4)
-			newTheiving = player.getSkills().getLevelForXp(Skills.THIEVING) + 4;
+		if (newTheiving > player.getSkills().getTrueLevel(Skills.THIEVING) + 4)
+			newTheiving = player.getSkills().getTrueLevel(Skills.THIEVING) + 4;
 		int newAgility = player.getSkills().getLevel(Skills.AGILITY) + 4;
-		if (newAgility > player.getSkills().getLevelForXp(Skills.AGILITY) + 4)
-			newAgility = player.getSkills().getLevelForXp(Skills.AGILITY) + 4;
+		if (newAgility > player.getSkills().getTrueLevel(Skills.AGILITY) + 4)
+			newAgility = player.getSkills().getTrueLevel(Skills.AGILITY) + 4;
 		setNextGraphics(new Graphics(1336));
 		setNextAnimation(new Animation(7682));
 		player.setNextAnimation(new Animation(7660));

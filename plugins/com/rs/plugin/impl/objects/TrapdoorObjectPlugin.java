@@ -53,13 +53,13 @@ public class TrapdoorObjectPlugin extends ObjectListener {
 						player.getPackets().sendGameMessage(
 								"You fail to picklock the trapdoor and your hands begin to numb down.");
 						player.getSkills().drainLevel(Skills.THIEVING, 1);
-						player.getSkills().addXp(Skills.THIEVING, 1);
+						player.getSkills().addExperience(Skills.THIEVING, 1);
 						cancel();
 						return;
 					}
 					player.getAudioManager().sendSound(Sounds.OPENING_TRAPDOOR);
 					player.getPackets().sendGameMessage("You successfully picklock the trapdoor.");
-					player.getSkills().addXp(Skills.THIEVING, 4);
+					player.getSkills().addExperience(Skills.THIEVING, 4);
 					new LinkedTaskSequence().connect(1, () -> player.getVarsManager().sendVarBit(235, 1))
 							.connect(15, () -> player.getVarsManager().sendVarBit(235, 0)).start();
 					cancel();

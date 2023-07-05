@@ -30,7 +30,7 @@ public class ExperienceLampInterfacePlugin extends RSInterfaceListener {
 				player.getInterfaceManager().closeInterfaces();
 				player.getPackets().sendGameMessage("You gained some experience.");
 				player.getInventory().deleteItem(lamp, 1);
-				player.getSkills().addXpNormal(getSkill(), getExperience(player));
+				player.getSkills().addSkillExperience(getSkill(), getExperience(player));
 				player.getDetails().getStatistics().addStatistic("Experience_Lamps_Used");
 				player.getAudioManager().sendSound(Sounds.EXPERIENCE_LAMP_USED);
 				setSkill(-1);

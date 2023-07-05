@@ -444,7 +444,7 @@ public class Shop {
 					if (skillId == Skills.FIREMAKING && level == 61) {
 						continue;
 					}
-					boolean hasReq = player.getSkills().getLevelForXp(skillId) >= level;
+					boolean hasReq = player.getSkills().getTrueLevel(skillId) >= level;
 					reqsText += "<br>" + (hasReq ? "<col=00ff00>" : "<col=ff0000>") + "Level " + level + " "
 							+ Skills.SKILL_NAME[skillId];
 				}

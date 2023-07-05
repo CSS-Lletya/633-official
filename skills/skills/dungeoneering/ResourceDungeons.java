@@ -16,7 +16,7 @@ public class ResourceDungeons {
                 if (player.getSkills().getLevel(Skills.DUNGEONEERING) >= resourceRooms.getLevelRequired()) {
                     Magic.resourcesTeleport(player, resourceRooms.getX(), resourceRooms.getY(), resourceRooms.getPlane());
                     if (!player.getDetails().getSeenDungeon()[resourceRooms.getNumber()]) {
-                        player.getSkills().addXp(Skills.DUNGEONEERING, resourceRooms.getXp() / 50);
+                        player.getSkills().addExperience(Skills.DUNGEONEERING, resourceRooms.getXp() / 50);
                         player.getDetails().getSeenDungeon()[resourceRooms.getNumber()] = true;
                         player.getPackets().sendGameMessage("You've gained " + resourceRooms.getXp() + " xp in Dungeoneering for uncovering the secrets of "
                                 + "a new dungeon!");

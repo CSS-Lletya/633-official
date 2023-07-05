@@ -24,7 +24,7 @@ public class ThievingGuildRegionObjectPlugin extends ObjectListener{
                 case 52317:
                     player.getMovement().lock(2);
                     player.setNextAnimation(new Animation(881));
-                    player.getSkills().addXp(Skills.THIEVING, 3);
+                    player.getSkills().addExperience(Skills.THIEVING, 3);
                     break;
                 case 52316:
                     player.getPackets().sendGameMessage(
@@ -35,12 +35,12 @@ public class ThievingGuildRegionObjectPlugin extends ObjectListener{
                 case 52296://red
                     player.getMovement().lock(2);
                     player.setNextAnimation(Animations.SIMPLE_GRAB);
-                    player.getSkills().addXp(Skills.THIEVING, 3);
+                    player.getSkills().addExperience(Skills.THIEVING, 3);
                     break;
                 case 52299://blue
                 	player.getMovement().lock(2);
                     player.setNextAnimation(Animations.SIMPLE_GRAB);
-                    player.getSkills().addXp(Skills.THIEVING, 3);
+                    player.getSkills().addExperience(Skills.THIEVING, 3);
                 	break;
             }
         } else if (optionId == 3) {
@@ -48,7 +48,7 @@ public class ThievingGuildRegionObjectPlugin extends ObjectListener{
                 case 52316:
                     player.getMovement().lock(2);
                     player.setNextAnimation(Animations.PICKPOCKET);
-                    player.getSkills().addXp(Skills.THIEVING, 0.4);
+                    player.getSkills().addExperience(Skills.THIEVING, 0.4);
                     break;
             }
         }

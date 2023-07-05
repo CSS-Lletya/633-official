@@ -38,7 +38,7 @@ public class Ibis extends Familiar {
 		boolean isSwordFish = RandomUtils.inclusive(3) == 0;
 		int foragedItem = isSwordFish ? 371 : 359;
 		if (isSwordFish)
-			getOwner().getSkills().addXp(Skills.FISHING, 10);
+			getOwner().getSkills().addExperience(Skills.FISHING, 10);
 		getBob().getBeastItems().add(new Item(foragedItem, 1));
 		forageTicks = 0;
 	}

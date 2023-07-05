@@ -238,7 +238,7 @@ public abstract class Entity extends WorldTile {
 			if (player.getPrayer().hasPrayersOn()) {
 				if ((getHitpoints() < player.getMaxHitpoints() * 0.1) && player.getPrayer().active(Prayer.REDEMPTION)) {
 					setNextGraphics(Graphic.HEALING_BARRIER);
-					setHitpoints((int) (getHitpoints() + player.getSkills().getLevelForXp(Skills.PRAYER) * 2.5));
+					setHitpoints((int) (getHitpoints() + player.getSkills().getTrueLevel(Skills.PRAYER) * 2.5));
 					player.getSkills().set(Skills.PRAYER, 0);
 					player.getPrayer().drainPrayer();
 				} else if (player.getEquipment().getAmuletId() != 11090 && player.getEquipment().getRingId() == 11090

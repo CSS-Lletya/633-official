@@ -495,7 +495,7 @@ public class PlayerCombat extends Action {
 				player.setNextAnimation(new Animation(10546));
 				mage_hit_gfx = 1019;
 				base_mage_xp = 70;
-				int boost = (player.getSkills().getLevelForXp(Skills.MAGIC) - 77) * 5;
+				int boost = (player.getSkills().getTrueLevel(Skills.MAGIC) - 77) * 5;
 				int hit = getRandomMagicMaxHit(player, 160 + boost);
 				if (hit > 0 && hit < boost)
 					hit += boost;
@@ -1003,7 +1003,7 @@ public class PlayerCombat extends Action {
 		}
 		max_hit = baseDamage;
 		double boost = 1
-				+ ((player.getSkills().getLevel(Skills.MAGIC) - player.getSkills().getLevelForXp(Skills.MAGIC)) * 0.03);
+				+ ((player.getSkills().getLevel(Skills.MAGIC) - player.getSkills().getTrueLevel(Skills.MAGIC)) * 0.03);
 		if (boost > 1)
 			max_hit *= boost;
 		double magicPerc = player.getCombatDefinitions().getBonuses()[CombatDefinitions.MAGIC_DAMAGE];
@@ -2142,7 +2142,7 @@ public class PlayerCombat extends Action {
 			}
 			double effectiveStrenght = Math.floor(rangedLvl * player.getPrayer().getRangeMultiplier()) + styleBonus;
 			if (fullVoidEquipped(player, 11664, 11675))
-				effectiveStrenght += Math.floor((player.getSkills().getLevelForXp(Skills.RANGE) / 5) + 1.6);
+				effectiveStrenght += Math.floor((player.getSkills().getTrueLevel(Skills.RANGE) / 5) + 1.6);
 			double strengthBonus = player.getCombatDefinitions().getBonuses()[CombatDefinitions.RANGED_STR_BONUS];
 			double baseDamage = 5 + (((effectiveStrenght + 8) * (strengthBonus + 64)) / 64);
 			return (int) Math.floor(baseDamage * specMultiplier * otherBonus);
@@ -2352,42 +2352,42 @@ public class PlayerCombat extends Action {
 					if (hit.getLook() == HitLook.RANGE_DAMAGE) {
 						if (attackStyle == 2) {
 							if (target.isPlayer()) {
-								player.getSkills().addXpNormal(Skills.RANGE, combatXp / 2);
-								player.getSkills().addXpNormal(Skills.DEFENCE, combatXp / 2);
+								player.getSkills().addSkillExperience(Skills.RANGE, combatXp / 2);
+								player.getSkills().addSkillExperience(Skills.DEFENCE, combatXp / 2);
 							} else {
-								player.getSkills().addXp(Skills.RANGE, combatXp / 2);
-								player.getSkills().addXp(Skills.DEFENCE, combatXp / 2);
+								player.getSkills().addExperience(Skills.RANGE, combatXp / 2);
+								player.getSkills().addExperience(Skills.DEFENCE, combatXp / 2);
 							}
 						} else if (target.isPlayer())
-							player.getSkills().addXpNormal(Skills.RANGE, combatXp);
+							player.getSkills().addSkillExperience(Skills.RANGE, combatXp);
 						else
-							player.getSkills().addXp(Skills.RANGE, combatXp);
+							player.getSkills().addExperience(Skills.RANGE, combatXp);
 
 					} else {
 						int xpStyle = CombatDefinitions.getXpStyle(weaponId, attackStyle);
 						if (xpStyle != CombatDefinitions.SHARED)
 							if (target.isPlayer())
-								player.getSkills().addXpNormal(xpStyle, combatXp);
+								player.getSkills().addSkillExperience(xpStyle, combatXp);
 							else
-								player.getSkills().addXp(xpStyle, combatXp);
+								player.getSkills().addExperience(xpStyle, combatXp);
 						else {
 							if (target.isPlayer()) {
-								player.getSkills().addXpNormal(Skills.ATTACK, combatXp / 3);
-								player.getSkills().addXpNormal(Skills.STRENGTH, combatXp / 3);
-								player.getSkills().addXpNormal(Skills.DEFENCE, combatXp / 3);
+								player.getSkills().addSkillExperience(Skills.ATTACK, combatXp / 3);
+								player.getSkills().addSkillExperience(Skills.STRENGTH, combatXp / 3);
+								player.getSkills().addSkillExperience(Skills.DEFENCE, combatXp / 3);
 							} else {
-								player.getSkills().addXp(Skills.ATTACK, combatXp / 3);
-								player.getSkills().addXp(Skills.STRENGTH, combatXp / 3);
-								player.getSkills().addXp(Skills.DEFENCE, combatXp / 3);
+								player.getSkills().addExperience(Skills.ATTACK, combatXp / 3);
+								player.getSkills().addExperience(Skills.STRENGTH, combatXp / 3);
+								player.getSkills().addExperience(Skills.DEFENCE, combatXp / 3);
 							}
 						}
 					}
 					double hpXp = damage / 7.5;
 					if (hpXp > 0)
 						if (target.isPlayer())
-							player.getSkills().addXpNormal(Skills.HITPOINTS, hpXp);
+							player.getSkills().addSkillExperience(Skills.HITPOINTS, hpXp);
 						else
-							player.getSkills().addXp(Skills.HITPOINTS, hpXp);
+							player.getSkills().addExperience(Skills.HITPOINTS, hpXp);
 				}
 			} else if (hit.getLook() == HitLook.MAGIC_DAMAGE) {
 				if (mage_hit_gfx != 0 && damage > 0) {
@@ -2410,21 +2410,21 @@ public class PlayerCombat extends Action {
 						if (defenceXp > 0) {
 							combatXp -= defenceXp;
 							if (target.isPlayer())
-								player.getSkills().addXpNormal(Skills.DEFENCE, defenceXp / 7.5);
+								player.getSkills().addSkillExperience(Skills.DEFENCE, defenceXp / 7.5);
 							else
-								player.getSkills().addXp(Skills.DEFENCE, defenceXp / 7.5);
+								player.getSkills().addExperience(Skills.DEFENCE, defenceXp / 7.5);
 						}
 					}
 					if (target.isPlayer())
-						player.getSkills().addXpNormal(Skills.MAGIC, combatXp);
+						player.getSkills().addSkillExperience(Skills.MAGIC, combatXp);
 					else
-						player.getSkills().addXp(Skills.MAGIC, combatXp);
+						player.getSkills().addExperience(Skills.MAGIC, combatXp);
 					double hpXp = damage / 7.5;
 					if (hpXp > 0)
 						if (target.isPlayer())
-							player.getSkills().addXpNormal(Skills.HITPOINTS, hpXp);
+							player.getSkills().addSkillExperience(Skills.HITPOINTS, hpXp);
 						else
-							player.getSkills().addXp(Skills.HITPOINTS, hpXp);
+							player.getSkills().addExperience(Skills.HITPOINTS, hpXp);
 				}
 			}
 		}

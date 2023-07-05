@@ -71,7 +71,7 @@ public abstract class ProducingSkillAction extends SkillHandler {
 	
 	@Override
 	public final void execute(Task t) {
-		player.getSkills().addXp(getSkillId(), experience());
+		player.getSkills().addExperience(getSkillId(), experience());
 		removeItem().ifPresent(getPlayer().getInventory()::removeItems);
 		produceItem().ifPresent(getPlayer().getInventory()::addItems);
 		onProduce(t, true);

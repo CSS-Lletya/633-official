@@ -23,7 +23,7 @@ public class Strangerplant extends Familiar {
 	public Strangerplant(Player player, Pouch pouch, WorldTile tile,
 			boolean canBeAttackFromOutOfArea) {
 		super(player, pouch, tile, canBeAttackFromOutOfArea);
-		int currentLevel = player.getSkills().getLevelForXp(Skills.FARMING);
+		int currentLevel = player.getSkills().getTrueLevel(Skills.FARMING);
 		player.getSkills().set(Skills.FARMING, (int) ((1 + (currentLevel * .04)) + currentLevel));
 		player.getPackets().sendGameMessage("You feel a sudden urge to plant flowers.");
 	}

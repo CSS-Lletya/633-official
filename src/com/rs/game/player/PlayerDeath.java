@@ -55,7 +55,7 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 		getActor().getDetails().getStatistics().addStatistic("Times_Died");
 		getActor().setNextAnimation(Animations.RESET_ANIMATION);
 		getActor().heal(getActor().getMaxHitpoints());
-		final int maxPrayer = getActor().getSkills().getLevelForXp(Skills.PRAYER) * 10;
+		final int maxPrayer = getActor().getSkills().getTrueLevel(Skills.PRAYER) * 10;
 		getActor().getPrayer().restorePrayer(maxPrayer);
 		getActor().getMovement().unlock();
 		getActor().getCombatDefinitions().resetSpecialAttack();

@@ -31,7 +31,7 @@ public class ChargeAirOrb extends Action {
 		if (checkAll(player)) {
 			player.getInventory().replaceItems(new Item(567), new Item(573));
 			player.getAudioManager().sendSound(Sounds.CHARGE_AIR_ORB);
-			player.getSkills().addXp(Skills.MAGIC, 76);
+			player.getSkills().addExperience(Skills.MAGIC, 76);
 			player.setNextAnimationNoPriority(Animations.CHARGE_ORB);
 			player.getPackets().sendGameMessage("You fill the orb with the power of Air.", true);
 		}

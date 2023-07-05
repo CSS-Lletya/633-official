@@ -283,7 +283,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 	                int level = requiriments.get(skillId);
 	                if (level < 0 || level > 120)
 	                    continue;
-	                if (player.getSkills().getLevelForXp(skillId) < level) {
+	                if (player.getSkills().getTrueLevel(skillId) < level) {
 	                    if (hasRequiriments) {
 	                        player.getPackets().sendGameMessage("You are not high enough level to use this item.");
 	                    }

@@ -41,7 +41,7 @@ public class Granitelobster extends Familiar {
 		boolean isShark = RandomUtils.inclusive(3) == 0;
 		int foragedItem = isShark ? 383 : 371;
 		if (!isShark)
-			getOwner().getSkills().addXp(Skills.FISHING, 30);
+			getOwner().getSkills().addExperience(Skills.FISHING, 30);
 		getBob().getBeastItems().add(new Item(foragedItem, 1));
 		forageTicks = 0;
 	}

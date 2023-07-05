@@ -47,23 +47,23 @@ public enum Effect {
 			entity.ifPlayer(player -> {
 				if (!player.isDead()) {
 					int actualLevel = player.getSkills().getLevel(Skills.ATTACK);
-					int realLevel = player.getSkills().getLevelForXp(Skills.ATTACK);
+					int realLevel = player.getSkills().getTrueLevel(Skills.ATTACK);
 					if (actualLevel > realLevel)
 						player.getSkills().set(Skills.ATTACK, realLevel);
 					actualLevel = player.getSkills().getLevel(Skills.STRENGTH);
-					realLevel = player.getSkills().getLevelForXp(Skills.STRENGTH);
+					realLevel = player.getSkills().getTrueLevel(Skills.STRENGTH);
 					if (actualLevel > realLevel)
 						player.getSkills().set(Skills.STRENGTH, realLevel);
 					actualLevel = player.getSkills().getLevel(Skills.DEFENCE);
-					realLevel = player.getSkills().getLevelForXp(Skills.DEFENCE);
+					realLevel = player.getSkills().getTrueLevel(Skills.DEFENCE);
 					if (actualLevel > realLevel)
 						player.getSkills().set(Skills.DEFENCE, realLevel);
 					actualLevel = player.getSkills().getLevel(Skills.MAGIC);
-					realLevel = player.getSkills().getLevelForXp(Skills.MAGIC);
+					realLevel = player.getSkills().getTrueLevel(Skills.MAGIC);
 					if (actualLevel > realLevel)
 						player.getSkills().set(Skills.MAGIC, realLevel);
 					actualLevel = player.getSkills().getLevel(Skills.RANGE);
-					realLevel = player.getSkills().getLevelForXp(Skills.RANGE);
+					realLevel = player.getSkills().getTrueLevel(Skills.RANGE);
 					if (actualLevel > realLevel)
 						player.getSkills().set(Skills.RANGE, realLevel);
 					player.heal(500);
