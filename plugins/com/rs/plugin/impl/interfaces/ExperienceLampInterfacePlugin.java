@@ -8,6 +8,7 @@ import com.rs.plugin.wrapper.RSInterfaceSignature;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
+import skills.Skills;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -25,6 +26,13 @@ public class ExperienceLampInterfacePlugin extends RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
+		if (componentId == 52 && player.getDetails().getOwnsHouse().isFalse()) {
+			player.getInterfaceManager().removeScreenInterface();
+			player.getPackets().sendGameMessage("You need to purchase a house first.");
+			player.getAudioManager().sendSound(Sounds.CANCELING_PIN);
+			setSkill(-1);
+			return;
+		}
 		if (componentId == 2) {
 			if (skill >= 0 && skill <= 24) {
 				player.getInterfaceManager().closeInterfaces();

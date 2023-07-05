@@ -109,7 +109,7 @@ public final class PlayerDetails {
 		return player.getInventory().getInventoryWeight() + player.getEquipment().getEquipmentWeight();
 	}
 	
-	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false),
+	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false), ownsHouse = new DynamicBoolean(false),
 			toggleLootShare = new DynamicBoolean(),
 			allowChatEffects = new DynamicBoolean(), acceptAid = new DynamicBoolean(),
 			mouseButtons = new DynamicBoolean(), profanityFilter = new DynamicBoolean(),
