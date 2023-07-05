@@ -46,7 +46,7 @@ public final class Graphic {
 	public static final Graphics AROUND_THE_WORLD_IN_EGGTY_DAYS = new Graphics(2037);
 	public static final Graphics PUPPET_MASTER = new Graphics(2837);
 	public static final Graphics TASK_MASTER = new Graphics(2930);
-	public static final Graphics RUNECRAFTING = new Graphics(186);
+	public static final Graphics RUNECRAFTING = new Graphics(186, 0, 95);
 	public static final Graphics BONES_TO_SPELL = new Graphics(141,0, 96);
 	public static final Graphics CHARGE_SPELL = new Graphics(6,0, 96);
 	

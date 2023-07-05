@@ -396,43 +396,6 @@ public class Skills {
 	}
 
 	/**
-	 * Adds xp via a experience lamp
-	 * 
-	 * @param skill
-	 * @param exp
-	 * @return xp
-	 */
-	public double addLampExperience(int skill, double exp) {
-		if (player.getDetails().getExperienceLocked().isTrue())
-			return 0;
-		exp *= GameConstants.LAMP_XP_RATE;
-		int oldLevel = getTrueLevel(skill);
-		xp[skill] += exp;
-		xpCounter += exp;
-		refreshXpCounter();
-
-		if (xp[skill] > MAXIMUM_EXP) {
-			xp[skill] = MAXIMUM_EXP;
-		}
-		int newLevel = getTrueLevel(skill);
-		int levelDiff = newLevel - oldLevel;
-		gainedLevels = levelDiff;
-		if (newLevel > oldLevel) {
-			level[skill] += levelDiff;
-			LevelUp.advanceLevel(player, skill, gainedLevels);
-			if (skill == SUMMONING || (skill >= ATTACK && skill <= MAGIC)) {
-				player.getAppearance().generateAppearenceData();
-				if (skill == HITPOINTS)
-					player.heal(levelDiff * 10);
-				else if (skill == PRAYER)
-					player.getPrayer().restorePrayer(levelDiff * 10);
-			}
-		}
-		refresh(skill);
-		return exp;
-	}
-
-	/**
 	 * Represents the amount of gained levels when leveling up In this case xp rate
 	 * in-game is fast so we can see for example: gained 3 levels or 1 level message
 	 */
