@@ -121,6 +121,7 @@ public class InterfaceManager {
 
 	public void sendInterfaces() {
 		setResizableScreen(player.getDisplayMode() == 2 || player.getDisplayMode() == 3 ? true : false);
+		sendGameInterfaces();
 		player.getCombatDefinitions().sendUnlockAttackStylesButtons();
 		player.getMusicsManager().unlockMusicPlayer();
 		player.getInventory().unlockInventoryOptions();
@@ -128,7 +129,7 @@ public class InterfaceManager {
 		if (player.getFamiliar() != null && player.isRunning())
 			player.getFamiliar().unlock();
 		player.getMapZoneManager().executeVoid(player, controller -> controller.sendInterfaces(player));
-		sendGameInterfaces();
+		
 	}
 
 	public boolean containsReplacedChatBoxInter() {
@@ -148,8 +149,7 @@ public class InterfaceManager {
 	}
 
 	public void sendGameInterfaces() {
-		player.getCombatDefinitions().refreshSpellBookScrollBar_DefCast();
-		
+		player.getCombatDefinitions().resetSpells(true);
 		setDefaultRootInterface();
 		sendOrbs();
 		refreshHitPoints();
@@ -209,8 +209,8 @@ public class InterfaceManager {
 		setWindowInterface(isResizableScreen() ? RESIZABLE_TAB_OFFSET + Tab.QUEST : FIXED_TAB_OFFSET + Tab.QUEST, 190);
 		player.getPackets().sendIComponentSettings(190, 18, 0, 170, 300);
 		player.getVarsManager().sendVar(101, player.getDetails().getQuestPoints().get());//send this on completion
-		player.getVarsManager().setVarBit(4536, player.getDetails().isSort() ? 1 : 0);
-		player.getVarsManager().setVarBit(7264, player.getDetails().isHideDone() ? 0 : 1);
+		player.getVarsManager().setVarBit(4536, player.getDetails().getQuestSort().isTrue() ? 1 : 0);
+		player.getVarsManager().setVarBit(7264, player.getDetails().getHideCompletedQuests().isTrue() ? 0 : 1);
 	}
 	
 	public void updateQuestTab() {

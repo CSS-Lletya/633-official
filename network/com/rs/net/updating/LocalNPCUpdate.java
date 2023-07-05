@@ -1,4 +1,4 @@
-package com.rs.game.player;
+package com.rs.net.updating;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import com.rs.GameConstants;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
+import com.rs.game.player.Hit;
+import com.rs.game.player.Player;
 import com.rs.io.OutputStream;
 import com.rs.utilities.Utility;
 

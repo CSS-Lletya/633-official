@@ -11,6 +11,6 @@ import com.rs.plugin.wrapper.CommandSignature;
 public final class BanCommandPlugin implements CommandListener {
     @Override
     public void execute(Player player, String[] cmd, String command) {
-        HostManager.add(player, HostListType.BANNED_IP, true);
+        HostManager.add(player, HostListType.BANNED_IP);
     }
 }

@@ -74,7 +74,7 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 					if (player.getFamiliar().getSpecialAttack() != SpecialAttack.ENTITY)
 						return;
 				}
-				if (!player.isCanPvp() || !p2.isCanPvp()) {
+				if (player.getDetails().getCanPvp().isFalse() || p2.getDetails().getCanPvp().isFalse()) {
 					player.getPackets().sendGameMessage("You can only attack players in a player-vs-player area.");
 					return;
 				}
@@ -112,7 +112,7 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 					if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
 						return;
 					}
-					if (!player.isCanPvp() || !p2.isCanPvp()) {
+					if (player.getDetails().getCanPvp().isFalse() || p2.getDetails().getCanPvp().isFalse()) {
 						player.getPackets().sendGameMessage("You can only attack players in a player-vs-player area.");
 						return;
 					}
@@ -178,7 +178,7 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 					if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
 						return;
 					}
-					if (!player.isCanPvp() || !p2.isCanPvp()) {
+					if (player.getDetails().getCanPvp().isFalse() || p2.getDetails().getCanPvp().isFalse()) {
 						player.getPackets().sendGameMessage("You can only attack players in a player-vs-player area.");
 						return;
 					}

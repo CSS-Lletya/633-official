@@ -1,6 +1,7 @@
 package com.rs;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.rs.cache.Cache;
 import com.rs.cache.loaders.ItemDefinitions;
@@ -13,10 +14,9 @@ import com.rs.game.map.World;
 import com.rs.net.ServerChannelHandler;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
-
-import com.rs.utilities.Utility;
 
 /**
  * The Runnable source of open633
@@ -73,7 +73,7 @@ public class Launcher {
 				region.unloadMap();
 			}
 		}
-		Arrays.stream(Cache.STORE.getIndexes()).filter(index -> index != null).forEach(index -> index.resetCachedFiles());
+		Arrays.stream(Cache.STORE.getIndexes()).filter(Objects::nonNull).forEach(index -> index.resetCachedFiles());
 		System.gc();
 		LogUtility.log(LogType.INFO, "Game Server memory has been cleaned " + (force ? "force: true:" : "force: false"));
 	}

@@ -252,7 +252,7 @@ public class NPC extends Entity {
         killer.toPlayer().getDetails().getStatistics().addStatistic(getDefinitions().getName() + "_Kills");
 		Item[] drops = DropTable.calculateDrops(killer, DropSets.getDropSet(id));
 
-		if (!killer.toPlayer().getDetails().isToogleLootShare() || killer.toPlayer().getCurrentFriendChat() == null) {
+		if (killer.toPlayer().getDetails().getToggleLootShare().isFalse() || killer.toPlayer().getCurrentFriendChat() == null) {
 			for (Item item : drops)
 				sendDrop(killer, item);
 		} else {

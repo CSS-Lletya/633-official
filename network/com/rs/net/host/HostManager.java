@@ -44,24 +44,20 @@ public final class HostManager {
 	/**
 	 * Adds a blocked entry to the desired type.
 	 */
-	public static boolean add(Player player, HostListType type, boolean save) {
+	public static boolean add(Player player, HostListType type) {
 		HostList list = lists[type.getIndex()];
 		list.add(player);
-		if (save) {
-			HostManager.serialize(type);
-		}
+		HostManager.serialize(type);
 		return true;
 	}
 	
 	/**
 	 * Removes a blocked entry to the desired type.
 	 */
-	public static boolean remove(String text, HostListType type, boolean save) {
+	public static boolean remove(String text, HostListType type) {
 		HostList list = lists[type.getIndex()];
 		list.remove(text);
-		if (save) {
-			HostManager.serialize(type);
-		}
+		HostManager.serialize(type);
 		return true;
 	}
 	

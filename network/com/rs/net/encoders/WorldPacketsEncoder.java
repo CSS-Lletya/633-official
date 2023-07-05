@@ -1,6 +1,5 @@
 package com.rs.net.encoders;
 
-import com.rs.game.player.content.GrandExchangeOffer;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelFutureListener;
 
@@ -20,6 +19,7 @@ import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.content.FriendChatsManager;
+import com.rs.game.player.content.GrandExchangeOffer;
 import com.rs.io.OutputStream;
 import com.rs.net.Huffman;
 import com.rs.net.Session;
@@ -62,7 +62,7 @@ public class WorldPacketsEncoder extends Encoder {
 		}
 		stream.writeShortLE(getPlayer().getChunkY());
 		stream.writeShortLE128(getPlayer().getChunkX());
-		stream.writeByte128(getPlayer().getDetails().isForceNextMapLoadRefresh() ? 1 : 0);
+		stream.writeByte128(getPlayer().getDetails().getForceNextMapLoadRefresh().isTrue() ? 1 : 0);
 		stream.writeByte128(getPlayer().getMapSize());
 		getPlayer().getMapRegionsIds().forEach(region -> {
 			int[] xteas = MapArchiveKeys.getMapKeys(region);
@@ -564,10 +564,10 @@ public class WorldPacketsEncoder extends Encoder {
 				stream.writeBytes(message.getMessage(false).getBytes());
 		} else {
 			byte[] chatStr = new byte[250];
-			chatStr[0] = (byte) message.getMessage(getPlayer().getDetails().isProfanityFilter()).length();
+			chatStr[0] = (byte) message.getMessage(getPlayer().getDetails().getProfanityFilter().isTrue()).length();
 			int offset = 1
-					+ Huffman.encryptMessage(1, message.getMessage(getPlayer().getDetails().isProfanityFilter()).length(),
-							chatStr, 0, message.getMessage(getPlayer().getDetails().isProfanityFilter()).getBytes());
+					+ Huffman.encryptMessage(1, message.getMessage(getPlayer().getDetails().getProfanityFilter().isTrue()).length(),
+							chatStr, 0, message.getMessage(getPlayer().getDetails().getProfanityFilter().isTrue()).getBytes());
 			stream.writeBytes(chatStr, 0, offset);
 		}
 		stream.endPacketVarByte();
@@ -959,7 +959,7 @@ public class WorldPacketsEncoder extends Encoder {
 		OutputStream stream = new OutputStream();
 		stream.writePacketVarByte(getPlayer(), 4);
 		stream.writeString(username);
-		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().isProfanityFilter()));
+		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().getProfanityFilter().isTrue()));
 		stream.endPacketVarByte();
 		getSession().write(stream);
 		return this;
@@ -975,7 +975,7 @@ public class WorldPacketsEncoder extends Encoder {
 		for (int i = 0; i < 5; i++)
 			stream.writeByte(RandomUtils.inclusive(255));
 		stream.writeByte(rights);
-		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().isProfanityFilter()));
+		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().getProfanityFilter().isTrue()));
 		stream.endPacketVarByte();
 		getSession().write(stream);
 		return this;
@@ -1222,7 +1222,7 @@ public class WorldPacketsEncoder extends Encoder {
 	public WorldPacketsEncoder sendGameBarStages() {
 		getPlayer().getVarsManager().sendVar(InterfaceVars.GAME_BAR_STATUS_CLAN, getPlayer().getDetails().getClanStatus());
 		getPlayer().getVarsManager().sendVar(InterfaceVars.GAME_BAR_STATUS_ASSIST, getPlayer().getDetails().getAssistStatus());
-		getPlayer().getVarsManager().sendVarBit(6161, getPlayer().getDetails().isFilterGame() ? 1 : 0);
+		getPlayer().getVarsManager().sendVarBit(6161, getPlayer().getDetails().getFilterGame().isTrue() ? 1 : 0);
 		getPlayer().getVarsManager().sendVar(InterfaceVars.GAME_BAR_STATUS_FRIENDS_IGNORE, getPlayer().getFriendsIgnores().getFriendsChatStatus());
 		sendOtherGameBarStages();
 		sendPrivateGameBarStage();
@@ -1286,7 +1286,7 @@ public class WorldPacketsEncoder extends Encoder {
 		for (int i = 0; i < 5; i++)
 			stream.writeByte(RandomUtils.inclusive(255));
 		stream.writeByte(rights);
-		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().isProfanityFilter()));
+		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().getProfanityFilter().isTrue()));
 		stream.endPacketVarByte();
 		// ////getSession().write(stream);
 		return this;
@@ -1321,7 +1321,7 @@ public class WorldPacketsEncoder extends Encoder {
 		for (int i = 0; i < 5; i++)
 			stream.writeByte(RandomUtils.inclusive(255));
 		stream.writeByte(rights);
-		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().isProfanityFilter()));
+		Huffman.sendEncryptMessage(stream, message.getMessage(getPlayer().getDetails().getProfanityFilter().isTrue()));
 		stream.endPacketVarByte();
 		getSession().write(stream);
 		return this;
@@ -1370,7 +1370,7 @@ public class WorldPacketsEncoder extends Encoder {
 		int middleChunkX = getPlayer().getChunkX();
 		int middleChunkY = getPlayer().getChunkY();
 		stream.writeByte(1);
-		stream.writeByteC(getPlayer().getDetails().isForceNextMapLoadRefresh() ? 1 : 0);
+		stream.writeByteC(getPlayer().getDetails().getForceNextMapLoadRefresh().isTrue() ? 1 : 0);
 		stream.writeShort128(middleChunkY);
 		stream.writeShort(middleChunkX);
 		stream.write128Byte(getPlayer().getMapSize());

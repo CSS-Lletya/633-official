@@ -123,11 +123,11 @@ public abstract class Familiar extends NPC {
 			sendTimeRemaining();
 		}
 		short originalId = (short) (getOriginalId() + 1);
-		if (owner.isCanPvp() && getId() == getOriginalId()) {
+		if (owner.getDetails().getCanPvp().isTrue() && getId() == getOriginalId()) {
 			setNextNPCTransformation(originalId);
 			call(false);
 			return;
-		} else if (!owner.isCanPvp() && getId() == originalId && pouch != Pouch.MAGPIE && pouch != Pouch.IBIS
+		} else if (owner.getDetails().getCanPvp().isFalse() && getId() == originalId && pouch != Pouch.MAGPIE && pouch != Pouch.IBIS
 				&& pouch != Pouch.BEAVER && pouch != Pouch.MACAW && pouch != Pouch.FRUIT_BAT) {
 			setNextNPCTransformation((short) (originalId - 1));
 			call(false);
@@ -148,7 +148,7 @@ public abstract class Familiar extends NPC {
 
 	public boolean canAttack(Entity target) {
 		target.ifPlayer(targetPlayer -> {
-			if (!owner.isCanPvp() || !targetPlayer.isCanPvp())
+			if (owner.getDetails().getCanPvp().isFalse() || targetPlayer.getDetails().getCanPvp().isFalse())
 				return;
 		});
 		return !target.isDead()

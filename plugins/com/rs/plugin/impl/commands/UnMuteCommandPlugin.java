@@ -11,6 +11,6 @@ import com.rs.plugin.wrapper.CommandSignature;
 public final class UnMuteCommandPlugin implements CommandListener {
     @Override
     public void execute(Player player, String[] cmd, String command) {
-        HostManager.remove(player.getDisplayName(), HostListType.MUTED_IP, true);
+        HostManager.remove(player.getDisplayName(), HostListType.MUTED_IP);
     }
 }

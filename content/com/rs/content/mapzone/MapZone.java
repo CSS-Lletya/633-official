@@ -90,14 +90,6 @@ public abstract class MapZone {
 	 */
 	public abstract void finish(Player player);
 
-//	public boolean canEat(Player player, Food food) {
-//		return true;
-//	}
-//
-//	public boolean canPot(Player player, Pot pot) {
-//		return true;
-//	}
-
 	/**
 	 * Represents a state if a Player can take an Item from the ground.
 	 * 
@@ -423,6 +415,7 @@ public abstract class MapZone {
 	public void sendInterfaces(Player player) {
 
 	}
+	
     public final void setArguments(Player player, Object[] objects) {
         player.setMapZoneAttributes(objects);
     }

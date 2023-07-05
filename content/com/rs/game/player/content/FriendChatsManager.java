@@ -97,8 +97,8 @@ public class FriendChatsManager {
 				player.getInterfaceManager().closeInterfaces();
 				player.getPackets().sendGameMessage("You have left the channel.");
 				player.getPackets().sendFriendsChatChannel();
-				player.getDetails().setToogleLootShare(false);
-				player.getVarsManager().forceSendVarBit(4071, 0);
+				player.getDetails().getToggleLootShare().setValue(false);
+				player.getVarsManager().sendVarBit(4071, 0);
 			}
 			getLocalMembers().remove(player);
 		}
@@ -323,8 +323,9 @@ public class FriendChatsManager {
             return;
         }
         player.getCurrentFriendChat().players.forEach(cm -> toogleLootShare(cm));
-        player.getPackets().sendGameMessage("LootShare is now " + (player.getDetails().isToogleLootShare() ? "active." :"deactivated."));
+        player.getPackets().sendGameMessage("LootShare is now " + (player.getDetails().getToggleLootShare().isTrue() ? "active." :"deactivated."));
     }
+    
 	public static void joinChat(String ownerName, Player player) {
 		synchronized (cachedFriendChats) {
 			if (player.getCurrentFriendChat() != null)
@@ -363,12 +364,12 @@ public class FriendChatsManager {
 				cachedFriendChats.put(chat.owner, chat);
 				chat.joinChatNoCheck(player);
 				player.getCurrentFriendChat().getLocalMembers().add(player);
-				player.getVarsManager().forceSendVarBit(4071, owner.getDetails().isToogleLootShare() ? 1 : 0);
+				player.getVarsManager().sendVarBit(4071, owner.getDetails().getToggleLootShare().isTrue() ? 1 : 0);
 			} else {
 				chat.joinChat(player);
-				if (owner.getDetails().isToogleLootShare()) {
-					player.getDetails().setToogleLootShare(true);
-					player.getVarsManager().forceSendVarBit(4071, 1);
+				if (owner.getDetails().getToggleLootShare().isTrue()) {
+					player.getDetails().getToggleLootShare().setValue(true);
+					player.getVarsManager().sendVarBit(4071, 1);
 				}
 			}
 		}
@@ -394,11 +395,11 @@ public class FriendChatsManager {
 	}
 	
 	public static void setLootShare(Player player) {
-		player.getDetails().setToogleLootShare(!player.getDetails().isToogleLootShare());
+		player.getDetails().getToggleLootShare().invertBoolean();
 		refreshToogleLootShare(player);
 	}
 
 	public static void refreshToogleLootShare(Player player) {
-		player.getVarsManager().forceSendVarBit(4071, player.getDetails().isToogleLootShare() ? 1 : 0);
+		player.getVarsManager().sendVarBit(4071, player.getDetails().getToggleLootShare().isTrue() ? 1 : 0);
 	}
 }

@@ -24,9 +24,6 @@ public final class PlayerDetails {
 	 */
 	public PlayerDetails() {
 		runEnergy = 100;
-		allowChatEffects = true;
-		mouseButtons = true;
-		profanityFilter = true;
 		ipList = new ObjectArrayList<String>();
 		seenDungeon = new boolean[16];
 		statistics = new Statistics();
@@ -46,46 +43,11 @@ public final class PlayerDetails {
 	 * Represents the last known IP from the Player
 	 */
 	private String lastIP;
-
-	/**
-	 * Represents if a Player is filtering out their chatbox messages
-	 */
-	private boolean filterGame;
-	
-	/**
-	 * Represents if the Player has their experience locked
-	 */
-	private boolean xpLocked;
 	
 	/**
 	 * The Run Engery amount a Player has
 	 */
 	private double runEnergy;
-
-	/**
-	 * Should the Player use Chat effects for overhead text
-	 */
-	private boolean allowChatEffects;
-	
-	/**
-	 * Should the Player accept aid from other Players
-	 */
-	private boolean acceptAid;
-	
-	/**
-	 * Should the Player play with 2 mouse button mode
-	 */
-	private boolean mouseButtons;
-	
-	/**
-	 * Should the Player have their profanity filter on
-	 */
-	private boolean profanityFilter;
-	
-	/**
-	 * Should the Player have their next map refreshed
-	 */
-	private boolean forceNextMapLoadRefresh;
 	
 	// game bar status
 	private byte publicStatus;
@@ -104,19 +66,9 @@ public final class PlayerDetails {
 	private String currentFriendChatOwner;
 	
 	/**
-	 * Represents toggle features for the Quest interface
-	 */
-	private boolean sort, hideDone;
-	
-	/**
 	 * A collection of 'seen' Dungeoneering resource areas
 	 */
 	private boolean[] seenDungeon;
-	
-	/**
-	 * Represents the state of loot sharing in a Clan Chat
-	 */
-	private boolean toogleLootShare;
 	
 	/**
 	 * Mutable values stored for specified uses It's more ideal to use this system
@@ -157,5 +109,11 @@ public final class PlayerDetails {
 		return player.getInventory().getInventoryWeight() + player.getEquipment().getEquipmentWeight();
 	}
 	
-	private DynamicBoolean completedFightCaves = new DynamicBoolean(false);
+	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false),
+			toggleLootShare = new DynamicBoolean(),
+			allowChatEffects = new DynamicBoolean(), acceptAid = new DynamicBoolean(),
+			mouseButtons = new DynamicBoolean(), profanityFilter = new DynamicBoolean(),
+			questSort = new DynamicBoolean(), hideCompletedQuests = new DynamicBoolean(), filterGame = new DynamicBoolean(),
+			forceNextMapLoadRefresh = new DynamicBoolean(), canPvp = new DynamicBoolean(), disableEquip = new DynamicBoolean(),
+			invulnerable = new DynamicBoolean();
 }

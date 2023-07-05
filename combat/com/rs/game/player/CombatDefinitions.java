@@ -713,7 +713,7 @@ public final class CombatDefinitions {
 	}
 	
 	public void setCanPvp(boolean canPvp) {
-		player.setCanPvp(canPvp);
+		player.getDetails().getCanPvp().setValue(canPvp);
 		player.getAppearance().generateAppearenceData();
 		player.getPackets().sendPlayerOption(canPvp ? "Attack" : "null", 1, true);
 		player.getPackets().sendPlayerUnderNPCPriority(canPvp);

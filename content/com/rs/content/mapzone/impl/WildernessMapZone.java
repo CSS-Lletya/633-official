@@ -59,7 +59,7 @@ public class WildernessMapZone extends MapZone {
 	public boolean canAttack(Player player, Entity target) {
 		if (target instanceof Player) {
 			Player p2 = (Player) target;
-			if (player.isCanPvp() && !p2.isCanPvp()) {
+			if (player.getDetails().getCanPvp().isTrue() && p2.getDetails().getCanPvp().isFalse()) {
 				player.getPackets().sendGameMessage("That player is not in the wilderness.");
 				return false;
 			}
@@ -135,7 +135,7 @@ public class WildernessMapZone extends MapZone {
 	@Override
 	public void magicTeleported(Player player, int teleType) {
 		if (!isAtWild(player.getNextWorldTile())) {
-			player.setCanPvp(false);
+			player.getDetails().getCanPvp().setValue(false);
 			removeIcon(player);
 			player.setCurrentMapZone(Optional.empty());
 		}
@@ -148,13 +148,13 @@ public class WildernessMapZone extends MapZone {
 		boolean isAtWildSafe = isAtWildSafe(player);
 		if (!showingSkull && isAtWild && !isAtWildSafe) {
 			showingSkull = true;
-			player.setCanPvp(true);
+			player.getDetails().getCanPvp().setValue(true);
 			showSkull(player);
 			player.getAppearance().generateAppearenceData();
 		} else if (showingSkull && (isAtWildSafe || !isAtWild)) {
 			removeIcon(player);
 		} else if (!isAtWildSafe && !isAtWild) {
-			player.setCanPvp(false);
+			player.getDetails().getCanPvp().setValue(false);
 			removeIcon(player);
 			player.setCurrentMapZone(Optional.empty());
 		}
@@ -233,7 +233,7 @@ public class WildernessMapZone extends MapZone {
 	public void removeIcon(Player player) {
 		if (showingSkull) {
 			showingSkull = false;
-			player.setCanPvp(false);
+			player.getDetails().getCanPvp().setValue(false);
 			player.setCurrentMapZone(Optional.empty());
 			player.getAppearance().generateAppearenceData();
 			player.getEquipment().refresh(null);

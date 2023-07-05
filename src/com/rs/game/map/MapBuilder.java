@@ -334,7 +334,7 @@ public final class MapBuilder {
 					Player player = World.getPlayers().get(playerIndex);
 					if (player == null || !player.isStarted() || player.isFinished())
 						continue;
-					player.getDetails().setForceNextMapLoadRefresh(true);
+					player.getDetails().getForceNextMapLoadRefresh().setValue(true);
 					player.loadMapRegions();
 				}
 			}

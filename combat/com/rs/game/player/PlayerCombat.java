@@ -154,7 +154,7 @@ public class PlayerCombat extends Action {
 					for (int playerIndex : playerIndexes) {
 						Player p2 = World.getPlayers().get(playerIndex);
 						if (p2 == null || p2 == player || p2 == target || p2.isDead() || !p2.isStarted()
-								|| p2.isFinished() || !p2.isCanPvp() || !p2.isMultiArea()
+								|| p2.isFinished() || p2.getDetails().getCanPvp().isFalse() || !p2.isMultiArea()
 								|| !p2.withinDistance(target, maxDistance)
 								|| player.getMapZoneManager().execute(player, controller -> !controller.canHit(player, p2)))
 							continue;
@@ -1639,11 +1639,11 @@ public class PlayerCombat extends Action {
 					final Player other = (Player) target;
 					other.getMovement().lock();
 //					other.getWatchMap().get("FOOD").reset();
-					other.setDisableEquip(true);
+					other.getDetails().getDisableEquip().setValue(true);
 					World.get().submit(new Task(5) {
 						@Override
 						protected void execute() {
-							other.setDisableEquip(false);
+							other.getDetails().getDisableEquip().setValue(false);
 							other.getMovement().unlock();
 						}
 					});
@@ -2818,7 +2818,7 @@ public class PlayerCombat extends Action {
 		}
 		if (target.isPlayer()) {
 			Player p2 = (Player) target;
-			if (!player.isCanPvp() || !p2.isCanPvp())
+			if (player.getDetails().getCanPvp().isFalse() || p2.getDetails().getCanPvp().isFalse())
 				return false;
 		} else {
 			NPC n = (NPC) target;
@@ -3414,7 +3414,7 @@ public class PlayerCombat extends Action {
 				&& hit.getLook() != HitLook.RANGE_DAMAGE
 				&& hit.getLook() != HitLook.MAGIC_DAMAGE)
 			return;
-		if (player.isInvulnerable()) {
+		if (player.getDetails().getInvulnerable().isTrue()) {
 			hit.setDamage(0);
 			return;
 		}

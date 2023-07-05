@@ -67,7 +67,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				break;
 			case WorldPacketsDecoder.ACTION_BUTTON2_PACKET:
 				long time = Utility.currentTimeMillis();
-				if (player.isDisableEquip())
+				if (player.getDetails().getDisableEquip().isTrue())
 					return;
 				if (player.getMovement().getLockDelay() >= time || player.getNextEmoteEnd() >= time)
 					return;

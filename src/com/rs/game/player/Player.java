@@ -48,6 +48,8 @@ import com.rs.net.encoders.WorldPacketsEncoder;
 import com.rs.net.encoders.other.HintIconsManager;
 import com.rs.net.host.HostListType;
 import com.rs.net.host.HostManager;
+import com.rs.net.updating.LocalNPCUpdate;
+import com.rs.net.updating.LocalPlayerUpdate;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
@@ -123,16 +125,6 @@ public class Player extends Entity {
 	private transient byte resting;
 	
 	/**
-	 * Can the Player engage in PVP combat
-	 */
-	private transient boolean canPvp;
-	
-	/**
-	 * Does the Player have permission to Trade others
-	 */
-	private transient boolean cantTrade;
-	
-	/**
 	 * Represents a Runnable event that takes place when closing an interface
 	 */
 	private transient Runnable closeInterfacesEvent;
@@ -146,16 +138,6 @@ public class Player extends Entity {
 	 * The Item switching cache (Switches for PVE/PVP)
 	 */
 	private transient ObjectArrayList<Byte> switchItemCache;
-	
-	/**
-	 * Does the Player have their Equipping/Removing disabled
-	 */
-	private transient boolean disableEquip;
-	
-	/**
-	 * Does the Player become invulnerable to any damage.
-	 */
-	private transient boolean invulnerable;
 	
 	/**
 	 * Is the Player finishing their {@link #session}
@@ -357,6 +339,9 @@ public class Player extends Entity {
 	 */
 	private QuestManager questManager;
 	
+	/**
+	 * Represents Days of the Week management
+	 */
 	private DayOfWeekManager dayOfWeekManager;
 
 	/**
@@ -380,10 +365,7 @@ public class Player extends Entity {
 		setDetails(new PlayerDetails());
 		setSpellDispatcher(new PassiveSpellDispatcher());
 		getDetails().setPassword(password);
-		setCurrentMapZone(Optional.empty());
 		setVarsManager(new VarsManager());
-		if (!getCurrentMapZone().isPresent())
-			setCurrentMapZone(getCurrentMapZone());
 		setQuestManager(new QuestManager());
 		setDialogueInterpreter(new ScriptDialogueInterpreter(this));
 		setTreasureTrailsManager(new TreasureTrailsManager());
@@ -599,7 +581,7 @@ public class Player extends Entity {
         }
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
 			GameConstants.STATER_KIT.forEach(getInventory()::addItem);
-			HostManager.add(this, HostListType.STARTER_RECEIVED, true);
+			HostManager.add(this, HostListType.STARTER_RECEIVED);
 			World.sendWorldMessage("[New Player] " + getDisplayName() + " has just joined " + GameConstants.SERVER_NAME);
 		}
 	}
@@ -618,7 +600,6 @@ public class Player extends Entity {
 	 */
 	public WorldPacketsEncoder getPackets() {
 		return getSession().getWorldPackets();
-
 	}
 
 	/**

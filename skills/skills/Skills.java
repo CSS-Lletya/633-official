@@ -318,7 +318,7 @@ public class Skills {
 	 * @return xp
 	 */
 	public double addXpNormal(int skill, double exp) {
-		if (player.getDetails().isXpLocked())
+		if (player.getDetails().getExperienceLocked().isTrue())
 			return 0;
 		int oldLevel = getLevelForXp(skill);
 		xp[skill] += exp;
@@ -354,7 +354,7 @@ public class Skills {
 	 * @return xp
 	 */
 	public double addXpLamp(int skill, double exp) {
-		if (player.getDetails().isXpLocked())
+		if (player.getDetails().getExperienceLocked().isTrue())
 			return 0;
 		exp *= GameConstants.LAMP_XP_RATE;
 		int oldLevel = getLevelForXp(skill);

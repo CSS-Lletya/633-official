@@ -30,8 +30,6 @@ import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Hit;
-import com.rs.game.player.LocalNPCUpdate;
-import com.rs.game.player.LocalPlayerUpdate;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.AttributeMap;
 import com.rs.game.player.type.CombatEffectType;
@@ -40,6 +38,8 @@ import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
+import com.rs.net.updating.LocalNPCUpdate;
+import com.rs.net.updating.LocalPlayerUpdate;
 import com.rs.plugin.RegionAttributePluginDispatcher;
 import com.rs.utilities.MutableNumber;
 import com.rs.utilities.RandomUtils;
@@ -883,7 +883,7 @@ public abstract class Entity extends WorldTile {
 				if (wasAtDynamicRegion)
 					player.getLocalNPCUpdate().reset();
 			}
-			player.getDetails().setForceNextMapLoadRefresh(false);
+			player.getDetails().getForceNextMapLoadRefresh().setValue(false);
 		});
 	}
 

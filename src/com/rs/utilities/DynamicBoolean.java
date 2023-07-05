@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @author Dennis
  *
  */
-public final class DynamicBoolean {
+public class DynamicBoolean {
 
 	/**
 	 * The initial value of the {@link DynamicBoolean}.

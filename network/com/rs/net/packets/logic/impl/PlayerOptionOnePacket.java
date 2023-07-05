@@ -30,12 +30,12 @@ public class PlayerOptionOnePacket implements LogicPacketListener {
 		if (player.getMovement().isLocked() || player.getLastAnimationEnd() > Utility.currentTimeMillis()
 				|| player.getMapZoneManager().execute(player, controller -> !controller.canPlayerOption1(player, p2)))
 			return;
-		if (!player.isCanPvp())
+		if (player.getDetails().getCanPvp().isFalse())
 			return;
 		if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
 			return;
 		}
-		if (!player.isCanPvp() || !p2.isCanPvp()) {
+		if (player.getDetails().getCanPvp().isFalse() || p2.getDetails().getCanPvp().isFalse()) {
 			player.getPackets().sendGameMessage("You can only attack players in a player-vs-player area.");
 			return;
 		}

@@ -1,9 +1,11 @@
-package com.rs.game.player;
+package com.rs.net.updating;
 
 import java.security.MessageDigest;
 
 import com.rs.GameConstants;
 import com.rs.game.map.World;
+import com.rs.game.player.Hit;
+import com.rs.game.player.Player;
 import com.rs.io.OutputStream;
 import com.rs.utilities.Utility;
 
