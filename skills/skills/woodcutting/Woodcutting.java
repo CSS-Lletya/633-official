@@ -75,7 +75,7 @@ public class Woodcutting extends HarvestingSkillAction {
 	
 	@Override
 	public boolean isIgnoreResourceGather() {
-		return (RandomUtils.random(5) == 0 && hatchet == Hatchet.INFERNO_ADZE);
+		return (RandomUtils.random(5) == 0 && hatchet == Hatchet.INFERNO_ADZE) || tree == Tree.IVY;
 	}
 	
 	@Override
@@ -102,7 +102,7 @@ public class Woodcutting extends HarvestingSkillAction {
 	@Override
 	public void onHarvest(Task t, Item[] items, boolean success) {
 		if(success) {
-			if (RandomUtils.random(5) == 0 && hatchet == Hatchet.INFERNO_ADZE) {
+			if (RandomUtils.random(5) == 0 && hatchet == Hatchet.INFERNO_ADZE && tree != Tree.IVY) {
 				player.getSkills().addExperience(Skills.FIREMAKING, experience());
 				player.getPackets().sendGameMessage("The adze's heat instantly incinerates the " + tree.getItem().getDefinitions().getName() + ".");
 				player.setNextGraphics(new Graphics(1776, 0 , 150));

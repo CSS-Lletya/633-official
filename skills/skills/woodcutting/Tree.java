@@ -13,7 +13,7 @@ public enum Tree {
 	MAHOG(new TransformableObject[]{new TransformableObject(9034, 9035)}, 6332, 50, 125, 13, 0.4, 10, false),
 	YEW(new TransformableObject[]{new TransformableObject(12000, 12001),new TransformableObject(1309, 7402), new TransformableObject(8503, 1341), new TransformableObject(8504, 1341), new TransformableObject(8505, 1341), new TransformableObject(8506, 1341), new TransformableObject(8507, 1341), new TransformableObject(8508, 1341), new TransformableObject(8509, 1341), new TransformableObject(8510, 1341), new TransformableObject(8511, 1341), new TransformableObject(8512, 1341), new TransformableObject(8513, 1341)}, 1515, 60, 175.0, 38, 0.3, 9, false),
 	MAGIC(new TransformableObject[]{new TransformableObject(1306, 1341), new TransformableObject(8396, 1341), new TransformableObject(8397, 1341), new TransformableObject(8398, 1341), new TransformableObject(8399, 1341), new TransformableObject(8400, 1341), new TransformableObject(8401, 1341), new TransformableObject(8402, 1341), new TransformableObject(8403, 1341), new TransformableObject(8404, 1341), new TransformableObject(8405, 1341), new TransformableObject(8406, 1341), new TransformableObject(8407, 1341), new TransformableObject(8408, 1341), new TransformableObject(840, 1341)}, 1513, 75, 250.0, 47, 0.1, 12, false),
-	
+	IVY(new TransformableObject[]{new TransformableObject(46322, 46323)}, 1, 68, 332.5, 13, 0.5, 70, false),
 	;
 	/**
 	 * The regular and stump identification for this tree.

@@ -75,10 +75,12 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 					continue;
 				if(item.getDefinitions() == null)
 					continue;
-				if (!isIgnoreResourceGather())
+				if (!isIgnoreResourceGather()) {
 					getPlayer().getInventory().addItem(item);
-				if(harvestMessage() && item.getDefinitions() != null && item.getDefinitions().getName() != null) {
-					getPlayer().getPackets().sendGameMessage("You get some " + item.getDefinitions().getName() + ".");
+					if (harvestMessage() && item.getDefinitions() != null && item.getDefinitions().getName() != null) {
+						getPlayer().getPackets()
+								.sendGameMessage("You get some " + item.getDefinitions().getName() + ".");
+					}
 				}
 				player.getSkills().addExperience(getSkillId(), experience());
 				onHarvest(t, harvestItems, true);
