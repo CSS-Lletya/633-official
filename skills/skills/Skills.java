@@ -330,7 +330,6 @@ public class Skills {
 	public double addExperience(int skill, double exp) {
 		int rate = skill == ATTACK || skill == STRENGTH || skill == DEFENCE || skill == HITPOINTS || skill == MAGIC
 				|| skill == RANGE || skill == SUMMONING ? GameConstants.COMBAT_XP_RATE : GameConstants.XP_RATE;
-		System.out.println(exp + " vs " + additionalExperienceBuff(skill, exp));
 		double modifiedExp = exp * rate;
 		double buffedExp = modifiedExp * additionalExperienceBuff(skill, modifiedExp);
 		return addSkillExperience(skill, buffedExp);
