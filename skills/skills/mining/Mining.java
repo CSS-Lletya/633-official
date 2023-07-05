@@ -145,6 +145,8 @@ public final class Mining extends HarvestingSkillAction {
 	}
 
 	private void randomEvent() {
+		if (pickaxe == PickaxeData.INFERNO_ADZE)
+			return;
 		if((RandomUtils.nextInt(1000) - (pickaxe.ordinal() * 10)) > 900) {
 	        if(RandomUtils.nextBoolean()) {
 				if(getPlayer().getEquipment().containsAny(pickaxe.getItem().getId())) {

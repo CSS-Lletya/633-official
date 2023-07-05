@@ -7,6 +7,9 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.utilities.Ticks;
 
+import lombok.Getter;
+
+@Getter
 public class FloorItem extends Item {
 
     public int type;
@@ -15,21 +18,9 @@ public class FloorItem extends Item {
     private transient Player owner;
     private int tick;
     private boolean spawned;
-    private boolean globalPicked;
-    private String cantPickupBy;
 
     public FloorItem(int id) {
         super(id);
-    }
-
-    public FloorItem(Item item, WorldTile tile, Player owner, boolean underGrave, boolean invisible, String ironmanName) {
-        super(item.getId(), item.getAmount());
-        this.tile = tile;
-        if (owner != null)
-            this.ownerName = owner.getUsername();
-        this.owner = owner;
-        this.type = invisible ? 1 : 0;
-        this.setCantPickupBy(ironmanName);
     }
 
     public FloorItem(Item item, WorldTile tile, Player owner, boolean underGrave, boolean invisible) {
@@ -51,11 +42,10 @@ public class FloorItem extends Item {
     }
 
 
-    public FloorItem(Item item, WorldTile tile, boolean appearforever, boolean ironPickup) {
+    public FloorItem(Item item, WorldTile tile, boolean appearforever) {
         super(item.getId(), item.getAmount());
         this.tile = tile;
         this.type = appearforever ? 2 : 0;
-        this.globalPicked = ironPickup;
     }
 
 	public boolean isInvisible() {
@@ -100,83 +90,6 @@ public class FloorItem extends Item {
         return addGroundItem(item, tile, owner, invisible, hiddenTime, type, 60);
     }
 
-    public static FloorItem addGroundItem(final Item item, final WorldTile tile, final Player owner,
-                                          boolean invisible, long hiddenTime, int type, String ironmanName) {
-        return addGroundItem(item, tile, owner, invisible, hiddenTime, type, 60, ironmanName);
-    }
-
-    public static FloorItem addGroundItem(final Item item, final WorldTile tile, final Player owner,
-                                          boolean invisible, long hiddenTime, int type, final int publicTime, String ironmanName) {
-        final FloorItem floorItem = new FloorItem(item, tile, owner, false, invisible, ironmanName);
-        final Region region = World.getRegion(tile.getRegionId());
-        if (type == 1) {
-            if (ItemConstants.isTradeable(item)) {
-                region.getGroundItemsSafe().add(floorItem);
-            }
-            if (invisible) {
-                if (owner != null) {
-                    if (ItemConstants.isTradeable(item)) {
-                        owner.getPackets().sendGroundItem(floorItem);
-
-                    }
-                }
-                if (hiddenTime != -1) {
-                    CoresManager.schedule(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                turnPublic(floorItem, publicTime);
-                            } catch (Throwable e) {
-                                
-                            }
-                        }
-                    }, Ticks.fromSeconds((int) hiddenTime));
-                }
-            } else {
-                int regionId = tile.getRegionId();
-                for (Player player : World.players) {
-                    if (player == null || !player.isStarted() || player.isFinished()
-                            || player.getPlane() != tile.getPlane() || !player.getMapRegionsIds().contains(regionId))
-                        continue;
-                    player.getPackets().sendGroundItem(floorItem);
-                }
-                if (publicTime != -1)
-                    removeGroundItem(floorItem, publicTime);
-            }
-        } else {
-            region.getGroundItemsSafe().add(floorItem);
-            if (invisible) {
-                if (owner != null) {
-                    owner.getPackets().sendGroundItem(floorItem);
-                }
-                if (hiddenTime != -1) {
-                    CoresManager.schedule(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                turnPublic(floorItem, publicTime);
-                            } catch (Throwable e) {
-                                
-                            }
-                        }
-                    }, Ticks.fromSeconds((int) hiddenTime));
-                }
-            } else {
-                int regionId = tile.getRegionId();
-                for (Player player : World.players) {
-                    if (player == null || !player.isStarted() || player.isFinished()
-                            || player.getPlane() != tile.getPlane() || !player.getMapRegionsIds().contains(regionId)
-                            || !ItemConstants.isTradeable(item))
-                        continue;
-                    player.getPackets().sendGroundItem(floorItem);
-                }
-                if (publicTime != -1)
-                    removeGroundItem(floorItem, publicTime);
-            }
-        }
-        return floorItem;
-    }
-
     /*
      * type 0 - gold if not tradeable type 1 - gold if destroyable type 2 - no gold
      */
@@ -184,7 +97,6 @@ public class FloorItem extends Item {
                                           boolean invisible, long hiddenTime, int type, final int publicTime) {
         final FloorItem floorItem = new FloorItem(item, tile, owner, false, invisible);
         final Region region = World.getRegion(tile.getRegionId());
-        floorItem.setGlobalPicked(false);
        if (type == 1) {
             if (ItemConstants.isTradeable(item)) {
                 region.getGroundItemsSafe().add(floorItem);
@@ -291,7 +203,6 @@ public class FloorItem extends Item {
                 return;
             }
         }
-        floorItem.setGlobalPicked(false);
     }
     
     public static void turnPublic(FloorItem floorItem, int publicTime) {
@@ -332,16 +243,7 @@ public class FloorItem extends Item {
             addGroundItem(item, tile, owner, true, 60);
             return;
         }
-        /*
-         * owner.getPackets().sendGameMessage( "FloorItem " +
-         * floorItem.getDefinitions().getName() + " set from " + floorItem.getAmount() +
-         * " to " + (floorItem.getAmount() + item.getAmount()) + "");
-         */
         floorItem.setAmount(floorItem.getAmount() + item.getAmount());
-        /*
-         * addGroundItem(floorItem, tile, owner, true, 60);
-         */
-
     }
 
     private static void removeGroundItem(final FloorItem floorItem, long publicTime) {
@@ -374,7 +276,7 @@ public class FloorItem extends Item {
 
     public static void addGroundItemForever(Item item, final WorldTile tile) {
         int regionId = tile.getRegionId();
-        final FloorItem floorItem = new FloorItem(item, tile, true, true);
+        final FloorItem floorItem = new FloorItem(item, tile, true);
         final Region region = World.getRegion(regionId);
         region.getGroundItemsSafe().add(floorItem);
         floorItem.type = 2;
@@ -496,71 +398,6 @@ public class FloorItem extends Item {
             return true;
         }
         final FloorItem o = (FloorItem) other;
-        return o.type == type && o.tile == tile && o.ownerName == ownerName && o.owner == owner && o.tick == tick && o.spawned == spawned
-                && o.globalPicked == globalPicked && o.cantPickupBy == cantPickupBy;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public WorldTile getTile() {
-        return tile;
-    }
-
-    public void setTile(WorldTile tile) {
-        this.tile = tile;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
-
-    public Player getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Player owner) {
-        this.owner = owner;
-    }
-
-    public int getTick() {
-        return tick;
-    }
-
-    public void setTick(int tick) {
-        this.tick = tick;
-    }
-
-    public boolean isSpawned() {
-        return spawned;
-    }
-
-    public void setSpawned(boolean spawned) {
-        this.spawned = spawned;
-    }
-
-    public boolean isGlobalPicked() {
-        return globalPicked;
-    }
-
-    public void setGlobalPicked(boolean globalPicked) {
-        this.globalPicked = globalPicked;
-    }
-
-    public String getCantPickupBy() {
-        return cantPickupBy;
-    }
-
-    public void setCantPickupBy(String cantPickupBy) {
-        this.cantPickupBy = cantPickupBy;
+        return o.type == type && o.tile == tile && o.ownerName == ownerName && o.owner == owner && o.tick == tick && o.spawned == spawned;
     }
 }

@@ -13,6 +13,7 @@ import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
+import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.RandomUtils;
 
 import skills.HarvestingSkillAction;
@@ -73,6 +74,11 @@ public class Woodcutting extends HarvestingSkillAction {
 	}
 	
 	@Override
+	public boolean isIgnoreResourceGather() {
+		return (RandomUtils.random(5) == 0 && hatchet == Hatchet.INFERNO_ADZE);
+	}
+	
+	@Override
 	public boolean initialize() {
 		if(!checkWoodcutting()) {
 			return false;
@@ -96,6 +102,11 @@ public class Woodcutting extends HarvestingSkillAction {
 	@Override
 	public void onHarvest(Task t, Item[] items, boolean success) {
 		if(success) {
+			if (RandomUtils.random(5) == 0 && hatchet == Hatchet.INFERNO_ADZE) {
+				player.getSkills().addExperience(Skills.FIREMAKING, experience());
+				player.getPackets().sendGameMessage("The adze's heat instantly incinerates the " + tree.getItem().getDefinitions().getName() + ".");
+				player.setNextGraphics(new Graphics(1776, 0 , 150));
+			}
 			randomEvent();
 			BirdNest.drop(getPlayer());
 			player.getDetails().getStatistics()
@@ -173,6 +184,8 @@ public class Woodcutting extends HarvestingSkillAction {
 	}
 	
 	private void randomEvent() {
+		if (hatchet == Hatchet.INFERNO_ADZE)
+			return;
 		if((RandomUtils.nextInt(1000) - (hatchet.ordinal() * 10)) > 900) {
 	        if(RandomUtils.nextBoolean()) {
 				if(getPlayer().getEquipment().containsAny(hatchet.getHatchet().getId())) {

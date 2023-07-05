@@ -10,6 +10,7 @@ import com.rs.utilities.Utility;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Represents a single item.
@@ -18,6 +19,7 @@ import lombok.Data;
  * @author Graham / edited by Dragonkk(Alex)
  */
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class Item {
 
 	private int id;

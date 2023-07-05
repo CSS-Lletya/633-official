@@ -65,11 +65,6 @@ public final class HatchetAssembly extends DestructionSkillAction {
 		return true;
 	}
 	
-	public static void main(String[] args) {
-		for (AxeData a : AxeData.values()) {
-			System.out.println(a.head);
-		}
-	}
 	@AllArgsConstructor
 	public enum AxeData {
 		BRONZE(508, 1531),

@@ -9,6 +9,9 @@ import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtils;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * The skill action that represents an action where items are periodically added
  * to and removed from an inventory based on a success factor. This type of
@@ -59,7 +62,7 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 	}
 	
 	@Override
-	public final void execute(Task t) {
+	public void execute(Task t) {
 		Preconditions.checkState(SUCCESS_FACTOR >= 0 && SUCCESS_FACTOR <= 99, "Invalid success factor for harvesting!");
 		int factor = (getPlayer().getSkills().getLevel(getSkillId()) / SUCCESS_FACTOR);
 		double boost = (factor * 0.01);
@@ -72,7 +75,8 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 					continue;
 				if(item.getDefinitions() == null)
 					continue;
-				getPlayer().getInventory().addItem(item);
+				if (!isIgnoreResourceGather())
+					getPlayer().getInventory().addItem(item);
 				if(harvestMessage() && item.getDefinitions() != null && item.getDefinitions().getName() != null) {
 					getPlayer().getPackets().sendGameMessage("You get some " + item.getDefinitions().getName() + ".");
 				}
@@ -129,4 +133,8 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 	public boolean isPrioritized() {
 		return false;
 	}
+	
+	@Getter
+	@Setter
+	public boolean ignoreResourceGather = false;
 }
