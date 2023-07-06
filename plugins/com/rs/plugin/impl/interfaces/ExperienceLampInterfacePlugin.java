@@ -8,7 +8,6 @@ import com.rs.plugin.wrapper.RSInterfaceSignature;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
-import skills.Skills;
 
 @Data
 @EqualsAndHashCode(callSuper = false)

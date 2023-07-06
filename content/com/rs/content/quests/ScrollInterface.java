@@ -11,32 +11,7 @@ import com.rs.game.player.Player;
  * @author Dennis
  */
 public class ScrollInterface {
-
-
-    /**
-     * Sends text over the scroll interface which has a maximum of 67 allowed
-     * lines in it and automatically formats the text to fit the lines
-     *
-     * @param player      The player to display the interface to
-     * @param title       The title of the interface
-     * @param messageList The list of messages to write onto the interface.
-     */
-    public static void sendScroll(Player player, String title, String... messageList) {
-        player.getInterfaceManager().closeInterfaces();
-        int interfaceId = 1142;
-        String text = "";
-        int entries = 0;
-        for (String message : messageList) {
-            if (entries++ >= 66) {
-                break;
-            }
-            text += message + "<br>";
-        }
-        player.getPackets().sendIComponentText(interfaceId, 2, title);
-        player.getPackets().sendIComponentText(interfaceId, 5, text);
-        player.getInterfaceManager().sendInterface(interfaceId);
-    }
-
+	
     /**
      * Sends the quest interface to the player with the parameterized title and
      * list of messages. The messages will be formatted to never overlap one
@@ -88,6 +63,6 @@ public class ScrollInterface {
 //        player.getPackets().sendHideIComponent(interfaceId, 14, true);
         player.getPackets().sendRunScript(1207, new Object[]{messages.size()});
         player.getPackets().sendIComponentText(interfaceId, 2, title);
-        player.getInterfaceManager().sendInterface(interfaceId);
+        player.getInterfaceManager().sendFullscreenInterface(0, interfaceId);
     }
 }
