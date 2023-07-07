@@ -270,7 +270,7 @@ public class NPC extends Entity {
 							ccm.getPackets().sendGameMessage(luckyPlayer.getDisplayName() + " received "
 									+ item.getAmount() + " " + item.getName() + ".");
 							ccm.getPackets().sendGameMessage("Your chance of receiving loot has improved.");
-							if (item.getDefinitions().getValue() >= 55) {
+							if (item.getDefinitions().getValue() >= 5000) {
 								ccm.getPackets()
 										.sendGameMessage("You recieved "
 												+ (Utility.getFormattedNumber(

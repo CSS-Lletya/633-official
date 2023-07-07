@@ -61,7 +61,7 @@ public class VarrockRegionNPCPlugin implements NPCListener {
 					ItemDefinitions herbs = ItemDefinitions.getItemDefinitions(i);
 					if (!herbs.getName().contains("Grimy ") || herbs.isNoted())
 						continue;
-					messages.add(herbs.getName() + " - " + herbs.getValue() +"gp <br>");
+					messages.add(herbs.getName() + " - " + herbs.getFormatedItemValue() +"gp <br>");
 				}
 				String[] info = messages.toArray(new String[messages.size()]);
 				ScrollInterface.sendQuestScroll(player, "Current Herb price guide", info);

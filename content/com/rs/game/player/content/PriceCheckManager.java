@@ -48,6 +48,7 @@ public class PriceCheckManager {
 		else
 			item = new Item(item.getId(), maxAmount);
 		pcInv.remove(slot, item);
+		pcInv.shift();
 		player.getInventory().addItem(item);
 		refreshItems(itemsBefore);
 	}

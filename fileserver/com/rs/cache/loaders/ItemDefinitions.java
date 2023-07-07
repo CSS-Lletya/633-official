@@ -7,18 +7,21 @@ import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
 import com.rs.io.InputStream;
 import com.rs.utilities.EquipData;
+import com.rs.utilities.FileUtilities;
+import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.ItemBonuses;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
+import lombok.SneakyThrows;
 import skills.Skills;
 
 @Data
 public class ItemDefinitions {
 
-	static Object2ObjectArrayMap<Integer, ItemDefinitions> itemsDefinitions = new Object2ObjectArrayMap<>();
+	public static Object2ObjectArrayMap<Integer, ItemDefinitions> itemsDefinitions = new Object2ObjectArrayMap<>();
 
 	public int id;
 	public boolean loaded;
@@ -890,5 +893,37 @@ public class ItemDefinitions {
 
 	public int getHighAlchPrice() {
 		return (int) (value / (10.0 / 6.0));
+	}
+	
+	/**
+	 * Pretty prints an item value without the repetitive calling
+	 * @return
+	 */
+	public String getFormatedItemValue() {
+		return Utility.getFormattedNumber(getValue());
+	}
+	
+	/**
+	 * A collection of specific item prices that aren't default 1gp. If a value
+	 * isn't present in the prices.txt then itemdefinitions will be used instead.
+	 * 
+	 * @return
+	 */
+	@SneakyThrows(Exception.class)
+	public int getValue() {
+		for (String lines : FileUtilities.readFile("./data/items/prices.txt")) {
+			String[] data = lines.split(" - ");
+			if (lines.contains("originalPrices"))
+				continue;
+			int itemId = Integer.parseInt(data[0]);
+			int price = Integer.parseInt(data[1]);
+			if (itemId == id) {
+				return price;
+			}
+			if (price <= 0) {
+				return value;
+			}
+		}
+		return 0;
 	}
 }

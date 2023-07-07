@@ -221,7 +221,7 @@ public class Trade {
             player.getPackets().sendGameMessage("That item isn't tradeable.");
             return;
         }
-        player.getPackets().sendGameMessage(ItemExamines.getExamine(item) + ". Value: " + item.getDefinitions().getValue() + "gp.");
+        player.getPackets().sendGameMessage(ItemExamines.getExamine(item) + ". Value: " + item.getDefinitions().getFormatedItemValue() + "gp.");
     }
 
     public void sendValue(int slot) {
@@ -232,7 +232,7 @@ public class Trade {
             player.getPackets().sendGameMessage("That item isn't tradeable.");
             return;
         }
-        player.getPackets().sendGameMessage(ItemExamines.getExamine(item) + ". Value: " + item.getDefinitions().getValue() + "gp.");
+        player.getPackets().sendGameMessage(ItemExamines.getExamine(item) + ". Value: " + item.getDefinitions().getFormatedItemValue() + "gp.");
     }
 
     public void sendExamine(int slot, boolean traders) {
@@ -241,7 +241,7 @@ public class Trade {
         Item item = traders ? target.getTrade().items.get(slot) : items.get(slot);
         if (item == null)
             return;
-        player.getPackets().sendGameMessage(ItemExamines.getExamine(item) + ". Value: " + item.getDefinitions().getValue() + "gp.");
+        player.getPackets().sendGameMessage(ItemExamines.getExamine(item) + ". Value: " + item.getDefinitions().getFormatedItemValue() + "gp.");
     }
 
     public boolean nextStage() {
