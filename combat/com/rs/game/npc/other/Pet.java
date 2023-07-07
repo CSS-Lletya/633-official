@@ -157,7 +157,7 @@ public class Pet extends NPC {
 		for (int dir = 0; dir < checkNearDirs[0].length; dir++) {
 			final WorldTile tile = new WorldTile(new WorldTile(owner.getX() + checkNearDirs[0][dir],
 					owner.getY() + checkNearDirs[1][dir], owner.getPlane()));
-			if (World.isTileFree(tile.getPlane(), tile.getX(), tile.getY(), size)) {
+			if (World.getTileAttributes().isTileFree(tile.getPlane(), tile.getX(), tile.getY(), size)) {
 				teleTile = tile;
 				break;
 			}

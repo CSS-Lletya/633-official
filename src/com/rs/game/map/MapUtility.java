@@ -5,7 +5,7 @@ import com.rs.utilities.Utility;
 /*
  * @author Dragonkk/Alex
  */
-public class MapUtils {
+public class MapUtility {
 	
 	private static interface StructureEncoder {
 		

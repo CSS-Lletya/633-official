@@ -68,7 +68,7 @@ public class Fruitbat extends Familiar {
 		WorldTile tile = this;
 		for (int trycount = 0; trycount < RandomUtils.inclusive(8); trycount++) {
 			tile = new WorldTile(this, 2);
-			if (World.isTileFree(this.getPlane(), tile.getX(), tile.getY(), player.getSize()))
+			if (World.getTileAttributes().isTileFree(this.getPlane(), tile.getX(), tile.getY(), player.getSize()))
 				return true;
 			World.sendGraphics(new Graphics(1331), tile);
 			FloorItem.addGroundItem(new Item(FRUITS[RandomUtils.inclusive(FRUITS.length)], 1), tile, player, true, 120);

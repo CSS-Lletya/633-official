@@ -706,7 +706,7 @@ public final class Utility {
         WorldTile tile = center;
         for (int i = 0; i < 10; i++) {
             tile = new WorldTile(center, distance);
-            if (World.isTileFree(tile.getPlane(), tile.getX(), tile.getY(), 1))
+            if (World.getTileAttributes().isTileFree(tile.getPlane(), tile.getX(), tile.getY(), 1))
                 return tile;
         }
         return center;

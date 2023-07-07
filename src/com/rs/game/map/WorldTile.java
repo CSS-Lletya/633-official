@@ -12,7 +12,6 @@ public class WorldTile {
 	private short x, y;
 	private byte plane;
 	
-
 	public WorldTile(int x, int y, int plane) {
 		this.x = (short) x;
 		this.y = (short) y;

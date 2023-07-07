@@ -23,7 +23,7 @@ public final class MapBuilder {
 		for (int mapX = 0; mapX < MAX_REGION_X; mapX++) {
 			for (int mapY = 0; mapY < MAX_REGION_Y; mapY++) {
 				if (Cache.STORE.getIndexes()[5].getArchiveId("m" + mapX + "_" + mapY) != -1)
-					EXISTING_MAPS.add(MapUtils.encode(MapUtils.Structure.REGION, mapX, mapY, 0));
+					EXISTING_MAPS.add(MapUtility.encode(MapUtility.Structure.REGION, mapX, mapY, 0));
 			}
 		}
 		for (int regionId : FORCE_LOAD_REGIONS)

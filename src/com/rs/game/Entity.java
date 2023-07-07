@@ -387,7 +387,7 @@ public abstract class Entity extends WorldTile {
 				break;
 			}
 			int dir = (int) nextStep[0];
-			if (((boolean) nextStep[3] && !World.checkWalkStep(getPlane(), getX(), getY(), dir, getSize()))
+			if (((boolean) nextStep[3] && !World.getTileAttributes().checkWalkStep(getPlane(), getX(), getY(), dir, getSize()))
 					|| (isPlayer() && toPlayer().getMapZoneManager().execute((Player) this, controller -> !controller.canMove((Player) this, dir)))) {
 				resetWalkSteps();
 				break;
@@ -474,9 +474,9 @@ public abstract class Entity extends WorldTile {
 			if (dir == -1)
 				return false;
 			if (checkClose) {
-				if (!World.checkWalkStep(getPlane(), lastTileX, lastTileY, dir, size))
+				if (!World.getTileAttributes().checkWalkStep(getPlane(), lastTileX, lastTileY, dir, size))
 					return false;
-			} else if (!World.checkProjectileStep(getPlane(), lastTileX, lastTileY, dir, size))
+			} else if (!World.getTileAttributes().checkProjectileStep(getPlane(), lastTileX, lastTileY, dir, size))
 				return false;
 			lastTileX = myX;
 			lastTileY = myY;
@@ -748,7 +748,7 @@ public abstract class Entity extends WorldTile {
 		int dir = Utility.getMoveDirection(nextX - lastX, nextY - lastY);
 		if (dir == -1)
 			return false;
-		if (check && !World.checkWalkStep(getPlane(), lastX, lastY, dir, getSize()))
+		if (check && !World.getTileAttributes().checkWalkStep(getPlane(), lastX, lastY, dir, getSize()))
 			return false;
 		ifPlayer(player -> {
 			if (player.getMapZoneManager().execute((Player) this, controller -> !controller.checkWalkStep((Player) this, lastX, lastY, nextX, nextY)))

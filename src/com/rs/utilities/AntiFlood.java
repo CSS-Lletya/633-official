@@ -11,7 +11,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
  */
 public final class AntiFlood {
 
-	private static ObjectArrayList<String> connections = new ObjectArrayList<String>(GameConstants.PLAYERS_LIMIT * 100);
+	private static ObjectArrayList<String> connections = new ObjectArrayList<String>(GameConstants.PLAYERS_LIMIT);
 
 	public static void add(String ip) {
 		connections.add(ip);

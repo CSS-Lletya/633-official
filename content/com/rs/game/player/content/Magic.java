@@ -851,7 +851,7 @@ public class Magic {
 						// attemps to randomize tile by 4x4 area
 						for (int trycount = 0; trycount < 10; trycount++) {
 							teleTile = new WorldTile(tile, 2);
-							if (World.isTileFree(tile.getPlane(), teleTile.getX(), teleTile.getY(), player.getSize()))
+							if (World.getTileAttributes().isTileFree(tile.getPlane(), teleTile.getX(), teleTile.getY(), player.getSize()))
 								break;
 							teleTile = tile;
 						}
@@ -914,7 +914,7 @@ public class Magic {
 					// attemps to randomize tile by 4x4 area
 					for (int trycount = 0; trycount < 10; trycount++) {
 						teleTile = new WorldTile(tile, 2);
-						if (World.isTileFree(tile.getPlane(), teleTile.getX(), teleTile.getY(), player.getSize()))
+						if (World.getTileAttributes().isTileFree(tile.getPlane(), teleTile.getX(), teleTile.getY(), player.getSize()))
 							break;
 						teleTile = tile;
 					}

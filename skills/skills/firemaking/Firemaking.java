@@ -146,7 +146,7 @@ public class Firemaking extends DestructionSkillAction {
             player.getPackets().sendGameMessage("You need a firemaking level of " + log.getRequirement() + " to light this log.");
             return false;
         }
-        if (!isGroundLog && !World.isTileFree(player.getPlane(), player.getX(), player.getY(), 1) 
+        if (!isGroundLog && !World.getTileAttributes().isTileFree(player.getPlane(), player.getX(), player.getY(), 1) 
                 || GameObject.getObjectWithSlot(player, Region.OBJECT_SLOT_FLOOR) != null) {
             player.getPackets().sendGameMessage("You can't light a fire here.");
             return false;
