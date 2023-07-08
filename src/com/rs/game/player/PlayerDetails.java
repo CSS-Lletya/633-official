@@ -110,10 +110,10 @@ public final class PlayerDetails {
 	}
 	
 	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false), ownsHouse = new DynamicBoolean(false),
+			disableEquip = new DynamicBoolean(false),
 			toggleLootShare = new DynamicBoolean(),
 			allowChatEffects = new DynamicBoolean(), acceptAid = new DynamicBoolean(),
 			mouseButtons = new DynamicBoolean(), profanityFilter = new DynamicBoolean(),
 			questSort = new DynamicBoolean(), hideCompletedQuests = new DynamicBoolean(), filterGame = new DynamicBoolean(),
-			forceNextMapLoadRefresh = new DynamicBoolean(), canPvp = new DynamicBoolean(), disableEquip = new DynamicBoolean(),
-			invulnerable = new DynamicBoolean();
+			forceNextMapLoadRefresh = new DynamicBoolean(), canPvp = new DynamicBoolean(), invulnerable = new DynamicBoolean();
 }

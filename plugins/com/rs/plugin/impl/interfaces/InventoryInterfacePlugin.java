@@ -238,7 +238,6 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				continue;
 			if (sendWear2(player, slotId, item.getId()))
 				worn = true;
-			EquipSounds.executeSound(player, item);
 		}
 		player.getInventory().refreshItems(copy);
 		if (worn) {
@@ -344,6 +343,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 	        if (targetSlot == Equipment.SLOT_WEAPON) {
 	            player.getCombatDefinitions().resetSpells(true);
 	        }
+	        EquipSounds.executeSound(player, item);
 	        return true;
 	}
 }
