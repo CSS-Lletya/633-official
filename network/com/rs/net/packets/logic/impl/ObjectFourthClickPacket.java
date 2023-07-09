@@ -40,7 +40,6 @@ public class ObjectFourthClickPacket implements LogicPacketListener {
 			return;
 		}
 		final GameObject worldObject = mapObject;
-		player.faceObject(worldObject);
 		player.getMovement().stopAll();
 		if (forceRun)
 			player.setRun(forceRun);

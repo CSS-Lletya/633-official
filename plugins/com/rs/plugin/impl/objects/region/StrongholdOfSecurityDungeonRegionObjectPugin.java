@@ -137,7 +137,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 				return;
 			}
 			player.getInventory().addItemDrop(995, 2000);
-			player.dialog(new DialogueEventListener(player) {
+			player.dialogue(new DialogueEventListener(player) {
 				@Override
 				public void start() {
 					mes("The box hinges creak and appear to be forming audible words....");
@@ -156,7 +156,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 				return;
 			}
 			player.getInventory().addItemDrop(995, 3000);
-			player.dialog(new DialogueEventListener(player) {
+			player.dialogue(new DialogueEventListener(player) {
 				@Override
 				public void start() {
 					mes("The box hinges creak and appear to be forming audible words....");
@@ -177,7 +177,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 				return;
 			}
 			player.getInventory().addItemDrop(995, 5000);
-			player.dialog(new DialogueEventListener(player) {
+			player.dialogue(new DialogueEventListener(player) {
 				@Override
 				public void start() {
 					mes("The box hinges creak and appear to be forming audible words....");
@@ -195,12 +195,12 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 				player.getPackets().sendGameMessage("You have already taken your reward from here.s");
 				return;
 			}
-			player.dialog(new DialogueEventListener(player) {
+			player.dialogue(new DialogueEventListener(player) {
 				@Override
 				public void start() {
 					option("Colorful ones", () -> {
 						player.getInventory().addItemDrop(9005, 1);
-						player.dialog(new DialogueEventListener(player) {
+						player.dialogue(new DialogueEventListener(player) {
 							@Override
 							public void start() {
 								mes("The box hinges creak and appear to be forming audible words....");
@@ -214,7 +214,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 						player.getAudioManager().sendSound(Sounds.FINDING_TREASURE);
 					}, "Combat ones", () -> {
 						player.getInventory().addItemDrop(9006, 1);
-						player.dialog(new DialogueEventListener(player) {
+						player.dialogue(new DialogueEventListener(player) {
 							@Override
 							public void start() {
 								mes("The box hinges creak and appear to be forming audible words....");

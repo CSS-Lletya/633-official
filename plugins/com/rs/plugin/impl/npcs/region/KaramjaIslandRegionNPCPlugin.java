@@ -15,7 +15,7 @@ public class KaramjaIslandRegionNPCPlugin implements NPCListener {
 	@Override
 	public void execute(Player player, NPC npc, int option) {
 		if (option == 1) {
-			player.dialog(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
 					npc(happy, "Ay-uh, 'tis a grand day for the fishin'.<br>Will ye wantin' to exchange yer fish for banknotes?");

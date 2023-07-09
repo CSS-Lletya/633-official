@@ -26,7 +26,7 @@ public class HaystackObjectPlugin extends ObjectListener {
 		player.getPackets().sendGameMessage("You search the " + object.getDefinitions().getName().toLowerCase() + "...");
 		if (rand == 1 && player.getInventory().getFreeSlots() > 0 || player.getInventory().containsItem(NEEDLE)) {
 			player.getInventory().addItem(NEEDLE);
-			player.dialog(new DialogueEventListener(player) {
+			player.dialogue(new DialogueEventListener(player) {
 				@Override
 				public void start() {
 					player(Expression.happy_plain_eyebrows_up, "Wow! A needle!", "Now what are the chances of finding that?");

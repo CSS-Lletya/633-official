@@ -13,6 +13,6 @@ public class DoughCreationItemPlugin extends InventoryListener {
 	
 	@Override
 	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
-		player.dialogBlank(new DoughCreatingD(player, DoughData.values(), firstItem, secondItem));
+		player.dialogueBlank(new DoughCreatingD(player, DoughData.values(), firstItem, secondItem));
 	}
 }

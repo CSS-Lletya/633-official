@@ -170,7 +170,6 @@ public class Shop {
 			if (item.getItem().getAmount() <= 0 && slotId >= mainStock.length)
 				generalStock[slotId - mainStock.length] = null;
 			refreshShop();
-			resetSelected(player);
 			sendInventory(player);
 		}
 	}
@@ -239,7 +238,6 @@ public class Shop {
 		}
 		player.getInventory().deleteItem(originalId, quantity);
 		refreshShop();
-		resetSelected(player);
 		if (price == 0)
 			return;
 		player.getInventory().addItem(new Item(money, price * quantity));
@@ -281,11 +279,6 @@ public class Shop {
 		return -1;
 	}
 
-	public void resetSelected(Player player) {
-		player.getAttributes().get(Attribute.SHOP_SELECTED_SLOT).set(null);
-		player.getVarsManager().sendVar(InterfaceVars.SHOP_RESET_SELECTED, -1);
-	}
-
 	public void sendInfo(Player player, int slotId, boolean inventory) {
 		if (!inventory && slotId >= getStoreSize())
 			return;
@@ -317,7 +310,7 @@ public class Shop {
 			return price;
 		if (item.getDefinitions().hasShopPriceAttributes())
 			return 99000;
-		price = item.getDefinitions().getValue();
+		price = item.getDefinitions().value;//we're not going to use our new price system for shops specifically.
 		if (money == TOKKUL)
 			price = (price * 3) / 2;
 		return Math.max(price, 1);
@@ -331,7 +324,6 @@ public class Shop {
 		if (price > 0)
 			return price;
 		return Math.max(1, (item.getDefinitions().getSellPrice()));
-
 	}
 
 	public void sendExamine(Player player, int slotId) {
@@ -478,6 +470,5 @@ public class Shop {
 			player.getPackets().sendGlobalString(36, "");
 			player.getPackets().sendGlobalString(52, "");
 		}
-
 	}
 }

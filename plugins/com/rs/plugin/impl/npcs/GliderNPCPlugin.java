@@ -13,7 +13,7 @@ public class GliderNPCPlugin implements NPCListener {
 	@Override
 	public void execute(Player player, NPC npc, int option) {
 		if (option == 1) {
-			player.dialog(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
 					npc(happy, "Fancy an adventure today?");

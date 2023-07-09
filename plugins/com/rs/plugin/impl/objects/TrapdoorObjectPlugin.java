@@ -15,56 +15,59 @@ import com.rs.utilities.RandomUtils;
 import skills.Skills;
 import skills.magic.TeleportType;
 
-@ObjectSignature(objectId = { 5492, 26933 }, name = {})
+@ObjectSignature(objectId = { 26933, 36687 }, name = {})
 public class TrapdoorObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		// options for this object actions returns null, so have to use legacy style.
-		if (optionId == 2 && player.getVarsManager().getBitValue(235) == 1) {
-			player.getAudioManager().sendSound(Sounds.CLOSING_TRAPDOOR);
-			player.getVarsManager().sendVarBit(235, 0);
-		}
-		if (optionId == 1) {
-			if (object.getId() == 5492) {
-				if (player.getVarsManager().getBitValue(235) == 1) {
-					player.getMovement().move(false, new WorldTile(3149, 9652, 0), TeleportType.BLANK);
-				} else
-					player.getPackets().sendGameMessage("This trapdoor is sealed shut.");
+		if (object.getId() == 26933) {
+			// options for this object actions returns null, so have to use legacy style.
+			if (optionId == 2 && player.getVarsManager().getBitValue(235) == 1) {
+				player.getAudioManager().sendSound(Sounds.CLOSING_TRAPDOOR);
+				player.getVarsManager().sendVarBit(235, 0);
 			}
-			if (object.getId() == 26933) {
-				player.getMovement().move(false, new WorldTile(3096, 9867, 0), TeleportType.BLANK);
-			}
-		}
-		if (optionId == 3) {
-			if (!player.getInventory().containsAny(ItemNames.LOCKPICK_1523)) {
-				player.getPackets().sendGameMessage("You need a lockpick to unlock this trapdoor.");
-				return;
-			}
-			player.getPackets().sendGameMessage("You attempt to picklock the trapdoor..");
-			player.getMovement().lock(3);
-			World.get().submit(new Task(3) {
-				@Override
-				protected void execute() {
-					int thievingLevel = player.getSkills().getLevel(Skills.THIEVING);
-					int increasedChance = (int) (thievingLevel * 0.5);
-					double ratio = RandomUtils.getRandom(100) - increasedChance;
-					if (ratio * thievingLevel < 10) {
-						player.getPackets().sendGameMessage(
-								"You fail to picklock the trapdoor and your hands begin to numb down.");
-						player.getSkills().drainLevel(Skills.THIEVING, 1);
-						player.getSkills().addExperience(Skills.THIEVING, 1);
-						cancel();
-						return;
-					}
-					player.getAudioManager().sendSound(Sounds.OPENING_TRAPDOOR);
-					player.getPackets().sendGameMessage("You successfully picklock the trapdoor.");
-					player.getSkills().addExperience(Skills.THIEVING, 4);
-					new LinkedTaskSequence().connect(1, () -> player.getVarsManager().sendVarBit(235, 1))
-							.connect(15, () -> player.getVarsManager().sendVarBit(235, 0)).start();
-					cancel();
+			if (optionId == 1) {
+				if (object.getId() == 5492) {
+					if (player.getVarsManager().getBitValue(235) == 1) {
+						player.getMovement().move(false, new WorldTile(3149, 9652, 0), TeleportType.BLANK);
+					} else
+						player.getPackets().sendGameMessage("This trapdoor is sealed shut.");
 				}
-			});
+				if (object.getId() == 26933) {
+					player.getMovement().move(false, new WorldTile(3096, 9867, 0), TeleportType.BLANK);
+				}
+			}
+			if (optionId == 3) {
+				if (!player.getInventory().containsAny(ItemNames.LOCKPICK_1523)) {
+					player.getPackets().sendGameMessage("You need a lockpick to unlock this trapdoor.");
+					return;
+				}
+				player.getPackets().sendGameMessage("You attempt to picklock the trapdoor..");
+				player.getMovement().lock(3);
+				World.get().submit(new Task(3) {
+					@Override
+					protected void execute() {
+						int thievingLevel = player.getSkills().getLevel(Skills.THIEVING);
+						int increasedChance = (int) (thievingLevel * 0.5);
+						double ratio = RandomUtils.getRandom(100) - increasedChance;
+						if (ratio * thievingLevel < 10) {
+							player.getPackets().sendGameMessage(
+									"You fail to picklock the trapdoor and your hands begin to numb down.");
+							player.getSkills().drainLevel(Skills.THIEVING, 1);
+							player.getSkills().addExperience(Skills.THIEVING, 1);
+							cancel();
+							return;
+						}
+						player.getAudioManager().sendSound(Sounds.OPENING_TRAPDOOR);
+						player.getPackets().sendGameMessage("You successfully picklock the trapdoor.");
+						player.getSkills().addExperience(Skills.THIEVING, 4);
+						new LinkedTaskSequence().connect(1, () -> player.getVarsManager().sendVarBit(235, 1))
+								.connect(15, () -> player.getVarsManager().sendVarBit(235, 0)).start();
+						cancel();
+					}
+				});
+			}	
 		}
+		object.doAction(optionId, 36687, "climb-down", () -> player.getMovement().move(true, new WorldTile(3208, 9616, 0), TeleportType.BLANK));
 	}
 }

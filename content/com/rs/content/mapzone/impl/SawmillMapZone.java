@@ -69,7 +69,7 @@ public class SawmillMapZone extends MapZone {
 	@Override
 	public boolean processNPCClick1(Player player, NPC npc) {
 		if (npc.getId() == OVERSEER) {
-			player.dialog(new Overseer(player, npc, this));
+			player.dialogue(new Overseer(player, npc, this));
 			return false;
 		}
 		return true;
@@ -84,14 +84,14 @@ public class SawmillMapZone extends MapZone {
 			}
 			if (isOrderCompleted(player)) {
 				finishJob(player);
-				player.dialog(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, npc) {
 					@Override
 					public void start() {
 						npc(happy, "Good job! I'll fill in the paperwork and send them on their way.");
 					}
 				});
 			} else {
-				player.dialog(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, npc) {
 					@Override
 					public void start() {
 						npc(happy, "I don't think you've got all the planks you need for this order. Come back when you're done.");
@@ -148,7 +148,7 @@ public class SawmillMapZone extends MapZone {
 		}
 		if (object.getId() == 46307 && object.getX() == 3311 && object.getY() == 3491) {
 			if (Sawmill.hasPlanksOrLogs(player)) {
-				player.dialog(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
+				player.dialogue(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
 					@Override
 					public void start() {
 						npc(angry_2, "Oi! That's our wood you've got there! Give it  back!");

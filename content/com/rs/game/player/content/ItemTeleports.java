@@ -75,7 +75,7 @@ public class ItemTeleports {
 		int index = getIndex(item);
 		if (!checkAll(player, item, index, 0, 1))
 			return false;
-		player.dialogBlank(new TransportationDialogue(player, item, wearing, TELEPORT_NAMES[index]));
+		player.dialogueBlank(new TransportationDialogue(player, item, wearing, TELEPORT_NAMES[index]));
 		return true;
 	}
 
@@ -85,7 +85,7 @@ public class ItemTeleports {
 			return false;
 		if (!checkAll(player, new Item(itemId), index, 0, 1))
 			return false;
-		player.dialogBlank(new TransportationDialogue(player, new Item(itemId, 1), wearing, TELEPORT_NAMES[index]));
+		player.dialogueBlank(new TransportationDialogue(player, new Item(itemId, 1), wearing, TELEPORT_NAMES[index]));
 		return true;
 	}
 

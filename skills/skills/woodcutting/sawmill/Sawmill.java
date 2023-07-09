@@ -101,7 +101,7 @@ public class Sawmill {
 
     public static void enter(Player player, GameObject object) {
         if (player.getSkills().getLevel(Skills.WOODCUTTING) < 80) {
-        	player.dialog(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
+        	player.dialogue(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
 				@Override
 				public void start() {
 					npc(sad,"Sorry, we don't need inexperienced woodcutters.");
@@ -110,7 +110,7 @@ public class Sawmill {
             return;
         }
         if (player.getInventory().containsAny((946))) {
-        	player.dialog(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
+        	player.dialogue(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
 				@Override
 				public void start() {
 					npc(sad,"Sorry, but we don't allow any fletching knives to be brought in here.");
@@ -119,7 +119,7 @@ public class Sawmill {
             return;
         }
         if (hasPlanksOrLogs(player)) {
-        	player.dialog(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
+        	player.dialogue(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
 				@Override
 				public void start() {
 					npc(sad,"Sorry, you can't bring any planks or logs in with you. You might get them muddled with ours.");

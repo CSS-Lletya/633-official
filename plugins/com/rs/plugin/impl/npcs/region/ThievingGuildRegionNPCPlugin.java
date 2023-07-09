@@ -19,7 +19,7 @@ public class ThievingGuildRegionNPCPlugin implements NPCListener {
 	@Override
 	public void execute(Player player, NPC npc, int option) {
 		if (option == 1) {
-			player.dialog(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
 					npc(hearty_laugh, "Go ahead... attempt to pick my pockets.");
@@ -31,7 +31,7 @@ public class ThievingGuildRegionNPCPlugin implements NPCListener {
 			player.getSkills().addExperience(Skills.THIEVING, RandomUtils.random(2, 3));
 			timesPickedSession++;
 		} else if (option == 3) {
-			player.dialog(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
 					npc(hearty_laugh, "So far you've successfully completed "

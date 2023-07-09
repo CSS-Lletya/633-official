@@ -1,6 +1,8 @@
 package com.rs.game.player;
 
+import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemWeights;
@@ -42,6 +44,16 @@ public final class Equipment {
 				player.getInventory().addItemDrop(item.getId(), item.getAmount());
 			}
 		}
+		if (player.getDetails().getQuestPoints().get() != GameConstants.TOTAL_QUEST_POINTS
+				&& player.getEquipment().containsAny(ItemNames.QUEST_POINT_CAPE_9813, ItemNames.QUEST_POINT_HOOD_9814)
+				&& player.getDetails().getRights() != Rights.ADMINISTRATOR) {
+			player.getPackets().sendGameMessage(
+                    "One or more Quests has been released, please complete them to continue wearing your Quest Cape.");
+			player.getEquipment().getItems().set(Equipment.SLOT_CAPE, null);
+			player.getEquipment().refresh(Equipment.SLOT_CAPE);
+			player.getAppearance().generateAppearenceData();
+			player.getInventory().addOrBank(new Item(9813));
+        }
 	}
 
 	public void refresh(int... slots) {

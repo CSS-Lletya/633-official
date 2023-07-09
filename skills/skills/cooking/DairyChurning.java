@@ -15,6 +15,6 @@ public class DairyChurning {
     private static int[] anims = {2793, 2793, 2793};
 
     public static void handleChurnOption(Player player) {
-        player.dialogBlank(new CreateActionD(player, materials, products, xp, anims, reqs, Skills.COOKING, 2));
+        player.dialogueBlank(new CreateActionD(player, materials, products, xp, anims, reqs, Skills.COOKING, 2));
     }
 }

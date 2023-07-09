@@ -42,7 +42,7 @@ public class ShipCharter {
 		}
 		final int cost = getCost(player, destination);
 		player.getInterfaceManager().closeInterfaces();
-		player.dialog(new DialogueEventListener(player) {
+		player.dialogue(new DialogueEventListener(player) {
 			@Override
 			public void start() {
 				option("Yes, pay fare of " + Utility.getFormattedNumber(cost) + "gp.", () -> {

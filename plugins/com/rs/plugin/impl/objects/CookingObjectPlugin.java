@@ -26,6 +26,6 @@ public class CookingObjectPlugin extends ObjectListener {
 			return;
 		}
 		CookingData.VALUES.stream().filter(raw -> raw.getRawId() == item.getId())
-		.forEach(cookable -> player.dialogBlank(new CookingD(player, new CookingData[] {cookable}, object, item.getId())));
+		.forEach(cookable -> player.dialogueBlank(new CookingD(player, new CookingData[] {cookable}, object, item.getId())));
 	}
 }

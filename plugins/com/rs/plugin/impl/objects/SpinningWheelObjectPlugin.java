@@ -14,11 +14,11 @@ public class SpinningWheelObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		player.dialogBlank(new SpinningD(player, SpinningData.values()));
+		player.dialogueBlank(new SpinningD(player, SpinningData.values()));
 	}
 
 	@Override
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
-		player.dialogBlank(new SpinningD(player, SpinningData.values()));
+		player.dialogueBlank(new SpinningD(player, SpinningData.values()));
 	}
 }

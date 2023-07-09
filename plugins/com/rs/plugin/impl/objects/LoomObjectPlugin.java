@@ -13,6 +13,6 @@ public class LoomObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		player.dialogBlank(new LoomD(player, LoomData.values()));
+		player.dialogueBlank(new LoomD(player, LoomData.values()));
 	}
 }

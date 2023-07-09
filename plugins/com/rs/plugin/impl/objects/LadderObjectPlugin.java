@@ -8,12 +8,11 @@ import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.magic.TeleportType;
 
-@ObjectSignature(objectId = {29355, 29358, 55404, 26518, 32015, 36687, 1756, 52547, 52546}, name = {})
+@ObjectSignature(objectId = {29355, 29358, 55404, 26518, 32015, 1756, 52547, 52546}, name = {})
 public class LadderObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		object.doAction(optionId, 36687, "climb-down", () -> player.getMovement().move(true, new WorldTile(3208, 9616, 0), TeleportType.BLANK));
 		if (object.getId() == 29355) {
 			if (object.matches(new WorldTile(3088, 9971))) //to wildy
 				player.getMovement().move(true, new WorldTile(3087, 3571, 0), TeleportType.BLANK);

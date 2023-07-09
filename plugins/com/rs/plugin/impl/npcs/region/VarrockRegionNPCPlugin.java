@@ -23,7 +23,7 @@ public class VarrockRegionNPCPlugin implements NPCListener {
 	public void execute(Player player, NPC npc, int option) {
 		if (npc.getId() == 4250) {
 			if (option == 1) {
-				player.dialog(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, npc) {
 					@Override
 					public void start() {
 						npc(happy, "If you bring'em, i'll mill them! ..get it? no okay.");
@@ -41,7 +41,7 @@ public class VarrockRegionNPCPlugin implements NPCListener {
 		}
 		if (npc.getId() == 6524) {
 			if (option == 1) {
-				player.dialog(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, npc) {
 					@Override
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
@@ -73,7 +73,7 @@ public class VarrockRegionNPCPlugin implements NPCListener {
 		}
 		if (npc.getId() == 6526) {
 			if (option == 1) {
-				player.dialog(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, npc) {
 					@Override
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
@@ -110,7 +110,7 @@ public class VarrockRegionNPCPlugin implements NPCListener {
 			}
 		}
 		if (npc.getId() == 6527) {
-			player.dialog(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
 					npc(happy, "Good day, I'm quite busy right now.<br>Maybe we can chat later");
@@ -120,7 +120,7 @@ public class VarrockRegionNPCPlugin implements NPCListener {
 		}
 		if (npc.getId() == 6523) {
 			if (option == 1) {
-				player.dialog(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, npc) {
 					@Override
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
@@ -154,7 +154,7 @@ public class VarrockRegionNPCPlugin implements NPCListener {
 		
 		if (npc.getId() == 6525) {
 			if (option == 1) {
-				player.dialog(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, npc) {
 					@Override
 					public void start() {
 						npc(happy, "Good day, how can I help you?");

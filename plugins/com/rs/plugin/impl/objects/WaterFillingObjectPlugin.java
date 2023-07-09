@@ -17,6 +17,6 @@ public class WaterFillingObjectPlugin extends ObjectListener {
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
 		Filler fill = FillAction.isFillable(item);
 		if (fill != null)
-			player.dialogBlank(new ItemFillingD(player, fill));
+			player.dialogueBlank(new ItemFillingD(player, fill));
 	}
 }
