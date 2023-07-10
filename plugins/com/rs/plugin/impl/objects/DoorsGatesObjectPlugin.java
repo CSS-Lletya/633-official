@@ -2,6 +2,7 @@ package com.rs.plugin.impl.objects;
 
 import java.util.stream.IntStream;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
@@ -9,6 +10,8 @@ import com.rs.game.player.Player;
 import com.rs.game.player.content.doors.Doors;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
+
+import skills.Skills;
 
 @ObjectSignature(objectId = { 47, 48, 166, 167, 1551, 1552, 1553, 1556, 2050, 2051, 2306, 2313, 2320, 2344, 2261, 2262,
 		2438, 2439, 3015, 3016, 3725, 3726, 4311, 4312, 7049, 7050, 7051, 7052, 15510, 15511, 15512, 15513, 15514,
@@ -32,7 +35,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
 		41178, 41179, 45964, 45965, 45966, 45967, 47240, 47241, 47421, 47424, 48938, 48939, 48940, 48941, 48942, 48943,
 		48944, 48945, 49014, 49016, 52176, 52183, 52381, 52313, 52382, 52315, 53671, 53672, 53674, 53675, 59958, 59961,
 		61051, 61052, 61053, 61054, 64835, 64837, 66599, 66601, 66938, 66940, 66941, 66942, 14931, 14929, 8958, 8959,
-		8960, 37000, 37003, 10565, 35549 }, name = { "Door", "Gate" })
+		8960, 37000, 37003, 10565, 35549, 2712 }, name = { "Door", "Gate" })
 public class DoorsGatesObjectPlugin extends ObjectListener {
 
 	@Override
@@ -44,6 +47,20 @@ public class DoorsGatesObjectPlugin extends ObjectListener {
 						36915, 37351, 37352, 37353, 37354, 45206, 45207, 45208, 45209, 45210, 45211, 45212, 45213)
 				.anyMatch(d -> object.getId() == d)) {
 			Doors.handleGate(player, object);
+		}
+		if (object.getId() == 2712) {
+			if (player.getY() <= object.getY()) {
+				if (player.getSkills().getTrueLevel(Skills.COOKING) < 32) {
+					player.getPackets().sendGameMessage("You need a level of 32 cooking to enter this guild.");
+					return;
+				}
+				if (!player.getEquipment().containsOneItem(1949)) {
+					player.getPackets().sendGameMessage("You need to wear "
+							+ ItemDefinitions.getItemDefinitions(1949).getName() + " to enter this guild.");
+					return;
+				}
+			}
+			Doors.handleDoor(player, object);
 		}
 		if (object.getId() == 1804) {
 			if (!player.getInventory().containsAny(983) && player.matches(new WorldTile(3115, 3449))) {
@@ -58,13 +75,7 @@ public class DoorsGatesObjectPlugin extends ObjectListener {
 		if (object.getId() == 37000 || object.getId() == 37003) {
 			Doors.handleDoubleDoor(player, object, true);
 		}
-		
-		object.doAction(optionId, "Gate", "Open", () -> Doors.handleSmallGate(player, object));
-		object.doAction(optionId, "Gate", "Close", () -> Doors.handleSmallGate(player, object));
 
-		object.doAction(optionId, "Door", "Open", () -> Doors.handleDoor(player, object));
-		object.doAction(optionId, "Door", "Close", () -> Doors.handleClosedDoor(player, object));
-		
 		if (object.getId() == 35549) {
 			if (optionId == 1) {
 				player.dialogue(d -> d.option("Pay 10gp to enter through", () -> {
@@ -80,5 +91,12 @@ public class DoorsGatesObjectPlugin extends ObjectListener {
 					player.getPackets().sendGameMessage("You need to pay the 10gp fee to pass through.");
 			}
 		}
+		
+		object.doAction(optionId, "Gate", "Open", () -> Doors.handleSmallGate(player, object));
+		object.doAction(optionId, "Gate", "Close", () -> Doors.handleSmallGate(player, object));
+
+		object.doAction(optionId, "Door", "Open", () -> Doors.handleDoor(player, object));
+		object.doAction(optionId, "Door", "Close", () -> Doors.handleClosedDoor(player, object));
+
 	}
 }

@@ -61,8 +61,8 @@ public final class DoughCreation extends ProducingSkillAction {
 	public void onProduce(Task t, boolean success) {
 		if(success) {
 			getDefinition(used.getId(), onto.getId()).ifPresent(filled -> {
-				player.getInventory().deleteItem(filled.getFilledItem());
-				player.getInventory().addItem(filled.getEmptyItem());
+				player.getInventory().deleteItem(filled.getFilled());
+				player.getInventory().addItem(filled.getEmpty());
 				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced.getId()).getName()+"_Created").addStatistic("Food_Prepared");
 			});
 			counter--;
@@ -92,7 +92,7 @@ public final class DoughCreation extends ProducingSkillAction {
 	}
 
 	public static Optional<Filler> getDefinition(int ingredient, int secondIngredient) {
-		return Filler.VALUES.stream().filter(i -> i.getFilledItem().getId() == ingredient || i.getFilledItem().getId() == secondIngredient).findAny();
+		return Filler.VALUES.stream().filter(i -> i.getFilled().getId() == ingredient || i.getFilled().getId() == secondIngredient).findAny();
 	}
 	
 	@Override
@@ -103,7 +103,7 @@ public final class DoughCreation extends ProducingSkillAction {
 	@Override
 	public boolean canExecute() {
 		return getDefinition(used.getId(), onto.getId())
-	            .map(filled -> player.getInventory().containsItem(filled.getFilledItem()))
+	            .map(filled -> player.getInventory().containsItem(filled.getFilled()))
 	            .orElse(false);
 	}
 

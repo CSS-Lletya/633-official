@@ -29,7 +29,8 @@ public class StairsLaddersDialogue {
 					if (player.getPlane() == 3) {
 						return;
 					}
-					player.getMovement().move(true,
+					if (!isUpperSpecialTargetTile(player))
+						player.getMovement().move(true,
 							new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);
 				}, "Go-Down", () -> {
 					player.getMovement().move(true,
@@ -39,11 +40,25 @@ public class StairsLaddersDialogue {
 		} else if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb-up")) {
 			if (player.getPlane() == 3)
 				return;
-			player.getMovement().move(true, new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);
+			if (!isUpperSpecialTargetTile(player))
+				player.getMovement().move(true, new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);
 		} else if (object.getDefinitions().getOption(optionId).equalsIgnoreCase("Climb-down")) {
 			if (player.getPlane() == 0)
 				return;
-			player.getMovement().move(true, new WorldTile(player.getX(), player.getY(), player.getPlane() - 1), TeleportType.BLANK);
+			if (!isLowerSpecialTargetTile(player))
+				player.getMovement().move(true, new WorldTile(player.getX(), player.getY(), player.getPlane() - 1), TeleportType.BLANK);
 		}
+	}
+	
+	public boolean isUpperSpecialTargetTile(Player player) {
+		if (player.getX() == 3144) {//cooking guild
+			player.getMovement().move(true, new WorldTile(3144, 3446, 2), TeleportType.BLANK);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isLowerSpecialTargetTile(Player player) {
+		return false;
 	}
 }

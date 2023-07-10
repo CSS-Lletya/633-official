@@ -18,11 +18,11 @@ public class ItemFillingD extends DialogueEventListener {
 
 	@Override
 	public void start() {
-		SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.SELECT, 28, new int[] {filler.getFilledItem().getId()}, null, true);
+		SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.SELECT, 28, new int[] {filler.getFilled().getId()}, null, true);
 	}
 
 	@Override
 	public void listenToDialogueEvent(int button) {
-		player.getAction().setAction(new FillAction(SkillsDialogue.getQuantity(player), filler));
+		player.getAction().setAction(new FillAction(SkillsDialogue.getQuantity(player)));
 	}
 }

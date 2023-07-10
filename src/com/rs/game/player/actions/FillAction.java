@@ -17,8 +17,6 @@
 package com.rs.game.player.actions;
 
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -28,12 +26,15 @@ import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 public class FillAction extends Action {
 
 	private int amount;
 	private Animation FILLING = new Animation(883);
-	private Filler fil;
 
+	@AllArgsConstructor
 	public enum Filler {
 		VIAL(new Item(229, 1), new Item(227, 1)),
 		CLAY(new Item(434, 1), new Item(1761, 1)),
@@ -51,44 +52,17 @@ public class FillAction extends Action {
 		WATERING_CAN6(new Item(5338, 1), new Item(5340, 1)),
 		WATERING_CAN7(new Item(5339, 1), new Item(5340, 1)),
 		KETTLE(new Item(7688, 1), new Item(7690, 1));
-
-		private static Map<Short, Filler> items = new HashMap<>();
 		
 		public static final ImmutableSet<Filler> VALUES = Sets.immutableEnumSet(EnumSet.allOf(Filler.class));
 
-		public static Filler forId(short itemId) {
-			return items.get(itemId);
-		}
-
-		static {
-			for (Filler ingredient : Filler.values())
-				items.put((short) ingredient.getEmptyItem().getId(), ingredient);
-		}
-
+		@Getter
 		private Item empty;
+		@Getter
 		private Item filled;
-
-		private Filler(Item empty, Item filled) {
-			this.empty = empty;
-			this.filled = filled;
-		}
-
-		public Item getEmptyItem() {
-			return empty;
-		}
-
-		public Item getFilledItem() {
-			return filled;
-		}
 	}
 
-	public static Filler isFillable(Item item) {
-		return Filler.forId((short) item.getId());
-	}
-
-	public FillAction(int amount, Filler fil) {
+	public FillAction(int amount) {
 		this.amount = amount;
-		this.fil = fil;
 	}
 
 	@Override
@@ -98,24 +72,22 @@ public class FillAction extends Action {
 
 	@Override
 	public boolean process(Player player) {
-		if (!player.getInventory().containsItem(fil.getEmptyItem().getId(), 1))
-			return false;
-		return true;
+		return Filler.VALUES.stream().anyMatch(id -> player.getInventory().containsAny(id.empty.getId()));
 	}
 
 	@Override
 	public int processWithDelay(Player player) {
 		amount--;
-		player.getAudioManager().sendSound(Sounds.FILL_FROM_WATER_SOURCE);
-		player.setNextAnimation(FILLING);
-		player.getInventory().deleteItem(fil.getEmptyItem().getId(), 1);
-		player.getInventory().addItem(fil.getFilledItem().getId(), 1);
-		player.getDetails().getStatistics()
-		.addStatistic(ItemDefinitions.getItemDefinitions(fil.getFilledItem().getId()).getName() + "_Filled")
-		.addStatistic("Items_Filled");
-		if (amount > 0)
-			return 1;
-		return -1;
+		Filler.VALUES.stream().filter(id -> player.getInventory().containsAny(id.empty.getId())).forEach(fillable -> {
+			player.getAudioManager().sendSound(Sounds.FILL_FROM_WATER_SOURCE);
+			player.setNextAnimation(FILLING);
+			player.getInventory().deleteItem(fillable.getEmpty().getId(), 1);
+			player.getInventory().addItem(fillable.getFilled().getId(), 1);
+			player.getDetails().getStatistics()
+					.addStatistic(ItemDefinitions.getItemDefinitions(fillable.getFilled().getId()).getName() + "_Filled")
+					.addStatistic("Items_Filled");
+		});
+		return amount > 0 ? 1 : -1;
 	}
 
 	@Override
