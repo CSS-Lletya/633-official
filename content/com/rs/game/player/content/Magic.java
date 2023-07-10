@@ -10,8 +10,9 @@ import com.rs.game.item.ItemConstants;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Equipment;
-import com.rs.game.player.Player;
 import com.rs.game.player.InterfaceManager.Tabs;
+import com.rs.game.player.Inventory;
+import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -411,7 +412,7 @@ public class Magic {
 				return;
 			}
 			if (target.getAmount() != 1 && !player.getInventory().hasFreeSlots()) {
-				player.getPackets().sendGameMessage("Not enough space in your inventory.");
+				player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
 				return;
 			}
 			if (!checkRunes(player, true, FIRE_RUNE, highAlch ? 5 : 3, NATURE_RUNE, 1))

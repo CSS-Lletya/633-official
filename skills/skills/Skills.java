@@ -585,4 +585,12 @@ public class Skills {
 	public void refreshElapsedBonusMinutes() {
 		player.getVarsManager().sendVarBit(7233, elapsedBonusMinutes);
 	}
+	
+	public boolean checkMulti99s() {
+		int num99s = 0;
+		for (int i = 0;i < xp.length;i++)
+			if (getTrueLevel(i) >= 99)
+				num99s++;
+		return num99s > 1;
+	}
 }

@@ -3,6 +3,7 @@ package com.rs.plugin.impl.objects;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
+import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
@@ -24,7 +25,7 @@ public class CoffinObjectPlugin extends ObjectListener {
 				return;
 			}
 			if (player.getInventory().getFreeSlots() < 2) {
-				player.getPackets().sendGameMessage("Not enough space in your inventory.");
+				player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
 				return;
 			}
 			Item bone = RandomUtils.random(bones);

@@ -373,21 +373,21 @@ public class Bank {
                 Item invItem = player.getInventory().getItems().get(slot);
                 if (invItem.getAmount() + item.getAmount() <= 0) {
                     item.setAmount(Integer.MAX_VALUE - invItem.getAmount());
-                    player.getPackets().sendGameMessage("Not enough space in your inventory.");
+                    player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
                 }
             } else if (!player.getInventory().hasFreeSlots()) {
-                player.getPackets().sendGameMessage("Not enough space in your inventory.");
+                player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
                 return;
             }
         } else {
             int freeSlots = player.getInventory().getFreeSlots();
             if (freeSlots == 0) {
-                player.getPackets().sendGameMessage("Not enough space in your inventory.");
+                player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
                 return;
             }
             if (freeSlots < item.getAmount()) {
                 item.setAmount(freeSlots);
-                player.getPackets().sendGameMessage("Not enough space in your inventory.");
+                player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
             }
         }
         removeItem(slots, item.getAmount(), true, false);
@@ -421,24 +421,24 @@ public class Bank {
 				if (invItem.getAmount() + item.getAmount() <= 0) {
 					item.setAmount(Integer.MAX_VALUE - invItem.getAmount());
 					player.getPackets().sendGameMessage(
-							"Not enough space in your inventory.");
+							Inventory.INVENTORY_FULL_MESSAGE);
 				}
 			} else if (!player.getInventory().hasFreeSlots()) {
 				player.getPackets().sendGameMessage(
-						"Not enough space in your inventory.");
+						Inventory.INVENTORY_FULL_MESSAGE);
 				return;
 			}
 		} else {
 			int freeSlots = player.getInventory().getFreeSlots();
 			if (freeSlots == 0) {
 				player.getPackets().sendGameMessage(
-						"Not enough space in your inventory.");
+						Inventory.INVENTORY_FULL_MESSAGE);
 				return;
 			}
 			if (freeSlots < item.getAmount()) {
 				item.setAmount(freeSlots);
 				player.getPackets().sendGameMessage(
-						"Not enough space in your inventory.");
+						Inventory.INVENTORY_FULL_MESSAGE);
 			}
 		}
 		removeItem(bankSlot, item.getAmount(), true, false);

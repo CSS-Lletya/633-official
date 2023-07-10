@@ -4,6 +4,7 @@ import com.rs.cores.CoresManager;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
+import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.utilities.Ticks;
 
@@ -337,17 +338,17 @@ public class FloorItem extends Item {
         int amount = floorItem.getAmount();
         int inventoryLeftOver = 0;
         if (player.getInventory().getNumberOf(floorItem.getId()) == Integer.MAX_VALUE) {
-            player.getPackets().sendGameMessage("Not enough space in your inventory.");
+            player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
             return false;
         }
         if (!player.getInventory().hasFreeSlots()
                 && ((floorItem.getDefinitions().isStackable() || floorItem.getDefinitions().isNoted())
                 && !player.getInventory().containsItem(floorItem.getId(), 1))) {
-            player.getPackets().sendGameMessage("Not enough space in your inventory.");
+            player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
             return false;
         } else if (!player.getInventory().hasFreeSlots()
                 && (!floorItem.getDefinitions().isStackable() && !floorItem.getDefinitions().isNoted())) {
-            player.getPackets().sendGameMessage("Not enough space in your inventory.");
+            player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
             return false;
         }
         if (player.getInventory().getNumberOf(floorItem.getId()) + amount > Integer.MAX_VALUE

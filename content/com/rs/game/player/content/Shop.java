@@ -8,6 +8,7 @@ import com.rs.constants.InterfaceVars;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.player.CombatDefinitions;
+import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.utilities.ItemExamines;
@@ -151,7 +152,7 @@ public class Shop {
 		if (item.getItem().getDefinitions().isStackable()) {
 			if (player.getInventory().getFreeSlots() < 1) {
 				player.getPackets().sendGameMessage(
-						"Not enough space in your inventory.");
+						Inventory.INVENTORY_FULL_MESSAGE);
 				return;
 			}
 		} else {
@@ -159,7 +160,7 @@ public class Shop {
 			if (buyQ > freeSlots) {
 				buyQ = freeSlots;
 				player.getPackets().sendGameMessage(
-						"Not enough space in your inventory.");
+						Inventory.INVENTORY_FULL_MESSAGE);
 			}
 		}
 		if (buyQ != 0) {

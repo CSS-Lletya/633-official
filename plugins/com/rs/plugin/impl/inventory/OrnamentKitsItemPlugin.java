@@ -23,7 +23,7 @@ public class OrnamentKitsItemPlugin extends InventoryListener {
 			if (kit == null)
 				return;
 			if (!player.getInventory().hasFreeSlots()) {
-				player.getPackets().sendGameMessage("Not enough space in your inventory.");
+				player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
 				return;
 			}
 			player.getInventory().deleteItem(item);

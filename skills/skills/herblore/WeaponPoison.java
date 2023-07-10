@@ -137,7 +137,7 @@ public class WeaponPoison {
 			return false;
 		int amt = item.getAmount() > 15 ? 15 : item.getAmount();
 		if (amt > 1 && !player.getInventory().hasFreeSlots()) {
-			player.getPackets().sendGameMessage("Not enough space in your inventory.");
+			player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
 			return false;
 		}
 		player.getInventory().deleteItem(item.getId(), amt);

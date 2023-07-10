@@ -20,6 +20,9 @@ public final class Inventory {
 	private transient double inventoryWeight;
 
 	public static final int INVENTORY_INTERFACE = 149;
+	
+	
+	public static String INVENTORY_FULL_MESSAGE = "Not enough space in your inventory.";
 
 	public Inventory() {
 		items = new ItemsContainer<Item>(28, false);
@@ -79,7 +82,7 @@ public final class Inventory {
 		if (!items.add(new Item(itemId, amount))) {
 			items.add(new Item(itemId, items.getFreeSlots()));
 			player.getPackets().sendGameMessage(
-					"Not enough space in your inventory.");
+					Inventory.INVENTORY_FULL_MESSAGE);
 			refreshItems(itemsBefore);
 			return false;
 		}
@@ -97,7 +100,7 @@ public final class Inventory {
 		if (!items.add(item)) {
 			items.add(new Item(item.getId(), items.getFreeSlots()));
 			player.getPackets().sendGameMessage(
-					"Not enough space in your inventory.");
+					Inventory.INVENTORY_FULL_MESSAGE);
 			refreshItems(itemsBefore);
 			return false;
 		}
