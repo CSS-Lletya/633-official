@@ -17,6 +17,7 @@ import com.rs.game.player.content.LivingRockCavern;
 import com.rs.game.task.Task;
 import com.rs.game.task.TaskManager;
 import com.rs.game.task.impl.BonusExperienceTimerTask;
+import com.rs.game.task.impl.GlobalImplingTask;
 import com.rs.game.task.impl.RestoreHitpoints;
 import com.rs.game.task.impl.RestoreRunEnergyTask;
 import com.rs.game.task.impl.RestoreSkillTask;
@@ -31,6 +32,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import skills.hunter.GlobalImplings;
 
 public class World {
 
@@ -93,6 +95,7 @@ public class World {
 		World.get().submit(new RestoreSkillTask());
 		World.get().submit(new RestoreHitpoints());
 		World.get().submit(new BonusExperienceTimerTask());
+		World.get().submit(new GlobalImplingTask());
 		LivingRockCavern.init();
 	}
 
