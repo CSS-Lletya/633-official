@@ -13,12 +13,12 @@ import com.rs.utilities.TextUtils;
 import skills.ProducingSkillAction;
 import skills.Skills;
 
-public final class PotteryOven extends ProducingSkillAction {
+public final class PotteryWheel extends ProducingSkillAction {
 	
 	/**
 	 * The data this skill action is dependent of.
 	 */
-	private final PotteryData data;
+	private final PotteryWheelData data;
 	
 	/**
 	 * The amount of times this task should run for.
@@ -26,12 +26,12 @@ public final class PotteryOven extends ProducingSkillAction {
 	private int amount;
 	
 	/**
-	 * Constructs a new {@link PotteryOven}.
+	 * Constructs a new {@link PotteryWheel}.
 	 * @param player {@link #getPlayer()}.
 	 * @param data {@link #data}.
 	 * @param amount {@link #amount}.
 	 */
-	public PotteryOven(Player player, PotteryData data, int amount) {
+	public PotteryWheel(Player player, PotteryWheelData data, int amount) {
 		super(player, Optional.empty());
 		this.data = data;
 		this.amount = amount;
@@ -42,7 +42,7 @@ public final class PotteryOven extends ProducingSkillAction {
 		if(success) {
 			amount--;
 			player.getAudioManager().sendSound(Sounds.POTTERY);
-			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced).getName() + "_Pottery_Crafted").addStatistic("Items_Pottery_Crafted");
+			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced).getName() + "_Pottery_Made").addStatistic("Items_Pottery_Made");
 			if(amount <= 0)
 				t.cancel();
 		}
@@ -106,10 +106,10 @@ public final class PotteryOven extends ProducingSkillAction {
 		return true;
 	}
 	
-	public enum PotteryData {
-		POT(1787, 1, 1931, 1, 6.3),
-		PIE_DISH(1789, 1, 2313, 7, 10.0),
-		BOWL(1791, 1, 1923, 8, 15.0),
+	public enum PotteryWheelData {
+		POT(1761, 1, 1787, 1, 6.3),
+		PIE_DISH(1761, 1, 1789, 7, 10.0),
+		BOWL(1761, 1, 1791, 8, 15.0),
 		;
 		/**
 		 * The item required to spin.
@@ -137,13 +137,13 @@ public final class PotteryOven extends ProducingSkillAction {
 		private final double experience;
 		
 		/**
-		 * Constructs a new {@link PotteryData}.
+		 * Constructs a new {@link PotteryWheelData}.
 		 * @param item {@link #item}.
 		 * @param produced {@link #produced}.
 		 * @param requirement {@link #requirement}.
 		 * @param experience {@link #experience}.
 		 */
-		PotteryData(int item, int amount, int produced, int requirement, double experience) {
+		PotteryWheelData(int item, int amount, int produced, int requirement, double experience) {
 			this.item = item;
 			this.amount = amount;
 			this.produced = produced;

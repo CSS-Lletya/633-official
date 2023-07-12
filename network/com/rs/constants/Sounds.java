@@ -130,6 +130,7 @@ public interface Sounds {
 	int UNLOCK_AND_MOVE = 1473;
 	int WATER_SPLASHING = 2496; //linked to JUMPING_INTO, or anything relevant too.
 	int LOOM_WEAVING = 2587;
+	int POTTERY = 2588;
 	int GEM_SMASHING = 2589;
 	int AMULET_STRINGING = 2593;
 	int ANTIFIRE_EFFECTS_REMOVED = 2607;
