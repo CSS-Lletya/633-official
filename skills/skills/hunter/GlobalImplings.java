@@ -96,6 +96,10 @@ public class GlobalImplings {
 			new WorldTile(2416 + RANDOM.nextInt(3), 4456 + RANDOM.nextInt(3), 0),
 	};
 
+	/**
+	 * Randomly selects implings
+	 * @return
+	 */
 	public static int getRandomImplingId() {
 		FlyingEntities[] implings = FlyingEntities.values();
 		int random = RandomUtils.random(1000);
