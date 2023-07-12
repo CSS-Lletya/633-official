@@ -188,5 +188,34 @@ public interface Attribute {
 	//unused for now
 	public String BOW_FLETCHING = "BowFletching";
 	public String BOW_FLETCHING_CARVING = "BowFletchingCarving";
+	
+	/**
+	 * Represents the Chat message type
+	 */
 	public String CHAT_TYPE = "chatType";
+	
+	/**
+	 * Represents the Canoe 'style' state
+	 */
+	public String CANOE_SHAPED = "CanoeShaped";
+	
+	/**
+	 * Represents the state of the Tree (if its been chopped down)
+	 */
+	public String CANOE_CHOPPED = "CanoeChopped";
+	
+	/**
+	 * Represents the Canoe varbit
+	 */
+	public String CANOE_CONFIG = "CanoeConfig";
+	
+	/**
+	 * Represents the Canoe log type selected
+	 */
+	public String CANOE_SELECTED = "CanoeSelected";
+	
+	/**
+	 * Represents the Canoe selected destination
+	 */
+	public String CANOE_LOCATION_SET = "CanoeSelectedArea";
 }

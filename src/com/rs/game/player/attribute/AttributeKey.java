@@ -73,6 +73,12 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.BOW_FLETCHING, false);
 		AttributeKey.forTransient(Attribute.BOW_FLETCHING_CARVING, false);
 		
+		AttributeKey.forPersistent(Attribute.CANOE_CHOPPED, false);
+		AttributeKey.forPersistent(Attribute.CANOE_CONFIG, 0);
+		AttributeKey.forPersistent(Attribute.CANOE_SELECTED, 0);
+		AttributeKey.forPersistent(Attribute.CANOE_SHAPED, false);
+		AttributeKey.forPersistent(Attribute.CANOE_LOCATION_SET, 0);
+		
 		AttributeKey.forPersistent(Attribute.WHEAT_GRINDED, false);
 		AttributeKey.forPersistent(Attribute.WHEAT_DEPOSITED, false);
 		
