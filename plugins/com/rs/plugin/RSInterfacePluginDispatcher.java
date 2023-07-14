@@ -517,6 +517,8 @@ public final class RSInterfacePluginDispatcher {
 	    WAND(3738, new String[]{"wand"}),
 	    HWEEN(3227, new String[]{"h'ween mask"}),
 	    SILVERLIGHT(2990, new String[]{"silverlight"}),
+	    BACKPACK(3284, new String[]{"ava's"}),
+	    JESTER(3285, new String[] {"jester"}),
 	    ;
 	    private final int sound;
 	    private final String[] itemNames;
