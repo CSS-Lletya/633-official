@@ -41,7 +41,7 @@ public final class PotteryOven extends ProducingSkillAction {
 	public void onProduce(Task t, boolean success) {
 		if(success) {
 			amount--;
-			player.getAudioManager().sendSound(Sounds.POTTERY);
+			player.getAudioManager().sendSound(Sounds.POTTERY_OVEN);
 			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced).getName() + "_Pottery_Crafted").addStatistic("Items_Pottery_Crafted");
 			if(amount <= 0)
 				t.cancel();

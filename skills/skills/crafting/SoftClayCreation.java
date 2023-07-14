@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
+import com.rs.game.player.actions.FillAction.Filler;
 import com.rs.game.task.Task;
 
 import skills.DestructionSkillAction;
@@ -12,11 +13,11 @@ import skills.Skills;
 
 public final class SoftClayCreation extends DestructionSkillAction {
 
-	Item waterSourceItem;
+	public Filler[] waterSourceItem;
 	
-	public SoftClayCreation(Player player, Item waterSourceItem) {
+	public SoftClayCreation(Player player, Filler[] fillers) {
 		super(player, Optional.empty());
-		this.waterSourceItem = waterSourceItem;
+		this.waterSourceItem = fillers;
 	}
 
 	@Override
@@ -37,16 +38,18 @@ public final class SoftClayCreation extends DestructionSkillAction {
 	@Override
 	public void onDestruct(Task t, boolean success) {
 		if (success) {
-			if (player.getInventory().canRemove(waterSourceItem.getId(), 1) && player.getInventory().canRemove(ItemNames.CLAY_434, 1)) {
-				player.getInventory().addItem(new Item(ItemNames.SOFT_CLAY_1761));
-			} 
+			Filler.VALUES.stream().filter(ws -> player.getInventory().canRemove(ws.getFilled().getId(), 1) && player.getInventory().canRemove(ItemNames.CLAY_434, 1))
+			.forEach(sf -> {
+					player.getInventory().replaceItems(sf.getFilled(), sf.getEmpty());
+					player.getInventory().addItem(new Item(ItemNames.SOFT_CLAY_1761));
+			});
 		}
 		t.cancel();
 	}
 
 	@Override
 	public int delay() {
-		return 2;
+		return 1;
 	}
 
 	@Override

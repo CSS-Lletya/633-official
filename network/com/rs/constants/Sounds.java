@@ -45,6 +45,7 @@ public interface Sounds {
 	int TELEPORT_OTHER = 199;
 	int TELEPORT_TAB_BREAKING = 979;
 	int TELE_GRAB_SPELL = 192;//3008 is ending, 192 is full spell (seemingly)
+	int TELE_GRAB_ON_IMPTACT = 3007;
 	int WARRIORS_GUILD_ANIMATOR_HUMMING = 1909;//not working?
 	int SKILL_RESTORING = 2674;
 	int PLAYER_HEAVY_STUNNED_STATE = 3201;
@@ -131,10 +132,16 @@ public interface Sounds {
 	int WATER_SPLASHING = 2496; //linked to JUMPING_INTO, or anything relevant too.
 	int LOOM_WEAVING = 2587;
 	int POTTERY = 2588;
+	int POTTERY_OVEN = 2580;
 	int GEM_SMASHING = 2589;
 	int AMULET_STRINGING = 2593;
 	int ANTIFIRE_EFFECTS_REMOVED = 2607;
 	int ATTACH_SOMETHING = 2287;
+	int VIAL_MIXING = 2611;
+	int PESTLE_AND_MORTAR_GRINDING = 2608;
+	int POISON_HITSPLAT = 2408;
+	int JUMP_IN_WATER = 3832;
+	
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;

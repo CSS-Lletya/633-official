@@ -73,6 +73,7 @@ public class InterfaceOnFloorItemPacket implements OutgoingPacketListener {
 	                    if (!wearingStaff(player, item.getId())) {
 	                    	player.getInventory().deleteItem(563, 1);
 	                    }
+	                    player.getAudioManager().sendSound(Sounds.TELE_GRAB_ON_IMPTACT);
 	                    player.getInventory().deleteItem(556, 1);
 	                    FloorItem.removeGroundItem(player, item);
 	                }, Ticks.fromSeconds(2));

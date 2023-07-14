@@ -9,6 +9,7 @@ import com.rs.game.item.UseWith;
 import com.rs.game.npc.familiar.Familiar.SpecialAttack;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
+import com.rs.game.player.actions.FillAction.Filler;
 import com.rs.game.player.content.ItemCombine;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacketListener;
@@ -70,8 +71,8 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 		IntStream.of(227, 1761, 1921, 1929, 3735, 19994, 1937, 5340, 5340, 5340, 5340, 5340, 5340, 5340, 5340, 7690)
 				.filter(id -> fromItemId == id || toItemId == id)
 				.forEach(waterSource -> new UseWith(new Item(waterSource), new Item(ItemNames.CLAY_434)).execute(usedWith, itemUsed,
-						() -> new SoftClayCreation(player, new Item(waterSource)).start()));
-		
+						() -> new SoftClayCreation(player, Filler.values()).start()));
+		 
 		InventoryPluginDispatcher.execute(player, new Item(fromItemId), new Item(toItemId), toSlotId, fromSlotId);
 		if (Enchanting.cast(player, new Item(toItemId), fromButtonId, toItemId)) {
 			return;

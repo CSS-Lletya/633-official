@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.constants.InterfaceVars;
+import com.rs.constants.Sounds;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.player.Hit;
@@ -71,6 +72,7 @@ public final class CombatPoisonEffect extends CombatEffect {
 			this.removeOn(entity);
 			return;
 		}
+		entity.ifPlayer(p -> p.getAudioManager().sendSound(Sounds.POISON_HITSPLAT));
 		entity.applyHit(new Hit(entity, entity.getPoisonDamage().get() * 10, HitLook.POISON_DAMAGE));
 		entity.getPoisonDamage().decrementAndGet();
 	}

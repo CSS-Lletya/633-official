@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -59,6 +60,7 @@ public final class Grinding extends ProducingSkillAction {
 		}
 		if(firstItem.getId() == PESTLE_MORTAR.getId() && secondItem.getId() == grinding.definition.item.getId() || firstItem.getId() == grinding.definition.item.getId() && secondItem.getId() == PESTLE_MORTAR.getId()) {
 			grinding.start();
+			player.getAudioManager().sendSound(Sounds.PESTLE_AND_MORTAR_GRINDING);
 			return true;
 		}
 		return false;

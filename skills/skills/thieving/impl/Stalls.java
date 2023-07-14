@@ -1,16 +1,19 @@
 package skills.thieving.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
+import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.TextUtils;
+import com.rs.utilities.Utility;
 
 import skills.Skills;
 import skills.thieving.Thieving;
@@ -72,6 +75,10 @@ public final class Stalls extends Thieving {
 	@Override
 	public boolean canInit() {
 		String name = object.getDefinitions().getName();
+		if (player.getCombatDefinitions().isUnderCombat()) {
+			player.getPackets().sendGameMessage("You cant steal from the market stall during combat!");
+			return false;
+		}
 		if (getPlayer().getSkills().getLevel(Skills.THIEVING) < requirement()) {
 			getPlayer().getPackets().sendGameMessage("You need a thieving level of " + requirement() + " to steal from " + TextUtils.appendIndefiniteArticle(name) + ".");
 			return false;
@@ -86,6 +93,7 @@ public final class Stalls extends Thieving {
 		}
 		player.getDetails().getThievingStun().reset();
 		player.getPackets().sendGameMessage("You attempt to steal " + stall.message + "");
+		checkGuards(player);
 		return true;
 	}
 
@@ -96,7 +104,10 @@ public final class Stalls extends Thieving {
 
 	@Override
 	public void onExecute(Task t) {
-		player.getPackets().sendGameMessage("You steal a " + loot.getName().toLowerCase() + " from the " + object.getDefinitions().getName().toLowerCase() +".");
+		if (loot.getId() == 1987) {
+			player.getPackets().sendGameMessage("You steal grapes from the grape stall.");
+		} else
+			player.getPackets().sendGameMessage("You steal a " + loot.getName().toLowerCase() + " from the " + object.getDefinitions().getName().toLowerCase() +".");
 		player.getDetails().getStatistics()
 		.addStatistic(ItemDefinitions.getItemDefinitions(loot.getId()).getName() + "_Taken_From_Stall")
 		.addStatistic("Stalls_Thieved");
@@ -105,7 +116,7 @@ public final class Stalls extends Thieving {
 
 	@Override
 	public void onStop(boolean success) {
-		if(success && stall == StallData.SEED)
+		if(success)
 			World.get().submit(new StallTask(this, object));
 	}
 
@@ -252,4 +263,34 @@ public final class Stalls extends Thieving {
 	public int getSkillId() {
 		return Skills.THIEVING;
 	}
+	
+    public static void checkGuards(Player player) {
+        NPC guard = null;
+        int lastDistance = -1;
+        for (int regionId : player.getMapRegionsIds()) {
+            List<Short> npcIndexes = World.getRegion(regionId).getNpcsIndexes();
+            if (npcIndexes == null)
+                continue;
+            for (int npcIndex : npcIndexes) {
+                NPC npc = World.getNPCs().get(npcIndex);
+                if (npc == null)
+                    continue;
+                if (!isGuard(npc) || npc.getCombat().underCombat() || npc.isDead() || !npc.withinDistance(player, 4))
+                    continue;
+                int distance = Utility.getDistance(npc.getX(), npc.getY(), player.getX(), player.getY());
+                if (lastDistance == -1 || lastDistance > distance) {
+                    guard = npc;
+                    lastDistance = distance;
+                }
+            }
+        }
+        if (guard != null) {
+//            guard.setNextForceTalk(new ForceTalk(""Hey! Get your hands off there!""));
+            guard.setTarget(player);
+        }
+    }
+    
+    public static boolean isGuard(NPC npc) {
+    	return npc.getDefinitions().getName().toLowerCase().contains("guard");
+    }
 }

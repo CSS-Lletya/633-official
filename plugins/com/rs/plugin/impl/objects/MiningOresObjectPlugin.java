@@ -44,7 +44,7 @@ public class MiningOresObjectPlugin extends ObjectListener {
 			.filter(data -> Arrays.stream(data.getObject()).anyMatch(ore -> ore == object.getId())).findFirst()
 			.ifPresent(data -> {
 				String message = data.toString().concat(" ore").replace("_", " ");
-				World.get().submit(new Task(data.getProspectdelay(), false) {
+				World.get().submit(new Task(data.getProspectdelay()) {
 					@Override
 					public void execute() {
 						player.getAudioManager().sendSound(Sounds.PROSPECTING);

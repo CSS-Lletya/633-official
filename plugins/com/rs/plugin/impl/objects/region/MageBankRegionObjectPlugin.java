@@ -51,6 +51,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 				@Override
 				protected void execute() {
 					player.getInterfaceManager().closeInterfaces();
+					player.getAudioManager().sendSound(Sounds.JUMP_IN_WATER);
 					handlePool(player, destination, object);
 					cancel();
 				}

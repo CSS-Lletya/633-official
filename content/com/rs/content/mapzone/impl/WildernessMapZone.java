@@ -6,11 +6,13 @@ import com.rs.constants.Sounds;
 import com.rs.content.mapzone.MapZone;
 import com.rs.game.Entity;
 import com.rs.game.map.GameObject;
+import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Player;
 import com.rs.game.player.type.CombatEffectType;
+import com.rs.game.task.Task;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
@@ -123,9 +125,35 @@ public class WildernessMapZone extends MapZone {
 			player.getPackets().sendGameMessage("It seems it is locked, maybe you should try something else.");
 			return false;
 		}
+		if (player.getY() == 3962) {
+			GateNorthOut(player, object);
+			return true;
+		} else if (player.getY() == 3958) {
+			GateSouthOut(player, object);
+			return true;
+		} else if (player.getY() == 3963 || player.getY() == 3957) {
+			player.getPackets().sendGameMessage("This gate is locked from the inside.");
+			return false;
+		}
 		return true;
 	}
 
+	@java.lang.Override
+	public boolean processObjectClick2(Player player, GameObject object) {
+		if (player.getSkills().getTrueLevel(Skills.THIEVING) < 60) {
+			player.dialogue(d -> d.mes("You need atleast an level of 60 thieving to picklock this door."));
+			return false;
+		}
+		if (!player.getInventory().containsItem(1523, 1)) {
+			player.dialogue(d -> d.mes("You need an Lockpick to picklock this gate."));
+			return false;
+		}
+		if (player.getY() == 3958 || player.getY() == 3962) {
+			player.getPackets().sendGameMessage("You can't picklock from the inside.");
+			return false;
+		}
+		return true;
+	}
 	@Override
 	public void sendInterfaces(Player player) {
 		if (isAtWild(player))
@@ -252,5 +280,144 @@ public class WildernessMapZone extends MapZone {
 	public void finish(Player player) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public static void GateNorthOut(final Player player, final GameObject object) {
+		World.get().submit(new Task(1) {
+			@Override
+			protected void execute() {
+				player.getMovement().lock(2);
+				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+						object.getX(), object.getY() - 1, object.getPlane());
+				if (GameObject.removeObjectTemporary(object, 2))
+					GameObject.spawnObjectTemporary(openedDoor, 2);
+				player.addWalkSteps(object.getX(), object.getY(), -1, false);
+			}
+		});
+
+	}
+
+	public static void GateSouthOut(final Player player, final GameObject object) {
+		World.get().submit(new Task(1) {
+			@Override
+			protected void execute() {
+				player.getMovement().lock(2);
+				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+						object.getX(), object.getY() + 1, object.getPlane());
+				if (GameObject.removeObjectTemporary(object, 2))
+					GameObject.spawnObjectTemporary(openedDoor, 2);
+				player.addWalkSteps(object.getX(), object.getY(), -1, false);
+			}
+		});
+	}
+
+	public static void GateNorth(final Player player, final GameObject object) {
+		player.addWalkSteps(object.getX(), object.getY(), -1, false);
+		World.get().submit(new Task(1) {
+			@Override
+			protected void execute() {
+				player.getMovement().lock(2);
+				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+						object.getX(), object.getY() - 1, object.getPlane());
+				if (GameObject.removeObjectTemporary(object, 2))
+					GameObject.spawnObjectTemporary(openedDoor, 2);
+				player.addWalkSteps(object.getX(), object.getY() - 1, -1, false);
+			}
+		});
+	}
+
+	public static void GateSouth(final Player player, final GameObject object) {
+		player.addWalkSteps(object.getX(), object.getY(), -1, false);
+		World.get().submit(new Task(1) {
+			@Override
+			protected void execute() {
+				player.getMovement().lock(2);
+				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+						object.getX(), object.getY() + 1, object.getPlane());
+				if (GameObject.removeObjectTemporary(object, 2))
+					GameObject.spawnObjectTemporary(openedDoor, 2);
+				player.addWalkSteps(object.getX(), object.getY() + 1, -1, false);
+			}
+		});
+	}
+	
+	public static void LeaveEastDoor(final Player player, final GameObject object) {
+		player.addWalkSteps(object.getX(), object.getY(), -1, false);
+		World.get().submit(new Task(1) {
+			@Override
+			protected void execute() {
+				player.getMovement().lock(2);
+				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+						object.getX() + 1, object.getY(), object.getPlane());
+				if (GameObject.removeObjectTemporary(object, 2))
+					GameObject.spawnObjectTemporary(openedDoor, 2);
+				player.addWalkSteps(object.getX() + 1, object.getY(), 1, false);
+			}
+		});
+	}
+
+	public static void LeaveWestDoor(final Player player, final GameObject object) {
+		player.addWalkSteps(object.getX(), object.getY(), -1, false);
+		World.get().submit(new Task(1) {
+			@Override
+			protected void execute() {
+				player.getMovement().lock(2);
+				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+						object.getX() - 1, object.getY(), object.getPlane());
+				if (GameObject.removeObjectTemporary(object, 2))
+					GameObject.spawnObjectTemporary(openedDoor, 2);
+				player.addWalkSteps(object.getX() - 1, object.getY(), 1, false);
+			}
+		});
+	}
+
+	public static void LeaveNorthDoor(final Player player, final GameObject object) {
+		player.addWalkSteps(object.getX(), object.getY(), -1, false);
+		World.get().submit(new Task(1) {
+			@Override
+			protected void execute() {
+				player.getMovement().lock(2);
+				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+						object.getX(), object.getY() + 1, object.getPlane());
+				if (GameObject.removeObjectTemporary(object, 2))
+					GameObject.spawnObjectTemporary(openedDoor, 2);
+				player.addWalkSteps(object.getX(), object.getY() + 1, 1, false);
+			}
+		});
+
+	}
+
+	public static void EnterEastDoor(final Player player, final GameObject object) {
+		if (player.getX() == 3045) {
+			player.getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX() + 1, object.getY(), object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			player.addWalkSteps(object.getX() - 1, object.getY(), 1, false);
+		}
+	}
+
+	public static void EnterWestDoor(final Player player, final GameObject object) {
+		if (player.getX() == 3037) {
+			player.getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX() - 1, object.getY(), object.getPlane());// Coordinations
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			player.addWalkSteps(object.getX(), object.getY(), 1, false);
+		}
+	}
+
+	public static void EnterNorthDoor(final Player player, final GameObject object) {
+		if (player.getY() == 3960) {
+			player.getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX(), object.getY() + 1, object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			player.addWalkSteps(object.getX(), object.getY(), 1, false);
+
+		}
 	}
 }

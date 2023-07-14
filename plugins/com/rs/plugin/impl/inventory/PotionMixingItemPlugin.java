@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.inventory;
 
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
@@ -56,6 +57,7 @@ public class PotionMixingItemPlugin extends InventoryListener {
 					new Item(pot.getIdForDoses(vialDoses), 1));
 			player.getInventory().refresh(fromSlot);
 			player.getInventory().refresh(toSlot);
+			player.getAudioManager().sendSound(Sounds.VIAL_MIXING);
 			player.getPackets().sendGameMessage("You split the potion between the two vials.", true);
 			return;
 		}
