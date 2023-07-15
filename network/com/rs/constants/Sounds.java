@@ -141,6 +141,7 @@ public interface Sounds {
 	int PESTLE_AND_MORTAR_GRINDING = 2608;
 	int POISON_HITSPLAT = 2408;
 	int JUMP_IN_WATER = 3832;
+	int TELETAB_BREAKING = 979;
 	
 	
 	//combat specials, rest of combat will be defined after rework
