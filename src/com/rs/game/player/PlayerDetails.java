@@ -75,7 +75,12 @@ public final class PlayerDetails {
 	/**
 	 * A collection of toggles for herbs to be incinerated
 	 */
-	public boolean[] herbicideSettings;
+	private boolean[] herbicideSettings;
+	
+	/**
+	 * Represents the last known npc interacted with. Useful for dialogues that aren't aligned normally. (Example: Pet puppy picking)
+	 */
+	private int lastNPCInteracted;
 	
 	/**
 	 * Mutable values stored for specified uses It's more ideal to use this system

@@ -13,7 +13,7 @@ public class HerbicideHandler {
 			return false;
 		if (player.getInventory().containsItem(19675, 1)) {
 			for (HerbicideSettings settings : HerbicideSettings.values()) {
-				if (settings.isHerb(item.getId()) && player.getDetails().herbicideSettings[i]) {
+				if (settings.isHerb(item.getId()) && player.getDetails().getHerbicideSettings()[i]) {
 					player.getSkills().addExperience(Skills.HERBLORE, settings.getExperience());
 					player.getPackets().sendGameMessage("The herbicide instantly incinerates the"
 							+ item.getName().replaceAll("Grimy", "").replaceAll("Clean", "") + ".", true);

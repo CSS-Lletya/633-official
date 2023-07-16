@@ -58,6 +58,7 @@ public class Shop {
 	}
 
 	public void addPlayer(final Player player) {
+		player.getInterfaceManager().closeChatBoxInterface();
 		viewingPlayers.add(player);
 		player.getAttributes().get(Attribute.SHOP).set(this);
 		player.setCloseInterfacesEvent(() -> {

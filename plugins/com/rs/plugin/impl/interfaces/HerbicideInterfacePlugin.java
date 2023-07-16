@@ -14,8 +14,8 @@ public class HerbicideInterfacePlugin extends RSInterfaceListener {
     public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
         if (componentId >= 32 && componentId <= 50) {
             int id = componentId == 50 ? 16 : (componentId - 32);
-            player.getDetails().herbicideSettings[id] = !player.getDetails().herbicideSettings[id];
-            player.getPackets().sendGameMessage(HERB_NAMES[id] + (player.getDetails().herbicideSettings[id] ? "s are now being burnt for 2x cleaning experience." : "s are no longer being burnt for 2x cleaning experience."));
+            player.getDetails().getHerbicideSettings()[id] = !player.getDetails().getHerbicideSettings()[id];
+            player.getPackets().sendGameMessage(HERB_NAMES[id] + (player.getDetails().getHerbicideSettings()[id] ? "s are now being burnt for 2x cleaning experience." : "s are no longer being burnt for 2x cleaning experience."));
 //            player.getPackets().sendIComponentSprite(1006, componentId, player.getDetails().herbicideSettings[id] ? 2548 : 2549);
             //TODO: function will work; but this'll be uncommented when the packet is fixed.
             return;
