@@ -2,6 +2,7 @@ package skills.magic;
 
 import java.util.Optional;
 
+import com.rs.GameConstants;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
@@ -29,7 +30,9 @@ public enum TeleportType {
 	TRAINING_PORTAL(24, Optional.of(Animations.FADE_AWAY), Optional.of(Animations.FADE_BACK_IN), Optional.of(Graphic.CLOUD_COVERING_PLAYER_RAPIDLY), Optional.empty(), Optional.empty()),
 	BOSS_PORTAL(3, Optional.of(Animations.FADE_AWAY), Optional.of(Animations.FADE_BACK_IN), Optional.of(Graphic.RED_WHITE_BEAMS_COVERING_PLAYER_RAPIDLY), Optional.empty(), Optional.empty()),
 	PVP_PORTAL(5, Optional.of(Animations.LEAP_INTO_AIR), Optional.of(Animations.FADE_BACK_IN), Optional.empty(), Optional.empty(), Optional.empty()),
-	BLANK(1, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+	BLANK(1, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()),
+	MODERN_HOME(1, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(SpecialEvent.HOME)),
+	;
 	
 	/**
 	 * The ending delay for this teleport.
@@ -99,13 +102,94 @@ enum SpecialEvent {
 					case 4:
 						player.setNextAnimation(Animations.RESET_ANIMATION);
 						player.setNextGraphics(Graphic.RESET_GRAPHICS);
+						cancel();
 						break;
 					}
 				}
 			});
 			return true;
 		}
-	};
+	},
+	HOME {
+		@Override
+		protected boolean handleSpecialEvent(Player player, WorldTile destination) {
+			if (!player.getDetails().getHomeDelay().finished()) {
+				int minutes = player.getDetails().getHomeDelay().getMinutes();
+				player.getPackets().sendGameMessage("You need to wait another " + minutes  + " " + (minutes == 1 ? "minute" : "minutes") + " to cast this spell.");
+				return false;
+			}
+			World.get().submit(new Task(1) {
+				int ticks;
+				private final int[] ANIMATIONS = { 1722, 1723, 1724, 1725, 2798, 2799, 2800, 3195, 4643, 4645, 4646, 4847, 4848,
+						4849, 4850, 4851, 4852 };
+				private int[] GRAPHICS = {
+						800, 801, 802, 1703, 1704, 1705, 1706, 1707, 1708, 1709, 1710, 1711, 1712, 1713 };
+				@Override
+				protected void execute() {
+					if (ticks++ == 0) {
+						player.setNextAnimation(new Animation(ANIMATIONS[0]));
+						player.setNextGraphics(new Graphics(GRAPHICS[0]));
+					} else if (ticks == 1) {
+						player.setNextGraphics(new Graphics(GRAPHICS[0]));
+						player.setNextAnimation(new Animation(ANIMATIONS[1]));
+					} else if (ticks == 2) {
+						player.setNextGraphics(new Graphics(GRAPHICS[1]));
+						player.setNextAnimation(new Animation(ANIMATIONS[2]));
+					} else if (ticks == 3) {
+						player.setNextGraphics(new Graphics(GRAPHICS[2]));
+						player.setNextAnimation(new Animation(ANIMATIONS[3]));
+					} else if (ticks == 4) {
+						player.setNextGraphics(new Graphics(GRAPHICS[3]));
+						player.setNextAnimation(new Animation(ANIMATIONS[4]));
+					} else if (ticks == 5) {
+						player.setNextGraphics(new Graphics(GRAPHICS[3]));
+						player.setNextAnimation(new Animation(ANIMATIONS[5]));
+					} else if (ticks == 6) {
+						player.setNextGraphics(new Graphics(GRAPHICS[3]));
+						player.setNextAnimation(new Animation(ANIMATIONS[6]));
+					} else if (ticks == 7) {
+						player.setNextGraphics(new Graphics(GRAPHICS[4]));
+						player.setNextAnimation(new Animation(ANIMATIONS[7]));
+					} else if (ticks == 8) {
+						player.setNextGraphics(new Graphics(GRAPHICS[5]));
+						player.setNextAnimation(new Animation(ANIMATIONS[8]));
+					} else if (ticks == 9) {
+						player.setNextGraphics(new Graphics(GRAPHICS[6]));
+						player.setNextAnimation(new Animation(ANIMATIONS[9]));
+					} else if (ticks == 10) {
+						player.setNextGraphics(new Graphics(GRAPHICS[7]));
+						player.setNextAnimation(new Animation(ANIMATIONS[10]));
+					} else if (ticks == 11) {
+						player.setNextGraphics(new Graphics(GRAPHICS[8]));
+						player.setNextAnimation(new Animation(ANIMATIONS[11]));
+					} else if (ticks == 12) {
+						player.setNextGraphics(new Graphics(GRAPHICS[9]));
+						player.setNextAnimation(new Animation(ANIMATIONS[12]));
+					} else if (ticks == 13) {
+						player.setNextGraphics(new Graphics(GRAPHICS[10]));
+						player.setNextAnimation(new Animation(ANIMATIONS[13]));
+					} else if (ticks == 14) {
+						player.setNextGraphics(new Graphics(GRAPHICS[11]));
+						player.setNextAnimation(new Animation(ANIMATIONS[14]));
+					} else if (ticks == 15) {
+						player.setNextGraphics(new Graphics(GRAPHICS[12]));
+						player.setNextAnimation(new Animation(ANIMATIONS[15]));
+					} else if (ticks == 15) {
+						player.setNextGraphics(new Graphics(GRAPHICS[13]));
+						player.setNextAnimation(new Animation(ANIMATIONS[16]));
+					} else if (ticks == 16) {
+						player.setNextWorldTile(GameConstants.START_PLAYER_LOCATION);
+						player.setNextGraphics(Graphic.RESET_GRAPHICS);
+						player.setNextAnimation(Animations.RESET_ANIMATION);
+						player.getDetails().getHomeDelay().start(60 * 30);
+						cancel();
+					}
+				}
+			});
+			return true;
+		}
+	}
+	;
 	
 	/**
 	 * Executes a special event that contains specific time-based occurances within the single event

@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.rs.game.player.type.impl.AntifireDetails;
 import com.rs.utilities.DynamicBoolean;
 import com.rs.utilities.MutableNumber;
+import com.rs.utilities.SecondsTimer;
 import com.rs.utilities.Stopwatch;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -90,6 +91,11 @@ public final class PlayerDetails {
 	 */
 	private Stopwatch boneBury = new Stopwatch(), thievingStun = new Stopwatch(), drinks = new Stopwatch(), food = new Stopwatch(), tolerance = new Stopwatch();
 
+	/**
+	 * A collection of Seconds timer
+	 */
+	private SecondsTimer homeDelay = new SecondsTimer();
+	
 	/**
 	 * A list of last known ips from the Player
 	 */
