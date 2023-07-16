@@ -267,7 +267,7 @@ public enum Pets {
 	 * Dragonkk's pet, as requested.
 	 */
 	FERRET(10092, -1, -1, 5559, -1, -1, 0.0, 99),
-	SEEKER(18505, -1, -1, 13090, -1, -1, 0.0, 1),
+	SEEKER(18505, -1, -1, 13090, -1, -1, 0.0, 85),
 
 	/**
 	 * Emperor's (me) pet.

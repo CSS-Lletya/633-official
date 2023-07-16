@@ -9,6 +9,8 @@ public class HerbicideHandler {
 
 	public static boolean handleDrop(Player player, Item item) {
 		int i = 0;
+		if (player.getSkills().getTrueLevel(Skills.HERBLORE) < 21)
+			return false;
 		if (player.getInventory().containsItem(19675, 1)) {
 			for (HerbicideSettings settings : HerbicideSettings.values()) {
 				if (settings.isHerb(item.getId()) && player.getDetails().herbicideSettings[i]) {

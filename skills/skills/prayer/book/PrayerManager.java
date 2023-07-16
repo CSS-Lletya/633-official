@@ -40,7 +40,6 @@ public class PrayerManager {
 		}
 	}
 	
-	//you can remove some conditions or reappply depending on your server theme
 	private boolean canUsePrayer(Prayer prayer) {
 		if (player.getSkills().getTrueLevel(Skills.PRAYER) < prayer.getReq()) {
 			player.getPackets().sendGameMessage("You need a prayer level of at least " + prayer.getReq() + " to use this prayer.");

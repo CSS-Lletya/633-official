@@ -490,20 +490,44 @@ public class ItemDefinitions {
 				skills.put(maxedSkill, getId() == 19709 ? 120 : 99);
 			itemRequiriments = skills;
 			
-			if (name.equals("Dragon defender")) {
-				itemRequiriments.put(Skills.ATTACK, 60);
-				itemRequiriments.put(Skills.DEFENCE, 60);
-			} else if (getId() == 8846) {
+			if (getId() == 8846) {
 				itemRequiriments.put(Skills.DEFENCE, 10);
-			} else if (getId() == 8847) {
+			}
+			if (getId() == 8847) {
 				itemRequiriments.put(Skills.DEFENCE, 10);
-			} else if (getId() == 8848) {
+			}
+			if (getId() == 8848) {
 				itemRequiriments.put(Skills.DEFENCE, 20);
-			} else if (getId() == 8849) {
+			} 
+			if (getId() == 8849) {
 				itemRequiriments.put(Skills.DEFENCE, 30);
-			} else if (getId() == 8850) {
+			}
+			if (getId() == 8850) {
 				itemRequiriments.put(Skills.DEFENCE, 40);
 			}
+			if (getId() == 18341) {
+				 itemRequiriments.put(Skills.ATTACK, 40);
+	             itemRequiriments.put(Skills.MAGIC, 53);
+	             itemRequiriments.put(Skills.DUNGEONEERING, 53);
+			}
+			if (getId() == 18342) {
+				 itemRequiriments.put(Skills.ATTACK, 40);
+	             itemRequiriments.put(Skills.MAGIC, 45);
+	             itemRequiriments.put(Skills.DUNGEONEERING, 45);
+			}
+			if (getId() == 19893) {
+				 itemRequiriments.put(Skills.DEFENCE, 50);
+	             itemRequiriments.put(Skills.SUMMONING, 50);
+	             itemRequiriments.put(Skills.DUNGEONEERING, 50);
+			}
+			if (getId() == 19888) {
+                itemRequiriments.put(Skills.PRAYER, 90);
+                itemRequiriments.put(Skills.DUNGEONEERING, 90);
+            }
+			if (getId() == 19888) {
+                itemRequiriments.put(Skills.PRAYER, 90);
+                itemRequiriments.put(Skills.DUNGEONEERING, 90);
+            }
 			if (getId() == 15241) {
                 itemRequiriments.put(Skills.RANGE, 75);
                 itemRequiriments.put(Skills.FIREMAKING, 61);

@@ -9,6 +9,8 @@ import skills.Skills;
 public class BoneCrusher {
 
 	public static boolean handleDrop(Player player, Item item) {
+		if (player.getSkills().getTrueLevel(Skills.PRAYER) < 21)
+			return false;
 		if (player.getInventory().containsAny(ItemNames.BONECRUSHER_18337)) {
 			Bone.VALUES.stream().filter(bone -> bone.getId() == item.getId()).forEach(bone -> {
 				player.getSkills().addExperience(Skills.PRAYER, Bone.getBone(item.getId()).get().getExperience() / 2);
