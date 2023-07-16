@@ -28,6 +28,7 @@ public final class PlayerDetails {
 		ipList = new ObjectArrayList<String>();
 		seenDungeon = new boolean[16];
 		statistics = new Statistics();
+		herbicideSettings = new boolean[17];
 	}
 
 	/**
@@ -70,6 +71,11 @@ public final class PlayerDetails {
 	 * A collection of 'seen' Dungeoneering resource areas
 	 */
 	private boolean[] seenDungeon;
+	
+	/**
+	 * A collection of toggles for herbs to be incinerated
+	 */
+	public boolean[] herbicideSettings;
 	
 	/**
 	 * Mutable values stored for specified uses It's more ideal to use this system

@@ -40,6 +40,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import skills.herblore.HerbicideHandler;
 import skills.prayer.BoneCrusher;
 import skills.prayer.DungeoneeringNecklaces;
 import skills.runecrafting.RunecraftingPouchDrop;
@@ -311,6 +312,8 @@ public class NPC extends Entity {
             RunecraftingPouchDrop.sendPouchDrop(player, this);
 		if (BoneCrusher.handleDrop(player, item))
 			return;
+		 if (HerbicideHandler.handleDrop(player, item))
+             return;
 		if (IntStream.of(8832, 8833,8834).anyMatch(id -> getId() == id))
 			FloorItem.addGroundItem(item, player, player, true, 60);
 		else
