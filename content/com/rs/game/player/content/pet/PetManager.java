@@ -9,6 +9,7 @@ import com.rs.game.npc.other.Pet;
 import com.rs.game.player.Player;
 
 import lombok.Data;
+import skills.Skills;
 
 /**
  * The pet manager.
@@ -64,6 +65,9 @@ public final class PetManager {
 			player.getPackets().sendGameMessage("You already have a follower.");
 			return true;
 		}
+		if (!hasRequirements(pets)) {
+			return true;
+		}
 		int baseItemId = pets.getBabyItemId();
 		PetDetails details = petDetails.get(baseItemId);
 		if (details == null) {
@@ -90,6 +94,26 @@ public final class PetManager {
 		}
 		return true;
 	}
+	
+	 /**
+     * Checks if the player has the requirements for the pet.
+     *
+     * @param pet The pet.
+     * @return {@code True} if so.
+     */
+    private boolean hasRequirements(Pets pet) {
+        switch (pet) {
+        case SEEKER:
+        	if (player.getSkills().getTrueLevel(Skills.DUNGEONEERING) < 85) {
+        		 player.getPackets().sendGameMessage("You need a dungeoneering level of at least 85 to use this pet.");
+                 return false;
+        	}
+        	break;
+            default:
+                break;
+        }
+        return true;
+    }
 
 	/**
 	 * Initializes the pet manager.
