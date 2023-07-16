@@ -103,7 +103,7 @@ public final class PlayerDetails {
 	private SecondsTimer homeDelay = new SecondsTimer(), chargeDelay = new SecondsTimer();
 	
 	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false), ownsHouse = new DynamicBoolean(false),
-			disableEquip = new DynamicBoolean(false),
+			disableEquip = new DynamicBoolean(false), augPrayerUnlocked = new DynamicBoolean(false), rigourPrayerUnlocked = new DynamicBoolean(false), renewalPrayerUnlocked = new DynamicBoolean(false),
 			toggleLootShare = new DynamicBoolean(),
 			allowChatEffects = new DynamicBoolean(), acceptAid = new DynamicBoolean(),
 			mouseButtons = new DynamicBoolean(), profanityFilter = new DynamicBoolean(),

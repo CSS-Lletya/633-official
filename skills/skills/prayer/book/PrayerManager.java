@@ -51,24 +51,24 @@ public class PrayerManager {
 			return false;
 		}
 		switch(prayer) {
-//		case RAPID_RENEWAL:
-//			if (!player.hasRenewalPrayer) {
-//				player.getPackets().sendGameMessage("You must unlock this prayer as a dungeoneering reward.");
-//				return false;
-//			}
-//			break;
-//		case RIGOUR:
-//			if (!player.hasRigour) {
-//				player.getPackets().sendGameMessage("You must unlock this prayer as a dungeoneering reward.");
-//				return false;
-//			}
-//			break;
-//		case AUGURY:
-//			if (!player.hasAugury) {
-//				player.getPackets().sendGameMessage("You must unlock this prayer as a dungeoneering reward.");
-//				return false;
-//			}
-//			break;
+		case RAPID_RENEWAL:
+			if (player.getDetails().getRenewalPrayerUnlocked().isFalse()) {
+				player.getPackets().sendGameMessage("You must unlock this prayer as a dungeoneering reward.");
+				return false;
+			}
+			break;
+		case RIGOUR:
+			if (player.getDetails().getRigourPrayerUnlocked().isFalse()) {
+				player.getPackets().sendGameMessage("You must unlock this prayer as a dungeoneering reward.");
+				return false;
+			}
+			break;
+		case AUGURY:
+			if (player.getDetails().getAugPrayerUnlocked().isFalse()) {
+				player.getPackets().sendGameMessage("You must unlock this prayer as a dungeoneering reward.");
+				return false;
+			}
+			break;
 		case CHIVALRY:
 		case PIETY:
 			if (player.getSkills().getTrueLevel(Skills.DEFENCE) < 70) {
