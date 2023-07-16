@@ -40,6 +40,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import skills.prayer.BoneCrusher;
+import skills.prayer.DungeoneeringNecklaces;
 import skills.runecrafting.RunecraftingPouchDrop;
 
 @Data
@@ -305,13 +307,15 @@ public class NPC extends Entity {
 	}
 
 	public void sendDrop(Player player, Item item) {
+		if (id == 2263 || id == 2264 || id == 2265)
+            RunecraftingPouchDrop.sendPouchDrop(player, this);
+		if (BoneCrusher.handleDrop(player, item))
+			return;
 		if (IntStream.of(8832, 8833,8834).anyMatch(id -> getId() == id))
 			FloorItem.addGroundItem(item, player, player, true, 60);
 		else
 			FloorItem.addGroundItem(item, new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()), player, true, 60);
-		if (id == 2263 || id == 2264 || id == 2265) {
-            RunecraftingPouchDrop.sendPouchDrop(player, this);
-        }
+		DungeoneeringNecklaces.handleNecklaces(player, item.getId());
 	}
 	
 	@Override
