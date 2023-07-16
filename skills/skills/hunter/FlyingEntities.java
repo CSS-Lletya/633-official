@@ -23,7 +23,7 @@ public enum FlyingEntities {
 			if (RandomUtils.random(2) == 0) {
 				Item charm = CHARMS[RandomUtils.random(CHARMS.length)];
 				int charmAmount = RandomUtils.random(charm.getAmount());
-				player.dialogue(d -> d.item(charm.getId(), charmAmount, "The impling was carrying a" + charm.getName().toLowerCase() + ".", charm.getId()));
+				player.dialogue(d -> d.item(charm.getId(), charmAmount, "The impling was carrying a" + charm.getName().toLowerCase() + "."));
 				player.getInventory().addItem(charm.getId(), charmAmount);
 			}
 		}

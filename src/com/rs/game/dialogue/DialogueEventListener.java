@@ -21,50 +21,50 @@ public abstract class DialogueEventListener implements Expression {
 
 	protected Object[] args;
 
-	public DialogueEventListener mes(String message, Object... args) {
-		dialogueEvent.add(new DialogueEvent((byte) 0, String.format(message, args)));
+	public DialogueEventListener mes(String... message) {
+		dialogueEvent.add(new DialogueEvent((byte) 0, message));
 		return this;
 	}
 
-	public DialogueEventListener player(int face, String message, Object... args) {
-		dialogueEvent.add(new DialogueEntityEvent(true, face, String.format(message, args)));
+	public DialogueEventListener player(int face, String... message) {
+		dialogueEvent.add(new DialogueEntityEvent(true, face, message));
 		return this;
 	}
 
-	public DialogueEventListener npc(int face, String message, Object... args) {
-		dialogueEvent.add(new DialogueEntityEvent(false, face, String.format(message, args)));
+	public DialogueEventListener npc(int face, String... message) {
+		dialogueEvent.add(new DialogueEntityEvent(false, face, message));
 		return this;
 	}
 
-	public DialogueEventListener item(int itemId, String message, Object... args) {
-		return item(itemId, 1, message, args);
+	public DialogueEventListener item(int itemId, String message) {
+		return item(itemId, 1, message);
 	}
 
-	public DialogueEventListener item(int itemId, int amount, String message, Object... args) {
-		dialogueEvent.add(new DialogueItemEvent(itemId, amount, String.format(message, args)));
+	public DialogueEventListener item(int itemId, int amount, String message) {
+		dialogueEvent.add(new DialogueItemEvent(itemId, amount, message));
 		return this;
 	}
 
 	public void option(String option1, Runnable task) {
-		dialogueEvent.add(new DialogueOptionEvent("", option1, task));
+		dialogueEvent.add(new DialogueOptionEvent("Select an Option", option1, task));
 	}
 
 	public void option(String option1, Runnable task1, String option2, Runnable task2) {
-		dialogueEvent.add(new DialogueOptionEvent("", option1, task1, option2, task2));
+		dialogueEvent.add(new DialogueOptionEvent("Select an Option", option1, task1, option2, task2));
 	}
 
 	public void option(String option1, Runnable task1, String option2, Runnable task2, String option3, Runnable task3) {
-		dialogueEvent.add(new DialogueOptionEvent("", option1, task1, option2, task2, option3, task3));
+		dialogueEvent.add(new DialogueOptionEvent("Select an Option", option1, task1, option2, task2, option3, task3));
 	}
 
 	public void option(String option1, Runnable task1, String option2, Runnable task2, String option3, Runnable task3,
 			String option4, Runnable task4) {
-		dialogueEvent.add(new DialogueOptionEvent("", option1, task1, option2, task2, option3, task3, option4, task4));
+		dialogueEvent.add(new DialogueOptionEvent("Select an Option", option1, task1, option2, task2, option3, task3, option4, task4));
 	}
 
-	public void option(String title, String option1, Runnable task1, String option2, Runnable task2, String option3,
+	public void option(String option1, Runnable task1, String option2, Runnable task2, String option3,
 			Runnable task3, String option4, Runnable task4, String option5, Runnable task5) {
-		dialogueEvent.add(new DialogueOptionEvent(title, option1, task1, option2, task2, option3, task3, option4, task4,
+		dialogueEvent.add(new DialogueOptionEvent("Select an Option", option1, task1, option2, task2, option3, task3, option4, task4,
 				option5, task5));
 	}
 
@@ -111,7 +111,7 @@ public abstract class DialogueEventListener implements Expression {
 	 * 
 	 * @return the name of the option the player clicked
 	 */
-	public String button_name() {
+	public String buttonName() {
 		DialogueEvent previousDialogue = dialogueEvent.get(Math.max(0, page));
 		if (page > 0 && previousDialogue.getType() == 3) {
 			DialogueOptionEvent event = (DialogueOptionEvent) previousDialogue;
@@ -123,6 +123,8 @@ public abstract class DialogueEventListener implements Expression {
 	public int ordinalButton(int button) {
 		return new int[] { 0, 0, 0, 1, 2, 3, 4, 5 }[button];
 	}
+	
+	private int interfaceId;
 
 	public void listenToDialogueEvent(int button) {
 		DialogueEvent previousDialogue = dialogueEvent.get(Math.max(0, page - 1));
@@ -149,34 +151,34 @@ public abstract class DialogueEventListener implements Expression {
 
 		switch (dialogue.getType()) {
 		case 0:
-			player.getInterfaceManager().sendChatBoxInterface(210);
-			player.getPackets().sendIComponentText(210, 1, dialogue.getText());
-			player.getPackets().sendHideIComponent(210, 2, dialogue.isRemoveContinue());
+			interfaceId = 209 + dialogue.getTexts().length;
+			for (int line = 0; line < dialogue.getTexts().length; line++)
+				player.getPackets().sendIComponentText(interfaceId, 1+ line, dialogue.getTexts()[line]);
+			player.getInterfaceManager().sendChatBoxInterface(interfaceId);
 
 			break;
 		case 1: {
 			DialogueEntityEvent event = (DialogueEntityEvent) dialogue;
 
 			NPC npc = args.length > 0 ? (NPC) args[0] : null;
-
+			
 			if (event.isPlayer()) {
-
-				player.getInterfaceManager().sendChatBoxInterface(64);
-				player.getPackets().sendIComponentText(64, 3, player.getDisplayName());
-				player.getPackets().sendIComponentText(64, 4, event.getText());
-				player.getPackets().sendPlayerOnIComponent(64, 2);
-				player.getPackets().sendIComponentAnimation(event.getFace(), 64, 2);
-				player.getPackets().sendHideIComponent(64, 5, event.isRemoveContinue());
+				interfaceId = 63 + dialogue.getTexts().length;
+				for (int line = 0; line < dialogue.getTexts().length; line++)
+					player.getPackets().sendIComponentText(interfaceId, 4 + line, dialogue.getTexts()[line]);
+				player.getInterfaceManager().sendChatBoxInterface(interfaceId);
+				player.getPackets().sendIComponentText(interfaceId, 3, player.getDisplayName());
+				player.getPackets().sendPlayerOnIComponent(interfaceId, 2);
+				player.getPackets().sendIComponentAnimation(event.getFace(), interfaceId, 2);
 
 			} else {
-
-				player.getInterfaceManager().sendChatBoxInterface(241);
-				player.getPackets().sendIComponentText(241, 3, header(npc));
-				player.getPackets().sendIComponentText(241, 4, event.getText());
-				player.getPackets().sendNPCOnIComponent(241, 2, npc.getId());
-				player.getPackets().sendHideIComponent(241, 5, event.isRemoveContinue());
-				player.getPackets().sendIComponentAnimation(event.getFace(), 241, 2);
-
+				interfaceId = 240 + dialogue.getTexts().length; 
+				for (int line = 0; line < dialogue.getTexts().length; line++)
+					player.getPackets().sendIComponentText(interfaceId, 4 + line, dialogue.getTexts()[line]);
+				player.getInterfaceManager().sendChatBoxInterface(interfaceId);
+				player.getPackets().sendIComponentText(interfaceId, 3, header(npc));
+				player.getPackets().sendNPCOnIComponent(interfaceId, 2, npc.getId());
+				player.getPackets().sendIComponentAnimation(event.getFace(), interfaceId, 2);
 			}
 
 			break;
@@ -184,7 +186,8 @@ public abstract class DialogueEventListener implements Expression {
 		case 2: {
 			DialogueItemEvent event2 = (DialogueItemEvent) dialogue;
 			player.getInterfaceManager().sendChatBoxInterface(131);
-			player.getPackets().sendIComponentText(131, 1, event2.getText());
+			for (int line = 0; line < dialogue.getTexts().length; line++)
+				player.getPackets().sendIComponentText(131, 1 + line, dialogue.getTexts()[line]);
 			player.getPackets().sendItemOnIComponent(131, 2, event2.getItemId(), event2.getAmount());
 			player.getPackets().sendHideIComponent(131, 3, event2.isRemoveContinue());
 
@@ -197,7 +200,7 @@ public abstract class DialogueEventListener implements Expression {
 			String[] options = event3.getOptionTextArray();
 			int interfaceId = 229
 					+ (options.length == 2 ? -1 : options.length == 5 ? options.length + 1 : options.length - 1);
-
+			System.out.println(interfaceId);
 			for (String string : options) {
 				player.getPackets().sendIComponentText(interfaceId, index++, string);
 			}
@@ -206,20 +209,20 @@ public abstract class DialogueEventListener implements Expression {
 
 			break;
 		}
-		case 4: {
-			/*
-			 * NOTE: No actual function, this is just a reference point to show that there
-			 * can be two items in the items box, otherwise use type 2 method.
-			 */
-			DialogueItemEvent event4 = (DialogueItemEvent) dialogue;
-			player.getInterfaceManager().sendChatBoxInterface(131);
-			player.getPackets().sendItemOnIComponent(131, 0, event4.getItemId(), event4.getAmount());
-			player.getPackets().sendItemOnIComponent(131, 2, event4.getItemId(), event4.getAmount());
-			player.getPackets().sendIComponentText(131, 1, event4.getText());
-			player.getPackets().sendHideIComponent(131, 3, event4.isRemoveContinue());
-
-			break;
-		}
+//		case 4: {
+//			/*
+//			 * NOTE: No actual function, this is just a reference point to show that there
+//			 * can be two items in the items box, otherwise use type 2 method.
+//			 */
+//			DialogueItemEvent event4 = (DialogueItemEvent) dialogue;
+//			player.getInterfaceManager().sendChatBoxInterface(131);
+//			player.getPackets().sendItemOnIComponent(131, 0, event4.getItemId(), event4.getAmount());
+//			player.getPackets().sendItemOnIComponent(131, 2, event4.getItemId(), event4.getAmount());
+//			player.getPackets().sendIComponentText(131, 1, event4.getText());
+//			player.getPackets().sendHideIComponent(131, 3, event4.isRemoveContinue());
+//
+//			break;
+//		}
 		}
 	}
 

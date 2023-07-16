@@ -18,7 +18,7 @@ public class Overseer extends DialogueEventListener {
 	public void start() {
 		zone = (SawmillMapZone) player.getCurrentMapZone().get();
 		npc(sad, "Yes? What do you want? I'm very busy!");
-		option("Select an option...", "I'd like to complete the job order", () -> {
+		option("I'd like to complete the job order", () -> {
 			if (!zone.isOrderCompleted(player)) {
 				npc(sad, "I don't think you've got all the planks you <br>need for this order. Come back when you're done.");
 			} else {
