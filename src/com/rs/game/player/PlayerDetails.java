@@ -77,9 +77,9 @@ public final class PlayerDetails {
 	 */
 	private final MutableNumber poisonImmunity = new MutableNumber(), skullId = new MutableNumber(),
 			questPoints = new MutableNumber(), skullTimer = new MutableNumber(), teleBlockDelay = new MutableNumber(),
-			chargeDelay = new MutableNumber(), prayerDelay = new MutableNumber(), essenceTeleporter = new MutableNumber(),
+			prayerDelay = new MutableNumber(), essenceTeleporter = new MutableNumber(),
 			gravestone = new MutableNumber(), censoredWordCount = new MutableNumber(), incubatorTimer = new MutableNumber(),
-			strongholdLevels = new MutableNumber(), skullSceptreCharges = new MutableNumber();
+			strongholdLevels = new MutableNumber(), skullSceptreCharges = new MutableNumber(), coalBagSize = new MutableNumber(81);
 
 	/**
 	 * Holds an optional wrapped inside the Anti-fire details.
@@ -94,7 +94,15 @@ public final class PlayerDetails {
 	/**
 	 * A collection of Seconds timer
 	 */
-	private SecondsTimer homeDelay = new SecondsTimer();
+	private SecondsTimer homeDelay = new SecondsTimer(), chargeDelay = new SecondsTimer();
+	
+	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false), ownsHouse = new DynamicBoolean(false),
+			disableEquip = new DynamicBoolean(false),
+			toggleLootShare = new DynamicBoolean(),
+			allowChatEffects = new DynamicBoolean(), acceptAid = new DynamicBoolean(),
+			mouseButtons = new DynamicBoolean(), profanityFilter = new DynamicBoolean(),
+			questSort = new DynamicBoolean(), hideCompletedQuests = new DynamicBoolean(), filterGame = new DynamicBoolean(),
+			forceNextMapLoadRefresh = new DynamicBoolean(), canPvp = new DynamicBoolean(), invulnerable = new DynamicBoolean();
 	
 	/**
 	 * A list of last known ips from the Player
@@ -114,12 +122,4 @@ public final class PlayerDetails {
 	public double getWeight(Player player) {
 		return player.getInventory().getInventoryWeight() + player.getEquipment().getEquipmentWeight();
 	}
-	
-	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false), ownsHouse = new DynamicBoolean(false),
-			disableEquip = new DynamicBoolean(false),
-			toggleLootShare = new DynamicBoolean(),
-			allowChatEffects = new DynamicBoolean(), acceptAid = new DynamicBoolean(),
-			mouseButtons = new DynamicBoolean(), profanityFilter = new DynamicBoolean(),
-			questSort = new DynamicBoolean(), hideCompletedQuests = new DynamicBoolean(), filterGame = new DynamicBoolean(),
-			forceNextMapLoadRefresh = new DynamicBoolean(), canPvp = new DynamicBoolean(), invulnerable = new DynamicBoolean();
 }

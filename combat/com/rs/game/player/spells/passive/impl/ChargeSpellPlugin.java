@@ -19,7 +19,7 @@ public class ChargeSpellPlugin implements PassiveSpellListener {
 
 	@Override
 	public boolean canExecute(Player player) {
-		if (player.getDetails().getChargeDelay().get() > 0) {
+		if (!player.getDetails().getChargeDelay().finished()) {
 			player.getPackets().sendGameMessage("You need to wait for the spell to recharge.");
 			return false;
 		}
@@ -36,7 +36,7 @@ public class ChargeSpellPlugin implements PassiveSpellListener {
 
 	@Override
 	public void execute(Player player) {
-		player.getDetails().getChargeDelay().set(60);
+		player.getDetails().getChargeDelay().start(60);
 		player.setNextAnimation(Animations.CHARGE_SPELL);
 		player.setNextGraphics(Graphic.CHARGE_SPELL);
 		player.getAudioManager().sendSound(Sounds.CHARGE_SPELL);

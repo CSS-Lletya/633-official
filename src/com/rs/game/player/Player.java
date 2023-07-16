@@ -511,11 +511,8 @@ public class Player extends Entity {
 		getDayOfWeekManager().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
-		if (getDetails().getChargeDelay().get() > 0) {
-			if (getDetails().getChargeDelay().get() == 1)
-				getAudioManager().sendSound(Sounds.CHARGE_SPELL_REMOVED);
-			getDetails().getChargeDelay().getAndDecrement();
-		}
+		if (getDetails().getChargeDelay().secondsRemaining() == 1)
+			getAudioManager().sendSound(Sounds.CHARGE_SPELL_REMOVED);
 	}
 
 	/**
