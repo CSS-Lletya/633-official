@@ -8,13 +8,13 @@ import skills.SkillsDialogue;
 import skills.cooking.Cooking;
 import skills.cooking.CookingData;
 
-public class CookingD extends DialogueEventListener {
+public class CookingDialogue extends DialogueEventListener {
 
 	private CookingData[] data;
 	private GameObject object;
 	private int itemUsed;
 
-	public CookingD(Player player, CookingData[] data, GameObject object, int itemUsed) {
+	public CookingDialogue(Player player, CookingData[] data, GameObject object, int itemUsed) {
 		super(player);
 		this.data = data;
 		this.object = object;

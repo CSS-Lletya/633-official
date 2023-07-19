@@ -5,11 +5,11 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 
-public class Overseer extends DialogueEventListener {
+public class OverseerDialogue extends DialogueEventListener {
 
 	private SawmillMapZone zone;
 
-	public Overseer(Player player, NPC npc, SawmillMapZone zone) {
+	public OverseerDialogue(Player player, NPC npc, SawmillMapZone zone) {
 		super(player, npc);
 		this.zone = zone;
 	}

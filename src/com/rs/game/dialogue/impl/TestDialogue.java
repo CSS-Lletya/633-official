@@ -4,9 +4,9 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 
-public class TestD extends DialogueEventListener {
+public class TestDialogue extends DialogueEventListener {
 
-	public TestD(Player player, NPC npc) {
+	public TestDialogue(Player player, NPC npc) {
 		super(player, npc);
 	}
 

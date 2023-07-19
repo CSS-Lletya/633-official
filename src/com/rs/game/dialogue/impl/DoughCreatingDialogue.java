@@ -8,12 +8,12 @@ import skills.SkillsDialogue;
 import skills.cooking.DoughCreation;
 import skills.cooking.DoughCreation.DoughData;
 
-public class DoughCreatingD extends DialogueEventListener {
+public class DoughCreatingDialogue extends DialogueEventListener {
 
 	private DoughData[] data;
 	private Item used, onto;
 
-	public DoughCreatingD(Player player, DoughData[] data, Item used, Item onto) {
+	public DoughCreatingDialogue(Player player, DoughData[] data, Item used, Item onto) {
 		super(player);
 		this.data = data;
 		this.used = used;

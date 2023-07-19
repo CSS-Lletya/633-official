@@ -1,6 +1,6 @@
 package com.rs.plugin.impl.objects;
 
-import com.rs.game.dialogue.impl.PotteryWheelD;
+import com.rs.game.dialogue.impl.PotteryWheelDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
@@ -16,7 +16,7 @@ public class PotteryWheelObjectPlugin extends ObjectListener {
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
 		if (item.getId() == 1761) {
 			player.faceObject(object);
-			player.dialogueBlank(new PotteryWheelD(player, PotteryWheelData.values()));
+			player.dialogueBlank(new PotteryWheelDialogue(player, PotteryWheelData.values()));
 		}
 	}
 }

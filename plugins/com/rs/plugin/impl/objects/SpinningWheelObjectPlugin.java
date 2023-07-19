@@ -1,6 +1,6 @@
 package com.rs.plugin.impl.objects;
 
-import com.rs.game.dialogue.impl.SpinningD;
+import com.rs.game.dialogue.impl.SpinningDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
@@ -14,11 +14,11 @@ public class SpinningWheelObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		player.dialogueBlank(new SpinningD(player, SpinningData.values()));
+		player.dialogueBlank(new SpinningDialogue(player, SpinningData.values()));
 	}
 
 	@Override
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
-		player.dialogueBlank(new SpinningD(player, SpinningData.values()));
+		player.dialogueBlank(new SpinningDialogue(player, SpinningData.values()));
 	}
 }

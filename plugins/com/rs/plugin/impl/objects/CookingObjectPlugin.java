@@ -1,6 +1,6 @@
 package com.rs.plugin.impl.objects;
 
-import com.rs.game.dialogue.impl.CookingD;
+import com.rs.game.dialogue.impl.CookingDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
@@ -26,6 +26,6 @@ public class CookingObjectPlugin extends ObjectListener {
 			return;
 		}
 		CookingData.VALUES.stream().filter(raw -> raw.getRawId() == item.getId())
-		.forEach(cookable -> player.dialogueBlank(new CookingD(player, new CookingData[] {cookable}, object, item.getId())));
+		.forEach(cookable -> player.dialogueBlank(new CookingDialogue(player, new CookingData[] {cookable}, object, item.getId())));
 	}
 }

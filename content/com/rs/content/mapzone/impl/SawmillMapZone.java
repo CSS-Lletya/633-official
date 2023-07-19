@@ -5,7 +5,7 @@ import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.ZoneRestriction;
 import com.rs.game.Entity;
 import com.rs.game.dialogue.DialogueEventListener;
-import com.rs.game.dialogue.impl.Overseer;
+import com.rs.game.dialogue.impl.OverseerDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.npc.NPC;
@@ -69,7 +69,7 @@ public class SawmillMapZone extends MapZone {
 	@Override
 	public boolean processNPCClick1(Player player, NPC npc) {
 		if (npc.getId() == OVERSEER) {
-			player.dialogue(new Overseer(player, npc, this));
+			player.dialogue(new OverseerDialogue(player, npc, this));
 			return false;
 		}
 		return true;

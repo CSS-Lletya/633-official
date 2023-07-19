@@ -6,11 +6,11 @@ import com.rs.game.player.Player;
 
 import skills.SkillcapeMasters;
 
-public class SkillMasterD extends DialogueEventListener {
+public class SkillMasterDialogue extends DialogueEventListener {
 
 	private final SkillcapeMasters master;
 
-	public SkillMasterD(Player player, NPC npc, SkillcapeMasters master) {
+	public SkillMasterDialogue(Player player, NPC npc, SkillcapeMasters master) {
 		super(player, npc);
 		this.master = master;
 	}

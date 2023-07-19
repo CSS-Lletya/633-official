@@ -8,11 +8,11 @@ import skills.SkillsDialogue;
 import skills.fletching.BowCarving;
 import skills.fletching.BowCarving.Log;
 
-public class BowFletchingD extends DialogueEventListener {
+public class BowFletchingDialogue extends DialogueEventListener {
 
 	private Log[] data;
 
-	public BowFletchingD(Player player, Log[] data2) {
+	public BowFletchingDialogue(Player player, Log[] data2) {
 		super(player);
 	}
 	

@@ -7,11 +7,11 @@ import com.rs.game.player.actions.FillAction.Filler;
 
 import skills.SkillsDialogue;
 
-public class ItemFillingD extends DialogueEventListener {
+public class ItemFillingDialogue extends DialogueEventListener {
 
 	private Filler filler;
 
-	public ItemFillingD(Player player, Filler filler) {
+	public ItemFillingDialogue(Player player, Filler filler) {
 		super(player);
 		this.filler = filler;
 	}

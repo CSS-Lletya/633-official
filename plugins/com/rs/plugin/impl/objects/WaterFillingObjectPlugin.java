@@ -1,6 +1,6 @@
 package com.rs.plugin.impl.objects;
 
-import com.rs.game.dialogue.impl.ItemFillingD;
+import com.rs.game.dialogue.impl.ItemFillingDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
@@ -16,7 +16,7 @@ public class WaterFillingObjectPlugin extends ObjectListener {
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
 		Filler.VALUES.stream().filter(i -> item.getId() == i.getEmpty().getId())
 		.forEach(fillable -> {
-			player.dialogueBlank(new ItemFillingD(player, fillable));
+			player.dialogueBlank(new ItemFillingDialogue(player, fillable));
 		});
 	}
 }

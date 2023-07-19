@@ -7,11 +7,11 @@ import skills.SkillsDialogue;
 import skills.crafting.PotteryWheel;
 import skills.crafting.PotteryWheel.PotteryWheelData;
 
-public class PotteryWheelD extends DialogueEventListener {
+public class PotteryWheelDialogue extends DialogueEventListener {
 
 	private PotteryWheelData[] data;
 
-	public PotteryWheelD(Player player, PotteryWheelData[] data) {
+	public PotteryWheelDialogue(Player player, PotteryWheelData[] data) {
 		super(player);
 		this.data = data;
 	}

@@ -1,6 +1,6 @@
 package com.rs.plugin.impl.inventory;
 
-import com.rs.game.dialogue.impl.DoughCreatingD;
+import com.rs.game.dialogue.impl.DoughCreatingDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
@@ -13,6 +13,6 @@ public class DoughCreationItemPlugin extends InventoryListener {
 	
 	@Override
 	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
-		player.dialogueBlank(new DoughCreatingD(player, DoughData.values(), firstItem, secondItem));
+		player.dialogueBlank(new DoughCreatingDialogue(player, DoughData.values(), firstItem, secondItem));
 	}
 }

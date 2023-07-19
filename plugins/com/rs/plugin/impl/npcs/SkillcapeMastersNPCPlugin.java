@@ -2,7 +2,7 @@ package com.rs.plugin.impl.npcs;
 
 import java.util.stream.IntStream;
 
-import com.rs.game.dialogue.impl.SkillMasterD;
+import com.rs.game.dialogue.impl.SkillMasterDialogue;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.NPCListener;
@@ -28,7 +28,7 @@ public class SkillcapeMastersNPCPlugin extends NPCListener {
 					SkillcapeMasters.Runecrafting, SkillcapeMasters.Hunter, SkillcapeMasters.Dungeoneering };
 
 			IntStream.range(0, npcIds.length).filter(i -> npc.getId() == npcIds[i]).findFirst()
-					.ifPresent(index -> player.dialogue(new SkillMasterD(player, npc, skillcapeMasters[index])));
+					.ifPresent(index -> player.dialogue(new SkillMasterDialogue(player, npc, skillcapeMasters[index])));
 		}
 	}
 }

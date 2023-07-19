@@ -7,11 +7,11 @@ import skills.SkillsDialogue;
 import skills.crafting.Spinning;
 import skills.crafting.Spinning.SpinningData;
 
-public class SpinningD extends DialogueEventListener {
+public class SpinningDialogue extends DialogueEventListener {
 
 	private SpinningData[] data;
 
-	public SpinningD(Player player, SpinningData[] data) {
+	public SpinningDialogue(Player player, SpinningData[] data) {
 		super(player);
 		this.data = data;
 	}

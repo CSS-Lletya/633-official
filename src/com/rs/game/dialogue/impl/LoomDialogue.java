@@ -4,28 +4,28 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.player.Player;
 
 import skills.SkillsDialogue;
-import skills.crafting.PotteryOven;
-import skills.crafting.PotteryOven.PotteryData;
+import skills.crafting.Loom;
+import skills.crafting.Loom.LoomData;
 
-public class PotteryOvenD extends DialogueEventListener {
+public class LoomDialogue extends DialogueEventListener {
 
-	private PotteryData[] data;
+	private LoomData[] data;
 
-	public PotteryOvenD(Player player, PotteryData[] data) {
+	public LoomDialogue(Player player, LoomData[] data) {
 		super(player);
 		this.data = data;
 	}
 
 	@Override
 	public void start() {
-		int[] ids = new int[PotteryData.values().length];
+		int[] ids = new int[LoomData.values().length];
 		for (int i = 0; i < ids.length; i++)
-			ids[i] = PotteryData.values()[i].produced;
+			ids[i] = LoomData.values()[i].produced;
 		SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.SELECT, 28, ids, null, true);
 	}
 
 	@Override
 	public void listenToDialogueEvent(int button) {
-		new PotteryOven(player, data[SkillsDialogue.getItemSlot(button)], 28).start();
+		new Loom(player, data[SkillsDialogue.getItemSlot(button)], 28).start();
 	}
 }
