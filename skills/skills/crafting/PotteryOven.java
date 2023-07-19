@@ -110,6 +110,8 @@ public final class PotteryOven extends ProducingSkillAction {
 		POT(1787, 1, 1931, 1, 6.3),
 		PIE_DISH(1789, 1, 2313, 7, 10.0),
 		BOWL(1791, 1, 1923, 8, 15.0),
+		PLANT_POT(5352, 1, 5350, 19, 17.5),
+		POT_LID(4438, 1, 4440, 20, 25),
 		;
 		/**
 		 * The item required to spin.

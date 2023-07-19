@@ -108,6 +108,8 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 	 * @return {@code True} if succesful, {@code false} if not..
 	 */
 	private boolean updateSkillGuide(Player player, int buttonId) {
+		if (buttonId == 28) //"more info" button url sent elsewhere
+			sendSkillGuide(player, buttonId - 10);
 		int skillMenu = (int) player.getAttributes().get(Attribute.SKILL_GUIDE_MENU).get();
 		if (skillMenu == -1) {
 			return false;

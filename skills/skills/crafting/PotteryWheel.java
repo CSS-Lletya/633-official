@@ -110,6 +110,8 @@ public final class PotteryWheel extends ProducingSkillAction {
 		POT(1761, 1, 1787, 1, 6.3),
 		PIE_DISH(1761, 1, 1789, 7, 10.0),
 		BOWL(1761, 1, 1791, 8, 15.0),
+		PLANT_POT(1761, 1, 5352, 19, 17.5),
+		POT_LID(1761, 1, 4438, 20, 25),
 		;
 		/**
 		 * The item required to spin.
