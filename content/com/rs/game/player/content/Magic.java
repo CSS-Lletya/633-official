@@ -6,12 +6,8 @@ import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
-import com.rs.game.item.ItemConstants;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
-import com.rs.game.player.Equipment;
-import com.rs.game.player.InterfaceManager.Tabs;
-import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
@@ -385,56 +381,6 @@ public class Magic {
 			checkCombatSpell(player, spellId, 0, false);
 	}
 
-	public static final void processNormalSpell(Player player, int spellId, byte slot) {
-		final Item target = player.getInventory().getItem(slot);
-		player.getMovement().stopAll();
-		switch (spellId) {
-//	    case 29:
-//	    case 41:
-//	    case 53:
-//	    case 61:
-//	    case 76:
-//	    case 88:
-//		Enchanting.processMagicEnchantSpell(player, slot, Enchanting.getJewleryIndex(spellId));
-//		break;
-		case 38: // low alch
-		case 59: // high alch
-			boolean highAlch = spellId == 59;
-			if (!Magic.checkSpellLevel(player, (highAlch ? 55 : 21)))
-				return;
-			if (target.getId() == 995) {
-				player.getPackets()
-						.sendGameMessage("You can't cast " + (highAlch ? "high" : "low") + " alchemy on gold.");
-				return;
-			}
-			if (target.getDefinitions().isDestroyItem() || !ItemConstants.isTradeable(target)) {
-				player.getPackets().sendGameMessage("You can't convert this item..");
-				return;
-			}
-			if (target.getAmount() != 1 && !player.getInventory().hasFreeSlots()) {
-				player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
-				return;
-			}
-			if (!checkRunes(player, true, FIRE_RUNE, highAlch ? 5 : 3, NATURE_RUNE, 1))
-				return;
-			player.getMovement().lock(4);
-			player.getInterfaceManager().sendTab(Tabs.MAGIC);
-			player.getInventory().deleteItem(target.getId(), 1);
-			player.getSkills().addExperience(Skills.MAGIC, highAlch ? 65 : 31);
-			player.getInventory()
-					.addItem(new Item(995, (int) (target.getDefinitions().getValue() * (highAlch ? 0.6D : 0.3D))));
-			Item weapon = player.getEquipment().getItem(Equipment.SLOT_WEAPON);
-			if (weapon != null && weapon.getName().toLowerCase().contains("staff")) {
-				player.setNextAnimation(new Animation(highAlch ? 9633 : 9625));
-				player.setNextGraphics(new Graphics(highAlch ? 1693 : 1692));
-			} else {
-				player.setNextAnimation(new Animation(713));
-				player.setNextGraphics(new Graphics(highAlch ? 113 : 112));
-			}
-			break;
-		}
-	}
-
 	public static final void processLunarSpell(Player player, int spellId, Entity target) {
 		player.setNextFaceWorldTile(new WorldTile(target.getCoordFaceX(target.getSize()),
 				target.getCoordFaceY(target.getSize()), target.getPlane()));
@@ -619,7 +565,8 @@ public class Magic {
 		}
 	}
 
-	public static final void processNormalSpell(Player player, int spellId, int packetId) {
+	public static void processNormalSpell(Player player, int spellId, int packetId) {
+		System.out.println(packetId);
 		switch (spellId) {
 		case 25: // air strike
 		case 28: // water strike
@@ -659,7 +606,7 @@ public class Magic {
 			player.getInterfaceManager().sendInterface(432);
 			break;
 		case 24:
-			player.getMovement().move(false, GameConstants.START_PLAYER_LOCATION, TeleportType.NORMAL);
+			TeleportType.MODERN_HOME.checkSpecialCondition(player, GameConstants.START_PLAYER_LOCATION);
 			break;
 		case 37: // mobi
 			sendNormalTeleportSpell(player, 10, 19, new WorldTile(2413, 2848, 0), LAW_RUNE, 1, WATER_RUNE, 1, AIR_RUNE,
@@ -670,8 +617,7 @@ public class Magic {
 					1);
 			break;
 		case 43: // lumby
-			sendNormalTeleportSpell(player, 31, 41, new WorldTile(3222, 3218, 0), EARTH_RUNE, 1, AIR_RUNE, 3, LAW_RUNE,
-					1);
+			player.getMovement().move(false, GameConstants.START_PLAYER_LOCATION, TeleportType.NORMAL);
 			break;
 		case 46: // fally
 			sendNormalTeleportSpell(player, 37, 48, new WorldTile(2964, 3379, 0), WATER_RUNE, 1, AIR_RUNE, 3, LAW_RUNE,
@@ -777,30 +723,6 @@ public class Magic {
 		return sendTeleportSpell(player, upEmoteId, -2, upGraphicId, -1, 0, 0, tile, delay, randomize, ITEM_TELEPORT);
 	}
 
-	public static void pushLeverTeleport(final Player player, final WorldTile tile) {
-		pushLeverTeleport(player, tile, 2140, null, null);
-	}
-
-	public static void pushLeverTeleport(final Player player, final WorldTile tile, int emote, String startMessage,
-			final String endMessage) {
-		if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectTeleport(player, tile)))
-			return;
-		player.setNextAnimation(new Animation(emote));
-		if (startMessage != null)
-			player.getPackets().sendGameMessage(startMessage, true);
-		player.getMovement().lock();
-		World.get().submit(new Task(1) {
-			@Override
-			protected void execute() {
-				player.getMovement().unlock();
-				Magic.sendObjectTeleportSpell(player, false, tile);
-				if (endMessage != null)
-					player.getPackets().sendGameMessage(endMessage, true);
-				this.cancel();
-			}
-		});
-	}
-
 	public static final void sendObjectTeleportSpell(Player player, boolean randomize, WorldTile tile) {
 		sendTeleportSpell(player, 8939, 8941, 1576, 1577, 0, 0, tile, 3, randomize, OBJECT_TELEPORT);
 	}
@@ -885,67 +807,9 @@ public class Magic {
 		return true;
 	}
 
-	private final static WorldTile[] TABS = { new WorldTile(3217, 3426, 0), new WorldTile(3222, 3218, 0),
-			new WorldTile(2965, 3379, 0), new WorldTile(2758, 3478, 0), new WorldTile(2660, 3306, 0) };
-
-	public static boolean useTabTeleport(final Player player, final int itemId) {
-		if (itemId < 8007 || itemId > 8007 + TABS.length - 1)
-			return false;
-		if (useTeleTab(player, TABS[itemId - 8007]))
-			player.getInventory().deleteItem(itemId, 1);
-		return true;
-	}
-
-	public static boolean useTeleTab(final Player player, final WorldTile tile) {
-		if (player.getMapZoneManager().execute(player, controller -> !controller.processItemTeleport(player, tile)))
-			return false;
-		player.getMovement().lock();
-		player.setNextAnimation(Animations.BREAK_TELETAB);
-		player.setNextGraphics(Graphic.TELETAB_BREAKING_SPARKS);
-		player.getDetails().getStatistics().addStatistic("Teleports_Completed").addStatistic("TELEPOR_TABS_BROKEN");
-		World.get().submit(new Task(2) {
-			int stage;
-			@Override
-			protected void execute() {
-				if (stage == 0) {
-					player.setNextAnimation(Animations.TELE_TAB_SINK_INWARDS);
-					stage = 1;
-				} else if (stage == 1) {
-					WorldTile teleTile = tile;
-					// attemps to randomize tile by 4x4 area
-					for (int trycount = 0; trycount < 10; trycount++) {
-						teleTile = new WorldTile(tile, 2);
-						if (World.getTileAttributes().isTileFree(tile.getPlane(), teleTile.getX(), teleTile.getY(), player.getSize()))
-							break;
-						teleTile = tile;
-					}
-					player.setNextWorldTile(teleTile);
-					player.getMapZoneManager().executeVoid(player, controller -> controller.magicTeleported(player, ITEM_TELEPORT));
-					if (player.getCurrentMapZone().isPresent())
-						teleControlersCheck(player, teleTile);
-					player.setNextFaceWorldTile(
-							new WorldTile(teleTile.getX(), teleTile.getY() - 1, teleTile.getPlane()));
-					player.setDirection((byte) 6);
-					player.setNextAnimation(Animations.RESET_ANIMATION);
-					stage = 2;
-				} else if (stage == 2) {
-					player.resetReceivedHits();
-					player.getMovement().unlock();
-					this.cancel();
-				}
-				this.cancel();
-			}
-		});
-		return true;
-	}
-
 	public static void teleControlersCheck(Player player, WorldTile teleTile) {
 //		if (WildernessController.isAtWild(teleTile))
 //			new WildernessController().start(player);
-	}
-
-	private Magic() {
-
 	}
 
 	public static void useEctoPhial(final Player player, Item item) {

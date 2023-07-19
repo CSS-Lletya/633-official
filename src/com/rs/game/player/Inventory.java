@@ -394,4 +394,13 @@ public final class Inventory {
 		else
 			player.getBank().addItem(item, true);
 	}
+
+    public boolean contains(Item... items) {
+        for (Item item : items) {
+            if (item != null && !containsItem(item.getId(), item.getAmount())) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

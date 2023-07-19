@@ -90,8 +90,7 @@ public final class PlayerDetails {
 			questPoints = new MutableNumber(), skullTimer = new MutableNumber(), teleBlockDelay = new MutableNumber(),
 			prayerDelay = new MutableNumber(), essenceTeleporter = new MutableNumber(),
 			gravestone = new MutableNumber(), censoredWordCount = new MutableNumber(), incubatorTimer = new MutableNumber(),
-			strongholdLevels = new MutableNumber(), skullSceptreCharges = new MutableNumber(), coalBagSize = new MutableNumber(81);
-
+			strongholdLevels = new MutableNumber(), skullSceptreCharges = new MutableNumber(), coalBagSize = new MutableNumber(81), boneType = new MutableNumber();
 	/**
 	 * Holds an optional wrapped inside the Anti-fire details.
 	 */
@@ -109,7 +108,7 @@ public final class PlayerDetails {
 	
 	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false), ownsHouse = new DynamicBoolean(false),
 			disableEquip = new DynamicBoolean(false), augPrayerUnlocked = new DynamicBoolean(false), rigourPrayerUnlocked = new DynamicBoolean(false), renewalPrayerUnlocked = new DynamicBoolean(false),
-			toggleLootShare = new DynamicBoolean(),
+			bonesGrinded = new DynamicBoolean(false), toggleLootShare = new DynamicBoolean(),
 			allowChatEffects = new DynamicBoolean(), acceptAid = new DynamicBoolean(),
 			mouseButtons = new DynamicBoolean(), profanityFilter = new DynamicBoolean(),
 			questSort = new DynamicBoolean(), hideCompletedQuests = new DynamicBoolean(), filterGame = new DynamicBoolean(),
