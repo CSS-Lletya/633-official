@@ -12,7 +12,7 @@ import com.rs.utilities.Utility;
 import skills.Skills;
 
 @NPCSignature(name = {}, npcId = { 11281 })
-public class ThievingGuildRegionNPCPlugin implements NPCListener {
+public class ThievingGuildRegionNPCPlugin extends NPCListener {
 
 	private int timesPickedSession;
 

@@ -17,7 +17,7 @@ import skills.herblore.BobBarter;
 import skills.woodcutting.sawmill.Sawmill;
 
 @NPCSignature(name = {}, npcId = { 4250, 6521, 6522, 6523, 6524, 6525, 6526, 6527})
-public class VarrockRegionNPCPlugin implements NPCListener {
+public class VarrockRegionNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

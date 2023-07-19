@@ -69,7 +69,7 @@ public class InterfaceOnNPCPacket implements LogicPacketListener {
 					return;
 				}
 			}
-			NPCPluginDispatcher.handleItemOnNPC(player, npc, item);
+			NPCPluginDispatcher.executeItemOnNPC(player, npc, item);
 			break;
 		case 662:
 		case 747:

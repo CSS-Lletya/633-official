@@ -17,7 +17,7 @@ import skills.thieving.impl.Pickpocketing.PickpocketData;
 		1760, 1761, 3917, 4925, 7128, 7129, 7130, 7131, 1715, 1714, 1716, 1710, 1711, 1712, 15, 18, 187, 2267, 2268,
 		2269, 8122, 9, 10, 5920, 3408, 1880, 1881, 1926, 1927, 1928, 1929, 1930, 1931, 23, 26, 1883, 1884, 32, 1905, 20,
 		365, 2256, 66, 67, 68, 21, 2234, 2235, 3299 })
-public class ThievableNPCPlugin implements NPCListener {
+public class ThievableNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

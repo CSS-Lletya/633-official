@@ -381,7 +381,7 @@ public final class Inventory {
     }
 	
 	public boolean canPay(int cost) {
-		if (containsAny(995) && getNumberOf(995) > cost) {
+		if (containsAny(995) && getNumberOf(995) >= cost) {
 			deleteItem(995, cost);
 			return true;
 		}

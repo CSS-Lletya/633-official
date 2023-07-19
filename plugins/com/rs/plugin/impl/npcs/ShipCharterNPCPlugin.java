@@ -8,7 +8,7 @@ import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.loaders.ShopsHandler;
 
 @NPCSignature(name = { "Trader Crewmember", "Glum" }, npcId = { 376, 378, 377, 4652, 4655 })
-public class ShipCharterNPCPlugin implements NPCListener {
+public class ShipCharterNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

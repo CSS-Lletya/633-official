@@ -12,7 +12,7 @@ import skills.SkillcapeMasters;
 
 @NPCSignature(name = {}, npcId = { 8269, 705, 961, 682, 802, 1658, 847, 4906, 575, 308, 4946, 805, 3295, 455, 437, 2270,
 		3299, 13632, 5113, 9713 })
-public class SkillcapeMastersNPCPlugin implements NPCListener {
+public class SkillcapeMastersNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

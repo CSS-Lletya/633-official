@@ -10,7 +10,7 @@ import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 
 @NPCSignature(name = {}, npcId = {4903, 2238,2244, NPCNames.COOK_278, NPCNames.SERGEANT_ABRAM_7888})
-public class LumbridgeRegionNPCPlugin implements NPCListener{
+public class LumbridgeRegionNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

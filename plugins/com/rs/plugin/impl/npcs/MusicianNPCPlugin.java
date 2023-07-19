@@ -7,7 +7,7 @@ import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 
 @NPCSignature(name = { "Musician" }, npcId = {8722})
-public class MusicianNPCPlugin implements NPCListener {
+public class MusicianNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

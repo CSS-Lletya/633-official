@@ -14,7 +14,7 @@ import com.rs.utilities.loaders.ShopsHandler;
 
 @NPCSignature(name = { "Brimstail", "Aubury", "Archmage Sedridor", "Wizard Distentor", "Wizard Cromperty",
 		"Carwen Essencebinder"}, npcId = {300})
-public class EssenceMineTeleportersNPCPlugin implements NPCListener {
+public class EssenceMineTeleportersNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

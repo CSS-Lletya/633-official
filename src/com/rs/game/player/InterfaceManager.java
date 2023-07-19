@@ -356,6 +356,7 @@ public class InterfaceManager {
 	 * @param interfaceId
 	 */
 	public void sendFullscreenInterface(int parentInterfaceComponentId, int interfaceId) {
+		closeInterfaces();
 		if (!isResizableScreen())
 			sendInterface(interfaceId);
 		else

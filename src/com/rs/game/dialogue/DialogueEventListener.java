@@ -75,6 +75,7 @@ public abstract class DialogueEventListener implements Expression {
 	public DialogueEventListener(Player player, Object... args) {
 		this.player = player;
 		this.args = args;
+		player.getInterfaceManager().closeInterfaces();
 	}
 
 	public abstract void start();

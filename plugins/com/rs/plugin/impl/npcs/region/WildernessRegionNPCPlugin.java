@@ -14,7 +14,7 @@ import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.loaders.ShopsHandler;
 
 @NPCSignature(name = {}, npcId = { 2257, 2258 })
-public class WildernessRegionNPCPlugin implements NPCListener {
+public class WildernessRegionNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

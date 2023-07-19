@@ -44,6 +44,16 @@ public class NPCPluginDispatcher {
 	public static void execute(Player player, NPC npc, int option) {
 		getMob(npc, npc.getId()).ifPresent(mob -> mob.execute(player, npc, option));
 	}
+	
+	/**
+	 * Executes the specified NPCS if it's registered.
+	 * @param player the player executing the NPCS.
+	 * @param parts the string which represents a NPCS.
+	 */
+	public static void executeItemOnNPC(Player player, NPC npc, Item itemUsed) {
+		getMob(npc, npc.getId()).ifPresent(mob -> mob.executeItemOnNPC(player, npc, itemUsed));
+	}
+
 
 	/**
 	 * Gets a NPCS which matches the {@code identifier}.
@@ -200,10 +210,5 @@ public class NPCPluginDispatcher {
 	public static boolean forceReachNPC(String name) {
 		String[] NPC_NAMES = {"banker", "sawmill"};
 		return Arrays.stream(NPC_NAMES).anyMatch(names -> name.toLowerCase().contains(names));
-	}
-	
-	public static void handleItemOnNPC(final Player player, final NPC npc, final Item item) {
-		if (item == null)
-			return;
 	}
 }

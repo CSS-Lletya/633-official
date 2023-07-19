@@ -8,7 +8,7 @@ import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 
 @NPCSignature(name = {}, npcId = { 1800, 5249, 3811, 3809, 3810 })
-public class GliderNPCPlugin implements NPCListener {
+public class GliderNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

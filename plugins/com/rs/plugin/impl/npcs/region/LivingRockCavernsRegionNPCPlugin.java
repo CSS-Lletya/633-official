@@ -10,7 +10,7 @@ import skills.mining.Mining;
 import skills.mining.RockData;
 
 @NPCSignature(name = {}, npcId = {8837, 8838, 8839})
-public class LivingRockCavernsRegionNPCPlugin implements NPCListener{
+public class LivingRockCavernsRegionNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

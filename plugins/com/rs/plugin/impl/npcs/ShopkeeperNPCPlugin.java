@@ -7,7 +7,7 @@ import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.loaders.ShopsHandler;
 
 @NPCSignature(name = { "Shopkeeper"}, npcId = {})
-public class ShopkeeperNPCPlugin implements NPCListener {
+public class ShopkeeperNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

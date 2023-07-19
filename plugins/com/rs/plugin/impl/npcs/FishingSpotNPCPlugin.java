@@ -11,7 +11,7 @@ import skills.fishing.Fishing;
 import skills.fishing.Tool;
 
 @NPCSignature(name = { "Fishing spot", "Cavefish shoal" }, npcId = {})
-public class FishingSpotNPCPlugin implements NPCListener {
+public class FishingSpotNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC mob, int option) {

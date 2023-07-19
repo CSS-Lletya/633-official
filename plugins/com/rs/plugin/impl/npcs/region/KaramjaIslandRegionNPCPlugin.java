@@ -10,7 +10,7 @@ import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 
 @NPCSignature(name = {"Stiles"}, npcId = {})
-public class KaramjaIslandRegionNPCPlugin implements NPCListener {
+public class KaramjaIslandRegionNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

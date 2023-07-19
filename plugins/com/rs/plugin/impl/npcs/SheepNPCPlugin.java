@@ -12,7 +12,7 @@ import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Ticks;
 
 @NPCSignature(name = { "Sheep" }, npcId = {})
-public class SheepNPCPlugin implements NPCListener {
+public class SheepNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {

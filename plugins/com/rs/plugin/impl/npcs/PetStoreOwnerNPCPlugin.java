@@ -9,7 +9,7 @@ import com.rs.utilities.IntegerInputAction;
 import com.rs.utilities.Utility;
 
 @NPCSignature(name = { "Pet shop owner" }, npcId = {})
-public class PetStoreOwnerNPCPlugin implements NPCListener {
+public class PetStoreOwnerNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {
