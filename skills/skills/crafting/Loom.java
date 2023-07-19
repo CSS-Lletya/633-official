@@ -3,6 +3,7 @@ package skills.crafting;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -110,6 +111,7 @@ public final class Loom extends ProducingSkillAction {
 		BASKET(5933, 6, 5376, 36, 56.0),
 		SACK(5931, 4, 5418, 21, 38.0),
 		STRIP_OF_CLOTH(1759, 4, 3224, 10, 12.0),
+		UNFINISHED_NET(1779, 5, 14858, 52, 0)
 		;
 		/**
 		 * The item required to spin.
