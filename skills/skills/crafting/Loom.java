@@ -3,7 +3,6 @@ package skills.crafting;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
-import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;

@@ -9,15 +9,15 @@ public class DungeoneeringNecklaces {
             player.getPrayer().restorePrayer(50);
         }
         if (player.getEquipment().getAmuletId() == 19887) {
-            if (boneId == Bone.BONES.getId() || boneId == Bone.BAT_BONES.getId())
+            if (boneId == Bone.NORMAL.getId() || boneId == Bone.BAT.getId())
                 player.getPrayer().restorePrayer(50);
             else
                 player.getPrayer().restorePrayer(100);
         }
         if (player.getEquipment().getAmuletId() == 19888) {
-            if (boneId == Bone.BONES.getId() || boneId == Bone.BAT_BONES.getId())
+            if (boneId == Bone.NORMAL.getId() || boneId == Bone.BAT.getId())
                 player.getPrayer().restorePrayer(20);
-            else if (boneId == Bone.BIG_BONES.getId() || boneId == Bone.BABYDRAGON_BONES.getId() || boneId == Bone.DRAGON_BONES.getId() || boneId == Bone.OURG_BONES.getId() || boneId == Bone.DAGANNOTH_BONES.getId())
+            else if (boneId == Bone.BIG.getId() || boneId == Bone.BABY.getId() || boneId == Bone.DRAGON.getId() || boneId == Bone.OURG.getId() || boneId == Bone.DAGANNOTH.getId())
                 player.getPrayer().restorePrayer(60);
             else
                 player.getPrayer().restorePrayer(25);
