@@ -20,7 +20,7 @@ public class NPCSpawn {
 	}
 
 	public void spawn() {
-		new NPC((short) npcId, tile, dir, true);
+		NPC.spawnNPC((short) npcId, tile, dir, true);
 	}
 
 	public WorldTile getTile() {

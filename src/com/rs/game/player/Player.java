@@ -501,6 +501,7 @@ public class Player extends Entity {
 		if (isDead())
 			return;
 		getSession().processLogicPackets(this);
+		getDetails().getPlayTime().getAndIncrement();
 		if (getCoordsEvent() != null && getCoordsEvent().processEvent(this))
 			setCoordsEvent(null);
 		if (getRouteEvent() != null && getRouteEvent().processEvent(this))

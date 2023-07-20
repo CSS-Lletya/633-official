@@ -49628,11 +49628,11 @@
   {
     "tile": {
       "plane": 0,
-      "x": 3207,
+      "x": 3221,
       "y": 3233
     },
     "comment": "Hans",
-    "npcId": 0
+    "npcId": 7935
   },
   {
     "tile": {

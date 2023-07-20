@@ -201,7 +201,6 @@ public abstract class DialogueEventListener implements Expression {
 			String[] options = event3.getOptionTextArray();
 			int interfaceId = 229
 					+ (options.length == 2 ? -1 : options.length == 5 ? options.length + 1 : options.length - 1);
-			System.out.println(interfaceId);
 			for (String string : options) {
 				player.getPackets().sendIComponentText(interfaceId, index++, string);
 			}
