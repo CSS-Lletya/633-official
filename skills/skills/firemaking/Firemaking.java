@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.content.mapzone.ZoneRestriction;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.Region;
@@ -150,6 +151,10 @@ public class Firemaking extends DestructionSkillAction {
                 || GameObject.getObjectWithSlot(player, Region.OBJECT_SLOT_FLOOR) != null) {
             player.getPackets().sendGameMessage("You can't light a fire here.");
             return false;
+        }
+        if (player.getMapZoneManager().getMapZone(player).get().isRestricted(ZoneRestriction.FIRES)) {
+        	 player.getPackets().sendGameMessage("You can't light a fire here.");
+        	 return false;
         }
 		return true;
 	}

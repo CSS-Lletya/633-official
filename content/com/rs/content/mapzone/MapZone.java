@@ -423,4 +423,8 @@ public abstract class MapZone {
     public final Object[] getArguments(Player player) {
         return player.getMapZoneAttributes();
     }
+    
+    public void endMapZoneSession(Player player) {
+    	player.getMapZoneManager().endMapZoneSession(player);
+    }
 }

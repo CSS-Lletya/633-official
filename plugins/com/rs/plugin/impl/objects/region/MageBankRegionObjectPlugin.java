@@ -2,6 +2,7 @@ package com.rs.plugin.impl.objects.region;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
@@ -76,8 +77,8 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 				}
 				player.setNextFaceWorldTile(object);
 				player.dialogue(d -> d
-						.mes("You feel a rush of energy through your veins.<br>Suddenly a cape appears before you."));
-				player.getPackets().sendGraphics(new Graphics(74), capeTile);
+						.mes("You feel a rush of energy through your veins.","Suddenly a cape appears before you."));
+				player.getPackets().sendGraphics(Graphic.SMOKE_APPEARING, capeTile);
 				FloorItem.updateGroundItem(new Item(cape), capeTile, player);
 				cancel();
 			}
@@ -90,7 +91,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 		final WorldTile middle = object.getId() == 2879 ? new WorldTile(2509, 4687, 0) : new WorldTile(2542, 4720, 0);
 		player.getPackets().sendGameMessage("You step into the pool.");
 		player.setNextWorldTile(middle);
-		player.setNextAnimation(Animations.JUMPING_INTO_SOMETHING);
+		player.setNextAnimation(Animations.SG_DRINK_FROM_FOUNTAIN);
 		player.getAudioManager().sendSound(Sounds.WATER_SPLASHING);
 		player.task(3, p -> p.toPlayer().getPackets().sendGraphics(new Graphics(68), middle));
 		World.get().submit(new Task(1) {

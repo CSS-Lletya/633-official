@@ -68,4 +68,11 @@ public final class MapZoneManager {
 			return mapZone;
 		return Optional.empty();
 	}
+	
+	public void endMapZoneSession(Player player) {
+		player.getCurrentMapZone().ifPresent(currentZone -> {
+			currentZone.finish(player);
+			player.setCurrentMapZone(Optional.empty());
+		});
+	}
 }

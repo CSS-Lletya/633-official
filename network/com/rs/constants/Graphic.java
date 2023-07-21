@@ -49,6 +49,8 @@ public final class Graphic {
 	public static final Graphics RUNECRAFTING = new Graphics(186, 0, 95);
 	public static final Graphics BONES_TO_SPELL = new Graphics(141,0, 96);
 	public static final Graphics CHARGE_SPELL = new Graphics(6,0, 96);
+	public static final Graphics SMOKE_APPEARING = new Graphics(74);
+	public static final Graphics THREE_RING_TELEPORTING = new Graphics(110, 0, 100);
 	
 	/**
 	 * Object Based Graphics

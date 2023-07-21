@@ -1,7 +1,10 @@
 package skills.herblore;
 
+import java.util.EnumSet;
 import java.util.Optional;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -140,5 +143,7 @@ public final class Herb extends ProducingSkillAction {
 			this.clean = new Item(clean);
 			this.experience = experience;
 		}
+		
+		public static final ImmutableSet<GrimyHerb> VALUES = Sets.immutableEnumSet(EnumSet.allOf(GrimyHerb.class));
 	}
 }

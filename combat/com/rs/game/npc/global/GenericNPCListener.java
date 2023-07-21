@@ -1,13 +1,13 @@
 package com.rs.game.npc.global;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.rs.game.Entity;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
-
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public abstract class GenericNPCListener {
 
@@ -21,7 +21,7 @@ public abstract class GenericNPCListener {
 
 	public void setRespawnTask() {}
 
-	public ObjectArrayList<Entity> getPossibleTargets(NPC npc) {
+	public List<Entity> getPossibleTargets(NPC npc) {
 		return npc.getPossibleTargets();
 	}
 	

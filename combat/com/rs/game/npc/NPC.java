@@ -1,5 +1,6 @@
 package com.rs.game.npc;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -35,7 +36,6 @@ import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.NPCBonuses;
 import com.rs.utilities.loaders.NPCCombatDefinitionsL;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -68,6 +68,7 @@ public class NPC extends Entity {
 	private boolean cantFollowUnderCombat;
 	private boolean forceAgressive;
 	private byte forceTargetDistance;
+	private int forceAgressiveDistance;
 	private boolean forceFollowClose;
 	private boolean forceMultiAttacked;
 	private boolean noDistanceCheck;
@@ -78,7 +79,7 @@ public class NPC extends Entity {
 	private transient Transformation nextTransformation;
 
 	public NPC(int id, WorldTile tile, Direction direction) {
-		this(id, tile, direction,  true, false);
+		this(id, tile, direction, false, false);
 	}
 	
 	public NPC(int id, WorldTile tile, Direction direction, boolean canBeAttackFromOutOfArea) {
@@ -125,7 +126,10 @@ public class NPC extends Entity {
 	public void processNPC() {
 		if (isDead() || getMovement().isLocked())
 			return;
-		if (!getCombat().process() || !isForceWalking() || !isCantInteract() || !checkAgressivity()) {
+		if (!combat.process()) {
+            if (!isForceWalking()) {
+                if (!cantInteract) {
+                    if (!checkAgressivity()) {
 			if (getMovement().getFreezeDelay() < Utility.currentTimeMillis()) {
 				if (!hasWalkSteps() && (getWalkType() & NORMAL_WALK) != 0) {
 					boolean can = false;
@@ -141,10 +145,13 @@ public class NPC extends Entity {
 						resetWalkSteps();
 						addWalkSteps(getRespawnTile().getX() + moveX, getRespawnTile().getY() + moveY, 5,
 								(getWalkType() & FLY_WALK) == 0);
-					}
-				}
-			}
-		}
+                    }
+                }
+            }
+        }
+    }
+}
+}
 		if (isForceWalking()) {
 			if (getMovement().getFreezeDelay() < Utility.currentTimeMillis()) {
 				if (getX() != getForceWalk().getX() || getY() != getForceWalk().getY()) {
@@ -350,58 +357,67 @@ public class NPC extends Entity {
 
 	public void setForceWalk(WorldTile tile) {
 		resetWalkSteps();
-		setNextWorldTile(tile);
+		forceWalk = tile;
 	}
 
-	public ObjectArrayList<Entity> getPossibleTargets(boolean checkNPCs, boolean checkPlayers) {
-		int size = getSize();
-		int agroRatio = 32;
-		ObjectArrayList<Entity> possibleTarget = new ObjectArrayList<Entity>();
-		for (int regionId : getMapRegionsIds()) {
-			if (checkPlayers) {
-				ObjectArrayList<Short> playerIndexes = World.getRegion(regionId).getPlayersIndexes();
-				if (playerIndexes != null) {
-					for (int playerIndex : playerIndexes) {
-						Player player = World.getPlayers().get(playerIndex);
-						if (player.isDead() || player.isFinished() || !player.isRunning()
-								|| player.getAppearance().isHidePlayer()
-								|| !Utility.isOnRange(getX(), getY(), size, player.getX(), player.getY(),
-										player.getSize(),
-										getForceTargetDistance() > 0 ? getForceTargetDistance() : agroRatio)
-								|| (!isForceMultiAttacked() && (!isMultiArea() || !player.isMultiArea())
-										&& (player.getAttackedBy() != this
-												&& (player.getAttackedByDelay() > Utility.currentTimeMillis()
-														|| player.getFindTargetDelay() > Utility.currentTimeMillis())))
-								|| !clipedProjectile(player, false)
-								|| (!isForceAgressive() && !WildernessMapZone.isAtWild(this) && player.getSkills()
-										.getCombatLevelWithSummoning() >= getDefinitions().getCombatLevel() * 2))
-							continue;
-						possibleTarget.add(player);
-					}
-				}
-			}
-			if (checkNPCs) {
-				ObjectArrayList<Short> npcsIndexes = World.getRegion(regionId).getNpcsIndexes();
-				if (npcsIndexes != null) {
-					for (int npcIndex : npcsIndexes) {
-						NPC npc = World.getNPCs().get(npcIndex);
-						if (npc == this || npc.isDead() || npc.isFinished()
-								|| !Utility.isOnRange(getX(), getY(), size, npc.getX(), npc.getY(), npc.getSize(),
-										getForceTargetDistance() > 0 ? getForceTargetDistance() : agroRatio)
-								|| !npc.getDefinitions().hasAttackOption()
-								|| ((!isMultiArea() || !npc.isMultiArea()) && npc.getAttackedBy() != this
-										&& npc.getAttackedByDelay() > Utility.currentTimeMillis())
-								|| !clipedProjectile(npc, false))
-							continue;
-						possibleTarget.add(npc);
-					}
-				}
-			}
-		}
-		return possibleTarget;
-	}
+	  public ArrayList<Entity> getPossibleTargets(boolean checkNPCs, boolean checkPlayers) {
+	        int size = getSize();
+	        ArrayList<Entity> possibleTarget = new ArrayList<Entity>();
+	        int attackStyle = getCombatDefinitions().getAttackStyle();
+	        for (int regionId : getMapRegionsIds()) {
+	            if (checkPlayers) {
+	                List<Short> playerIndexes = World.getRegion(regionId).getPlayersIndexes();
+	                if (playerIndexes != null) {
+	                    for (int playerIndex : playerIndexes) {
+	                        Player player = World.getPlayers().get(playerIndex);
+	                        if (player == null || player.isDead() || player.isFinished() || !player.isRunning()
+	                                || player.getAppearance().isHidePlayer()
+	                                || !Utility.isOnRange(getX(), getY(), size, player.getX(), player.getY(),
+	                                player.getSize(),
+	                                forceAgressiveDistance != 0 ? forceAgressiveDistance
+	                                        : isNoDistanceCheck() ? 64
+	                                        : (attackStyle == NPCCombatDefinitions.MELEE
+	                                        || attackStyle == NPCCombatDefinitions.SPECIAL2)
+	                                        ? getSize()
+	                                        : 8)
+	                                || (!forceMultiAttacked && (!isMultiArea() || !player.isMultiArea())
+	                                && (player.getAttackedBy() != this
+	                                && (player.getAttackedByDelay() > Utility.currentTimeMillis())))
+	                                || !clipedProjectile(player,
+	                                (attackStyle == NPCCombatDefinitions.RANGE
+	                                        || attackStyle == NPCCombatDefinitions.MAGE ? false : true))
+	                                || !getDefinitions().hasAttackOption()
+	                                || (!forceAgressive && !WildernessMapZone.isAtWild(this)
+	                                && player.getSkills().getCombatLevelWithSummoning() >= getDefinitions().getCombatLevel() * 2)) {
+	                            continue;
+	                        }
+	                        possibleTarget.add(player);
+	                    }
+	                }
+	            }
+	            if (checkNPCs) {
+	                List<Short> npcsIndexes = World.getRegion(regionId).getNpcsIndexes();
+	                if (npcsIndexes != null) {
+	                    for (int npcIndex : npcsIndexes) {
+	                        NPC npc = World.getNPCs().get(npcIndex);
+	                        if (npc == null || npc == this || npc.isDead() || npc.isFinished()
+	                                || !Utility.isOnRange(getX(), getY(), size, npc.getX(), npc.getY(), npc.getSize(),
+	                                forceAgressiveDistance > 0 ? forceAgressiveDistance : getSize())
+	                                || !npc.getDefinitions().hasAttackOption()
+	                                || ((!isMultiArea() || !npc.isMultiArea()) && npc.getAttackedBy() != this
+	                                && npc.getAttackedByDelay() > Utility.currentTimeMillis())
+	                                || !clipedProjectile(npc, false)) {
+	                            continue;
+	                        }
+	                        possibleTarget.add(npc);
+	                    }
+	                }
+	            }
+	        }
+	        return possibleTarget;
+	    }
 
-	public ObjectArrayList<Entity> getPossibleTargets() {
+	public List<Entity> getPossibleTargets() {
 		return getPossibleTargets(false, true);
 	}
 
@@ -413,7 +429,7 @@ public class NPC extends Entity {
 					return false;
 			}
 		}
-		ObjectArrayList<Entity> possibleTarget = getPossibleTargets();
+		List<Entity> possibleTarget = getPossibleTargets();
 		if (!possibleTarget.isEmpty()) {
 			Entity target = possibleTarget.get(RandomUtils.inclusive(possibleTarget.size() - 1));
 			setTarget(target);
@@ -425,7 +441,7 @@ public class NPC extends Entity {
 	}
 
 	public void setCantInteract(boolean cantInteract) {
-		setCantInteract(cantInteract);
+		this.cantInteract = cantInteract;
 		if (cantInteract)
 			getCombat().reset();
 	}
@@ -474,4 +490,8 @@ public class NPC extends Entity {
 		if (id == getDefinitions().getId() && getDefinitions().options[option] != null && getDefinitions().options[option].toLowerCase().contains(searchedOption))
 			action.run();
 	}
+
+    public WorldTile getWorldTile() {
+        return new WorldTile(getX(), getY(), getPlane());
+    }
 }

@@ -487,6 +487,6 @@ public final class NPCDefinitions {
 	}
 	
 	public boolean hasAttackOption() {
-		return id == 14899 || hasOptions("Attack");
+		return id == 14899 || getName().toLowerCase().contains("elemental") || hasOptions("Attack");
 	}
 }

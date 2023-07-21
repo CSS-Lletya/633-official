@@ -21,6 +21,11 @@ public abstract class DialogueEventListener implements Expression {
 
 	protected Object[] args;
 
+	public DialogueEventListener event(Runnable run) {
+		dialogueEvent.add(new DialogueRunnableEvent(run));
+		return this;
+	}
+	
 	public DialogueEventListener mes(String... message) {
 		dialogueEvent.add(new DialogueEvent((byte) 0, message));
 		return this;
@@ -36,11 +41,11 @@ public abstract class DialogueEventListener implements Expression {
 		return this;
 	}
 
-	public DialogueEventListener item(int itemId, String message) {
+	public DialogueEventListener item(int itemId, String... message) {
 		return item(itemId, 1, message);
 	}
 
-	public DialogueEventListener item(int itemId, int amount, String message) {
+	public DialogueEventListener item(int itemId, int amount, String... message) {
 		dialogueEvent.add(new DialogueItemEvent(itemId, amount, message));
 		return this;
 	}
@@ -209,6 +214,10 @@ public abstract class DialogueEventListener implements Expression {
 
 			break;
 		}
+		case 4:
+			DialogueRunnableEvent runnableEvent = (DialogueRunnableEvent) dialogue;
+			runnableEvent.getRun().run();
+			break;
 //		case 4: {
 //			/*
 //			 * NOTE: No actual function, this is just a reference point to show that there

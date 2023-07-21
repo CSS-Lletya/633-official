@@ -1282,4 +1282,8 @@ public abstract class Entity extends WorldTile {
 	public static NPC findNPC(int npcId) {
 		return World.npcs().filter(npc -> npc.getId() == npcId).findFirst().orElse(null);
 	}
+	
+    public WorldTile getTile() {
+        return new WorldTile(getX(), getY(), getPlane());
+    }
 }

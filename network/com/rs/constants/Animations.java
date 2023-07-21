@@ -127,6 +127,7 @@ public final class Animations {
 	public static final Animation BUCKET_SCOOPING = new Animation(895);
 	public static final Animation KNIFE_SLASHING_WEB = new Animation(911);
 	public static final Animation JUMPING_INTO_SOMETHING = new Animation(7269);
+	public static final Animation SG_DRINK_FROM_FOUNTAIN = new Animation(5796);
 	
 	/**
 	 * Object Based Animations
@@ -138,4 +139,5 @@ public final class Animations {
 	 */
 	public static final Animation NPC_PICKPOCKET_FAIL_RESPONSE = new Animation(422);
 	public static final Animation WIZARD_ESSENCE_MINE_TELEPORT = new Animation(1818);
+	public static final Animation SG_ELEMENTAL_ARM_SWINGING = new Animation(5803);
 }
