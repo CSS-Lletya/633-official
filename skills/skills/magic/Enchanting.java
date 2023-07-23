@@ -1,6 +1,7 @@
 package skills.magic;
 
 
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Optional;
 
@@ -241,6 +242,8 @@ public class Enchanting extends ProducingSkillAction {
 		HIGH_ALCH(59, 55, 40, new Item[]{}, new Item[]{new Item(561), new Item(554, 5)}, new Animation(713), new Graphics(113)) {
 			@Override
 			public boolean canCast(Player player, Item item) {
+				if (item.getDefinitions().getName().toLowerCase().contains("brawling"))
+					return true;
 				if (item.getId() == 995 || item.getName().equals("Coins")) {
 					player.getPackets().sendGameMessage("You can't cast this spell on an object made of gold.");
 					return false;
@@ -259,10 +262,10 @@ public class Enchanting extends ProducingSkillAction {
 			
 			@Override
 			public void onCast(Player player, Item item, int slot) {
-				System.out.println("?");
+				int value = Arrays.stream(Skills.BRAWLING_GLOVES).anyMatch(glove -> item.getId() == glove[1]) ? 30_000 : item.getDefinitions().getHighAlchPrice();
 				player.getAudioManager().sendSound(Sounds.HIGH_ALCHEMY_SPELL);
 				player.getInventory().deleteItem(new Item(item.getId(), 1));
-				player.getInventory().addItem(new Item(995, item.getDefinitions().getHighAlchPrice()));
+				player.getInventory().addItem(new Item(995, value));
 				player.getInterfaceManager().sendTab(Tabs.MAGIC);
 			}
 		},

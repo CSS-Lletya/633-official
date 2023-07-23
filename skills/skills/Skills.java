@@ -1,5 +1,6 @@
 package skills;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
@@ -7,7 +8,9 @@ import java.util.stream.IntStream;
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
 import com.rs.constants.ItemNames;
+import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
+import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
 
 import lombok.AllArgsConstructor;
@@ -44,6 +47,25 @@ public class Skills {
 			"Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
 			"Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction",
 			"Summoning", "Dungeoneering" };
+	
+	/**
+	 * A collection of brawling gloves with their respective skill
+	 */
+	public final static int[][] BRAWLING_GLOVES = {
+			{ WOODCUTTING, ItemNames.BRAWLING_GLOVES__WC__13850 },
+			{ AGILITY, ItemNames.BRAWLING_GLOVES__AGILITY__13849 },
+			{ COOKING, ItemNames.BRAWLING_GLOVES__COOKING__13857 },
+			{ FISHING, ItemNames.BRAWLING_GLOVES__FISHING__13856 },
+			{ FIREMAKING, ItemNames.BRAWLING_GLOVES__FM__13851 },
+			{ HUNTER, ItemNames.BRAWLING_GLOVES__HUNTER__13853 },
+			{ MAGIC, ItemNames.BRAWLING_GLOVES__MAGIC__13847 },
+			{ HITPOINTS, ItemNames.BRAWLING_GLOVES__MELEE__13845 },
+			{ MINING, ItemNames.BRAWLING_GLOVES__MINING__13852 },
+			{ PRAYER, ItemNames.BRAWLING_GLOVES__PRAYER__13848 },
+			{ RANGE, ItemNames.BRAWLING_GLOVES__RANGED__13846 },
+			{ SMITHING, ItemNames.BRAWLING_GLOVES__SMITHING__13855 },
+			{ THIEVING, ItemNames.BRAWLING_GLOVES__THIEVING__13854 }
+	};
 
 	/**
 	 * An array of the levels the Player can level-up in
@@ -328,6 +350,10 @@ public class Skills {
 			experience *= 1.2;
 		if (IntStream.rangeClosed(13612, 13628).anyMatch(item -> player.getEquipment().containsAny(item)) && skill == RUNECRAFTING)
 			experience *= 1.1;
+		if (Arrays.stream(BRAWLING_GLOVES).filter(glove -> skill == glove[0])
+				.anyMatch(glove -> player.getEquipment().getGlovesId() == glove[1])) {
+			experience *= 1.5;
+		}
 		return experience;
 	}
 	
@@ -369,15 +395,13 @@ public class Skills {
 		xp[skill] += exp;
 		xpCounter += exp;
 		refreshXpCounter();
-
-		if (xp[skill] > MAXIMUM_EXP) {
+		if (xp[skill] > MAXIMUM_EXP)
 			xp[skill] = MAXIMUM_EXP;
-		}
 		int temporaryBonusXp = 10;
-		 temporaryBonusXp += (int) ((exp / 2.5 ) * 10);
-         player.getVarsManager().sendVarBit(1878, temporaryBonusXp);//Bonus xp amount
-         player.getVarsManager().sendVarBit(1878, temporaryBonusXp);//Bonus xp amount
-         player.getPackets().sendRunScript(776);//Script for double xp
+		temporaryBonusXp += (int) ((exp / 2.5) * 10);
+		player.getVarsManager().sendVarBit(1878, temporaryBonusXp);// Bonus xp amount
+		player.getVarsManager().sendVarBit(1878, temporaryBonusXp);// Bonus xp amount
+		player.getPackets().sendRunScript(776);// Script for double xp
 		int newLevel = getTrueLevel(skill);
 		int levelDiff = newLevel - oldLevel;
 		gainedLevels = levelDiff;
@@ -393,6 +417,13 @@ public class Skills {
 			}
 		}
 		refresh(skill);
+		if (Arrays.stream(BRAWLING_GLOVES).filter(glove -> skill == glove[0])
+				.anyMatch(glove -> RandomUtils.random(300) == 0 && player.getEquipment().containsAny(glove[1]))){
+			 player.getEquipment().getItems().set(Equipment.SLOT_HANDS, null);
+             player.getEquipment().refresh(Equipment.SLOT_HANDS);
+             player.getAppearance().generateAppearenceData();
+             player.getPackets().sendGameMessage("You brawling gloves has crumbled to dust.");
+		}
 		return exp;
 	}
 

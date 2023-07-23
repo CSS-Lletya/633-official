@@ -7,7 +7,6 @@ import com.google.common.collect.ImmutableSet;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
-import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 
 public final class GameConstants {

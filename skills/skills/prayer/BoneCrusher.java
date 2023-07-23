@@ -15,6 +15,6 @@ public class BoneCrusher {
 			Bone.VALUES.stream().filter(bone -> bone.getId() == item.getId())
 					.forEach(bone -> player.getSkills().addExperience(Skills.PRAYER, bone.getExperience() / 2));
 		}
-		return Bone.VALUES.stream().anyMatch(id -> id.getId() == item.getId());
+		return player.getInventory().containsAny(ItemNames.BONECRUSHER_18337) && Bone.VALUES.stream().anyMatch(id -> id.getId() == item.getId());
 	}
 }

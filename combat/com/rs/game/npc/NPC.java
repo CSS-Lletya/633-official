@@ -127,31 +127,31 @@ public class NPC extends Entity {
 		if (isDead() || getMovement().isLocked())
 			return;
 		if (!combat.process()) {
-            if (!isForceWalking()) {
-                if (!cantInteract) {
-                    if (!checkAgressivity()) {
-			if (getMovement().getFreezeDelay() < Utility.currentTimeMillis()) {
-				if (!hasWalkSteps() && (getWalkType() & NORMAL_WALK) != 0) {
-					boolean can = false;
-					for (int i = 0; i < 2; i++) {
-						if (Math.random() * 1000.0 < 100.0) {
-							can = true;
-							break;
+			if (!isForceWalking()) {
+				if (!cantInteract) {
+					if (!checkAgressivity()) {
+						if (getMovement().getFreezeDelay() < Utility.currentTimeMillis()) {
+							if (!hasWalkSteps() && (getWalkType() & NORMAL_WALK) != 0) {
+								boolean can = false;
+								for (int i = 0; i < 2; i++) {
+									if (Math.random() * 1000.0 < 100.0) {
+										can = true;
+										break;
+									}
+								}
+								if (can) {
+									int moveX = (int) Math.round(Math.random() * 10.0 - 5.0);
+									int moveY = (int) Math.round(Math.random() * 10.0 - 5.0);
+									resetWalkSteps();
+									addWalkSteps(getRespawnTile().getX() + moveX, getRespawnTile().getY() + moveY, 5,
+											(getWalkType() & FLY_WALK) == 0);
+								}
+							}
 						}
 					}
-					if (can) {
-						int moveX = (int) Math.round(Math.random() * 10.0 - 5.0);
-						int moveY = (int) Math.round(Math.random() * 10.0 - 5.0);
-						resetWalkSteps();
-						addWalkSteps(getRespawnTile().getX() + moveX, getRespawnTile().getY() + moveY, 5,
-								(getWalkType() & FLY_WALK) == 0);
-                    }
-                }
-            }
-        }
-    }
-}
-}
+				}
+			}
+		}
 		if (isForceWalking()) {
 			if (getMovement().getFreezeDelay() < Utility.currentTimeMillis()) {
 				if (getX() != getForceWalk().getX() || getY() != getForceWalk().getY()) {
@@ -315,6 +315,11 @@ public class NPC extends Entity {
 	}
 
 	public void sendDrop(Player player, Item item) {
+		DungeoneeringNecklaces.handleNecklaces(player, item.getId());
+		int[] BRAWLERS = {13845, 13846, 13847, 13848, 13849, 13850, 13851, 13852, 13853, 13854, 13855, 13856, 13857};
+		if (WildernessMapZone.isAtWild(player) && RandomUtils.random(300) == 0)
+			FloorItem.addGroundItem(new Item(RandomUtils.random(BRAWLERS)), player, player, true, 60);
+		
 		if (id == 2263 || id == 2264 || id == 2265)
             RunecraftingPouchDrop.sendPouchDrop(player, this);
 		if (BoneCrusher.handleDrop(player, item))
@@ -325,7 +330,6 @@ public class NPC extends Entity {
 			FloorItem.addGroundItem(item, player, player, true, 60);
 		else
 			FloorItem.addGroundItem(item, new WorldTile(getCoordFaceX(getSize()), getCoordFaceY(getSize()), getPlane()), player, true, 60);
-		DungeoneeringNecklaces.handleNecklaces(player, item.getId());
 	}
 	
 	@Override
