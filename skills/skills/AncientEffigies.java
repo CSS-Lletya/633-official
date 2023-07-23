@@ -2,6 +2,8 @@ package skills;
 
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
+import com.rs.net.encoders.other.Animation;
+import com.rs.net.encoders.other.Graphics;
 
 public class AncientEffigies {
 
@@ -109,9 +111,10 @@ public class AncientEffigies {
                 inv.addItem(GORGED_ANCIENT_EFFIGY, 1);
                 break;
             case GORGED_ANCIENT_EFFIGY:
+            	player.setNextAnimation(new Animation(14177));
+				player.setNextGraphics(new Graphics(2692));
                 inv.addItem(DRAGONKIN_LAMP, 1);
                 break;
-
         }
     }
 }

@@ -34,7 +34,8 @@ public class AncientEffigyItemPlugin extends InventoryListener {
 					player.getPackets().sendGameMessage("You require at lest level " + AncientEffigies.getRequiredLevel(item.getId()) + " " + Skills.SKILL_NAME[skill1] + " to investigate the ancient effigy further.");
 					return;
 				} else {
-					player.setNextAnimation(new Animation(4068));
+					if (item.getId() != 18781)
+						player.setNextAnimation(new Animation(4068));
 					d.mes("As you focus on your memories, you can almost hear a", "voice in the back of your mind whispering to you...");
 					d.event(() -> {
 						int xp = AncientEffigies.getExp(item.getId());
@@ -55,7 +56,8 @@ public class AncientEffigyItemPlugin extends InventoryListener {
 					player.getPackets().sendGameMessage("You require at lest level " + AncientEffigies.getRequiredLevel(item.getId()) + " " + Skills.SKILL_NAME[skill2] + " to investigate the ancient effigy further.");
 					return;
 				} else {
-					player.setNextAnimation(new Animation(4068));
+					if (item.getId() != 18781)
+						player.setNextAnimation(new Animation(4068));
 					d.mes("As you focus on your memories, you can almost hear a", "voice in the back of your mind whispering to you...");
 					d.event(() -> {
 						int xp = AncientEffigies.getExp(item.getId());

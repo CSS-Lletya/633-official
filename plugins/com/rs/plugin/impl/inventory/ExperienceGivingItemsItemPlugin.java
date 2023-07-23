@@ -6,7 +6,7 @@ import com.rs.plugin.impl.interfaces.ExperienceLampInterfacePlugin;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 
-@InventoryWrapper(itemId = {19775, 19755, 18702, 11640	}, itemNames = {})
+@InventoryWrapper(itemId = {19775, 19755, 18702, 11640, 18782}, itemNames = {})
 public class ExperienceGivingItemsItemPlugin extends InventoryListener {
 
 	@Override

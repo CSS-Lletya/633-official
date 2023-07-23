@@ -8,6 +8,7 @@ import com.rs.plugin.wrapper.RSInterfaceSignature;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
+import skills.Skills;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -40,6 +41,10 @@ public class ExperienceLampInterfacePlugin extends RSInterfaceListener {
 				player.getSkills().addSkillExperience(getSkill(), getExperience(player));
 				player.getDetails().getStatistics().addStatistic("Experience_Lamps_Used");
 				player.getAudioManager().sendSound(Sounds.EXPERIENCE_LAMP_USED);
+				if (lamp == 18782) {
+					player.getDetails().getStatistics().addStatistic("Dragonkin_Experience_Lamps_Used");
+					player.dialogue(d -> d.item(18782, "<br>As you focus on your chosen memories, you feel a <br>burning malevolence in the back of your mind.<br>You have gained new insight into " + Skills.SKILL_NAME[getSkill()] + "... but<br>at what cost?"));
+				}
 				setSkill(-1);
 			}
 		} else {
@@ -49,8 +54,9 @@ public class ExperienceLampInterfacePlugin extends RSInterfaceListener {
 		}
 	}
 
+	//TODO: Dragonkin lamp experience logic
 	public double getExperience(Player player) {
-		setExperience((lamp == 19775 ? 215.0 : 126.0) + (player.getSkills().getLevel(getSkill()) * 3));
+		setExperience((lamp == 19775 ? 215.0 : lamp == 18782 ? 250 : 126.0) + (player.getSkills().getLevel(getSkill()) * 3));
 		return getExperience();
 	}
 }
