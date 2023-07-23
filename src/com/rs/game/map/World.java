@@ -17,6 +17,7 @@ import com.rs.game.player.content.LivingRockCavern;
 import com.rs.game.task.Task;
 import com.rs.game.task.TaskManager;
 import com.rs.game.task.impl.BonusExperienceTimerTask;
+import com.rs.game.task.impl.DailyCharacterBackupTask;
 import com.rs.game.task.impl.GlobalImplingTask;
 import com.rs.game.task.impl.RestoreHitpoints;
 import com.rs.game.task.impl.RestoreRunEnergyTask;
@@ -95,6 +96,7 @@ public class World {
 		World.get().submit(new RestoreHitpoints());
 		World.get().submit(new BonusExperienceTimerTask());
 		World.get().submit(new GlobalImplingTask());
+		World.get().submit(new DailyCharacterBackupTask());
 		LivingRockCavern.init();
 	}
 
