@@ -47,7 +47,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 		if (object.getId() == 2879 || object.getId() == 2878) {
 			player.getMovement().lock(1);
 			final WorldTile destination = POOL_DESTINATIONS[2879 - object.getId()];
-			player.dialogue(d -> d.mes("You step into the pool of sparkling water. You feel energy rush<br>through your veins."));
+			player.dialogue(d -> d.mes("You step into the pool of sparkling water. You feel energy rush","through your veins."));
 			World.get().submit(new Task(4) {
 				@Override
 				protected void execute() {
@@ -72,7 +72,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 			@Override
 			public void execute() {
 				if (player.ownsItems(new Item(2412), new Item(2413), new Item(2414))) {
-					player.getPackets().sendGameMessage("You may only possess one sacred cape at a time.<br>The conflicting powers of the capes drive them apart.");
+					player.getPackets().sendGameMessage("You may only possess one sacred cape at a time. The conflicting powers of the capes drive them apart.");
 					return;
 				}
 				player.setNextFaceWorldTile(object);
