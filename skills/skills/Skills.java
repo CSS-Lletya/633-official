@@ -283,6 +283,7 @@ public class Skills {
 			player.getVarsManager().sendVarBit(7232, 1);// Bonus xp button, invalid
 			player.getVarsManager().sendVarBit(7233, 170);// 2.5xp
 			refreshXpBonus();
+			player.getPackets().sendGameMessage("Enjoy the double experience weekend!");
 		}
 	}
 

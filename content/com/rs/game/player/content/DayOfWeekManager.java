@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import com.rs.game.player.Player;
+import com.rs.net.host.HostListType;
+import com.rs.net.host.HostManager;
 
 import lombok.Data;
 
@@ -37,32 +39,19 @@ public class DayOfWeekManager {
 	 * Represents the saved day itself (Starting off on Sunday)
 	 */
 	private int savedDay = -1;
-
-	/**
-	 * Initializes the {@link DayOfWeekManager} system on login, updates as well
-	 */
-	public void init() {
-		if (savedDay != calendar.get(Calendar.DAY_OF_WEEK)) {
-			handleNewDay();
-			if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
-				handleNewWeek();
-			savedDay = calendar.get(Calendar.DAY_OF_WEEK);
-		}
-		if (today != calendar.get(Calendar.DAY_OF_WEEK))
-			today = calendar.get(Calendar.DAY_OF_WEEK);
-	}
-
+	
 	/**
 	 * Processes the {@link DayOfWeekManager} system to consistently check for date changing
 	 */
 	public void process() {
+		if (today != calendar.get(Calendar.DAY_OF_WEEK))
+			today = calendar.get(Calendar.DAY_OF_WEEK);
 		if (savedDay != calendar.get(Calendar.DAY_OF_WEEK)) {
 			handleNewDay();
 			if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY)
 				handleNewWeek();
 			savedDay = calendar.get(Calendar.DAY_OF_WEEK);
 		}
-		today = calendar.get(Calendar.DAY_OF_WEEK);
 	}
 
 	/**
@@ -77,6 +66,24 @@ public class DayOfWeekManager {
 	 * Handles a new day event
 	 */
 	private void handleNewDay() {
+		if (HostManager.contains(player.getUsername(), HostListType.BANNED_IP)) {
+			if (player.getDetails().getDaysBanned().get() > 0)
+				player.getDetails().getDaysBanned().decrementAndGet();
+			if (player.getDetails().getDaysBanned().get() == 0) {
+				HostManager.remove(player.getDisplayName(), HostListType.BANNED_IP);
+			}
+		}
+		if (HostManager.contains(player.getUsername(), HostListType.MUTED_IP)) {
+			player.getPackets()
+			.sendGameMessage("You have been temporarily muted due to breaking a rule.")
+			.sendGameMessage("This mute will remain for a further " + player.getDetails().getDaysBanned().get() + " days.")
+			.sendGameMessage("To prevent further mute please read the rules.");
+			if (player.getDetails().getDaysMuted().get() > 0)
+				player.getDetails().getDaysMuted().decrementAndGet();
+			if (player.getDetails().getDaysMuted().get() == 0) {
+				HostManager.remove(player.getDisplayName(), HostListType.MUTED_IP);
+			}
+		}
 		System.out.println("new day");
 	}
 

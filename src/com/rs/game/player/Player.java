@@ -457,6 +457,7 @@ public class Player extends Entity {
         	setAudioManager(new AudioManager(this));
         if (getDayOfWeekManager() == null)
         	setDayOfWeekManager(new DayOfWeekManager());
+        getDayOfWeekManager().setPlayer(this);
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -525,7 +526,6 @@ public class Player extends Entity {
 			getPackets().sendSystemUpdate(World.get().getExiting_delay() - delayPassed);
 		}
 		checkMultiArea();
-		getDayOfWeekManager().init();
 		Gravestone.login(this);
 		getDetails().setLastIP(getSession().getIP());
 		getAppearance().generateAppearenceData();
@@ -559,13 +559,6 @@ public class Player extends Entity {
 		setRunning(true);
 		setUpdateMovementType(true);
 		getMapZoneManager().execute(this, controller -> controller.login(this));
-		if (HostManager.contains(getUsername(), HostListType.MUTED_IP)) {
-			getPackets()
-					.sendGameMessage("You have been temporarily muted due to breaking a rule.")
-					.sendGameMessage("This mute will remain for a further X days.")
-					.sendGameMessage("To prevent further mute please read the rules.");
-			getInterfaceManager().sendInterface(801);
-		}
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
 			GameConstants.STATER_KIT.forEach(getInventory()::addItem);
 			HostManager.add(this, HostListType.STARTER_RECEIVED);

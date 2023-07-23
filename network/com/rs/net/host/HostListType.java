@@ -1,9 +1,13 @@
 package com.rs.net.host;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * An enumeration of possible host list types.
  * @author Artem Batutin <artembatutin@gmail.com>
  */
+@AllArgsConstructor
 public enum HostListType {
 	BANNED_IP(0, "banned_ips"),
 	MUTED_IP(1, "muted_ips"),
@@ -12,23 +16,12 @@ public enum HostListType {
 	/**
 	 * The index in the list array.
 	 */
+	@Getter
 	private final int index;
 	
 	/**
 	 * The file name.
 	 */
+	@Getter
 	private final String file;
-	
-	HostListType(int index, String file) {
-		this.index = index;
-		this.file = file;
-	}
-	
-	public int getIndex() {
-		return index;
-	}
-	
-	public String getFile() {
-		return file;
-	}
 }

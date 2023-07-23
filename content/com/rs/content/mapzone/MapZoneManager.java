@@ -34,6 +34,10 @@ public final class MapZoneManager {
 	 * @param action the backed controller action to execute.
 	 */
 	public void executeVoid(Player player, Consumer<MapZone> action) {
+		if (player == null) {
+			System.out.println("null player");
+			return;
+		}
 		getMapZone(player).ifPresent(action::accept);
 	}
 	
@@ -45,6 +49,10 @@ public final class MapZoneManager {
 	 * @param function the function to execute that returns a result.
 	 */
 	public boolean execute(Player player, Function<MapZone, Boolean> function) {
+		if (player == null) {
+			System.out.println("null player");
+			return false;
+		}
 		return !getMapZone(player).isPresent() ? false : function.apply(getMapZone(player).get());
 	}
 	

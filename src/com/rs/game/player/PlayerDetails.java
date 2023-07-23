@@ -81,17 +81,17 @@ public final class PlayerDetails {
 	 * Represents the last known npc interacted with. Useful for dialogues that aren't aligned normally. (Example: Pet puppy picking)
 	 */
 	private int lastNPCInteracted;
-	
+	 
 	/**
 	 * Mutable values stored for specified uses It's more ideal to use this system
 	 * for easy incrementing, such.
 	 */
-	private final MutableNumber poisonImmunity = new MutableNumber(), skullId = new MutableNumber(),
+	private MutableNumber poisonImmunity = new MutableNumber(), skullId = new MutableNumber(),
 			questPoints = new MutableNumber(), skullTimer = new MutableNumber(), teleBlockDelay = new MutableNumber(),
 			prayerDelay = new MutableNumber(), essenceTeleporter = new MutableNumber(),
 			gravestone = new MutableNumber(), censoredWordCount = new MutableNumber(), incubatorTimer = new MutableNumber(),
 			strongholdLevels = new MutableNumber(), skullSceptreCharges = new MutableNumber(), coalBagSize = new MutableNumber(81), boneType = new MutableNumber(),
-			playTime = new MutableNumber();
+			playTime = new MutableNumber(), daysBanned = new MutableNumber(), daysMuted = new MutableNumber();
 	/**
 	 * Holds an optional wrapped inside the Anti-fire details.
 	 */

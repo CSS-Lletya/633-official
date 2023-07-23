@@ -22,8 +22,7 @@ public final class GameConstants {
 	public static final long CONNECTION_TIMEOUT = GameProperties.getGameProperties().getInteger("connection_timeout");
 	public static final String SQL_FILE_PATH =  GameProperties.getGameProperties().getString("sql_location");
 	public static final boolean SQL_ENABLED = GameProperties.getGameProperties().getBoolean("sql_state");
-	public static final int TOTAL_QUEST_POINTS = GameProperties.getGameProperties().getInteger("total_quest_points");
-
+	
 	/**
 	 * Player settings
 	 */
@@ -32,17 +31,15 @@ public final class GameConstants {
 	public static final int XP_RATE = GameProperties.getGameProperties().getInteger("exp_rate");
 	public static final int LAMP_XP_RATE = GameProperties.getGameProperties().getInteger("lamp_exp_rate");
 	public static final boolean XP_BONUS_ENABLED = GameProperties.getGameProperties().getBoolean("bonus_exp_enabled");
-	
-	/**
-	 * The time in seconds that has to be spent in a region before {@link Mob}s stop
-	 * acting aggressive towards a specific {@link Player}.
-	 */
+	public static final int TOTAL_QUEST_POINTS = GameProperties.getGameProperties().getInteger("total_quest_points");
+	public static final String MISSING_CONTENT = GameProperties.getGameProperties().getString("missing_content_message");
 	public static final short TOLERANCE_SECONDS = GameProperties.getGameProperties().getShort("tolerance");
 	
 	/**
-	 * The maximum amount of drops that can be rolled from the dynamic drop table.
+	 * Launching settings
 	 */
-	public static final String MISSING_CONTENT = GameProperties.getGameProperties().getString("missing_content_message");
+	public static boolean DEBUG = GameProperties.getGameProperties().getBoolean("debug_mode");
+	public static boolean HOSTED = GameProperties.getGameProperties().getBoolean("is_live");
 	
 	/**
 	 * Items that are protected upon a Players death by default in the Wilderness
@@ -63,8 +60,7 @@ public final class GameConstants {
 	 */
 	public static final ImmutableMap<String, Rights> STAFF = ImmutableMap.of(
 			"Zed", Rights.ADMINISTRATOR,
-			"Test", Rights.ADMINISTRATOR,
-			"stan", Rights.ADMINISTRATOR
+			"Test", Rights.ADMINISTRATOR
 			
 	);
 
@@ -78,15 +74,9 @@ public final class GameConstants {
 	 * Memory settings
 	 */
 	public static final Short PLAYERS_LIMIT = 2000;
-	public static final Short NPCS_LIMIT = 13245;
+	public static final Short NPCS_LIMIT = Short.MAX_VALUE;
 	public static final byte LOCAL_NPCS_LIMIT = 127;
 	public static final int MIN_FREE_MEM_ALLOWED = 30000000;
-	
-	/**
-	 * Launching settings
-	 */
-	public static boolean DEBUG = GameProperties.getGameProperties().getBoolean("debug_mode");
-	public static boolean HOSTED = GameProperties.getGameProperties().getBoolean("is_live");
 
 	/**
 	 * Game constants
