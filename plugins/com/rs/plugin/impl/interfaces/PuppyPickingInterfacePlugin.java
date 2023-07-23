@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterfaceListener;
@@ -36,13 +36,13 @@ public class PuppyPickingInterfacePlugin extends RSInterfaceListener {
 		boolean missingPet = Dogs.VALUES.stream()
 		        .anyMatch(dog -> dog.buttonId == componentId && !player.ownsItems(new Item(dog.dogId)));
 		if (!missingPet) {
-			player.dialogue(player.getDetails().getLastNPCInteracted(), d -> d.npc(Expression.sad, "It appears you already have this pet.."));
+			player.dialogue(player.getDetails().getLastNPCInteracted(), d -> d.npc(Mood.sad, "It appears you already have this pet.."));
 		} else {
 		    Dogs.VALUES.stream()
 		            .filter(dog -> dog.buttonId == componentId && !player.ownsItems(new Item(dog.dogId)))
 		            .forEach(availableDog -> {
 		            	player.getInventory().addItem(new Item(availableDog.dogId));
-		            	player.dialogue(player.getDetails().getLastNPCInteracted(), d -> d.npc(Expression.happy, "There you go! Take care of your new companion now!"));
+		            	player.dialogue(player.getDetails().getLastNPCInteracted(), d -> d.npc(Mood.happy, "There you go! Take care of your new companion now!"));
 		            });
 		}
 	}

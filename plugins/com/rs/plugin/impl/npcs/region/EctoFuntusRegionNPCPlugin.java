@@ -1,6 +1,6 @@
 package com.rs.plugin.impl.npcs.region;
 
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
@@ -19,7 +19,7 @@ public class EctoFuntusRegionNPCPlugin extends NPCListener {
 	public void execute(Player player, NPC npc, int option) {
 		if (npc.getId() == 1686 && option == 2) {
 			if (!player.ownsItems(new Item(4251), new Item(4252)) && player.getInventory().addItem(new Item(4251))) {
-				player.dialogue(1686, d -> d.npc(Expression.happy, "Here you are, your very own Ectophial"));
+				player.dialogue(1686, d -> d.npc(Mood.happy, "Here you are, your very own Ectophial"));
 			}
 		} 
 	}

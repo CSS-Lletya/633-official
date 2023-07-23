@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.rs.constants.Animations;
 import com.rs.content.mapzone.MapZone;
 import com.rs.game.dialogue.DialogueEventListener;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
@@ -138,8 +138,8 @@ public class SorceresssGardenMapZone extends MapZone {
 			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
-					player(Expression.afraid, "Hey kitty!");
-					npc(Expression.annoyed, "Hiss!");
+					player(Mood.afraid, "Hey kitty!");
+					npc(Mood.annoyed, "Hiss!");
 				}
 			});
 		return false;

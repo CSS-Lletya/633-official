@@ -1,6 +1,6 @@
 package com.rs.game.dialogue;
 
-public interface Expression {
+public interface Mood {
 
 	// Happy expressions
 	short head_side2side_happy = 9843;

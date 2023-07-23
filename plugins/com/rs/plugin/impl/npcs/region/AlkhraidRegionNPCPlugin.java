@@ -2,7 +2,7 @@ package com.rs.plugin.impl.npcs.region;
 
 import com.rs.content.mapzone.impl.SorceresssGardenMapZone;
 import com.rs.game.dialogue.DialogueEventListener;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.NPCListener;
@@ -23,8 +23,8 @@ public class AlkhraidRegionNPCPlugin extends NPCListener {
 			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
-					player(Expression.happy, "Hey apprentice, do you want ", " to try out your teleport skills again?");
-					npc(Expression.annoyed, "Okay, here goes - and remember ",
+					player(Mood.happy, "Hey apprentice, do you want ", " to try out your teleport skills again?");
+					npc(Mood.annoyed, "Okay, here goes - and remember ",
 							" to return just drink from the fountain.");
 					option("Teleport to the Sorceresss Garden",
 							() -> SorceresssGardenMapZone.teleportToSorceressGardenNPC(npc, player),
@@ -36,7 +36,7 @@ public class AlkhraidRegionNPCPlugin extends NPCListener {
 		if (npc.getId() == 924) {
 			if (player.getInventory().containsOneItem(10848, 10849, 10850, 10851)) {
 				player.dialogue(npc.getId(), d -> {
-					d.player(Expression.happy, "I have some sq'irk juice for you.");
+					d.player(Mood.happy, "I have some sq'irk juice for you.");
 					d.mes("Osman imparts some Thieving advice "," to you as a reward for the sq'irk juice.");
 					d.event(() -> {
 						int totalXp =

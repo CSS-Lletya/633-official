@@ -2,7 +2,7 @@ package com.rs.plugin.impl.npcs.region;
 
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
@@ -19,7 +19,7 @@ public class TaverlyRegionNPCPlugin extends NPCListener {
 	public void execute(Player player, NPC npc, int option) {
 		if (npc.getId() == 6970) {
 			if (option == 3) {
-				player.dialogue(6970, d -> d.npc(Expression.happy, "Show me the item you wish to enchant!"));
+				player.dialogue(6970, d -> d.npc(Mood.happy, "Show me the item you wish to enchant!"));
 			} else
 				player.getPackets().sendGameMessage(GameConstants.MISSING_CONTENT);
 		}
@@ -40,7 +40,7 @@ public class TaverlyRegionNPCPlugin extends NPCListener {
 						if (itemUsed.getId() == helm.baseItem) {
 							player.getInventory().deleteItem(itemUsed.getSlot(), itemUsed);
 							player.getInventory().addItem(helm.enchantedItem, 1);
-							player.dialogue(6970, d -> d.npc(Expression.happy, "There you are! I have just enchanted ","your " + ItemDefinitions.getItemDefinitions(helm.baseItem).getName() + " for you."));
+							player.dialogue(6970, d -> d.npc(Mood.happy, "There you are! I have just enchanted ","your " + ItemDefinitions.getItemDefinitions(helm.baseItem).getName() + " for you."));
 							player.getPackets().sendGameMessage("Pikkupstix magically enchants your headwear.");
 							player.getDetails().getStatistics().addStatistic("Summoning_Items_Enchanted");
 							return;

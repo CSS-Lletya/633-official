@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.content.mapzone.impl.WildernessMapZone;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemsContainer;
@@ -455,16 +455,16 @@ public class TreasureTrailsManager {
         	player.getInventory().addItem(new Item(puzzle_id));
         	
         } else if (currentClue.details.type == ANAGRAM && currentClue.dificulty >= HARD && !hasCompletedPuzzle()) {
-        	player.dialogue(d -> d.player(Expression.sad, "That doesn't look right."));
+        	player.dialogue(d -> d.player(Mood.sad, "That doesn't look right."));
         }
         if (currentClue.details.type == ANAGRAM && currentClue.dificulty >= HARD) {
         	for (int id : PUZZLES)
                 player.getInventory().deleteItem(id, 1);
             setNextClue(SOURCE_PUZZLENPC);
-            player.dialogue(d -> d.player(Expression.sad, "Ah! There we go!"));
+            player.dialogue(d -> d.player(Mood.sad, "Ah! There we go!"));
             return true;
         } else {
-        	player.dialogue(d -> d.player(Expression.happy, "Looks like i'm in right place.."));
+        	player.dialogue(d -> d.player(Mood.happy, "Looks like i'm in right place.."));
         	setNextClue(SOURCE_NPC);
             return true;
         }

@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 import com.rs.GameConstants;
 import com.rs.constants.NPCNames;
 import com.rs.game.dialogue.DialogueEventListener;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.other.Gravestone;
 import com.rs.game.player.Player;
@@ -41,21 +41,21 @@ public class LumbridgeRegionNPCPlugin extends NPCListener {
 			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
-					npc(Expression.happy, "Hello. What are you doing here?");
+					npc(Mood.happy, "Hello. What are you doing here?");
 					option(
 							"I'm looking for whoever is in charge of this place", () -> {
-								player(Expression.happy, "I'm looking for whoever is in charge of this place.");
-								npc(Expression.happy, "Who, the Duke? He's in his study, on the first floor.");
+								player(Mood.happy, "I'm looking for whoever is in charge of this place.");
+								npc(Mood.happy, "Who, the Duke? He's in his study, on the first floor.");
 							}, 
-							"I have come to kill everyone in this castle!", () -> player(Expression.happy, "I have to come to kill everyone in this castle!"), 
+							"I have come to kill everyone in this castle!", () -> player(Mood.happy, "I have to come to kill everyone in this castle!"), 
 							"don't know. I'm lost. Where am I?", () -> {
-								player(Expression.happy, "I don't know. I'm lost. Where am I?");
-								npc(Expression.happy, "You are in Lumbridge Castle.");
+								player(Mood.happy, "I don't know. I'm lost. Where am I?");
+								npc(Mood.happy, "You are in Lumbridge Castle.");
 							},
 							"Can you tell me how long I've been here?", () -> {
-								npc(Expression.happy, "You've spent " + days + (days > 1 || days == 0 ? " days" : " day") + ", " + hours + (hours > 1 || hours == 0 ? " hours" : " hour") + ", " + minutes + (minutes > 1 || minutes == 0 ? " minutes" : " minute") + "" , "" + " in the world since you arrived in " + GameConstants.SERVER_NAME + ".");
+								npc(Mood.happy, "You've spent " + days + (days > 1 || days == 0 ? " days" : " day") + ", " + hours + (hours > 1 || hours == 0 ? " hours" : " hour") + ", " + minutes + (minutes > 1 || minutes == 0 ? " minutes" : " minute") + "" , "" + " in the world since you arrived in " + GameConstants.SERVER_NAME + ".");
 							},
-							"Nothing", () -> player(Expression.happy, "Nothing."));
+							"Nothing", () -> player(Mood.happy, "Nothing."));
 				}
 			});
 		}

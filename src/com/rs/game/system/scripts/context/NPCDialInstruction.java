@@ -2,7 +2,7 @@ package com.rs.game.system.scripts.context;
 
 import java.util.Arrays;
 
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.system.scripts.ParamCall;
@@ -81,7 +81,7 @@ public final class NPCDialInstruction extends ScriptContext {
 	public ScriptContext parse(Object... params) {
 		String[] messages = new String[6];
 		int messageIndex = 0;
-		int expression = Expression.plain_talking;
+		int expression = Mood.plain_talking;
 		int npcId = -1;
 		boolean hide = false;
 		for (int i = 0; i < params.length; i++) {

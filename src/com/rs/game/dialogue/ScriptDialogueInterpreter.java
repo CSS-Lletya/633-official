@@ -255,7 +255,7 @@ public class ScriptDialogueInterpreter {
 		boolean npc = npcId > -1;
 		int interfaceId = (npc ? 240 : 63) + messages.length;
 		if (expression == -1) {
-			expression = Expression.plain_talking;
+			expression = Mood.plain_talking;
 		}
 		player.getPackets().sendIComponentText(interfaceId, 3, (npc ? NPCDefinitions.getNPCDefinitions(npcId).getName() : player.getDisplayName()));
 		for (int i = 0; i < messages.length; i++) {

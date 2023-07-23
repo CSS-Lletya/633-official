@@ -2,7 +2,7 @@ package com.rs.plugin.impl.objects;
 
 import com.rs.constants.Animations;
 import com.rs.game.dialogue.DialogueEventListener;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
@@ -29,7 +29,7 @@ public class HaystackObjectPlugin extends ObjectListener {
 			player.dialogue(new DialogueEventListener(player) {
 				@Override
 				public void start() {
-					player(Expression.happy_plain_eyebrows_up, "Wow! A needle!", "Now what are the chances of finding that?");
+					player(Mood.happy_plain_eyebrows_up, "Wow! A needle!", "Now what are the chances of finding that?");
 				}
 			});
 			return;

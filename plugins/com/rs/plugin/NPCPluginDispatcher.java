@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.constants.Animations;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.movement.route.RouteEvent;
@@ -183,7 +183,7 @@ public class NPCPluginDispatcher {
 					pet.pickup();
 				} else if (optionId == 2) {
 					player.faceEntity(npc);
-					player.dialogue(d -> d.player(Expression.laugh_happy, "Who's loves me? You? yay!"));
+					player.dialogue(d -> d.player(Mood.laugh_happy, "Who's loves me? You? yay!"));
 				}
 			}
 			if (npc instanceof Gravestone) {

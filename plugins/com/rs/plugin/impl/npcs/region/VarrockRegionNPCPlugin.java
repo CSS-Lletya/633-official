@@ -6,7 +6,7 @@ import java.util.List;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.content.quests.ScrollInterface;
 import com.rs.game.dialogue.DialogueEventListener;
-import com.rs.game.dialogue.Expression;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.NPCListener;
@@ -55,7 +55,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 				});
 			}
 			if (option == 2) {
-				player.dialogue(npc.getId(), d -> d.npc(Expression.happy, "One moment please..."));
+				player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "One moment please..."));
 				List<String> messages = new ArrayList<String>();
 				for (int i = 199; i <= 14836; i++) {
 					ItemDefinitions herbs = ItemDefinitions.getItemDefinitions(i);
@@ -67,7 +67,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 				ScrollInterface.sendQuestScroll(player, "Current Herb price guide", info);
 			}
 			if (option == 3) {
-				player.dialogue(npc.getId(), d -> d.npc(Expression.happy, "One moment please..."));
+				player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "One moment please..."));
 				new BobBarter(player).decant();
 			}
 		}
@@ -95,7 +95,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 				});
 			}
 			if (option == 2) {
-				player.dialogue(npc.getId(), d -> d.npc(Expression.happy, "One moment please..."));
+				player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "One moment please..."));
 				List<String> messages = new ArrayList<String>();
 				for (int i = 1511; i <= 12583; i++) {
 					ItemDefinitions log = ItemDefinitions.getItemDefinitions(i);
@@ -176,7 +176,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 				});
 			}
 			if (option == 2) {
-				player.dialogue(npc.getId(), d -> d.npc(Expression.happy, "One moment please..."));
+				player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "One moment please..."));
 				List<String> messages = new ArrayList<String>();
 				for (int i = 554; i <= 9075; i++) {
 					ItemDefinitions runes = ItemDefinitions.getItemDefinitions(i);
@@ -190,14 +190,14 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 				ScrollInterface.sendQuestScroll(player, "Current Runes price guide", info);
 			}
 			if (option == 3) {
-				player.dialogue(npc.getId(), d -> d.npc(Expression.sad, "I'm currently not able to do this right now, sorry."));
+				player.dialogue(npc.getId(), d -> d.npc(Mood.sad, "I'm currently not able to do this right now, sorry."));
 			}
 		}
 		if (npc.getId() == 6521) {
-			player.dialogue(npc.getId(), d -> d.npc(Expression.annoyed, "How can I help you.. <br>It seems like you already know about this market."));
+			player.dialogue(npc.getId(), d -> d.npc(Mood.annoyed, "How can I help you.. <br>It seems like you already know about this market."));
 		}
 		if (npc.getId() == 6522) {
-			player.dialogue(npc.getId(), d -> d.npc(Expression.angry_2, "HEY I'M WORKING HERE!"));
+			player.dialogue(npc.getId(), d -> d.npc(Mood.angry_2, "HEY I'M WORKING HERE!"));
 		}
 	}
 }
