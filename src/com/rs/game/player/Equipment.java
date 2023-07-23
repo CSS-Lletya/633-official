@@ -127,7 +127,7 @@ public final class Equipment {
 				|| name.contains("cowl") || name.contains("tattoo") || name.contains("headdress")
 				|| name.contains("hood") || (name.contains("mask") && !name.contains("h'ween"))
 				|| (name.contains("helm") && !name.contains("full")) || name.contains("chicken")
-				|| name.contains("coif");
+				|| name.contains("coif") || name.contains("antler");
 	}
 
 	public static int getItemSlot(int itemId) {

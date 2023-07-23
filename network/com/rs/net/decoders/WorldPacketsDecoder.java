@@ -119,7 +119,7 @@ public final class WorldPacketsDecoder extends Decoder {
 		PACKET_SIZES[79] = -1;
 		PACKET_SIZES[80] = 3;
 		PACKET_SIZES[60] = 4;
-		PACKET_SIZES[2] = 9;
+		PACKET_SIZES[2] = 11;
 		PACKET_SIZES[51] = 3;
 		PACKET_SIZES[30] = 7;
 		PACKET_SIZES[55] = 6;

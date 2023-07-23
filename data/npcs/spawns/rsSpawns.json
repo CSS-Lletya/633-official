@@ -34463,11 +34463,11 @@
   {
     "tile": {
       "plane": 0,
-      "x": 2929,
-      "y": 3448
+      "x": 2926,
+      "y": 3444
     },
     "comment": "Pikkupstix",
-    "npcId": 6988
+    "npcId": 6970
   },
   {
     "tile": {

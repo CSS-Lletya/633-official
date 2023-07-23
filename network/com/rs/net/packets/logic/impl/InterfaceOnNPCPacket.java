@@ -6,6 +6,7 @@ import com.rs.GameConstants;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
+import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.familiar.Familiar.SpecialAttack;
@@ -28,9 +29,9 @@ public class InterfaceOnNPCPacket implements LogicPacketListener {
 			return;
 		if (player.getMovement().isLocked() /* || player.getEmotesManager().isDoingEmote() */)
 			return;
-		@SuppressWarnings("unused")
 		int itemId = stream.readUnsignedShortLE128();
 		int interfaceHash = stream.readIntV2();
+		@SuppressWarnings("unused")
 		int interfaceSlot = stream.readUnsignedShort128();
 		int npcIndex = stream.readUnsignedShortLE128();
 		boolean forceRun = stream.readUnsignedByte128() == 1;
@@ -59,17 +60,21 @@ public class InterfaceOnNPCPacket implements LogicPacketListener {
 		}
 		switch (interfaceId) {
 		case Inventory.INVENTORY_INTERFACE:
-			Item item = player.getInventory().getItem(interfaceSlot);
-			if (item == null || player.getMapZoneManager().execute(player, controller -> !controller.processItemOnNPC(player, npc, item)))
+			Item item = player.getInventory().getItem(itemId);
+			if (item == null)
 				return;
-			else if (npc instanceof Familiar) {
-				Familiar familiar = (Familiar) npc;
-				if (familiar != player.getFamiliar()) {
-					player.getPackets().sendGameMessage("This is not your familiar!");
+			player.setRouteEvent(new RouteEvent(npc, () -> {
+				NPCPluginDispatcher.executeItemOnNPC(player, npc, item);
+				if (player.getMapZoneManager().execute(player, controller -> !controller.processItemOnNPC(player, npc, item)))
 					return;
+				if (npc instanceof Familiar) {
+					Familiar familiar = (Familiar) npc;
+					if (familiar != player.getFamiliar()) {
+						player.getPackets().sendGameMessage("This is not your familiar!");
+						return;
+					}
 				}
-			}
-			NPCPluginDispatcher.executeItemOnNPC(player, npc, item);
+			}));
 			break;
 		case 662:
 		case 747:

@@ -31,6 +31,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AllArgsConstructor;
 import skills.Skills;
+import skills.summoning.EnchantedHeadwear;
 
 /**
  * @author Dennis
@@ -193,6 +194,8 @@ public final class RSInterfacePluginDispatcher {
         }
         if (!hasRequiriments)
             return true;
+        if (!EnchantedHeadwear.canEquip(itemId, player))
+        	return false;
 		if (player.getMapZoneManager().execute(player, controller -> !controller.canEquip(player, targetSlot, itemId))) {
 			return false;
 		}
@@ -299,6 +302,8 @@ public final class RSInterfacePluginDispatcher {
 		}
 		if (!hasRequiriments)
 			return false;
+		if (!EnchantedHeadwear.canEquip(itemId, player))
+        	return false;
 		if (player.getMapZoneManager().execute(player, controller -> !controller.canEquip(player, finalSlot, itemId))) {
 			return false;
 		}
