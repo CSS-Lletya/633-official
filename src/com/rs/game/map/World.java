@@ -1,5 +1,6 @@
 package com.rs.game.map;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ import com.rs.game.task.TaskManager;
 import com.rs.game.task.impl.BonusExperienceTimerTask;
 import com.rs.game.task.impl.DailyCharacterBackupTask;
 import com.rs.game.task.impl.GlobalImplingTask;
+import com.rs.game.task.impl.NewYearsItemsSpawningEventTask;
 import com.rs.game.task.impl.RestoreHitpoints;
 import com.rs.game.task.impl.RestoreRunEnergyTask;
 import com.rs.game.task.impl.RestoreSkillTask;
@@ -38,18 +40,18 @@ public class World {
 
 	@Getter
 	@Setter
-	public short exiting_delay;
+	private short exiting_delay;
 	
 	@Getter
 	@Setter
-	public long exiting_start;
+	private long exiting_start;
 	
 	private static final EntityList<Player> lobbyPlayers = new EntityList<Player>(GameConstants.PLAYERS_LIMIT, true);
 
 	private static final Predicate<Player> VALID_PLAYER = (player) -> player != null && player.isStarted() && !player.isFinished();
 	private static final Predicate<NPC> VALID_NPC = (npc) -> npc != null && !npc.isFinished();
 	
-	public static final EntityList<Player> players = new EntityList<Player>(GameConstants.PLAYERS_LIMIT, true);
+	private static final EntityList<Player> players = new EntityList<Player>(GameConstants.PLAYERS_LIMIT, true);
 	private static final EntityList<NPC> npcs = new EntityList<NPC>(GameConstants.NPCS_LIMIT, false);
 
 	public static Stream<Entity> entities() {
@@ -87,16 +89,10 @@ public class World {
 	@Getter
 	private static Object2ObjectOpenHashMap<Integer, Region> regions = new Object2ObjectOpenHashMap<>();
 
-	public static final void init() {
-		World.get().submit(new RestoreRunEnergyTask());
-		World.get().submit(new RestoreSpecialTask());
-		World.get().submit(new SummoningPassiveTask());
-		World.get().submit(new ShopRestockTask());
-		World.get().submit(new RestoreSkillTask());
-		World.get().submit(new RestoreHitpoints());
-		World.get().submit(new BonusExperienceTimerTask());
-		World.get().submit(new GlobalImplingTask());
-		World.get().submit(new DailyCharacterBackupTask());
+	public final void init() {
+		submit(new RestoreRunEnergyTask(), new RestoreSpecialTask(), new SummoningPassiveTask(), new ShopRestockTask(),
+				new RestoreSkillTask(), new RestoreHitpoints(), new BonusExperienceTimerTask(), new GlobalImplingTask(),
+				new DailyCharacterBackupTask(), new NewYearsItemsSpawningEventTask());
 		LivingRockCavern.init();
 	}
 
@@ -182,10 +178,6 @@ public class World {
 	}
 	
 	public static final Optional<Player> getPlayer(String username) {
-		return players().filter(p -> p.getUsername().equalsIgnoreCase(username)).findFirst();
-	}
-
-	public static final Optional<Player> containsPlayer(String username) {
 		return players().filter(p -> p.getUsername().equalsIgnoreCase(username)).findFirst();
 	}
 
@@ -306,5 +298,13 @@ public class World {
 	 */
 	public void submit(Task task) {
 		getTaskManager().submit(task);
+	}
+	
+	/**
+	 * Submits a collection of tasks to the backing {@link TaskManager}.
+	 * @param task the task to submit to the queue.
+	 */
+	public void submit(Task... task) {
+		Arrays.stream(task).forEach(getTaskManager()::submit);
 	}
 }

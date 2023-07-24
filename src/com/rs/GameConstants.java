@@ -40,6 +40,7 @@ public final class GameConstants {
 	public static boolean DEBUG = GameProperties.getGameProperties().getBoolean("debug_mode");
 	public static boolean HOSTED = GameProperties.getGameProperties().getBoolean("is_live");
 	public static boolean DAILY_CHARACTER_SAVING = GameProperties.getGameProperties().getBoolean("daily_character_saving");
+	public static boolean NEW_YEARS_EVENT = GameProperties.getGameProperties().getBoolean("new_years_event");
 	
 	/**
 	 * Items that are protected upon a Players death by default in the Wilderness

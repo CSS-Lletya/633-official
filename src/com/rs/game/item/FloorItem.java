@@ -113,17 +113,13 @@ public class FloorItem extends Item {
                     CoresManager.schedule(new Runnable() {
                         @Override
                         public void run() {
-                            try {
-                                turnPublic(floorItem, publicTime);
-                            } catch (Throwable e) {
-                                
-                            }
+                        	turnPublic(floorItem, publicTime);
                         }
                     }, Ticks.fromSeconds((int) hiddenTime));
                 }
             } else {
                 int regionId = tile.getRegionId();
-                for (Player player : World.players) {
+                for (Player player : World.getPlayers()) {
                     if (player == null || !player.isStarted() || player.isFinished()
                             || player.getPlane() != tile.getPlane() || !player.getMapRegionsIds().contains(regionId))
                         continue;
@@ -152,7 +148,7 @@ public class FloorItem extends Item {
                 }
             } else {
                 int regionId = tile.getRegionId();
-                for (Player player : World.players) {
+                for (Player player : World.getPlayers()) {
                     if (player == null || !player.isStarted() || player.isFinished()
                             || player.getPlane() != tile.getPlane() || !player.getMapRegionsIds().contains(regionId)
                             || !ItemConstants.isTradeable(item))
@@ -227,7 +223,7 @@ public class FloorItem extends Item {
         
         floorItem.setInvisible(false);
 
-        for (Player player : World.players) {
+        for (Player player : World.getPlayers()) {
             if (player == null || player == realOwner || !player.isStarted() || player.isFinished()
                     || player.getPlane() != floorItem.getTile().getPlane()
                     || !player.getMapRegionsIds().contains(regionId) || !ItemConstants.isTradeable(floorItem))
@@ -257,7 +253,7 @@ public class FloorItem extends Item {
                     if (!region.getGroundItemsSafe().contains(floorItem))
                         return;
                     region.getGroundItemsSafe().remove(floorItem);
-                    for (Player player : World.players) {
+                    for (Player player : World.getPlayers()) {
                         if (player == null || !player.isStarted() || player.isFinished()
                                 || player.getPlane() != floorItem.getTile().getPlane()
                                 || !player.getMapRegionsIds().contains(regionId))
@@ -292,7 +288,7 @@ public class FloorItem extends Item {
         Region region = World.getRegion(regionId);
         if (player == null) {
             region.getGroundItemsSafe().remove(floorItem);
-            for (Player p2 : World.players) {
+            for (Player p2 : World.getPlayers()) {
                 if (p2 == null || !p2.isStarted() || p2.isFinished() || p2.getPlane() != floorItem.getTile().getPlane()
                         || !p2.getMapRegionsIds().contains(regionId))
                     continue;
@@ -302,12 +298,7 @@ public class FloorItem extends Item {
                 CoresManager.schedule(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            System.out.println("first item spawn - keep this for testing");
-                            addGroundItemForever(floorItem, floorItem.getTile());
-                        } catch (Throwable e) {
-                            
-                        }
+                    	addGroundItemForever(floorItem, floorItem.getTile());
                     }
                 }, Ticks.fromSeconds(10));
             }

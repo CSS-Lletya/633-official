@@ -23,7 +23,7 @@ public class DailyCharacterBackupTask extends Task {
     
     @Override
     protected void execute() {
-    	if (GameConstants.DAILY_CHARACTER_SAVING)
+    	if (!GameConstants.DAILY_CHARACTER_SAVING)
     		return;
         Date date = new Date();
         Try.run(() -> Compress.zipDirectory("data/characters/", "./data/characters/backups/"+date.getTime()+ ".zip")).onFailure(Throwable::printStackTrace);

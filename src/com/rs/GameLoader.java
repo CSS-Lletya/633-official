@@ -88,7 +88,7 @@ public class GameLoader {
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading Game World & Service Network.");
 			CoresManager.init();
-			World.init();
+			World.get().init();
 			ServerChannelHandler.init();
 			Huffman.init();
 			MapArchiveKeys.init();

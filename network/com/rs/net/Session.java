@@ -201,7 +201,7 @@ public class Session {
 			player.getCurrentFriendChat().leaveChat(player, true);
 		player.getFriendsIgnores().sendFriendsMyStatus(false);
 		if (player.isFinishing() || player.isFinished()) { 
-			if (World.containsPlayer(player.getDisplayName()).isPresent()) {// i couldnt figure this out last time.
+			if (World.getPlayer(player.getDisplayName()).isPresent()) {
 				World.removePlayer(player);
 			}
 			if (World.containsLobbyPlayer(player.getDisplayName())) {

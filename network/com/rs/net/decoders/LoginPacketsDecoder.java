@@ -29,7 +29,7 @@ public final class LoginPacketsDecoder extends Decoder {
 	public void decode(InputStream stream) {
 		session.setDecoder(-1);
 		int packetId = stream.readUnsignedByte();
-		if (World.get().exiting_start != 0) {
+		if (World.get().getExiting_start() != 0) {
 			session.getLoginPackets().sendClientPacket(14);
 			return;
 		}
@@ -115,7 +115,7 @@ public final class LoginPacketsDecoder extends Decoder {
 			session.getLoginPackets().sendClientPacket(7);
 			return;
 		}
-		if (World.containsPlayer(username).isPresent()) {
+		if (World.getPlayer(username).isPresent()) {
 			session.getLoginPackets().sendClientPacket(5);
 			return;
 		}
@@ -200,7 +200,7 @@ public final class LoginPacketsDecoder extends Decoder {
 			session.getLoginPackets().sendClientPacket(7);
 			return;
 		}
-		if (World.containsPlayer(username).isPresent()) {
+		if (World.getPlayer(username).isPresent()) {
 			session.getLoginPackets().sendClientPacket(5);
 			return;
 		}
