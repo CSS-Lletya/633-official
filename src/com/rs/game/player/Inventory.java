@@ -58,7 +58,7 @@ public final class Inventory {
 		if (itemId < 0
 				|| amount < 0
 				|| !Utility.itemExists(itemId)
-				|| player.getMapZoneManager().execute(player, controller -> !controller.canAddInventoryItem(player, itemId, amount)))
+				|| player.getMapZoneManager().execute(controller -> !controller.canAddInventoryItem(player, itemId, amount)))
 			return false;
 		Item[] itemsBefore = items.getItemsCopy();
 		if (!items.add(new Item(itemId, amount)))
@@ -76,7 +76,7 @@ public final class Inventory {
 		if (itemId < 0
 				|| amount < 0
 				|| !Utility.itemExists(itemId)
-				|| player.getMapZoneManager().execute(player, controller -> !controller.canAddInventoryItem(player, itemId, amount)))
+				|| player.getMapZoneManager().execute(controller -> !controller.canAddInventoryItem(player, itemId, amount)))
 			return false;
 		Item[] itemsBefore = items.getItemsCopy();
 		if (!items.add(new Item(itemId, amount))) {
@@ -94,7 +94,7 @@ public final class Inventory {
 		if (item.getId() < 0
 				|| item.getAmount() < 0
 				|| !Utility.itemExists(item.getId())
-				|| player.getMapZoneManager().execute(player, controller -> !controller.canAddInventoryItem(player, item.getId(), item.getAmount())))
+				|| player.getMapZoneManager().execute(controller -> !controller.canAddInventoryItem(player, item.getId(), item.getAmount())))
 			return false;
 		Item[] itemsBefore = items.getItemsCopy();
 		if (!items.add(item)) {
@@ -109,7 +109,7 @@ public final class Inventory {
 	}
 
 	public void deleteItem(int slot, Item item) {
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canDeleteInventoryItem(player, item.getId(),
+		if (player.getMapZoneManager().execute(controller -> !controller.canDeleteInventoryItem(player, item.getId(),
 				item.getAmount()))) {
 			return;
 		}
@@ -137,7 +137,7 @@ public final class Inventory {
 	}
 
 	public void deleteItem(int itemId, int amount) {
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canDeleteInventoryItem(player, itemId, amount))) {
+		if (player.getMapZoneManager().execute(controller -> !controller.canDeleteInventoryItem(player, itemId, amount))) {
 			return;
 		}
 		Item[] itemsBefore = items.getItemsCopy();
@@ -146,7 +146,7 @@ public final class Inventory {
 	}
 
 	public void deleteItem(Item item) {
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canDeleteInventoryItem(player, item.getId(),
+		if (player.getMapZoneManager().execute(controller -> !controller.canDeleteInventoryItem(player, item.getId(),
 				item.getAmount()))) {
 			return;
 		}

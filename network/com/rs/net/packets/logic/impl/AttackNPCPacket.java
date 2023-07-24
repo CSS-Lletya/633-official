@@ -28,7 +28,7 @@ public class AttackNPCPacket implements LogicPacketListener {
 			return;
 		if (player.getMovement().isLocked() || player.getNextEmoteEnd() >= Utility.currentTimeMillis())
 			return;
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, npc))) {
+		if (player.getMapZoneManager().execute(controller -> !controller.canAttack(player, npc))) {
 			return;
 		}
 		if (forceRun) // you scrwed up cutscenes

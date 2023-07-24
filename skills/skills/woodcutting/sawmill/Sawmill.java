@@ -129,6 +129,6 @@ public class Sawmill {
         }
         player.getMovement().lock(2);
         player.addWalkSteps(object.getX() + 1, object.getY(), 1, false);
-        player.getMapZoneManager().submitMapZone(player, new SawmillMapZone());
+        player.getMapZoneManager().submitMapZone(new SawmillMapZone());
     }
 }

@@ -121,7 +121,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				long dropTime = Utility.currentTimeMillis();
 				if (player.getMovement().getLockDelay() >= dropTime || player.getNextEmoteEnd() >= dropTime)
 					return;
-				if (player.getMapZoneManager().execute(player, controller -> !controller.canDropItem(player, item)))
+				if (player.getMapZoneManager().execute(controller -> !controller.canDropItem(player, item)))
 					return;
 				player.getMovement().stopAll(false);
 

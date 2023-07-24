@@ -28,11 +28,11 @@ public class PlayerOptionOnePacket implements LogicPacketListener {
 				|| !player.getMapRegionsIds().contains(p2.getRegionId()))
 			return;
 		if (player.getMovement().isLocked() || player.getLastAnimationEnd() > Utility.currentTimeMillis()
-				|| player.getMapZoneManager().execute(player, controller -> !controller.canPlayerOption1(player, p2)))
+				|| player.getMapZoneManager().execute(controller -> !controller.canPlayerOption1(player, p2)))
 			return;
 		if (player.getDetails().getCanPvp().isFalse())
 			return;
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
+		if (player.getMapZoneManager().execute(controller -> !controller.canAttack(player, p2))) {
 			return;
 		}
 		if (player.getDetails().getCanPvp().isFalse() || p2.getDetails().getCanPvp().isFalse()) {

@@ -599,7 +599,7 @@ public class Foods {
 		Food food = Food.forId(item.getId());
 		if (food == null)
 			return false;
-		if (player.getMapZoneManager().execute(player, zone -> !zone.canEat(player, food)))
+		if (player.getMapZoneManager().execute(zone -> !zone.canEat(player, food)))
 			return false;
 		String name = ItemDefinitions.getItemDefinitions(food.getId()).getName().toLowerCase();
 		int foodDelay = name.contains("half") ? 2 : 3;

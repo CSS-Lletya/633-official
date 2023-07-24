@@ -89,7 +89,7 @@ public class PlayerCombat extends Action {
 		if (!Utility.isOnRange(player.getX(),player.getY(), size, target.getX(), target.getY(), target.getSize(),
 				maxDistance))
 			return 0;
-		if (player.getMapZoneManager().execute(player, controller -> !controller.keepCombating(player, target))) {
+		if (player.getMapZoneManager().execute(controller -> !controller.keepCombating(player, target))) {
 			return -1;
 		}
 		addAttackedByDelay(player);
@@ -156,7 +156,7 @@ public class PlayerCombat extends Action {
 						if (p2 == null || p2 == player || p2 == target || p2.isDead() || !p2.isStarted()
 								|| p2.isFinished() || p2.getDetails().getCanPvp().isFalse() || !p2.isMultiArea()
 								|| !p2.withinDistance(target, maxDistance)
-								|| player.getMapZoneManager().execute(player, controller -> !controller.canHit(player, p2)))
+								|| player.getMapZoneManager().execute(controller -> !controller.canHit(player, p2)))
 							continue;
 						possibleTargets.add(p2);
 						if (possibleTargets.size() == maxAmtTargets)
@@ -170,7 +170,7 @@ public class PlayerCombat extends Action {
 						NPC n = World.getNPCs().get(npcIndex);
 						if (n == null || n == target || n == player.getFamiliar() || n.isDead() || n.isFinished()
 								|| !n.isMultiArea() || !n.withinDistance(target, maxDistance)
-								|| !n.getDefinitions().hasAttackOption() || player.getMapZoneManager().execute(player, controller -> !controller.canHit(player, n)))
+								|| !n.getDefinitions().hasAttackOption() || player.getMapZoneManager().execute(controller -> !controller.canHit(player, n)))
 							continue;
 						possibleTargets.add(n);
 						if (possibleTargets.size() == maxAmtTargets)

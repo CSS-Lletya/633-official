@@ -33,7 +33,7 @@ public class ItemTakePacket implements LogicPacketListener {
 		final FloorItem item = World.getRegion(regionId).getGroundItem(id, tile, player);
 		if (item == null)
 			return;
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canTakeItem(player, item))) {
+		if (player.getMapZoneManager().execute(controller -> !controller.canTakeItem(player, item))) {
 			return;
 		}
 		if (forceRun)

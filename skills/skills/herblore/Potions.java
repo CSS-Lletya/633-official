@@ -677,7 +677,7 @@ public class Potions {
 
 		public final void drink(Player player, int itemId, int slot) {
 			Potion pot = forId(itemId);
-			if (player.getInventory().getItem(slot) == null || player.getInventory().getItem(slot).getId() != itemId || !player.getDetails().getDrinks().elapsed(2 * 600) || player.getMapZoneManager().execute(player, zone -> !zone.canPot(player, pot)))
+			if (player.getInventory().getItem(slot) == null || player.getInventory().getItem(slot).getId() != itemId || !player.getDetails().getDrinks().elapsed(2 * 600) || player.getMapZoneManager().execute(zone -> !zone.canPot(player, pot)))
 				return;
 			if (effect == null) {
 				player.getPackets().sendGameMessage("You wouldn't want to drink that.");

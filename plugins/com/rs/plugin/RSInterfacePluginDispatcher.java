@@ -196,7 +196,7 @@ public final class RSInterfacePluginDispatcher {
             return true;
         if (!EnchantedHeadwear.canEquip(itemId, player))
         	return false;
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canEquip(player, targetSlot, itemId))) {
+		if (player.getMapZoneManager().execute(controller -> !controller.canEquip(player, targetSlot, itemId))) {
 			return false;
 		}
 		player.getMovement().stopAll(false, false);
@@ -304,7 +304,7 @@ public final class RSInterfacePluginDispatcher {
 			return false;
 		if (!EnchantedHeadwear.canEquip(itemId, player))
         	return false;
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canEquip(player, finalSlot, itemId))) {
+		if (player.getMapZoneManager().execute(controller -> !controller.canEquip(player, finalSlot, itemId))) {
 			return false;
 		}
 		player.getInventory().getItems().remove(slotId, item);

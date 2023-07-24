@@ -28,7 +28,7 @@ public class EdgevilleRegionObjectPlugin extends ObjectListener {
 	                    player.setNextFaceWorldTile(original);
 	                    player.getMovement().unlock();
 	                    player.getDetails().getStatistics().addStatistic("Wilderness_Ditch_Jumps");
-	                    player.getMapZoneManager().submitMapZone(player, new WildernessMapZone());
+	                    player.getMapZoneManager().submitMapZone(new WildernessMapZone());
 	                    cancel();
 				}
 			});

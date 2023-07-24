@@ -24,7 +24,7 @@ public class PlayerOptionTwoPacket implements LogicPacketListener {
 			return;
 		if (player.getMovement().isLocked())
 			return;
-		if (player.getMapZoneManager().execute(player, controller -> !controller.canPlayerOption2(player, p2))) {
+		if (player.getMapZoneManager().execute(controller -> !controller.canPlayerOption2(player, p2))) {
 			return;
 		}
 		if (forceRun)

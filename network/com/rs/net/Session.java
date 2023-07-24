@@ -240,7 +240,7 @@ public class Session {
 		}
 		LogUtility.log(LogType.INFO, player.getDisplayName() + " has logged out.");
 		player.getMovement().stopAll();
-		player.getMapZoneManager().executeVoid(player, controller -> controller.logout(player));
+		player.getMapZoneManager().executeVoid(controller -> controller.logout(player));
 		player.setRunning(false);
 		if (player.getFamiliar() != null && !player.getFamiliar().isFinished())
 			player.getFamiliar().dissmissFamiliar(true);

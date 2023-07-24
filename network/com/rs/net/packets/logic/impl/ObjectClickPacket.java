@@ -45,7 +45,7 @@ public class ObjectClickPacket implements LogicPacketListener {
 		if (forceRun)
 			player.setRun(forceRun);
 		player.setRouteEvent(new RouteEvent(worldObject, () -> {
-			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectClick1(player, worldObject)))
+			if (player.getMapZoneManager().execute(controller -> !controller.processObjectClick1(player, worldObject)))
 				return;
 			if (player.getTreasureTrailsManager().useObject(worldObject))
                 return;

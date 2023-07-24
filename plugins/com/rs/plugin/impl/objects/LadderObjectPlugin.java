@@ -26,7 +26,7 @@ public class LadderObjectPlugin extends ObjectListener {
 		if (object.getId() == 29358) {
 			if (object.matches(new WorldTile(3088, 3571))) {//leave wildy
 				//fix controllers on login to further test this.
-				player.getMapZoneManager().executeVoid(player, zone -> zone.finish(player));
+				player.getMapZoneManager().executeVoid(zone -> zone.finish(player));
 				player.getMovement().move(true, new WorldTile(3089, 9971, 0), TeleportType.BLANK);
 			}
 		}

@@ -372,6 +372,7 @@ public class Player extends Entity {
 		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
 		setAudioManager(new AudioManager(this));
 		setDayOfWeekManager(new DayOfWeekManager());
+		setCurrentMapZone(Optional.empty());
 	}
 	
 	/**
@@ -458,6 +459,7 @@ public class Player extends Entity {
         if (getDayOfWeekManager() == null)
         	setDayOfWeekManager(new DayOfWeekManager());
         getDayOfWeekManager().setPlayer(this);
+        getMapZoneManager().setPlayer(this);
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -509,7 +511,7 @@ public class Player extends Entity {
 			setRouteEvent(null);
 		getAction().process();
 		getPrayer().processPrayer();
-		getMapZoneManager().executeVoid(this, zone -> zone.process(this));
+		getMapZoneManager().executeVoid(zone -> zone.process(this));
 		getDayOfWeekManager().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
@@ -525,6 +527,7 @@ public class Player extends Entity {
 			int delayPassed = (int) ((Utility.currentTimeMillis() - World.get().getExiting_start()) / 1000);
 			getPackets().sendSystemUpdate(World.get().getExiting_delay() - delayPassed);
 		}
+		getCurrentMapZone().ifPresent(getMapZoneManager()::submitMapZone);
 		checkMultiArea();
 		Gravestone.login(this);
 		getDetails().setLastIP(getSession().getIP());
@@ -558,7 +561,7 @@ public class Player extends Entity {
 			getPetManager().init();
 		setRunning(true);
 		setUpdateMovementType(true);
-		getMapZoneManager().execute(this, controller -> controller.login(this));
+		getMapZoneManager().execute(controller -> controller.login(this));
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
 			GameConstants.STATER_KIT.forEach(getInventory()::addItem);
 			HostManager.add(this, HostListType.STARTER_RECEIVED);

@@ -56,7 +56,7 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 			if (item == null || item.getId() != itemId)
 				return;
 			player.setRouteEvent(new RouteEvent(p2, () -> {
-				if (player.getMapZoneManager().execute(player, controller -> !controller.processItemOnPlayer(player, p2, item)))
+				if (player.getMapZoneManager().execute(controller -> !controller.processItemOnPlayer(player, p2, item)))
 					return;
 				if (item.getId() == ItemNames.CHRISTMAS_CRACKER_962)
 					ChrismasCracker.splitCracker(player, p2, item);
@@ -109,7 +109,7 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 				if (Magic.checkCombatSpell(player, componentId, 1, false)) {
 					player.setNextFaceWorldTile(new WorldTile(p2.getCoordFaceX(p2.getSize()),
 							p2.getCoordFaceY(p2.getSize()), p2.getPlane()));
-					if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
+					if (player.getMapZoneManager().execute(controller -> !controller.canAttack(player, p2))) {
 						return;
 					}
 					if (player.getDetails().getCanPvp().isFalse() || p2.getDetails().getCanPvp().isFalse()) {
@@ -175,7 +175,7 @@ public class InterfaceOnPlayerPacket implements LogicPacketListener {
 				if (Magic.checkCombatSpell(player, componentId, 1, false)) {
 					player.setNextFaceWorldTile(new WorldTile(p2.getCoordFaceX(p2.getSize()),
 							p2.getCoordFaceY(p2.getSize()), p2.getPlane()));
-					if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, p2))) {
+					if (player.getMapZoneManager().execute(controller -> !controller.canAttack(player, p2))) {
 						return;
 					}
 					if (player.getDetails().getCanPvp().isFalse() || p2.getDetails().getCanPvp().isFalse()) {

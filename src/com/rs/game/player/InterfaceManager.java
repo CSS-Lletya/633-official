@@ -128,7 +128,7 @@ public class InterfaceManager {
 		player.getPrayer().unlockPrayerBookButtons();
 		if (player.getFamiliar() != null && player.isRunning())
 			player.getFamiliar().unlock();
-		player.getMapZoneManager().executeVoid(player, controller -> controller.sendInterfaces(player));
+		player.getMapZoneManager().executeVoid(controller -> controller.sendInterfaces(player));
 		
 	}
 

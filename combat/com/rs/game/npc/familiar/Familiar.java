@@ -154,7 +154,7 @@ public abstract class Familiar extends NPC {
 		return !target.isDead()
 				&& ((owner.isMultiArea() && isMultiArea() && target.isMultiArea())
 						|| (owner.isForceMultiArea() && target.isForceMultiArea()))
-				&& owner.getMapZoneManager().execute(owner, controller -> controller.canAttack(owner, target));
+				&& owner.getMapZoneManager().execute(controller -> controller.canAttack(owner, target));
 	}
 
 	public boolean renewFamiliar() {

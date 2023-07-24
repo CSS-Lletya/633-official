@@ -456,7 +456,7 @@ public class Magic {
 				ObjectArrayList<Short> playersIndexes = World.getRegion(regionalPlayer).getPlayersIndexes();
 				playersIndexes.iterator().forEachRemaining(p -> {
 					World.players().filter(
-							playerIndex -> playerIndex.withinDistance(player, 4) || player.getMapZoneManager().execute(player, controller -> controller.canHit(player, playerIndex)))
+							playerIndex -> playerIndex.withinDistance(player, 4) || player.getMapZoneManager().execute(controller -> controller.canHit(player, playerIndex)))
 							.forEach(worldPlayer -> {
 								if (worldPlayer.getDetails().getAcceptAid().isFalse()) {
 									player.getPackets().sendGameMessage(worldPlayer.getDisplayName() + " is not accepting aid");
@@ -744,13 +744,13 @@ public class Magic {
 		if (!checkRunes(player, false, runes))
 			return false;
 		if (teleType == MAGIC_TELEPORT) {
-			if (player.getMapZoneManager().execute(player, controller -> !controller.processMagicTeleport(player, tile)))
+			if (player.getMapZoneManager().execute(controller -> !controller.processMagicTeleport(player, tile)))
 				return false;
 		} else if (teleType == ITEM_TELEPORT) {
-			if (player.getMapZoneManager().execute(player, controller -> !controller.processItemTeleport(player, tile)))
+			if (player.getMapZoneManager().execute(controller -> !controller.processItemTeleport(player, tile)))
 				return false;
 		} else if (teleType == OBJECT_TELEPORT) {
-			if (player.getMapZoneManager().execute(player, controller -> !controller.processObjectTeleport(player, tile)))
+			if (player.getMapZoneManager().execute(controller -> !controller.processObjectTeleport(player, tile)))
 				return false;
 		}
 		checkRunes(player, true, runes);
@@ -780,7 +780,7 @@ public class Magic {
 						}
 					}
 					player.setNextWorldTile(teleTile);
-					player.getMapZoneManager().executeVoid(player, controller -> controller.magicTeleported(player, teleType));
+					player.getMapZoneManager().executeVoid(controller -> controller.magicTeleported(player, teleType));
 					if (!player.getCurrentMapZone().isPresent())
 						teleControlersCheck(player, teleTile);
 					if (xp != 0)

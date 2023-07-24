@@ -157,16 +157,16 @@ public class NPCPluginDispatcher {
 			if (player.getMapZoneManager().getMapZone(player).isPresent()) {
 				switch(optionId) {
 				case 1:
-					player.getMapZoneManager().execute(player, controller -> !controller.processNPCClick1(player, npc));
+					player.getMapZoneManager().execute(controller -> !controller.processNPCClick1(player, npc));
 					break;
 				case 2:
-					player.getMapZoneManager().execute(player, controller -> !controller.processNPCClick2(player, npc));
+					player.getMapZoneManager().execute(controller -> !controller.processNPCClick2(player, npc));
 					break;
 				case 3:
-					player.getMapZoneManager().execute(player, controller -> !controller.processNPCClick3(player, npc));
+					player.getMapZoneManager().execute(controller -> !controller.processNPCClick3(player, npc));
 					break;
 				case 4:
-					player.getMapZoneManager().execute(player, controller -> !controller.processNPCClick4(player, npc));
+					player.getMapZoneManager().execute(controller -> !controller.processNPCClick4(player, npc));
 					break;
 				}
 				return;

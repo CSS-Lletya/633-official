@@ -388,7 +388,7 @@ public abstract class Entity extends WorldTile {
 			}
 			int dir = (int) nextStep[0];
 			if (((boolean) nextStep[3] && !World.getTileAttributes().checkWalkStep(getPlane(), getX(), getY(), dir, getSize()))
-					|| (isPlayer() && toPlayer().getMapZoneManager().execute((Player) this, controller -> !controller.canMove((Player) this, dir)))) {
+					|| (isPlayer() && toPlayer().getMapZoneManager().execute(controller -> !controller.canMove((Player) this, dir)))) {
 				resetWalkSteps();
 				break;
 			}
@@ -751,7 +751,7 @@ public abstract class Entity extends WorldTile {
 		if (check && !World.getTileAttributes().checkWalkStep(getPlane(), lastX, lastY, dir, getSize()))
 			return false;
 		ifPlayer(player -> {
-			if (player.getMapZoneManager().execute((Player) this, controller -> !controller.checkWalkStep((Player) this, lastX, lastY, nextX, nextY)))
+			if (player.getMapZoneManager().execute(controller -> !controller.checkWalkStep((Player) this, lastX, lastY, nextX, nextY)))
 				return;
 		});
 		getMovement().getWalkSteps().add(new Object[] { dir, nextX, nextY, check });
@@ -1102,7 +1102,7 @@ public abstract class Entity extends WorldTile {
 				int musicId = region.getRandomMusicId();
 				if (musicId != -1)
 					player.getMusicsManager().checkMusic(musicId);
-				player.getMapZoneManager().executeVoid(player, controller -> controller.moved(player));
+				player.getMapZoneManager().executeVoid(controller -> controller.moved(player));
 				if (player.isStarted())
 					checkControlersAtMove(player);
 			});
@@ -1123,8 +1123,12 @@ public abstract class Entity extends WorldTile {
 	}
 	
 	private static void checkControlersAtMove(Player player) {
+		if (!WildernessMapZone.isAtWild(player)) {
+			player.getMapZoneManager().endMapZoneSession(player);
+			return;
+		}
 		if (WildernessMapZone.isAtWild(player) && !player.getMapZoneManager().getMapZone(player).isPresent())
-			player.getMapZoneManager().submitMapZone(player, new WildernessMapZone());
+			player.getMapZoneManager().submitMapZone(new WildernessMapZone());
 		else
 			player.getCurrentMapZone().ifPresent(zone -> zone.moved(player));
 	}

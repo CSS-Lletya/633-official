@@ -9,17 +9,24 @@ import com.rs.game.player.Player;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author Dennis
  */
-public final class MapZoneManager {
+public class MapZoneManager {
+	
+	@Getter
+	@Setter
+	public Player player;
 	
 	/**
 	 * Submits a new Map Zone for the Player to enter.
 	 * @param player
 	 * @param zone
 	 */
-	public void submitMapZone(Player player, MapZone zone) {
+	public void submitMapZone(MapZone zone) {
 		player.getCurrentMapZone().ifPresent(currentZone -> {
 			currentZone.finish(player);
 			player.setCurrentMapZone(Optional.empty());
@@ -33,12 +40,10 @@ public final class MapZoneManager {
 	 * @param player the player to execute the action for.
 	 * @param action the backed controller action to execute.
 	 */
-	public void executeVoid(Player player, Consumer<MapZone> action) {
-		if (player == null) {
-			System.out.println("null player");
-			return;
+	public void executeVoid(Consumer<MapZone> action) {
+		if (getMapZone(player).isPresent()) {
+			action.accept(player.getCurrentMapZone().get());
 		}
-		getMapZone(player).ifPresent(action::accept);
 	}
 	
 	/**
@@ -48,12 +53,8 @@ public final class MapZoneManager {
 	 * @param defaultValue the default value to return if the player isn't in a map zone.
 	 * @param function the function to execute that returns a result.
 	 */
-	public boolean execute(Player player, Function<MapZone, Boolean> function) {
-		if (player == null) {
-			System.out.println("null player");
-			return false;
-		}
-		return !getMapZone(player).isPresent() ? false : function.apply(getMapZone(player).get());
+	public boolean execute(Function<MapZone, Boolean> function) {
+		return getMapZone(player).isPresent() ? function.apply(player.getCurrentMapZone().get()) : false;
 	}
 	
 	/**
@@ -62,21 +63,25 @@ public final class MapZoneManager {
 	 * @return the map zone that the player is currently in.
 	 */
 	public Optional<MapZone> getMapZone(Player player) {
-		Optional<MapZone> mapZone = player.getCurrentMapZone();
-		if(mapZone.isPresent() && !mapZone.get().contains(player)) {
+		MapZone mapZone = player.getCurrentMapZone().orElse(null);
+		if (mapZone == null)
+			return Optional.empty();
+		if(!mapZone.contains(player)) {
 			if (GameConstants.DEBUG)
 				LogUtility.log(LogType.ERROR,
 						"[Map Zone Error] Player: " + player.getUsername() + "'s current map zone is: "
-								+ mapZone.get().getMapeZoneName() + " but wasn't inside, ending their map zone session.");
-			mapZone.get().finish(player);
+								+ mapZone.getClass().getSimpleName() + " but wasn't inside, ending their map zone session.");
+			mapZone.finish(player);
 			player.setCurrentMapZone(Optional.empty());
 			return Optional.empty();
 		}
-		if(mapZone.isPresent() && mapZone.get().contains(player))
-			return mapZone;
-		return Optional.empty();
+		return Optional.of(mapZone);
 	}
 	
+	/**
+	 * Force ends a map zone session
+	 * @param player
+	 */
 	public void endMapZoneSession(Player player) {
 		player.getCurrentMapZone().ifPresent(currentZone -> {
 			currentZone.finish(player);

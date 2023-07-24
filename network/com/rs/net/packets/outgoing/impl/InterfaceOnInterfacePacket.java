@@ -62,7 +62,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 			if (player.getMovement().isLocked() || player.getNextEmoteEnd() >= Utility.currentTimeMillis())
 				return;
 			player.getMovement().stopAll();
-			if (player.getMapZoneManager().execute(player,
+			if (player.getMapZoneManager().execute(
 					controller -> !controller.canUseItemOnItem(player, itemUsed, usedWith))) {
 				return;
 			}

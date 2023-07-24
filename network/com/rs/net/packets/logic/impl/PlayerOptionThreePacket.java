@@ -25,7 +25,7 @@ public class PlayerOptionThreePacket implements LogicPacketListener {
 			player.setRun(forceRun);
 		player.getMovement().stopAll();
 		player.setRouteEvent(new RouteEvent(p2, () -> {
-			if (player.getMapZoneManager().execute(player, controller -> !controller.canPlayerOption4(p2))) {
+			if (player.getMapZoneManager().execute(controller -> !controller.canPlayerOption4(p2))) {
 				return;
 			}
 			player.getMovement().stopAll();

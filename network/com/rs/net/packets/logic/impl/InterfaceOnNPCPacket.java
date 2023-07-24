@@ -65,7 +65,7 @@ public class InterfaceOnNPCPacket implements LogicPacketListener {
 				return;
 			player.setRouteEvent(new RouteEvent(npc, () -> {
 				NPCPluginDispatcher.executeItemOnNPC(player, npc, item);
-				if (player.getMapZoneManager().execute(player, controller -> !controller.processItemOnNPC(player, npc, item)))
+				if (player.getMapZoneManager().execute(controller -> !controller.processItemOnNPC(player, npc, item)))
 					return;
 				if (npc instanceof Familiar) {
 					Familiar familiar = (Familiar) npc;
@@ -130,7 +130,7 @@ public class InterfaceOnNPCPacket implements LogicPacketListener {
 				if (Magic.checkCombatSpell(player, componentId, 1, false)) {
 					player.setNextFaceWorldTile(new WorldTile(npc.getCoordFaceX(npc.getSize()),
 							npc.getCoordFaceY(npc.getSize()), npc.getPlane()));
-					if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, npc))) {
+					if (player.getMapZoneManager().execute(controller -> !controller.canAttack(player, npc))) {
 						return;
 					}
 					if (npc instanceof Familiar) {
@@ -193,7 +193,7 @@ public class InterfaceOnNPCPacket implements LogicPacketListener {
 				if (Magic.checkCombatSpell(player, componentId, 1, false)) {
 					player.setNextFaceWorldTile(new WorldTile(npc.getCoordFaceX(npc.getSize()),
 							npc.getCoordFaceY(npc.getSize()), npc.getPlane()));
-					if (player.getMapZoneManager().execute(player, controller -> !controller.canAttack(player, npc))) {
+					if (player.getMapZoneManager().execute(controller -> !controller.canAttack(player, npc))) {
 						return;
 					}
 					if (npc instanceof Familiar) {

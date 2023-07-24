@@ -65,7 +65,7 @@ public class SorceresssGardenMapZone extends MapZone {
         World.get().submit(new Task(4) {
         	@Override
         	protected void execute() {
-        		player.getMapZoneManager().submitMapZone(player, new SorceresssGardenMapZone());
+        		player.getMapZoneManager().submitMapZone(new SorceresssGardenMapZone());
         		cancel();
         	}
         });

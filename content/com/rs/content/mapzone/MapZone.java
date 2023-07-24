@@ -9,7 +9,7 @@ import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 
 import io.vavr.collection.Array;
-import lombok.Data;
+import lombok.Getter;
 import skills.cooking.Foods.Food;
 import skills.herblore.Potions.Potion;
 
@@ -20,27 +20,30 @@ import skills.herblore.Potions.Potion;
  * @author Dennis
  *
  */
-@Data
-public abstract class MapZone {
+public class MapZone {
 
 	/**
 	 * The string which defines the current map zone name.
 	 */
+	@Getter
 	private final String mapeZoneName;
 
 	/**
 	 * The current name of this map zone.
 	 */
-	private final MapZoneSafetyCondition safety;
+	@Getter
+	public final MapZoneSafetyCondition safety;
 
 	/**
 	 * The current type of this map zone.
 	 */
+	@Getter
 	private final MapZoneType type;
 
 	/**
 	 * Represents a collection of restrictions a map zone may contain.
 	 */
+	@Getter
 	private final ZoneRestriction[] restrictions;
 
 	/**
@@ -69,7 +72,9 @@ public abstract class MapZone {
 	 * 
 	 * @param player
 	 */
-	public abstract void start(Player player);
+	public void start(Player player) {
+		
+	}
 
 	/**
 	 * Determines if {@code player} is in this map zone.
@@ -88,7 +93,9 @@ public abstract class MapZone {
 	 * 
 	 * @param player
 	 */
-	public abstract void finish(Player player);
+	public void finish(Player player) {
+		
+	}
 
 	/**
 	 * Represents a state if a Player can take an Item from the ground.
