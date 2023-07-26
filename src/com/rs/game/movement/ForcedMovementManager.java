@@ -14,6 +14,7 @@ public final class ForcedMovementManager {
 	/**
 	 * The movement to manage.
 	 */
+	@SuppressWarnings("unused")
 	private final ForcedMovement movement;
 	
 	/**
@@ -132,6 +133,7 @@ public final class ForcedMovementManager {
 			}
 			if(timer == -1) {
 				if(movement.getCharacter().isPlayer()) {
+					@SuppressWarnings("unused")
 					Player player = movement.getCharacter().toPlayer();
 //					player.getNextForceMovement().setActive(false);
 				}

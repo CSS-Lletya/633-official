@@ -13,6 +13,7 @@ public class DraynorVillageRegionNPCPlugin extends NPCListener {
 
 	@Override
 	public void execute(Player player, NPC npc, int option) {
+		System.out.println(npc.getDefinitions().getName());
 		player.dialogue(new DialogueEventListener(player, npc) {
 			@Override
 			public void start() {

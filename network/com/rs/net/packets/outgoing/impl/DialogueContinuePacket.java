@@ -51,14 +51,17 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 			player.getAudioManager().sendSound(Sounds.DESTOY_ITEM);
 			return;
 		}
-		if (DialogueEventListener.continueBlankDialogue(player, componentId)) {
-			player.getInterfaceManager().closeChatBoxInterface();
-			return;
+		if (interfaceId == 905) {
+			if (DialogueEventListener.continueBlankDialogue(player, componentId)) {
+				player.getInterfaceManager().closeChatBoxInterface();
+				return;
+			}
+		} else {
+			if (DialogueEventListener.continueDialogue(player, componentId)) {
+				return;
+			}
 		}
-		if(DialogueEventListener.continueDialogue(player, componentId)) {
-			player.getInterfaceManager().closeChatBoxInterface();
-			return;
-		}
+
 		if (EniolaBanker.sendInterfaceFunctionality(player, componentId)) {
 			player.getInterfaceManager().closeChatBoxInterface();
 			return;

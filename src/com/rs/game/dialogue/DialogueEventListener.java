@@ -41,11 +41,11 @@ public abstract class DialogueEventListener implements Mood {
 		return this;
 	}
 
-	public DialogueEventListener item(int itemId, String... message) {
+	public DialogueEventListener item(int itemId, String message) {
 		return item(itemId, 1, message);
 	}
 
-	public DialogueEventListener item(int itemId, int amount, String... message) {
+	public DialogueEventListener item(int itemId, int amount, String message) {
 		dialogueEvent.add(new DialogueItemEvent(itemId, amount, message));
 		return this;
 	}
@@ -237,20 +237,13 @@ public abstract class DialogueEventListener implements Mood {
 
 	private String header(NPC npc) {
 		NPCDefinitions defs = npc.getDefinitions();
-		int npcId = defs.npcId;
-		switch (npcId) {
-		case 8070:
-			return "Gjalp";
-		default:
-			if (defs.name == null || defs.name.equals("null")) {
-				return "A strange voice";
-			}
+		if (npc.getId() == 3820) {
+			return "Wise Old man";
+		} else
 			return defs.name;
-		}
 	}
 
 	public static boolean continueDialogue(Player player, int i) {
-		System.out.println("dialogue compId: " + i);
 		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().get(Attribute.DIALOGUE_EVENT).get();
 		if (dialogue == null)
 			return false;
@@ -259,7 +252,6 @@ public abstract class DialogueEventListener implements Mood {
 	}
 	
 	public static boolean continueBlankDialogue(Player player, int i) {
-		System.out.println("dialogue compId: " + i);
 		DialogueEventListener dialogueBlank = (DialogueEventListener) player.getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).get();
 		if (dialogueBlank == null)
 			return false;
