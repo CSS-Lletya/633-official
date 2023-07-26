@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.objects;
 
+import com.rs.constants.ItemNames;
 import com.rs.game.dialogue.impl.CookingDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
@@ -9,6 +10,7 @@ import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.cooking.CookingData;
+import skills.cooking.SodaAshBurning;
 import skills.firemaking.FireLighter;
 
 @ObjectSignature(objectId = {}, name = { "Fire", "Cooking range", "range" })
@@ -16,6 +18,10 @@ public class CookingObjectPlugin extends ObjectListener {
 	
 	@Override
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
+		if (item.getId() == ItemNames.SEAWEED_401) {
+			new SodaAshBurning(player).start();
+			return;
+		}
 		if (object.getDefinitions().getName().equalsIgnoreCase("Fire")){
 			FireLighter.VALUES.stream().filter(i -> item.getId() == i.getItem())
 			.forEach(fire -> {

@@ -1,7 +1,6 @@
 package com.rs.plugin.impl.commands;
 
 import com.rs.content.mapzone.impl.TestMapZone;
-import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.plugin.listener.CommandListener;
@@ -18,6 +17,6 @@ public class TestCommandPlugin implements CommandListener {
 
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		player.getMapZoneManager().submitMapZone(player, new TestMapZone());
+		player.getMapZoneManager().submitMapZone(new TestMapZone());
 	}
 }
