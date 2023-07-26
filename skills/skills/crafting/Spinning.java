@@ -3,6 +3,7 @@ package skills.crafting;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -54,7 +55,7 @@ public final class Spinning extends ProducingSkillAction {
 	
 	@Override
 	public Optional<Animation> animation() {
-		return Optional.of(new Animation(883));
+		return Optional.of(Animations.CRAFTING_USING_BOTH_HANDS);
 	}
 	
 	@Override

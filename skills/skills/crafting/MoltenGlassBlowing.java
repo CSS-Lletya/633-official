@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
-import com.rs.constants.Sounds;
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -14,12 +14,12 @@ import com.rs.utilities.TextUtils;
 import skills.ProducingSkillAction;
 import skills.Skills;
 
-public final class PotteryWheel extends ProducingSkillAction {
+public final class MoltenGlassBlowing extends ProducingSkillAction {
 	
 	/**
 	 * The data this skill action is dependent of.
 	 */
-	private final PotteryWheelData data;
+	private final GlassData data;
 	
 	/**
 	 * The amount of times this task should run for.
@@ -27,12 +27,12 @@ public final class PotteryWheel extends ProducingSkillAction {
 	private int amount;
 	
 	/**
-	 * Constructs a new {@link PotteryWheel}.
+	 * Constructs a new {@link MoltenGlassBlowing}.
 	 * @param player {@link #getPlayer()}.
 	 * @param data {@link #data}.
 	 * @param amount {@link #amount}.
 	 */
-	public PotteryWheel(Player player, PotteryWheelData data, int amount) {
+	public MoltenGlassBlowing(Player player, GlassData data, int amount) {
 		super(player, Optional.empty());
 		this.data = data;
 		this.amount = amount;
@@ -42,8 +42,8 @@ public final class PotteryWheel extends ProducingSkillAction {
 	public void onProduce(Task t, boolean success) {
 		if(success) {
 			amount--;
-			player.getAudioManager().sendSound(Sounds.POTTERY);
-			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced).getName() + "_Pottery_Made").addStatistic("Items_Pottery_Made");
+			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.item).getName() + "_Glass_Made").addStatistic("Glass_Items_Made");
+			player.getPackets().sendGameMessage("You make an " + ItemDefinitions.getItemDefinitions(data.item).getName() + ".");
 			if(amount <= 0)
 				t.cancel();
 		}
@@ -51,17 +51,17 @@ public final class PotteryWheel extends ProducingSkillAction {
 	
 	@Override
 	public Optional<Animation> animation() {
-		return Optional.of(Animations.CRAFTING_USING_BOTH_HANDS);
+		return Optional.of(Animations.GLASSPIPE_BLOWING);
 	}
 	
 	@Override
 	public Optional<Item[]> removeItem() {
-		return Optional.of(new Item[]{new Item(data.item)});
+		return Optional.of(new Item[]{new Item(ItemNames.MOLTEN_GLASS_1775)});
 	}
 	
 	@Override
 	public Optional<Item[]> produceItem() {
-		return Optional.of(new Item[]{new Item(data.produced)});
+		return Optional.of(new Item[]{new Item(data.item)});
 	}
 	
 	@Override
@@ -107,51 +107,40 @@ public final class PotteryWheel extends ProducingSkillAction {
 		return true;
 	}
 	
-	public enum PotteryWheelData {
-		POT(1761, 1, 1787, 1, 6.3),
-		PIE_DISH(1761, 1, 1789, 7, 10.0),
-		BOWL(1761, 1, 1791, 8, 15.0),
-		PLANT_POT(1761, 1, 5352, 19, 17.5),
-		POT_LID(1761, 1, 4438, 20, 25),
+	public enum GlassData {
+		BEER_GLASS(1919, 1, 17.5),
+	    OIL_LAMP(4522, 12, 25),
+	    VIAL(229, 33, 35),
+	    FISHBOWL(6667, 42, 42.5),
+	    UNPOWERED_ORB(567, 46, 52.5),
+	    LIGHT_ORB(10980, 87, 104)
 		;
-		/**
-		 * The item required to spin.
-		 */
-		public final int item;
 		
-		/**
-		 * The amount of the item requried.
-		 */
-		public final int amount;
-		
-		/**
-		 * The item produced from spinning.
-		 */
-		public final int produced;
-		
-		/**
-		 * The requirement to spin.
-		 */
-		public final int requirement;
-		
-		/**
-		 * The experience gained from spinning.
-		 */
-		private final double experience;
-		
-		/**
-		 * Constructs a new {@link PotteryWheelData}.
-		 * @param item {@link #item}.
-		 * @param produced {@link #produced}.
-		 * @param requirement {@link #requirement}.
-		 * @param experience {@link #experience}.
-		 */
-		PotteryWheelData(int item, int amount, int produced, int requirement, double experience) {
-			this.item = item;
-			this.amount = amount;
-			this.produced = produced;
-			this.requirement = requirement;
-			this.experience = experience;
-		}
+        /**
+         * The ID after.
+         */
+        public int item;
+        /**
+         * The required level.
+         */
+        private int requirement;
+        /**
+         * The experience gained.
+         */
+        private double experience;
+
+        /**
+         * The single blowing Item.
+         *
+         * @param beforeId         The Item ID before.
+         * @param afterId          The Item ID after.
+         * @param skillRequirement The required level of Crafting to make the Item.
+         * @param exp              The experience gained for blowing the item.
+         */
+        GlassData(int item, int requirement, double experience) {
+            this.item = item;
+            this.requirement = requirement;
+            this.experience = experience;
+        }
 	}
 }
