@@ -2,6 +2,7 @@ package skills;
 
 import com.rs.constants.Graphic;
 import com.rs.constants.InterfaceVars;
+import com.rs.constants.Sounds;
 import com.rs.game.player.Player;
 import com.rs.utilities.Colors;
 
@@ -10,6 +11,7 @@ public class LevelUp extends Skills {
 	public static void advanceLevel(Player player, int skill, int gainedLevels) {
 		int flashingConfig = 0;
 		int spriteConfig = 0;
+		int currentLevel = player.getSkills().getTrueLevel(skill);
 		Musics musicId = Musics.levelup(skill);
 		totalMileStone(player);
         player.getSkills().getLeveledUp()[skill] = true;
@@ -17,10 +19,6 @@ public class LevelUp extends Skills {
             if (player.getSkills().getLeveledUp()[i]) {
                 flashingConfig |= FLASH_VALUES[i];
                 spriteConfig = CONFIG_VALUES[i];
-            }
-        }
-        for (int i = 0; i < player.getSkills().getLeveledUp().length; i++) {
-            if (player.getSkills().getLeveledUp()[skill]) {
                 flashingConfig |= FLASH_VALUES[skill];
                 spriteConfig = CONFIG_VALUES[skill];
             }
@@ -29,9 +27,12 @@ public class LevelUp extends Skills {
 		player.getPackets().sendIComponentText(740, 1, "You have now reached level " + player.getSkills().getLevel(skill) + "!");
 		player.getPackets().sendIComponentText(740, 0, Colors.color(Colors.blue, "Congratulations, you've advanced " + gainedLevels
 				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + "."));
-		
-		player.setNextGraphics(Graphic.LEVEL_UP_BASIC);
-		player.getPackets().sendMusicEffect(gainedLevels > 50 ? musicId.getId2() : musicId.getId());
+		player.setNextGraphics(Graphic.LEVEL_UP);
+		if (currentLevel == 99) {
+			player.getAudioManager().sendSound(Sounds.MASTERED_SKILL);
+			player.task(1, p -> player.getPackets().sendMusicEffect(musicId.getId2()));
+		} else
+			player.getPackets().sendMusicEffect(currentLevel > 50 ? musicId.getId2() : musicId.getId());
 		player.getPackets().sendGameMessage("Congratulations, you've advanced " + gainedLevels
 				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + ".");
 		player.getInterfaceManager().sendChatBoxInterface(740);

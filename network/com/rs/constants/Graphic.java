@@ -21,7 +21,7 @@ public final class Graphic {
 	 */
 	public static final Graphics OBELISK_SENDING = new Graphics(661);
 	public static final Graphics HEALING_BARRIER = new Graphics(436);
-	public static final Graphics LEVEL_UP_BASIC = new Graphics(199);//need to find 99 mastery
+	public static final Graphics LEVEL_UP = new Graphics(199);//need to find 99 mastery
 	public static final Graphics ANCIENT_TELEPORT = new Graphics(436);
 	public static final Graphics LUNAR_TELEPORT = new Graphics(1685);
 	public static final Graphics TELETAB_BREAKING_PORTAL = new Graphics(678);
