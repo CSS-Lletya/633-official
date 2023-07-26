@@ -4,6 +4,7 @@ import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
 import com.rs.constants.ItemNames;
+import com.rs.game.dialogue.impl.BowFletchingDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.item.UseWith;
 import com.rs.game.npc.familiar.Familiar.SpecialAttack;
@@ -21,6 +22,7 @@ import com.rs.utilities.Utility;
 
 import skills.crafting.SoftClayCreation;
 import skills.firemaking.Firemaking;
+import skills.fletching.BowCarving.Log;
 import skills.magic.Enchanting;
 
 @OutgoingPacketSignature(packetId = 33, description = "Represents an Interface being used on another Interface")
@@ -61,13 +63,30 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				return;
 			if (player.getMovement().isLocked() || player.getNextEmoteEnd() >= Utility.currentTimeMillis())
 				return;
-			player.getMovement().stopAll();
+			player.getMovement().stopAll(); 
 			if (player.getMapZoneManager().execute(
 					controller -> !controller.canUseItemOnItem(player, itemUsed, usedWith))) {
 				return;
 			}
 		}
-		
+		new UseWith(new Item(1511), new Item(946)).execute(itemUsed, usedWith, () -> {
+			player.dialogueBlank(new BowFletchingDialogue(player, Log.NORMAL));
+		});
+		new UseWith(new Item(1521), new Item(946)).execute(itemUsed, usedWith, () -> {
+			player.dialogueBlank(new BowFletchingDialogue(player, Log.OAK));
+		});
+		new UseWith(new Item(1519), new Item(946)).execute(itemUsed, usedWith, () -> {
+			player.dialogueBlank(new BowFletchingDialogue(player, Log.WILLOW));
+		});
+		new UseWith(new Item(1517), new Item(946)).execute(itemUsed, usedWith, () -> {
+			player.dialogueBlank(new BowFletchingDialogue(player, Log.MAPLE));
+		});
+		new UseWith(new Item(1515), new Item(946)).execute(itemUsed, usedWith, () -> {
+			player.dialogueBlank(new BowFletchingDialogue(player, Log.YEW));
+		});
+		new UseWith(new Item(1513), new Item(946)).execute(itemUsed, usedWith, () -> {
+			player.dialogueBlank(new BowFletchingDialogue(player, Log.MAGIC));
+		});
 		IntStream.of(227, 1761, 1921, 1929, 3735, 19994, 1937, 5340, 5340, 5340, 5340, 5340, 5340, 5340, 5340, 7690)
 				.filter(id -> fromItemId == id || toItemId == id)
 				.forEach(waterSource -> new UseWith(new Item(waterSource), new Item(ItemNames.CLAY_434)).execute(usedWith, itemUsed,

@@ -128,6 +128,7 @@ public final class Animations {
 	public static final Animation KNIFE_SLASHING_WEB = new Animation(911);
 	public static final Animation JUMPING_INTO_SOMETHING = new Animation(7269);
 	public static final Animation SG_DRINK_FROM_FOUNTAIN = new Animation(5796);
+	public static final Animation FLETCHING_BOW = new Animation(1248);
 	
 	/**
 	 * Object Based Animations

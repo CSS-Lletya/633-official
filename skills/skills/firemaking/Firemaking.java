@@ -152,7 +152,7 @@ public class Firemaking extends DestructionSkillAction {
             player.getPackets().sendGameMessage("You can't light a fire here.");
             return false;
         }
-        if (player.getMapZoneManager().getMapZone(player).get().isRestricted(ZoneRestriction.FIRES)) {
+        if (player.getCurrentMapZone().isPresent() && player.getMapZoneManager().getMapZone(player).get().isRestricted(ZoneRestriction.FIRES)) {
         	 player.getPackets().sendGameMessage("You can't light a fire here.");
         	 return false;
         }

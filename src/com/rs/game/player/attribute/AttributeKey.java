@@ -8,6 +8,7 @@ import java.util.IdentityHashMap;
 import com.google.common.base.MoreObjects;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import skills.fletching.BowCarving;
 
 /**
  * A {@link String} wrapper also known as an alias that defines behavior and functionality for attributes. {@code String}
@@ -36,7 +37,7 @@ public final class AttributeKey<T> {
 	public static void init() {
 //		AttributeKey.forPersistent("", false);//saves
 //		AttributeKey.forTransient("", false);//doesn't save
-		
+		AttributeKey.forTransient(Attribute.BOW_FLETCHING_CARVING, new BowCarving(null, null, false));
 		AttributeKey.forTransient(Attribute.TRADE_TARGET, false);
 		AttributeKey.forTransient(Attribute.TRADE_IS_REMOVE, false);
 		AttributeKey.forTransient(Attribute.TRADE_ITEM_X_SLOT, -1);
@@ -71,7 +72,7 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.INCUBATOR_EGG, -1);
 		AttributeKey.forTransient(Attribute.CHAT_TYPE, 0);
 		AttributeKey.forTransient(Attribute.BOW_FLETCHING, false);
-		AttributeKey.forTransient(Attribute.BOW_FLETCHING_CARVING, false);
+		
 		
 		AttributeKey.forPersistent(Attribute.CANOE_CHOPPED, false);
 		AttributeKey.forPersistent(Attribute.CANOE_CONFIG, 0);
