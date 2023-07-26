@@ -443,17 +443,15 @@ public final class LocalPlayerUpdate {
 		data.writeBytes(renderData, 0, renderData.length);
 
 	}
-
-	@SuppressWarnings("unused")
+	
 	private void applyForceMovementMask(Player p, OutputStream data) {
-		//TODO: Update this to new system. Old system also wasn't updated too.
-		data.writeByte128(p.getNextForceMovement().getFirst().getX() - p.getX());
-		data.writeByte(p.getNextForceMovement().getFirst().getY() - p.getY());
-		data.write128Byte(p.getNextForceMovement().getSecond() == null ? 0 : p.getNextForceMovement().getSecond().getX() - p.getX());
-		data.writeByte128(p.getNextForceMovement().getSecond() == null ? 0 : p.getNextForceMovement().getSecond().getY() - p.getY());
-		data.writeShort(p.getNextForceMovement().getFirstSpeed() * 30);
-		data.writeShort128(p.getNextForceMovement().getSecond() == null ? 0 : p.getNextForceMovement().getSecondSpeed() * 30);
-		data.writeByte(p.getNextForceMovement().getDirection().getId());
+		data.writeByte128(p.getNextForceMovement().getToFirstTile().getX() - p.getX());
+		data.writeByte(p.getNextForceMovement().getToFirstTile().getY() - p.getY());
+		data.write128Byte(p.getNextForceMovement().getToSecondTile() == null ? 0 : p.getNextForceMovement().getToSecondTile().getX() - p.getX());
+		data.writeByte128(p.getNextForceMovement().getToSecondTile() == null ? 0 : p.getNextForceMovement().getToSecondTile().getY() - p.getY());
+		data.writeShort(p.getNextForceMovement().getFirstTileTicketDelay() * 30);
+		data.writeShort128(p.getNextForceMovement().getToSecondTile() == null ? 0 : p.getNextForceMovement().getSecondTileTicketDelay() * 30);
+		data.writeByte(p.getNextForceMovement().getDirection());
 	}
 
 	public OutputStream createPacketAndProcess() {

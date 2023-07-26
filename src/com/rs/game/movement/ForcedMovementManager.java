@@ -56,7 +56,7 @@ public final class ForcedMovementManager {
 	public static void submit(Entity character, ForcedMovement movement) {
 		if(prerequisites(character)) {
 			ForcedMovementManager manager = new ForcedMovementManager(movement);
-			movement.getCharacter().setNextForceMovement(manager.movement);
+//			movement.getCharacter().setNextForceMovement(manager.movement);
 			World.get().submit(manager.t);
 		}
 	}
@@ -70,7 +70,7 @@ public final class ForcedMovementManager {
 	public static void submit(Entity character, ForcedMovement movement, boolean skipPrerequisites) {
 		if(skipPrerequisites || prerequisites(character)) {
 			ForcedMovementManager manager = new ForcedMovementManager(movement);
-			movement.getCharacter().setNextForceMovement(manager.movement);
+//			movement.getCharacter().setNextForceMovement(manager.movement);
 			World.get().submit(manager.t);
 		}
 	}
@@ -133,7 +133,7 @@ public final class ForcedMovementManager {
 			if(timer == -1) {
 				if(movement.getCharacter().isPlayer()) {
 					Player player = movement.getCharacter().toPlayer();
-					player.getNextForceMovement().setActive(false);
+//					player.getNextForceMovement().setActive(false);
 				}
 				this.cancel();
 			}

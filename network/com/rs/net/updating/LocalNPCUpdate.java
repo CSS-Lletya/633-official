@@ -209,21 +209,21 @@ public final class LocalNPCUpdate {
 		data.writeString(n.getNextForceTalk().getText());
 	}
 
+	//don't think any npcs used this in this revision?
 	@SuppressWarnings("unused")
 	private void applyForceMovementMask(NPC n, OutputStream data) {
-		//TODO: Update this to new system. Old system also wasn't updated too.
-		data.write128Byte(n.getNextForceMovement().getFirst().getX()
-				- n.getX());
-		data.writeByte(n.getNextForceMovement().getFirst().getY()
-				- n.getY());
-		data.writeByteC(n.getNextForceMovement().getSecond() == null ? 0
-				: n.getNextForceMovement().getSecond().getX() - n.getX());
-		data.writeByteC(n.getNextForceMovement().getSecond() == null ? 0
-				: n.getNextForceMovement().getSecond().getY() - n.getY());
-		data.writeShortLE((n.getNextForceMovement().getFirstSpeed() * 600) / 20);
-		data.writeShortLE128(n.getNextForceMovement().getSecond() == null ? 0
-				: ((n.getNextForceMovement().getSecondSpeed() * 600) / 20));
-		data.writeShort128(n.getNextForceMovement().getDirection().getId());
+//		data.write128Byte(n.getNextForceMovement().getFirst().getX()
+//				- n.getX());
+//		data.writeByte(n.getNextForceMovement().getFirst().getY()
+//				- n.getY());
+//		data.writeByteC(n.getNextForceMovement().getSecond() == null ? 0
+//				: n.getNextForceMovement().getSecond().getX() - n.getX());
+//		data.writeByteC(n.getNextForceMovement().getSecond() == null ? 0
+//				: n.getNextForceMovement().getSecond().getY() - n.getY());
+//		data.writeShortLE((n.getNextForceMovement().getFirstSpeed() * 600) / 20);
+//		data.writeShortLE128(n.getNextForceMovement().getSecond() == null ? 0
+//				: ((n.getNextForceMovement().getSecondSpeed() * 600) / 20));
+//		data.writeShort128(n.getNextForceMovement().getDirection().getId());
 	}
 
 	private void applyFaceWorldTileMask(NPC n, OutputStream data) {
