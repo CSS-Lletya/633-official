@@ -193,7 +193,7 @@ public class Pickpocketing extends Thieving {
 			getPlayer().setNextGraphics(STUN_GRAPHIC);
 			getPlayer().getMovement().lock(definition.seconds);
 			getPlayer().getDetails().getStatistics().addStatistic("Failed_Pickpockets");
-			player.getAudioManager().setDelay(Sounds.PLAYER_STUNNED);
+			player.getAudioManager().sendSound(1, Sounds.PLAYER_STUNNED);
 		} else {
 			if (definition == PickpocketData.MALE_HAM_MEMBER || definition == PickpocketData.FEMALE_HAM_MEMBER
 					|| definition == PickpocketData.HAM_GUARD) {

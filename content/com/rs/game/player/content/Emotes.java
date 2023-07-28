@@ -123,7 +123,7 @@ public class Emotes {
 			for (Emote emote : Emote.values()) {
 				if (buttonId == emote.getButtonId()) {
 					if (emote == Emote.BLOW_KISS)
-						player.getAudioManager().setDelay(2).sendSound(Sounds.BLOW_KISS);
+						player.getAudioManager().sendSound(1, Sounds.BLOW_KISS);
 					emote.getSpecialEmote().ifPresent(user -> user.handleSpecialEmote(player));
 					emote.getAnimation().ifPresent(player::setNextAnimation);
 					emote.getGraphics().ifPresent(player::setNextGraphics);

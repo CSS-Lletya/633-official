@@ -30,12 +30,12 @@ public class DiangoItemsItemPlugin extends InventoryListener {
 		});
 		if (item.getId() == 4613) {
 			if (RandomUtils.percentageChance(10)) {
-				player.task(1, p -> player.getAudioManager().sendSound(Sounds.PLATE_BREAKING));
+				player.getAudioManager().sendSound(1, Sounds.PLATE_BREAKING);
 				player.getInventory().deleteItem(new Item(4613));
 				player.setNextAnimation(new Animation(1906));
 				FloorItem.addGroundItem(new Item(4614), player, player, true, 60);
 			} else {
-				player.task(1, p -> player.getAudioManager().sendSound(Sounds.PLATE_SPINNING));
+				player.getAudioManager().sendSound(1, Sounds.PLATE_SPINNING);
 				player.setNextAnimation(new Animation(1902));
 			}
 		}

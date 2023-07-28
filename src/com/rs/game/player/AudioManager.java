@@ -16,12 +16,6 @@ public class AudioManager {
 	 * Represents the Player receiving the sound effect
 	 */
 	private transient Player player;
-	
-	/**
-	 * The initial delay of the sound being delivered. 
-	 * Majority of the time it'll always be 0.
-	 */
-	private int delay = 0;
 
 	/**
 	 * Constructs a new Audio Manager for the Player
@@ -37,7 +31,7 @@ public class AudioManager {
 	 * @return
 	 */
 	public AudioManager sendSound(int soundId) {
-		player.getPackets().sendSound(soundId, delay, 1);
+		player.getPackets().sendSound(soundId, 0, 1);
 		return this;
 	}
 	
@@ -50,7 +44,7 @@ public class AudioManager {
 	public AudioManager sendNearbyPlayerSound(int soundId, int distance) {
 		ObjectArrayList<Short> playerIndexes = World.getRegion(player.getRegionId()).getPlayersIndexes();
 		if (playerIndexes != null) {
-			World.players().filter(p -> player.withinDistance(p))
+			World.players().filter(p -> player.withinDistance(p, distance))
 					.forEach(p -> sendSound(soundId));
 		}
 		return this;
@@ -64,7 +58,7 @@ public class AudioManager {
 	 * @param distance
 	 * @return
 	 */
-	public AudioManager sendGlobalSound(int soundId, int distance) {
+	public AudioManager sendGlobalSound(int soundId) {
 		World.players().forEach(p -> sendSound(soundId));
 		return this;
 	}
@@ -75,17 +69,42 @@ public class AudioManager {
 	 * @return
 	 */
 	public AudioManager sendIndex2Sound(int soundId) {
-		player.getPackets().sendSound(soundId, delay, 2);
+		player.getPackets().sendSound(soundId, 0, 2);
+		return this;
+	}
+
+	/**
+	 * Sends a delayed sound effect
+	 * TODO: Convert delayed tasks to use this method
+	 * @param delay
+	 * @param soundId
+	 * @return
+	 */
+	public AudioManager sendSound(int delay, int soundId) {
+		player.task(delay, p -> sendSound(soundId));
 		return this;
 	}
 	
 	/**
-	 * Sets the specified delay if required
-	 * @param delayBy
+	 * Sends a delayed sound effect to nearby players
+	 * @param delay
+	 * @param soundId
+	 * @param distance
 	 * @return
 	 */
-	public AudioManager setDelay(int delayBy) {
-		this.delay = delayBy;
+	public AudioManager sendNearbyDelayedSound(int delay, int soundId, int distance) {
+		player.task(delay, p -> sendNearbyPlayerSound(soundId, distance));
+		return this;
+	}
+	
+	/**
+	 * Sends a delayed sound effect to everyone (globally to server)
+	 * @param delay
+	 * @param soundId
+	 * @return
+	 */
+	public AudioManager sendGlobalDelayedSound(int delay, int soundId) {
+		player.task(delay, p -> sendGlobalSound(soundId));
 		return this;
 	}
 }

@@ -31,11 +31,6 @@ public class WildernessMapZone extends MapZone {
 	}
 
 	@Override
-	public boolean contains(Player player) {
-		return isAtWild(player);
-	}
-
-	@Override
 	public boolean login(Player player) {
 		moved(player);
 		return false;
@@ -138,7 +133,7 @@ public class WildernessMapZone extends MapZone {
 		return true;
 	}
 
-	@java.lang.Override
+	@Override
 	public boolean processObjectClick2(Player player, GameObject object) {
 		if (player.getSkills().getTrueLevel(Skills.THIEVING) < 60) {
 			player.dialogue(d -> d.mes("You need atleast an level of 60 thieving to picklock this door."));
@@ -174,17 +169,22 @@ public class WildernessMapZone extends MapZone {
 	public void moved(Player player) {
 		boolean isAtWild = isAtWild(player);
 		boolean isAtWildSafe = isAtWildSafe(player);
-		if (!showingSkull && isAtWild && !isAtWildSafe) {
+		if (!isAtWild(player) && !isAtWildSafe && !isAtWild && !showingSkull) {
+			player.getDetails().getCanPvp().setValue(false);
+			removeIcon(player);
+			endMapZoneSession(player);
+		} else if (!showingSkull && isAtWild && !isAtWildSafe) {
 			showingSkull = true;
 			player.getDetails().getCanPvp().setValue(true);
 			showSkull(player);
+			player.getPackets().sendGlobalConfig(1000, player.getSkills().getCombatLevel() + player.getSkills().getSummoningCombatLevel());
 			player.getAppearance().generateAppearenceData();
+			checkBoosts(player);
 		} else if (showingSkull && (isAtWildSafe || !isAtWild)) {
 			removeIcon(player);
 		} else if (!isAtWildSafe && !isAtWild) {
 			player.getDetails().getCanPvp().setValue(false);
 			removeIcon(player);
-			player.setCurrentMapZone(Optional.empty());
 		}
 	}
 	

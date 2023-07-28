@@ -991,6 +991,7 @@ public abstract class Entity extends WorldTile {
 		ifPlayer(player -> {
 			if (!player.isStarted())
 				return;
+			checkControlersAtMove(player);
 			boolean isAtMultiArea = player.isForceMultiArea() || multi;
 			player.setMultiArea(isAtMultiArea);
 			player.getPackets().sendGlobalConfig(616, isAtMultiArea ? 1 : 0);
@@ -1123,11 +1124,7 @@ public abstract class Entity extends WorldTile {
 	}
 	
 	private static void checkControlersAtMove(Player player) {
-		if (!WildernessMapZone.isAtWild(player)) {
-			player.getMapZoneManager().endMapZoneSession(player);
-			return;
-		}
-		if (WildernessMapZone.isAtWild(player) && !player.getMapZoneManager().getMapZone(player).isPresent())
+		if (WildernessMapZone.isAtWild(player))
 			player.getMapZoneManager().submitMapZone(new WildernessMapZone());
 		else
 			player.getCurrentMapZone().ifPresent(zone -> zone.moved(player));

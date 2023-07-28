@@ -88,7 +88,7 @@ public class InterfaceManager {
 	}
 	
 	public void sendWildyOverlay() {
-		setWindowInterface(isResizableScreen() ? 7: 16, 381);
+		setWindowInterface(isResizableScreen() ? 6 : 18, 381);
 	}
 
 	public void sendOverlay(int interfaceId, boolean fullScreen) {
@@ -481,6 +481,7 @@ public class InterfaceManager {
 		removeScreenInterface();
 		//fullscreen interfaces we will force close
 		IntStream.of(499, 741, 135, 115, 864, 275).forEach(this::removeInterface);
+		removeOverlay();
 		if (containsInventoryInter())
 			removeInventoryInterface();
 		if (containsChatBoxInter())

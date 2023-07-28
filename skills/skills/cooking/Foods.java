@@ -605,7 +605,7 @@ public class Foods {
 		int foodDelay = name.contains("half") ? 2 : 3;
 		if (!player.getDetails().getFood().elapsed(foodDelay * 600))
 			return false;
-		player.getAudioManager().setDelay(1).sendSound(Sounds.EATING_FOOD);
+		player.getAudioManager().sendSound(1, Sounds.EATING_FOOD);
 		player.getPackets().sendGameMessage("You eat the " + name + ".");
 		player.setNextAnimation(Animations.CONSUMING_ITEM);
 		player.getDetails().getFood().reset();
@@ -619,7 +619,7 @@ public class Foods {
 		player.getInventory().refresh();
 		if (food.effect != null)
 			food.effect.effect(player);
-		player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(food.id).getName() + "_Eaten").addStatistic("Food_Eaten");
+		player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(food.id).getName() + "_Consumed").addStatistic("Food_Consumed");
 		return true;
 	}
 
