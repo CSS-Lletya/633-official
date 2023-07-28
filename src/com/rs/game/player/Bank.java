@@ -15,7 +15,7 @@ import com.rs.utilities.ItemExamines;
 public class Bank {
 
 	// tab, items
-	private Item[][] bankTabs;
+	public Item[][] bankTabs;
 	private int lastX;
 
 	/**

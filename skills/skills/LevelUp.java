@@ -29,6 +29,7 @@ public class LevelUp extends Skills {
 				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + "."));
 		player.setNextGraphics(Graphic.LEVEL_UP);
 		if (currentLevel == 99) {
+			player.getSkills().trimCapes();
 			player.getAudioManager().sendSound(Sounds.MASTERED_SKILL);
 			player.task(1, p -> player.getPackets().sendMusicEffect(musicId.getId2()));
 		} else

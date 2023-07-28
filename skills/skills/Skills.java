@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 import com.rs.GameConstants;
 import com.rs.constants.InterfaceVars;
 import com.rs.constants.ItemNames;
+import com.rs.game.item.Item;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
 import com.rs.utilities.RandomUtils;
@@ -625,4 +626,31 @@ public class Skills {
 				num99s++;
 		return num99s > 1;
 	}
+	
+	public void trimCapes() {
+	    if (checkMulti99s()) {
+	        Arrays.stream(SkillcapeMasters.values())
+	                .filter(cape -> player.getEquipment().getCapeId() == cape.untrimmed)
+	                .findFirst()
+	                .ifPresent(cape -> {
+	                    player.getEquipment().getItems().set(Equipment.SLOT_CAPE, new Item(cape.trimmed, 1));
+	                    player.getEquipment().refresh(Equipment.SLOT_CAPE);
+	                    player.getAppearance().generateAppearenceData();
+	                });
+
+	        Arrays.stream(player.getInventory().getItems().getItems())
+	                .filter(item -> item != null && Arrays.stream(SkillcapeMasters.values()).anyMatch(cape -> item.getId() == cape.untrimmed))
+	                .forEach(item -> player.getInventory().replaceItem(Arrays.stream(SkillcapeMasters.values()).filter(cape -> item.getId() == cape.untrimmed).findFirst().get().trimmed, 1, item.getId()));
+
+	        Arrays.stream(player.getBank().bankTabs)
+	                .filter(tab -> tab != null)
+	                .flatMap(tab -> Arrays.stream(tab))
+	                .filter(item -> item != null && Arrays.stream(SkillcapeMasters.values()).anyMatch(cape -> item.getId() == cape.untrimmed))
+	                .forEach(item -> item.setId(Arrays.stream(SkillcapeMasters.values()).filter(cape -> item.getId() == cape.untrimmed).findFirst().get().trimmed));
+
+	        player.getInventory().refresh();
+	        player.getBank().refreshItems();
+	    }
+	}
+
 }
