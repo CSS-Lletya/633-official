@@ -51,7 +51,7 @@ public abstract class DialogueEventListener implements Mood {
 	}
 
 	public void option(String option1, Runnable task) {
-		dialogueEvent.add(new DialogueOptionEvent("Select an Option", option1, task));
+		dialogueEvent.add(new DialogueOptionEvent("Select an Option", option1, task, "Nevermind", this::complete));
 	}
 
 	public void option(String option1, Runnable task1, String option2, Runnable task2) {

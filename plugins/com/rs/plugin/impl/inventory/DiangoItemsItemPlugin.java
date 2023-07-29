@@ -2,6 +2,7 @@ package com.rs.plugin.impl.inventory;
 
 import java.util.stream.IntStream;
 
+import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
@@ -12,7 +13,7 @@ import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 import com.rs.utilities.RandomUtils;
 
-@InventoryWrapper(itemId = { 2520,2521,2522,2523,2524,2525,2526, 4613 }, itemNames = {})
+@InventoryWrapper(itemId = { 2520,2521,2522,2523,2524,2525,2526, 4613, 12844 }, itemNames = {})
 public class DiangoItemsItemPlugin extends InventoryListener {
 
 	@Override
@@ -38,6 +39,9 @@ public class DiangoItemsItemPlugin extends InventoryListener {
 				player.getAudioManager().sendSound(1, Sounds.PLATE_SPINNING);
 				player.setNextAnimation(new Animation(1902));
 			}
+		}
+		if (item.getId() == 12844) {
+			player.setNextAnimation(Animations.FLY_TOY_KITE);
 		}
 	}
 	

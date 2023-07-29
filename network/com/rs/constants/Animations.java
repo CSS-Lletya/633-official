@@ -132,6 +132,7 @@ public final class Animations {
 	public static final Animation SMELTING_INSIDE_FURNACE = new Animation(3243);
 	public static final Animation CRAFTING_USING_BOTH_HANDS = new Animation(883);
 	public static final Animation GLASSPIPE_BLOWING = new Animation(884);
+	public static final Animation FLY_TOY_KITE = new Animation(8990);
 	
 	/**
 	 * Object Based Animations
@@ -144,4 +145,5 @@ public final class Animations {
 	public static final Animation NPC_PICKPOCKET_FAIL_RESPONSE = new Animation(422);
 	public static final Animation WIZARD_ESSENCE_MINE_TELEPORT = new Animation(1818);
 	public static final Animation SG_ELEMENTAL_ARM_SWINGING = new Animation(5803);
+
 }
