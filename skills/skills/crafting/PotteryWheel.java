@@ -109,6 +109,7 @@ public final class PotteryWheel extends ProducingSkillAction {
 	
 	public enum PotteryWheelData {
 		POT(1761, 1, 1787, 1, 6.3),
+		CLAY_RING(20052, 1, 20053, 4, 11),
 		PIE_DISH(1761, 1, 1789, 7, 10.0),
 		BOWL(1761, 1, 1791, 8, 15.0),
 		PLANT_POT(1761, 1, 5352, 19, 17.5),

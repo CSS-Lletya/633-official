@@ -109,6 +109,7 @@ public final class PotteryOven extends ProducingSkillAction {
 	
 	public enum PotteryData {
 		POT(1787, 1, 1931, 1, 6.3),
+		CLAY_RING(20052, 1, 20053, 4, 11),
 		PIE_DISH(1789, 1, 2313, 7, 10.0),
 		BOWL(1791, 1, 1923, 8, 15.0),
 		PLANT_POT(5352, 1, 5350, 19, 17.5),
