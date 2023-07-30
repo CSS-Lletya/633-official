@@ -69,7 +69,7 @@ public final class GameConstants {
 	 * @return
 	 */
 	public static boolean isPVPWorld() {
-		return true;
+		return false;
 	}
 	
 	/**

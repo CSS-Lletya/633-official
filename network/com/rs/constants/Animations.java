@@ -133,6 +133,7 @@ public final class Animations {
 	public static final Animation CRAFTING_USING_BOTH_HANDS = new Animation(883);
 	public static final Animation GLASSPIPE_BLOWING = new Animation(884);
 	public static final Animation FLY_TOY_KITE = new Animation(8990);
+	public static final Animation RUB_HANDS_TOGETHER = new Animation(5088);
 	
 	/**
 	 * Object Based Animations
