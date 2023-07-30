@@ -9,9 +9,18 @@ import com.rs.plugin.wrapper.InventoryWrapper;
 
 import skills.crafting.CrabShellCreations;
 import skills.crafting.GemCutting;
+import skills.crafting.SnailHelmCreation;
+import skills.crafting.SnailHelmCreation.SnelmData;
 
-@InventoryWrapper(itemId = { 1755, 1625, 1627, 1629, 1623, 1621, 1619, 1617, 1631, 6571, 1609, 1611, 411, 413, 1613,
-		1607, 1605, 1603, 1601, 1615, 6573, 9953, 10107, ItemNames.FRESH_CRAB_SHELL_7538, ItemNames.FRESH_CRAB_CLAW_7536}, itemNames = {})
+@InventoryWrapper(itemId = { 1755,
+		//gems
+		1625, 1627, 1629, 1623, 1621, 1619, 1617, 1631, 6571, 1609, 1611, 411, 413, 1613,
+		1607, 1605, 1603, 1601, 1615, 6573, 9953, 10107,
+		//crab
+		ItemNames.FRESH_CRAB_SHELL_7538, ItemNames.FRESH_CRAB_CLAW_7536,
+		//snelms
+		3349, 3347, 3345, 3353, 3351
+}, itemNames = {})
 public class GemCuttingItemPlugin extends InventoryListener {
 
 	@Override
@@ -24,5 +33,6 @@ public class GemCuttingItemPlugin extends InventoryListener {
 		new UseWith(new Item(1755), new Item(ItemNames.FRESH_CRAB_CLAW_7536)).execute(firstItem, secondItem, () -> {
 			new CrabShellCreations(player, new Item(ItemNames.FRESH_CRAB_CLAW_7536)).start();
 		});
+		SnailHelmCreation.create(player, firstItem, secondItem);
 	}
 }
