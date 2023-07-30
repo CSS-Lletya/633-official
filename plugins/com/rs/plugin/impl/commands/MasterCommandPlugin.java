@@ -15,7 +15,7 @@ import skills.Skills;
  * @author Dennis
  *
  */
-@CommandSignature(alias = {"max", "master"}, rights = {Rights.PLAYER}, syntax = "Unlock all skills to 99")
+@CommandSignature(alias = {"max", "master"}, rights = {Rights.PLAYER}, canIgnoreCondition = true, syntax = "Unlock all skills to 99")
 public final class MasterCommandPlugin implements CommandListener {
 	
 	@Override

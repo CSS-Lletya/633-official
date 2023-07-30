@@ -14,7 +14,7 @@ import com.rs.plugin.wrapper.CommandSignature;
  * @author Dennis
  *
  */
-@CommandSignature(alias = {"runes"}, rights = {Rights.ADMINISTRATOR}, syntax = "Spawn all the Runes for Magic spells")
+@CommandSignature(alias = {"runes"}, rights = {Rights.ADMINISTRATOR}, canIgnoreCondition = true, syntax = "Spawn all the Runes for Magic spells")
 public final class RunesCommandPlugin implements CommandListener {
 	
 	@Override

@@ -10,6 +10,7 @@ import com.rs.GameConstants;
 import com.rs.constants.Sounds;
 import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.MapZoneManager;
+import com.rs.content.mapzone.impl.GlobalPVPMapZone;
 import com.rs.content.quests.QuestManager;
 import com.rs.game.Entity;
 import com.rs.game.EntityType;
@@ -527,13 +528,21 @@ public class Player extends Entity {
 			int delayPassed = (int) ((Utility.currentTimeMillis() - World.get().getExiting_start()) / 1000);
 			getPackets().sendSystemUpdate(World.get().getExiting_delay() - delayPassed);
 		}
-		getCurrentMapZone().ifPresent(getMapZoneManager()::submitMapZone);
 		checkMultiArea();
 		Gravestone.login(this);
 		getDetails().setLastIP(getSession().getIP());
 		getAppearance().generateAppearenceData();
 		getPackets().sendLocalPlayersUpdate();
 		getInterfaceManager().sendInterfaces();
+		if (GameConstants.isPVPWorld()) {
+			getMapZoneManager().submitMapZone(new GlobalPVPMapZone());
+			dialogue(d -> d.item(11784, "Welcome to " + GameConstants.SERVER_NAME + "'s PVP World. Good luck!"));
+		} else {
+			if (getCurrentMapZone().get() instanceof GlobalPVPMapZone && !GameConstants.isPVPWorld()) {
+				getMapZoneManager().endMapZoneSession(this);
+			} else
+				getCurrentMapZone().ifPresent(getMapZoneManager()::submitMapZone);
+		}
 		getPackets().sendRunEnergy().sendGameBarStages().sendGameMessage("Welcome to " + GameConstants.SERVER_NAME + ".");
 		CombatEffect.values().stream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
 		GameConstants.STAFF.entrySet().stream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));

@@ -7,7 +7,7 @@ import com.rs.plugin.wrapper.CommandSignature;
 
 import io.vavr.control.Try;
 
-@CommandSignature(alias = {"item"}, rights = {Rights.ADMINISTRATOR}, syntax = "Spawn an Item")
+@CommandSignature(alias = {"item"}, rights = {Rights.ADMINISTRATOR}, canIgnoreCondition = true, syntax = "Spawn an Item")
 public final class ItemCommandPlugin implements CommandListener {
 	
 	@Override

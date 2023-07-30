@@ -62,9 +62,16 @@ public final class GameConstants {
 	public static final ImmutableMap<String, Rights> STAFF = ImmutableMap.of(
 			"Zed", Rights.ADMINISTRATOR,
 			"Test", Rights.ADMINISTRATOR
-			
 	);
 
+	/**
+	 * Represents the world state of PVP
+	 * @return
+	 */
+	public static boolean isPVPWorld() {
+		return true;
+	}
+	
 	/**
 	 * World settings
 	 */

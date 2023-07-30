@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rs.GameConstants;
 import com.rs.game.npc.NPCSpawn;
 import com.rs.utilities.GSONParser;
 
@@ -51,7 +52,10 @@ public final class NPCSpawns {
 	public static void loadNPCSpawns(int regionId) {
 		List<NPCSpawn> spawns = NPC_SPAWNS.get(regionId);
 		if (spawns != null)
-			for (NPCSpawn spawn : spawns)
+			for (NPCSpawn spawn : spawns) {
+				if (!GameConstants.isPVPWorld() && spawn.getNPCId() == 8725) 
+					continue;
 				spawn.spawn();
+			}
 	}
 }

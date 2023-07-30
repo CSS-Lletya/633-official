@@ -15,7 +15,7 @@ import skills.Skills;
  * @author Dennis
  *
  */
-@CommandSignature(alias = {"reset", "rs", "resetskills"}, rights = {Rights.PLAYER}, syntax = "Resets all your skills back to level 1")
+@CommandSignature(alias = {"reset", "rs", "resetskills"}, rights = {Rights.PLAYER}, canIgnoreCondition = true, syntax = "Resets all your skills back to level 1")
 public final class ResetStatsCommandPlugin implements CommandListener {
 	
 	@Override
@@ -24,8 +24,8 @@ public final class ResetStatsCommandPlugin implements CommandListener {
 			 player.getSkills().set(skill, 1);
 			 player.getSkills().setXp(skill, Skills.getXPForLevel(1));
 		});
-        player.getSkills().set(24, 1);
-        player.getSkills().setXp(24, Skills.getXPForLevel(1));
+        player.getSkills().set(3, 10);
+        player.getSkills().setXp(3, Skills.getXPForLevel(10));
         player.getAppearance().generateAppearenceData();
 	}
 }

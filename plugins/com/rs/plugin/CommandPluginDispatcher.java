@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.rs.GameConstants;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
@@ -69,7 +70,7 @@ public final class CommandPluginDispatcher {
 	 */
 	private static boolean hasPrivileges(Player player, CommandListener command) {
 		CommandSignature sig = command.getClass().getAnnotation(CommandSignature.class);
-		return player.getDetails().getRights().isStaff() || Arrays.stream(sig.rights()).anyMatch(right -> player.getDetails().getRights().equals(right));
+		return player.getDetails().getRights().isStaff() || (GameConstants.isPVPWorld() && sig.canIgnoreCondition()) || Arrays.stream(sig.rights()).anyMatch(right -> player.getDetails().getRights().equals(right));
 	}
 
 	/**

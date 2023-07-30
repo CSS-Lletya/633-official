@@ -7,7 +7,7 @@ import com.rs.plugin.wrapper.CommandSignature;
 
 import skills.Skills;
 
-@CommandSignature(alias = {"setlevel", "setlvl"}, rights = {Rights.ADMINISTRATOR}, syntax = "Sets target skill to target level")
+@CommandSignature(alias = {"setlevel", "setlvl"}, rights = {Rights.ADMINISTRATOR}, canIgnoreCondition = true, syntax = "Sets target skill to target level")
 public final class SetLevelCommandPlugin implements CommandListener {
     @Override
     public void execute(Player player, String[] cmd, String command) {

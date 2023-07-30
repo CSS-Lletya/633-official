@@ -17,10 +17,10 @@ import com.rs.utilities.Utility;
 
 import skills.Skills;
 
-public class WildernessMapZone extends MapZone {
+public class GlobalPVPMapZone extends MapZone {
 
-	public WildernessMapZone() {
-		super("WILDERNESS", MapZoneSafetyCondition.DANGEROUS, MapZoneType.NORMAL);
+	public GlobalPVPMapZone() {
+		super("GLOBAL_PVP", MapZoneSafetyCondition.DANGEROUS, MapZoneType.NORMAL);
 	}
 
 	@Override
@@ -202,8 +202,8 @@ public class WildernessMapZone extends MapZone {
 		removeIcon(player);
 	}
 
-	public static final boolean isAtWild(WorldTile tile) {// TODO fix this
-		return (tile.getX() >= 3011 && tile.getX() <= 3132 && tile.getY() >= 10052 && tile.getY() <= 10175) // fortihrny
+	public static final boolean isAtWild(WorldTile tile) {
+		return inPvP(tile) || (tile.getX() >= 3011 && tile.getX() <= 3132 && tile.getY() >= 10052 && tile.getY() <= 10175) // fortihrny
 				// dungeon
 				|| (tile.getX() >= 2940 && tile.getX() <= 3395 && tile.getY() >= 3525 && tile.getY() <= 4000)
 				|| (tile.getX() >= 3264 && tile.getX() <= 3279 && tile.getY() >= 3279 && tile.getY() <= 3672)
@@ -215,7 +215,7 @@ public class WildernessMapZone extends MapZone {
 
 	public boolean isAtWildSafe(Player player) {
 		player.getInterfaceManager().removeOverlay(false);
-		return (player.getX() >= 2940 && player.getX() <= 3395 && player.getY() <= 3524 && player.getY() >= 3523);
+		return inSafeZone(player) || (player.getX() >= 2940 && player.getX() <= 3395 && player.getY() <= 3524 && player.getY() >= 3523);
 	}
 
 	public int getWildLevel(Player player) {
@@ -423,5 +423,60 @@ public class WildernessMapZone extends MapZone {
 			player.addWalkSteps(object.getX(), object.getY(), 1, false);
 
 		}
+	}
+	
+	/*
+	 * Start of PvP Zones, Safe Zones, and Etc.
+	 */
+	
+	public static boolean inPvP(WorldTile player) {
+		return(!inSafeZone(player));
+	}
+	
+	public static boolean inSafeZone(WorldTile player) {
+		return(inEdgevilleBank(player) || inWestVarrockBank(player) || inEastVarrockBank(player) ||
+		   inWestFaladorBank(player) || inEastFaladorBank(player) || inCamelotBank(player) ||
+		   inCatherbyBank(player) || inNorthArdougneBank(player) ||inSouthArdougneBank(player) ||
+		   grandExchange(player));
+	}
+	
+	public static boolean inEdgevilleBank(WorldTile player) {
+		return(player.getX() > 3090 && player.getX() < 3099 && player.getY() > 3487 && player.getY() < 3500);
+	}
+	
+	public static boolean inWestVarrockBank(WorldTile player) {
+		return (player.getX() > 3181 && player.getX() < 3200 && player.getY() > 3431 && player.getY() < 3447);
+	} 
+	
+	public static boolean inEastVarrockBank(WorldTile player) {
+		return(player.getX() > 3249 && player.getX() < 3258 && player.getY() > 3418 && player.getY() < 3425);
+	}
+	
+	public static boolean inWestFaladorBank(WorldTile player) {
+		return(player.getX() > 2941 && player.getX() < 2948 && player.getY() > 3367 && player.getY() < 3374 || player.getX() >= 2948 && player.getX() <= 2949 && player.getY() >= 3368 && player.getY() <= 3369);
+	}
+	
+	public static boolean inEastFaladorBank(WorldTile player) {
+		return(player.getX() > 3008 && player.getX() < 3019 && player.getY() > 3354 && player.getY() < 3359);
+	}
+	
+	public static boolean inCamelotBank(WorldTile player) {
+		return(player.getX() > 2720 && player.getX() < 2731 && player.getY() > 3489 && player.getY() < 3494 || player.getX() > 2723 && player.getX() < 2728 && player.getY() > 3486 && player.getY() < 3490);
+	}
+	
+	public static boolean inCatherbyBank(WorldTile player) {
+		return(player.getX() > 2805 && player.getX() < 2813 && player.getY() > 3437 && player.getY() < 3442);
+	}
+	
+	public static boolean inNorthArdougneBank(WorldTile player) {
+		return(player.getX() > 2611 && player.getX() < 2622 && player.getY() > 3329 && player.getY() <3336);
+	}
+	
+	public static boolean inSouthArdougneBank(WorldTile player) {
+		return(player.getX() > 2648 && player.getX() < 2657 && player.getY() > 3279 && player.getY() < 3288);
+	}
+	
+	public static boolean grandExchange(WorldTile player) {
+		return(player.getX() > 3153 && player.getX() < 3176 && player.getY() > 3478 && player.getY() < 3501);
 	}
 }

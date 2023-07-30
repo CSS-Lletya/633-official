@@ -34,4 +34,5 @@ public @interface CommandSignature {
 	 */
 	String syntax();
 	
+	boolean canIgnoreCondition() default false;
 }

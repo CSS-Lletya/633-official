@@ -192,8 +192,7 @@ public abstract class DialogueEventListener implements Mood {
 		case 2: {
 			DialogueItemEvent event2 = (DialogueItemEvent) dialogue;
 			player.getInterfaceManager().sendChatBoxInterface(131);
-			for (int line = 0; line < dialogue.getTexts().length; line++)
-				player.getPackets().sendIComponentText(131, 1 + line, dialogue.getTexts()[line]);
+			player.getPackets().sendIComponentText(131, 1, dialogue.getText());
 			player.getPackets().sendItemOnIComponent(131, 2, event2.getItemId(), event2.getAmount());
 			player.getPackets().sendHideIComponent(131, 3, event2.isRemoveContinue());
 
