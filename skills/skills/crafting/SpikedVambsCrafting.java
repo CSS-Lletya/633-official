@@ -14,19 +14,19 @@ import lombok.AllArgsConstructor;
 import skills.ProducingSkillAction;
 import skills.Skills;
 
-public class SnailHelmCreation extends ProducingSkillAction {
+public class SpikedVambsCrafting extends ProducingSkillAction {
 	
 	/**
 	 * The staff data this skill action is dependent of.
 	 */
-	private final SnelmData data;
+	private final SpikedData data;
 	
 	/**
-	 * Constructs a new {@link SnailHelmCreation}.
+	 * Constructs a new {@link SpikedVambsCrafting}.
 	 * @param player {@link #getPlayer()}.
 	 * @param data {@link #data}.
 	 */
-	public SnailHelmCreation(Player player, SnelmData data) {
+	public SpikedVambsCrafting(Player player, SpikedData data) {
 		super(player, Optional.empty());
 		this.data = data;
 	}
@@ -34,7 +34,7 @@ public class SnailHelmCreation extends ProducingSkillAction {
 	/**
 	 * A constant representing the ball of wool item.
 	 */
-	private static final Item CHISEL = new Item(1755);
+	private static final Item KEBBIT_CLAWS = new Item(10113);
 	
 	/**
 	 * Attempts to start stringing any amulets.
@@ -44,7 +44,7 @@ public class SnailHelmCreation extends ProducingSkillAction {
 	 * @return {@code true} if the skill action started, {@code false} otherwise.
 	 */
 	public static boolean create(Player player, Item used, Item usedOn) {
-		SnelmData data = SnelmData.getDefinition(used.getId(), usedOn.getId()).orElse(null);
+		SpikedData data = SpikedData.getDefinition(used.getId(), usedOn.getId()).orElse(null);
 		
 		if(data == null) {
 			return false;
@@ -54,8 +54,8 @@ public class SnailHelmCreation extends ProducingSkillAction {
 		return true;
 	}
 	
-	public static void create(Player player, SnelmData data) {
-		SnailHelmCreation crafting = new SnailHelmCreation(player, data);
+	public static void create(Player player, SpikedData data) {
+		SpikedVambsCrafting crafting = new SpikedVambsCrafting(player, data);
 		crafting.start();
 	}
 	
@@ -68,7 +68,7 @@ public class SnailHelmCreation extends ProducingSkillAction {
 	
 	@Override
 	public Optional<Item[]> removeItem() {
-		return Optional.of(new Item[]{data.base});
+		return Optional.of(new Item[]{data.base, KEBBIT_CLAWS});
 	}
 	
 	@Override
@@ -83,7 +83,7 @@ public class SnailHelmCreation extends ProducingSkillAction {
 	
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -103,7 +103,7 @@ public class SnailHelmCreation extends ProducingSkillAction {
 	
 	@Override
 	public double experience() {
-		return SnelmData.getDefinition(player).get().experience;
+		return SpikedData.getDefinition(player).get().experience;
 	}
 	
 	@Override
@@ -117,12 +117,12 @@ public class SnailHelmCreation extends ProducingSkillAction {
 	 * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
 	 */
 	@AllArgsConstructor
-	public enum SnelmData {
-		OCHRE( new Item(3349), new Item(3341), 15, 32.5),
-		BLOOD( new Item(3347), new Item(3339), 15, 32.5),
-		MYRE( new Item(3345), new Item(3337), 15, 32.5),
-		BARK( new Item(3353), new Item(3335), 15, 32.5),
-		BLUE( new Item(3351), new Item(3343), 15, 32.5);
+	public enum SpikedData {
+		REGULAR( new Item(1063), new Item(10077), 32, 6),
+		GREEN( new Item(1065), new Item(10079), 32, 6),
+		BLUE( new Item(2487), new Item(10081), 32, 6),
+		RED( new Item(2489), new Item(10083), 32, 6),
+		BLACK( new Item(2491), new Item(10085), 32, 6);
 		
 		/**
 		 * The item which needs to be stringed.
@@ -141,14 +141,14 @@ public class SnailHelmCreation extends ProducingSkillAction {
 		/**
 		 * Caches our enum values.
 		 */
-		private static final ImmutableSet<SnelmData> VALUES = Sets.immutableEnumSet(EnumSet.allOf(SnelmData.class));
+		private static final ImmutableSet<SpikedData> VALUES = Sets.immutableEnumSet(EnumSet.allOf(SpikedData.class));
 		
-		public static Optional<SnelmData> getDefinition(Player player) {
+		public static Optional<SpikedData> getDefinition(Player player) {
 			return VALUES.stream().filter($it -> player.getInventory().containsAny($it.base.getId())).findAny();
 		}
 		
-		public static Optional<SnelmData> getDefinition(int itemUsed, int usedOn) {
-			return VALUES.stream().filter($it -> $it.base.getId() == itemUsed || $it.base.getId() == usedOn).filter($it -> CHISEL.getId() == itemUsed || CHISEL.getId() == usedOn).findAny();
+		public static Optional<SpikedData> getDefinition(int itemUsed, int usedOn) {
+			return VALUES.stream().filter($it -> $it.base.getId() == itemUsed || $it.base.getId() == usedOn).filter($it -> KEBBIT_CLAWS.getId() == itemUsed || KEBBIT_CLAWS.getId() == usedOn).findAny();
 		}
 	}
 }

@@ -10,7 +10,6 @@ import com.rs.plugin.wrapper.InventoryWrapper;
 import skills.crafting.CrabShellCreations;
 import skills.crafting.GemCutting;
 import skills.crafting.SnailHelmCreation;
-import skills.crafting.SnailHelmCreation.SnelmData;
 
 @InventoryWrapper(itemId = { 1755,
 		//gems
