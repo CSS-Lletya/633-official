@@ -1,10 +1,7 @@
 package com.rs.net.packets.outgoing.impl;
 
-import java.util.List;
-
 import com.rs.GameConstants;
 import com.rs.constants.Sounds;
-import com.rs.game.dialogue.DialogueAction;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -39,43 +36,26 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 			LogUtility.log(LogType.INFO, "Dialogue: " + interfaceId + ", " + buttonId
 					+ ", " + junk);
 		int componentId = interfaceHash - (interfaceId << 16);
-		
-		if (interfaceId == 740)
-			player.getInterfaceManager().closeChatBoxInterface();
-		
-		if (interfaceId == 94) {
-			if (buttonId == 3) 
+		switch (interfaceId) {
+		case 94:
+			if (buttonId == 3)
 				player.getInventory().deleteItem(new Item(player.getAttributes().get(Attribute.DESTROY_ITEM_ID).getInt()));
 			player.getInterfaceManager().closeChatBoxInterface();
 			player.getAttributes().get(Attribute.DESTROY_ITEM_ID).set(null);
 			player.getAudioManager().sendSound(Sounds.DESTOY_ITEM);
-			return;
-		}
-		if (interfaceId == 905) {
-			if (DialogueEventListener.continueBlankDialogue(player, componentId)) {
-				player.getInterfaceManager().closeChatBoxInterface();
-				return;
-			}
-		} else {
-			if (DialogueEventListener.continueDialogue(player, componentId)) {
-				return;
-			}
-		}
-
-		if (EniolaBanker.sendInterfaceFunctionality(player, componentId)) {
+			break;
+		case 905:
 			player.getInterfaceManager().closeChatBoxInterface();
-			return;
+			DialogueEventListener.continueBlankDialogue(player, componentId);
+			break;
+		case 619:
+			EniolaBanker.sendInterfaceFunctionality(player, componentId);
+			break;
+		default:
+			if (DialogueEventListener.continueDialogue(player, componentId))
+				return;
+			player.getDialogueInterpreter().handle(componentId, buttonId);
+			break;
 		}
-		if (player.getDialogueInterpreter().getDialogue() == null && player.getDialogueInterpreter().getDialogueStage() == null) {
-			player.getInterfaceManager().closeChatBoxInterface();
-			List<DialogueAction> actions = player.getDialogueInterpreter().getActions();
-			if (actions.size() > 0) {
-				DialogueAction action = actions.get(0);
-				action.handle(player, buttonId);
-				actions.remove(action);
-				actions.clear();
-			}
-		}
-		player.getDialogueInterpreter().handle(componentId, buttonId);
 	}
 }

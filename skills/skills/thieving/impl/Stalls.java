@@ -146,10 +146,10 @@ public final class Stalls extends Thieving {
 	}
 
 	public enum StallData {
-		MAGIC_STALL(new int[]{4877}, EMPTY_STALLS[1], 75, new Item[]{new Item(14061, 1)}, 150, 8, "some runes from the magic stall."),
-		SCIMITAR_STALL(new int[]{4705, 4707}, EMPTY_STALLS[1], 90, new Item[]{new Item(1323, 1)}, 220, 12, "a scimitar from the scimitar stall."),
-		SEED(new int[]{7053, 3125}, EMPTY_STALLS[0], 80, new Item[]{new Item(5305), new Item(5306), new Item(5308), new Item(5319), new Item(5318), new Item(5324), new Item(5322)}, 200, 14, "some seed's from the seed merchant's stall."),
-		VEGETABLE(new int[]{4706, 4708}, EMPTY_STALLS[0], 1, new Item[]{new Item(1957, 1), new Item(1965), new Item(1942)}, 10, 2, "some vegetables from the vegetable's merchant stall."),
+		MAGIC_STALL(new int[]{4877}, EMPTY_STALLS[1], 65, new Item[]{new Item(14061, 1)}, 150, 8, "some runes from the magic stall."),
+		SCIMITAR_STALL(new int[]{4705, 4707}, EMPTY_STALLS[1], 65, new Item[]{new Item(1323, 1)}, 220, 12, "a scimitar from the scimitar stall."),
+		SEED(new int[]{7053, 3125}, EMPTY_STALLS[0], 27, new Item[]{new Item(5305), new Item(5306), new Item(5308), new Item(5319), new Item(5318), new Item(5324), new Item(5322)}, 200, 14, "some seed's from the seed merchant's stall."),
+		VEGETABLE(new int[]{4706, 4708}, EMPTY_STALLS[0], 2, new Item[]{new Item(1957, 1), new Item(1965), new Item(1942)}, 10, 2, "some vegetables from the vegetable's merchant stall."),
 		BAKERS(new int[]{2561, 6163, 34384}, EMPTY_STALLS[0], 5, new Item[]{new Item(1891, 1), new Item(2309, 1), new Item(1901, 1)}, 16, 3, "a cake from the baker's stall."),
 		TEA(new int[]{635, 6574}, EMPTY_STALLS[0], 5, new Item[]{new Item(712)}, 16, 7, "a cup of tea."),
 		SILK(new int[]{34383, 2560}, EMPTY_STALLS[0], 20, new Item[]{new Item(950)}, 24, 8, "some silk from the silk stall."),
@@ -161,10 +161,10 @@ public final class Stalls extends Thieving {
 		SPICE(new int[]{2564,34386}, EMPTY_STALLS[0], 65, new Item[]{new Item(2007, 1)}, 81, 40, "some spice from the spice stall."),
 		GEM(new int[]{2562,6162,34385 }, EMPTY_STALLS[0], 75, new Item[]{new Item(1623)}, 160, 80, "a gem from the gem stall."),
 		
-		APE_SCIMITAR_STALL(new int[]{4878}, EMPTY_STALLS[1], 90, new Item[]{new Item(1323, 1)}, 220, 12, "a scimitar from the scimitar stall."),
-		APE_MAGIC_STALL(new int[]{4877}, EMPTY_STALLS[1], 75, new Item[]{new Item(556), new Item(557), new Item(554), new Item(555), new Item(563)}, 150, 8, "some runes from the magic stall."),
-		APE_GENERAL_STALL(new int[]{4876}, EMPTY_STALLS[1], 50, new Item[]{new Item(1931), new Item(2347), new Item(590)}, 70, 4, "a general item from the general stall."),
-		APE_FOOD_STALL(new int[]{4875}, EMPTY_STALLS[1], 1, new Item[]{new Item(1963, 1)}, 23, 3, "a banana from the food stall."),
+		APE_SCIMITAR_STALL(new int[]{4878}, EMPTY_STALLS[1], 65, new Item[]{new Item(1323, 1)}, 220, 12, "a scimitar from the scimitar stall."),
+		APE_MAGIC_STALL(new int[]{4877}, EMPTY_STALLS[1], 65, new Item[]{new Item(556), new Item(557), new Item(554), new Item(555), new Item(563)}, 150, 8, "some runes from the magic stall."),
+		APE_GENERAL_STALL(new int[]{4876}, EMPTY_STALLS[1], 5, new Item[]{new Item(1931), new Item(2347), new Item(590)}, 70, 4, "a general item from the general stall."),
+		APE_FOOD_STALL(new int[]{4875}, EMPTY_STALLS[1], 5, new Item[]{new Item(1963, 1)}, 23, 3, "a banana from the food stall."),
 		APE_CRAFTING_STALL(new int[]{4874}, EMPTY_STALLS[1], 35, new Item[]{new Item(19650, 1)}, 35, 3, "a crafting item from the crafting stall."),
 		;
 		/**

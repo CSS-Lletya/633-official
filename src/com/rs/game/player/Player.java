@@ -681,7 +681,7 @@ public class Player extends Entity {
 	 * @param items
 	 * @return
 	 */
-    public boolean carringItems(Item... items) {
+    public boolean carryingItems(Item... items) {
         return Arrays.stream(items)
                 .anyMatch(item -> getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId()));
     }

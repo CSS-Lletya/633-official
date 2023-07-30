@@ -2,7 +2,6 @@ package skills.magic;
 
 import java.util.Optional;
 
-import com.rs.GameConstants;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
@@ -26,7 +25,6 @@ public enum TeleportType {
 	LEVER(4, Optional.of(Animations.TELEPORT_NORMAL), Optional.of(Animations.TELEPORT_NORMAL_RETURN), Optional.of(Graphic.MODERN_TELEPORTING), Optional.of(new Graphics(1577)), Optional.empty()),
 	LADDER(2, Optional.of(Animations.LADDER_CLIMB), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()),
 	DOOR(2, Optional.of(Animations.KNOCKING_ON_DOOR), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()),
-	//TODO: Fix animation.
 	OBELISK(6, Optional.of(Animations.TELEPORT_NORMAL), Optional.of(Animations.TELEPORT_NORMAL_RETURN), Optional.of(Graphic.OBELISK_SENDING), Optional.empty(), Optional.empty()),
 	TRAINING_PORTAL(24, Optional.of(Animations.FADE_AWAY), Optional.of(Animations.FADE_BACK_IN), Optional.of(Graphic.CLOUD_COVERING_PLAYER_RAPIDLY), Optional.empty(), Optional.empty()),
 	BOSS_PORTAL(3, Optional.of(Animations.FADE_AWAY), Optional.of(Animations.FADE_BACK_IN), Optional.of(Graphic.RED_WHITE_BEAMS_COVERING_PLAYER_RAPIDLY), Optional.empty(), Optional.empty()),
