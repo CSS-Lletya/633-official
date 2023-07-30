@@ -9,6 +9,7 @@ import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
+import com.rs.net.encoders.other.Animation;
 
 import lombok.AllArgsConstructor;
 import skills.ProducingSkillAction;
@@ -61,9 +62,6 @@ public class SpikedVambsCrafting extends ProducingSkillAction {
 	
 	@Override
 	public void onProduce(Task t, boolean success) {
-		if(success) {
-			player.setNextAnimation(Animations.RUB_HANDS_TOGETHER);
-		}
 	}
 	
 	@Override
@@ -74,6 +72,11 @@ public class SpikedVambsCrafting extends ProducingSkillAction {
 	@Override
 	public Optional<Item[]> produceItem() {
 		return Optional.of(new Item[]{data.product});
+	}
+	
+	@Override
+	public Optional<Animation> startAnimation() {
+		return Optional.of(Animations.RUB_HANDS_TOGETHER);
 	}
 	
 	@Override

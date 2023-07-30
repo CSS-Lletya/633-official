@@ -68,9 +68,6 @@ public class GemCutting extends ProducingSkillAction {
 	@Override
 	public void onProduce(Task t, boolean success) {
 		player.getAudioManager().sendSound(Sounds.CHISELING);
-		if (success) {
-			player.setNextAnimation(data.animation);
-		}
 	}
 
 	@Override

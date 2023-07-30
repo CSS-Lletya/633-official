@@ -7,6 +7,7 @@ import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
+import com.rs.net.encoders.other.Animation;
 
 import skills.DestructionSkillAction;
 import skills.Skills;
@@ -39,7 +40,6 @@ public class MoltenGlassCrafting extends DestructionSkillAction {
 				player.getInventory().replaceItems(new Item(ItemNames.SODA_ASH_1781), new Item(ItemNames.MOLTEN_GLASS_1775));
 				player.getPackets().sendGameMessage("You heat the sand and soda ash in the furnace to make glass.");
 				player.getDetails().getStatistics().addStatistic("Molten_Glass_made");
-				player.setNextAnimation(Animations.SMELTING_INSIDE_FURNACE);
 			}
 			
 		}
@@ -52,6 +52,11 @@ public class MoltenGlassCrafting extends DestructionSkillAction {
 		return 3;
 	}
 
+	@Override
+	public Optional<Animation> startAnimation() {
+		return Optional.of(Animations.SMELTING_INSIDE_FURNACE);
+	}
+	
 	@Override
 	public boolean instant() {
 		return false;
