@@ -35,7 +35,7 @@ import skills.Skills;
 		41178, 41179, 45964, 45965, 45966, 45967, 47240, 47241, 47421, 47424, 48938, 48939, 48940, 48941, 48942, 48943,
 		48944, 48945, 49014, 49016, 52176, 52183, 52381, 52313, 52382, 52315, 53671, 53672, 53674, 53675, 59958, 59961,
 		61051, 61052, 61053, 61054, 64835, 64837, 66599, 66601, 66938, 66940, 66941, 66942, 14931, 14929, 8958, 8959,
-		8960, 37000, 37003, 10565, 35549, 2712 }, name = { "Door", "Gate" })
+		8960, 37000, 37003, 10565, 35549, 2712, 1516 }, name = {"Large door","Door", "Gate" })
 public class DoorsGatesObjectPlugin extends ObjectListener {
 
 	@Override
@@ -69,7 +69,7 @@ public class DoorsGatesObjectPlugin extends ObjectListener {
 				return;
 			}
 		}
-		if (object.getId() == 33060 || object.getId() == 31828) {
+		if (object.getId() == 33060 || object.getId() == 31828 || object.getId() == 1516) {
 			Doors.handleDoor(player, object);
 		}
 		if (object.getId() == 37000 || object.getId() == 37003) {

@@ -10,7 +10,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
 import skills.woodcutting.Tree;
 import skills.woodcutting.Woodcutting;
 
-@ObjectSignature(objectId = {}, name = {"Tree", "Oak", "Yew", "Willow", "Maple", "Magic tree", "Teak", "Mahogany", "Ivy"})
+@ObjectSignature(objectId = {}, name = {"Tree", "Evergreen", "Dead tree", "Oak", "Yew", "Willow", "Maple", "Magic tree", "Teak", "Mahogany", "Ivy"})
 public class TreeObjectPlugin extends ObjectListener {
 
 	@Override

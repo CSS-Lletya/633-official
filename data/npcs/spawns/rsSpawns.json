@@ -34562,8 +34562,8 @@
   {
     "tile": {
       "plane": 1,
-      "x": 2911,
-      "y": 3515
+      "x": 2900,
+      "y": 3510
     },
     "comment": "Helemos",
     "npcId": 797
@@ -34603,15 +34603,6 @@
     },
     "comment": "Master Farmer",
     "npcId": 2234
-  },
-  {
-    "tile": {
-      "plane": 1,
-      "x": 2906,
-      "y": 3514
-    },
-    "comment": "Linza",
-    "npcId": 3479
   },
   {
     "tile": {

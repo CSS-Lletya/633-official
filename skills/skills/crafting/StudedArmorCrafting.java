@@ -50,6 +50,7 @@ public final class StudedArmorCrafting extends DestructionSkillAction {
 	public void onDestruct(Task t, boolean success) {
 		if (success) {
 			if (player.getInventory().canRemove((studedItem.getId() == 1129 ? 1129 : 1095), 1)){
+				player.getInventory().deleteItem(new Item(2370));
 				player.getInventory().addItem(new Item(studedItem.getId() == 1129 ? 1133 : 1097));
 				player.getDetails().getStatistics().addStatistic("Items_Crafted");
 		        player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions((studedItem.getId() == 1129 ? 1129 : 1095)).getName() + "_Crafted");

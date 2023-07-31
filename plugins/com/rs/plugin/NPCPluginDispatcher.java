@@ -149,29 +149,12 @@ public class NPCPluginDispatcher {
 			return;
 		if (forceRun)
 			player.setRun(true);
+		
 		if (player.getTreasureTrailsManager().useNPC(npc))
             return;
 		player.setRouteEvent(new RouteEvent(npc, () -> {
 			player.getDetails().setLastNPCInteracted(npc.getId());
 			NPCPluginDispatcher.execute(player, npc, optionId);
-			if (player.getMapZoneManager().getMapZone(player).isPresent()) {
-				switch(optionId) {
-				case 1:
-					player.getMapZoneManager().execute(controller -> !controller.processNPCClick1(player, npc));
-					break;
-				case 2:
-					player.getMapZoneManager().execute(controller -> !controller.processNPCClick2(player, npc));
-					break;
-				case 3:
-					player.getMapZoneManager().execute(controller -> !controller.processNPCClick3(player, npc));
-					break;
-				case 4:
-					player.getMapZoneManager().execute(controller -> !controller.processNPCClick4(player, npc));
-					break;
-				}
-				return;
-			}
-			
 			if (npc instanceof Pet) {
 				if (optionId == 1) {
 					Pet pet = (Pet) npc;
@@ -194,6 +177,7 @@ public class NPCPluginDispatcher {
 						(player.getSkills().getLevel(Skills.PRAYER) >= 70 ? "Bless gravestone" : "Repair gravestone"), () -> gsh.repair(player, player.getSkills().getLevel(Skills.PRAYER) >= 70)));
 				return;
 			}
+			
 			if (player.getQuestManager().handleNPC(player, npc, optionId))
 				return;
 			String key = ShopsHandler.getShopForNpc(npc.getId());
@@ -202,6 +186,22 @@ public class NPCPluginDispatcher {
 			if (optionId == 2) {
 				npc.doAction(optionId, "trade", () -> ShopsHandler.openShop(player, key));
 				npc.doAction(optionId, "shop", () -> ShopsHandler.openShop(player, key));
+			}
+			if (player.getMapZoneManager().getMapZone(player).isPresent()) {
+				switch(optionId) {
+				case 1:
+					player.getMapZoneManager().execute(controller -> !controller.processNPCClick1(player, npc));
+					break;
+				case 2:
+					player.getMapZoneManager().execute(controller -> !controller.processNPCClick2(player, npc));
+					break;
+				case 3:
+					player.getMapZoneManager().execute(controller -> !controller.processNPCClick3(player, npc));
+					break;
+				case 4:
+					player.getMapZoneManager().execute(controller -> !controller.processNPCClick4(player, npc));
+					break;
+				}
 			}
 		}, forceReachNPC(npc.getDefinitions().getName())));
 
