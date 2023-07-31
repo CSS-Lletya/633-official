@@ -68,7 +68,7 @@ public class StudCreation extends DestructionSkillAction {
 
 	@Override
 	public double experience() {
-		return 8;
+		return 37.5;
 	}
 
 	public int getSkillId() {

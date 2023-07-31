@@ -7,7 +7,7 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
-import skills.crafting.Spinning.SpinningData;
+import skills.crafting.SpinningWheel.SpinningData;
 
 @ObjectSignature(objectId = {}, name = { "Spinning wheel" })
 public class SpinningWheelObjectPlugin extends ObjectListener {

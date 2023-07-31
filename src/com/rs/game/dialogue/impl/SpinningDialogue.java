@@ -4,8 +4,8 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.player.Player;
 
 import skills.SkillsDialogue;
-import skills.crafting.Spinning;
-import skills.crafting.Spinning.SpinningData;
+import skills.crafting.SpinningWheel;
+import skills.crafting.SpinningWheel.SpinningData;
 
 public class SpinningDialogue extends DialogueEventListener {
 
@@ -26,6 +26,6 @@ public class SpinningDialogue extends DialogueEventListener {
 
 	@Override
 	public void listenToDialogueEvent(int button) {
-		new Spinning(player, data[SkillsDialogue.getItemSlot(button)], 28).start();
+		new SpinningWheel(player, data[SkillsDialogue.getItemSlot(button)], 28).start();
 	}
 }

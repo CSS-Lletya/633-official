@@ -14,11 +14,7 @@ import com.rs.utilities.TextUtils;
 import skills.ProducingSkillAction;
 import skills.Skills;
 
-/**
- * Holds functionality for spinning items.
- * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
- */
-public final class Spinning extends ProducingSkillAction {
+public final class SpinningWheel extends ProducingSkillAction {
 	
 	/**
 	 * The data this skill action is dependent of.
@@ -31,12 +27,12 @@ public final class Spinning extends ProducingSkillAction {
 	private int amount;
 	
 	/**
-	 * Constructs a new {@link Spinning}.
+	 * Constructs a new {@link SpinningWheel}.
 	 * @param player {@link #getPlayer()}.
 	 * @param data {@link #data}.
 	 * @param amount {@link #amount}.
 	 */
-	public Spinning(Player player, SpinningData data, int amount) {
+	public SpinningWheel(Player player, SpinningData data, int amount) {
 		super(player, Optional.empty());
 		this.data = data;
 		this.amount = amount;

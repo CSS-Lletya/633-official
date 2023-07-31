@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
-import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -13,20 +12,25 @@ import com.rs.net.encoders.other.Animation;
 import skills.DestructionSkillAction;
 import skills.Skills;
 
-public final class CrabShellCreations extends DestructionSkillAction {
+public final class StudedArmorCrafting extends DestructionSkillAction {
 	
-	private final Item crabItem;
+	private final Item studedItem;
 	
-	public CrabShellCreations(Player player, Item crabItem) {
+	public StudedArmorCrafting(Player player, Item crabItem) {
 		super(player, Optional.empty());
-		this.crabItem = crabItem;
+		this.studedItem = crabItem;
 	}
 
 	@Override
 	public boolean canExecute() {
-		if (player.getSkills().getLevel(Skills.CRAFTING) < 15) {
+		if (studedItem.getId() == 1129 && player.getSkills().getLevel(Skills.CRAFTING) < 41) {
 			player.getPackets()
-					.sendGameMessage("You need a Crafting level of 15 to continue this action.");
+					.sendGameMessage("You need a Crafting level of 41 to continue this action.");
+			return false;
+		}
+		if (studedItem.getId() == 1095 && player.getSkills().getLevel(Skills.CRAFTING) < 44) {
+			player.getPackets()
+					.sendGameMessage("You need a Crafting level of 44 to continue this action.");
 			return false;
 		}
 		return true;
@@ -45,10 +49,10 @@ public final class CrabShellCreations extends DestructionSkillAction {
 	@Override
 	public void onDestruct(Task t, boolean success) {
 		if (success) {
-			if (player.getInventory().canRemove((crabItem.getId() == ItemNames.FRESH_CRAB_CLAW_7536 ? ItemNames.FRESH_CRAB_CLAW_7536 : ItemNames.FRESH_CRAB_SHELL_7538), 1)){
-				player.getInventory().addItem(new Item(crabItem.getId() == ItemNames.FRESH_CRAB_CLAW_7536 ? ItemNames.CRAB_CLAW_7537 : ItemNames.CRAB_HELMET_7539));
+			if (player.getInventory().canRemove((studedItem.getId() == 1129 ? 1129 : 1095), 1)){
+				player.getInventory().addItem(new Item(studedItem.getId() == 1129 ? 1133 : 1097));
 				player.getDetails().getStatistics().addStatistic("Items_Crafted");
-		        player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions((crabItem.getId() == ItemNames.FRESH_CRAB_CLAW_7536 ? ItemNames.FRESH_CRAB_CLAW_7536 : ItemNames.FRESH_CRAB_SHELL_7538)).getName() + "_Crafted");
+		        player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions((studedItem.getId() == 1129 ? 1129 : 1095)).getName() + "_Crafted");
 
 			}
 		}
@@ -67,12 +71,12 @@ public final class CrabShellCreations extends DestructionSkillAction {
 
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public double experience() {
-		return 7;
+		return studedItem.getId() == 1129 ? 40 : 42;
 	}
 
 	public int getSkillId() {

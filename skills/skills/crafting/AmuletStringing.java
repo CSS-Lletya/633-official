@@ -117,11 +117,6 @@ public final class AmuletStringing extends ProducingSkillAction {
 		return Skills.CRAFTING;
 	}
 	
-	/**
-	 * The enumerated type whose elements represent a set of constants used
-	 * to string amulets.
-	 * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
-	 */
 	public enum AmuletData {
 		GOLD_AMULET(1673, 1692),
 		SAPPHIRE_AMULET(1675, 1694),

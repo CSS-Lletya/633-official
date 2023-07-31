@@ -7,9 +7,9 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 
-import skills.crafting.CrabShellCreations;
+import skills.crafting.CrabShellCrafting;
 import skills.crafting.GemCutting;
-import skills.crafting.SnailHelmCreation;
+import skills.crafting.SnailHelmCrafting;
 
 @InventoryWrapper(itemId = { 1755,
 		//gems
@@ -27,11 +27,11 @@ public class GemCuttingItemPlugin extends InventoryListener {
 		GemCutting.cut(player, firstItem, secondItem);
 		
 		new UseWith(new Item(1755), new Item(ItemNames.FRESH_CRAB_SHELL_7538)).execute(firstItem, secondItem, () -> {
-			new CrabShellCreations(player, new Item(ItemNames.FRESH_CRAB_SHELL_7538)).start();
+			new CrabShellCrafting(player, new Item(ItemNames.FRESH_CRAB_SHELL_7538)).start();
 		});
 		new UseWith(new Item(1755), new Item(ItemNames.FRESH_CRAB_CLAW_7536)).execute(firstItem, secondItem, () -> {
-			new CrabShellCreations(player, new Item(ItemNames.FRESH_CRAB_CLAW_7536)).start();
+			new CrabShellCrafting(player, new Item(ItemNames.FRESH_CRAB_CLAW_7536)).start();
 		});
-		SnailHelmCreation.create(player, firstItem, secondItem);
+		SnailHelmCrafting.create(player, firstItem, secondItem);
 	}
 }

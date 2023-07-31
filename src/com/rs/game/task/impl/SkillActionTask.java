@@ -86,6 +86,7 @@ public final class SkillActionTask extends Task {
 		
 		if(player.getSkillAction().isPresent()) {
 			action.onSequence(this);
+			action.animation().ifPresent(player::setNextAnimation);
 		}
 		
 		action.animationDelay().ifPresent(delay -> {
