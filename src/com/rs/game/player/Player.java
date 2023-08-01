@@ -373,6 +373,7 @@ public class Player extends Entity {
 		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
 		setAudioManager(new AudioManager(this));
 		setDayOfWeekManager(new DayOfWeekManager());
+		setMapZoneManager(new MapZoneManager());
 		setCurrentMapZone(Optional.empty());
 	}
 	
@@ -538,7 +539,7 @@ public class Player extends Entity {
 			getMapZoneManager().submitMapZone(new GlobalPVPMapZone());
 			dialogue(d -> d.item(11784, "Welcome to " + GameConstants.SERVER_NAME + "'s PVP World. Good luck!"));
 		} else {
-			if (getCurrentMapZone().get() instanceof GlobalPVPMapZone && !GameConstants.isPVPWorld()) {
+			if (getCurrentMapZone().isPresent() && getCurrentMapZone().get() instanceof GlobalPVPMapZone && !GameConstants.isPVPWorld()) {
 				getMapZoneManager().endMapZoneSession(this);
 			} else
 				getCurrentMapZone().ifPresent(getMapZoneManager()::submitMapZone);
