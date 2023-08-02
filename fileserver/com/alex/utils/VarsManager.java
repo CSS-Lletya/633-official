@@ -48,6 +48,7 @@ public class VarsManager {
 		sendVarBit(2867, 2);//balloon (entrana) (3 empty, 2 full, 1 half built with fire lit)
 		sendVarBit(2868, 1);//balloon (taverly)
 		sendVarBit(2872, 1);//balloon (varrock)
+		sendVar(678, 3);//rfd chest in lumbridge basement
 		return this;
 	}
 
