@@ -35,7 +35,7 @@ public class OrnamentKitsItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item firstItem, Item secondItem, int slot, int toSlot) {
-		Kits kit = getKit(firstItem, secondItem);
+		Kits kit = getKit(player, firstItem, secondItem);
 		if (kit == null)
 			return;
 		player.getInventory().deleteItem(slot, firstItem);
@@ -44,9 +44,9 @@ public class OrnamentKitsItemPlugin extends InventoryListener {
 				"You attach the kit to the " + ItemDefinitions.getItemDefinitions(kit.fromId).getName() + ".");
 	}
 
-	private static Kits getKit(Item item1, Item item2) {
+	private static Kits getKit(Player player, Item item1, Item item2) {
 		for (Kits kit : Kits.values()) {
-			if (Inventory.contains(kit.kitId, kit.fromId, item1, item2))
+			if (player.getInventory().contains(kit.kitId, kit.fromId, item1, item2))
 				return kit;
 		}
 		return null;

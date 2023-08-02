@@ -12,7 +12,7 @@ import com.rs.plugin.wrapper.InventoryWrapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@InventoryWrapper(itemId = {1783, 1937, 1921, 6032, 6034, 4255, 4286, 1927, 1933}, itemNames = {  })
+@InventoryWrapper(itemId = {1783, 1937, 1921, 6032, 6034, 4255, 4286, 1927, 1933, 1929}, itemNames = {  })
 public class EmptyItemPlugin extends InventoryListener {
 
 	@Override
@@ -39,6 +39,7 @@ public class EmptyItemPlugin extends InventoryListener {
         BONEMEAL(4255, 1931),
         BUCKET_OF_SLIME(4286, 1925),
         BUCKET_OF_MILK(1927, 1925),
+        BUCKET_OF_WATER(1929, 1925),
         POT_OF_FLOWER(1933, 1931),
         ;
 

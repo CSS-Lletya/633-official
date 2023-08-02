@@ -368,7 +368,7 @@ public final class Inventory {
 		return null;
 	}
 	
-    public static boolean contains(int id1, int id2, Item... items) {
+    public boolean contains(int id1, int id2, Item... items) {
         boolean containsId1 = false;
         boolean containsId2 = false;
         for (Item item : items) {
