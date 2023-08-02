@@ -1,6 +1,5 @@
 package com.rs.network.sql.pool;
 
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

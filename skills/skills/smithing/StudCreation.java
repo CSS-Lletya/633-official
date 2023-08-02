@@ -26,10 +26,6 @@ public class StudCreation extends DestructionSkillAction {
 					.sendGameMessage("You need a Crafting level of 41 to continue this action.");
 			return false;
 		}
-		if (!player.getInventory().contains(new Item(ItemNames.HAMMER_2347))) {
-            player.getPackets().sendGameMessage("You need a Hammer in order to create steel studs. ");
-            return false;
-        }
 		return true;
 	}
 

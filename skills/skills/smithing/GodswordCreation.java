@@ -1,19 +1,14 @@
 package skills.smithing;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 
 import skills.Skills;
 
 public class GodswordCreation {
-
-	/**
-	 * Represents the animation to use.
-	 */
-	private static final Animation ANIMATION = new Animation(898);
 	
 	/**
 	 * Represents the godsword blade item.
@@ -21,6 +16,10 @@ public class GodswordCreation {
 	private static final Item BLADE = new Item(11690);
 	
 	public static void craftBlades(Player player, int used) {
+		if (player.getSkills().getTrueLevel(Skills.SMITHING) < 80) {
+			player.getPackets().sendGameMessage("You need a smithing level of at least 80 to do this.");
+			return;
+		}
 		player.getPackets().sendGameMessage("You set to work, trying to fix the ancient sword.");
 		World.get().submit(new Task(1) {
 			@Override
@@ -54,8 +53,8 @@ public class GodswordCreation {
 				if (!passBlade) {
 					if (player.getInventory().removeItems(new Item(used)) && player.getInventory().removeItems(new Item(remove))) {
 						player.getMovement().lock(5);
-						player.setNextAnimation(ANIMATION);
-						player.getPackets().sendGameMessage("Even for an experienced smith it is not an easy task, but eventually... it is done.");
+						player.setNextAnimation(Animations.USING_HAMMER_ON_ANVIL);
+						player.dialogue(d -> d.mes("Even for an experienced smith it is not an easy task, but eventually... it is done."));
 						player.getSkills().addExperience(Skills.SMITHING, 100);
 						player.getInventory().addItem(BLADE);
 						cancel();
@@ -99,8 +98,8 @@ public class GodswordCreation {
 						shard = 11692;
 					}
 					player.getMovement().lock(5);
-					player.setNextAnimation(ANIMATION);
-					player.getPackets().sendGameMessage("Even for an experienced smith it is not an easy task, but eventually... it is done.");
+					player.setNextAnimation(Animations.USING_HAMMER_ON_ANVIL);
+					player.dialogue(d -> d.mes("Even for an experienced smith it is not an easy task, but eventually... it is done."));
 					player.getSkills().addExperience(Skills.SMITHING, 100);
 					player.getInventory().addItem(new Item(shard));
 					cancel();
