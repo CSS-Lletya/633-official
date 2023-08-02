@@ -15,7 +15,7 @@ import com.rs.utilities.RandomUtils;
 import skills.HarvestingSkillAction;
 import skills.Skills;
 
-public final class Fishing extends HarvestingSkillAction {
+public class Fishing extends HarvestingSkillAction {
 	
 	private final Tool tool;
 	
@@ -39,6 +39,15 @@ public final class Fishing extends HarvestingSkillAction {
 				Catchable catchable = Catchable.getCatchable(item.getId()).orElse(null);
 				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(catchable.getId()).getName() + "_Caught").addStatistic("Fish_Caught");
 				getPlayer().getSkills().addExperience(getSkillId(), catchable.getExperience());
+				
+				if (tool == Tool.VESSEL) {
+					player.getDetails().getKarambwanjiStock().getAndDecrement();
+					if (player.getDetails().getKarambwanjiStock().get() == 0) {
+						player.getInventory().replaceItems(new Item(3159), new Item(3157));
+						player.getPackets().sendGameMessage("You have run out of raw karambwanji to use as bait.");
+						t.cancel();
+					}
+				}
 			}
 		}
 	}

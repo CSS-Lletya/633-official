@@ -94,7 +94,7 @@ public final class PlayerDetails {
 			prayerDelay = new MutableNumber(), essenceTeleporter = new MutableNumber(),
 			gravestone = new MutableNumber(), censoredWordCount = new MutableNumber(), incubatorTimer = new MutableNumber(),
 			strongholdLevels = new MutableNumber(), skullSceptreCharges = new MutableNumber(), coalBagSize = new MutableNumber(81), boneType = new MutableNumber(),
-			playTime = new MutableNumber(), daysBanned = new MutableNumber(), daysMuted = new MutableNumber();
+			playTime = new MutableNumber(), daysBanned = new MutableNumber(), daysMuted = new MutableNumber(), karambwanjiStock = new MutableNumber();
 	/**
 	 * Holds an optional wrapped inside the Anti-fire details.
 	 */
