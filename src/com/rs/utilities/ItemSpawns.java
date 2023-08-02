@@ -3,19 +3,18 @@ package com.rs.utilities;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import com.rs.game.item.ItemSpawn;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public final class ItemSpawns {
 
     final static Charset ENCODING = StandardCharsets.UTF_8;
     private final static String PATH = "data/items/spawns/";
-    private static final ArrayList<ItemSpawn> ALL_SPAWNS = new ArrayList<>();
-    private static final Map<Integer, List<ItemSpawn>> ITEM_SPAWNS = new HashMap<>();
+    private static final ObjectArrayList<ItemSpawn> ALL_SPAWNS = new ObjectArrayList<>();
+    private static final Object2ObjectOpenHashMap<Integer, ObjectArrayList<ItemSpawn>> ITEM_SPAWNS = new Object2ObjectOpenHashMap<>();
 
     public static void init() {
 //        Logger.log("ItemSpawns", "Loading item spawns...");
@@ -26,9 +25,9 @@ public final class ItemSpawns {
                 for (ItemSpawn spawn : spawns) {
                     if (spawn != null) {
                         ALL_SPAWNS.add(spawn);
-                        List<ItemSpawn> regionSpawns = ITEM_SPAWNS.get(spawn.getTile().getRegionId());
+                        ObjectArrayList<ItemSpawn> regionSpawns = ITEM_SPAWNS.get(spawn.getTile().getRegionId());
                         if (regionSpawns == null)
-                            regionSpawns = new ArrayList<>();
+                            regionSpawns = new ObjectArrayList<>();
                         regionSpawns.add(spawn);
                         ITEM_SPAWNS.put(spawn.getTile().getRegionId(), regionSpawns);
                     }
@@ -39,7 +38,7 @@ public final class ItemSpawns {
     }
 
     public static void loadItemSpawns(int regionId) {
-        List<ItemSpawn> spawns = ITEM_SPAWNS.get(regionId);
+    	ObjectArrayList<ItemSpawn> spawns = ITEM_SPAWNS.get(regionId);
         if (spawns != null) {
             for (ItemSpawn spawn : spawns) {
                 spawn.spawn();

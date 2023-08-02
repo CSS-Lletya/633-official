@@ -2,7 +2,6 @@ package com.rs.game.map;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -32,6 +31,7 @@ import com.rs.utilities.AntiFlood;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -211,7 +211,7 @@ public class World {
 	public static final void sendProjectile(Entity shooter, WorldTile startTile, WorldTile receiver, int gfxId,
 			int startHeight, int endHeight, int speed, int delay, int curve, int startDistanceOffset) {
 		for (int regionId : shooter.getMapRegionsIds()) {
-			List<Short> playersIndexes = getRegion(regionId).getPlayersIndexes();
+			ObjectArrayList<Short> playersIndexes = getRegion(regionId).getPlayersIndexes();
 			if (playersIndexes == null)
 				continue;
 			for (Short playerIndex : playersIndexes) {
@@ -229,7 +229,7 @@ public class World {
 	public static final void sendProjectile(Entity shooter, WorldTile receiver, int gfxId, int startHeight,
 			int endHeight, int speed, int delay, int curve, int startDistanceOffset) {
 		for (int regionId : shooter.getMapRegionsIds()) {
-			List<Short> playersIndexes = getRegion(regionId).getPlayersIndexes();
+			ObjectArrayList<Short> playersIndexes = getRegion(regionId).getPlayersIndexes();
 			if (playersIndexes == null)
 				continue;
 			for (Short playerIndex : playersIndexes) {
@@ -247,7 +247,7 @@ public class World {
 	public static final void sendProjectile(Entity shooter, Entity receiver, int gfxId, int startHeight, int endHeight,
 			int speed, int delay, int curve, int startDistanceOffset) {
 		for (int regionId : shooter.getMapRegionsIds()) {
-			List<Short> playersIndexes = getRegion(regionId).getPlayersIndexes();
+			ObjectArrayList<Short> playersIndexes = getRegion(regionId).getPlayersIndexes();
 			if (playersIndexes == null)
 				continue;
 			for (Short playerIndex : playersIndexes) {

@@ -11,13 +11,14 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
-import java.util.HashMap;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 public class EquipData {
 
 	public static final byte SLOT = 0, TYPE = 1;
 
-	private final static HashMap<Integer, Integer[]> equipData = new HashMap<Integer, Integer[]>();
+	private final static Object2ObjectOpenHashMap<Integer, Integer[]> equipData = new Object2ObjectOpenHashMap<Integer, Integer[]>();
 	private final static String PACKED_PATH = "data/items/packedEquipData.e";
 	private final static String UNPACKED_PATH = "data/items/unpackedEquipData.txt";
 

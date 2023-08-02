@@ -1,7 +1,5 @@
 package com.rs.game.player.content;
 
-import java.util.List;
-
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
@@ -12,6 +10,8 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtils;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class WildernessObelisk {
 
@@ -43,7 +43,7 @@ public class WildernessObelisk {
 					for (int y = 1; y < 4; y++)
 						World.sendGraphics(Graphic.OBELISK_SENDING, center.transform(x, y, 0));
 				Region region = World.getRegion(center.getRegionId());
-				List<Short> playerIndexes = region.getPlayersIndexes();
+				ObjectArrayList<Short> playerIndexes = region.getPlayersIndexes();
 				WorldTile newCenter = OBELISK_CENTER_TILES[RandomUtils.inclusive(OBELISK_CENTER_TILES.length)];
 				if (playerIndexes != null) {
 					for (Short i : playerIndexes) {

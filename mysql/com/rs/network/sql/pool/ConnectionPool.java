@@ -3,6 +3,8 @@ package com.rs.network.sql.pool;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 /**
  * Pool of database connections. The class provide connections awaiting to be used, create connections when needed and destroy idle connections.
  * 
@@ -219,7 +221,7 @@ public class ConnectionPool implements ConnectionListener {
 
 		int busyConnections = 0;
 		int openedConnections = 0;
-		ArrayList<String> connectionHashes = new ArrayList<String>();
+		ObjectArrayList<String> connectionHashes = new ObjectArrayList<String>();
 		for (DatabaseConnection databaseConnection : databaseConnections) {
 			if (databaseConnection.isConnected() && databaseConnection.isBusy()) {
 				busyConnections++;
@@ -253,7 +255,7 @@ public class ConnectionPool implements ConnectionListener {
 	}
 
 	public String getActiveConnections() {
-		ArrayList<String> connectionHashes = new ArrayList<String>();
+		ObjectArrayList<String> connectionHashes = new ObjectArrayList<String>();
 		for (DatabaseConnection databaseConnection : databaseConnections) {
 			if(databaseConnection.isBusy()) {
 				connectionHashes.add(databaseConnection.getConnectionHash());

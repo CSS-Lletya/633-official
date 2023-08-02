@@ -1,12 +1,10 @@
 package com.rs.game.item;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.common.collect.Iterables;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.utilities.Utility;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.Data;
@@ -25,7 +23,7 @@ public class Item {
 	private int id;
 	protected int amount;
 	private transient int slot;
-	private Map<String, Object> metaData;
+	private Object2ObjectOpenHashMap<String, Object> metaData;
 
 	@Override
 	public Item clone() {
@@ -44,7 +42,7 @@ public class Item {
 		this(id, amount, false);
 	}
 
-	public Item(int id, int amount, Map<String, Object> metaData) {
+	public Item(int id, int amount, Object2ObjectOpenHashMap<String, Object> metaData) {
 		this(id, amount);
 		this.metaData = metaData;
 	}
@@ -85,12 +83,12 @@ public class Item {
 	
 	public Item addMetaData(String key, Object value) {
 		if (metaData == null)
-			metaData = new HashMap<String, Object>();
+			metaData = new Object2ObjectOpenHashMap<String, Object>();
 		metaData.put(key, value);
 		return this;
 	}
 
-	public Map<String, Object> getMetaData() {
+	public Object2ObjectOpenHashMap<String, Object> getMetaData() {
 		return metaData;
 	}
 
@@ -103,7 +101,7 @@ public class Item {
 	@SuppressWarnings("unchecked")
 	public <T> T setMetaDataO(String name, Object value) {
 		if (metaData == null)
-			metaData = new HashMap<>();
+			metaData = new Object2ObjectOpenHashMap<>();
 		if (value == null) {
 			Object old = metaData.remove(name);
 			return old == null ? null : (T) old;

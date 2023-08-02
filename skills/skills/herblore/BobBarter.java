@@ -1,6 +1,5 @@
 package skills.herblore;
 
-import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.rs.cache.loaders.ItemDefinitions;
@@ -8,11 +7,13 @@ import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public class BobBarter {
 
     private Player player;
     @SuppressWarnings("rawtypes")
-    private CopyOnWriteArrayList<ArrayList> potsList;
+    private CopyOnWriteArrayList<ObjectArrayList> potsList;
     private CopyOnWriteArrayList<Integer> delete;
 
     public BobBarter(Player player) {
@@ -92,7 +93,7 @@ public class BobBarter {
                             if (!item.getDefinitions().isNoted()) {
                                 itemName = item.getName();
                                 if (checkForPots(itemName)) {
-                                    potsList.add(new ArrayList());
+                                    potsList.add(new ObjectArrayList());
                                     potsList.get(potsList.size() - 1).add(itemName);
                                 } else {
                                     potsList.get(potPlace(itemName)).add(itemName);
@@ -103,7 +104,7 @@ public class BobBarter {
                             } else {
                                 itemName = "n" + item.getName();
                                 if (checkForPots(itemName)) {
-                                    potsList.add(new ArrayList());
+                                    potsList.add(new ObjectArrayList());
                                     for (int q = 0; q < item.getAmount(); q++) {
                                         potsList.get(potsList.size() - 1).add(itemName);
                                     }
@@ -127,7 +128,7 @@ public class BobBarter {
             player.getInventory().deleteItem(delete.get(i), delete.get(i + 1));
         }
 
-        for (ArrayList arrayList : potsList) {
+        for (ObjectArrayList arrayList : potsList) {
 
             int vials = 0, totalDoses = 0, partDoses, fullVialId = 0, partVialId = 0, fullVials, partVials = 0,
                     emptyVialId = 0;

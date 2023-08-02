@@ -4,22 +4,21 @@ package com.rs.utilities.loaders;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import com.rs.GameConstants;
 import com.rs.game.npc.NPCSpawn;
 import com.rs.utilities.GSONParser;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public final class NPCSpawns {
 
 	private final static String PATH = "data/npcs/spawns/";
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
-	private static final ArrayList<NPCSpawn> ALL_SPAWNS = new ArrayList<>();
-	private static final Map<Integer, List<NPCSpawn>> NPC_SPAWNS = new HashMap<>();
+	private static final ObjectArrayList<NPCSpawn> ALL_SPAWNS = new ObjectArrayList<>();
+	private static final Object2ObjectOpenHashMap<Integer, ObjectArrayList<NPCSpawn>> NPC_SPAWNS = new Object2ObjectOpenHashMap<>();
 	
 	public static final void init() {
 		File[] spawnFiles = new File(PATH).listFiles();
@@ -37,20 +36,20 @@ public final class NPCSpawns {
 	public static void add(NPCSpawn spawn) {
 		if (spawn != null) {
 			ALL_SPAWNS.add(spawn);
-			List<NPCSpawn> regionSpawns = NPC_SPAWNS.get(spawn.getTile().getRegionId());
+			ObjectArrayList<NPCSpawn> regionSpawns = NPC_SPAWNS.get(spawn.getTile().getRegionId());
 			if (regionSpawns == null)
-				regionSpawns = new ArrayList<>();
+				regionSpawns = new ObjectArrayList<>();
 			regionSpawns.add(spawn);
 			NPC_SPAWNS.put(spawn.getTile().getRegionId(), regionSpawns);
 		}
 	}
 
-	public static List<NPCSpawn> getAllSpawns() {
+	public static ObjectArrayList<NPCSpawn> getAllSpawns() {
 		return ALL_SPAWNS;
 	}
 
 	public static void loadNPCSpawns(int regionId) {
-		List<NPCSpawn> spawns = NPC_SPAWNS.get(regionId);
+		ObjectArrayList<NPCSpawn> spawns = NPC_SPAWNS.get(regionId);
 		if (spawns != null)
 			for (NPCSpawn spawn : spawns) {
 				if (!GameConstants.isPVPWorld() && spawn.getNPCId() == 8725) 

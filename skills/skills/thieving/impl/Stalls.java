@@ -1,6 +1,5 @@
 package skills.thieving.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
@@ -15,6 +14,7 @@ import com.rs.utilities.RandomUtils;
 import com.rs.utilities.TextUtils;
 import com.rs.utilities.Utility;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.Skills;
 import skills.thieving.Thieving;
 
@@ -268,7 +268,7 @@ public final class Stalls extends Thieving {
         NPC guard = null;
         int lastDistance = -1;
         for (int regionId : player.getMapRegionsIds()) {
-            List<Short> npcIndexes = World.getRegion(regionId).getNpcsIndexes();
+        	ObjectArrayList<Short> npcIndexes = World.getRegion(regionId).getNpcsIndexes();
             if (npcIndexes == null)
                 continue;
             for (int npcIndex : npcIndexes) {

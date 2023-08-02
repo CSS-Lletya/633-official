@@ -1,7 +1,8 @@
 package com.rs.network.sql;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 /**
  * Utilities for Database handling.
@@ -71,7 +72,7 @@ public class DatabaseUtils {
 		return sb.toString();
 	}
 
-	public static String getSelectStructure(ArrayList<String> keys) {
+	public static String getSelectStructure(ObjectArrayList<String> keys) {
 		StringBuilder sb = new StringBuilder();
 		for (String string : keys) {
 			if (string != null) {

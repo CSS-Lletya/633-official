@@ -1,18 +1,18 @@
 package com.rs.utilities.loaders;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Shop;
 import com.rs.utilities.GSONParser;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+
 public class ShopsHandler {
 
-	private static final Map<String, Shop> SHOPS = new HashMap<>();
-	private static final Map<String, ShopDef> SHOP_DEFS = new HashMap<>();
-	private static final Map<Integer, String> NPC_SHOPS = new HashMap<>();
+	private static final Object2ObjectOpenHashMap<String, Shop> SHOPS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<String, ShopDef> SHOP_DEFS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<Integer, String> NPC_SHOPS = new Object2ObjectOpenHashMap<>();
 
 	private static final String PATH = "data/items/shops/";
 

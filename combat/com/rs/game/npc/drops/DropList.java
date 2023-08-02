@@ -16,9 +16,7 @@
 //
 package com.rs.game.npc.drops;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
@@ -27,20 +25,22 @@ import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Rational;
 import com.rs.utilities.Utility;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public class DropList {
 
 	private static double MAX_ROLL = Math.nextDown(1.0);
 
-	private List<DropEntry> drops = new ArrayList<>();
+	private ObjectArrayList<DropEntry> drops = new ObjectArrayList<>();
 	private double nothingRate = 0.0;
 	private boolean overflowed;
 	private double overflow;
 
 	public DropList(DropTable... tables) {
-		this(new ArrayList<>(Arrays.asList(tables)));
+		this(new ObjectArrayList<>(Arrays.asList(tables)));
 	}
 
-	public DropList(List<DropTable> tables) {
+	public DropList(ObjectArrayList<DropTable> tables) {
 		double curr = 0.0;
 		tables.sort((o1, o2) -> {
 			if ((o1 == null) || (o2 == null)) return Integer.MAX_VALUE;
@@ -83,20 +83,20 @@ public class DropList {
 		return Utility.round(nothingRate, 10);
 	}
 
-	public List<Item> genDrop() {
+	public ObjectArrayList<Item> genDrop() {
 		return genDrop(1.0);
 	}
 
-	public List<Item> genDrop(double modifier) {
+	public ObjectArrayList<Item> genDrop(double modifier) {
 		return genDrop(null, modifier);
 	}
 
-	public List<DropEntry> getDrops() {
+	public ObjectArrayList<DropEntry> getDrops() {
 		return drops;
 	}
 
-	public List<Item> genDrop(Player killer, double modifier) {
-		List<Item> finals = new ArrayList<>();
+	public ObjectArrayList<Item> genDrop(Player killer, double modifier) {
+		ObjectArrayList<Item> finals = new ObjectArrayList<>();
 
 		modifier *= 1;
 

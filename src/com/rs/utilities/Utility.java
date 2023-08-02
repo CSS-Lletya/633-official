@@ -8,11 +8,7 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
@@ -25,6 +21,7 @@ import com.rs.game.player.Player;
 import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.SneakyThrows;
 import lombok.Synchronized;
@@ -568,8 +565,8 @@ public final class Utility {
 	 * @param directory The directory to iterate through
 	 * @return The list of classes
 	 */
-	public static List<Object> getClassesInDirectory(String directory) {
-		List<Object> classes = new ArrayList<>();
+	public static ObjectArrayList<Object> getClassesInDirectory(String directory) {
+		ObjectArrayList<Object> classes = new ObjectArrayList<>();
 		for (File file : new File("./bin/main/" + directory.replace(".", "/")).listFiles()) {
 			if (file.getName().contains("$")) {
 				continue;
@@ -737,10 +734,10 @@ public final class Utility {
         return newText.toString();
     }
     
-    public static Map<String, Object> cloneMap(Map<String, Object> from) {
+    public static Object2ObjectOpenHashMap<String, Object> cloneMap(Object2ObjectOpenHashMap<String, Object> from) {
 		if (from == null)
 			return null;
-		Map<String, Object> newMap = new HashMap<String, Object>();
+		Object2ObjectOpenHashMap<String, Object> newMap = new Object2ObjectOpenHashMap<String, Object>();
 
 		for (Entry<String, Object> entry : from.entrySet()) {
 			newMap.put(entry.getKey(), entry.getValue());

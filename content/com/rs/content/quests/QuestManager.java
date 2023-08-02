@@ -1,9 +1,7 @@
 package com.rs.content.quests;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -14,12 +12,15 @@ import com.rs.game.player.Player;
 import com.rs.utilities.Colors;
 import com.rs.utilities.Utility;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public class QuestManager {
 
     /**
      * The list of possible quests.
      */
-    private transient static final Map<String, Quest> SYSTEM_QUESTS = new HashMap<String, Quest>();
+    private transient static final Object2ObjectOpenHashMap<String, Quest> SYSTEM_QUESTS = new Object2ObjectOpenHashMap<String, Quest>();
     /**
      * The map of quests in progression - bugged
      */
@@ -225,7 +226,7 @@ public class QuestManager {
         quest.questRequirements.clear();
         quest.addRequirements(player);
 
-        List<String> messages = new ArrayList<String>();
+        ObjectArrayList<String> messages = new ObjectArrayList<String>();
         for (String i : quest.getInformation(player)) {
             messages.add("<br>" + i);
         }

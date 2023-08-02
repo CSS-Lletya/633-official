@@ -9,6 +9,7 @@ import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.other.Pet;
 import com.rs.game.player.Player;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Synchronized;
 
 public final class MapBuilder {
@@ -307,8 +308,8 @@ public final class MapBuilder {
 	public static void destroyRegion(int regionId) {
 		Region region = World.getRegions().get(regionId);
 		if (region != null) {
-			List<Short> playerIndexes = region.getPlayersIndexes();
-			List<Short> npcIndexes = region.getNpcsIndexes();
+			ObjectArrayList<Short> playerIndexes = region.getPlayersIndexes();
+			ObjectArrayList<Short> npcIndexes = region.getNpcsIndexes();
 			if (region.getGroundItems() != null)
 				region.getGroundItems().clear();
 			region.getSpawnedObjects().clear();

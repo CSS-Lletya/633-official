@@ -1,10 +1,5 @@
 package skills.runecrafting;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -18,6 +13,8 @@ import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.ProducingSkillAction;
 import skills.Skills;
 
@@ -46,7 +43,7 @@ public final class Runecrafting extends ProducingSkillAction {
 	/**
 	 * Represents the a mapping for the Pouches
 	 */
-	private static Map<PouchType, Pouch> pouches = new HashMap<>(3);
+	private static Object2ObjectOpenHashMap<PouchType, Pouch> pouches = new Object2ObjectOpenHashMap<>(3);
 
 	/**
 	 * Constructs a new {@link Runecrafting}
@@ -77,7 +74,7 @@ public final class Runecrafting extends ProducingSkillAction {
 
 	@Override
 	public Optional<Item[]> removeItem() {
-		List<Item> remove = new ArrayList<>();
+		ObjectArrayList<Item> remove = new ObjectArrayList<>();
 		Inventory inventory = player.getInventory();
 
 		if(altar.isDiverse() && !inventory.containsAny(PURE_ESSENCE.getId(), RUNE_ESSENCE.getId())) {

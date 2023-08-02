@@ -1,8 +1,5 @@
 package com.rs.plugin.impl.npcs.region;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.content.quests.ScrollInterface;
 import com.rs.game.dialogue.DialogueEventListener;
@@ -13,6 +10,7 @@ import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.loaders.ShopsHandler;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.herblore.BobBarter;
 import skills.woodcutting.sawmill.Sawmill;
 
@@ -56,7 +54,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 			}
 			if (option == 2) {
 				player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "One moment please..."));
-				List<String> messages = new ArrayList<String>();
+				ObjectArrayList<String> messages = new ObjectArrayList<String>();
 				for (int i = 199; i <= 14836; i++) {
 					ItemDefinitions herbs = ItemDefinitions.getItemDefinitions(i);
 					if (!herbs.getName().contains("Grimy ") || herbs.isNoted())
@@ -78,7 +76,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
 						option("View current Log price guide", () -> {
-							List<String> messages = new ArrayList<String>();
+							ObjectArrayList<String> messages = new ObjectArrayList<String>();
 							for (int i = 1511; i <= 12583; i++) {
 								ItemDefinitions log = ItemDefinitions.getItemDefinitions(i);
 								if (!log.getName().toLowerCase().contains("logs") || log.isNoted())
@@ -96,7 +94,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 			}
 			if (option == 2) {
 				player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "One moment please..."));
-				List<String> messages = new ArrayList<String>();
+				ObjectArrayList<String> messages = new ObjectArrayList<String>();
 				for (int i = 1511; i <= 12583; i++) {
 					ItemDefinitions log = ItemDefinitions.getItemDefinitions(i);
 					if (!log.getName().toLowerCase().contains("logs") || log.isNoted())
@@ -125,7 +123,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
 						option("View current Ores price guide", () -> {
-							List<String> messages = new ArrayList<String>();
+							ObjectArrayList<String> messages = new ObjectArrayList<String>();
 							for (int i = 436; i <= 668; i++) {
 								ItemDefinitions ores = ItemDefinitions.getItemDefinitions(i);
 								if (!ores.getName().toLowerCase().contains("ore") || ores.isNoted())
@@ -140,7 +138,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 				});
 			}
 			if (option == 2) {
-				List<String> messages = new ArrayList<String>();
+				ObjectArrayList<String> messages = new ObjectArrayList<String>();
 				for (int i = 436; i <= 668; i++) {
 					ItemDefinitions ores = ItemDefinitions.getItemDefinitions(i);
 					if (!ores.getName().toLowerCase().contains("ore") || ores.isNoted())
@@ -159,7 +157,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
 						option("View current Runes price guide", () -> {
-							List<String> messages = new ArrayList<String>();
+							ObjectArrayList<String> messages = new ObjectArrayList<String>();
 							for (int i = 554; i <= 9075; i++) {
 								ItemDefinitions runes = ItemDefinitions.getItemDefinitions(i);
 								if (!runes.getName().toLowerCase().contains("rune") || runes.isNoted())
@@ -177,7 +175,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 			}
 			if (option == 2) {
 				player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "One moment please..."));
-				List<String> messages = new ArrayList<String>();
+				ObjectArrayList<String> messages = new ObjectArrayList<String>();
 				for (int i = 554; i <= 9075; i++) {
 					ItemDefinitions runes = ItemDefinitions.getItemDefinitions(i);
 					if (!runes.getName().toLowerCase().contains("rune") || runes.isNoted())

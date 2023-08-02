@@ -1,7 +1,5 @@
 package com.rs.game.npc;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -36,6 +34,7 @@ import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.NPCBonuses;
 import com.rs.utilities.loaders.NPCCombatDefinitionsL;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -266,7 +265,7 @@ public class NPC extends Entity {
 			for (Item item : drops)
 				sendDrop(killer, item);
 		} else {
-			List<Player> players = FriendChatsManager.getLootSharingPeople(killer.toPlayer());
+			ObjectArrayList<Player> players = FriendChatsManager.getLootSharingPeople(killer.toPlayer());
 			Player luckyPlayer = players.get(RandomUtils.random(players.size()));
 			if (luckyPlayer != null || players != null || players.size() > 0) {
 				for (Item item : drops) {
@@ -364,13 +363,13 @@ public class NPC extends Entity {
 		forceWalk = tile;
 	}
 
-	  public ArrayList<Entity> getPossibleTargets(boolean checkNPCs, boolean checkPlayers) {
+	  public ObjectArrayList<Entity> getPossibleTargets(boolean checkNPCs, boolean checkPlayers) {
 	        int size = getSize();
-	        ArrayList<Entity> possibleTarget = new ArrayList<Entity>();
+	        ObjectArrayList<Entity> possibleTarget = new ObjectArrayList<Entity>();
 	        int attackStyle = getCombatDefinitions().getAttackStyle();
 	        for (int regionId : getMapRegionsIds()) {
 	            if (checkPlayers) {
-	                List<Short> playerIndexes = World.getRegion(regionId).getPlayersIndexes();
+	            	ObjectArrayList<Short> playerIndexes = World.getRegion(regionId).getPlayersIndexes();
 	                if (playerIndexes != null) {
 	                    for (int playerIndex : playerIndexes) {
 	                        Player player = World.getPlayers().get(playerIndex);
@@ -400,7 +399,7 @@ public class NPC extends Entity {
 	                }
 	            }
 	            if (checkNPCs) {
-	                List<Short> npcsIndexes = World.getRegion(regionId).getNpcsIndexes();
+	            	ObjectArrayList<Short> npcsIndexes = World.getRegion(regionId).getNpcsIndexes();
 	                if (npcsIndexes != null) {
 	                    for (int npcIndex : npcsIndexes) {
 	                        NPC npc = World.getNPCs().get(npcIndex);
@@ -421,7 +420,7 @@ public class NPC extends Entity {
 	        return possibleTarget;
 	    }
 
-	public List<Entity> getPossibleTargets() {
+	public ObjectArrayList<Entity> getPossibleTargets() {
 		return getPossibleTargets(false, true);
 	}
 
@@ -433,7 +432,7 @@ public class NPC extends Entity {
 					return false;
 			}
 		}
-		List<Entity> possibleTarget = getPossibleTargets();
+		ObjectArrayList<Entity> possibleTarget = getPossibleTargets();
 		if (!possibleTarget.isEmpty()) {
 			Entity target = possibleTarget.get(RandomUtils.inclusive(possibleTarget.size() - 1));
 			setTarget(target);

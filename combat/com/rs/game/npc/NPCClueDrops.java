@@ -1,8 +1,6 @@
 package com.rs.game.npc;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.rs.cache.loaders.NPCDefinitions;
@@ -10,6 +8,8 @@ import com.rs.game.npc.drops.Drop;
 import com.rs.game.npc.drops.DropSet;
 import com.rs.game.npc.drops.DropTable;
 import com.rs.game.player.content.trails.TreasureTrailsManager;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class NPCClueDrops {
 	
@@ -177,7 +177,7 @@ public class NPCClueDrops {
 	}
 	
 	public static DropSet rollClues(int npcId) {
-		List<DropTable> tables = new ArrayList<>();
+		ObjectArrayList<DropTable> tables = new ObjectArrayList<>();
 		NPCDefinitions defs = NPCDefinitions.getNPCDefinitions(npcId);
 		String name = defs.getName().toLowerCase();
 		ClueDrop drop;

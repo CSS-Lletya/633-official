@@ -1,7 +1,5 @@
 package com.rs.game.npc.other;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.rs.cores.CoresManager;
@@ -13,16 +11,17 @@ import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.Utility;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.Skills;
 
 public class Gravestone extends NPC {
 
-	private static final List<Gravestone> GRAVESTONES = new ArrayList<Gravestone>();
+	private static final ObjectArrayList<Gravestone> GRAVESTONES = new ObjectArrayList<Gravestone>();
 
 	private String username;
 	private int ticks;
 	private String inscription;
-	private List<FloorItem> floorItems;//not supported yet
+	private ObjectArrayList<FloorItem> floorItems;//not supported yet
 	private int gravestone;
 	private boolean blessed;
 	private int hintIcon;
@@ -62,7 +61,7 @@ public class Gravestone extends NPC {
 		username = player.getUsername();
 		ticks = getMaximumTicks(gravestone);
 		inscription = getInscription(player.getDisplayName(), gravestone);
-		floorItems = new ArrayList<FloorItem>();
+		floorItems = new ObjectArrayList<FloorItem>();
 		this.deathTile = deathTile;
 		synchronized (GRAVESTONES) {
 			Gravestone oldStone = getGraveStoneByUsername(username);

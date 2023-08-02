@@ -3,11 +3,11 @@ package com.rs.game.item;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
 
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.SneakyThrows;
 
 /**
@@ -22,7 +22,7 @@ public class ItemWeights {
 	/**
 	 * The Item Weights map
 	 */
-	private final static HashMap<Integer, Double> itemWeights = new HashMap<Integer, Double>();
+	private final static Object2ObjectOpenHashMap<Integer, Double> itemWeights = new Object2ObjectOpenHashMap<Integer, Double>();
 
 	/**
 	 * The path to the item weights file

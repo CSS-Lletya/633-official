@@ -1,7 +1,5 @@
 package com.rs.game.player.content;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.rs.GameConstants;
@@ -15,6 +13,7 @@ import com.rs.net.encoders.other.QuickChatMessage;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class FriendChatsManager {
 
@@ -293,11 +292,11 @@ public class FriendChatsManager {
 		}
 	}
 
-    public static List<Player> getLootSharingPeople(Player player) {
+    public static ObjectArrayList<Player> getLootSharingPeople(Player player) {
         FriendChatsManager chat = player.getCurrentFriendChat();
         if (chat == null)
             return null;
-        List<Player> players = new ArrayList<Player>();
+        ObjectArrayList<Player> players = new ObjectArrayList<Player>();
         for (Player p2 : player.getCurrentFriendChat().getLocalMembers()) {
             if (p2.withinDistance(player, 12))
                 players.add(p2);

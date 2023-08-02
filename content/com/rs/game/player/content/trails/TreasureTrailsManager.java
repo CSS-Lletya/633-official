@@ -1,8 +1,6 @@
 package com.rs.game.player.content.trails;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.content.mapzone.impl.WildernessMapZone;
@@ -24,6 +22,8 @@ import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class TreasureTrailsManager {
 
@@ -54,7 +54,7 @@ public class TreasureTrailsManager {
     private Clue currentClue;
     private Clue[] currentClues;// unused, old code
     private transient int cluePhase;
-    private transient List<Item> pieces;
+    private transient ObjectArrayList<Item> pieces;
 
     public TreasureTrailsManager() {
     }
@@ -480,7 +480,7 @@ public class TreasureTrailsManager {
         }
         int base = BASE_PIECES[getBasePiece(itemId)];
         if (pieces == null) {
-            pieces = new ArrayList<Item>(PUZZLE_SIZE);
+            pieces = new ObjectArrayList<Item>(PUZZLE_SIZE);
             for (int index = 0; index < PUZZLE_SIZE - 1; index++)
                 pieces.add(new Item(base + index, 1));
             pieces.add(new Item(-1, 1));

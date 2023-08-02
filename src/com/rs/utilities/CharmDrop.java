@@ -5,17 +5,18 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import com.rs.game.npc.drops.DropTable;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public class CharmDrop {
 
 	private final static String PACKED_PATH = "data/npcs/charmDrops.txt";
-	private static HashMap<String, int[]> charmDrops;
+	private static Object2ObjectOpenHashMap<String, int[]> charmDrops;
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
 	public static int getCharmAmount(String npcName) {
@@ -49,7 +50,7 @@ public class CharmDrop {
 		int crimRate = chances[2];
 		int blueRate = chances[3];
 
-		ArrayList<Integer> possibleCharms = new ArrayList<>();
+		ObjectArrayList<Integer> possibleCharms = new ObjectArrayList<>();
 
 		int rand = RandomUtils.inclusive(100);
 		if (rand <= (blueRate) && blueRate != 0)
@@ -82,7 +83,7 @@ public class CharmDrop {
 
 	public static void loadCharmDrops() {
 		try {
-			charmDrops = new HashMap<>();
+			charmDrops = new Object2ObjectOpenHashMap<>();
 			Path path = Paths.get(PACKED_PATH);
 			try (Scanner scanner = new Scanner(path, ENCODING.name())) {
 				String npcName = null;

@@ -1,9 +1,8 @@
 package com.rs.content.quests;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.rs.game.player.Player;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 /**
  * old Quest interface. junk code dont mind.
@@ -26,7 +25,7 @@ public class ScrollInterface {
     public static void sendQuestScroll(Player player, String title, String... messageList) {
         player.getInterfaceManager().closeInterfaces();
 
-        final List<String> messages = new ArrayList<String>();
+        final ObjectArrayList<String> messages = new ObjectArrayList<String>();
         final int interfaceId = 275;
         final int endLine = 315;
         final int maxLength = 70;

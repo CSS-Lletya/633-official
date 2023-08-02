@@ -17,7 +17,8 @@
 package com.rs.game.npc.drops;
 
 import java.util.Arrays;
-import java.util.List;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class DropSet {
 
@@ -37,7 +38,7 @@ public class DropSet {
 		this.tables = tables;
 	}
 
-	public DropSet(List<DropTable> tables) {
+	public DropSet(ObjectArrayList<DropTable> tables) {
 		this.tables = new DropTable[tables.size()];
 		this.tables = tables.toArray(this.tables);
 	}

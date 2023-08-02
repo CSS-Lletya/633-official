@@ -16,12 +16,12 @@
 //
 package com.rs.game.npc.drops;
 
-import java.util.List;
-
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.utilities.RandomUtils;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class DropTable {
 
@@ -31,7 +31,7 @@ public class DropTable {
 	protected Drop[] drops;
 	protected String rollTable;
 
-	public DropTable(double chance, double outOf, boolean dropOne, List<Drop> drops) {
+	public DropTable(double chance, double outOf, boolean dropOne, ObjectArrayList<Drop> drops) {
 		this.chance = chance;
 		this.outOf = outOf;
 		Drop[] dArr = new Drop[drops.size()];
@@ -40,7 +40,7 @@ public class DropTable {
 		this.dropOne = dropOne;
 	}
 
-	public DropTable(double chance, double outOf, List<Drop> drops) {
+	public DropTable(double chance, double outOf, ObjectArrayList<Drop> drops) {
 		this.chance = chance;
 		this.outOf = outOf;
 		Drop[] dArr = new Drop[drops.size()];
@@ -154,7 +154,7 @@ public class DropTable {
 			if (killer.getEquipment().getRingId() != -1 && ItemDefinitions.getItemDefinitions(killer.getEquipment().getRingId()).getName().toLowerCase().contains("ring of wealth"))
 				modifier -= 0.01;
 
-		List<Item> drops = dropSet.getDropList().genDrop(killer, modifier);
+		ObjectArrayList<Item> drops = dropSet.getDropList().genDrop(killer, modifier);
 
 		Item[] items = new Item[drops.size()];
 		for (int i = 0;i < items.length;i++)

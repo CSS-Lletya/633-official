@@ -1,7 +1,5 @@
 package com.rs.content.quests;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
 
 import com.rs.game.item.Item;
@@ -10,12 +8,14 @@ import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.utilities.Colors;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public abstract class Quest {
 
     /**
      * The list of quest requirements
      */
-    public List<QuestAttribute> questRequirements = new ArrayList<QuestAttribute>();
+    public ObjectArrayList<QuestAttribute> questRequirements = new ObjectArrayList<QuestAttribute>();
 
     /**
      * The name of the quest.
