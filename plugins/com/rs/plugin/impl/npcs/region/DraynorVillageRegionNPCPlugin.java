@@ -7,6 +7,7 @@ import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.DiangoHolidayItemRetrieval;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.StringInputAction;
@@ -53,11 +54,15 @@ public class DraynorVillageRegionNPCPlugin extends NPCListener {
 			});
 		}
 		if (npc.getId() == 970) {
+			if (option == 3) {
+				DiangoHolidayItemRetrieval.sendInterface(player);
+			}
 			if (option == 4) {
 				/**
 				 * Codes were randomized and emailed, so this is just a easy code for the item instead
 				 * https://runescape.wiki/w/Flagstaff_of_Festivities
 				 */
+				player.getMovement().stopAll();
 				player.getPackets().sendInputStringScript("Enter a redemption code", new StringInputAction() {
 					@Override
 					public void handle(String input) {

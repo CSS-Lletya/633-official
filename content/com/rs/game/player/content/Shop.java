@@ -394,7 +394,7 @@ public class Shop {
 		player.getInterfaceManager().sendInventoryInterface(449);
 		player.getPackets().sendGlobalConfig(741, item.getId());
 		player.getPackets().sendGlobalString(25, ItemExamines.getExamine(item));
-		player.getPackets().sendGlobalString(34, ""); // quest id for some items
+//		player.getPackets().sendGlobalString(34, ""); // quest id for some items
 		int[] bonuses = new int[18];
 		ItemDefinitions defs = item.getDefinitions();
 		bonuses[CombatDefinitions.STAB_ATTACK] += defs.getStabAttack();

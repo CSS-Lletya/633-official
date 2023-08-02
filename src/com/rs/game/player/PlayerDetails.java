@@ -2,6 +2,8 @@ package com.rs.game.player;
 
 import java.util.Optional;
 
+import com.rs.game.item.Item;
+import com.rs.game.item.ItemsContainer;
 import com.rs.game.player.type.impl.AntifireDetails;
 import com.rs.utilities.DynamicBoolean;
 import com.rs.utilities.MutableNumber;
@@ -29,6 +31,7 @@ public final class PlayerDetails {
 		seenDungeon = new boolean[16];
 		statistics = new Statistics();
 		herbicideSettings = new boolean[17];
+		holidayItems = new ItemsContainer<Item>(48, false);
 	}
 
 	/**
@@ -119,6 +122,8 @@ public final class PlayerDetails {
 	 * A list of last known ips from the Player
 	 */
 	private ObjectArrayList<String> ipList = new ObjectArrayList<String>();
+	
+	public ItemsContainer<Item> holidayItems = new ItemsContainer<Item>(48, false);
 	
 	/**
 	 * Represents a Static for the player

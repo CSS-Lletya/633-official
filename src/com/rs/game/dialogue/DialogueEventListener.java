@@ -30,6 +30,11 @@ public abstract class DialogueEventListener implements Mood {
 		dialogueEvent.add(new DialogueEvent((byte) 0, message));
 		return this;
 	}
+	
+	public DialogueEventListener dualEntity(int face, String message) {
+		dialogueEvent.add(new DialogueDualEntityEvent(face, message));
+		return this;
+	}
 
 	public DialogueEventListener player(int face, String... message) {
 		dialogueEvent.add(new DialogueEntityEvent(true, face, message));
@@ -216,6 +221,19 @@ public abstract class DialogueEventListener implements Mood {
 		case 4:
 			DialogueRunnableEvent runnableEvent = (DialogueRunnableEvent) dialogue;
 			runnableEvent.getRun().run();
+			break;
+		case 5:
+			NPC npc = args.length > 0 ? (NPC) args[0] : null;
+			DialogueDualEntityEvent event3 = (DialogueDualEntityEvent) dialogue;
+			
+			player.getInterfaceManager().sendChatBoxInterface(136);
+			player.getPackets().sendIComponentText(136, 0, "Both");
+			player.getPackets().sendIComponentText(136, 1, dialogue.getText());
+			player.getPackets().sendPlayerOnIComponent(136, 2);
+			player.getPackets().sendNPCOnIComponent(136, 3, npc.getId());
+			player.getPackets().sendIComponentAnimation(event3.getFace(), 136, 2);
+			player.getPackets().sendIComponentAnimation(event3.getFace(), 136, 3);
+			//note: There's no continue dialogue button, so this is a time sequenced dialogue (usually like both entities saying "oh-noeee")
 			break;
 //		case 4: {
 //			/*
