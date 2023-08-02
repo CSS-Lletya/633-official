@@ -11,6 +11,7 @@ import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.smithing.DragonShieldCreation;
 import skills.smithing.GodswordCreation;
+import skills.smithing.SpiritShieldCreation;
 import skills.smithing.StudCreation;
 
 @ObjectSignature(objectId = {}, name = {"Anvil"})
@@ -31,6 +32,8 @@ public class AnvilObjectPlugin extends ObjectListener {
 		if (IntStream.of(2366, 2368, 11286, 1540).anyMatch(gs -> item.getId() == gs)) {
 			new DragonShieldCreation((item.getId() == 2366 || item.getId() == 2368 ? 1 : 2)).craftShield(player);
 		}
-		
+		if (IntStream.of(13746, 13748,13750,13752).anyMatch(gs -> item.getId() == gs)) {
+			SpiritShieldCreation.createSpiritShield(player, item);
+		}
 	}
 }
