@@ -38,6 +38,9 @@ public class EquipmentInterfacePlugin extends RSInterfaceListener {
 			player.getPriceCheckManager().openPriceCheck();
 
 		} else if (componentId == 39) {
+			if (!player.getInterfaceManager().containsInterface(667)) {
+				RSInterfacePluginDispatcher.openEquipmentBonuses(player, false);
+			}
 			RSInterfacePluginDispatcher.openEquipmentBonuses(player, false);
 		}
 		if (IntStream.of(8, 11, 14, 17, 20, 23, 26, 29, 32, 35, 38).anyMatch(comp -> comp == componentId)
