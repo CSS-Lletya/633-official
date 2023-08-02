@@ -3,8 +3,8 @@ package com.rs.game.player;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemsContainer;
-import com.rs.utilities.ItemExamines;
 import com.rs.utilities.Utility;
+import com.rs.utilities.loaders.ItemExamines;
 
 public class Trade {
 

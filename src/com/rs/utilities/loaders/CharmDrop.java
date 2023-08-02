@@ -1,5 +1,5 @@
 // This program is free software: you can redistribute it and/or modify
-package com.rs.utilities;
+package com.rs.utilities.loaders;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 import com.rs.game.npc.drops.DropTable;
+import com.rs.utilities.RandomUtils;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

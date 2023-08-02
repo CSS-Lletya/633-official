@@ -4,7 +4,7 @@ import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
-import com.rs.utilities.ItemExamines;
+import com.rs.utilities.loaders.ItemExamines;
 
 /**
  * @author Savions.

@@ -11,10 +11,10 @@ import com.rs.cache.loaders.ObjectDefinitions;
 import com.rs.game.item.FloorItem;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.utilities.ItemSpawns;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.RandomUtils;
+import com.rs.utilities.loaders.ItemSpawns;
 import com.rs.utilities.loaders.MapArchiveKeys;
 import com.rs.utilities.loaders.NPCSpawns;
 

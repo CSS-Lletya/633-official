@@ -1,4 +1,4 @@
-package com.rs.utilities;
+package com.rs.utilities.loaders;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

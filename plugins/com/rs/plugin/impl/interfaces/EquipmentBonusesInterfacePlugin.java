@@ -6,7 +6,7 @@ import com.rs.game.player.Player;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
-import com.rs.utilities.ItemExamines;
+import com.rs.utilities.loaders.ItemExamines;
 
 @RSInterfaceSignature(interfaceId = { 667 })
 public class EquipmentBonusesInterfacePlugin extends RSInterfaceListener {

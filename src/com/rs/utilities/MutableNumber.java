@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * threads.
  * @author lare96 <http://github.com/lare96>
  */
-public final class MutableNumber extends Number implements Comparable<MutableNumber> { // pure lare code, echt ongelofelijk dit
+public final class MutableNumber extends Number implements Comparable<MutableNumber> {
 	
 	/**
 	 * The constant serial version UID for serialization.

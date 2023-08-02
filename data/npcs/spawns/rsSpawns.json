@@ -73922,7 +73922,7 @@
       "y": 3489
     },
     "comment": "Banker",
-    "npcId": 553
+    "npcId": 494
   },
   {
     "dir": "WEST",
@@ -73932,7 +73932,7 @@
       "y": 3491
     },
     "comment": "Banker",
-    "npcId": 553
+    "npcId": 494
   },
   {
     "dir": "WEST",
@@ -73991,7 +73991,7 @@
       "y": 3436
     },
     "comment": "Banker",
-    "npcId": 553
+    "npcId": 494
   },
   {
     "dir": "EAST",
@@ -74011,7 +74011,7 @@
       "y": 3440
     },
     "comment": "Banker",
-    "npcId": 553
+    "npcId": 494
   },
   {
     "dir": "EAST",
@@ -74031,7 +74031,7 @@
       "y": 3444
     },
     "comment": "Banker",
-    "npcId": 553
+    "npcId": 494
   },
   {
     "dir": "WEST",
@@ -74041,7 +74041,7 @@
       "y": 3435
     },
     "comment": "Banker",
-    "npcId": 553
+    "npcId": 494
   },
   {
     "dir": "WEST",
@@ -74061,7 +74061,7 @@
       "y": 3439
     },
     "comment": "Banker",
-    "npcId": 553
+    "npcId": 494
   },
   {
     "dir": "WEST",
@@ -74081,7 +74081,7 @@
       "y": 3443
     },
     "comment": "Banker",
-    "npcId": 553
+    "npcId": 494
   },
   {
     "dir": "NORTH",
@@ -142713,5 +142713,25 @@
     },
     "comment": "monk of zamorak",
     "npcId": 189
+  },
+      {
+    "dir": "WEST",
+    "tile": {
+      "plane": 0,
+      "x": 3096,
+      "y": 3493
+    },
+    "comment": "edge banker",
+    "npcId": 494
+  },
+    {
+    "dir": "NORTH",
+    "tile": {
+      "plane": 0,
+      "x": 3097,
+      "y": 3494
+    },
+    "comment": "edge banker",
+    "npcId": 494
   },
 ]

@@ -6,9 +6,9 @@ import com.rs.game.item.Item;
 import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Equipment;
 import com.rs.io.InputStream;
-import com.rs.utilities.EquipData;
 import com.rs.utilities.FileUtilities;
 import com.rs.utilities.Utility;
+import com.rs.utilities.loaders.EquipData;
 import com.rs.utilities.loaders.ItemBonuses;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;

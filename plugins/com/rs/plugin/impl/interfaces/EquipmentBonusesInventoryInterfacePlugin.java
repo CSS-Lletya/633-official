@@ -20,9 +20,9 @@ public class EquipmentBonusesInventoryInterfacePlugin extends RSInterfaceListene
 			if (packetId == 11) {
 				if (RSInterfacePluginDispatcher.sendWear(player, slotId, item.getId()))
 					RSInterfacePluginDispatcher.refreshEquipBonuses(player);
-			} else if (packetId == 9)
+			} else if (packetId == 31)
 				player.getInventory().sendExamine(slotId);
-			else if (packetId == 31) {// broken
+			else if (packetId == 29) {
 				EquipmentInterfacePlugin.sendItemStats(player, item);
 			}
 		}

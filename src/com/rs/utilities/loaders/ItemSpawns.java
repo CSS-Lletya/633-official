@@ -1,10 +1,11 @@
-package com.rs.utilities;
+package com.rs.utilities.loaders;
 
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import com.rs.game.item.ItemSpawn;
+import com.rs.utilities.GSONParser;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

@@ -9,7 +9,7 @@ import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.utilities.ItemExamines;
+import com.rs.utilities.loaders.ItemExamines;
 
 @SuppressWarnings("all")
 public class Bank {

@@ -4,7 +4,7 @@ import com.rs.game.player.Player;
 import com.rs.game.player.content.DiangoHolidayItemRetrieval;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
-import com.rs.utilities.ItemExamines;
+import com.rs.utilities.loaders.ItemExamines;
 
 @RSInterfaceSignature(interfaceId = { 468 })
 public class DiangoHolidayItemRetrievalInterfacePlugin extends RSInterfaceListener {

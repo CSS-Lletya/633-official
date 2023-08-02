@@ -13,8 +13,8 @@ import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
-import com.rs.utilities.ItemExamines;
 import com.rs.utilities.loaders.ItemBonuses;
+import com.rs.utilities.loaders.ItemExamines;
 
 @RSInterfaceSignature(interfaceId = { 387 })
 public class EquipmentInterfacePlugin extends RSInterfaceListener {

@@ -26,11 +26,11 @@ import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.task.Task;
-import com.rs.utilities.CharmDrop;
 import com.rs.utilities.Colors;
 import com.rs.utilities.Direction;
 import com.rs.utilities.RandomUtils;
 import com.rs.utilities.Utility;
+import com.rs.utilities.loaders.CharmDrop;
 import com.rs.utilities.loaders.NPCBonuses;
 import com.rs.utilities.loaders.NPCCombatDefinitionsL;
 

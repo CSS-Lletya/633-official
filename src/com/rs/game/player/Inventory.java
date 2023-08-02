@@ -6,8 +6,8 @@ import com.rs.game.item.Item;
 import com.rs.game.item.ItemWeights;
 import com.rs.game.item.ItemsContainer;
 import com.rs.game.map.WorldTile;
-import com.rs.utilities.ItemExamines;
 import com.rs.utilities.Utility;
+import com.rs.utilities.loaders.ItemExamines;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 

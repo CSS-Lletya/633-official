@@ -11,8 +11,8 @@ import com.rs.game.player.CombatDefinitions;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.utilities.ItemExamines;
 import com.rs.utilities.Utility;
+import com.rs.utilities.loaders.ItemExamines;
 import com.rs.utilities.loaders.ShopItem;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;

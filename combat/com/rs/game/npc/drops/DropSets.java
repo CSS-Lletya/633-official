@@ -5,17 +5,18 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 
 import com.google.gson.JsonIOException;
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.utilities.GSONParser;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+
 public class DropSets {
 
 	private final static String PATH = "data/npcs/drops/";
-	public static HashMap<String, DropSet> DROPS = new HashMap<>();
-	public static HashMap<Object, DropSet> NPC_DROPS = new HashMap<>();
+	public static Object2ObjectOpenHashMap<String, DropSet> DROPS = new Object2ObjectOpenHashMap<>();
+	public static Object2ObjectOpenHashMap<Object, DropSet> NPC_DROPS = new Object2ObjectOpenHashMap<>();
 	public static final DropSet DEFAULT_DROPSET = new DropSet(new DropTable(0.0, 0.0, false));
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
@@ -74,7 +75,7 @@ public class DropSets {
 		}
 	}
 
-	public HashMap<Object, DropSet> getDropMap() {
+	public Object2ObjectOpenHashMap<Object, DropSet> getDropMap() {
 		return NPC_DROPS;
 	}
 }

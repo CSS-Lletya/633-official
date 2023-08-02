@@ -1,5 +1,7 @@
 package com.rs.game.player;
 
+import java.util.stream.IntStream;
+
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.ItemNames;
@@ -131,6 +133,9 @@ public final class Equipment {
 	}
 
 	public static int getItemSlot(int itemId) {
+		//karam vessel you can wear haha, if you want to force slot its here you go
+		if (IntStream.of(3157).anyMatch(id -> itemId == id))
+			return -1;
 		return ItemDefinitions.getItemDefinitions(itemId).getEquipSlot();
 	}
 
