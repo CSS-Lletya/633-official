@@ -16,7 +16,7 @@ import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.TextUtils;
 
 import skills.Skills;
@@ -110,7 +110,7 @@ public class Pickpocketing extends Thieving {
 		super(player, Optional.of(mob.getLastWorldTile()));
 		this.definition = data;
 		this.mob = mob;
-		this.loot = RandomUtils.random(definition.loot);
+		this.loot = RandomUtility.random(definition.loot);
 	}
 
 	@Override
@@ -119,12 +119,12 @@ public class Pickpocketing extends Thieving {
 			return false;
 		}
 		if (mob.getDefinitions().getName().contains("Master")) {
-			return !RandomUtils.success(
+			return !RandomUtility.success(
 					((((double) 5 / 833) * getPlayer().getSkills().getLevel(Skills.THIEVING)) + ((double) 17 / 49)));
 		}
-		return (RandomUtils.inclusive(getPlayer().getSkills().getLevel(Skills.THIEVING)
-				+ RandomUtils.inclusive(5)) < (RandomUtils.inclusive(definition.requirement)
-						+ RandomUtils.inclusive((5))));
+		return (RandomUtility.inclusive(getPlayer().getSkills().getLevel(Skills.THIEVING)
+				+ RandomUtility.inclusive(5)) < (RandomUtility.inclusive(definition.requirement)
+						+ RandomUtility.inclusive((5))));
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class Pickpocketing extends Thieving {
 	public void onSubmit() {
 		int thievingLevel = player.getSkills().getLevel(Skills.THIEVING);
 		int agilityLevel = player.getSkills().getLevel(Skills.AGILITY);
-		if (RandomUtils.getRandom(50) < 5) {
+		if (RandomUtility.getRandom(50) < 5) {
 			for (int i = 0; i < 4; i++) {
 				if (definition.requirement <= thievingLevel && definition.getAgilityLevels()[i] <= agilityLevel)
 					index = i;
@@ -187,7 +187,7 @@ public class Pickpocketing extends Thieving {
 				mob.setNextAnimation(new Animation(mob.getCombatDefinitions().getAttackAnim()));
 			else
 				mob.setNextAnimation(NPC_ANIMATION);
-			int hit = RandomUtils.inclusive(1, definition.damage);
+			int hit = RandomUtility.inclusive(1, definition.damage);
 			getPlayer().applyHit(new Hit(player, hit, HitLook.MELEE_DAMAGE));
 			getPlayer().setNextAnimation(STUN_ANIMATION);
 			getPlayer().setNextGraphics(STUN_GRAPHIC);
@@ -199,7 +199,7 @@ public class Pickpocketing extends Thieving {
 					|| definition == PickpocketData.HAM_GUARD) {
 				Item[] clues = DropTable.calculateDrops(getPlayer(), NPCClueDrops.rollClues(1714));
 				for (Item item : clues) {
-					if (RandomUtils.random(250) <= 5 && !player.ownsItems(item)) {
+					if (RandomUtility.random(250) <= 5 && !player.ownsItems(item)) {
 						player.getInventory().addItemDrop(item.getId(), 1);
 					}
 				}

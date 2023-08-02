@@ -6,7 +6,7 @@ import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
@@ -28,7 +28,7 @@ public class ThievingGuildRegionNPCPlugin extends NPCListener {
 		} else if (option == 2) {
 			player.getMovement().lock(2);
 			player.setNextAnimation(Animations.PICKPOCKET);
-			player.getSkills().addExperience(Skills.THIEVING, RandomUtils.random(2, 3));
+			player.getSkills().addExperience(Skills.THIEVING, RandomUtility.random(2, 3));
 			timesPickedSession++;
 		} else if (option == 3) {
 			player.dialogue(new DialogueEventListener(player, npc) {

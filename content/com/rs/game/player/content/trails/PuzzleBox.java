@@ -4,7 +4,7 @@ import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemsContainer;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 public class PuzzleBox {
 
@@ -79,11 +79,11 @@ public class PuzzleBox {
             completePuzzle.add(new Item(puzzleId + i, 1));
             pieces.add(new Item(puzzleId + i, 1));
         }
-        emptySlot = RandomUtils.getRandom(24);
+        emptySlot = RandomUtility.getRandom(24);
         for (int i = 0; i < 24; i++) {
             if (emptySlot == i)
                 currentPuzzle.add(new Item(-1, 1));
-            Item randomPiece = pieces.get(RandomUtils.random(pieces.getUsedSlots()));
+            Item randomPiece = pieces.get(RandomUtility.random(pieces.getUsedSlots()));
             currentPuzzle.add(randomPiece);
             pieces.remove(randomPiece);
             pieces.shift();

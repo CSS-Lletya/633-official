@@ -6,7 +6,7 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 /**
  * Handles Globally spawned implings throughout the game respawns every 30
@@ -102,14 +102,14 @@ public class GlobalImplings {
 	 */
 	public static int getRandomImplingId() {
 		FlyingEntities[] implings = FlyingEntities.values();
-		int random = RandomUtils.random(1000);
+		int random = RandomUtility.random(1000);
 		if (random < 3)
-			return implings[RandomUtils.random(3)].getNpcId();
+			return implings[RandomUtility.random(3)].getNpcId();
 		if (random < 80)
-			return implings[RandomUtils.random(5)].getNpcId();
+			return implings[RandomUtility.random(5)].getNpcId();
 		if (random < 300)
-			return implings[RandomUtils.random(7)].getNpcId();
-		return implings[RandomUtils.random(5)].getNpcId();
+			return implings[RandomUtility.random(7)].getNpcId();
+		return implings[RandomUtility.random(5)].getNpcId();
 	}
 
 	/**

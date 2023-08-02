@@ -8,7 +8,7 @@ import com.rs.game.task.LinkedTaskSequence;
 import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Ticks;
 
 @NPCSignature(name = { "Sheep" }, npcId = {})
@@ -21,7 +21,7 @@ public class SheepNPCPlugin extends NPCListener {
 			player.getPackets().sendGameMessage("You need a pair of shears to shear the sheep.");
 			return;
 		}
-		switch (RandomUtils.getRandom(3)) {
+		switch (RandomUtility.getRandom(3)) {
 		case 0:
 			player.getMovement().lock(2);
 			player.getAudioManager().sendNearbyPlayerSound(Sounds.SHEEP_FAILED_SHEERING, 15);

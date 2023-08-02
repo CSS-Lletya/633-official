@@ -648,7 +648,7 @@ public final class Utility {
     }
 
     public static double randomD() {
-        return RandomUtils.nextDouble();
+        return RandomUtility.nextDouble();
     }
 
     public static double clampD(double val, double min, double max) {

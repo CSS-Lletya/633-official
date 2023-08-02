@@ -30,7 +30,7 @@ public enum Direction {
 	}
 
 	public static Direction random() {
-		return values()[RandomUtils.random(values().length)];
+		return values()[RandomUtility.random(values().length)];
 	}
 
 	public int getId() {

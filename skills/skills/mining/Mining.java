@@ -11,7 +11,7 @@ import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.HarvestingSkillAction;
 import skills.Skills;
@@ -83,7 +83,7 @@ public final class Mining extends HarvestingSkillAction {
 
 	@Override
 	public double successFactor() {
-		double successFactor = pickaxe.getSpeed() + rock.getSuccess() - RandomUtils.nextDouble(1.0);
+		double successFactor = pickaxe.getSpeed() + rock.getSuccess() - RandomUtility.nextDouble(1.0);
 		if(successFactor < 0) {
 			return 0;
 		}
@@ -102,7 +102,7 @@ public final class Mining extends HarvestingSkillAction {
 
 	@Override
 	public Item[] harvestItems() {
-		return new Item[]{rock == RockData.GEM_ROCK ? RandomUtils.random(rock.getItem()): rock.getItem()[0]};
+		return new Item[]{rock == RockData.GEM_ROCK ? RandomUtility.random(rock.getItem()): rock.getItem()[0]};
 	}
 
 	@Override
@@ -147,8 +147,8 @@ public final class Mining extends HarvestingSkillAction {
 	private void randomEvent() {
 		if (pickaxe == PickaxeData.INFERNO_ADZE)
 			return;
-		if((RandomUtils.nextInt(1000) - (pickaxe.ordinal() * 10)) > 900) {
-	        if(RandomUtils.nextBoolean()) {
+		if((RandomUtility.nextInt(1000) - (pickaxe.ordinal() * 10)) > 900) {
+	        if(RandomUtility.nextBoolean()) {
 				if(getPlayer().getEquipment().containsAny(pickaxe.getItem().getId())) {
 					player.getEquipment().getItems().set(Equipment.SLOT_WEAPON, null);
 					player.getEquipment().refresh(Equipment.SLOT_WEAPON);
@@ -201,8 +201,8 @@ public final class Mining extends HarvestingSkillAction {
 			if (necklace != null && (necklace.getId() > 1705 && necklace.getId() < 1713)) {
 				chance /= 1.5;
 			}
-			if (RandomUtils.random(chance) == 0) {
-				Item gem = RandomUtils.random(GEMS);
+			if (RandomUtility.random(chance) == 0) {
+				Item gem = RandomUtility.random(GEMS);
 				player.getAudioManager().sendSound(Sounds.FINDING_TREASURE);
 				player.getPackets().sendGameMessage("You find a " + gem.getName() + "!");
 				if (!player.getInventory().addItem(gem)) {

@@ -7,7 +7,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.summoning.Summoning.Pouch;
 
@@ -51,7 +51,7 @@ public class Spiritspider extends Familiar {
 		player.setNextGraphics(new Graphics(1316));
 		WorldTile tile = this;
 		// attemps to randomize tile by 4x4 area
-		for (int trycount = 0; trycount < RandomUtils.inclusive(10); trycount++) {
+		for (int trycount = 0; trycount < RandomUtility.inclusive(10); trycount++) {
 			tile = new WorldTile(this, 2);
 			if (World.getTileAttributes().isTileFree(this.getPlane(), tile.getX(), tile.getY(), player.getSize()))
 				return true;

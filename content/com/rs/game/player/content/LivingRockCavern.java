@@ -1,7 +1,7 @@
 package com.rs.game.player.content;
 
 import com.rs.game.map.GameObject;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import lombok.AllArgsConstructor;
 
@@ -27,7 +27,7 @@ public final class LivingRockCavern {
 	}
 
 	private static void respawnRock(final Rocks rock) {
-		GameObject.spawnTempGroundObject(rock.rock, RandomUtils.inclusive(8) + 3 * 60);
+		GameObject.spawnTempGroundObject(rock.rock, RandomUtility.inclusive(8) + 3 * 60);
 	}
 	
 	public static void init() {

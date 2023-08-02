@@ -8,7 +8,7 @@ import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import lombok.Getter;
 
@@ -67,13 +67,13 @@ public enum BirdNest {
 	 * @return <true> if the bird nest was dropped, false otherwise.
 	 */
 	public static void drop(Player player) {
-		if(RandomUtils.inclusive(1000) > 5) {
+		if(RandomUtility.inclusive(1000) > 5) {
 			return;
 		}
 		boolean modifier = player.getEquipment().containsAny(STRUNG_RABBIT_FEET.getId());
-		BirdNest randomNest = RandomUtils.random(VALUES.asList());
+		BirdNest randomNest = RandomUtility.random(VALUES.asList());
 
-		if(RandomUtils.inclusive(100) <= randomNest.rarity + (modifier ? 10 : 0)) {
+		if(RandomUtility.inclusive(100) <= randomNest.rarity + (modifier ? 10 : 0)) {
 			FloorItem.addGroundItem(new Item(randomNest.nest), player, player, true, 60);
 			player.getPackets().sendGameMessage("A bird's nest falls out of the tree.");
 			player.getDetails().getStatistics().addStatistic("Birds_Nest_Found");

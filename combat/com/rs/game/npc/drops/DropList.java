@@ -21,7 +21,7 @@ import java.util.Arrays;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Rational;
 import com.rs.utilities.Utility;
 
@@ -127,7 +127,7 @@ public class DropList {
 				continue;
 			}
 			if (table.isDropOne()) {
-				Drop d = table.getDrops()[RandomUtils.random(table.getDrops().length)];
+				Drop d = table.getDrops()[RandomUtility.random(table.getDrops().length)];
 				if (d.getRollTable() == null)
 					finals.add(d.toItem());
 				else

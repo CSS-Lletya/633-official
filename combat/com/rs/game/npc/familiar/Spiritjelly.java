@@ -9,7 +9,7 @@ import com.rs.game.player.Hit.HitLook;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 import skills.summoning.Summoning.Pouch;
@@ -50,7 +50,7 @@ public class Spiritjelly extends Familiar {
 	public boolean submitSpecial(Object object) {// TODO get special anim
 		final Entity target = (Entity) object;
 		Player player = getOwner();
-		final int damage = RandomUtils.inclusive(100);
+		final int damage = RandomUtility.inclusive(100);
 		player.setNextAnimation(new Animation(7660));
 		player.setNextGraphics(new Graphics(1316));
 		World.sendProjectile(this, target, 1359, 34, 16, 30, 35, 16, 0);

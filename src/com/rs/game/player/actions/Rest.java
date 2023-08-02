@@ -3,7 +3,7 @@ package com.rs.game.player.actions;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Emotes.Emote;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 public class Rest extends Action {
 
@@ -23,7 +23,7 @@ public class Rest extends Action {
 	public boolean start(Player player) {
 		if (!process(player))
 			return false;
-		index = RandomUtils.inclusive(REST_DEFS.length -1);
+		index = RandomUtility.inclusive(REST_DEFS.length -1);
 		player.setResting((byte) 1);
 		if (restingType == 4)
 			player.getVarsManager().sendVar(173, 4);

@@ -10,7 +10,7 @@ import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class RunecraftingPouchDrop {
 				.filter(drop -> player.getSkills().getLevel(Skills.RUNECRAFTING) >= drop.getLevelRequired()
 						&& !player.ownsItems(new Item(drop.getPouchId())))
 				.findFirst();
-		if (pouches.isPresent() && RandomUtils.random(0) == 0 && World.getRegion(npc.getRegionId()).getGroundItems()
+		if (pouches.isPresent() && RandomUtility.random(0) == 0 && World.getRegion(npc.getRegionId()).getGroundItems()
 				.stream().noneMatch(drop -> drop.getId() == pouches.get().getPouchId())) {
 			FloorItem.addGroundItem(new Item(pouches.get().getPouchId()), npc.getLastWorldTile(), player, true, 60);
 		}

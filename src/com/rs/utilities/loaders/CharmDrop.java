@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 import com.rs.game.npc.drops.DropTable;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -53,7 +53,7 @@ public class CharmDrop {
 
 		ObjectArrayList<Integer> possibleCharms = new ObjectArrayList<>();
 
-		int rand = RandomUtils.inclusive(100);
+		int rand = RandomUtility.inclusive(100);
 		if (rand <= (blueRate) && blueRate != 0)
 			possibleCharms.add(3);
 		if (rand <= (crimRate) && crimRate != 0)
@@ -65,7 +65,7 @@ public class CharmDrop {
 		if (possibleCharms.isEmpty())
 			return -1;
 		Collections.shuffle(possibleCharms);
-		return possibleCharms.get(RandomUtils.random(possibleCharms.size()));
+		return possibleCharms.get(RandomUtility.random(possibleCharms.size()));
 	}
 
 	public static DropTable getCharmDrop(String npcName) {

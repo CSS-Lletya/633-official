@@ -16,7 +16,7 @@ import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import skills.summoning.Summoning;
@@ -139,7 +139,7 @@ public abstract class Familiar extends NPC {
 		if (!getCombat().process()) {
 			if (isAgressive() && owner.getAttackedBy() != null
 					&& owner.getAttackedByDelay() > Utility.currentTimeMillis() && canAttack(owner.getAttackedBy())
-					&& RandomUtils.inclusive(25) == 0)
+					&& RandomUtility.inclusive(25) == 0)
 				getCombat().setTarget(owner.getAttackedBy());
 			else
 				sendFollow();

@@ -9,7 +9,7 @@ import com.rs.game.player.Hit.HitLook;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.summoning.Summoning.Pouch;
 
@@ -48,7 +48,7 @@ public class Abyssalparasite extends Familiar {
 	@Override
 	public boolean submitSpecial(Object object) {
 		final Entity target = (Entity) object;
-		final int damage = RandomUtils.inclusive(100);
+		final int damage = RandomUtility.inclusive(100);
 		setNextAnimation(new Animation(7675));
 		setNextGraphics(new Graphics(1422));
 		World.sendProjectile(this, target, 1423, 34, 16, 30, 35, 16, 0);

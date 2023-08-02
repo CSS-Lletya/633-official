@@ -9,7 +9,7 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
@@ -44,7 +44,7 @@ public class WildernessObelisk {
 						World.sendGraphics(Graphic.OBELISK_SENDING, center.transform(x, y, 0));
 				Region region = World.getRegion(center.getRegionId());
 				ObjectArrayList<Short> playerIndexes = region.getPlayersIndexes();
-				WorldTile newCenter = OBELISK_CENTER_TILES[RandomUtils.inclusive(OBELISK_CENTER_TILES.length)];
+				WorldTile newCenter = OBELISK_CENTER_TILES[RandomUtility.inclusive(OBELISK_CENTER_TILES.length)];
 				if (playerIndexes != null) {
 					for (Short i : playerIndexes) {
 						Player p = World.getPlayers().get(i);

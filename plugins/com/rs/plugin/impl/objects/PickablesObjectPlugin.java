@@ -8,7 +8,7 @@ import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Ticks;
 
 @ObjectSignature(objectId = {}, name = {"Banana Tree", "Flax", "Onion", "Cabbage", "Wheat", "Potato", "Cadava bush", "Redberry bush"})
@@ -27,7 +27,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 			if (player.getInventory().addItem(new Item(ItemNames.FLAX_1779))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
 				player.getAudioManager().sendSound(Sounds.PICK_FLAX);
-				if (RandomUtils.percentageChance(18))
+				if (RandomUtility.percentageChance(18))
 					GameObject.removeObjectTemporary(object, Ticks.fromSeconds(6));
 			}
 		});
@@ -67,7 +67,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 			if (player.getInventory().addItem(new Item(ItemNames.CADAVA_BERRIES_753))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
 				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
-				if (RandomUtils.percentageChance(18))
+				if (RandomUtility.percentageChance(18))
 					GameObject.spawnTempGroundObject(new GameObject(23627, 10, 0, object), Ticks.fromSeconds(6));
 			}
 		});
@@ -79,7 +79,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 			if (player.getInventory().addItem(new Item(ItemNames.CADAVA_BERRIES_753))){
 				player.setNextAnimation(Animations.TOUCH_GROUND);
 				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
-				if (RandomUtils.percentageChance(18))
+				if (RandomUtility.percentageChance(18))
 					GameObject.spawnTempGroundObject(new GameObject(23627, 10, 0, object), Ticks.fromSeconds(6));
 			}
 		});
@@ -91,7 +91,7 @@ public class PickablesObjectPlugin extends ObjectListener {
 			if (player.getInventory().addItem(new Item(ItemNames.REDBERRIES_1951))){
 				player.getAudioManager().sendSound(Sounds.BURY_OR_PICK);
 				player.setNextAnimation(Animations.TOUCH_GROUND);
-				if (RandomUtils.percentageChance(18))
+				if (RandomUtility.percentageChance(18))
 					GameObject.spawnTempGroundObject(new GameObject(23630, 10, 0, object), Ticks.fromSeconds(6));
 			}
 		});

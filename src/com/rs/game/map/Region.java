@@ -13,7 +13,7 @@ import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.loaders.ItemSpawns;
 import com.rs.utilities.loaders.MapArchiveKeys;
 import com.rs.utilities.loaders.NPCSpawns;
@@ -684,7 +684,7 @@ public class Region {
 			return -1;
 		if (musicIds.length == 1)
 			return musicIds[0];
-		return musicIds[RandomUtils.inclusive(musicIds.length - 1)];
+		return musicIds[RandomUtility.inclusive(musicIds.length - 1)];
 	}
 
 	public static final String getMusicName3(int regionId) {

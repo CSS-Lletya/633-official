@@ -10,7 +10,7 @@ import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 import skills.magic.TeleportType;
@@ -49,7 +49,7 @@ public class TrapdoorObjectPlugin extends ObjectListener {
 					protected void execute() {
 						int thievingLevel = player.getSkills().getLevel(Skills.THIEVING);
 						int increasedChance = (int) (thievingLevel * 0.5);
-						double ratio = RandomUtils.getRandom(100) - increasedChance;
+						double ratio = RandomUtility.getRandom(100) - increasedChance;
 						if (ratio * thievingLevel < 10) {
 							player.getPackets().sendGameMessage(
 									"You fail to picklock the trapdoor and your hands begin to numb down.");

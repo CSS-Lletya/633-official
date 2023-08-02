@@ -8,7 +8,7 @@ import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 @ObjectSignature(objectId = {}, name = {"Hay bales", "Haystack"})
 public class HaystackObjectPlugin extends ObjectListener {
@@ -20,7 +20,7 @@ public class HaystackObjectPlugin extends ObjectListener {
 	
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
-		final int rand = RandomUtils.random(50);
+		final int rand = RandomUtility.random(50);
 		player.getMovement().lock(2);
 		player.setNextAnimation(Animations.TOUCH_GROUND);
 		player.getPackets().sendGameMessage("You search the " + object.getDefinitions().getName().toLowerCase() + "...");

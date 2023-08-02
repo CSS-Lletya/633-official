@@ -2,7 +2,7 @@ package com.rs.game.player.content.trails;
 
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 public class EasyRewards extends TreasureTrailsManager {
 
@@ -13,11 +13,11 @@ public class EasyRewards extends TreasureTrailsManager {
     protected static EasyRewardStore[] items = EasyRewardStore.values();
 
     public static void generateRewards(final Player player) {
-        int amount = RandomUtils.getRandom(3);
+        int amount = RandomUtility.getRandom(3);
         for (int i = 0; i <= 3 + amount; i++) {
             EasyRewardStore reward = getRandomReward();
-            int itemAmount = RandomUtils.random(reward.getMin(), reward.getMax());
-            int itemId = reward.getItemId2() > 0 ? RandomUtils.random(reward.getItemId(), reward.getItemId2()) : reward.getItemId();
+            int itemAmount = RandomUtility.random(reward.getMin(), reward.getMax());
+            int itemId = reward.getItemId2() > 0 ? RandomUtility.random(reward.getItemId(), reward.getItemId2()) : reward.getItemId();
             if ((reward.getChance() == RARE || reward.getChance() == VERY_RARE) && reward.getMin() <= 1)
                 itemAmount = 1;
             player.getClueScrollRewards().add(new Item(itemId, itemAmount));
@@ -26,8 +26,8 @@ public class EasyRewards extends TreasureTrailsManager {
 
     protected static EasyRewardStore getRandomReward() {
         while (true) {
-            double chance = RandomUtils.getRandom(100);
-            EasyRewardStore reward = items[RandomUtils.getRandom(items.length - 1)];
+            double chance = RandomUtility.getRandom(100);
+            EasyRewardStore reward = items[RandomUtility.getRandom(items.length - 1)];
             if ((reward.getChance()) > chance)
                 return reward;
             else

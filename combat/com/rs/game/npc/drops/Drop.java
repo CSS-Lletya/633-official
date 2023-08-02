@@ -17,7 +17,7 @@
 package com.rs.game.npc.drops;
 
 import com.rs.game.item.Item;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 public class Drop {
 
@@ -57,7 +57,7 @@ public class Drop {
 	}
 
 	public int getAmount() {
-		int amt = RandomUtils.random(min, max+1);
+		int amt = RandomUtility.random(min, max+1);
 		if (max < 2)
 			amt = 1;
 		return amt;

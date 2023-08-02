@@ -11,7 +11,7 @@ import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import lombok.AllArgsConstructor;
@@ -419,7 +419,7 @@ public class Skills {
 		}
 		refresh(skill);
 		if (Arrays.stream(BRAWLING_GLOVES).filter(glove -> skill == glove[0])
-				.anyMatch(glove -> RandomUtils.random(300) == 0 && player.getEquipment().containsAny(glove[1]))){
+				.anyMatch(glove -> RandomUtility.random(300) == 0 && player.getEquipment().containsAny(glove[1]))){
 			 player.getEquipment().getItems().set(Equipment.SLOT_HANDS, null);
              player.getEquipment().refresh(Equipment.SLOT_HANDS);
              player.getAppearance().generateAppearenceData();

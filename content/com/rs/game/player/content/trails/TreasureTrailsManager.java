@@ -20,7 +20,7 @@ import com.rs.game.task.Task;
 import com.rs.net.AccountCreation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -118,7 +118,7 @@ public class TreasureTrailsManager {
 
     private static void shuffle(int[] mix) {
         for (int i = mix.length - 1; i > 0; i--) {
-            int index = RandomUtils.random(i + 1);
+            int index = RandomUtility.random(i + 1);
             int tmp = mix[index];
             mix[index] = mix[i];
             mix[i] = tmp;
@@ -144,20 +144,20 @@ public class TreasureTrailsManager {
     private int generateClueSize(int level) {
         switch (level) {
             case EASY:
-                return 1 + RandomUtils.random(4);
+                return 1 + RandomUtility.random(4);
             case MEDIUM:
-                return 2 + RandomUtils.random(5);
+                return 2 + RandomUtility.random(5);
             case HARD:
-                return 3 + RandomUtils.random(7);
+                return 3 + RandomUtility.random(7);
             case ELITE:
-                return 5 + RandomUtils.random(5);
+                return 5 + RandomUtility.random(5);
         }
         return 1;
     }
 
     private ClueDetails generateClueDetails(int dificulty) {
         while (true) {
-            ClueDetails detail = ClueDetails.values()[RandomUtils.random(ClueDetails.values().length)];
+            ClueDetails detail = ClueDetails.values()[RandomUtility.random(ClueDetails.values().length)];
             if (detail.level > dificulty)
                 continue;
             /*
@@ -450,7 +450,7 @@ public class TreasureTrailsManager {
                 && !player.getInventory().containsOneItem(PUZZLES)) {
         	
         	int puzzle_id = currentClue.dificulty == ELITE ? PUZZLES[3]
-                    : PUZZLES[RandomUtils.random(PUZZLES.length - 1)];
+                    : PUZZLES[RandomUtility.random(PUZZLES.length - 1)];
         	player.dialogue(d -> d.item(puzzle_id, "you recieve a puzzle box!"));
         	player.getInventory().addItem(new Item(puzzle_id));
         	

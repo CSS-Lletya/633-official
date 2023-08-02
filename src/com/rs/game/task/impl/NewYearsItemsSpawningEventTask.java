@@ -10,7 +10,7 @@ import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.task.Task;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,8 +35,8 @@ public final class NewYearsItemsSpawningEventTask extends Task {
     	if (!GameConstants.NEW_YEARS_EVENT)
     		return;
         int[] RARES = {962, 1038, 1040, 1042, 1044, 1040, 1046, 1048, 1050};
-        Places random = Places.VALUES.get(RandomUtils.random(Places.values().length));
-        FloorItem.addGroundItem(new Item(RandomUtils.random(RARES)), random.getLocation(), 60 * 10);
+        Places random = Places.VALUES.get(RandomUtility.random(Places.values().length));
+        FloorItem.addGroundItem(new Item(RandomUtility.random(RARES)), random.getLocation(), 60 * 10);
         World.sendWorldMessage("[New Years Event]Oh wow! a super rare item has appeared near " + random.getLocationName() + ", better be the first to go get it!");
    }
 

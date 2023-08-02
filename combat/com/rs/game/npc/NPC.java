@@ -28,7 +28,7 @@ import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.task.Task;
 import com.rs.utilities.Colors;
 import com.rs.utilities.Direction;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.CharmDrop;
 import com.rs.utilities.loaders.NPCBonuses;
@@ -266,7 +266,7 @@ public class NPC extends Entity {
 				sendDrop(killer, item);
 		} else {
 			ObjectArrayList<Player> players = FriendChatsManager.getLootSharingPeople(killer.toPlayer());
-			Player luckyPlayer = players.get(RandomUtils.random(players.size()));
+			Player luckyPlayer = players.get(RandomUtility.random(players.size()));
 			if (luckyPlayer != null || players != null || players.size() > 0) {
 				for (Item item : drops) {
 					sendDrop(luckyPlayer, item);
@@ -316,8 +316,8 @@ public class NPC extends Entity {
 	public void sendDrop(Player player, Item item) {
 		DungeoneeringNecklaces.handleNecklaces(player, item.getId());
 		int[] BRAWLERS = {13845, 13846, 13847, 13848, 13849, 13850, 13851, 13852, 13853, 13854, 13855, 13856, 13857};
-		if (WildernessMapZone.isAtWild(player) && RandomUtils.random(300) == 0)
-			FloorItem.addGroundItem(new Item(RandomUtils.random(BRAWLERS)), player, player, true, 60);
+		if (WildernessMapZone.isAtWild(player) && RandomUtility.random(300) == 0)
+			FloorItem.addGroundItem(new Item(RandomUtility.random(BRAWLERS)), player, player, true, 60);
 		
 		if (id == 2263 || id == 2264 || id == 2265)
             RunecraftingPouchDrop.sendPouchDrop(player, this);
@@ -434,7 +434,7 @@ public class NPC extends Entity {
 		}
 		ObjectArrayList<Entity> possibleTarget = getPossibleTargets();
 		if (!possibleTarget.isEmpty()) {
-			Entity target = possibleTarget.get(RandomUtils.inclusive(possibleTarget.size() - 1));
+			Entity target = possibleTarget.get(RandomUtility.inclusive(possibleTarget.size() - 1));
 			setTarget(target);
 			target.setAttackedBy(target);
 			target.setFindTargetDelay(Utility.currentTimeMillis() + 10000);

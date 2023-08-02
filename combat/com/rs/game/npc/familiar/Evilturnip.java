@@ -9,7 +9,7 @@ import com.rs.game.player.Hit.HitLook;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.summoning.Summoning.Pouch;
 
@@ -55,7 +55,7 @@ public class Evilturnip extends Familiar {
 		World.get().submit(new Task(2) {
 			@Override
 			protected void execute() {
-				int hitDamage = RandomUtils.inclusive(100);
+				int hitDamage = RandomUtility.inclusive(100);
 				target.applyHit(new Hit(getOwner(), hitDamage, HitLook.MAGIC_DAMAGE));
 				target.setNextGraphics(new Graphics(1329));
 				heal(hitDamage / 5);

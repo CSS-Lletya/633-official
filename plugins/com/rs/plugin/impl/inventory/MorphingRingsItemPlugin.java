@@ -5,7 +5,7 @@ import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 @InventoryWrapper(itemId = { 6583 }, itemNames = { "Ring of stone", "Easter ring" })
 public class MorphingRingsItemPlugin extends InventoryListener {
@@ -18,7 +18,7 @@ public class MorphingRingsItemPlugin extends InventoryListener {
 				transformInto(player, 2626);
 				break;
 			case "Easter ring":
-				transformInto(player, 3689 + RandomUtils.random(5));
+				transformInto(player, 3689 + RandomUtility.random(5));
 				break;
 			}
 		}

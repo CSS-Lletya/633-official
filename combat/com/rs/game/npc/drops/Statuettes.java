@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -62,7 +62,7 @@ public enum Statuettes {
     }
 
     public static int shuffleStatues() {
-        Statuettes statue = RandomUtils.random(VALUES.asList());
+        Statuettes statue = RandomUtility.random(VALUES.asList());
         return statue.getItemId();
     }
 

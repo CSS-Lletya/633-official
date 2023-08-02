@@ -9,7 +9,7 @@ import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 @ObjectSignature(objectId = {}, name = {"crate", "crates", "boxes", "bookcase", "drawers", "closed chest", "open chest"})
 public class SearchablesObjectPlugin extends ObjectListener {
@@ -153,7 +153,7 @@ public class SearchablesObjectPlugin extends ObjectListener {
 				}
 				totalChance += r.getChance();
 			}
-			final int random = RandomUtils.random(totalChance);
+			final int random = RandomUtility.random(totalChance);
 			int total = 0;
 			for (Reward r : values()) {
 				total += r.getChance();

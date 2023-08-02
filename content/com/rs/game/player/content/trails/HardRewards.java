@@ -2,7 +2,7 @@ package com.rs.game.player.content.trails;
 
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 public class HardRewards extends TreasureTrailsManager {
 
@@ -14,11 +14,11 @@ public class HardRewards extends TreasureTrailsManager {
     protected static HardRewardStore[] items = HardRewardStore.values();
 
     protected static void generateRewards(final Player player) {
-        int amount = RandomUtils.getRandom(3);
+        int amount = RandomUtility.getRandom(3);
         for (int i = 0; i <= 2 + amount; i++) {
             HardRewardStore reward = getRandomReward();
-            int itemAmount = RandomUtils.random(reward.getMin(), reward.getMax());
-            int itemId = reward.getItemId2() > 0 ? RandomUtils.random(reward.getItemId(), reward.getItemId2())
+            int itemAmount = RandomUtility.random(reward.getMin(), reward.getMax());
+            int itemId = reward.getItemId2() > 0 ? RandomUtility.random(reward.getItemId(), reward.getItemId2())
                     : reward.getItemId();
             if ((reward.getChance() == RARE || reward.getChance() == VERY_RARE || reward.getChance() == MEGA_RARE) && reward.getMin() <= 1)
                 itemAmount = 1;
@@ -28,8 +28,8 @@ public class HardRewards extends TreasureTrailsManager {
 
     protected static HardRewardStore getRandomReward() {
         while (true) {
-            double chance = RandomUtils.getRandom(100);
-            HardRewardStore reward = items[RandomUtils.getRandom(items.length - 1)];
+            double chance = RandomUtility.getRandom(100);
+            HardRewardStore reward = items[RandomUtility.getRandom(items.length - 1)];
             if ((reward.getChance()) > chance) {
                 return reward;
             }

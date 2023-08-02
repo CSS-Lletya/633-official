@@ -8,7 +8,7 @@ import com.rs.game.player.Hit.HitLook;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.summoning.Summoning.Pouch;
@@ -57,7 +57,7 @@ public class Giantchinchompa extends Familiar {
 				Player p2 = World.getPlayers().get(playerIndex);
 				if (p2 == null || p2.isDead() || p2 != player || !p2.isRunning() || !p2.withinDistance(player, 2))
 					continue;
-				p2.applyHit(new Hit(this, RandomUtils.inclusive(130), HitLook.MAGIC_DAMAGE));
+				p2.applyHit(new Hit(this, RandomUtility.inclusive(130), HitLook.MAGIC_DAMAGE));
 			}
 			return true;
 		}

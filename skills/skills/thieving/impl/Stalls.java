@@ -10,7 +10,7 @@ import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.TextUtils;
 import com.rs.utilities.Utility;
 
@@ -49,7 +49,7 @@ public final class Stalls extends Thieving {
 		super(player, Optional.of(object));
 		this.stall = stall;
 		this.object = object;
-		this.loot = RandomUtils.random(stall.loot);
+		this.loot = RandomUtility.random(stall.loot);
 	}
 
 	/**

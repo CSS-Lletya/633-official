@@ -2,7 +2,7 @@ package com.rs.game.player.actions;
 
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 
@@ -36,7 +36,7 @@ public class WineTask extends Action {
 		double burn_dec = (badChance / multi_a);
 		double multi_b = (cookLevel - levelNeeded);
 		badChance -= (multi_b * burn_dec);
-		double randNum = RandomUtils.nextDouble() * 100.0;
+		double randNum = RandomUtility.nextDouble() * 100.0;
 		return badChance <= randNum;
 	}
 

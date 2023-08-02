@@ -12,7 +12,7 @@ import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.ForceTalk;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 
@@ -320,11 +320,11 @@ public class Foods {
 
 		BANANA(1963, 2),
 
-		THIN_SNAIL_MEAT(3369, 5 + RandomUtils.random(2)),
+		THIN_SNAIL_MEAT(3369, 5 + RandomUtility.random(2)),
 
 		LEAN_SNAIL_MEAT(3371, 8),
 
-		FAT_SNAIL_MEAT(3373, 8 + RandomUtils.random(2)),
+		FAT_SNAIL_MEAT(3373, 8 + RandomUtility.random(2)),
 
 		HEIM_CRAB(18159, 2),
 
@@ -534,7 +534,7 @@ public class Foods {
 			@Override
 			public void effect(Object object) {
 				Player player = (Player) object;
-				if (RandomUtils.random(100) > 5) {
+				if (RandomUtility.random(100) > 5) {
 					int level = player.getSkills().getLevel(Skills.COOKING);
 					int realLevel = player.getSkills().getTrueLevel(Skills.COOKING);
 					player.getSkills().set(Skills.COOKING, level >= realLevel ? realLevel + 6 : level + 6);

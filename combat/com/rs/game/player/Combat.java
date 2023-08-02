@@ -5,7 +5,7 @@ import com.rs.game.Entity;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.type.CombatEffect;
 import com.rs.game.player.type.CombatEffectType;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 public final class Combat {
 
@@ -14,7 +14,7 @@ public final class Combat {
 			return false;
 		if (def < 0) // wont happen unless low def lv plus negative bonus
 			return true;
-		return RandomUtils.inclusive((int) (att + def)) >= def;
+		return RandomUtility.inclusive((int) (att + def)) >= def;
 	}
 
 	public static boolean hasAntiDragProtection(Entity target) {

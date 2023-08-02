@@ -9,7 +9,7 @@ import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.loaders.ShopsHandler;
 
 @NPCSignature(name = { "Brimstail", "Aubury", "Archmage Sedridor", "Wizard Distentor", "Wizard Cromperty",
@@ -39,7 +39,7 @@ public class EssenceMineTeleportersNPCPlugin extends NPCListener {
 	        npc.setNextAnimation(Animations.WIZARD_ESSENCE_MINE_TELEPORT);
 	        npc.setNextGraphics(Graphic.SMALL_TELEPORTING_RINGS_VIA_HANDS);
 	        player.setNextGraphics(new Graphics(110));
-	        player.task(3, p -> p.setNextWorldTile(RandomUtils.random(new WorldTile[]{new WorldTile(2901, 4816), new WorldTile(2888, 4845), new WorldTile(2926, 4842), new WorldTile(2921, 4811)})));
+	        player.task(3, p -> p.setNextWorldTile(RandomUtility.random(new WorldTile[]{new WorldTile(2901, 4816), new WorldTile(2888, 4845), new WorldTile(2926, 4842), new WorldTile(2921, 4811)})));
 			break;
 		}
 	}

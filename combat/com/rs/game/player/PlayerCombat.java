@@ -22,7 +22,7 @@ import com.rs.game.player.type.PoisonType;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -946,7 +946,7 @@ public class PlayerCombat extends Action {
 		int current = getMagicMaxHit(player, baseDamage);
 		if (current <= 0) // Splash.
 			return -1;
-		int hit = RandomUtils.inclusive(current + 1);
+		int hit = RandomUtility.inclusive(current + 1);
 		if (hit > 0) {
 			if (target.isNPC()) {
 				NPC n = (NPC) target;
@@ -1198,7 +1198,7 @@ public class PlayerCombat extends Action {
 				World.sendProjectile(player, target, 2001, 41, 41, 41, 35, 0, 0);
 				delayHit(2, weaponId, attackStyle,
 						getRangeHit(player, getRandomMaxHit(player, weaponId, attackStyle, true, true, 1.0, true) + 30
-								+ RandomUtils.inclusive(120)));
+								+ RandomUtility.inclusive(120)));
 				dropAmmo(player);
 				break;
 			case 13954:// morrigan javelin
@@ -1265,7 +1265,7 @@ public class PlayerCombat extends Action {
 				} else if (weaponName.contains("crossbow")) {
 					int damage = 0;
 					int ammoId = player.getEquipment().getAmmoId();
-					if (ammoId != -1 && RandomUtils.inclusive(10) == 5) {
+					if (ammoId != -1 && RandomUtility.inclusive(10) == 5) {
 						switch (ammoId) {
 						case 9237:
 							damage = getRandomMaxHit(player, weaponId, attackStyle, true);
@@ -1319,13 +1319,13 @@ public class PlayerCombat extends Action {
 					else
 						player.getEquipment().removeAmmo(ammoId, 1);
 				} else if (weaponId == 15241) {// handcannon
-					if (RandomUtils.inclusive(player.getSkills().getLevel(Skills.FIREMAKING) << 1) == 0) {
+					if (RandomUtility.inclusive(player.getSkills().getLevel(Skills.FIREMAKING) << 1) == 0) {
 						// explode
 						player.setNextGraphics(new Graphics(2140));
 						player.getEquipment().getItems().set(3, null);
 						player.getEquipment().refresh((byte) 3);
 						player.getAppearance().generateAppearenceData();
-						player.applyHit(new Hit(player, RandomUtils.inclusive(150) + 10, HitLook.REGULAR_DAMAGE));
+						player.applyHit(new Hit(player, RandomUtility.inclusive(150) + 10, HitLook.REGULAR_DAMAGE));
 						player.setNextAnimation(new Animation(12175));
 						return combatDelay;
 					} else {
@@ -1461,7 +1461,7 @@ public class PlayerCombat extends Action {
 		} else if (quantity == -1 || quantity == -3) {
 			final int weaponId = player.getEquipment().getWeaponId();
 			if (weaponId != -1) {
-				if ((quantity == -3 && RandomUtils.inclusive(10) < 2) || (quantity != -3 && RandomUtils.inclusive(3) > 0)) {
+				if ((quantity == -3 && RandomUtility.inclusive(10) < 2) || (quantity != -3 && RandomUtility.inclusive(3) > 0)) {
 					int capeId = player.getEquipment().getCapeId();
 					if (capeId == 10498 || capeId == 10499 || capeId == 20068 || capeId == 20769 || capeId == 20771)
 						return; // nothing happens
@@ -1477,7 +1477,7 @@ public class PlayerCombat extends Action {
 			}
 		} else {
 			final int ammoId = player.getEquipment().getAmmoId();
-			if (RandomUtils.inclusive(3) > 0) {
+			if (RandomUtility.inclusive(3) > 0) {
 				int capeId = player.getEquipment().getCapeId();
 				if (capeId == 10498 || capeId == 10499 || capeId == 20068 || capeId == 20769 || capeId == 20771)
 					return; // nothing happens
@@ -1607,7 +1607,7 @@ public class PlayerCombat extends Action {
 			case 23690:
 				player.setNextAnimation(new Animation(11993));
 				target.setNextGraphics(new Graphics(1194));
-				delayNormalHit(weaponId, attackStyle, getMeleeHit(player, 50 + RandomUtils.inclusive(100)),
+				delayNormalHit(weaponId, attackStyle, getMeleeHit(player, 50 + RandomUtility.inclusive(100)),
 						getMeleeHit(player, getRandomMaxHit(player, weaponId, attackStyle, false, true, 1.1, true)));
 				soundId = 3853;
 				break;
@@ -1757,7 +1757,7 @@ public class PlayerCombat extends Action {
 							if (hit > 0) {
 								hits = new int[] { 0, 0, 0, (int) (hit * 1.5) };
 							} else {
-								hits = new int[] { 0, 0, 0, RandomUtils.inclusive(7) };
+								hits = new int[] { 0, 0, 0, RandomUtility.inclusive(7) };
 							}
 						}
 					}
@@ -2066,7 +2066,7 @@ public class PlayerCombat extends Action {
 			 * 138 prob = 0.05; if (prob < Math.random()) return 0;
 			 */
 		}
-		int hit = RandomUtils.inclusive(max_hit);
+		int hit = RandomUtility.inclusive(max_hit);
 		if (target.isNPC()) {
 			NPC n = (NPC) target;
 			if (n.getId() == 9463 && hasFireCape(player))
@@ -2079,7 +2079,7 @@ public class PlayerCombat extends Action {
 			// if hit gonna be lower than half of max hit and percentage >
 			// random, hit = at least half max hit + random
 			if (halfMaxhit > hit && m1 > Math.random() * 2)
-				hit = halfMaxhit + RandomUtils.inclusive(halfMaxhit);
+				hit = halfMaxhit + RandomUtility.inclusive(halfMaxhit);
 		}
 		return hit;
 	}
@@ -2510,7 +2510,7 @@ public class PlayerCombat extends Action {
 								playSound(magic_sound, player, target);
 						}
 					}
-					if (max_poison_hit > 0 && RandomUtils.inclusive(10) == 0) {
+					if (max_poison_hit > 0 && RandomUtility.inclusive(10) == 0) {
 						if (!target.isPoisoned())
 							target.setPoisonType(PoisonType.DEFAULT_MELEE);
 					}
@@ -3501,7 +3501,7 @@ public class PlayerCombat extends Action {
 		}
 		int shieldId = player.getEquipment().getShieldId();
 		if (shieldId == 13742) { // elsyian
-			if (RandomUtils.inclusive(100) <= 70)
+			if (RandomUtility.inclusive(100) <= 70)
 				hit.setDamage((int) (hit.getDamage() * 0.75));
 		} else if (shieldId == 13740) { // divine
 			int drain = (int) (Math.ceil(hit.getDamage() * 0.3) / 2);

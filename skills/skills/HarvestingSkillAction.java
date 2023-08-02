@@ -7,7 +7,7 @@ import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -66,7 +66,7 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 		Preconditions.checkState(SUCCESS_FACTOR >= 0 && SUCCESS_FACTOR <= 99, "Invalid success factor for harvesting!");
 		int factor = (getPlayer().getSkills().getLevel(getSkillId()) / SUCCESS_FACTOR);
 		double boost = (factor * 0.01);
-		if(RandomUtils.success((successFactor() + boost))) {
+		if(RandomUtility.success((successFactor() + boost))) {
 			Optional<Item[]> removeItems = removeItems();
 			Item[] harvestItems = harvestItems();
 			

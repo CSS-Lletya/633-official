@@ -19,7 +19,7 @@ package com.rs.game.npc.drops;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
@@ -135,7 +135,7 @@ public class DropTable {
 
 	public Item[] toItemArr() {
 		if (dropOne)
-			return new Item[] { drops[RandomUtils.random(drops.length)].toItem() };
+			return new Item[] { drops[RandomUtility.random(drops.length)].toItem() };
 		Item[] items = new Item[drops.length];
 		for (int i = 0;i < items.length;i++)
 			items[i] = drops[i].toItem();

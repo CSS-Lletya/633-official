@@ -9,7 +9,7 @@ import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.mining.PickaxeData;
 import skills.woodcutting.Hatchet;
@@ -74,7 +74,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 							player.getPackets().sendGameMessage("You attempt to burn your way through..");
 							break;
 						case 4:
-							if (RandomUtils.random(3) != 1) {
+							if (RandomUtility.random(3) != 1) {
 								player.getPackets().sendGameMessage("...and manage to burn it down and get past.");
 								player.setNextWorldTile(getLocations()[getIndex(object)]);
 								player.setNextAnimation(Animations.RESET_ANIMATION);
@@ -109,7 +109,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 							player.getPackets().sendGameMessage("You attempt to mine your way through..");
 							break;
 						case 4:
-							if (RandomUtils.random(3) != 1) {
+							if (RandomUtility.random(3) != 1) {
 								player.getPackets().sendGameMessage("...and manage to break through the rock.");
 								player.setNextWorldTile(getLocations()[getIndex(object)]);
 								player.setNextAnimation(Animations.RESET_ANIMATION);
@@ -142,7 +142,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 							player.getPackets().sendGameMessage("You attempt to chop your way through...");
 							break;
 						case 4:
-							if (RandomUtils.random(3) != 1) {
+							if (RandomUtility.random(3) != 1) {
 								player.getPackets().sendGameMessage("...and manage to chop down the tendrils.");
 								player.setNextWorldTile(getLocations()[getIndex(object)]);
 								player.setNextAnimation(Animations.RESET_ANIMATION);
@@ -190,7 +190,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 				int[] emotes = { 855, 856, 857, 858, 859, 860, 861, 862, 863, 864, 865, 866, 2113, 2109, 2111, 2106,
 						2107, 2108, 0x558, 2105, 2110, 2112, 0x84F, 0x850, 1131, 1130, 1129, 1128, 1745, 3544, 3543,
 						2836 };
-				int index = RandomUtils.random(emotes.length);
+				int index = RandomUtility.random(emotes.length);
 				player.setNextAnimation(new Animation(emotes[index]));
 				player.getMovement().lock(3);
 				World.get().submit(new Task(1) {
@@ -203,7 +203,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 									.sendGameMessage("You use your thieving skills to misdirect the eyes...");
 							break;
 						case 4:
-							if (RandomUtils.random(3) != 1) {
+							if (RandomUtility.random(3) != 1) {
 								player.getPackets().sendGameMessage("...and sneak past while they're not looking.");
 								player.setNextWorldTile(getLocations()[getIndex(object)]);
 								player.setNextAnimation(Animations.RESET_ANIMATION);

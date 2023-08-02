@@ -4,7 +4,7 @@ import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
@@ -22,7 +22,7 @@ public enum Tool {
 	BIG_NET(305, 16, -1, 0.50, Animations.BIG_NET_FISHING, new Catchable[]{Catchable.MACKEREL, Catchable.COD, Catchable.BASS, Catchable.CASKET, Catchable.LEATHER_BOOTS, Catchable.LEATHER_GLOVES, Catchable.OYSTER, Catchable.SEAWEED, Catchable.ROCKTAIL}) {
 		@Override
 		public Item[] onCatch(Player player) {
-			int amount = RandomUtils.inclusive(1, 3);
+			int amount = RandomUtility.inclusive(1, 3);
 			int slots = player.getInventory().getFreeSlots();
 			if(amount > slots)
 				amount = slots;
@@ -90,7 +90,7 @@ public enum Tool {
 				continue;
 			if(!c.catchable(player))
 				continue;
-			if(!RandomUtils.success(c.getChance()))
+			if(!RandomUtility.success(c.getChance()))
 				continue;
 			success.add(new Item(c.getId()));
 			index--;

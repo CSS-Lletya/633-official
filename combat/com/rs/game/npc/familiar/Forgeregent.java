@@ -11,7 +11,7 @@ import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.RSInterfacePluginDispatcher;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.summoning.Summoning.Pouch;
 
@@ -69,7 +69,7 @@ public class Forgeregent extends Familiar {
 						RSInterfacePluginDispatcher.sendRemove(player, 5);
 					}
 					target.setNextGraphics(new Graphics(1393));
-					target.applyHit(new Hit(getOwner(), RandomUtils.inclusive(200), HitLook.MELEE_DAMAGE));
+					target.applyHit(new Hit(getOwner(), RandomUtility.inclusive(200), HitLook.MELEE_DAMAGE));
 				});
 				this.cancel();
 			}

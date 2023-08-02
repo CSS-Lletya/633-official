@@ -8,7 +8,7 @@ import com.google.common.collect.Sets;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import lombok.Getter;
 
@@ -20,9 +20,9 @@ public enum FlyingEntities {
 	SPIRIT_IMPLING(7866, 15513, 227, 321, 54) {
 		@Override
 		public void effect(Player player) {
-			if (RandomUtils.random(2) == 0) {
-				Item charm = CHARMS[RandomUtils.random(CHARMS.length)];
-				int charmAmount = RandomUtils.random(charm.getAmount());
+			if (RandomUtility.random(2) == 0) {
+				Item charm = CHARMS[RandomUtility.random(CHARMS.length)];
+				int charmAmount = RandomUtility.random(charm.getAmount());
 				player.dialogue(d -> d.item(charm.getId(), charmAmount, "The impling was carrying a" + charm.getName().toLowerCase() + "."));
 				player.getInventory().addItem(charm.getId(), charmAmount);
 			}

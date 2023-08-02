@@ -9,7 +9,7 @@ import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import lombok.Data;
@@ -59,7 +59,7 @@ public final class NPCCombat {
 		// this gameticket
 		NPCCombatDefinitions defs = npc.getCombatDefinitions();
 		int attackStyle = defs.getAttackStyle();
-		if (target instanceof Familiar && RandomUtils.inclusive(3) == 0) {
+		if (target instanceof Familiar && RandomUtility.inclusive(3) == 0) {
 			Familiar familiar = (Familiar) target;
 			Player player = familiar.getOwner();
 			if (player != null) {

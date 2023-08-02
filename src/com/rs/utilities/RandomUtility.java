@@ -16,12 +16,12 @@ import java.util.concurrent.ThreadLocalRandom;
  * @see <a href= "http://java-performance.info/java-util-random-java-util-concurrent-threadlocalrandom-multithreaded-environments/"
  * >java.util.Random and java.util.concurrent.ThreadLocalRandom in multithreaded environments</a>
  */
-public final class RandomUtils {
+public final class RandomUtility {
 	
 	/**
 	 * A private constructor to discourage external instantiation.
 	 */
-	private RandomUtils() {
+	private RandomUtility() {
 	}
 	
 	/**

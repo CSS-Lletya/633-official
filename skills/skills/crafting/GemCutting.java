@@ -11,7 +11,7 @@ import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.ProducingSkillAction;
 import skills.Skills;
@@ -87,7 +87,7 @@ public class GemCutting extends ProducingSkillAction {
 
 	@Override
 	public Optional<Item[]> produceItem() {
-		return Optional.of(new Item[] { (RandomUtils.success(calculateCrushingChance(player.getSkills().getLevel(Skills.CRAFTING)))) ? new Item(ItemNames.CRUSHED_GEM_1633) :  data.produce });
+		return Optional.of(new Item[] { (RandomUtility.success(calculateCrushingChance(player.getSkills().getLevel(Skills.CRAFTING)))) ? new Item(ItemNames.CRUSHED_GEM_1633) :  data.produce });
 	}
 
 	@Override

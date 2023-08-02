@@ -8,7 +8,7 @@ import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 import skills.summoning.Summoning.Pouch;
@@ -33,7 +33,7 @@ public class Magpie extends Familiar {
 		else
 			theivingTicks++;
 		if (theivingTicks == 30) {
-			getBob().getBeastItems().add(new Item(RANDOM_ITEMS[RandomUtils.inclusive(RANDOM_ITEMS.length)], 1));
+			getBob().getBeastItems().add(new Item(RANDOM_ITEMS[RandomUtility.inclusive(RANDOM_ITEMS.length)], 1));
 			theivingTicks = 0;
 		} else if (theivingTicks % 50 == 0)
 			setNextForceTalk(new ForceTalk("*Tweet*"));

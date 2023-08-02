@@ -7,7 +7,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.summoning.Summoning.Pouch;
 
@@ -31,7 +31,7 @@ public class Fruitbat extends Familiar {
 	}
 
 	private void addFruitReward() {
-		getBob().getBeastItems().add(new Item(FRUITS[RandomUtils.inclusive(FRUITS.length)], 1));
+		getBob().getBeastItems().add(new Item(FRUITS[RandomUtility.inclusive(FRUITS.length)], 1));
 		fruitTicks = 0;
 	}
 
@@ -66,12 +66,12 @@ public class Fruitbat extends Familiar {
 		player.setNextAnimation(new Animation(7660));
 		player.setNextGraphics(new Graphics(1316));
 		WorldTile tile = this;
-		for (int trycount = 0; trycount < RandomUtils.inclusive(8); trycount++) {
+		for (int trycount = 0; trycount < RandomUtility.inclusive(8); trycount++) {
 			tile = new WorldTile(this, 2);
 			if (World.getTileAttributes().isTileFree(this.getPlane(), tile.getX(), tile.getY(), player.getSize()))
 				return true;
 			World.sendGraphics(new Graphics(1331), tile);
-			FloorItem.addGroundItem(new Item(FRUITS[RandomUtils.inclusive(FRUITS.length)], 1), tile, player, true, 120);
+			FloorItem.addGroundItem(new Item(FRUITS[RandomUtility.inclusive(FRUITS.length)], 1), tile, player, true, 120);
 		}
 		return false;
 	}

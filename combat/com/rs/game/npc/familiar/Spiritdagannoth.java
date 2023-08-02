@@ -9,7 +9,7 @@ import com.rs.game.player.Hit.HitLook;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.summoning.Summoning.Pouch;
 
@@ -59,7 +59,7 @@ public class Spiritdagannoth extends Familiar {
 				World.get().submit(new Task(1) {
 					@Override
 					protected void execute() {
-						int hitDamage = RandomUtils.inclusive(180);
+						int hitDamage = RandomUtility.inclusive(180);
 						if (hitDamage > 0) {
 							if (target.isPlayer())
 								((Player) target).getMovement().lock(6);

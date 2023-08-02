@@ -7,7 +7,7 @@ import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 @ObjectSignature(objectId = {}, name = {"Ogre Coffin", "Coffin"})
 public class CoffinObjectPlugin extends ObjectListener {
@@ -28,10 +28,10 @@ public class CoffinObjectPlugin extends ObjectListener {
 				player.getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
 				return;
 			}
-			Item bone = RandomUtils.random(bones);
+			Item bone = RandomUtility.random(bones);
 			player.getInventory().deleteItem(new Item(ItemNames.OGRE_COFFIN_KEY_4850));
 			player.getInventory().addItem(bone);
-			player.getInventory().addItem(RandomUtils.random(lootables).getId(), RandomUtils.random(1,2));
+			player.getInventory().addItem(RandomUtility.random(lootables).getId(), RandomUtility.random(1,2));
 			player.dialogue(d -> d.item(bone.getId(), "You find some " + bone.getName() + "."));
 		});
 	}

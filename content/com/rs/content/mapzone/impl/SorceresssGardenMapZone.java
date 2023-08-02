@@ -17,7 +17,7 @@ import com.rs.game.player.Player;
 import com.rs.game.player.content.FadingScreen;
 import com.rs.game.player.content.Magic;
 import com.rs.game.task.Task;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 import skills.herblore.Herb.GrimyHerb;
@@ -166,7 +166,7 @@ public class SorceresssGardenMapZone extends MapZone {
             player.getPackets().sendGameMessage("You need to free up some inventory space before picking this tree.");
             return false;
         }
-        if (RandomUtils.percentageChance(5) && !player.ownsItems(new Item(14057))) {
+        if (RandomUtility.percentageChance(5) && !player.ownsItems(new Item(14057))) {
             player.getInventory().addItem(14057, 1);
         }
         if (object.getId() == 21768) {
@@ -204,8 +204,8 @@ public class SorceresssGardenMapZone extends MapZone {
             player.setNextAnimation(Animations.TOUCH_GROUND);
             GrimyHerb.values();
             Optional<GrimyHerb> herbs = GrimyHerb.VALUES.stream().findFirst();
-            player.getInventory().addItem(new Item(RandomUtils.random(herbs.get().grimy.getId())));
-            player.getInventory().addItem(new Item(RandomUtils.random(herbs.get().grimy.getId())));
+            player.getInventory().addItem(new Item(RandomUtility.random(herbs.get().grimy.getId())));
+            player.getInventory().addItem(new Item(RandomUtility.random(herbs.get().grimy.getId())));
             player.getSkills().addExperience(Skills.FARMING,
                     inAutumnGarden(player) ? 50
                             : (inSpringGarden(player) ? 40

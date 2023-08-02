@@ -42,7 +42,7 @@ import com.rs.net.updating.LocalNPCUpdate;
 import com.rs.net.updating.LocalPlayerUpdate;
 import com.rs.plugin.RegionAttributePluginDispatcher;
 import com.rs.utilities.MutableNumber;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 import com.rs.utilities.Vec2;
 
@@ -774,7 +774,7 @@ public abstract class Entity extends WorldTile {
 		int maxHp = getMaxHitpoints();
 		if (getHitpoints() > maxHp) {
 			ifPlayer(player -> {
-				if (player.getPrayer().active(Prayer.RAPID_HEAL) && RandomUtils.inclusive(100) <= 15)
+				if (player.getPrayer().active(Prayer.RAPID_HEAL) && RandomUtility.inclusive(100) <= 15)
 					return;
 			});
 			setHitpoints(getHitpoints() - 1);

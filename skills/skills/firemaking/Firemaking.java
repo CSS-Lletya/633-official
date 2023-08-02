@@ -14,7 +14,7 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.DestructionSkillAction;
 import skills.Skills;
@@ -109,7 +109,7 @@ public class Firemaking extends DestructionSkillAction {
 	
 	@Override
 	public int delay() {
-		return RandomUtils.inclusive(2, 6);
+		return RandomUtility.inclusive(2, 6);
 	}
 	
 	@Override

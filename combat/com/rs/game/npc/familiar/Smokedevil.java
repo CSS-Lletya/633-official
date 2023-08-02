@@ -7,7 +7,7 @@ import com.rs.game.player.Player;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.summoning.Summoning.Pouch;
 
@@ -52,7 +52,7 @@ public class Smokedevil extends Familiar {
 		for (Entity entity : this.getPossibleTargets()) {
 			if (entity == null || entity == getOwner() || !entity.withinDistance(this, 1))
 				continue;
-			entity.applyHit(new Hit(this, RandomUtils.inclusive(80), HitLook.MAGIC_DAMAGE));
+			entity.applyHit(new Hit(this, RandomUtility.inclusive(80), HitLook.MAGIC_DAMAGE));
 		}
 		return true;
 	}

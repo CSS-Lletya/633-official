@@ -5,7 +5,7 @@ import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import skills.AncientEffigies;
@@ -19,7 +19,7 @@ public class AncientEffigyItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int slot, int option) {
-		int random = RandomUtils.random(8);
+		int random = RandomUtility.random(8);
 		skill1 = AncientEffigies.SKILL_1[random];
 		skill2 = AncientEffigies.SKILL_2[random];
 		player.dialogue(d -> {

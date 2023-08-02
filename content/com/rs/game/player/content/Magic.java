@@ -13,7 +13,7 @@ import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -673,7 +673,7 @@ public class Magic {
 				continue;
 			else if (hasSpecialRunes(player, runeId, amount))
 				continue;
-			else if (hasStaffOfLight(weaponId) && RandomUtils.inclusive(8) == 0 && runeId != 21773)// 1
+			else if (hasStaffOfLight(weaponId) && RandomUtility.inclusive(8) == 0 && runeId != 21773)// 1
 				// in
 				// eight
 				// chance

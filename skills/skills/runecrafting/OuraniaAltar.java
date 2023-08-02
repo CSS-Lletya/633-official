@@ -7,7 +7,7 @@ import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 
@@ -33,9 +33,9 @@ public class OuraniaAltar {
         player.getMovement().lock(1);
         player.getInventory().deleteItem(PURE_ESSENCE, runes);
 		IntStream.range(0, runes).forEach(rune -> {
-			Altar randomRune = store[RandomUtils.getRandom(store.length)];
+			Altar randomRune = store[RandomUtility.getRandom(store.length)];
 			while (actualLevel < randomRune.getRequirement())
-				randomRune = store[RandomUtils.getRandom(store.length)];
+				randomRune = store[RandomUtility.getRandom(store.length)];
 			Item item = new Item(randomRune.getRune().getItem().getId(), 1);
 			player.getInventory().addItem(item);
 			player.getDetails().getStatistics()

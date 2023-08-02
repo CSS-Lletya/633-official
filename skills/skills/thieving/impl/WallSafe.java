@@ -10,7 +10,7 @@ import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.RandomUtils;
+import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 import skills.thieving.Thieving;
@@ -61,7 +61,7 @@ public class WallSafe extends Thieving {
 	
 	@Override
 	public boolean failure() {
-		return (RandomUtils.inclusive(getPlayer().getSkills().getLevel(Skills.THIEVING) + RandomUtils.inclusive(5)) < (RandomUtils.inclusive(requirement()) + RandomUtils.inclusive((5))));
+		return (RandomUtility.inclusive(getPlayer().getSkills().getLevel(Skills.THIEVING) + RandomUtility.inclusive(5)) < (RandomUtility.inclusive(requirement()) + RandomUtility.inclusive((5))));
 	}
 	
 	@Override
@@ -70,7 +70,7 @@ public class WallSafe extends Thieving {
 			player.getPackets().sendGameMessage("You fail and trigger a trap!");
 			player.setNextAnimation(new Animation(3170));
 			player.applyHit(
-					new Hit(player, RandomUtils.random(player.getSkills().getLevel(Skills.HITPOINTS) <= 30 ? 40 : 100),
+					new Hit(player, RandomUtility.random(player.getSkills().getLevel(Skills.HITPOINTS) <= 30 ? 40 : 100),
 							Hit.HitLook.REGULAR_DAMAGE));
 			t.cancel();
 		} else {
@@ -114,7 +114,7 @@ public class WallSafe extends Thieving {
 	
 	public Item getLoot() {
 		Item[] ITEMS = { new Item(SAPPHIRE), new Item(RUBY), new Item(EMERALD), new Item(DIAMOND),
-				new Item(995, RandomUtils.random(20, 40)), };
-		return RandomUtils.random(ITEMS);
+				new Item(995, RandomUtility.random(20, 40)), };
+		return RandomUtility.random(ITEMS);
 	}
 }
