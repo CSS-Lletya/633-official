@@ -21,6 +21,8 @@ import com.rs.net.encoders.other.Graphics;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import skills.ProducingSkillAction;
 import skills.Skills;
+import skills.smithing.Smelting;
+import skills.smithing.Smelting.SmeltingData;
 
 /**
  * Holds functionality for magic on item skills.
@@ -201,25 +203,25 @@ public class Enchanting extends ProducingSkillAction {
 				player.getInventory().replaceItems(item, new Item(EMERALD.get(item.getId())));
 			}
 		},
-//		SUPERHEAT_ITEM(1173, 43, 53, new Item[]{}, new Item[]{new Item(561, 1), new Item(554, 4)}, new Animation(723), new Graphics(148, 100)) {
-//			@Override
-//			public boolean canCast(Player player, Item item) {
-//				Optional<SmeltingData> data = SmeltingData.getDefinitionByItem(item.getId());
-//				if(!data.isPresent()) {
-//					player.getPackets().sendGameMessage("You can't cast this spell on this item.");
-//					return false;
-//				}
-//				return true;
-//			}
-//			
-//			@Override
-//			public void onCast(Player player, Item item, int slot) {
-//				Optional<SmeltingData> data = SmeltingData.getDefinitionByItem(item.getId());
-//				Smelting smelting = new Smelting(player, data.get(), 1, true);
-//				smelting.start();
-//				player.getInterfaceManager().sendTab(Tabs.MAGIC);
-//			}
-//		},
+		SUPERHEAT_ITEM(50, 43, 53, new Item[]{}, new Item[]{new Item(561, 1), new Item(554, 4)}, new Animation(723), new Graphics(148, 0, 100)) {
+			@Override
+			public boolean canCast(Player player, Item item) {
+				Optional<SmeltingData> data = SmeltingData.getDefinitionByItem(item.getId());
+				if(!data.isPresent()) {
+					player.getPackets().sendGameMessage("You can't cast this spell on this item.");
+					return false;
+				}
+				return true;
+			}
+			
+			@Override
+			public void onCast(Player player, Item item, int slot) {
+				Optional<SmeltingData> data = SmeltingData.getDefinitionByItem(item.getId());
+				Smelting smelting = new Smelting(player, data.get(), 1, true);
+				smelting.start();
+				player.getInterfaceManager().sendTab(Tabs.MAGIC);
+			}
+		},
 		LEVEL_3_ENCHANT(53, 49, 59, new Item[]{}, new Item[]{new Item(554, 5), new Item(564)}, new Animation(720), new Graphics(115, 0, 95)) {
 			
 			private final Int2IntArrayMap RUBY = new Int2IntArrayMap(ImmutableMap.<Integer, Integer>builder().put(1641, 2568).put(11085, 11088).put(1679, 11194).build());

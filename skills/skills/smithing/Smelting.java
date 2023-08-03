@@ -101,7 +101,7 @@ public class Smelting extends ProducingSkillAction {
 	
 	@Override
 	public Optional<Animation> animation() {
-		return Optional.of(Animations.SMELTING_INSIDE_FURNACE);
+		return !spell ? Optional.of(Animations.SMELTING_INSIDE_FURNACE) : Optional.empty();
 	}
 	
 	@Override
@@ -149,7 +149,7 @@ public class Smelting extends ProducingSkillAction {
 			return false;
 		}
 		if(!player.getInventory().containsItems(definition.required)) {
-			player.getPackets().sendGameMessage("You don't have the required items to register this smelting bar.");
+			player.getPackets().sendGameMessage("You don't have the required items to smelt this bar.");
 			return false;
 		}
 		return true;

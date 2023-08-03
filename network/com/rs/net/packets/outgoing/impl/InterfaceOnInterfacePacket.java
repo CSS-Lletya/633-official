@@ -69,6 +69,14 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				return;
 			}
 		}
+		if (Enchanting.cast(player, new Item(toItemId), fromButtonId, toItemId)) {
+			return;
+		}
+		if (Firemaking.execute(player, new Item(toItemId), new Item(fromItemId), false, false, player))
+			return;
+		if (ItemCombine.handle(player, player.getInventory(), new Item(toItemId), new Item(fromItemId))) {
+			return;
+		}
 		new UseWith(new Item(1511), new Item(946)).execute(itemUsed, usedWith, () -> {
 			player.dialogueBlank(new BowFletchingDialogue(player, Log.NORMAL));
 		});
@@ -93,14 +101,6 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 						() -> new SoftClayCreation(player, Filler.values()).start()));
 		 
 		InventoryPluginDispatcher.execute(player, new Item(fromItemId), new Item(toItemId), toSlotId, fromSlotId);
-		if (Enchanting.cast(player, new Item(toItemId), fromButtonId, toItemId)) {
-			return;
-		}
-		if (Firemaking.execute(player, new Item(toItemId), new Item(fromItemId), false, false, player))
-			return;
-		if (ItemCombine.handle(player, player.getInventory(), new Item(toItemId), new Item(fromItemId))) {
-			return;
-		}
 		if (GameConstants.DEBUG)
 			LogUtility.log(LogType.INFO, "ItemOnItem " + fromInterfaceId + ", " + fromButtonId + ", " + fromSlotId
 					+ ", " + fromItemId + ", " + toInterfaceId + ", " + toButtonId + ", " + toSlotId + ", " + toItemId);
