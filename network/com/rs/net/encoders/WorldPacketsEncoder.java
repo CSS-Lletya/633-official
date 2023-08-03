@@ -1615,7 +1615,7 @@ public class WorldPacketsEncoder extends Encoder {
 		}
 		for (int world = 1; world <= WorldList.WORLDS.size(); world++) {
 			packet.writeSmart(world);
-			packet.writeShort(World.getPlayers().getSize());
+			packet.writeShort(World.getPlayers().size());
 		}
 		packet.endPacketVarShort();
 		session.write(packet);

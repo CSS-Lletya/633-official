@@ -4,25 +4,22 @@ import com.rs.GameConstants;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
 
-public final class WorldThread extends Thread {
-
-	public WorldThread() {
-		setPriority(Thread.MAX_PRIORITY);
-		setName("World Thread");
-	}
+public final class WorldThread implements Runnable {
 
 	public static long LAST_CYCLE_CTM;
+	
+	private static int pidSwapDelay = RandomUtility.inclusive(100, 150);
 	
 	@Override
 	public final void run() {
 		while (!CoresManager.shutdown) {
 			long currentTime = Utility.currentTimeMillis();
 			Try.run(() -> {
-				
 				
 				World.players().forEach(player -> player.processEntity());
 				World.npcs().forEach(npc -> npc.processEntity());
@@ -37,6 +34,11 @@ public final class WorldThread extends Thread {
 				
 				World.players().forEach(Player::resetMasks);
 				World.npcs().forEach(NPC::resetMasks);
+				
+				if (--pidSwapDelay == 0) {
+                	World.shufflePids();
+                    pidSwapDelay = RandomUtility.random(100, 150);
+                }
 				World.get().getTaskManager().sequence();
 			}).onFailure(Throwable::printStackTrace);
 			LAST_CYCLE_CTM = Utility.currentTimeMillis();

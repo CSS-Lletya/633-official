@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import com.rs.GameConstants;
@@ -28,13 +30,17 @@ import com.rs.game.task.impl.ShopRestockTask;
 import com.rs.game.task.impl.SummoningPassiveTask;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.AntiFlood;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectAVLTreeMap;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import lombok.val;
 
 public class World {
 
@@ -307,4 +313,44 @@ public class World {
 	public void submit(Task... task) {
 		Arrays.stream(task).forEach(getTaskManager()::submit);
 	}
+
+    public static final Int2ObjectAVLTreeMap<Player> USED_PIDS = new Int2ObjectAVLTreeMap<Player>();
+    public static final IntArrayList AVAILABLE_PIDS = new IntArrayList(IntStream.rangeClosed(0, 2000).boxed().collect(Collectors.toList()));
+    
+    public static final void shufflePids() {
+        final int n = 2000;
+        for (int i = 0; i < n; i++) {
+            final int change = i + RandomUtility.nextInt(n - i);
+            swap(i, change);
+        }
+    }
+    
+    private static final void swap(final int i, final int change) {
+        val a = World.USED_PIDS.get(i);
+        val b = World.USED_PIDS.get(change);
+        if ((a == null) && (b == null)) {
+            return;
+        }
+
+        val pidA = a == null ? -1 : a.getPid();
+        val pidB = b == null ? -1 : b.getPid();
+        if (pidA != -1 && pidB != -1) {
+            World.USED_PIDS.put(pidB, a);
+            World.USED_PIDS.put(pidA, b);
+            b.setPid(pidA);
+            a.setPid(pidB);
+        } else if (pidA != -1) {
+            val pid = World.AVAILABLE_PIDS.removeInt(RandomUtility.random(World.AVAILABLE_PIDS.size() - 1));
+            a.setPid(pid);
+            World.USED_PIDS.put(pid, a);
+            World.USED_PIDS.remove(pidA);
+            World.AVAILABLE_PIDS.add(pidA);
+        } else if (pidB != -1) {
+            val pid = World.AVAILABLE_PIDS.removeInt(RandomUtility.random(World.AVAILABLE_PIDS.size() - 1));
+            b.setPid(pid);
+            World.USED_PIDS.put(pid, b);
+            World.USED_PIDS.remove(pidB);
+            World.AVAILABLE_PIDS.add(pidB);
+        }
+    }
 }

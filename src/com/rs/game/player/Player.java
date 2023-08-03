@@ -240,6 +240,11 @@ public class Player extends Entity {
 	private transient OverloadEffectTask overloadEffect;
 	
 	/**
+	 * Represents the players current PID
+	 */
+	private transient int pid;
+	
+	/**
 	 * Represents the Treasure Trails management
 	 */
     private TreasureTrailsManager treasureTrailsManager;

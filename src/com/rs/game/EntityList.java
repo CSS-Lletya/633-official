@@ -5,10 +5,13 @@ import java.util.Iterator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
+import com.rs.utilities.RandomUtility;
 
 import lombok.Getter;
+import lombok.val;
 
 public class EntityList<T extends Entity> implements Iterable<T> {
 	
@@ -62,6 +65,12 @@ public class EntityList<T extends Entity> implements Iterable<T> {
 					break;
 				}
 			}
+			if (entity instanceof Player) {
+				final Player player = (Player) entity;
+				val pid = World.AVAILABLE_PIDS.removeInt(RandomUtility.random(World.AVAILABLE_PIDS.size() - 1));
+				player.setPid(pid);
+				World.USED_PIDS.put(pid, player);
+			}  
 			return true;
 		}
 	}
@@ -79,6 +88,11 @@ public class EntityList<T extends Entity> implements Iterable<T> {
 			size--;
 			if (listIndex < lowestFreeIndex) {
 				lowestFreeIndex = listIndex;
+			}
+			if (entity instanceof Player) {
+				final Player player = (Player) entity;
+				World.USED_PIDS.remove(player.getPid());
+				World.AVAILABLE_PIDS.add(player.getPid());
 			}
 		}
 	}

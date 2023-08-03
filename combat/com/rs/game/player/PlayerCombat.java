@@ -2344,6 +2344,9 @@ public class PlayerCombat extends Action {
 				Player p2 = (Player) target;
 				if (player.getPrayer().active(Prayer.RAPID_RESTORE))
 					p2.sendSoulSplit(hit, player);
+				if (player.getPid() < ((Player) target).getPid()) {
+	                delay -= 1;
+	            }
 			}
 			int damage = hit.getDamage() > target.getHitpoints() ? target.getHitpoints() : hit.getDamage();
 			if (hit.getLook() == HitLook.RANGE_DAMAGE || hit.getLook() == HitLook.MELEE_DAMAGE) {

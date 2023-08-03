@@ -9,6 +9,8 @@ import com.rs.GameConstants;
 import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.utilities.CatchExceptionRunnable;
 
+import lombok.val;
+
 public final class CoresManager {
 
 	protected static volatile boolean shutdown;
@@ -16,11 +18,16 @@ public final class CoresManager {
 	public static ExecutorService serverBossChannelExecutor;
 	public static ScheduledExecutorService slowExecutor;
 	public static int serverWorkersCount;
-	public static WorldThread worldThread;
+	public static ScheduledExecutorService worldThread;
 
 	public static void init() {
 		WorldPacketsDecoder.loadPacketSizes();
-		worldThread = new WorldThread();
+		worldThread = Executors.newSingleThreadScheduledExecutor(r -> {
+			val thread = new Thread(r);
+			thread.setPriority(Thread.MAX_PRIORITY);
+			thread.setName("World Thread");
+			return thread;
+		});
 		
 		int availableProcessors = Runtime.getRuntime().availableProcessors();
 		serverWorkersCount = availableProcessors >= 6 ? availableProcessors - (availableProcessors >= 12 ? 6 : 4) : 2;
@@ -29,8 +36,7 @@ public final class CoresManager {
 		slowExecutor = availableProcessors >= 6
 				? Executors.newScheduledThreadPool(availableProcessors >= 12 ? 4 : availableProcessors >= 6 ? 2 : 1, new SlowThreadFactory())
 				: Executors.newSingleThreadScheduledExecutor(new SlowThreadFactory());
-		worldThread.start();		
-		
+		worldThread.scheduleAtFixedRate(new WorldThread(), 0, 600, TimeUnit.MILLISECONDS);
 	}
 
 	public static void shutdown() {
