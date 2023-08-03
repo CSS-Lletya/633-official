@@ -2,6 +2,7 @@ package skills;
 
 import java.util.Optional;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
@@ -53,6 +54,7 @@ public abstract class ProducingSkillAction extends SkillHandler {
 						if(item == null)
 							continue;
 						if(!getPlayer().getInventory().containsItem(item)) {
+							player.setNextAnimation(Animations.RESET_ANIMATION);
 							String anyOrEnough = item.getAmount() == 1 ? "any" : "enough";
 							getPlayer().getPackets().sendGameMessage("You don't have " + anyOrEnough + " " + TextUtils.appendPluralCheck(item.getDefinitions().getName()) + ".");
 							return false;

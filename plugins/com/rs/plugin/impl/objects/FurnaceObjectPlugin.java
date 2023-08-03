@@ -9,6 +9,7 @@ import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.crafting.MoltenGlassCrafting;
+import skills.crafting.SilverItemCasting;
 import skills.smithing.Smelting.SmeltingData;
 
 @ObjectSignature(objectId = {45310}, name = {"Furnace"})
@@ -24,6 +25,9 @@ public class FurnaceObjectPlugin extends ObjectListener {
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
 		if (item.getId() == ItemNames.BUCKET_OF_SAND_1783 || item.getId() == ItemNames.SODA_ASH_1781) {
 			new MoltenGlassCrafting(player).start();
+		}
+		if (item.getId() == ItemNames.SILVER_BAR_2355) {
+			SilverItemCasting.sendInterface(player);
 		}
 	}
 }
