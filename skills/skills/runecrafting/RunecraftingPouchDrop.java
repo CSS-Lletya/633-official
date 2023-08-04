@@ -34,8 +34,8 @@ public class RunecraftingPouchDrop {
 				.filter(drop -> player.getSkills().getLevel(Skills.RUNECRAFTING) >= drop.getLevelRequired()
 						&& !player.ownsItems(new Item(drop.getPouchId())))
 				.findFirst();
-		if (pouches.isPresent() && RandomUtility.random(0) == 0 && World.getRegion(npc.getRegionId()).getGroundItems()
-				.stream().noneMatch(drop -> drop.getId() == pouches.get().getPouchId())) {
+		if (pouches.isPresent() && RandomUtility.random(42) == 0 && !World.getRegion(player.getRegionId()).getGroundItemsSafe()
+				.stream().anyMatch(drop -> drop.getId() == pouches.get().getPouchId())) {
 			FloorItem.addGroundItem(new Item(pouches.get().getPouchId()), npc.getLastWorldTile(), player, true, 60);
 		}
 	}

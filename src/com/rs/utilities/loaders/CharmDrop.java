@@ -75,8 +75,13 @@ public class CharmDrop {
 		int charmIndex = getCharmType(chances);
 		int amount = getCharmAmount(npcName.toLowerCase());
 
-		if (charmIndex == -1)
+		if (charmIndex == -1) {
+			if (npcName.toLowerCase().contains("abyssal")) {
+				if (RandomUtility.random(4) == 0)
+					return new DropTable(0, 0, 12161, npcName.toLowerCase().contains("abyssal walker") ? 2 : 1 , 2);
+			}
 			return null;
+		}
 
 		DropTable charm = new DropTable(0, 0, CHARM_IDS[charmIndex], amount, amount);
 		return charm;
