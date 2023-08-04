@@ -23,6 +23,6 @@ public class SmeltingDialogue extends DialogueEventListener {
 
 	@Override
 	public void listenToDialogueEvent(int button) {
-		new Smelting(player, data[SkillsDialogue.getItemSlot(button)], 28, false).start();
+		new Smelting(player, data[SkillsDialogue.getItemSlot(button)], false).start();
 	}
 }

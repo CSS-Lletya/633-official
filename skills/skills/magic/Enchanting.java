@@ -217,8 +217,7 @@ public class Enchanting extends ProducingSkillAction {
 			@Override
 			public void onCast(Player player, Item item, int slot) {
 				Optional<SmeltingData> data = SmeltingData.getDefinitionByItem(item.getId());
-				Smelting smelting = new Smelting(player, data.get(), 1, true);
-				smelting.start();
+				new Smelting(player, data.get(), true).start();
 				player.getInterfaceManager().sendTab(Tabs.MAGIC);
 			}
 		},

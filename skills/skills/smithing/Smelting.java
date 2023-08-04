@@ -7,9 +7,11 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
+import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
+import com.rs.utilities.RandomUtility;
 
 import skills.ProducingSkillAction;
 import skills.Skills;
@@ -27,51 +29,16 @@ public class Smelting extends ProducingSkillAction {
 	private final boolean spell;
 	
 	/**
-	 * The amount we're producing.
-	 */
-	private int amount;
-	
-	/**
 	 * Constructs a new {@link Smelting}.
 	 * @param player {@link #getPlayer()}.
 	 * @param definition {@link #definition}.
 	 * @param amount {@link #amount}.
 	 * @param spell {@link #spell}.
 	 */
-	public Smelting(Player player, SmeltingData definition, int amount, boolean spell) {
+	public Smelting(Player player, SmeltingData definition, boolean spell) {
 		super(player, Optional.empty());
 		this.definition = definition;
-		this.amount = amount;
 		this.spell = spell;
-	}
-	
-	/**
-	 * Attempts to start smelting for the specified {@code player}.
-	 * @param player the player whom is smelting the bar.
-	 * @param buttonId the button this player clicked.
-	 * @return <true> if the player could smelt, <false> otherwise.
-	 */
-	public static boolean smelt(Player player, int buttonId) {
-		Optional<SmeltingData> data = SmeltingData.getDefinition(buttonId);
-		
-		if(!data.isPresent()) {
-			return false;
-		}
-		
-		smelt(player, data.get(), 28);
-		return true;
-	}
-	
-	/**
-	 * Smelts the {@code data} for the specified {@code player} and produces the
-	 * exact amount the player inputed if he has the requirements.
-	 * @param player {@link #getPlayer()}.
-	 * @param data {@link #definition}.
-	 * @param amount {@link #amount}.
-	 */
-	public static void smelt(Player player, SmeltingData data, int amount) {
-		Smelting smithing = new Smelting(player, data, amount, false);
-		smithing.start();
 	}
 	
 	@Override
@@ -85,17 +52,37 @@ public class Smelting extends ProducingSkillAction {
 		return Optional.of(definition.required);
 	}
 	
+	/**
+	 * We'll now manually edit the on production event
+	 * to ensure every time we fail for iron bars it'll respond correctly
+	 * (prior to this implementation the response events weren't consistent)
+	 */
+	@Override
+	public boolean manualMode() {
+		return true;
+	}
+
 	@Override
 	public void onProduce(Task t, boolean success) {
-		if(success) {
-			if(!spell) {
-				player.setNextAnimation(Animations.SMELTING_INSIDE_FURNACE);
+		if (spell) {
+			player.getSkills().addExperience(Skills.SMITHING, definition.experience);
+			player.getInventory().removeItems(removeItem().get());
+			player.getInventory().addItems(new Item(definition.produced[0]));
+			t.cancel();
+			return;
+		}
+		if (success) {
+			if (isSuccessfull(player)) {
+				player.getSkills().addExperience(Skills.SMITHING, definition.experience);
+				player.getInventory().removeItems(removeItem().get());
+				player.getInventory().addItems(new Item(definition.produced[0]));
+			} else {
+				player.getInventory().removeItems(removeItem().get());
+				player.getPackets().sendGameMessage("The ore is too impure and you fail to refine it.");
 			}
-			amount--;
-			
-			if(amount < 1) {
-				t.cancel();
-			}
+		}
+		if(player.getInventory().getNumberOf(definition.required[0].getId()) < 1) {
+			t.cancel();
 		}
 	}
 	
@@ -106,7 +93,7 @@ public class Smelting extends ProducingSkillAction {
 	
 	@Override
 	public Optional<Item[]> produceItem() {
-		return Optional.of(definition.produced);
+		return Optional.empty();
 	}
 	
 	@Override
@@ -137,6 +124,24 @@ public class Smelting extends ProducingSkillAction {
 	@Override
 	public int getSkillId() {
 		return Skills.SMITHING;
+	}
+	
+	public boolean isSuccessfull(Player player) {
+		boolean chanced = RandomUtility.random(100) <= (player.getSkills().getLevel(Skills.SMITHING) >= 45 ? 80 : 50);
+		if (definition == SmeltingData.IRON) {
+			if (player.getEquipment().containsAny(2568)) {
+				player.getDetails().getRingOfForging().getAndDecrement();
+				if (player.getDetails().getRingOfForging().get() == 0) {
+					player.getEquipment().getItems().set(Equipment.SLOT_RING, null);
+					player.getEquipment().refresh(Equipment.SLOT_RING);
+					player.getPackets().sendGameMessage("Your ring of forging disintegrates with all of the heat.");
+					player.getDetails().getRingOfForging().set(140);
+					return true;
+				}
+			}
+			return chanced;
+		}
+		return true;
 	}
 	
 	/**
