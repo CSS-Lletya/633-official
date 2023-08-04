@@ -13,7 +13,7 @@ import skills.cooking.CookingData;
 import skills.cooking.SodaAshBurning;
 import skills.firemaking.FireLighter;
 
-@ObjectSignature(objectId = {}, name = { "Fire", "Cooking range", "range" })
+@ObjectSignature(objectId = {}, name = {"Fire", "Range", "Campfire", "Oven", "Cooking range", "Stove", "Clay oven", "Clay Oven", "Fireplace"})
 public class CookingObjectPlugin extends ObjectListener {
 	
 	@Override
