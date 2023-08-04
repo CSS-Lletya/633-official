@@ -62,6 +62,11 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				Potion pot = Potion.forId(item.getId());
 				if (pot == null)
 					return;
+				if (pot == Potion.JUG_OF_BAD_WINE) {
+					item.setId(pot.emptyId);
+					player.getInventory().refresh(slotId);
+					return;
+				}
 				pot.drink(player, item.getId(), slotId);
 				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(item.getId()).getName() + "_Consumed").addStatistic("Potions_Consumed");
 				break;
@@ -112,6 +117,11 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				Potion pots = Potion.forId(item.getId());
 				if (pots == null)
 					return;
+				if (pots == Potion.JUG_OF_BAD_WINE) {
+					pots.drink(player, item.getId(), slotId);
+					player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(item.getId()).getName() + "_Consumed").addStatistic("Potions_Consumed");
+					return;
+				}
 				if (pots.emptyId != -1) {
 					item.setId(pots.emptyId);
 					player.getInventory().refresh(slotId);

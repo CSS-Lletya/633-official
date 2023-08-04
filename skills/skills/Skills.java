@@ -580,6 +580,25 @@ public class Skills {
 		refresh(skill);
 	}
 	
+	public void lowerStat(int skill, double mul, double maxDrain) {
+		lowerStat(0, mul, maxDrain, skill);
+	}
+	
+	public void lowerStat(int skill, int amt, double maxDrain) {
+		lowerStat(amt, 0.0, maxDrain, skill);
+	}
+	
+	public void lowerStat(int skill, int amt) {
+		lowerStat(amt, 0.0, 0.0, skill);
+	}
+	
+	public void lowerStat(int baseMod, double mul, double maxDrain, int skill) {
+		int realLevel = getTrueLevel(skill);
+		int realDrain = (int) (baseMod + (getLevel(skill) * mul));
+		level[skill] = (short) Utility.clampI(level[skill] - realDrain, (int) ((double) realLevel * maxDrain), getLevel(skill));
+		refresh(skill);
+	}
+	
 	public static int[] allExcept(int... exclude) {
 		int[] skills = new int[1+SKILL_NAME.length-exclude.length];
 		int idx = 0;

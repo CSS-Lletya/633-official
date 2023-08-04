@@ -303,7 +303,6 @@ public class Foods {
 		BREAD(2309, 5),
 
 		TEA(1978, 3, 1980, Effect.TEA_MESSAGE),
-		WINE(1993, 11, 1935),
 
 		CABBAGE(1965, 1, Effect.CABAGE_MESSAGE),
 

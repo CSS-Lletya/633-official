@@ -56,7 +56,7 @@ public class Potions {
 		}),
 
 		STRENGTH_POTION(VIAL, new int[] { 113, 115, 117, 119 }, p -> p.getSkills().adjustStat(3, 0.1, Skills.STRENGTH)),
-		STRENGTH_MIX(VIAL, new int[] { 11441, 11443 }, p -> {
+		STRENGTH_MIX(VIAL, new int[] { 11443, 11441 }, p -> {
 			p.getSkills().adjustStat(3, 0.1, Skills.STRENGTH);
 			p.heal(30);
 		}),
@@ -67,6 +67,14 @@ public class Potions {
 			p.heal(30);
 		}),
 
+		JUG_OF_BAD_WINE(1935, 1991, p -> {
+			p.getSkills().lowerStat(Skills.ATTACK, 3);
+		}),
+		JUG_OF_WINE(1935, 1993, p -> {
+			p.heal(110, 0);
+			p.getSkills().lowerStat(Skills.ATTACK, 2);
+		}),
+		
 		COMBAT_POTION(VIAL, new int[] { 9739, 9741, 9743, 9745 }, p -> p.getSkills().adjustStat(3, 0.1, Skills.ATTACK, Skills.STRENGTH, Skills.DEFENCE)),
 		COMBAT_MIX(VIAL, new int[] { 11445, 11447 }, p -> {
 			p.getSkills().adjustStat(3, 0.1, Skills.ATTACK, Skills.STRENGTH, Skills.DEFENCE);
