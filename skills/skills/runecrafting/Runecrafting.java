@@ -202,6 +202,27 @@ public final class Runecrafting extends ProducingSkillAction {
 			player.getPackets().sendGameMessage("This pouch does not contain any essence.");
 			return;
 		}
+		if (type == PouchType.MEDIUM) {
+			player.getDetails().getMediumRCPouchUses().getAndDecrement();
+			if (player.getDetails().getMediumRCPouchUses().get() == 0) {
+				player.getDetails().getMediumRCPouchUses().set(11);
+				player.getInventory().replaceItems(new Item(5510), new Item(5511));
+			}
+		}
+		if (type == PouchType.LARGE) {
+			player.getDetails().getLargeRCPouchUses().getAndDecrement();
+			if (player.getDetails().getLargeRCPouchUses().get() == 0) {
+				player.getDetails().getLargeRCPouchUses().set(11);
+				player.getInventory().replaceItems(new Item(5512), new Item(5513));
+			}
+		}
+		if (type == PouchType.GIANT) {
+			player.getDetails().getGiantRCPouchUses().getAndDecrement();
+			if (player.getDetails().getGiantRCPouchUses().get() == 0) {
+				player.getDetails().getGiantRCPouchUses().set(11);
+				player.getInventory().replaceItems(new Item(5514), new Item(5515));
+			}
+		}
 		pouches.remove(type);
 		IntStream.range(0, pouch.get().getAmount()).forEach(i -> player.getInventory().addItem(new Item(pouch.get().getId())));
 		player.getPackets().sendGameMessage("You empty the " + pouch.get().getAmount() + " essence left in the pouch.");
