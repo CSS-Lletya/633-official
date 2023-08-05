@@ -135,6 +135,7 @@ public final class Animations {
 	public static final Animation FLY_TOY_KITE = new Animation(8990);
 	public static final Animation RUB_HANDS_TOGETHER = new Animation(5088);
 	public static final Animation USING_HAMMER_ON_ANVIL = new Animation(898);
+	public static final Animation CRAFTING_LEATHER = new Animation(1249);
 	
 	/**
 	 * Object Based Animations

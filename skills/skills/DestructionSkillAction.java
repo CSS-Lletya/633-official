@@ -2,7 +2,6 @@ package skills;
 
 import java.util.Optional;
 
-import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
@@ -41,14 +40,12 @@ public abstract class DestructionSkillAction extends SkillHandler {
 	public boolean canRun(Task t) {
 		if (manualRemoval())
 			return true;
-		String name = ItemDefinitions.getItemDefinitions(destructItem().getId()).getName();
 		if (!getPlayer().getInventory().containsItem(new Item(destructItem().getId()))) {
 			if (this instanceof Firemaking) {
 				Firemaking fireSet = (Firemaking) this;
 				if (fireSet.isGroundLog)
 					return true;
 			}
-			getPlayer().getPackets().sendGameMessage("You do not have any " + name + " in your inventory.");
 			player.setNextAnimation(Animations.RESET_ANIMATION);
 			return false;
 		}
