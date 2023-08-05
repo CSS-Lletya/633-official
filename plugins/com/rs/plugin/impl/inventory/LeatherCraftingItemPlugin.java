@@ -7,6 +7,8 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 
+import skills.crafting.HardLeatherCrafting;
+
 @InventoryWrapper(itemId = { ItemNames.NEEDLE_1733, ItemNames.THREAD_1734, ItemNames.LEATHER_1741, ItemNames.HARD_LEATHER_1743}, itemNames = {})
 public class LeatherCraftingItemPlugin extends InventoryListener {
 
@@ -18,6 +20,9 @@ public class LeatherCraftingItemPlugin extends InventoryListener {
 		}
 		new UseWith(new Item(ItemNames.NEEDLE_1733), new Item(ItemNames.LEATHER_1741)).execute(firstItem, secondItem, () -> {
 			player.getInterfaceManager().sendInterface(154);
+		});
+		new UseWith(new Item(ItemNames.NEEDLE_1733), new Item(ItemNames.HARD_LEATHER_1743)).execute(firstItem, secondItem, () -> {
+			new HardLeatherCrafting(player).start();
 		});
 		//TODO: chatbox dialogue for other leathers
 	}
