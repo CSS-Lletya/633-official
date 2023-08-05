@@ -21,6 +21,7 @@ import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.io.InputStream;
+import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.LogUtility;
@@ -362,6 +363,14 @@ public final class RSInterfacePluginDispatcher {
 				continue;
 			if (sendWear2(player, slotId, item.getId()))
 				worn = true;
+			switch(item.getId()) {
+            case 2890: player.setNextGraphics(new Graphics(244, 0, 90));break;
+	            case 9731: player.setNextGraphics(new Graphics(809, 0, 90));break;
+	            case 18691: player.setNextGraphics(new Graphics(2683, 0, 90));break;
+	            case 20436: player.setNextGraphics(new Graphics(2023, 0, 90));break;
+	            case 20438: player.setNextGraphics(new Graphics(2022, 0, 90));break;
+	            case 9733: player.setNextGraphics(new Graphics(810, 0, 90));break;
+			}
 			isWearingTiara(player, () -> player.getVarsManager().sendVar(InterfaceVars.RUNECRAFTING_ALTARS_OPTIONS, 1).submitVarToMap(InterfaceVars.RUNECRAFTING_ALTARS_OPTIONS, 1));
 		}
 		player.getInventory().refreshItems(copy);

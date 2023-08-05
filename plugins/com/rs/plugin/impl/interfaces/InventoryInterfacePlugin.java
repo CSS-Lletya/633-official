@@ -15,25 +15,24 @@ import com.rs.game.item.ItemConstants;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.CoordsEvent;
+import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar.SpecialAttack;
 import com.rs.game.npc.other.Pet;
-import com.rs.game.player.Equipment;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
 import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.plugin.InventoryPluginDispatcher;
-import com.rs.plugin.RSInterfacePluginDispatcher.EquipSounds;
+import com.rs.plugin.ObjectPluginDispatcher;
+import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import skills.Skills;
 import skills.cooking.Foods;
 import skills.herblore.Potions.Potion;
 
@@ -92,7 +91,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 								for (int i = 0; i < slot.length; i++)
 									slot[i] = slots.get(i);
 								player.getSwitchItemCache().clear();
-								sendWear(player, slot);
+								RSInterfacePluginDispatcher.sendWear(player, slot);
 								player.getMovement().stopAll(false, true, false);
 								this.cancel();
 							}
@@ -222,10 +221,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 	}
 
 	public static void handleItemOnNPC(final Player player, final NPC npc, final Item item) {
-		if (item == null) {
-			return;
-		}
-		player.setCoordsEvent(new CoordsEvent(npc, () -> {
+		player.setRouteEvent(new RouteEvent(npc, () -> {
 			if (!player.getInventory().containsItem(item.getId(), item.getAmount())) {
 				return;
 			}
@@ -234,126 +230,6 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				player.getPetManager().eat(item.getId(), (Pet) npc);
 				return;
 			}
-		}, npc.getSize()));
-	}
-
-	public static void sendWear(Player player, int[] slotIds) {
-		if (player.isFinished() || player.isDead())
-			return;
-		boolean worn = false;
-		Item[] copy = player.getInventory().getItems().getItemsCopy();
-		for (int slotId : slotIds) {
-			Item item = player.getInventory().getItem(slotId);
-			if (item == null)
-				continue;
-			if (sendWear2(player, slotId, item.getId()))
-				worn = true;
-		}
-		player.getInventory().refreshItems(copy);
-		if (worn) {
-			player.getAppearance().generateAppearenceData();
-		}
-	}
-
-
-	public static boolean sendWear2(Player player, int slotId, int itemId) {
-		 if (player.isFinished() || player.isDead())
-	            return false;
-	        player.getMovement().stopAll(false, false);
-	        Item item = player.getInventory().getItem(slotId);
-	        if (item == null) {
-	            return false;
-	        }
-	        if (item.getId() != itemId) {
-	            return false;
-	        }
-	        if ((item.getDefinitions().isNoted() || !item.getDefinitions().isWearItem(player.getAppearance().isMale()))) {
-	            player.getPackets().sendGameMessage("You can't wear that.");
-	            return true;
-	        }
-	        int targetSlot = Equipment.getItemSlot(itemId);
-	        if (targetSlot == -1) {
-	            player.getPackets().sendGameMessage("You can't wear that.");
-	            return true;
-	        }
-	        if (!ItemConstants.canWear(item, player))
-	            return false;
-	        boolean isTwoHandedWeapon = targetSlot == 3 && Equipment.isTwoHandedWeapon(item);
-	        if (isTwoHandedWeapon && !player.getInventory().hasFreeSlots() && player.getEquipment().hasShield()) {
-	            player.getPackets().sendGameMessage("Not enough free space in your inventory.");
-	            return true;
-	        }
-	        Object2ObjectOpenHashMap<Integer, Integer> requiriments = item.getDefinitions().getWearingSkillRequiriments();
-	        boolean hasRequiriments = true;
-	        if (requiriments != null) {
-	            for (int skillId : requiriments.keySet()) {
-	                if (skillId > 24 || skillId < 0)
-	                    continue;
-	                int level = requiriments.get(skillId);
-	                if (level < 0 || level > 120)
-	                    continue;
-	                if (player.getSkills().getTrueLevel(skillId) < level) {
-	                    if (hasRequiriments) {
-	                        player.getPackets().sendGameMessage("You are not high enough level to use this item.");
-	                    }
-	                    hasRequiriments = false;
-	                    String name = Skills.SKILL_NAME[skillId].toLowerCase();
-	                    player.getPackets().sendGameMessage("You need to have a" + (name.startsWith("a") ? "n" : "") + " "
-	                            + name + " level of " + level + ".");
-	                }
-
-	            }
-	        }
-	        if (!hasRequiriments)
-	            return true;
-	        player.getMovement().stopAll(false, false);
-	        player.getInventory().deleteItem(slotId, item);
-	        if (targetSlot == 3) {
-	            if (isTwoHandedWeapon && player.getEquipment().getItem(5) != null) {
-	                if (!player.getInventory().addItem(player.getEquipment().getItem(5).getId(),
-	                        player.getEquipment().getItem(5).getAmount())) {
-	                    player.getInventory().getItems().set(slotId, item);
-	                    player.getInventory().refresh(slotId);
-	                    return true;
-	                }
-	                player.getEquipment().getItems().set(5, null);
-	            }
-	        } else if (targetSlot == 5) {
-	            if (player.getEquipment().getItem(3) != null
-	                    && Equipment.isTwoHandedWeapon(player.getEquipment().getItem(3))) {
-	                if (!player.getInventory().addItem(player.getEquipment().getItem(3).getId(),
-	                        player.getEquipment().getItem(3).getAmount())) {
-	                    player.getInventory().getItems().set(slotId, item);
-	                    player.getInventory().refresh(slotId);
-	                    return true;
-	                }
-	                player.getEquipment().getItems().set(3, null);
-	            }
-
-	        }
-	        if (player.getEquipment().getItem(targetSlot) != null && (itemId != player.getEquipment().getItem(targetSlot).getId() || !item.getDefinitions().isStackable())) {
-	            if (player.getInventory().getItems().get(slotId) == null && !item.getDefinitions().isStackable()) {
-	                player.getInventory().getItems().set(slotId, new Item(player.getEquipment().getItem(targetSlot)));
-	                player.getInventory().refresh(slotId);
-	            } else
-	                player.getInventory().addItem(new Item(player.getEquipment().getItem(targetSlot)));
-	            player.getEquipment().getItems().set(targetSlot, null);
-	        }
-	        int oldAmt = 0;
-	        if (player.getEquipment().getItem(targetSlot) != null) {
-	            oldAmt = player.getEquipment().getItem(targetSlot).getAmount();
-	        }
-	        Item item2 = new Item(itemId, oldAmt + item.getAmount());
-	        player.getEquipment().getItems().set(targetSlot, item2);
-	        player.getEquipment().refresh(targetSlot, targetSlot == 3 ? 5 : targetSlot == 3 ? 0 : 3);
-	        player.getAppearance().generateAppearenceData();
-	        player.getAudioManager().sendSound(Sounds.WEARING_ITEM);
-	        if (targetSlot == 3)
-	            player.getCombatDefinitions().decreaseSpecialAttack(0);
-	        if (targetSlot == Equipment.SLOT_WEAPON) {
-	            player.getCombatDefinitions().resetSpells(true);
-	        }
-	        EquipSounds.executeSound(player, item);
-	        return true;
+		}, true));
 	}
 }
