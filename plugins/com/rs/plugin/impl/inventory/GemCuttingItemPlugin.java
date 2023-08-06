@@ -9,6 +9,7 @@ import com.rs.plugin.wrapper.InventoryWrapper;
 
 import skills.crafting.CrabShellCrafting;
 import skills.crafting.GemCutting;
+import skills.crafting.LimestoneBrickCrafting;
 import skills.crafting.SnailHelmCrafting;
 
 @InventoryWrapper(itemId = { 1755,
@@ -18,7 +19,9 @@ import skills.crafting.SnailHelmCrafting;
 		//crab
 		ItemNames.FRESH_CRAB_SHELL_7538, ItemNames.FRESH_CRAB_CLAW_7536,
 		//snelms
-		3349, 3347, 3345, 3353, 3351
+		3349, 3347, 3345, 3353, 3351,
+		//limestones
+		3211
 }, itemNames = {})
 public class GemCuttingItemPlugin extends InventoryListener {
 
@@ -31,6 +34,10 @@ public class GemCuttingItemPlugin extends InventoryListener {
 		});
 		new UseWith(new Item(1755), new Item(ItemNames.FRESH_CRAB_CLAW_7536)).execute(firstItem, secondItem, () -> {
 			new CrabShellCrafting(player, new Item(ItemNames.FRESH_CRAB_CLAW_7536)).start();
+		});
+		new UseWith(new Item(1755), new Item(ItemNames.LIMESTONE_3211)).execute(firstItem, secondItem, () -> {
+			System.out.println("??");
+			new LimestoneBrickCrafting(player).start();
 		});
 		SnailHelmCrafting.create(player, firstItem, secondItem);
 	}

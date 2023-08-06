@@ -2,6 +2,7 @@ package com.rs.net;
 
 import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -139,7 +140,7 @@ public final class ServerChannelHandler extends SimpleChannelHandler {
 		    .filter(region -> !Arrays.stream(MapBuilder.FORCE_LOAD_REGIONS).anyMatch(regionId -> regionId == region.getRegionId()))
 		    .forEach(Region::unloadMap);
 		}
-		Arrays.stream(Cache.STORE.getIndexes()).forEach(index -> index.resetCachedFiles());
+		Arrays.stream(Cache.STORE.getIndexes()).filter(Objects::nonNull).forEach(index -> index.resetCachedFiles());
 		System.gc();
 		LogUtility.log(LogType.INFO, "Game Server memory has been cleaned " + (force ? "force: true:" : "force: false"));
 	}

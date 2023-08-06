@@ -1,5 +1,6 @@
 package skills.mining;
 
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public enum RockData {
 	LRC_COAL(new int[] {5999}, new Item[] { new Item(453)}, 30, 50.0, 12, 3, 500, 0.2),
 	LRC_GOLD(new int[] {45076}, new Item[] { new Item(444)}, 40, 65.0, 180, 3, 500, 0.1),
 	LRC_MINERALS(new int[] {45076}, new Item[] { new Item(15263)}, 73,25, 25, 3, 500, 0.6), //faster mining instead of 5-28 lengthy rng. change on demand.
+	LIMESTONE(new int[] {4027}, new Item[] { new Item(3211)}, 10, 26.5, 5, 3, 1, 0.5),
 	;
 	/**
 	 * The regular and empRockType.TY rock identification for this rock.

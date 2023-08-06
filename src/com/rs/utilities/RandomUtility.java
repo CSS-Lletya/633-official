@@ -31,7 +31,7 @@ public final class RandomUtility {
 	public static boolean nextBoolean() {
 		return ThreadLocalRandom.current().nextBoolean();
 	}
-	
+    
 	/**
 	 * Returns a pseudo-random {@code double}.
 	 * @return The pseudo-random {@code double}.
@@ -362,5 +362,13 @@ public final class RandomUtility {
 	
     public static int getRandom(int maxValue) {
         return (int) (Math.random() * (maxValue + 1));
+    }
+    
+    public static final double randomDouble() {
+        return randomDouble(RANDOM);
+    }
+    
+    public static final double randomDouble(final Random random) {
+        return random.nextDouble();
     }
 }
