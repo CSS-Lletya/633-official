@@ -55,6 +55,7 @@ import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import skills.Skills;
@@ -137,7 +138,7 @@ public class Player extends Entity {
 	/**
 	 * The Item switching cache (Switches for PVE/PVP)
 	 */
-	private transient ObjectArrayList<Byte> switchItemCache;
+	private transient ObjectList<Byte> switchItemCache;
 	
 	/**
 	 * Is the Player finishing their {@link #session}

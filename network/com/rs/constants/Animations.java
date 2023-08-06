@@ -4,9 +4,9 @@ import com.rs.net.encoders.other.Animation;
 
 /**
  * A collection of useful type-safe Animations designed to provide better
- * readability and code base flow.
+ * readability and improve code base.
  * 
- * TODO: Summoning, Skillcape, Combat/Magic animations (combat needs rework, so it can be left alone)
+ * TODO: Summoning, Combat/Magic animations (combat needs rework, so it can be left alone)
  * 
  * @author Dennis
  *
@@ -56,7 +56,6 @@ public final class Animations {
 	public static final Animation ZOMBIE_HAND = new Animation(7272);
 	public static final Animation SCARED = new Animation(2836);
 	public static final Animation BUNNY_HOP = new Animation(6111);
-	//TODO: Skillcapes (Doesn't exist yet)
 	public static final Animation SNOWMAN_DANCE = new Animation(7531);
 	public static final Animation AIR_GUITAR = new Animation(2414);
 	public static final Animation SAFETY_FIRST = new Animation(8770);
@@ -111,7 +110,6 @@ public final class Animations {
 	public static final Animation SPADE_DIG = new Animation(830);
 	public static final Animation CAST_BLOOM = new Animation(9104);
 	public static final Animation COW_MILKING = new Animation(2305);
-	//Fletching animations are not archived. Seems a bit much to do for simplicity sake
 	public static final Animation BOLT_CREATION = new Animation(6702);
 	public static final Animation CRAYFISH_FISHING = new Animation(10009);
 	public static final Animation VESSEL_FISHING = new Animation(1193);
@@ -141,6 +139,8 @@ public final class Animations {
 	 * Object Based Animations
 	 */
 	public static final Animation WILDERNESS_OBELISK = new Animation(2226);
+	public static final Animation SAWMILL_GRINDER_1 = new Animation(12394);
+	public static final Animation SAWMILL_GRINDER_2 = new Animation(12395);
 	
 	/**
 	 * NPC Based Animations

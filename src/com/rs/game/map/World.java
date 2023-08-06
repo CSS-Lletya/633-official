@@ -9,7 +9,6 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import com.rs.GameConstants;
-import com.rs.Launcher;
 import com.rs.cores.CoresManager;
 import com.rs.game.Entity;
 import com.rs.game.EntityList;
@@ -21,6 +20,7 @@ import com.rs.game.task.TaskManager;
 import com.rs.game.task.impl.BonusExperienceTimerTask;
 import com.rs.game.task.impl.DailyCharacterBackupTask;
 import com.rs.game.task.impl.GlobalImplingTask;
+import com.rs.game.task.impl.GlobalPlayerSavingTask;
 import com.rs.game.task.impl.NewYearsItemsSpawningEventTask;
 import com.rs.game.task.impl.RestoreHitpoints;
 import com.rs.game.task.impl.RestoreRunEnergyTask;
@@ -28,6 +28,7 @@ import com.rs.game.task.impl.RestoreSkillTask;
 import com.rs.game.task.impl.RestoreSpecialTask;
 import com.rs.game.task.impl.ShopRestockTask;
 import com.rs.game.task.impl.SummoningPassiveTask;
+import com.rs.net.ServerChannelHandler;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.AntiFlood;
 import com.rs.utilities.RandomUtility;
@@ -98,7 +99,7 @@ public class World {
 	public final void init() {
 		submit(new RestoreRunEnergyTask(), new RestoreSpecialTask(), new SummoningPassiveTask(), new ShopRestockTask(),
 				new RestoreSkillTask(), new RestoreHitpoints(), new BonusExperienceTimerTask(), new GlobalImplingTask(),
-				new DailyCharacterBackupTask(), new NewYearsItemsSpawningEventTask());
+				new DailyCharacterBackupTask(), new NewYearsItemsSpawningEventTask(), new GlobalPlayerSavingTask());
 		LivingRockCavern.init();
 	}
 
@@ -201,7 +202,7 @@ public class World {
 		World.players().forEach(player -> player.getPackets().sendSystemUpdate(delay));
 		CoresManager.schedule(() -> {
 			World.players().forEach(player -> player.getSession().realFinish(player, true));
-			Launcher.shutdown();
+			ServerChannelHandler.shutdown();
 		}, delay);
 	}
 

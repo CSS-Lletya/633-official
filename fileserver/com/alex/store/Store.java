@@ -20,7 +20,7 @@ public final class Store {
 	private RandomAccessFile data;
 	private boolean newProtocol;
 	public Store(String path) throws IOException {
-		this(path, CacheConstants.CLIENT_BUILD >= 704);
+		this(path, false);
 	}
 	
 	public Store(String path, boolean newProtocol) throws IOException {
@@ -83,29 +83,8 @@ public final class Store {
 		return archive;
 	}
 	
-	@SuppressWarnings("unused")
 	public byte[] generateIndex255Archive255() {
-		return CacheConstants.CLIENT_BUILD < 614 ? generateIndex255Archive255Outdated() : generateIndex255Archive255Current(null, null);
-	}
-	
-	/*
-	 * old code
-	 */
-	public byte[] generateIndex255Archive255Outdated() {
-		OutputStream stream = new OutputStream(indexes.length * 8);
-		for(int index = 0; index < indexes.length; index++) {
-			if(indexes[index] == null) {
-				stream.writeInt(0);
-				stream.writeInt(0);
-				continue;
-			}
-			stream.writeInt(indexes[index].getCRC());
-			stream.writeInt(indexes[index].getTable().getRevision());
-		}
-		byte[] archive = new byte[stream.getOffset()];
-		stream.setOffset(0);
-		stream.getBytes(archive, 0, archive.length);
-		return archive;
+		return generateIndex255Archive255Current(null, null);
 	}
 	
 	public Index[] getIndexes() {

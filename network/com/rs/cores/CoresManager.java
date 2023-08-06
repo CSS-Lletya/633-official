@@ -5,7 +5,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.rs.GameConstants;
 import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.utilities.CatchExceptionRunnable;
 
@@ -28,13 +27,14 @@ public final class CoresManager {
 			thread.setName("World Thread");
 			return thread;
 		});
-		
+
 		int availableProcessors = Runtime.getRuntime().availableProcessors();
 		serverWorkersCount = availableProcessors >= 6 ? availableProcessors - (availableProcessors >= 12 ? 6 : 4) : 2;
 		serverWorkerChannelExecutor = Executors.newFixedThreadPool(serverWorkersCount, new DecoderThreadFactory());
 		serverBossChannelExecutor = Executors.newSingleThreadExecutor(new DecoderThreadFactory());
 		slowExecutor = availableProcessors >= 6
-				? Executors.newScheduledThreadPool(availableProcessors >= 12 ? 4 : availableProcessors >= 6 ? 2 : 1, new SlowThreadFactory())
+				? Executors.newScheduledThreadPool(availableProcessors >= 12 ? 4 : availableProcessors >= 6 ? 2 : 1,
+						new SlowThreadFactory())
 				: Executors.newSingleThreadScheduledExecutor(new SlowThreadFactory());
 		worldThread.scheduleAtFixedRate(new WorldThread(), 0, 600, TimeUnit.MILLISECONDS);
 	}
@@ -47,12 +47,6 @@ public final class CoresManager {
 	}
 
 	public static void schedule(Runnable task, int delay) {
-		slowExecutor.schedule(new CatchExceptionRunnable(task), delay * GameConstants.WORLD_CYCLE_MS,
-				TimeUnit.MILLISECONDS);
-	}
-
-	public static void schedule(Runnable task, int startDelay, int delay) {
-		slowExecutor.scheduleWithFixedDelay(new CatchExceptionRunnable(task),
-				startDelay * GameConstants.WORLD_CYCLE_MS, delay * GameConstants.WORLD_CYCLE_MS, TimeUnit.MILLISECONDS);
+		slowExecutor.schedule(new CatchExceptionRunnable(task), delay * 600, TimeUnit.MILLISECONDS);
 	}
 }

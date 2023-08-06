@@ -3,16 +3,15 @@ package com.rs.net.packets.outgoing.impl;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
-import com.rs.cores.CoresManager;
 import com.rs.game.item.FloorItem;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.strategy.PreciseDistanceInteraction;
 import com.rs.game.player.Player;
+import com.rs.game.task.Task;
 import com.rs.io.InputStream;
 import com.rs.net.packets.outgoing.OutgoingPacketListener;
 import com.rs.net.packets.outgoing.OutgoingPacketSignature;
-import com.rs.utilities.Ticks;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
@@ -68,15 +67,19 @@ public class InterfaceOnFloorItemPacket implements OutgoingPacketListener {
 	                player.setNextAnimation(Animations.TELEGRAB_SPELL);
 	                player.getSkills().addExperience(Skills.MAGIC, 10);
 	                World.sendProjectile(player, new WorldTile(xCoord, yCoord, player.getPlane()), 142, 18, 5, 20, 50, 0, 0);
-	                CoresManager.schedule(() -> {
-	                    World.sendGraphics(Graphic.TELEGRAB_SPELL, tile);
-	                    if (!wearingStaff(player, item.getId())) {
-	                    	player.getInventory().deleteItem(563, 1);
-	                    }
-	                    player.getAudioManager().sendSound(Sounds.TELE_GRAB_ON_IMPTACT);
-	                    player.getInventory().deleteItem(556, 1);
-	                    FloorItem.removeGroundItem(player, item);
-	                }, Ticks.fromSeconds(2));
+	                World.get().submit(new Task(2) {
+						@Override
+						protected void execute() {
+							 World.sendGraphics(Graphic.TELEGRAB_SPELL, tile);
+			                    if (!wearingStaff(player, item.getId())) {
+			                    	player.getInventory().deleteItem(563, 1);
+			                    }
+			                    player.getAudioManager().sendSound(Sounds.TELE_GRAB_ON_IMPTACT);
+			                    player.getInventory().deleteItem(556, 1);
+			                    FloorItem.removeGroundItem(player, item);
+							cancel();
+						}
+	                });
 	            
 	        }));
         }

@@ -243,6 +243,7 @@ public class TreasureTrailsManager {
 						npc.setTarget(player);
                         npc.setNextForceTalk(new ForceTalk(npc.getId() == 1007 ? "For Zamorak!"
                                 : npc.getId() == 1264 ? "For Saradomin!" : "I expect you to die!"));
+                        cancel();
 					}
 				});
                 cluePhase = 1;
@@ -254,6 +255,7 @@ public class TreasureTrailsManager {
 					@Override
 					protected void execute() {
 						 npc.setNextFaceEntity(player);
+						 cancel();
 					}
 				});
                 cluePhase = ((int[]) currentClue.details.parameters[0]).length == 1 ? 4 : 3;

@@ -296,6 +296,7 @@ public class GlobalPVPMapZone extends MapZone {
 				if (GameObject.removeObjectTemporary(object, 2))
 					GameObject.spawnObjectTemporary(openedDoor, 2);
 				player.addWalkSteps(object.getX(), object.getY(), -1, false);
+				cancel();
 			}
 		});
 
@@ -311,6 +312,7 @@ public class GlobalPVPMapZone extends MapZone {
 				if (GameObject.removeObjectTemporary(object, 2))
 					GameObject.spawnObjectTemporary(openedDoor, 2);
 				player.addWalkSteps(object.getX(), object.getY(), -1, false);
+				cancel();
 			}
 		});
 	}
@@ -326,6 +328,7 @@ public class GlobalPVPMapZone extends MapZone {
 				if (GameObject.removeObjectTemporary(object, 2))
 					GameObject.spawnObjectTemporary(openedDoor, 2);
 				player.addWalkSteps(object.getX(), object.getY() - 1, -1, false);
+				cancel();
 			}
 		});
 	}
@@ -341,6 +344,7 @@ public class GlobalPVPMapZone extends MapZone {
 				if (GameObject.removeObjectTemporary(object, 2))
 					GameObject.spawnObjectTemporary(openedDoor, 2);
 				player.addWalkSteps(object.getX(), object.getY() + 1, -1, false);
+				cancel();
 			}
 		});
 	}
@@ -356,6 +360,7 @@ public class GlobalPVPMapZone extends MapZone {
 				if (GameObject.removeObjectTemporary(object, 2))
 					GameObject.spawnObjectTemporary(openedDoor, 2);
 				player.addWalkSteps(object.getX() + 1, object.getY(), 1, false);
+				cancel();
 			}
 		});
 	}
@@ -371,6 +376,7 @@ public class GlobalPVPMapZone extends MapZone {
 				if (GameObject.removeObjectTemporary(object, 2))
 					GameObject.spawnObjectTemporary(openedDoor, 2);
 				player.addWalkSteps(object.getX() - 1, object.getY(), 1, false);
+				cancel();
 			}
 		});
 	}
@@ -386,6 +392,7 @@ public class GlobalPVPMapZone extends MapZone {
 				if (GameObject.removeObjectTemporary(object, 2))
 					GameObject.spawnObjectTemporary(openedDoor, 2);
 				player.addWalkSteps(object.getX(), object.getY() + 1, 1, false);
+				cancel();
 			}
 		});
 
@@ -393,35 +400,52 @@ public class GlobalPVPMapZone extends MapZone {
 
 	public static void EnterEastDoor(final Player player, final GameObject object) {
 		if (player.getX() == 3045) {
-			player.getMovement().lock(2);
-			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-					object.getX() + 1, object.getY(), object.getPlane());
-			if (GameObject.removeObjectTemporary(object, 2))
-				GameObject.spawnObjectTemporary(openedDoor, 2);
-			player.addWalkSteps(object.getX() - 1, object.getY(), 1, false);
+			World.get().submit(new Task(1) {
+				@Override
+				protected void execute() {
+					player.getMovement().lock(2);
+					GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+							object.getX() + 1, object.getY(), object.getPlane());
+					if (GameObject.removeObjectTemporary(object, 2))
+						GameObject.spawnObjectTemporary(openedDoor, 2);
+					player.addWalkSteps(object.getX() - 1, object.getY(), 1, false);
+					cancel();
+				}
+			});
 		}
 	}
 
 	public static void EnterWestDoor(final Player player, final GameObject object) {
 		if (player.getX() == 3037) {
-			player.getMovement().lock(2);
-			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-					object.getX() - 1, object.getY(), object.getPlane());// Coordinations
-			if (GameObject.removeObjectTemporary(object, 2))
-				GameObject.spawnObjectTemporary(openedDoor, 2);
-			player.addWalkSteps(object.getX(), object.getY(), 1, false);
+			World.get().submit(new Task(1) {
+				@Override
+				protected void execute() {
+					player.getMovement().lock(2);
+					GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+							object.getX() - 1, object.getY(), object.getPlane());// Coordinations
+					if (GameObject.removeObjectTemporary(object, 2))
+						GameObject.spawnObjectTemporary(openedDoor, 2);
+					player.addWalkSteps(object.getX(), object.getY(), 1, false);
+					cancel();
+				}
+			});
 		}
 	}
 
 	public static void EnterNorthDoor(final Player player, final GameObject object) {
 		if (player.getY() == 3960) {
-			player.getMovement().lock(2);
-			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-					object.getX(), object.getY() + 1, object.getPlane());
-			if (GameObject.removeObjectTemporary(object, 2))
-				GameObject.spawnObjectTemporary(openedDoor, 2);
-			player.addWalkSteps(object.getX(), object.getY(), 1, false);
-
+			World.get().submit(new Task(1) {
+				@Override
+				protected void execute() {
+					player.getMovement().lock(2);
+					GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+							object.getX(), object.getY() + 1, object.getPlane());
+					if (GameObject.removeObjectTemporary(object, 2))
+						GameObject.spawnObjectTemporary(openedDoor, 2);
+					player.addWalkSteps(object.getX(), object.getY(), 1, false);
+					cancel();
+				}
+			});
 		}
 	}
 	

@@ -149,6 +149,8 @@ public class InterfaceManager {
 	}
 
 	public void sendGameInterfaces() {
+		sendInventory();
+		sendTab(Tabs.INVENTORY);
 		player.getCombatDefinitions().resetSpells(true);
 		setDefaultRootInterface();
 		sendOrbs();
@@ -161,7 +163,6 @@ public class InterfaceManager {
 		sendSummoning();
 		sendSkills();
 		sendQuest();
-		sendInventory();
 		sendEquipment();
 		sendPrayerBook();
 		sendMagicBook();

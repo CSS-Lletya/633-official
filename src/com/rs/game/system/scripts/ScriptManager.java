@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author 'Vexia
  * 
  */
-public final class ScriptManager {
+public class ScriptManager {
 
 	/**
 	 * The directory to load scripts from.

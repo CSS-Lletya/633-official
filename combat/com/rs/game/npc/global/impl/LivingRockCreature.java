@@ -3,7 +3,6 @@ package com.rs.game.npc.global.impl;
 import java.util.Optional;
 
 import com.rs.constants.Animations;
-import com.rs.cores.CoresManager;
 import com.rs.game.Entity;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
@@ -13,7 +12,6 @@ import com.rs.game.npc.global.GenericNPCSignature;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
-import com.rs.utilities.Ticks;
 
 @GenericNPCSignature(npcId = {8832, 8833,8834})
 public class LivingRockCreature extends GenericNPCListener {
@@ -59,17 +57,14 @@ public class LivingRockCreature extends GenericNPCListener {
         npc.getMovement().lock();
         killer.getMovement().stopAll();
         killer.getSkillAction().ifPresent(skill -> skill.cancel());
-        CoresManager.schedule(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (remainsId == npc.getId())
-                        takeRemains(killer, npc);
-                } catch (Throwable e) {
-                	e.printStackTrace();
-                }
-            }
-        }, Ticks.fromMinutes(3));
+        World.get().submit(new Task(3 * 60) {
+			@Override
+			protected void execute() {
+				if (remainsId == npc.getId())
+                    takeRemains(killer, npc);
+				cancel();
+			}
+		});
     }
     
     public void takeRemains(Player killer, NPC npc) {

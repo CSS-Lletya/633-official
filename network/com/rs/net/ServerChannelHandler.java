@@ -1,6 +1,7 @@
 package com.rs.net;
 
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -15,10 +16,20 @@ import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 
 import com.rs.GameConstants;
 import com.rs.GameProperties;
+import com.rs.cache.Cache;
+import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.cache.loaders.NPCDefinitions;
+import com.rs.cache.loaders.ObjectDefinitions;
 import com.rs.cores.CoresManager;
+import com.rs.game.map.MapBuilder;
+import com.rs.game.map.Region;
+import com.rs.game.map.World;
 import com.rs.io.InputStream;
 import com.rs.net.decoders.WorldPacketsDecoder;
+import com.rs.utilities.LogUtility;
+import com.rs.utilities.LogUtility.LogType;
 
+import io.vavr.control.Try;
 import lombok.SneakyThrows;
 
 public final class ServerChannelHandler extends SimpleChannelHandler {
@@ -106,8 +117,41 @@ public final class ServerChannelHandler extends SimpleChannelHandler {
 
 	}
 
-	public static final void shutdown() {
-		channels.close().awaitUninterruptibly();
-		bootstrap.releaseExternalResources();
+	/**
+	 * A Simple memory cleaning event that takes place is the maximum memory is exceeded.
+	 * This'll help the server become more stable in a sense of not using too much power 
+	 * for the host service (PC/VPS/Dedicated Server)
+	 */
+	public static void addCleanMemoryTask() {
+		CoresManager.schedule(() -> cleanMemory(Runtime.getRuntime().freeMemory() < GameConstants.MIN_FREE_MEM_ALLOWED), 10);
+	}
+
+	/**
+	 * The memory cleaning event contents. Here you can see what's being done specifically.
+	 * @param force
+	 */
+	public static void cleanMemory(boolean force) {
+		if (force) {
+			ItemDefinitions.clearItemsDefinitions();
+			NPCDefinitions.clearNPCDefinitions();
+			ObjectDefinitions.clearObjectDefinitions();
+			World.getRegions().values().stream()
+		    .filter(region -> !Arrays.stream(MapBuilder.FORCE_LOAD_REGIONS).anyMatch(regionId -> regionId == region.getRegionId()))
+		    .forEach(Region::unloadMap);
+		}
+		Arrays.stream(Cache.STORE.getIndexes()).forEach(index -> index.resetCachedFiles());
+		System.gc();
+		LogUtility.log(LogType.INFO, "Game Server memory has been cleaned " + (force ? "force: true:" : "force: false"));
+	}
+
+	/**
+	 * The shutdown hook fore the Network, then finally terminating the Application itself.
+	 */
+	public static void shutdown() {
+		Try.runRunnable(() -> {
+			channels.close().awaitUninterruptibly();
+			bootstrap.releaseExternalResources();
+			CoresManager.shutdown();
+		}).andFinally(() -> System.exit(0));
 	}
 }

@@ -73,12 +73,6 @@ public final class GameConstants {
 	}
 	
 	/**
-	 * World settings
-	 */
-	public static final long WORLD_CYCLE_NS = 600000000L;
-	public static final long WORLD_CYCLE_MS = WORLD_CYCLE_NS / 1000000L;
-	
-	/**
 	 * Memory settings
 	 */
 	public static final Short PLAYERS_LIMIT = 2000;

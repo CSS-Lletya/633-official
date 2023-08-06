@@ -1,6 +1,5 @@
 package com.rs.game.player.content;
 
-import com.rs.cores.CoresManager;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -15,17 +14,21 @@ public class FadingScreen {
 		unfade(player, fade(player), event);
 	}
 
-	public static void unfade(final Player player, long startTime, final Runnable event) {
+	public static void unfade(final Player player, int startTime, final Runnable event) {
 		unfade(player, 2, startTime, event);
 	}
 
 	@SneakyThrows(Throwable.class)
-	public static void unfade(final Player player, long endTime, long startTime, final Runnable event) {
-		long leftTime = endTime - (Utility.currentTimeMillis() - startTime);
+	public static void unfade(final Player player, int endTime, int startTime, final Runnable event) {
+		int leftTime = (int) (endTime - (Utility.currentTimeMillis() - startTime));
 		if (leftTime > 0) {
-			CoresManager.schedule(() -> {
-				unfade(player, event);
-			}, (int) leftTime);
+			World.get().submit(new Task(leftTime) {
+    			@Override
+    			protected void execute() {
+    				unfade(player, event);
+    				cancel();
+    			}
+    		});
 		} else
 			unfade(player, event);
 	}
@@ -33,24 +36,22 @@ public class FadingScreen {
 	@SneakyThrows(Throwable.class)
 	public static void unfade(final Player player, Runnable event) {
 		event.run();
-		World.get().submit(new Task(1) {
+		World.get().submit(new Task(3) {
 			@Override
 			protected void execute() {
-				CoresManager.schedule(() -> {
-					player.getInterfaceManager().closeInterfaces();
-					player.getMovement().unlock();
-				}, 2);
-				this.cancel();
+				player.getInterfaceManager().closeInterfaces();
+				player.getMovement().unlock();
+				cancel();
 			}
 		});
 	}
-
-	public static long fade(Player player, long fadeTime) {
+	
+	public static int fade(Player player, int fadeTime) {
 		player.getInterfaceManager().sendFullscreenInterface(0, 115);
-		return Utility.currentTimeMillis() + fadeTime;
+		return (int) (Utility.currentTimeMillis() + fadeTime);
 	}
 
-	public static long fade(Player player) {
+	public static int fade(Player player) {
 		return fade(player, 0);
 	}
 }

@@ -1,12 +1,11 @@
 package com.rs.game.item;
 
-import com.rs.cores.CoresManager;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
-import com.rs.utilities.Ticks;
+import com.rs.game.task.Task;
 
 import lombok.Getter;
 
@@ -82,12 +81,12 @@ public class FloorItem extends Item {
 		addGroundItem(item, tile, owner, invisible, -1, 0, 60);
 	}
     public static void addGroundItem(final Item item, final WorldTile tile, final Player owner, boolean invisible,
-                                     long hiddenTime) {
+                                     int hiddenTime) {
         addGroundItem(item, tile, owner, invisible, hiddenTime, 2, 60);
     }
 
     public static FloorItem addGroundItem(final Item item, final WorldTile tile, final Player owner,
-                                          boolean invisible, long hiddenTime, int type) {
+                                          boolean invisible, int hiddenTime, int type) {
         return addGroundItem(item, tile, owner, invisible, hiddenTime, type, 60);
     }
 
@@ -95,7 +94,7 @@ public class FloorItem extends Item {
      * type 0 - gold if not tradeable type 1 - gold if destroyable type 2 - no gold
      */
     public static FloorItem addGroundItem(final Item item, final WorldTile tile, final Player owner,
-                                          boolean invisible, long hiddenTime, int type, final int publicTime) {
+                                          boolean invisible, int hiddenTime, int type, final int publicTime) {
         final FloorItem floorItem = new FloorItem(item, tile, owner, false, invisible);
         final Region region = World.getRegion(tile.getRegionId());
        if (type == 1) {
@@ -110,12 +109,13 @@ public class FloorItem extends Item {
                     }
                 }
                 if (hiddenTime != -1) {
-                    CoresManager.schedule(new Runnable() {
-                        @Override
-                        public void run() {
-                        	turnPublic(floorItem, publicTime);
-                        }
-                    }, Ticks.fromSeconds((int) hiddenTime));
+                	World.get().submit(new Task(hiddenTime) {
+            			@Override
+            			protected void execute() {
+            				turnPublic(floorItem, publicTime);
+            				cancel();
+            			}
+            		});
                 }
             } else {
                 int regionId = tile.getRegionId();
@@ -135,16 +135,13 @@ public class FloorItem extends Item {
                     owner.getPackets().sendGroundItem(floorItem);
                 }
                 if (hiddenTime != -1) {
-                    CoresManager.schedule(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                turnPublic(floorItem, publicTime);
-                            } catch (Throwable e) {
-                                
-                            }
-                        }
-                    }, Ticks.fromSeconds((int) hiddenTime));
+                	World.get().submit(new Task(hiddenTime) {
+            			@Override
+            			protected void execute() {
+            				turnPublic(floorItem, publicTime);
+            				cancel();
+            			}
+            		});
                 }
             } else {
                 int regionId = tile.getRegionId();
@@ -243,28 +240,25 @@ public class FloorItem extends Item {
         floorItem.setAmount(floorItem.getAmount() + item.getAmount());
     }
 
-    private static void removeGroundItem(final FloorItem floorItem, long publicTime) {
-        CoresManager.schedule(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    int regionId = floorItem.getTile().getRegionId();
-                    Region region = World.getRegion(regionId);
-                    if (!region.getGroundItemsSafe().contains(floorItem))
-                        return;
-                    region.getGroundItemsSafe().remove(floorItem);
-                    for (Player player : World.getPlayers()) {
-                        if (player == null || !player.isStarted() || player.isFinished()
-                                || player.getPlane() != floorItem.getTile().getPlane()
-                                || !player.getMapRegionsIds().contains(regionId))
-                            continue;
-                        player.getPackets().sendRemoveGroundItem(floorItem);
-                    }
-                } catch (Throwable e) {
-                    
-                }
-            }
-        }, Ticks.fromSeconds((int) publicTime));
+    private static void removeGroundItem(final FloorItem floorItem, int publicTime) {
+    	World.get().submit(new Task(publicTime) {
+			@Override
+			protected void execute() {
+				 int regionId = floorItem.getTile().getRegionId();
+                 Region region = World.getRegion(regionId);
+                 if (!region.getGroundItemsSafe().contains(floorItem))
+                     return;
+                 region.getGroundItemsSafe().remove(floorItem);
+                 for (Player player : World.getPlayers()) {
+                     if (player == null || !player.isStarted() || player.isFinished()
+                             || player.getPlane() != floorItem.getTile().getPlane()
+                             || !player.getMapRegionsIds().contains(regionId))
+                         continue;
+                     player.getPackets().sendRemoveGroundItem(floorItem);
+                 }
+				cancel();
+			}
+		});
     }
 
     public static boolean removeGroundItem(Player player, FloorItem floorItem) {
@@ -295,12 +289,13 @@ public class FloorItem extends Item {
                 p2.getPackets().sendRemoveGroundItem(floorItem);
             }
             if (floorItem.isForever()) {
-                CoresManager.schedule(new Runnable() {
-                    @Override
-                    public void run() {
-                    	addGroundItemForever(floorItem, floorItem.getTile());
-                    }
-                }, Ticks.fromSeconds(10));
+            	World.get().submit(new Task(10) {
+        			@Override
+        			protected void execute() {
+        				addGroundItemForever(floorItem, floorItem.getTile());
+        				cancel();
+        			}
+        		});
             }
             return false;
         }
@@ -366,16 +361,13 @@ public class FloorItem extends Item {
             World.players().filter(p2 -> p2.getPlane() == floorItem.getTile().getPlane()
                     || p2.getMapRegionsIds().contains(regionId)).forEach(p2 -> p2.getPackets().sendRemoveGroundItem(floorItem));
             if (floorItem.isForever()) {
-                CoresManager.schedule(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            addGroundItemForever(floorItem, floorItem.getTile());
-                        } catch (Throwable e) {
-                            
-                        }
-                    }
-                }, Ticks.fromSeconds(60));
+            	World.get().submit(new Task(60) {
+        			@Override
+        			protected void execute() {
+        				addGroundItemForever(floorItem, floorItem.getTile());
+        				cancel();
+        			}
+        		});
             }
         }
         return true;

@@ -256,6 +256,7 @@ public class ShipCharter {
 						player.getInterfaceManager().closeInterfaces();
 						player.getPackets().sendBlackOut(0);
 						player.getPackets().sendGameMessage("You pay the fare and sail to " + TextUtils.formatEnumNaming(name()) + ".");
+						cancel();
 						break;
 					}
 				}

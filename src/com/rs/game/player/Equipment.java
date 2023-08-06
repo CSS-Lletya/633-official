@@ -9,7 +9,6 @@ import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemWeights;
 import com.rs.game.item.ItemsContainer;
-import com.rs.utilities.loaders.EquipData;
 
 public final class Equipment {
 

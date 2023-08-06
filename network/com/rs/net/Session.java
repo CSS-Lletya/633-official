@@ -8,11 +8,11 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 
-import com.rs.cores.CoresManager;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
 import com.rs.game.player.content.Emotes.Emote;
+import com.rs.game.task.Task;
 import com.rs.io.InputStream;
 import com.rs.io.OutputStream;
 import com.rs.net.decoders.ClientPacketsDecoder;
@@ -216,10 +216,14 @@ public class Session {
 		}
 		if (player.isDead() || (player.getCombatDefinitions().isUnderCombat() && tryCount < 6)
 				|| player.getMovement().isLocked() || Emote.isDoingEmote(player)) {
-			CoresManager.schedule(() -> {
-				player.setFinishing(false);
-				finish(player, tryCount + 1);
-			}, 10);
+			World.get().submit(new Task(10) {
+				@Override
+				protected void execute() {
+					player.setFinishing(false);
+					finish(player, tryCount + 1);
+					cancel();
+				}
+			});
 			return;
 		}
 		realFinish(player, false);

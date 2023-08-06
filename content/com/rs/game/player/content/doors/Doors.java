@@ -48,10 +48,10 @@ public class Doors {
                     return;
                 }
                 if (tempMove) {
-                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(-1, 0, 0) : gates[0].transform(1, 0, 0)), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(-2, -1, 0) : gates[1].transform(2, 1, 0)), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(-1, 0, 0) : gates[0].transform(1, 0, 0)), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(-2, -1, 0) : gates[1].transform(2, 1, 0)), 2);
                     player.addWalkSteps(object.transform(player.getX() < object.getX() ? 0 : -1, 0, 0), 3, false);
                 } else {
                     GameObject.removeObject(gates[0]);
@@ -75,10 +75,10 @@ public class Doors {
                     return;
                 }
                 if (tempMove) {
-                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, 1, 0)), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(-1, 2, 0)), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, 1, 0)), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(-1, 2, 0)), 2);
                     player.addWalkSteps(object.transform(0, player.getY() <= object.getY() ? 1 : 0, 0), 3, false);
                 } else {
                 	GameObject.removeObject(gates[0]);
@@ -102,10 +102,10 @@ public class Doors {
                     return;
                 }
                 if (tempMove) {
-                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(1, 0, 0) : gates[0].transform(-1, 0, 0)), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(2, 1, 0) : gates[1].transform(-2, -1, 0)), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(open ? -1 : 1), open ? gates[0].transform(1, 0, 0) : gates[0].transform(-1, 0, 0)), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(open ? -1 : 1), open ? gates[1].transform(2, 1, 0) : gates[1].transform(-2, -1, 0)), 2);
                     player.addWalkSteps(object.transform(player.getX() > object.getX() ? 0 : 1, 0, 0), 3, false);
                 } else {
                     GameObject.removeObject(gates[0]);
@@ -129,10 +129,10 @@ public class Doors {
                     return;
                 }
                 if (tempMove) {
-                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, -1, 0)), 4);
-                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(1, -2, 0)), 4);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]), gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, -1, 0)), 2);
+                    GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]), gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(1, -2, 0)), 2);
                     player.addWalkSteps(object.transform(0, player.getY() < object.getY() ? 0 : -1, 0), 3, false);
                 } else {
                     GameObject.removeObject(gates[0]);
@@ -185,8 +185,8 @@ public class Doors {
 				toTile = toTile.transform(0, player.getY() < object.getY() ? 0 : -1, 0);
 				break;
 			}
-			GameObject.spawnObjectTemporary(new GameObject(object).setId(83), 4);
-			GameObject.spawnObjectTemporary(opp, 4);
+			GameObject.spawnObjectTemporary(new GameObject(object).setId(83), 2);
+			GameObject.spawnObjectTemporary(opp, 2);
 			player.addWalkSteps(toTile, 3, false);
 		}
 	}
@@ -196,7 +196,7 @@ public class Doors {
 		boolean tempMove = isTempMove(player, openedDef);
 		if (tempMove) {
 			GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, object), object.getType(),
-					object.getRotation(), object), 4);
+					object.getRotation(), object), 2);
 			WorldTile toTile = object.transform(0, 0, 0);
 			switch (object.getRotation()) {
 			case 0:
@@ -313,8 +313,8 @@ public class Doors {
 				toTile = toTile.transform(0, player.getY() < object.getY() ? 0 : -1, 0);
 				break;
 			}
-			GameObject.spawnObjectTemporary(new GameObject(object).setId(83), 4);
-			GameObject.spawnObjectTemporary(opp, 4);
+			GameObject.spawnObjectTemporary(new GameObject(object).setId(83), 2);
+			GameObject.spawnObjectTemporary(opp, 2);
 			player.addWalkSteps(toTile, 3, false);
 		}
 	}
@@ -361,8 +361,8 @@ public class Doors {
 				toTile = toTile.transform(0, player.getY() < object.getY() ? 0 : -1, 0);
 				break;
 			}
-			GameObject.spawnObjectTemporary(new GameObject(object).setId(83), 4);
-			GameObject.spawnObjectTemporary(opp, 4);
+			GameObject.spawnObjectTemporary(new GameObject(object).setId(83), 2);
+			GameObject.spawnObjectTemporary(opp, 2);
 			player.addWalkSteps(toTile, 3, false);
 		}
 	}
@@ -392,12 +392,12 @@ public class Doors {
 		switch (rotation) {
 		case 0:
 			if (tempMove) {
-				GameObject.spawnObjectTemporary(new GameObject(doors[0]).setId(83), 4);
-				GameObject.spawnObjectTemporary(new GameObject(doors[1]).setId(83), 4);
+				GameObject.spawnObjectTemporary(new GameObject(doors[0]).setId(83), 2);
+				GameObject.spawnObjectTemporary(new GameObject(doors[1]).setId(83), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, doors[0]),
-						doors[0].getType(), doors[0].getRotation(-1), doors[0].transform(-1, 0, 0)), 4);
+						doors[0].getType(), doors[0].getRotation(-1), doors[0].transform(-1, 0, 0)), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, doors[1]),
-						doors[1].getType(), doors[1].getRotation(1), doors[1].transform(-1, 0, 0)), 4);
+						doors[1].getType(), doors[1].getRotation(1), doors[1].transform(-1, 0, 0)), 2);
 				player.addWalkSteps(object.transform(player.getX() >= object.getX() ? -1 : 0, 0, 0), 3, false);
 			} else {
 				GameObject.removeObject(doors[0]);
@@ -417,12 +417,12 @@ public class Doors {
 			break;
 		case 1:
 			if (tempMove) {
-				GameObject.spawnObjectTemporary(new GameObject(doors[0]).setId(83), 4);
-				GameObject.spawnObjectTemporary(new GameObject(doors[1]).setId(83), 4);
+				GameObject.spawnObjectTemporary(new GameObject(doors[0]).setId(83), 2);
+				GameObject.spawnObjectTemporary(new GameObject(doors[1]).setId(83), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, doors[0]),
-						doors[0].getType(), doors[0].getRotation(-1), doors[0].transform(0, 1, 0)), 4);
+						doors[0].getType(), doors[0].getRotation(-1), doors[0].transform(0, 1, 0)), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, doors[1]),
-						doors[1].getType(), doors[1].getRotation(1), doors[1].transform(0, 1, 0)), 4);
+						doors[1].getType(), doors[1].getRotation(1), doors[1].transform(0, 1, 0)), 2);
 				player.addWalkSteps(object.transform(0, player.getY() <= object.getY() ? 1 : 0, 0), 3, false);
 			} else {
 				GameObject.removeObject(doors[0]);
@@ -442,12 +442,12 @@ public class Doors {
 			break;
 		case 2:
 			if (tempMove) {
-				GameObject.spawnObjectTemporary(new GameObject(doors[0]).setId(83), 4);
-				GameObject.spawnObjectTemporary(new GameObject(doors[1]).setId(83), 4);
+				GameObject.spawnObjectTemporary(new GameObject(doors[0]).setId(83), 2);
+				GameObject.spawnObjectTemporary(new GameObject(doors[1]).setId(83), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, doors[0]),
-						doors[0].getType(), doors[0].getRotation(1), doors[0].transform(1, 0, 0)), 4);
+						doors[0].getType(), doors[0].getRotation(1), doors[0].transform(1, 0, 0)), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, doors[1]),
-						doors[1].getType(), doors[1].getRotation(-1), doors[1].transform(1, 0, 0)), 4);
+						doors[1].getType(), doors[1].getRotation(-1), doors[1].transform(1, 0, 0)), 2);
 				player.addWalkSteps(object.transform(player.getX() <= object.getX() ? 1 : 0, 0, 0), 3, false);
 			} else {
 				GameObject.removeObject(doors[0]);
@@ -467,12 +467,12 @@ public class Doors {
 			break;
 		case 3:
 			if (tempMove) {
-				GameObject.spawnObjectTemporary(new GameObject(doors[0]).setId(83), 4);
-				GameObject.spawnObjectTemporary(new GameObject(doors[1]).setId(83), 4);
+				GameObject.spawnObjectTemporary(new GameObject(doors[0]).setId(83), 2);
+				GameObject.spawnObjectTemporary(new GameObject(doors[1]).setId(83), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, doors[0]),
-						doors[0].getType(), doors[0].getRotation(1), doors[0].transform(0, -1, 0)), 4);
+						doors[0].getType(), doors[0].getRotation(1), doors[0].transform(0, -1, 0)), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, doors[1]),
-						doors[1].getType(), doors[1].getRotation(-1), doors[1].transform(0, -1, 0)), 4);
+						doors[1].getType(), doors[1].getRotation(-1), doors[1].transform(0, -1, 0)), 2);
 				player.addWalkSteps(object.transform(0, player.getY() >= object.getY() ? -1 : 0, 0), 3, false);
 			} else {
 				GameObject.removeObject(doors[0]);
@@ -516,14 +516,14 @@ public class Doors {
 				return;
 			}
 			if (tempMove) {
-				GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
-				GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
+				GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 2);
+				GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]),
 						gates[0].getType(), gates[0].getRotation(open ? -1 : 1),
-						open ? gates[0].transform(-1, 0, 0) : gates[0].transform(1, 0, 0)), 4);
+						open ? gates[0].transform(-1, 0, 0) : gates[0].transform(1, 0, 0)), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]),
 						gates[1].getType(), gates[1].getRotation(open ? -1 : 1),
-						open ? gates[1].transform(-2, -1, 0) : gates[1].transform(2, 1, 0)), 4);
+						open ? gates[1].transform(-2, -1, 0) : gates[1].transform(2, 1, 0)), 2);
 				player.addWalkSteps(object.transform(player.getX() < object.getX() ? 0 : -1, 0, 0), 3, false);
 			} else {
 				GameObject.removeObject(gates[0]);
@@ -551,12 +551,12 @@ public class Doors {
 				return;
 			}
 			if (tempMove) {
-				GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
-				GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
+				GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 2);
+				GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]),
-						gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, 1, 0)), 4);
+						gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, 1, 0)), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]),
-						gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(-1, 2, 0)), 4);
+						gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(-1, 2, 0)), 2);
 				player.addWalkSteps(object.transform(0, player.getY() <= object.getY() ? 1 : 0, 0), 3, false);
 			} else {
 				GameObject.removeObject(gates[0]);
@@ -584,14 +584,14 @@ public class Doors {
 				return;
 			}
 			if (tempMove) {
-				GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
-				GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
+				GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 2);
+				GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]),
 						gates[0].getType(), gates[0].getRotation(open ? -1 : 1),
-						open ? gates[0].transform(1, 0, 0) : gates[0].transform(-1, 0, 0)), 4);
+						open ? gates[0].transform(1, 0, 0) : gates[0].transform(-1, 0, 0)), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]),
 						gates[1].getType(), gates[1].getRotation(open ? -1 : 1),
-						open ? gates[1].transform(2, 1, 0) : gates[1].transform(-2, -1, 0)), 4);
+						open ? gates[1].transform(2, 1, 0) : gates[1].transform(-2, -1, 0)), 2);
 				player.addWalkSteps(object.transform(player.getX() > object.getX() ? 0 : 1, 0, 0), 3, false);
 			} else {
 				GameObject.removeObject(gates[0]);
@@ -619,12 +619,12 @@ public class Doors {
 				return;
 			}
 			if (tempMove) {
-				GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 4);
-				GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 4);
+				GameObject.spawnObjectTemporary(new GameObject(gates[0]).setId(83), 2);
+				GameObject.spawnObjectTemporary(new GameObject(gates[1]).setId(83), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[0]),
-						gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, -1, 0)), 4);
+						gates[0].getType(), gates[0].getRotation(-1), gates[0].transform(0, -1, 0)), 2);
 				GameObject.spawnObjectTemporary(new GameObject(DoorPair.getOpposingDoor(player, gates[1]),
-						gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(1, -2, 0)), 4);
+						gates[1].getType(), gates[1].getRotation(-1), gates[1].transform(1, -2, 0)), 2);
 				player.addWalkSteps(object.transform(0, player.getY() < object.getY() ? 0 : -1, 0), 3, false);
 			} else {
 				GameObject.removeObject(gates[0]);

@@ -79,11 +79,10 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 								player.setNextWorldTile(getLocations()[getIndex(object)]);
 								player.setNextAnimation(Animations.RESET_ANIMATION);
 								GameObject.removeObjectTemporary(object, 2);
-								return;
 							} else {
 								player.getPackets().sendGameMessage("You fail to set it on fire.");
-								return;
 							}
+							cancel();
 						}
 					}
 				});
@@ -114,11 +113,10 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 								player.setNextWorldTile(getLocations()[getIndex(object)]);
 								player.setNextAnimation(Animations.RESET_ANIMATION);
 								GameObject.removeObjectTemporary(object, 2);
-								return;
 							} else {
 								player.getPackets().sendGameMessage("...but fail to break-up the rock.");
-								return;
 							}
+							cancel();
 						}
 					}
 				});
@@ -147,11 +145,10 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 								player.setNextWorldTile(getLocations()[getIndex(object)]);
 								player.setNextAnimation(Animations.RESET_ANIMATION);
 								GameObject.removeObjectTemporary(object, 2);
-								return;
 							} else {
 								player.getPackets().sendGameMessage("You fail to cut through the tendrils.");
-								return;
 							}
+							cancel();
 						}
 						return;
 					}
@@ -176,8 +173,8 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 							player.getPackets().sendGameMessage("...and you manage to crawl through.");
 							player.setNextWorldTile(getLocations()[getIndex(object)]);
 							player.setNextAnimation(Animations.RESET_ANIMATION);
-							return;
-						
+							cancel();
+							break;
 						}
 					}
 				});
@@ -209,9 +206,8 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 								player.setNextAnimation(Animations.RESET_ANIMATION);
 							} else {
 								player.getPackets().sendGameMessage("You fail to distract the eyes.");
-								return;
 							}
-							return;
+							cancel();
 						}
 					}
 				});

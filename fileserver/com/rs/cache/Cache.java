@@ -4,13 +4,17 @@ import java.io.IOException;
 
 import com.alex.store.Store;
 import com.rs.GameProperties;
+
+import lombok.SneakyThrows;
+
 import com.rs.GameConstants;
 
 public final class Cache {
 
 	public static Store STORE;
 
-	public static void init() throws IOException {
+	@SneakyThrows(IOException.class)
+	public static void init()  {
 		STORE = new Store(GameProperties.getGameProperties().getString("cache"));
 	}
 

@@ -1,6 +1,5 @@
 package com.rs.plugin.impl.interfaces;
 
-import java.util.List;
 import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
@@ -8,13 +7,11 @@ import com.rs.cache.io.InputStream;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Sounds;
 import com.rs.content.mapzone.impl.WildernessMapZone;
-import com.rs.cores.WorldThread;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
-import com.rs.game.movement.route.CoordsEvent;
 import com.rs.game.movement.route.RouteEvent;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar.SpecialAttack;
@@ -25,7 +22,6 @@ import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
 import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.plugin.InventoryPluginDispatcher;
-import com.rs.plugin.ObjectPluginDispatcher;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
@@ -33,6 +29,7 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
+import it.unimi.dsi.fastutil.objects.ObjectList;
 import skills.cooking.Foods;
 import skills.herblore.Potions.Potion;
 
@@ -79,14 +76,14 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				if (InventoryPluginDispatcher.execute(player, item, slotId, 2))
 					return;
 				if (item.getDefinitions().containsOption("Wield") || item.getDefinitions().containsOption("Wear")) {
-					long passedTime = Utility.currentTimeMillis() - WorldThread.LAST_CYCLE_CTM;
+					long passedTime = Utility.currentTimeMillis() - Utility.currentWorldCycle();
 					if (player.getSwitchItemCache().isEmpty()) {
 						player.getSwitchItemCache().add(slotId);
-						World.get().submit(new Task(passedTime >= 600 ? 0 : passedTime > 330 ? 1 : 0) {
+						World.get().submit(new Task(passedTime >= 300 ? 0 : passedTime > 150 ? 1 : 0) {
 
 							@Override
 							protected void execute() {
-								List<Byte> slots = player.getSwitchItemCache();
+								ObjectList<Byte> slots = player.getSwitchItemCache();
 								int[] slot = new int[slots.size()];
 								for (int i = 0; i < slot.length; i++)
 									slot[i] = slots.get(i);

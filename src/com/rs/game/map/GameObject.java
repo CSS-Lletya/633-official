@@ -1,9 +1,9 @@
 package com.rs.game.map;
 
 import com.rs.cache.loaders.ObjectDefinitions;
-import com.rs.cores.CoresManager;
 import com.rs.game.Entity;
 import com.rs.game.player.Player;
+import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -80,40 +80,56 @@ public class GameObject extends WorldTile {
 	}
 
 	@SneakyThrows(Throwable.class)
-	public static final void spawnObjectTemporary(final GameObject object, long time) {
+	public static final void spawnObjectTemporary(final GameObject object, int time) {
 		spawnObject(object);
-		CoresManager.schedule(() -> {
-			if (!isSpawnedObject(object))
-				return;
-			removeObject(object);
-		}, (int) time);
+		World.get().submit(new Task(time) {
+			@Override
+			protected void execute() {
+				if (!isSpawnedObject(object))
+					return;
+				removeObject(object);
+				cancel();
+			}
+		});
 	}
 
 	@SneakyThrows(Throwable.class)
-	public static final boolean removeObjectTemporary(final GameObject object, long time) {
+	public static final boolean removeObjectTemporary(final GameObject object, int time) {
 		removeObject(object);
-		CoresManager.schedule(() -> {
-			spawnObject(object);
-		}, (int) time);
+		World.get().submit(new Task(time) {
+			@Override
+			protected void execute() {
+				spawnObject(object);
+				cancel();
+			}
+		});
 		return true;
 	}
 
 	@SneakyThrows(Throwable.class)
-	public static final void spawnTempGroundObject(final GameObject object, long time) {
+	public static final void spawnTempGroundObject(final GameObject object, int time) {
 		spawnObject(object);
-		CoresManager.schedule(() -> {
-			removeObject(object);
-		}, (int) time);
+		World.get().submit(new Task(time) {
+			@Override
+			protected void execute() {
+				removeObject(object);
+				cancel();
+			}
+		});
 	}
 	
 	
 	@SneakyThrows(Throwable.class)
-	public static final void spawnTempGroundObject(final GameObject object, long time, Runnable run) {
+	public static final void spawnTempGroundObject(final GameObject object, int time, Runnable run) {
 		spawnObject(object);
-		CoresManager.schedule(() -> {
-			removeObject(object);
-			run.run();
-		}, (int) time);
+		World.get().submit(new Task(time) {
+			@Override
+			protected void execute() {
+				removeObject(object);
+				run.run();
+				cancel();
+			}
+		});
 	}
 
 	public static final GameObject getStandartObject(WorldTile tile) {

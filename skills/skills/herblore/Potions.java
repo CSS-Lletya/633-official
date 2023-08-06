@@ -25,7 +25,6 @@ import com.rs.constants.Animations;
 import com.rs.constants.InterfaceVars;
 import com.rs.constants.Sounds;
 import com.rs.content.mapzone.impl.WildernessMapZone;
-import com.rs.cores.WorldThread;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.npc.familiar.Familiar;
@@ -33,7 +32,6 @@ import com.rs.game.player.Combat;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.Player;
-import com.rs.game.player.attribute.Attribute;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.task.Task;
 import com.rs.utilities.Utility;
@@ -263,14 +261,12 @@ public class Potions {
 		}),
 
 		RECOVER_SPECIAL(VIAL, new int[] { 15300, 15301, 15302, 15303 }, true, p -> {
-			p.getAttributes().get(Attribute.SPECIAL_RECOVERY).set(WorldThread.LAST_CYCLE_CTM);
+			p.getDetails().getRecoverSpecialPotion().start(600 * 30);
 			p.getCombatDefinitions().restoreSpecialAttack(25);
 		}) {
 			@Override
 			public boolean canDrink(Player player) {
-				System.out.println(player.getAttributes().get(Attribute.SPECIAL_RECOVERY).getLong());
-
-				if (WorldThread.LAST_CYCLE_CTM - player.getAttributes().get(Attribute.SPECIAL_RECOVERY).getLong() < 50) {
+				if (!player.getDetails().getRecoverSpecialPotion().finished()) {
 					player.getPackets().sendGameMessage("You may only use this pot every 30 seconds.");
 					return false;
 				}

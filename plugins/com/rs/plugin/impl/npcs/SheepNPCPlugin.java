@@ -1,15 +1,15 @@
 package com.rs.plugin.impl.npcs;
 
 import com.rs.constants.Sounds;
-import com.rs.cores.CoresManager;
+import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.task.LinkedTaskSequence;
+import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.RandomUtility;
-import com.rs.utilities.Ticks;
 
 @NPCSignature(name = { "Sheep" }, npcId = {})
 public class SheepNPCPlugin extends NPCListener {
@@ -36,7 +36,13 @@ public class SheepNPCPlugin extends NPCListener {
 			if (player.getInventory().addItem(npc.getId() == 8876 ? 15415 : 1737, 1)) {
 				npc.transformIntoNPC(42);
 				player.setNextAnimation(new Animation(893));
-				CoresManager.schedule(() -> npc.transformIntoNPC(npcId), Ticks.fromSeconds(15));
+				World.get().submit(new Task(15) {
+        			@Override
+        			protected void execute() {
+        				npc.transformIntoNPC(npcId);
+        				cancel();
+        			}
+        		});
 				player.getPackets().sendGameMessage("You shear the sheep of it's fleece.");
 			}
 			break;

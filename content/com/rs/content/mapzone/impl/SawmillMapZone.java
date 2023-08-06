@@ -1,5 +1,6 @@
 package com.rs.content.mapzone.impl;
 
+import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.content.mapzone.MapZone;
 import com.rs.content.mapzone.ZoneRestriction;
@@ -10,7 +11,6 @@ import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
@@ -285,8 +285,8 @@ public class SawmillMapZone extends MapZone {
 	private void refreshConveyorAnimation(Player player) {
 		if (Utility.currentWorldCycle() > lastLogAnimation + 5) {
 			lastLogAnimation = Utility.currentWorldCycle();
-			GameObject.sendObjectAnimation(player, CONVEYOR_BELT, new Animation(12394));
-			GameObject.sendObjectAnimation(player, CONVEYOR_BELT, new Animation(12395));
+			GameObject.sendObjectAnimation(player, CONVEYOR_BELT, Animations.SAWMILL_GRINDER_1);
+			GameObject.sendObjectAnimation(player, CONVEYOR_BELT, Animations.SAWMILL_GRINDER_2);
 		}
 	}
 
