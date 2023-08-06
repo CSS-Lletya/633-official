@@ -51,6 +51,15 @@ public final class LeatherItemCrafting extends ProducingSkillAction {
 	private static int getAmount(int packetId) {
 		return packetId == 11 ? 1 : packetId == 29 ? 5 : packetId == 31 ? 10 : packetId == 32 ? Integer.MAX_VALUE : 0;
 	}
+	
+	public static void handleThreadRemoval(Player player) {
+		player.getDetails().getThreadsUsed().getAndDecrement();
+		if (player.getDetails().getThreadsUsed().get() == 0) {
+			player.getDetails().getThreadsUsed().set(5);
+			player.getInventory().deleteItem(new Item(ItemNames.THREAD_1734, 1));
+			player.getPackets().sendGameMessage("You use up one of your reeds of thread.");
+		}
+	}
 
 	@Override
 	public void onProduce(Task t, boolean success) {
@@ -60,6 +69,7 @@ public final class LeatherItemCrafting extends ProducingSkillAction {
 				player.getPackets().sendGameMessage("Your needle broke.");
 				t.cancel();
 			}
+			handleThreadRemoval(player);
 			amount--;
 			if(amount <= 0)
 				t.cancel();
@@ -77,7 +87,7 @@ public final class LeatherItemCrafting extends ProducingSkillAction {
 	
 	@Override
 	public Optional<Item[]> removeItem() {
-		return Optional.of(new Item[]{new Item(ItemNames.LEATHER_1741), new Item(ItemNames.THREAD_1734)});
+		return Optional.of(new Item[]{new Item(ItemNames.LEATHER_1741)});
 	}
 	
 	@Override

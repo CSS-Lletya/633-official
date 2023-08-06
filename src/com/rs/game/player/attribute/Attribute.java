@@ -185,9 +185,18 @@ public interface Attribute {
 	 */
 	public String INCUBATOR_EGG = "IncubatorEggId";
 	
-	//unused for now
-	public String BOW_FLETCHING = "BowFletching";
-	public String BOW_FLETCHING_CARVING = "BowFletchingCarving";
+	/**
+	 * Represents the Bow fletching state and carving type used
+	 */
+	public String BOW_FLETCHING = "IsBowFletching";
+	public String BOW_FLETCHING_CARVING = "BowFletchingCarvingType";
+	
+	/**
+	 * Represents the Bow Crafting state and dragonhide type used
+	 */
+	public String DRAGONHIDE_FLETCHING = "IsDragonhideFletching";
+	public String DRAGONHIDE_TYPE = "DragonhideCraftingType";
+	
 	
 	/**
 	 * Represents the Chat message type

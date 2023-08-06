@@ -27,6 +27,7 @@ public final class HardLeatherCrafting extends ProducingSkillAction {
 	@Override
 	public void onProduce(Task t, boolean success) {
 		if(success) {
+			LeatherItemCrafting.handleThreadRemoval(player);
 			if (RandomUtility.random(30) == 5) {
 				player.getInventory().deleteItem(new Item(ItemNames.NEEDLE_1733));
 				player.getPackets().sendGameMessage("Your needle broke.");
@@ -41,7 +42,7 @@ public final class HardLeatherCrafting extends ProducingSkillAction {
 	}
 	@Override
 	public Optional<Item[]> removeItem() {
-		return Optional.of(new Item[]{new Item(ItemNames.HARD_LEATHER_1743), new Item(ItemNames.THREAD_1734)});
+		return Optional.of(new Item[]{new Item(ItemNames.HARD_LEATHER_1743)});
 	}
 	
 	@Override

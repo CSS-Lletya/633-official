@@ -1,6 +1,5 @@
 package skills.mining;
 
-import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 
 import lombok.AllArgsConstructor;

@@ -8,6 +8,7 @@ import java.util.IdentityHashMap;
 import com.google.common.base.MoreObjects;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import skills.crafting.DragonhideArmorCrafting;
 import skills.fletching.BowCarving;
 
 /**
@@ -38,6 +39,7 @@ public final class AttributeKey<T> {
 //		AttributeKey.forPersistent("", false);//saves
 //		AttributeKey.forTransient("", false);//doesn't save
 		AttributeKey.forTransient(Attribute.BOW_FLETCHING_CARVING, new BowCarving(null, null, false));
+		AttributeKey.forTransient(Attribute.DRAGONHIDE_TYPE, new DragonhideArmorCrafting(null, null));
 		AttributeKey.forTransient(Attribute.TRADE_TARGET, false);
 		AttributeKey.forTransient(Attribute.TRADE_IS_REMOVE, false);
 		AttributeKey.forTransient(Attribute.TRADE_ITEM_X_SLOT, -1);
@@ -72,6 +74,7 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.INCUBATOR_EGG, -1);
 		AttributeKey.forTransient(Attribute.CHAT_TYPE, 0);
 		AttributeKey.forTransient(Attribute.BOW_FLETCHING, false);
+		AttributeKey.forTransient(Attribute.DRAGONHIDE_FLETCHING, false);
 		
 		
 		AttributeKey.forPersistent(Attribute.CANOE_CHOPPED, false);
