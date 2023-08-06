@@ -96,7 +96,6 @@ public class Fishing extends HarvestingSkillAction {
 		if(!checkFishing())
 			return false;
 		getPackets().sendGameMessage("You begin to fish...");
-		getPlayer().setNextAnimation(tool.animation);
 		return true;
 	}
 	
@@ -132,7 +131,7 @@ public class Fishing extends HarvestingSkillAction {
 			return true;
 		}
 		if(!getPlayer().getInventory().containsItem(new Item(tool.id))) {
-			getPackets().sendGameMessage("You need a " + tool + " to fish here!");
+			getPackets().sendGameMessage("You need a " + ItemDefinitions.getItemDefinitions(tool.id).getName() + " to fish here!");
 			return false;
 		}
 		return true;

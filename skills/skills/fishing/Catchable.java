@@ -38,6 +38,7 @@ public enum Catchable {
 			return WildernessMapZone.isAtWild(player);
 		}
 	},
+	KARAMBWANJI(3150, 5, 0.2, 5),
 	LOBSTER(377, 40, 0.20, 90),
 	BASS(363, 46, 0.15, 100),
 	SWORDFISH(371, 50, 0.15, 100),

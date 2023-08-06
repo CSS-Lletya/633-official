@@ -18,6 +18,12 @@ public enum Tool {
 			return Catchable.SHRIMP;
 		}
 	},
+	NET_KARAMBWANJI(303, 1, -1, 0.45, Animations.NET_FISHING, new Catchable[]{Catchable.KARAMBWANJI}) {
+		@Override
+		public Catchable catchable() {
+			return Catchable.KARAMBWANJI;
+		}
+	},
 	NET_MONKFISH(303, 62, -1, 0.25, Animations.NET_FISHING, new Catchable[]{Catchable.MONKFISH}),
 	BIG_NET(305, 16, -1, 0.50, Animations.BIG_NET_FISHING, new Catchable[]{Catchable.MACKEREL, Catchable.COD, Catchable.BASS, Catchable.CASKET, Catchable.LEATHER_BOOTS, Catchable.LEATHER_GLOVES, Catchable.OYSTER, Catchable.SEAWEED, Catchable.ROCKTAIL}) {
 		@Override
@@ -82,6 +88,12 @@ public enum Tool {
 		return catchables[0];
 	}
 
+	/**
+	 * If you decide to make it stackable which by default it isn't use this success.add function instead
+	 * success.add(new Item(c.getId(), (c == Catchable.KARAMBWANJI ? player.getSkills().getTrueLevel(Skills.FISHING) / 5 + 1  : 1)));
+	 */
+	private boolean stackableKarambwanji = false;
+	
 	ObjectList<Item> calculate(Player player, int cap) {
 		ObjectList<Item> success = new ObjectArrayList<>();
 		int index = cap;
@@ -92,7 +104,7 @@ public enum Tool {
 				continue;
 			if(!RandomUtility.success(c.getChance()))
 				continue;
-			success.add(new Item(c.getId()));
+			success.add(new Item(c.getId(), (stackableKarambwanji && c == Catchable.KARAMBWANJI ? player.getSkills().getTrueLevel(Skills.FISHING) / 5 + 1  : 1)));
 			index--;
 			if(index == 0)
 				break;

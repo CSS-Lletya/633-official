@@ -9,8 +9,6 @@ import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
-import com.rs.net.encoders.other.Graphics;
 
 import lombok.AllArgsConstructor;
 import skills.ProducingSkillAction;
@@ -63,10 +61,6 @@ public final class BattlestaffCrafting extends ProducingSkillAction {
 	
 	@Override
 	public void onProduce(Task t, boolean success) {
-		if(success) {
-			player.setNextAnimation(new Animation(4412));
-			player.setNextGraphics(new Graphics(728));
-		}
 	}
 	
 	@Override

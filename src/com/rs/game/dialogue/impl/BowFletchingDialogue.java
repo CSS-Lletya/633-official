@@ -31,11 +31,10 @@ public class BowFletchingDialogue extends DialogueEventListener {
 					null, true);
 		 else
 			SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.SELECT, 28,
-				
 				new int[] { fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId(),
-						(data == Log.MAGIC ? null : fletching.definition.producibles[3].producible.getId()),
+						fletching.definition.producibles[3].producible.getId(),
 						},
 				null, true);
 	}

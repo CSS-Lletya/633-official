@@ -45,6 +45,9 @@ public class FishingSpotNPCPlugin extends NPCListener {
 			case 1178:
 				new Fishing(player, Tool.VESSEL, mob).start();
 				break;
+			case 1174:
+				new Fishing(player, Tool.NET_KARAMBWANJI, mob).start();
+				break;
 			}
 			
 		}
