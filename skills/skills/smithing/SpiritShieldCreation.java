@@ -28,8 +28,7 @@ public class SpiritShieldCreation {
 				.filter(sigil -> sigil.sigil == item.getId() && player.getInventory().canRemoveItem(13736))
 				.forEach(ss -> {
 					player.dialogue(d -> {
-						d.mes("Are you sure you want to attach the " + item.getDefinitions().getName() + " to the ",
-								" blessed spirit shield?");
+						d.mes("Are you sure you want to attach the " + item.getDefinitions().getName() + " to the  blessed spirit shield?");
 						d.option("Yes.", () -> {
 							World.get().submit(new Task(1) {
 								int tick;

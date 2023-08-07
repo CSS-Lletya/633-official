@@ -79,7 +79,7 @@ public class Fishing extends HarvestingSkillAction {
 	
 	@Override
 	public Optional<Item[]> removeItems() {
-		return tool.needed <= 0 ? Optional.empty() : Optional.of(new Item[]{new Item(tool.needed, 1)});
+		return tool.needed <= 0 ? Optional.empty() : Optional.of(new Item[]{new Item(tool.needed)});
 	}
 	
 	@Override
@@ -122,18 +122,18 @@ public class Fishing extends HarvestingSkillAction {
 			getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
 			return false;
 		}
-		if(tool.needed > 0) {
-			if(!getPlayer().getInventory().containsItem(new Item(tool.needed))) {
-				getPackets().sendGameMessage("You do not have enough bait.");
-				return false;
-			}
-		}
 		if (hasBarbtailHarpoon()) {
 			return true;
 		}
 		if(!getPlayer().getInventory().containsItem(new Item(tool.id))) {
 			getPackets().sendGameMessage("You need a " + ItemDefinitions.getItemDefinitions(tool.id).getName() + " to fish here!");
 			return false;
+		}
+		if(tool.needed > 0) {
+			if(!getPlayer().getInventory().containsItem(new Item(tool.needed))) {
+				getPackets().sendGameMessage("You do not have enough bait.");
+				return false;
+			}
 		}
 		return true;
 	}

@@ -16,10 +16,10 @@ public class FishingSpotNPCPlugin extends NPCListener {
 	@Override
 	public void execute(Player player, NPC mob, int option) {
 		if (option == 1) {
-			if (IntStream.of(309, 310, 311, 314, 315, 317, 318, 319, 324).anyMatch(id -> mob.getId() == id))
+			if (IntStream.of(309, 310, 311, 314, 315, 317, 319, 324).anyMatch(id -> mob.getId() == id))
 				new Fishing(player, Tool.LOBSTER_POT, mob).start();
 			if (IntStream.rangeClosed(233, 236).anyMatch(id -> mob.getId() == id)
-					|| IntStream.of(329, 330, 323).anyMatch(id -> mob.getId() == id))
+					|| IntStream.of(329, 330, 323,318).anyMatch(id -> mob.getId() == id))
 				new Fishing(player, Tool.FLY_FISHING_ROD, mob).start();
 			switch (mob.getId()) {
 			case 6267:
@@ -52,12 +52,12 @@ public class FishingSpotNPCPlugin extends NPCListener {
 			
 		}
 		if (option == 2) {
-			if (IntStream.of(309, 310, 311, 314, 315, 317, 318, 319, 324).anyMatch(id -> mob.getId() == id))
+			if (IntStream.of(309, 310, 311, 314, 315, 317, 319, 324).anyMatch(id -> mob.getId() == id))
 				new Fishing(player, Tool.HARPOON, mob).start();
 			if (mob.getId() == 312 || mob.getId() == 322) {
 				new Fishing(player, Tool.SHARK_HARPOON, mob).start();
 			}
-			if (IntStream.of(329, 322, 330, 323).anyMatch(id -> mob.getId() == id))
+			if (IntStream.of(329, 322, 330, 323,318).anyMatch(id -> mob.getId() == id))
 				new Fishing(player, Tool.FISHING_ROD, mob).start();
 		}
 	}

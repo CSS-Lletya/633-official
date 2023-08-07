@@ -10,7 +10,7 @@ import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 import com.rs.utilities.RandomUtility;
 
-@ObjectSignature(objectId = {}, name = {"Hay bales", "Haystack"})
+@ObjectSignature(objectId = {}, name = {"Hay balesHaystack"})
 public class HaystackObjectPlugin extends ObjectListener {
 
 	/**
@@ -29,7 +29,7 @@ public class HaystackObjectPlugin extends ObjectListener {
 			player.dialogue(new DialogueEventListener(player) {
 				@Override
 				public void start() {
-					player(Mood.happy_plain_eyebrows_up, "Wow! A needle!", "Now what are the chances of finding that?");
+					player(Mood.happy_plain_eyebrows_up, "Wow! A needle! Now what are the chances of finding that?");
 				}
 			});
 			return;

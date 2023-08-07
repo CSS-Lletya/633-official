@@ -23,9 +23,8 @@ public class AlkhraidRegionNPCPlugin extends NPCListener {
 			player.dialogue(new DialogueEventListener(player, npc) {
 				@Override
 				public void start() {
-					player(Mood.happy, "Hey apprentice, do you want ", " to try out your teleport skills again?");
-					npc(Mood.annoyed, "Okay, here goes - and remember ",
-							" to return just drink from the fountain.");
+					player(Mood.happy, "Hey apprentice, do you want to try out your teleport skills again?");
+					npc(Mood.annoyed, "Okay, here goes - and remember to return just drink from the fountain.");
 					option("Teleport to the Sorceresss Garden",
 							() -> SorceresssGardenMapZone.teleportToSorceressGardenNPC(npc, player),
 							"Nevermind", () -> complete());
@@ -37,7 +36,7 @@ public class AlkhraidRegionNPCPlugin extends NPCListener {
 			if (player.getInventory().containsOneItem(10848, 10849, 10850, 10851)) {
 				player.dialogue(npc.getId(), d -> {
 					d.player(Mood.happy, "I have some sq'irk juice for you.");
-					d.mes("Osman imparts some Thieving advice "," to you as a reward for the sq'irk juice.");
+					d.mes("Osman imparts some Thieving advice  to you as a reward for the sq'irk juice.");
 					d.event(() -> {
 						int totalXp =
 						player.getInventory().getNumberOf(10851) * 350;

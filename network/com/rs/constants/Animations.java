@@ -128,12 +128,13 @@ public final class Animations {
 	public static final Animation SG_DRINK_FROM_FOUNTAIN = new Animation(5796);
 	public static final Animation FLETCHING_BOW = new Animation(1248);
 	public static final Animation SMELTING_INSIDE_FURNACE = new Animation(3243);
-	public static final Animation CRAFTING_USING_BOTH_HANDS = new Animation(883);
+	public static final Animation LEANING_FORWARD_USING_BOTH_HANDS = new Animation(883);
 	public static final Animation GLASSPIPE_BLOWING = new Animation(884);
 	public static final Animation FLY_TOY_KITE = new Animation(8990);
 	public static final Animation RUB_HANDS_TOGETHER = new Animation(5088);
 	public static final Animation USING_HAMMER_ON_ANVIL = new Animation(898);
 	public static final Animation CRAFTING_LEATHER = new Animation(1249);
+	public static final Animation FILLING_BUCKET_FROM_GROUND = new Animation(4471);
 	
 	/**
 	 * Object Based Animations

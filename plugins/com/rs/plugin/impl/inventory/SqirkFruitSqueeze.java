@@ -20,11 +20,11 @@ public class SqirkFruitSqueeze extends InventoryListener {
         for (SqirkFruit fruit : SqirkFruit.values()) {
         	new UseWith(new Item(233), new Item(fruit.getFruitId())).execute(firstItem, secondItem, () -> {
         		 if (!player.getInventory().containsAny(BEER_GLASS)) {
-        			 	player.dialogue(d -> d.player(Mood.sad, "I should get an empty beer glass to hold the juice"," before I squeeze the fruit."));
+        			 	player.dialogue(d -> d.player(Mood.sad, "I should get an empty beer glass to hold the juice  before I squeeze the fruit."));
         	        } else if (!player.getInventory().containsAny(233)) {
-        	        	player.dialogue(d -> d.player(Mood.sad, "I should get a pestle and mortal before I ","squeeze the fruit."));
+        	        	player.dialogue(d -> d.player(Mood.sad, "I should get a pestle and mortal before I  squeeze the fruit."));
         	        } else if (!player.getInventory().containsItem(fruit.getFruitId(), fruit.getAmtRequired()))
-        	        	player.dialogue(d -> d.player(Mood.sad, "I think I should wait until I have enough "," fruit to make a full glass."));
+        	        	player.dialogue(d -> d.player(Mood.sad, "I think I should wait until I have enough   fruit to make a full glass."));
         	        else {
         	            player.getInventory().deleteItem(fruit.getFruitId(), fruit.getAmtRequired());
         	            player.getInventory().deleteItem(BEER_GLASS, 1);

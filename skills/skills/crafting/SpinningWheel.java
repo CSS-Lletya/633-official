@@ -51,7 +51,7 @@ public final class SpinningWheel extends ProducingSkillAction {
 	
 	@Override
 	public Optional<Animation> animation() {
-		return Optional.of(Animations.CRAFTING_USING_BOTH_HANDS);
+		return Optional.of(Animations.LEANING_FORWARD_USING_BOTH_HANDS);
 	}
 	
 	@Override

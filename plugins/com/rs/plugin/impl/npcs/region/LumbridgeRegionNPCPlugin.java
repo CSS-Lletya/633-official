@@ -53,7 +53,7 @@ public class LumbridgeRegionNPCPlugin extends NPCListener {
 								npc(Mood.happy, "You are in Lumbridge Castle.");
 							},
 							"Can you tell me how long I've been here?", () -> {
-								npc(Mood.happy, "You've spent " + days + (days > 1 || days == 0 ? " days" : " day") + ", " + hours + (hours > 1 || hours == 0 ? " hours" : " hour") + ", " + minutes + (minutes > 1 || minutes == 0 ? " minutes" : " minute") + "" , "" + " in the world since you arrived in " + GameConstants.SERVER_NAME + ".");
+								npc(Mood.happy, "You've spent " + days + (days > 1 || days == 0 ? " days" : " day") + ", " + hours + (hours > 1 || hours == 0 ? " hours" : " hour") + ", " + minutes + (minutes > 1 || minutes == 0 ? " minutes" : " minute") + " in the world since you arrived in " + GameConstants.SERVER_NAME + ".");
 							},
 							"Nothing", () -> player(Mood.happy, "Nothing."));
 				}

@@ -50,7 +50,7 @@ public class PortObjectsObjectPlugin extends ObjectListener {
 			cross(player, PORT_SARIM[2]);//port sarim charter boat.
 			break;
 		case 11209:
-			player.dialogue(d -> d.player(Mood.sad, "I don't think that whoever owns this ship will be happy","with me wandering all over it."));
+			player.dialogue(d -> d.player(Mood.sad, "I don't think that whoever owns this ship will be happy with me wandering all over it."));
 			break;
 		case 17392:
 			cross(player, PORT_PHASMATYS[0]);//port phasmatys on.

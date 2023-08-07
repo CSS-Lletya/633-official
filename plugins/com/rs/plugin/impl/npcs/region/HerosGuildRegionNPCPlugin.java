@@ -20,7 +20,7 @@ public class HerosGuildRegionNPCPlugin extends NPCListener {
 				d.event(() -> ShopsHandler.openShop(player, ShopsHandler.getShopForNpc(npc.getId())));
 			}, "So what can I do here?", () -> {
 				d.player(Mood.happy, "So what can I do here?");
-				d.npc(Mood.eyes_side2side_reading, "Look around... there are all sorts ","of things to keep our guild members entertained!");
+				d.npc(Mood.eyes_side2side_reading, "Look around... there are all sorts of things to keep our guild members entertained!");
 			});
 		});
 	}

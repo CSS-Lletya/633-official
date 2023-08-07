@@ -40,7 +40,7 @@ public class TaverlyRegionNPCPlugin extends NPCListener {
 						if (itemUsed.getId() == helm.baseItem) {
 							player.getInventory().deleteItem(itemUsed.getSlot(), itemUsed);
 							player.getInventory().addItem(helm.enchantedItem, 1);
-							player.dialogue(6970, d -> d.npc(Mood.happy, "There you are! I have just enchanted ","your " + ItemDefinitions.getItemDefinitions(helm.baseItem).getName() + " for you."));
+							player.dialogue(6970, d -> d.npc(Mood.happy, "There you are! I have just enchanted your " + ItemDefinitions.getItemDefinitions(helm.baseItem).getName() + " for you."));
 							player.getPackets().sendGameMessage("Pikkupstix magically enchants your headwear.");
 							player.getDetails().getStatistics().addStatistic("Summoning_Items_Enchanted");
 							return;

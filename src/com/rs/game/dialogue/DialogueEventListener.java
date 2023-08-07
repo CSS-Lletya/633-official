@@ -15,6 +15,7 @@ import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.utilities.SkillDialogueFeedback;
+import com.rs.utilities.TextWrapping;
 
 import skills.SkillsDialogue;
 
@@ -47,8 +48,8 @@ public abstract class DialogueEventListener implements Mood {
 		return this;
 	}
 	
-	public DialogueEventListener mes(String... message) {
-		dialogueEvent.add(new DialogueEvent((byte) 0, message));
+	public DialogueEventListener mes(String message) {
+		dialogueEvent.add(new DialogueEvent((byte) 0, TextWrapping.wrap(message)));
 		return this;
 	}
 	
@@ -57,13 +58,13 @@ public abstract class DialogueEventListener implements Mood {
 		return this;
 	}
 
-	public DialogueEventListener player(int face, String... message) {
-		dialogueEvent.add(new DialogueEntityEvent(true, face, message));
+	public DialogueEventListener player(int face, String message) {
+		dialogueEvent.add(new DialogueEntityEvent(true, face, TextWrapping.wrap(message, 43)));
 		return this;
 	}
 
-	public DialogueEventListener npc(int face, String... message) {
-		dialogueEvent.add(new DialogueEntityEvent(false, face, message));
+	public DialogueEventListener npc(int face, String message) {
+		dialogueEvent.add(new DialogueEntityEvent(false, face, TextWrapping.wrap(message, 43)));
 		return this;
 	}
 
@@ -187,7 +188,7 @@ public abstract class DialogueEventListener implements Mood {
 		switch (dialogue.getType()) {
 		case 0:
 			interfaceId = 209 + dialogue.getTexts().length;
-			for (int line = 0; line < dialogue.getTexts().length; line++)
+			for (int line = 0; line < dialogue.getTexts().length; line++) 
 				player.getPackets().sendIComponentText(interfaceId, 1+ line, dialogue.getTexts()[line]);
 			player.getInterfaceManager().sendChatBoxInterface(interfaceId);
 

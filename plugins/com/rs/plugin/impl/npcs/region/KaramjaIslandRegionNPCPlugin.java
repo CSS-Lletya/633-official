@@ -20,8 +20,7 @@ public class KaramjaIslandRegionNPCPlugin extends NPCListener {
 				player.dialogue(new DialogueEventListener(player, npc) {
 					@Override
 					public void start() {
-						npc(happy, "Ay-uh, 'tis a grand day for the fishin'.",
-								"Will ye wantin' to exchange yer fish for banknotes?");
+						npc(happy, "Ay-uh, 'tis a grand day for the fishin'. Will ye wantin' to exchange yer fish for banknotes?");
 					}
 				});
 			}

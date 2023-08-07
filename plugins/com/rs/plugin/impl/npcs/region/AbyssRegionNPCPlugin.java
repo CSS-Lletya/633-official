@@ -41,12 +41,12 @@ public class AbyssRegionNPCPlugin extends NPCListener {
 		}
 		if (option == 2) {
 			if (!player.getInventory().containsAny(5511, 5513, 5515)) {
-				player.dialogue(npc.getId(), d -> d.npc(Mood.sad, "You don't seem to have any pouches in need "," of repair. Leave me alone!"));
+				player.dialogue(npc.getId(), d -> d.npc(Mood.sad, "You don't seem to have any pouches in need of repair. Leave me alone!"));
 				return;
 			}
 			IntStream.of(5511, 5513, 5515).filter(pouch -> player.getInventory().containsAny(pouch))
 			.forEach(pouch -> player.getInventory().replaceItems(new Item(pouch), new Item(pouch - 1)));
-			player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "There, I have repaired your pouches. ","Now leave me alone. I'm concentrating!"));
+			player.dialogue(npc.getId(), d -> d.npc(Mood.happy, "There, I have repaired your pouches. Now leave me alone. I'm concentrating!"));
 		}
 	}
 }

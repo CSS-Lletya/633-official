@@ -108,5 +108,6 @@ public class GameLoader {
 			pool.submit(() -> HostManager.deserialize(HostListType.STARTER_RECEIVED));
 			pool.submit(() -> HostManager.deserialize(HostListType.BANNED_IP));
 			pool.submit(() -> HostManager.deserialize(HostListType.MUTED_IP));
+			pool.shutdown();
 	}
 }

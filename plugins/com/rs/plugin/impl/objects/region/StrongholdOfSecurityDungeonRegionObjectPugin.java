@@ -141,7 +141,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 				@Override
 				public void start() {
 					mes("The box hinges creak and appear to be forming audible words....");
-					mes("...Congratulations adventurer, you have been deemed worthy of this reward.","You have also unlocked the Flap emote!");
+					mes("...Congratulations adventurer, you have been deemed worthy of this reward. You have also unlocked the Flap emote!");
 					player.task(1, p -> {
 						player.getDetails().getStrongholdLevels().getAndIncrement();
 						player.getVarsManager().sendVar(802, 1).submitVarToMap(802, 1);
@@ -160,7 +160,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 				@Override
 				public void start() {
 					mes("The box hinges creak and appear to be forming audible words....");
-					mes("...Congratulations adventurer, you have been deemed worthy of this reward.","You have also unlocked the Slap head emote!");
+					mes("...Congratulations adventurer, you have been deemed worthy of this reward. You have also unlocked the Slap head emote!");
 					player.task(1, p -> {
 						player.getDetails().getStrongholdLevels().getAndIncrement();
 						player.getVarsManager().sendVar(802, 19).submitVarToMap(802, 19);
@@ -181,7 +181,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 				@Override
 				public void start() {
 					mes("The box hinges creak and appear to be forming audible words....");
-					mes("...Congratulations adventurer, you have been deemed worthy of this reward.","You have also unlocked the Idea emote!");
+					mes("...Congratulations adventurer, you have been deemed worthy of this reward. You have also unlocked the Idea emote!");
 					player.task(1, p -> {
 						player.getDetails().getStrongholdLevels().getAndIncrement();
 						player.getVarsManager().sendVar(802, 23).submitVarToMap(802, 23);
@@ -204,7 +204,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 							@Override
 							public void start() {
 								mes("The box hinges creak and appear to be forming audible words....");
-								mes("...Congratulations adventurer, you have been deemed worthy of this reward.","You have also unlocked the Stomp emote!");
+								mes("...Congratulations adventurer, you have been deemed worthy of this reward. You have also unlocked the Stomp emote!");
 								player.task(1, p -> {
 									player.getDetails().getStrongholdLevels().getAndIncrement();
 									player.getVarsManager().sendVar(802, 15).submitVarToMap(802, 15);
@@ -218,7 +218,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 							@Override
 							public void start() {
 								mes("The box hinges creak and appear to be forming audible words....");
-								mes("...Congratulations adventurer, you have been deemed worthy of this reward.","You have also unlocked the Stomp emote!");
+								mes("...Congratulations adventurer, you have been deemed worthy of this reward. You have also unlocked the Stomp emote!");
 								player.task(1, p -> {
 									player.getDetails().getStrongholdLevels().getAndIncrement();
 									player.getVarsManager().sendVar(802, 15).submitVarToMap(802, 15);

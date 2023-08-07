@@ -21,10 +21,10 @@ import java.util.EnumSet;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Animation;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,7 +32,6 @@ import lombok.Getter;
 public class FillAction extends Action {
 
 	private int amount;
-	private Animation FILLING = new Animation(883);
 
 	@AllArgsConstructor
 	public enum Filler {
@@ -80,7 +79,7 @@ public class FillAction extends Action {
 		amount--;
 		Filler.VALUES.stream().filter(id -> player.getInventory().containsAny(id.empty.getId())).forEach(fillable -> {
 			player.getAudioManager().sendSound(Sounds.FILL_FROM_WATER_SOURCE);
-			player.setNextAnimation(FILLING);
+			player.setNextAnimation(Animations.LEANING_FORWARD_USING_BOTH_HANDS);
 			player.getInventory().deleteItem(fillable.getEmpty().getId(), 1);
 			player.getInventory().addItem(fillable.getFilled().getId(), 1);
 			player.getDetails().getStatistics()
