@@ -228,6 +228,23 @@ public final class Runecrafting extends ProducingSkillAction {
 		player.getPackets().sendGameMessage("You empty the " + pouch.get().getAmount() + " essence left in the pouch.");
 	}
 	
+	public static void locate(Player p, int ruinsXPos, int ruinsYPos) {
+		String direction = "";
+		int playerXPos = p.getX();
+		int playerYPos = p.getY();
+
+		if (playerXPos < ruinsXPos && playerYPos < ruinsYPos) { direction = "north-east"; }
+		if (playerXPos < ruinsXPos && playerYPos == ruinsYPos) { direction = "east"; }
+		if (playerXPos < ruinsXPos && playerYPos > ruinsYPos) { direction = "south-east"; }
+		if (playerXPos == ruinsXPos && playerYPos > ruinsYPos) { direction = "south"; }
+		if (playerXPos > ruinsXPos && playerYPos > ruinsYPos) { direction = "south-west"; }
+		if (playerXPos > ruinsXPos && playerYPos == ruinsYPos) { direction = "west"; }
+		if (playerXPos > ruinsXPos && playerYPos < ruinsYPos) { direction = "north-west"; }
+		if (playerXPos == ruinsXPos && playerYPos < ruinsYPos) { direction = "north"; }
+
+		p.getPackets().sendGameMessage("The talisman pulls towards the " + direction + ".");
+	}
+	
 	@Override
 	public boolean canIgnoreIventoryCheck() {
 		return player.getInventory().containsAny(PURE_ESSENCE.getId(), RUNE_ESSENCE.getId());
