@@ -2,6 +2,7 @@ package skills.crafting;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -99,6 +100,10 @@ public class LimestoneBrickCrafting extends ProducingSkillAction {
 		if (player.getSkills().getLevel(Skills.CRAFTING) < 12) {
 			player.getPackets()
 					.sendGameMessage("You need a Crafting level of 12 to turn the limestone into a brick.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(3211)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(3211).getName() + " to make a " + ItemDefinitions.getItemDefinitions(3420).getName() + ".");
 			return false;
 		}
 		return true;

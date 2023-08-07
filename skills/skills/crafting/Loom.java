@@ -1,7 +1,10 @@
 package skills.crafting;
 
+import java.util.EnumSet;
 import java.util.Optional;
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
@@ -71,7 +74,7 @@ public final class Loom extends ProducingSkillAction {
 	
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -102,6 +105,10 @@ public final class Loom extends ProducingSkillAction {
 	private boolean checkCrafting() {
 		if(player.getSkills().getLevel(Skills.CRAFTING) < data.requirement) {
 			player.getPackets().sendGameMessage("You need a crafting level of " + data.requirement + " to spin " + TextUtils.appendIndefiniteArticle(ItemDefinitions.getItemDefinitions(data.item).getName()));
+			return false;
+		}
+		if (!player.getInventory().containsAny(data.item)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.item).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.produced).getName() + ".");
 			return false;
 		}
 		return true;
@@ -152,5 +159,7 @@ public final class Loom extends ProducingSkillAction {
 			this.requirement = requirement;
 			this.experience = experience;
 		}
+		
+		public static final ImmutableSet<LoomData> VALUES = Sets.immutableEnumSet(EnumSet.allOf(LoomData.class));
 	}
 }

@@ -217,7 +217,6 @@ public class EntityMovement {
 		if (stopActions && !(getEntity().toPlayer().getAction().getAction().isPresent() && getEntity().toPlayer().getAction().getAction().get() instanceof WineTask))
 			getEntity().toPlayer().getAction().forceStop();
 		getEntity().toPlayer().getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
-		getEntity().toPlayer().getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).set(null);
 		getEntity().toPlayer().getDialogueInterpreter().close();
 		getEntity().toPlayer().getCombatDefinitions().resetSpells(false);
 	}

@@ -7,6 +7,7 @@ import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
+import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -118,7 +119,7 @@ public class Fishing extends HarvestingSkillAction {
 			return false;
 		}
 		if(getPlayer().getInventory().getFreeSlots() < 1) {
-			getPackets().sendGameMessage("You do not have any space left in your inventory.");
+			getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
 			return false;
 		}
 		if(tool.needed > 0) {

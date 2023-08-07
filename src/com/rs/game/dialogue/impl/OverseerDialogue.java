@@ -49,9 +49,7 @@ public class OverseerDialogue extends DialogueEventListener {
 			npc(happy,
 					"All the finished planks go straight into the cart, but"," you can take out any excess planks and use them"," for the next batch, if you like.");
 			npc(happy, "Just let me know when you're ready to send an order.");
-		}, "Nothing, thanks.", () -> {
-			this.complete();
-		});
+		}, "Nothing, thanks.", this::complete);
 	}
 
 }

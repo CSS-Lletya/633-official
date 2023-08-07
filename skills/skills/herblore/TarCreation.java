@@ -142,7 +142,7 @@ public final class TarCreation extends ProducingSkillAction {
 			return false;
 		}
 		if(!getPlayer().getInventory().containsAny(SWAMP_TAR.getId())) {
-			getPlayer().getPackets().sendGameMessage("You need 15 swamp tars to register a " + definition.toString() + ".");
+			getPlayer().getPackets().sendGameMessage("You need 15 swamp tars to make a " + definition.toString() + ".");
 			return false;
 		}
 		return true;

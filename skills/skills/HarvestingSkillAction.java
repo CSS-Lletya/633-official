@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.google.common.base.Preconditions;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
+import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtility;
@@ -55,7 +56,7 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 		}
 		if(!getPlayer().getInventory().hasFreeSlots()) {
 			onHarvest(t, harvestItems, false);
-			getPlayer().getPackets().sendGameMessage("You do not have any space left in your inventory!");
+			getPlayer().getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
 			return false;
 		}
 		return true;

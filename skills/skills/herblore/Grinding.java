@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -126,6 +127,10 @@ public final class Grinding extends ProducingSkillAction {
 		}
 		if(!getPlayer().getInventory().containsAny(PESTLE_MORTAR.getId())) {
 			getPlayer().getPackets().sendGameMessage("You need a pestle and mortar to do this.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(definition.item.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(definition.item.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(definition.product.getId()).getName() + ".");
 			return false;
 		}
 		return true;

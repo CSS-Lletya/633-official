@@ -36,6 +36,7 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 			LogUtility.log(LogType.INFO, "Dialogue: " + interfaceId + ", " + buttonId
 					+ ", " + junk);
 		int componentId = interfaceHash - (interfaceId << 16);
+		player.getInterfaceManager().closeChatBoxInterface();
 		switch (interfaceId) {
 		case 94:
 			if (buttonId == 3)
@@ -45,15 +46,15 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 			player.getAudioManager().sendSound(Sounds.DESTOY_ITEM);
 			break;
 		case 905:
-			player.getInterfaceManager().closeChatBoxInterface();
-			DialogueEventListener.continueBlankDialogue(player, componentId);
+			DialogueEventListener.executeSkillDialogueAction(player, buttonId);
 			break;
 		case 619:
 			EniolaBanker.sendInterfaceFunctionality(player, componentId);
 			break;
 		default:
-			if (DialogueEventListener.continueDialogue(player, componentId))
+			if (DialogueEventListener.continueDialogue(player, componentId)) { 
 				return;
+			}
 			player.getDialogueInterpreter().handle(componentId, buttonId);
 			break;
 		}

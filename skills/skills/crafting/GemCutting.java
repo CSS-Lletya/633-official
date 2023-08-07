@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
@@ -102,7 +103,7 @@ public class GemCutting extends ProducingSkillAction {
 
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -119,6 +120,10 @@ public class GemCutting extends ProducingSkillAction {
 		if (player.getSkills().getLevel(Skills.CRAFTING) < data.requirement) {
 			player.getPackets()
 					.sendGameMessage("You need a Crafting level of " + data.requirement + " to continue this action.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(data.gem.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.gem.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.produce.getId()).getName() + ".");
 			return false;
 		}
 		return true;

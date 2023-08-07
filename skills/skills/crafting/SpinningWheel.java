@@ -104,6 +104,10 @@ public final class SpinningWheel extends ProducingSkillAction {
 			player.getPackets().sendGameMessage("You need a crafting level of " + data.requirement + " to spin " + TextUtils.appendIndefiniteArticle(data.produced.getDefinitions().getName()));
 			return false;
 		}
+		if (!player.getInventory().containsAny(data.item.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.item.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.produced.getId()).getName() + ".");
+			return false;
+		}
 		return true;
 	}
 	

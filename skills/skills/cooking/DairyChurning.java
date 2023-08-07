@@ -1,6 +1,6 @@
 package skills.cooking;
 
-import com.rs.game.dialogue.CreateActionD;
+import com.rs.game.dialogue.type.CreateActionD;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 
@@ -15,6 +15,6 @@ public class DairyChurning {
     private static int[] anims = {2793, 2793, 2793};
 
     public static void handleChurnOption(Player player) {
-        player.dialogueBlank(new CreateActionD(player, materials, products, xp, anims, reqs, Skills.COOKING, 2));
+        player.dialogue(new CreateActionD(player, materials, products, xp, anims, reqs, Skills.COOKING, 2));
     }
 }

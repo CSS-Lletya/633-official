@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -104,6 +105,10 @@ public final class AmuletStringing extends ProducingSkillAction {
 	
 	@Override
 	public boolean canExecute() {
+		if (!player.getInventory().containsAny(data.item.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.item.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.stringed.getId()).getName() + ".");
+			return false;
+		}
 		return true;
 	}
 	

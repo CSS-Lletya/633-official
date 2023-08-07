@@ -104,6 +104,10 @@ public final class PotteryWheel extends ProducingSkillAction {
 			player.getPackets().sendGameMessage("You need a crafting level of " + data.requirement + " to create " + TextUtils.appendIndefiniteArticle(ItemDefinitions.getItemDefinitions(data.item).getName()));
 			return false;
 		}
+		if (!player.getInventory().containsAny(data.item)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.item).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.produced).getName() + ".");
+			return false;
+		}
 		return true;
 	}
 	

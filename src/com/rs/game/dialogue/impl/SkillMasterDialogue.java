@@ -22,8 +22,8 @@ public class SkillMasterDialogue extends DialogueEventListener {
 					+ "","and wear it proudly to show others.");
 			player(afraid, "Hmm, interesting.");
 			if (player.getSkills().getTrueLevel(master.ordinal()) >= 99) {
-				npc(happy, "Ah, but I see you are already "+master.verb+", perhaps you have ","come to me to purchase a Skillcape of "+master.name()+"",", and thus join the elite few who"," have mastered ","this exacting skill?");
-				option("Yes, I'd like to buy one please.", () -> {
+				npc(happy, "Ah, but I see you are already "+master.verb+", perhaps "," you have come to me to purchase a Skillcape of "+master.name()+""," and thus join the elite few who have mastered ","this exacting skill?");
+				option("99,000 coins? That's much too expensive.", () -> {
 					player(sad, "99,000 coins? That's much too expensive.");
 					npc(angry_2, "...");
 				}, "I think I have the money right here, actually.", () -> master.startTransaction(player));
@@ -31,8 +31,8 @@ public class SkillMasterDialogue extends DialogueEventListener {
 				option("Please tell me more about skillcapes.", () -> {
 					player(happy, "Please tell me more about skillcapes.");
 					npc(happy, " Of course. Skillcapes are a symbol of achievement. "," Only people who have mastered "," a skill and reached level 99 can get their hands ","on them and gain the benefits they carry.");
-				}, "Bye.", () -> this.complete());
+				}, "Bye.", this::complete);
 			}
-		}, "Bye.", () -> this.complete());
+		}, "Bye.", this::complete);
 	}
 }

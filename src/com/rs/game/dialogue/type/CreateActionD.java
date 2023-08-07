@@ -1,5 +1,6 @@
-package com.rs.game.dialogue;
+package com.rs.game.dialogue.type;
 
+import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.CreateAction;
@@ -81,7 +82,7 @@ public class CreateActionD extends DialogueEventListener {
         this.xp = xp;
         this.reqs = reqs;
     }
-
+    
     @Override
     public void start() {
         Item[] products = new Item[this.products.length];

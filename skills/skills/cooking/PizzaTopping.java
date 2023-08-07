@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -75,13 +76,17 @@ public final class PizzaTopping extends ProducingSkillAction {
 	
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 	
 	@Override
 	public boolean initialize() {
 		if(player.getSkills().getLevel(Skills.COOKING) < data.requirement) {
 			player.getPackets().sendGameMessage("You need a cooking level of " + data.requirement + " to add this topping.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(data.ingredient.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.ingredient.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.product.getId()).getName() + ".");
 			return false;
 		}
 		return true;

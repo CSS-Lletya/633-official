@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -93,6 +94,10 @@ public final class BattlestaffCrafting extends ProducingSkillAction {
 		if (player.getSkills().getLevel(Skills.CRAFTING) < data.requiredLevel) {
 			player.getPackets()
 					.sendGameMessage("You need a Crafting level of " + data.requiredLevel + " to continue this action.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(data.orb.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.orb.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.product.getId()).getName() + ".");
 			return false;
 		}
 		return true;

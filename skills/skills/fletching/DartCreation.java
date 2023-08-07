@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -134,6 +135,10 @@ public final class DartCreation extends ProducingSkillAction {
 	private boolean checkFletching() {
 		if(player.getSkills().getLevel(Skills.FLETCHING) < definition.requirement) {
 			player.getPackets().sendGameMessage("You need a fletching level of " + definition.requirement + " to fletch this arrow.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(definition.itemId)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(definition.itemId).getName() + " to make a " + ItemDefinitions.getItemDefinitions(definition.tips).getName() + ".");
 			return false;
 		}
 		return true;

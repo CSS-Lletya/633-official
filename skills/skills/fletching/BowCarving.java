@@ -5,11 +5,13 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.Task;
+import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.TextUtils;
 
 import skills.ProducingSkillAction;
@@ -25,6 +27,7 @@ public class BowCarving extends ProducingSkillAction {
 	/**
 	 * Determines if we're cutting dependent of the beaver familiar.
 	 */
+	@SuppressWarnings("unused")
 	private final boolean beaver;
 	
 	/**
@@ -92,13 +95,16 @@ public class BowCarving extends ProducingSkillAction {
 //				}
 //				player.message("The beaver carefully cut the logs into " + TextUtils.appendIndefiniteArticle(current.producible.getDefinition().getName()) + ".");
 //			} else {
-				player.setNextAnimation(Animations.FLETCHING_BOW);
 				player.getPackets().sendGameMessage("You carefully cut the logs into " + TextUtils.appendIndefiniteArticle(current.producible.getDefinitions().getName()) + ".");
 //			}
 			if(--counter < 1) {
 				t.cancel();
 			}
 		}
+	}
+	@Override
+	public Optional<Animation> animation() {
+		return Optional.of(Animations.FLETCHING_BOW);
 	}
 	
 	@Override
@@ -113,12 +119,12 @@ public class BowCarving extends ProducingSkillAction {
 	
 	@Override
 	public int delay() {
-		return beaver ? 6 : 3;
+		return 3;
 	}
 	
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -149,6 +155,10 @@ public class BowCarving extends ProducingSkillAction {
 	public boolean checkFletching() {
 		if(player.getSkills().getLevel(Skills.FLETCHING) < current.requirement) {
 			player.getPackets().sendGameMessage("You need a fletching level of " + current.requirement + " to fletch this.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(definition.log.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(definition.log.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(current.producible.getId()).getName() + ".");
 			return false;
 		}
 		return true;

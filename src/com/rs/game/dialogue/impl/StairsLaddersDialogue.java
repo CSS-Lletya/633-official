@@ -26,9 +26,8 @@ public class StairsLaddersDialogue {
 				return;
 			player.dialogue(dialogue -> {
 				dialogue.option("Go-Up", () -> {
-					if (player.getPlane() == 3) {
+					if (player.getPlane() == 3)
 						return;
-					}
 					if (!isUpperSpecialTargetTile(player))
 						player.getMovement().move(true,
 							new WorldTile(player.getX(), player.getY(), player.getPlane() + 1), TeleportType.BLANK);

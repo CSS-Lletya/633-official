@@ -41,7 +41,6 @@ public class MoltenGlassCrafting extends DestructionSkillAction {
 				player.getPackets().sendGameMessage("You heat the sand and soda ash in the furnace to make glass.");
 				player.getDetails().getStatistics().addStatistic("Molten_Glass_made");
 			}
-			
 		}
 		if (!player.getInventory().containsAny(ItemNames.SODA_ASH_1781))
 			t.cancel();

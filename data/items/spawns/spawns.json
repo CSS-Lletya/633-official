@@ -4668,5 +4668,25 @@
       "y": 3515,
       "plane": 0
     }
+  },
+  {
+    "comment": "Ring mould for crafting guild",
+    "itemId": 1592,
+    "amount": 1,
+    "tile": {
+      "x": 2935,
+      "y": 3283,
+      "plane": 1
+    }
+  },
+  {
+    "comment": "tiara mould for crafting guild",
+    "itemId": 5523,
+    "amount": 1,
+    "tile": {
+      "x": 2935,
+      "y": 3282,
+      "plane": 1
+    }
   }
 ]

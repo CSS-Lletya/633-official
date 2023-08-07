@@ -79,11 +79,6 @@ public interface Attribute {
 	public String DIALOGUE_EVENT = "DialogueEvent";
 	
 	/**
-	 * Represents the Dialogue event state
-	 */
-	public String BLANK_DIALOGUE_EVENT = "BlankDialogueEvent";
-	
-	/**
 	 * Represents the max skill quantity for skilling menu (fletching, such)
 	 */
 	public String SKILL_DIALOGUE_MAX_QUANTITY = "SkillsDialogueMaxQuantity";
@@ -227,4 +222,9 @@ public interface Attribute {
 	 * Represents the Canoe selected destination
 	 */
 	public String CANOE_LOCATION_SET = "CanoeSelectedArea";
+	
+	/**
+	 * Represents the skill dialogue attribute
+	 */
+	public String SKILL_DIALOGUE = "SkillDialogue";
 }

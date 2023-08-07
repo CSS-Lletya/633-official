@@ -2,6 +2,7 @@ package skills.crafting;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
@@ -70,6 +71,10 @@ public final class HardLeatherCrafting extends ProducingSkillAction {
 		if (player.getSkills().getLevel(Skills.CRAFTING) < 28) {
 			player.getPackets()
 					.sendGameMessage("You need a Crafting level of 28 to continue this action.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(1743)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(1743).getName() + " to make a " + ItemDefinitions.getItemDefinitions(1131).getName() + ".");
 			return false;
 		}
 		return true;

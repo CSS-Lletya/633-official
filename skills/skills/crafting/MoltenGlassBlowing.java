@@ -71,7 +71,7 @@ public final class MoltenGlassBlowing extends ProducingSkillAction {
 	
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -102,6 +102,10 @@ public final class MoltenGlassBlowing extends ProducingSkillAction {
 	private boolean checkCrafting() {
 		if(player.getSkills().getLevel(Skills.CRAFTING) < data.requirement) {
 			player.getPackets().sendGameMessage("You need a crafting level of " + data.requirement + " to create " + TextUtils.appendIndefiniteArticle(ItemDefinitions.getItemDefinitions(data.item).getName()));
+			return false;
+		}
+		if (!player.getInventory().containsAny(1775)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(1775).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.item).getName() + ".");
 			return false;
 		}
 		return true;

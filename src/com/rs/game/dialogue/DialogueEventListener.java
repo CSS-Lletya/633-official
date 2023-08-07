@@ -3,9 +3,20 @@ package com.rs.game.dialogue;
 import java.util.ArrayList;
 
 import com.rs.cache.loaders.NPCDefinitions;
+import com.rs.game.dialogue.type.DialogueDualEntityEvent;
+import com.rs.game.dialogue.type.DialogueEntityEvent;
+import com.rs.game.dialogue.type.DialogueEvent;
+import com.rs.game.dialogue.type.DialogueItemEvent;
+import com.rs.game.dialogue.type.DialogueOptionEvent;
+import com.rs.game.dialogue.type.DialogueRunnableEvent;
+import com.rs.game.dialogue.type.DialogueSkillsEvent;
+import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
+import com.rs.utilities.SkillDialogueFeedback;
+
+import skills.SkillsDialogue;
 
 public abstract class DialogueEventListener implements Mood {
 
@@ -23,6 +34,16 @@ public abstract class DialogueEventListener implements Mood {
 
 	public DialogueEventListener event(Runnable run) {
 		dialogueEvent.add(new DialogueRunnableEvent(run));
+		return this;
+	}
+	
+	public DialogueEventListener skillsMenu(Item... items) {
+		dialogueEvent.add(new DialogueSkillsEvent(items));
+		return this;
+	}
+	
+	public DialogueEventListener skillsMenu(int... items) {
+		dialogueEvent.add(new DialogueSkillsEvent(items));
 		return this;
 	}
 	
@@ -115,9 +136,13 @@ public abstract class DialogueEventListener implements Mood {
 		player.getInterfaceManager().closeChatBoxInterface();
 		onClose();
 		player.getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
-		player.getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).set(null);
 	}
 
+	public void skillDialogue(SkillDialogueFeedback feedback) {
+		player.getAttributes().get(Attribute.SKILL_DIALOGUE).set(feedback);
+		
+	}
+	
 	/**
 	 * 
 	 * @return the name of the option the player clicked
@@ -136,10 +161,9 @@ public abstract class DialogueEventListener implements Mood {
 	}
 	
 	private int interfaceId;
-
+	
 	public void listenToDialogueEvent(int button) {
 		DialogueEvent previousDialogue = dialogueEvent.get(Math.max(0, page - 1));
-
 		if (page > 0 && previousDialogue.getType() == 3) {
 			DialogueOptionEvent event = (DialogueOptionEvent) previousDialogue;
 			previousOptionPressed = ordinalButton(button);
@@ -235,6 +259,19 @@ public abstract class DialogueEventListener implements Mood {
 			player.getPackets().sendIComponentAnimation(event3.getFace(), 136, 3);
 			//note: There's no continue dialogue button, so this is a time sequenced dialogue (usually like both entities saying "oh-noeee")
 			break;
+		case 6:
+			DialogueSkillsEvent event4 = (DialogueSkillsEvent) dialogue;
+			int[] itemIds = new int[event4.getItemIds().length];
+	        for (int i = 0; i < event4.getItemIds().length; i++)
+	            itemIds[i] = event4.getItemIds()[i].getId();
+			SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.SELECT, 28, itemIds, null, true);
+			
+			break;
+		case 7:
+			DialogueSkillsEvent event5 = (DialogueSkillsEvent) dialogue;
+			SkillsDialogue.sendSkillsDialogue(player, SkillsDialogue.SELECT, 28, event5.getItems(), null, true);
+			
+			break;
 //		case 4: {
 //			/*
 //			 * NOTE: No actual function, this is just a reference point to show that there
@@ -260,19 +297,17 @@ public abstract class DialogueEventListener implements Mood {
 			return defs.name;
 	}
 
+	public static void executeSkillDialogueAction(Player player, int button) {
+		SkillDialogueFeedback action = (SkillDialogueFeedback) player.getAttributes().get(Attribute.SKILL_DIALOGUE).get();
+		if (action != null)
+			action.handle(button);
+	}
+	
 	public static boolean continueDialogue(Player player, int i) {
 		DialogueEventListener dialogue = (DialogueEventListener) player.getAttributes().get(Attribute.DIALOGUE_EVENT).get();
 		if (dialogue == null)
 			return false;
 		dialogue.listenToDialogueEvent(i);
-		return true;
-	}
-	
-	public static boolean continueBlankDialogue(Player player, int i) {
-		DialogueEventListener dialogueBlank = (DialogueEventListener) player.getAttributes().get(Attribute.BLANK_DIALOGUE_EVENT).get();
-		if (dialogueBlank == null)
-			return false;
-		dialogueBlank.listenToDialogueEvent(i);
 		return true;
 	}
 }

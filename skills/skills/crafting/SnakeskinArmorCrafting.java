@@ -2,6 +2,7 @@ package skills.crafting;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
@@ -72,6 +73,10 @@ public final class SnakeskinArmorCrafting extends ProducingSkillAction {
 		if (player.getSkills().getLevel(Skills.CRAFTING) < definitions.requirement) {
 			player.getPackets()
 					.sendGameMessage("You need a Crafting level of "+definitions.requirement+" to continue this action.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(6289)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(6289).getName() + " to make a " + ItemDefinitions.getItemDefinitions(definitions.item).getName() + ".");
 			return false;
 		}
 		return true;

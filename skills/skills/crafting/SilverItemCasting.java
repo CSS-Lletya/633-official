@@ -138,6 +138,10 @@ public final class SilverItemCasting extends ProducingSkillAction {
 			player.getPackets().sendGameMessage("You do not have the right mould to create this.");
 			return false;
 		}
+		if (!player.getInventory().containsAny(data.item)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.item).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.product).getName() + ".");
+			return false;
+		}
 		return true;
 	}
 	

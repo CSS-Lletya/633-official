@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -110,6 +111,10 @@ public final class ArrowCreation extends ProducingSkillAction {
 	private boolean checkFletching() {
 		if(player.getSkills().getLevel(Skills.FLETCHING) < definition.requirement) {
 			getPackets().sendGameMessage("You need a fletching level of " + definition.requirement + " to fletch this arrow.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(definition.tips.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(definition.tips.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(definition.arrow.getId()).getName() + ".");
 			return false;
 		}
 		return true;

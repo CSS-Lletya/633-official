@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -74,7 +75,7 @@ public final class PieCreation extends ProducingSkillAction {
 
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -84,6 +85,10 @@ public final class PieCreation extends ProducingSkillAction {
 
 	@Override
 	public boolean canExecute() {
+		if (!player.getInventory().containsAny(data.ingredient.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.ingredient.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.produced.getId()).getName() + ".");
+			return false;
+		}
 		return true;
 	}
 

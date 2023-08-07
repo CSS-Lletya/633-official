@@ -53,7 +53,6 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.IS_BANKING, false);
 		AttributeKey.forTransient(Attribute.SKILL_GUIDE_MENU, 0);
 		AttributeKey.forTransient(Attribute.DIALOGUE_EVENT, false);
-		AttributeKey.forTransient(Attribute.BLANK_DIALOGUE_EVENT, false);
 		AttributeKey.forTransient(Attribute.SKILL_DIALOGUE_MAX_QUANTITY, 28);
 		AttributeKey.forTransient(Attribute.SKILL_DIALOGUE_QUANTITY, 1);
 		AttributeKey.forTransient(Attribute.RECOVER_SPECIAL_POT, -1);
@@ -75,7 +74,7 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.CHAT_TYPE, 0);
 		AttributeKey.forTransient(Attribute.BOW_FLETCHING, false);
 		AttributeKey.forTransient(Attribute.DRAGONHIDE_FLETCHING, false);
-		
+		AttributeKey.forTransient(Attribute.SKILL_DIALOGUE, -1);
 		
 		AttributeKey.forPersistent(Attribute.CANOE_CHOPPED, false);
 		AttributeKey.forPersistent(Attribute.CANOE_CONFIG, 0);

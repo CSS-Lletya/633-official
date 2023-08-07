@@ -67,7 +67,7 @@ public final class CrabShellCrafting extends DestructionSkillAction {
 
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -106,6 +107,10 @@ public final class CrossbowStringing extends ProducingSkillAction {
 	private boolean checkFletching() {
 		if(player.getSkills().getLevel(Skills.FLETCHING) < definition.requirement) {
 			player.getPackets().sendGameMessage("You need a fletching level of " + definition.requirement + " to string this bow.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(definition.unstrung.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(definition.unstrung.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(definition.strung.getId()).getName() + ".");
 			return false;
 		}
 		return true;

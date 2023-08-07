@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -39,13 +40,11 @@ public final class CrossbowLimbing extends ProducingSkillAction {
 		Optional<CrossbowData> bow = CrossbowData.getDefinition(firstItem.getId(), secondItem.getId());
 		
 		if(!bow.isPresent()) {
-			System.out.println("not present");
 			return false;
 		}
 		
 		if(firstItem.getId() == bow.get().limb.getId() && secondItem.getId() == bow.get().stock.getId() || firstItem.getId() == bow.get().stock.getId() && secondItem.getId() == bow.get().limb.getId()) {
 			CrossbowLimbing fletching = new CrossbowLimbing(player, bow.get());
-			System.out.println("?");
 			fletching.start();
 			return true;
 		}
@@ -54,10 +53,11 @@ public final class CrossbowLimbing extends ProducingSkillAction {
 	
 	@Override
 	public void onProduce(Task t, boolean success) {
-		System.out.println("?");
-		if(success) {
-			player.setNextAnimation(definition.animation);
-		}
+	}
+	
+	@Override
+	public Optional<Animation> animation() {
+		return Optional.of(definition.animation);
 	}
 	
 	@Override
@@ -109,6 +109,10 @@ public final class CrossbowLimbing extends ProducingSkillAction {
 	private boolean checkFletching() {
 		if(player.getSkills().getLevel(Skills.FLETCHING) < definition.requirement) {
 			player.getPackets().sendGameMessage("You need a fletching level of " + definition.requirement + " to add a limb to this stock.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(definition.stock.getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(definition.stock.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(definition.crossbow_u.getId()).getName() + ".");
 			return false;
 		}
 		return true;

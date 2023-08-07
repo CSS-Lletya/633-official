@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -18,55 +19,28 @@ import skills.Skills;
 
 public class DragonhideArmorCrafting extends ProducingSkillAction {
 	
-	/**
-	 * The definition of this log.
-	 */
 	public final DragonHideData definition;
 	
-	/**
-	 * The current array the player selected.
-	 */
 	private ProduciblePolicy current;
 	
-	/**
-	 * The amount of times this task has to run.
-	 */
 	private int counter;
 	
-	/**
-	 * Constructs a new {@link DragonhideArmorCrafting} skill action.
-	 * @param player {@link #getPlayer()}.
-	 * @param definition {@link #definition}.
-	 * @param beaver {@link #beaver}.
-	 */
 	public DragonhideArmorCrafting(Player player, DragonHideData definition) {
 		super(player, Optional.empty());
 		this.definition = definition;
 	}
 	
-	/**
-	 * Fletches all the possible items a player can fletch.
-	 * @param player the player we're fletching items for.
-	 * @param buttonId the button id pressed.
-	 * @return <true> if this action started, <false> otherwise.
-	 */
-	public static boolean fletch(Player player, int buttonId) {
+	public static boolean craft(Player player, int buttonId) {
 		Optional<ProduciblePolicy> pol = DragonHideData.getProducibles((DragonhideArmorCrafting) player.getAttributes().get(Attribute.DRAGONHIDE_TYPE).get(), buttonId);
 		if(!pol.isPresent())
 			return false;
 		DragonhideArmorCrafting craft = (DragonhideArmorCrafting) player.getAttributes().get(Attribute.DRAGONHIDE_TYPE).get();
 		craft.current = pol.get();
-		fletch(player, pol.get(), 28);
+		craft(player, pol.get(), 28);
 		return true;
 	}
 	
-	/**
-	 * Attempts to start fletching for the {@code player}.
-	 * @param player {@link #getPlayer()}.
-	 * @param producable {@link #current}.
-	 * @param amount the amount to register.
-	 */
-	private static void fletch(Player player, ProduciblePolicy producable, int amount) {
+	private static void craft(Player player, ProduciblePolicy producable, int amount) {
 		DragonhideArmorCrafting craft = (DragonhideArmorCrafting) player.getAttributes().get(Attribute.DRAGONHIDE_TYPE).get();
 		craft.counter = amount;
 		craft.current = producable;
@@ -141,6 +115,10 @@ public class DragonhideArmorCrafting extends ProducingSkillAction {
 			player.getPackets().sendGameMessage("You need a crafting level of " + current.requirement + " to craft this.");
 			return false;
 		}
+		if (!player.getInventory().containsItem(definition.hide.getId(), current.hideRequired)) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions((definition.hide.getId())).getName() + " to make a " + ItemDefinitions.getItemDefinitions(current.producible.getId()).getName() + ".");
+			return false;
+		}
 		return true;
 	}
 	
@@ -159,7 +137,7 @@ public class DragonhideArmorCrafting extends ProducingSkillAction {
 	}
 
 	public enum DragonHideData {
-		GREEN(new Item(1745,1), new ProduciblePolicy(1065, 1, 57, 62, new ButtonConfiguration(0, 28)), new ProduciblePolicy(1099, 60, 2,124, new ButtonConfiguration(1, 28)), new ProduciblePolicy(1135, 63, 3,186, new ButtonConfiguration(2, 28))),
+		GREEN(new Item(1745,1), new ProduciblePolicy(1065, 57, 1, 62, new ButtonConfiguration(0, 28)), new ProduciblePolicy(1099, 60, 2,124, new ButtonConfiguration(1, 28)), new ProduciblePolicy(1135, 63, 3,186, new ButtonConfiguration(2, 28))),
 		BLUE(new Item(2505), new ProduciblePolicy(2487, 66,1, 70, new ButtonConfiguration(0, 28)), new ProduciblePolicy(2493, 68, 2,140, new ButtonConfiguration(1, 28)), new ProduciblePolicy(2499, 71, 3,210, new ButtonConfiguration(2, 28))),
 		RED(new Item(2507), new ProduciblePolicy(2489, 73, 1,78, new ButtonConfiguration(0, 28)), new ProduciblePolicy(2495, 75, 2,156, new ButtonConfiguration(1, 28)), new ProduciblePolicy(2501, 77, 3,234, new ButtonConfiguration(2, 28))),
 		BLACK(new Item(2509), new ProduciblePolicy(2491, 79, 1,86, new ButtonConfiguration(0, 28)), new ProduciblePolicy(2497, 82, 2,172, new ButtonConfiguration(1, 28)), new ProduciblePolicy(2503, 84, 3,258, new ButtonConfiguration(2, 28))),
@@ -209,11 +187,6 @@ public class DragonhideArmorCrafting extends ProducingSkillAction {
 		}
 	}
 	
-	/**
-	 * Represents the producible items this log can make if the player
-	 * has the respective requirement.
-	 * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
-	 */
 	public static class ProduciblePolicy {
 		
 		/**
@@ -265,10 +238,6 @@ public class DragonhideArmorCrafting extends ProducingSkillAction {
 		}
 	}
 	
-	/**
-	 * Represents a button configuration, basically chains the amount to produce to the button.
-	 * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
-	 */
 	private static class ButtonConfiguration {
 		
 		/**

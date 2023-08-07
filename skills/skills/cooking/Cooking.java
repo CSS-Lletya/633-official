@@ -92,12 +92,12 @@ public final class Cooking extends ProducingSkillAction {
 
 	@Override
 	public int delay() {
-		return 4;
+		return 3;
 	}
 
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 
 	@Override

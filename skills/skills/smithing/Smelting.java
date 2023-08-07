@@ -67,7 +67,7 @@ public class Smelting extends ProducingSkillAction {
 		if (spell) {
 			player.getSkills().addExperience(Skills.SMITHING, definition.experience);
 			player.getInventory().removeItems(removeItem().get());
-			player.getInventory().addItems(new Item(definition.produced[0]));
+			player.getInventory().addItems(new Item(definition.produced));
 			t.cancel();
 			return;
 		}
@@ -75,7 +75,7 @@ public class Smelting extends ProducingSkillAction {
 			if (isSuccessfull(player)) {
 				player.getSkills().addExperience(Skills.SMITHING, definition.experience);
 				player.getInventory().removeItems(removeItem().get());
-				player.getInventory().addItems(new Item(definition.produced[0]));
+				player.getInventory().addItems(new Item(definition.produced));
 			} else {
 				player.getInventory().removeItems(removeItem().get());
 				player.getPackets().sendGameMessage("The ore is too impure and you fail to refine it.");
@@ -161,21 +161,21 @@ public class Smelting extends ProducingSkillAction {
 	}
 	
 	public enum SmeltingData {
-		BRONZE(0, new Item[]{new Item(438), new Item(436)}, new Item[]{new Item(2349)}, 6.25, 1),
+		BRONZE(0, new Item[]{new Item(438), new Item(436)}, new Item(2349), 6.25, 1),
 		
-		IRON(11, new Item[]{new Item(440)}, new Item[]{new Item(2351)}, 12.5, 15),
+		IRON(11, new Item[]{new Item(440)}, new Item(2351), 12.5, 15),
 		
-		SILVER(2, new Item[]{new Item(442)}, new Item[]{new Item(2355)}, 13.67, 20),
+		SILVER(2, new Item[]{new Item(442)}, new Item(2355), 13.67, 20),
 		
-		STEEL(3, new Item[]{new Item(440), new Item(453, 2)}, new Item[]{new Item(2353)}, 17.5, 30),
+		STEEL(3, new Item[]{new Item(440), new Item(453, 2)}, new Item(2353), 17.5, 30),
 		
-		GOLD(4, new Item[]{new Item(444)}, new Item[]{new Item(2357)}, 22.5, 40),
+		GOLD(4, new Item[]{new Item(444)}, new Item(2357), 22.5, 40),
 		
-		MITHRIL(5, new Item[]{new Item(447), new Item(453, 4)}, new Item[]{new Item(2359)}, 30, 50),
+		MITHRIL(5, new Item[]{new Item(447), new Item(453, 4)}, new Item(2359), 30, 50),
 		
-		ADAMANT(6, new Item[]{new Item(449), new Item(453, 6)}, new Item[]{new Item(2361)}, 37.5, 70),
+		ADAMANT(6, new Item[]{new Item(449), new Item(453, 6)}, new Item(2361), 37.5, 70),
 		
-		RUNITE(7, new Item[]{new Item(451), new Item(453, 8)}, new Item[]{new Item(2363)}, 50, 85);
+		RUNITE(7, new Item[]{new Item(451), new Item(453, 8)}, new Item(2363), 50, 85);
 		
 		/**
 		 * Caches our enum values.
@@ -195,7 +195,7 @@ public class Smelting extends ProducingSkillAction {
 		/**
 		 * The produced items for smelting the required items.
 		 */
-		private final Item[] produced;
+		public final Item produced;
 		
 		/**
 		 * The experience gained upon smelting one bar.
@@ -221,7 +221,7 @@ public class Smelting extends ProducingSkillAction {
 		 * @param experience {@link #experience}.
 		 * @param requirement {@link #requirement}.
 		 */
-		SmeltingData(int buttonId, Item[] required, Item[] produced, double experience, int requirement) {
+		SmeltingData(int buttonId, Item[] required, Item produced, double experience, int requirement) {
 			this.buttonId = buttonId;
 			this.required = required;
 			this.produced = produced;

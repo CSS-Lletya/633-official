@@ -22,7 +22,7 @@ public final class Inventory {
 	public static final int INVENTORY_INTERFACE = 149;
 	
 	
-	public static String INVENTORY_FULL_MESSAGE = "You don't have enough inventory space.";
+	public static String INVENTORY_FULL_MESSAGE = "You need some more free inventory space to do this.";
 
 	public Inventory() {
 		items = new ItemsContainer<Item>(28, false);

@@ -1,4 +1,4 @@
-package com.rs.game.dialogue;
+package com.rs.game.dialogue.type;
 
 import lombok.Data;
 

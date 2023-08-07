@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -123,6 +124,10 @@ public final class UnfinishedPotion extends ProducingSkillAction {
 	public boolean canProduce() {
 		if(player.getSkills().getLevel(Skills.HERBLORE) < definition.level) {
 			getPlayer().getPackets().sendGameMessage("You need a herblore level of " + definition.getLevel() + " to register " + TextUtils.appendIndefiniteArticle(definition.toString()) + " potion.");
+			return false;
+		}
+		if (!player.getInventory().containsAny(definition.getHerb().getId())) {
+			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(definition.getHerb().getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(definition.unfpot.getId()).getName() + ".");
 			return false;
 		}
 		return true;

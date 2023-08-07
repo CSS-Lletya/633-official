@@ -15,5 +15,4 @@ public interface DialogueAction {
 	 * @param buttonId the buttonId.
 	 */
 	public void handle(Player player, int buttonId);
-	
 }

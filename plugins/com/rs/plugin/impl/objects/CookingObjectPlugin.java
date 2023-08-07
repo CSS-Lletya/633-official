@@ -1,14 +1,16 @@
 package com.rs.plugin.impl.objects;
 
 import com.rs.constants.ItemNames;
-import com.rs.game.dialogue.impl.CookingDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
+import com.rs.utilities.SkillDialogueFeedback;
 
+import skills.SkillsDialogue;
+import skills.cooking.Cooking;
 import skills.cooking.CookingData;
 import skills.cooking.SodaAshBurning;
 import skills.firemaking.FireLighter;
@@ -32,6 +34,16 @@ public class CookingObjectPlugin extends ObjectListener {
 			return;
 		}
 		CookingData.VALUES.stream().filter(raw -> raw.getRawId() == item.getId())
-		.forEach(cookable -> player.dialogueBlank(new CookingDialogue(player, new CookingData[] {cookable}, object, item.getId())));
+		.forEach(cookable -> {
+			player.dialogue(d -> {
+				d.skillsMenu(item);
+				d.skillDialogue(new SkillDialogueFeedback() {
+					@Override
+					public void handle(int button) {
+						new Cooking(player, object, cookable, true, SkillsDialogue.getQuantity(player)).start();
+					}
+				});
+			});
+		});
 	}
 }
