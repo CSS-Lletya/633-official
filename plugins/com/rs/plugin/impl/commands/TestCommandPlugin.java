@@ -1,10 +1,13 @@
 package com.rs.plugin.impl.commands;
 
-import com.rs.content.mapzone.impl.TestMapZone;
+import java.util.Arrays;
+
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
+
+import skills.thieving.chest.Chest;
 
 /**
  * This is just a dummy command to re-use for whatever testing needed.
@@ -17,6 +20,7 @@ public class TestCommandPlugin implements CommandListener {
 
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		player.getMapZoneManager().submitMapZone(new TestMapZone());
+		System.out.println(Arrays.toString(Chest.data.keySet().toArray()));
+		
 	}
 }

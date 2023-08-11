@@ -135,6 +135,8 @@ public final class Animations {
 	public static final Animation USING_HAMMER_ON_ANVIL = new Animation(898);
 	public static final Animation CRAFTING_LEATHER = new Animation(1249);
 	public static final Animation FILLING_BUCKET_FROM_GROUND = new Animation(4471);
+	public static final Animation LOCKPICKING = new Animation(537);
+	public static final Animation CHEST_LOOTING = new Animation(536);
 	
 	/**
 	 * Object Based Animations

@@ -4688,5 +4688,35 @@
       "y": 3282,
       "plane": 1
     }
+  },
+    {
+    "comment": "necklace mould for crafting guild",
+    "itemId": 1597,
+    "amount": 1,
+    "tile": {
+      "x": 2932,
+      "y": 3287,
+      "plane": 1
+    }
+  },
+    {
+    "comment": "holy mould for crafting guild",
+    "itemId": 1599,
+    "amount": 1,
+    "tile": {
+      "x": 2931,
+      "y": 3287,
+      "plane": 1
+    }
+  },
+    {
+    "comment": "shears for crafting guild",
+    "itemId": 1735,
+    "amount": 1,
+    "tile": {
+      "x": 2930,
+      "y": 3285,
+      "plane": 1
+    }
   }
 ]

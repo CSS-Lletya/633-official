@@ -2,6 +2,7 @@ package com.rs.game.item;
 
 import com.google.common.collect.Iterables;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
@@ -9,6 +10,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * Represents a single item.
@@ -167,5 +169,12 @@ public class Item {
 	
 	public double getMetaDataD(String key) {
 		return getMetaDataD(key, 0);
+	}
+	
+	@Getter
+	private int minAmount, maxAmount;
+	
+	public Item generateResult() {
+		return new Item(getId(), RandomUtility.inclusive(getMinAmount(), getMaxAmount()));
 	}
 }

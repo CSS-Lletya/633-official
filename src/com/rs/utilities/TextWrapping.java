@@ -1,49 +1,33 @@
 package com.rs.utilities;
-import java.util.ArrayList;
-import java.util.List;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectList;
 
 public class TextWrapping {
+	
+	private static final char SPACE = ' ';
+	private static final int DEFAULT_LENGTH = 60;
 
-    private static final char SPACE = ' ';
-    private static final int DEFAULT_LENGTH = 60;
+	public static String[] wrap(final String s) {
+		return wrap(s, DEFAULT_LENGTH);
+	}
 
-    public static String[] wrap(final String str) {
-        return wrap(str, DEFAULT_LENGTH);
-    }
+	public static String[] wrap(final String s, int wrapLength) {
+		wrapLength = Math.max(wrapLength, 1);
 
-    public static String[] wrap(final String str, int wrapLength) {
-        if (str == null) {
-            return null;
-        }
+		final int n = s.length();
+		int offset = 0;
+		final ObjectList<String> w = new ObjectArrayList<>();
 
-        if (wrapLength < 1) {
-            wrapLength = 1;
-        }
+		while (offset < n) {
+			int i = s.indexOf(SPACE, offset + wrapLength);
+			if (i == -1) {
+				i = n;
+			}
+			w.add(s.substring(offset, i));
+			offset = i + 1;
+		}
 
-        final int inputLineLength = str.length();
-        int offset = 0;
-        final List<String> wrappedLines = new ArrayList<>();
-
-        while (offset < inputLineLength) {
-            int spaceToWrapAt = findSpaceToWrapAt(str, offset, wrapLength);
-
-            if (spaceToWrapAt >= offset) {
-                wrappedLines.add(str.substring(offset, spaceToWrapAt));
-                offset = spaceToWrapAt + 1;
-            } else {
-                wrappedLines.add(str.substring(offset));
-                offset = inputLineLength;
-            }
-        }
-
-        return wrappedLines.toArray(new String[0]);
-    }
-
-    private static int findSpaceToWrapAt(final String str, int offset, int wrapLength) {
-        int spaceToWrapAt = str.indexOf(SPACE, offset + wrapLength);
-        if (spaceToWrapAt == -1) {
-            return str.length();
-        }
-        return spaceToWrapAt;
-    }
+		return w.toArray(new String[0]);
+	}
 }

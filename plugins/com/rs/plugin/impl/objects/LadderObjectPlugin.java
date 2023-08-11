@@ -47,6 +47,8 @@ public class LadderObjectPlugin extends ObjectListener {
 				player.getMovement().move(true, new WorldTile(2884, 3398, 0), TeleportType.BLANK);
 			if (object.matches(new WorldTile(2842, 9824)))
 				player.getMovement().move(true, new WorldTile(2842, 3425, 0), TeleportType.BLANK);
+			if(object.matches(new WorldTile(2562, 9756, 0)))//north
+				player.getMovement().move(false, new WorldTile(2562, 3357), TeleportType.LADDER);
 		}
 		if (object.getId() == 1756) {//camelot water obelisk
 			if (object.matches(new WorldTile(2842, 3424)))

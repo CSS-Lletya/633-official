@@ -59,12 +59,12 @@ public abstract class DialogueEventListener implements Mood {
 	}
 
 	public DialogueEventListener player(int face, String message) {
-		dialogueEvent.add(new DialogueEntityEvent(true, face, TextWrapping.wrap(message, 43)));
+		dialogueEvent.add(new DialogueEntityEvent(true, face, TextWrapping.wrap(message, 42)));
 		return this;
 	}
 
 	public DialogueEventListener npc(int face, String message) {
-		dialogueEvent.add(new DialogueEntityEvent(false, face, TextWrapping.wrap(message, 43)));
+		dialogueEvent.add(new DialogueEntityEvent(false, face, TextWrapping.wrap(message, 42)));
 		return this;
 	}
 

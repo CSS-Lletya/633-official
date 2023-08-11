@@ -1,8 +1,9 @@
 package com.rs.game.player;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
 import java.util.function.Consumer;
 
 import com.alex.utils.VarsManager;
@@ -208,7 +209,7 @@ public class Player extends Entity {
 	/**
 	 * Represents a Player's queue logic packets listing
 	 */
-	private transient ConcurrentLinkedQueue<LogicPacket> logicPackets;
+	private transient Queue<LogicPacket> logicPackets;
 	
 	/**
 	 * Represents a Action management system
@@ -452,7 +453,7 @@ public class Player extends Entity {
 		getPetManager().setPlayer(this);
 		setDirection((byte) Utility.getFaceDirection(0, -1));
 		setTemporaryMovementType((byte) -1);
-		setLogicPackets(new ConcurrentLinkedQueue<LogicPacket>());
+		setLogicPackets(new LinkedList<LogicPacket>());
 		setSwitchItemCache(new ObjectArrayList<Byte>());
 		if (getAction() == null)
 			setAction(new ActionManager(this));
@@ -692,4 +693,8 @@ public class Player extends Entity {
         return Arrays.stream(items)
                 .anyMatch(item -> getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId()));
     }
+    
+    public void setPuzzleBox(int puzzleId) {
+		this.puzzleBox = new PuzzleBox(this, puzzleId);
+	}
 }

@@ -68,6 +68,10 @@ public final class Inventory {
 		return true;
 	}
 
+	public boolean addItemDrop(Item item) {
+		return addItemDrop(item.getId(), item.getAmount(), new WorldTile(player));
+	}
+	
 	public boolean addItemDrop(int itemId, int amount) {
 		return addItemDrop(itemId, amount, new WorldTile(player));
 	}

@@ -11,34 +11,40 @@ public class WorldTile {
 
 	private short x, y;
 	private byte plane;
+	protected int hash;
 	
 	public WorldTile(int x, int y, int plane) {
 		this.x = (short) x;
 		this.y = (short) y;
 		this.plane = (byte) plane;
+		hash = y | x << 14 | plane << 28;
 	}
 
 	public WorldTile(int x, int y, int plane, int size) {
 		this.x = (short) getCoordFaceX(x, size, size, -1);
 		this.y = (short) getCoordFaceY(y, size, size, -1);
 		this.plane = (byte) plane;
+		hash = y | x << 14 | plane << 28;
 	}
 
 	public WorldTile(WorldTile tile) {
 		this.x = tile.x;
 		this.y = tile.y;
 		this.plane = tile.plane;
+		hash = y | x << 14 | plane << 28;
 	}
 	
 	public WorldTile(int x, int y) {
 		this.x = (short) x;
 		this.y = (short) y;
+		hash = y | x << 14 | plane << 28;
 	}
 
 	public WorldTile(WorldTile tile, int randomize) {
 		this.x = (short) (tile.x + RandomUtility.inclusive(randomize * 2) - randomize);
 		this.y = (short) (tile.y + RandomUtility.inclusive(randomize * 2) - randomize);
 		this.plane = tile.plane;
+		hash = y | x << 14 | plane << 28;
 	}
 
 	public WorldTile(int hash) {
@@ -51,6 +57,7 @@ public class WorldTile {
 		x += xOffset;
 		y += yOffset;
 		plane += planeOffset;
+		hash = y | x << 14 | plane << 28;
 	}
 
 	public final void setLocation(WorldTile tile) {
@@ -61,6 +68,7 @@ public class WorldTile {
 		this.x = (short) x;
 		this.y = (short) y;
 		this.plane = (byte) plane;
+		hash = y | x << 14 | plane << 28;
 	}
 
 	public int getXInRegion() {
@@ -252,4 +260,8 @@ public class WorldTile {
 	public WorldTile decreasePlane() {
 		return new WorldTile(x, y, plane - 1);
 	}
+	
+    public int getPositionHash() {
+        return hash;
+    }
 }
