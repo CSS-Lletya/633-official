@@ -138,6 +138,10 @@ public final class Animations {
 	public static final Animation LOCKPICKING = new Animation(537);
 	public static final Animation CHEST_LOOTING = new Animation(536);
 	
+	public static final Animation WALLSAFE_CHECKING = new Animation(2248);
+	public static final Animation WALLSAFE_CHECKING_SHORT = new Animation(2247);
+	public static final Animation WALLSAFE_FAILURE = new Animation(2247);//hopping on one foot holding other foot.
+	
 	/**
 	 * Object Based Animations
 	 */

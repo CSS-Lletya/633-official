@@ -1,4 +1,4 @@
-package skills.thieving.chest;
+package skills.thieving.impl;
 
 import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
@@ -12,6 +12,7 @@ import com.rs.game.task.Task;
 
 import lombok.val;
 import skills.Skills;
+import skills.thieving.ChestData;
 import skills.thieving.Thieving;
 
 /**
@@ -22,18 +23,18 @@ import skills.thieving.Thieving;
  */
 public class ChestThieving extends Action {
     
-    private final Chest chest;
+    private final ChestData chest;
     private final GameObject object;
     private final boolean searchForTraps;
     
-    public ChestThieving(final Chest chest, final GameObject object, final boolean searchForTraps) {
+    public ChestThieving(final ChestData chest, final GameObject object, final boolean searchForTraps) {
         this.chest = chest;
         this.object = object;
         this.searchForTraps = searchForTraps;
     }
     
     public static boolean handleChest(final Player player, final GameObject object, final boolean searchForTraps) {
-        val chest = Chest.getChest(object.getId());
+        val chest = ChestData.getChest(object.getId());
         if (chest == null) {
             return false;
         }

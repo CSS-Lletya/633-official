@@ -147,6 +147,9 @@ public interface Sounds {
 	int PLATE_SPINNING = 2255;
 	int PLATE_BREAKING = 2251;
 	int GLASS_BLOWING = 2724; //not used, archived
+	int WALLSAFE_CRACKING = 1243;
+	int WALLSAFE_FAILURE = 1383;
+	int WALLSAFE_SUCCESS = 1238;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
