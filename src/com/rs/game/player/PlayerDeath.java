@@ -49,7 +49,8 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 	@Override
 	public void postDeath() {
 		getActor().getSkills().restoreSkills();
-		getActor().getInterfaceManager().sendInterface(153);
+		if (getActor().getDetails().getDisableDeathPopup().isFalse())
+			getActor().getInterfaceManager().sendInterface(153);
 		getActor().getPackets().sendMusicEffect(90).sendGameMessage("Oh dear, you have died.");
 		getActor().getDetails().getStatistics().addStatistic("Times_Died");
 		getActor().setNextAnimation(Animations.RESET_ANIMATION);

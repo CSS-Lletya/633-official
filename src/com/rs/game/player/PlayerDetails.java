@@ -114,11 +114,12 @@ public final class PlayerDetails {
 	
 	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false), ownsHouse = new DynamicBoolean(false),
 			disableEquip = new DynamicBoolean(false), augPrayerUnlocked = new DynamicBoolean(false), rigourPrayerUnlocked = new DynamicBoolean(false), renewalPrayerUnlocked = new DynamicBoolean(false),
-			bonesGrinded = new DynamicBoolean(false), toggleLootShare = new DynamicBoolean(),
+			bonesGrinded = new DynamicBoolean(false), disableDeathPopup = new DynamicBoolean(false), toggleLootShare = new DynamicBoolean(),
 			allowChatEffects = new DynamicBoolean(), acceptAid = new DynamicBoolean(),
 			mouseButtons = new DynamicBoolean(), profanityFilter = new DynamicBoolean(),
 			questSort = new DynamicBoolean(), hideCompletedQuests = new DynamicBoolean(), filterGame = new DynamicBoolean(),
-			forceNextMapLoadRefresh = new DynamicBoolean(), canPvp = new DynamicBoolean(), invulnerable = new DynamicBoolean();
+			forceNextMapLoadRefresh = new DynamicBoolean(), canPvp = new DynamicBoolean(), invulnerable = new DynamicBoolean()
+	;
 	
 	/**
 	 * A list of last known ips from the Player
