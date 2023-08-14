@@ -9,7 +9,6 @@ import com.rs.network.sql.pool.Database;
 import com.rs.network.sql.pool.DatabaseConnection;
 
 import io.vavr.control.Try;
-import javafx.util.Callback;
 
 /**
  * Asynchronous database operation request model.
