@@ -304,10 +304,10 @@ public class Shop {
 	}
 
 	public int getBuyPrice(Item item, int dq) {
-		int price = ClientScriptMap.getMap(731).getIntValue(item.getId());
+		int price = ClientScriptMap.getMap((short) 731).getIntValue(item.getId());
 		if (money == TOKKUL && price > 0)
 			return price;
-		price = ClientScriptMap.getMap(733).getIntValue(item.getId());
+		price = ClientScriptMap.getMap((short) 733).getIntValue(item.getId());
 		if (price > 0)
 			return price;
 		if (item.getDefinitions().hasShopPriceAttributes())
@@ -319,10 +319,10 @@ public class Shop {
 	}
 
 	public int getSellPrice(Item item, int dq) {
-		int price = ClientScriptMap.getMap(732).getIntValue(item.getId());
+		int price = ClientScriptMap.getMap((short) 732).getIntValue(item.getId());
 		if (money == TOKKUL && price > 0)
 			return price;
-		price = ClientScriptMap.getMap(1441).getIntValue(item.getId());
+		price = ClientScriptMap.getMap((short) 1441).getIntValue(item.getId());
 		if (price > 0)
 			return price;
 		return Math.max(1, (item.getDefinitions().getSellPrice()));

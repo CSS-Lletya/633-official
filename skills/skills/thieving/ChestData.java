@@ -10,7 +10,7 @@ import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtility;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.val;
 
@@ -55,11 +55,11 @@ public enum ChestData {
     },
 ;
     
-    public static final Int2ObjectOpenHashMap<ChestData> data = new Int2ObjectOpenHashMap<>();
+    public static final Short2ObjectOpenHashMap<ChestData> data = new Short2ObjectOpenHashMap<>();
     
     static {
         for (ChestData data : values()) {
-            ChestData.data.put(data.getClosedId(), data);
+            ChestData.data.put((short) data.getClosedId(), data);
         }
     }
     
@@ -108,7 +108,7 @@ public enum ChestData {
     }
     
     public static ChestData getChest(final int objectId) {
-        return data.get(objectId);
+        return data.get((short) objectId);
     }
     
     public void onSuccess(final Player player) {

@@ -1,4 +1,4 @@
-package com.alex.util.whirlpool;
+package com.alex.utils;
 
 import java.util.Arrays;
 

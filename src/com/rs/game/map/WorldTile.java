@@ -1,6 +1,5 @@
 package com.rs.game.map;
 
-import com.rs.GameConstants;
 import com.rs.game.Entity;
 import com.rs.utilities.RandomUtility;
 
@@ -114,11 +113,11 @@ public class WorldTile {
 	}
 
 	public int getLocalX(WorldTile tile, int mapSize) {
-		return x - 8 * (tile.getChunkX() - (GameConstants.MAP_SIZES[mapSize] >> 4));
+		return x - 8 * (tile.getChunkX() - (Region.MAP_SIZES[mapSize] >> 4));
 	}
 
 	public int getLocalY(WorldTile tile, int mapSize) {
-		return y - 8 * (tile.getChunkY() - (GameConstants.MAP_SIZES[mapSize] >> 4));
+		return y - 8 * (tile.getChunkY() - (Region.MAP_SIZES[mapSize] >> 4));
 	}
 
 	public int getLocalX(WorldTile tile) {

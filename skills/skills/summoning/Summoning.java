@@ -11,7 +11,7 @@ import com.rs.game.player.attribute.Attribute;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.SneakyThrows;
 import skills.Skills;
@@ -239,7 +239,7 @@ public class Summoning {
 
 		CLAY_BEAST5(-1, 14430, 0, 0, 1800000, 10);
 
-		private static final Object2ObjectOpenHashMap<Integer, Pouch> pouches = new Object2ObjectOpenHashMap<Integer, Pouch>();
+		private static final Object2ObjectArrayMap<Integer, Pouch> pouches = new Object2ObjectArrayMap<Integer, Pouch>();
 
 		static {
 			for (Pouch pouch : Pouch.values()) {
@@ -298,19 +298,19 @@ public class Summoning {
 	private static final Graphics POUCH_INFUSION_GRAPHICS = new Graphics(1207);
 
 	public static int getScrollId(int id) {
-		return ClientScriptMap.getMap(1283).getIntValue(id);
+		return ClientScriptMap.getMap((short) 1283).getIntValue(id);
 	}
 
 	public static int getRequiredLevel(int id) {
-		return ClientScriptMap.getMap(1185).getIntValue(id);
+		return ClientScriptMap.getMap((short) 1185).getIntValue(id);
 	}
 
 	public static int getNPCId(int id) {
-		return ClientScriptMap.getMap(1320).getIntValue(id);
+		return ClientScriptMap.getMap((short) 1320).getIntValue(id);
 	}
 
 	public static String getRequirementsMessage(int id) {
-		return ClientScriptMap.getMap(1186).getStringValue(id);
+		return ClientScriptMap.getMap((short) 1186).getStringValue(id);
 	}
 
 	public static void openInfusionInterface(Player player) {

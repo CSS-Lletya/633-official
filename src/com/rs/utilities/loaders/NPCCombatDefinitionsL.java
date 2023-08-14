@@ -14,13 +14,13 @@ import com.rs.game.npc.combat.NPCCombatDefinitions;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 public final class NPCCombatDefinitionsL {
 
-	private final static Object2ObjectOpenHashMap<Integer, NPCCombatDefinitions> npcCombatDefinitions = new Object2ObjectOpenHashMap<Integer, NPCCombatDefinitions>();
+	private final static Short2ObjectOpenHashMap<NPCCombatDefinitions> npcCombatDefinitions = new Short2ObjectOpenHashMap<>();
 	private final static NPCCombatDefinitions DEFAULT_DEFINITION = new NPCCombatDefinitions(1, -1, -1, -1, 5, 1, 33, 0,
 			NPCCombatDefinitions.MELEE, -1, -1, NPCCombatDefinitions.PASSIVE);
 	private static final String PACKED_PATH = "data/npcs/packedCombatDefinitions.ncd";
@@ -33,7 +33,7 @@ public final class NPCCombatDefinitionsL {
 	}
 
 	public static NPCCombatDefinitions getNPCCombatDefinitions(int npcId) {
-		NPCCombatDefinitions def = npcCombatDefinitions.get(npcId);
+		NPCCombatDefinitions def = npcCombatDefinitions.get((short) npcId);
 		if (def == null)
 			return DEFAULT_DEFINITION;
 		return def;
@@ -104,7 +104,7 @@ public final class NPCCombatDefinitionsL {
 			out.writeShort(attackGfx);
 			out.writeShort(attackProjectile);
 			out.writeByte(agressivenessType);
-			npcCombatDefinitions.put(npcId,
+			npcCombatDefinitions.put((short) npcId,
 					new NPCCombatDefinitions(hitpoints, attackAnim, defenceAnim, deathAnim, attackDelay, deathDelay,
 							respawnDelay, maxHit, attackStyle, attackGfx, attackProjectile, agressivenessType));
 		}
@@ -141,7 +141,7 @@ public final class NPCCombatDefinitionsL {
 			if (attackProjectile == 65535)
 				attackProjectile = -1;
 			int agressivenessType = buffer.get() & 0xff;
-			npcCombatDefinitions.put(npcId,
+			npcCombatDefinitions.put((short) npcId,
 					new NPCCombatDefinitions(hitpoints, attackAnim, defenceAnim, deathAnim, attackDelay, deathDelay,
 							respawnDelay, maxHit, attackStyle, attackGfx, attackProjectile, agressivenessType));
 		}

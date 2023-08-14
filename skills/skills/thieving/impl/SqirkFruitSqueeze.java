@@ -1,4 +1,4 @@
-package skills.thieving.impl.sorceresssgarden;
+package skills.thieving.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

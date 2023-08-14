@@ -20,10 +20,10 @@ import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
-import com.rs.utilities.loaders.ShopsHandler;
 import com.rs.utilities.Utility;
+import com.rs.utilities.loaders.ShopsHandler;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import skills.Skills;
 
 /**
@@ -34,7 +34,7 @@ public class NPCPluginDispatcher {
 	/**
 	 * The NPCS map which contains all the NPCS on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<NPCSignature, NPCListener> MOBS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectArrayMap<NPCSignature, NPCListener> MOBS = new Object2ObjectArrayMap<>();
 	
 	/**
 	 * Executes the specified NPCS if it's registered.

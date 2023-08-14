@@ -192,9 +192,4 @@ public class DynamicBoolean {
 	public int getIntegerValue() {
 		return value ? 1 : 0;
 	}
-	
-	public static void main(String[] args) {
-		DynamicBoolean bools = new DynamicBoolean(false);
-		bools.trueArrayCheck(() -> System.out.println("LOL"), true);
-	}
 }

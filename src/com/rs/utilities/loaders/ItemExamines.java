@@ -15,11 +15,11 @@ import java.nio.channels.FileChannel.MapMode;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.game.item.Item;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 
 public class ItemExamines {
 
-	private final static Object2ObjectOpenHashMap<Integer, String> itemExamines = new Object2ObjectOpenHashMap<Integer, String>();
+	private final static Short2ObjectOpenHashMap<String> itemExamines = new Short2ObjectOpenHashMap<>();
 	private final static String PACKED_PATH = "data/items/packedExamines.e";
 	private final static String UNPACKED_PATH = "data/items/unpackedExamines.txt";
 
@@ -31,7 +31,7 @@ public class ItemExamines {
 		final ItemDefinitions defs = ItemDefinitions.getItemDefinitions(id);
 		if (defs.isNoted())
 			return "Swap this note at any bank for the equivalent item.";
-		return itemExamines.get(id);
+		return itemExamines.get((short) id);
 	}
 
 	public static final void init() {
@@ -47,7 +47,7 @@ public class ItemExamines {
 			FileChannel channel = in.getChannel();
 			ByteBuffer buffer = channel.map(MapMode.READ_ONLY, 0, channel.size());
 			while (buffer.hasRemaining())
-				itemExamines.put(buffer.getShort() & 0xffff, readAlexString(buffer));
+				itemExamines.put((short) (buffer.getShort() & 0xffff), readAlexString(buffer));
 			channel.close();
 			in.close();
 		} catch (Throwable e) {
@@ -75,7 +75,7 @@ public class ItemExamines {
 					continue;
 				out.writeShort(itemId);
 				writeAlexString(out, splitedLine[1]);
-				itemExamines.put(itemId, splitedLine[1]);
+				itemExamines.put((short) itemId, splitedLine[1]);
 			}
 			in.close();
 			out.flush();
@@ -104,7 +104,7 @@ public class ItemExamines {
 	public static final String getGEExamine(Item item) {
 		if (item.getDefinitions().isNoted())
 			item.setId(item.getDefinitions().getCertId());
-		String examine = itemExamines.get(item.getId());
+		String examine = itemExamines.get((short) item.getId());
 		if (examine != null)
 			return examine;
 		return "It's an " + item.getDefinitions().getName() + ".";

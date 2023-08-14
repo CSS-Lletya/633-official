@@ -3,9 +3,6 @@ package com.rs;
 import java.math.BigInteger;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
-import com.rs.constants.ItemNames;
-import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Rights;
 
@@ -21,6 +18,10 @@ public final class GameConstants {
 	public static final long CONNECTION_TIMEOUT = GameProperties.getGameProperties().getInteger("connection_timeout");
 	public static final String SQL_FILE_PATH =  GameProperties.getGameProperties().getString("sql_location");
 	public static final boolean SQL_ENABLED = GameProperties.getGameProperties().getBoolean("sql_state");
+	public static final short PLAYERS_LIMIT = GameProperties.getGameProperties().getShort("player_limit");
+	public static final short NPCS_LIMIT = GameProperties.getGameProperties().getShort("npc_limit");
+	public static final byte LOCAL_NPCS_LIMIT = GameProperties.getGameProperties().getByte("local_npcs");
+	public static final int MIN_FREE_MEM_ALLOWED = 30000000;//30mb
 	
 	/**
 	 * Player settings
@@ -43,20 +44,6 @@ public final class GameConstants {
 	public static boolean NEW_YEARS_EVENT = GameProperties.getGameProperties().getBoolean("new_years_event");
 	
 	/**
-	 * Items that are protected upon a Players death by default in the Wilderness
-	 */
-	public static final String[] PROTECT_ON_DEATH = { "chaotic", "stream", "defender",
-			"fire cape", "farseer kiteshield", "eagle-eye kiteshield", "gravite" };
-	
-	/**
-	 * A Players starter kit when joining the game for the first time.
-	 */
-	public final static ImmutableSet<Item> STATER_KIT = ImmutableSet.of(
-			new Item(ItemNames.COINS_995, 10_000), new Item(ItemNames.BRONZE_SCIMITAR_1321), new Item(ItemNames.STAFF_OF_AIR_1381),
-			new Item(ItemNames.SHORTBOW_841), new Item(ItemNames.BRONZE_ARROW_882, 250)
-	);
-	
-	/**
 	 * An immutable map of Staff members
 	 */
 	public static final ImmutableMap<String, Rights> STAFF = ImmutableMap.of(
@@ -71,19 +58,6 @@ public final class GameConstants {
 	public static boolean isPVPWorld() {
 		return false;
 	}
-	
-	/**
-	 * Memory settings
-	 */
-	public static final Short PLAYERS_LIMIT = 2000;
-	public static final Short NPCS_LIMIT = Short.MAX_VALUE;
-	public static final byte LOCAL_NPCS_LIMIT = 127;
-	public static final int MIN_FREE_MEM_ALLOWED = 30000000;
-
-	/**
-	 * Game constants
-	 */
-	public static final int[] MAP_SIZES = { 104, 120, 136, 168, 72 };
 
 	public static final int[] GRAB_SERVER_KEYS = { 100, 79328, 55571, 46770,
 			24563, 299978, 44375, 0, 4173, 2820, 99838, 617461, 155159, 282434,

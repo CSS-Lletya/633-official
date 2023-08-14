@@ -36,8 +36,8 @@ import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectAVLTreeMap;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -94,7 +94,7 @@ public class World {
 	}
 	
 	@Getter
-	private static Object2ObjectOpenHashMap<Integer, Region> regions = new Object2ObjectOpenHashMap<>();
+	private static Short2ObjectOpenHashMap<Region> regions = new Short2ObjectOpenHashMap<>();
 
 	public final void init() {
 		submit(new RestoreRunEnergyTask(), new RestoreSpecialTask(), new SummoningPassiveTask(), new ShopRestockTask(),
@@ -108,10 +108,10 @@ public class World {
 	}
 
 	public static final Region getRegion(int id, boolean load) {
-		Region region = regions.get(id);
+		Region region = regions.get((short) id);
 		if (region == null) {
 			region = new Region(id);
-			regions.put(id, region);
+			regions.put((short) id, region);
 		}
 		if (load)
 			region.checkLoadMap();

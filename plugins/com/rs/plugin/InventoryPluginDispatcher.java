@@ -14,7 +14,7 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 /**
  * @author Dennis
@@ -24,7 +24,7 @@ public class InventoryPluginDispatcher {
 	/**
 	 * The object map which contains all the interface on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<InventoryWrapper, InventoryListener> ITEMS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectArrayMap<InventoryWrapper, InventoryListener> ITEMS = new Object2ObjectArrayMap<>();
 	
 	/**
 	 * Executes the specified Item if it's registered.

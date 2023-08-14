@@ -141,7 +141,7 @@ public final class LoginPacketsDecoder extends Decoder {
 		session.getLoginPackets().sendLoginDetails(player);
 		session.setDecoder(3, player);
 		session.setEncoder(2, player);
-		player.start();
+		player.getSession().start(player);
 	}
 	
 	
@@ -226,7 +226,7 @@ public final class LoginPacketsDecoder extends Decoder {
 		session.getLoginPackets().sendLobbyDetails(player);
 		session.setDecoder(3, player);
 		session.setEncoder(2, player);
-		player.startLobby(player);
+		player.getSession().startLobby(player);
 		AccountCreation.savePlayer(player);
 	}
 }

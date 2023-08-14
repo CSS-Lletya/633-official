@@ -288,7 +288,7 @@ public final class MapBuilder {
 	 */
 	@Synchronized("ALGORITHM_LOCK")
 	public static DynamicRegion createDynamicRegion(int regionId) {
-		Region region = World.getRegions().get(regionId);
+		Region region = World.getRegions().get((short) regionId);
 		if (region != null) {
 			if (region instanceof DynamicRegion) // if its already dynamic
 				// lets
@@ -298,7 +298,7 @@ public final class MapBuilder {
 				destroyRegion(regionId);
 		}
 		DynamicRegion newRegion = new DynamicRegion(regionId);
-		World.getRegions().put(regionId, newRegion);
+		World.getRegions().put((short) regionId, newRegion);
 		return newRegion;
 	}
 
@@ -306,7 +306,7 @@ public final class MapBuilder {
 	 * Safely destroys a dynamic region
 	 */
 	public static void destroyRegion(int regionId) {
-		Region region = World.getRegions().get(regionId);
+		Region region = World.getRegions().get((short) regionId);
 		if (region != null) {
 			ObjectArrayList<Short> playerIndexes = region.getPlayersIndexes();
 			ObjectArrayList<Short> npcIndexes = region.getNpcsIndexes();
@@ -328,7 +328,7 @@ public final class MapBuilder {
 					npc.deregister();
 				}
 			}
-			World.getRegions().remove(regionId);
+			World.getRegions().remove((short) regionId);
 
 			if (playerIndexes != null) {
 				for (int playerIndex : playerIndexes) {

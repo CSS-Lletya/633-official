@@ -7,7 +7,7 @@ import java.io.IOException;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import lombok.SneakyThrows;
 
 /**
@@ -22,7 +22,7 @@ public class ItemWeights {
 	/**
 	 * The Item Weights map
 	 */
-	private final static Object2ObjectOpenHashMap<Integer, Double> itemWeights = new Object2ObjectOpenHashMap<Integer, Double>();
+	private final static Object2ObjectArrayMap<Integer, Double> itemWeights = new Object2ObjectArrayMap<Integer, Double>();
 
 	/**
 	 * The path to the item weights file

@@ -17,7 +17,7 @@ import skills.herblore.Potions;
  * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
  * @since 9-6-2017.
  */
-public final class OverloadEffectTask extends Task {
+public class OverloadEffectTask extends Task {
 	
 	/**
 	 * The player this effect is for.
@@ -96,17 +96,14 @@ public final class OverloadEffectTask extends Task {
 		OverloadEffectTask effect = new OverloadEffectTask(player);
 		player.setOverloadEffect(effect);
 		effect.submit();
-	}
+	} 
 	
 	/**
 	 * Resets the overload effect.
 	 */
 	public void resetOverloadEffect(boolean stopTask) {
-		if(player.getOverloadEffect() != null) {
-			if(player.getOverloadEffect().isRunning() && stopTask) {
-				player.getOverloadEffect().cancel();
-			}
-			player.setOverloadEffect(null);
+		if (player.getOverloadEffect().isRunning() && stopTask) {
+			player.getOverloadEffect().cancel();
 		}
 	}
 }

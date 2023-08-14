@@ -1,21 +1,20 @@
 package com.rs.cache.loaders;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import com.rs.cache.Cache;
 import com.rs.io.InputStream;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Data;
 
 @Data
 public final class NPCDefinitions {
 
-	private static Object2ObjectArrayMap<Integer, NPCDefinitions> npcDefinitions = new Object2ObjectArrayMap<>();
+	private static Short2ObjectOpenHashMap<NPCDefinitions> npcDefinitions = new Short2ObjectOpenHashMap<>();
 
 	private int id;
-	public Object2ObjectArrayMap<Integer, Object> clientScriptData;
+	public Short2ObjectOpenHashMap<Object> clientScriptData;
 	public int anInt833;
 	public int anInt836;
 	public int anInt837;
@@ -71,24 +70,8 @@ public final class NPCDefinitions {
 	public int npcId;
 	public int anInt901;
 
-	public static void main(String[] args) throws IOException {
-		Cache.init();
-
-		for (int i = 0; i < 20000; i++) {
-			NPCDefinitions def = getNPCDefinitions(i);
-			if (def.name.toLowerCase().contains("mystic")) {
-				System.err.println("[" + i + "]:" + def.name);
-				for (String opt : def.options)
-					if (opt != null)
-						System.err.println(opt);
-				System.err.println("------------");
-			}
-		}
-
-	}
-
 	public static final NPCDefinitions getNPCDefinitions(int id) {
-		NPCDefinitions def = npcDefinitions.get(id);
+		NPCDefinitions def = npcDefinitions.get((short) id);
 		if (def == null) {
 			def = new NPCDefinitions(id);
 			def.method694();
@@ -97,7 +80,7 @@ public final class NPCDefinitions {
 				// System.out.println("Failed loading NPC " + id + ".");
 			} else
 				def.readValueLoop(new InputStream(data));
-			npcDefinitions.put(id, def);
+			npcDefinitions.put((short) id, def);
 		}
 		return def;
 	}
@@ -323,7 +306,7 @@ public final class NPCDefinitions {
 																						int i = stream
 																								.readUnsignedByte();
 																						if (clientScriptData == null) {
-																							clientScriptData = new Object2ObjectArrayMap<Integer, Object>(
+																							clientScriptData = new Short2ObjectOpenHashMap<Object>(
 																									i);
 																						}
 																						for (int i_60_ = 0; i > i_60_; i_60_++) {
@@ -338,7 +321,7 @@ public final class NPCDefinitions {
 																							else
 																								value = stream
 																										.readInt();
-																							clientScriptData.put(key,
+																							clientScriptData.put((short) key,
 																									value);
 																						}
 																					}

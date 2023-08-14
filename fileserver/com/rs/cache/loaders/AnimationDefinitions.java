@@ -1,12 +1,9 @@
 package com.rs.cache.loaders;
 
-import java.io.IOException;
-
 import com.rs.cache.Cache;
 import com.rs.io.InputStream;
-import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 
 public class AnimationDefinitions {
 
@@ -35,43 +32,11 @@ public class AnimationDefinitions {
 	public int[] anIntArray1362;
 	public boolean effect2Sound;
 
-	static Object2ObjectArrayMap<Integer, AnimationDefinitions> animDefs = new Object2ObjectArrayMap<>();
-
-	public static void main(String[] args) throws IOException {
-		Cache.init();
-
-		int[] buffer = new int[100000];
-		int size = 0;
-
-		for (int i = 0; i < Utility.getAnimationDefinitionsSize(); i++) {
-			AnimationDefinitions defs = getAnimationDefinitions(i);
-			if (defs == null || defs.emoteItem == -1)
-				continue;
-
-			ItemDefinitions item = ItemDefinitions.getItemDefinitions(defs.emoteItem);
-			if (item == null)
-				continue;
-			System.out.println("[" + i + "]: item " + defs.emoteItem + " [" + item.getName() + "]");
-			buffer[size++] = i;
-		}
-
-		/*
-		 * for (int i = 0; i < 50000; i++) { RenderAnimDefinitions defs =
-		 * RenderAnimDefinitions.getRenderAnimDefinitions(i); if (defs == null)
-		 * continue;
-		 * 
-		 * for (int x = 0; x < size; x++) { int anim = buffer[x]; if (defs.walkAnimation
-		 * == anim || defs.runAnimation == anim || defs.defaultStandAnimation == anim ||
-		 * defs.walkBackwardsAnimation == anim || defs.walkLeftAnimation == anim ||
-		 * defs.walkRightAnimation == anim || defs.walkUpwardsAnimation == anim) {
-		 * System.out.println("Render:" + i + " uses anim " + anim); break; } } }
-		 */
-
-	}
+	static Short2ObjectOpenHashMap<AnimationDefinitions> animDefs = new Short2ObjectOpenHashMap<>();
 
 	public static final AnimationDefinitions getAnimationDefinitions(int emoteId) {
 		try {
-			AnimationDefinitions defs = animDefs.get(emoteId);
+			AnimationDefinitions defs = animDefs.get((short) emoteId);
 			if (defs != null)
 				return defs;
 			byte[] data = Cache.STORE.getIndexes()[20].getFile(emoteId >>> 7, emoteId & 0x7f);
@@ -79,7 +44,7 @@ public class AnimationDefinitions {
 			if (data != null)
 				defs.readValueLoop(new InputStream(data));
 			defs.method2394();
-			animDefs.put(emoteId, defs);
+			animDefs.put((short) emoteId, defs);
 			return defs;
 		}
 		catch (Throwable t) {

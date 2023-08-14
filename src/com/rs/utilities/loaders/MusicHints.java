@@ -16,13 +16,13 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 public class MusicHints {
 
-	private final static Object2ObjectOpenHashMap<Integer, String> musicHints = new Object2ObjectOpenHashMap<Integer, String>();
+	private final static Short2ObjectOpenHashMap<String> musicHints = new Short2ObjectOpenHashMap<>();
 	private final static String PACKED_PATH = "data/musics/packedMusicHints.mh";
 	private final static String UNPACKED_PATH = "data/musics/unpackedMusicHints.txt";
 
@@ -34,7 +34,7 @@ public class MusicHints {
 	}
 
 	public static String getHint(int musicId) {
-		String hint = musicHints.get(musicId);
+		String hint = musicHints.get((short) musicId);
 		if (hint == null)
 			return "somewhere.";
 		return hint;
@@ -47,7 +47,7 @@ public class MusicHints {
 		FileChannel channel = in.getChannel();
 		ByteBuffer buffer = channel.map(MapMode.READ_ONLY, 0, channel.size());
 		while (buffer.hasRemaining())
-			musicHints.put(buffer.getShort() & 0xffff, readAlexString(buffer));
+			musicHints.put((short) (buffer.getShort() & 0xffff), readAlexString(buffer));
 	}
 
 	private static void loadUnpackedItemExamines() {
@@ -73,7 +73,7 @@ public class MusicHints {
 					continue;
 				out.writeShort(musicId);
 				writeAlexString(out, splitedLine[1]);
-				musicHints.put(musicId, splitedLine[1]);
+				musicHints.put((short) musicId, splitedLine[1]);
 			}
 		});
 	}

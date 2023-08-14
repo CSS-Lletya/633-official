@@ -420,7 +420,7 @@ public abstract class Entity extends WorldTile {
 		int lastMapRegionY = tile.getChunkY();
 		int regionX = getChunkX();
 		int regionY = getChunkY();
-		int size = ((GameConstants.MAP_SIZES[getMapSize()] >> 3) / 2) - 1;
+		int size = ((Region.MAP_SIZES[getMapSize()] >> 3) / 2) - 1;
 		return Math.abs(lastMapRegionX - regionX) >= size || Math.abs(lastMapRegionY - regionY) >= size;
 	}
 
@@ -861,7 +861,7 @@ public abstract class Entity extends WorldTile {
 		setAtDynamicRegion(false);
 		int chunkX = getChunkX();
 		int chunkY = getChunkY();
-		int mapHash = GameConstants.MAP_SIZES[getMapSize()] >> 4;
+		int mapHash = Region.MAP_SIZES[getMapSize()] >> 4;
 		int minRegionX = (chunkX - mapHash) / 8;
 		int minRegionY = (chunkY - mapHash) / 8;
 		for (int xCalc = minRegionX < 0 ? 0 : minRegionX; xCalc <= ((chunkX + mapHash) / 8); xCalc++)

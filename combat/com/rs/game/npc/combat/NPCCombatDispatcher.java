@@ -14,7 +14,7 @@ import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import lombok.SneakyThrows;
 
 /**
@@ -26,7 +26,7 @@ public class NPCCombatDispatcher {
 	/**
 	 * The object map which contains all the mob on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<MobCombatSignature, MobCombatListener> COMBATANTS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectArrayMap<MobCombatSignature, MobCombatListener> COMBATANTS = new Object2ObjectArrayMap<>();
 	
 	private int mobValue = -1;
 	

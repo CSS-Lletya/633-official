@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
@@ -14,7 +15,7 @@ import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import lombok.SneakyThrows;
 
 /**
@@ -25,7 +26,7 @@ public class OutgoingPacketDispatcher {
 	/**
 	 * The object map which contains all the interface on the world.
 	 */
-	private static final Object2ObjectOpenHashMap<OutgoingPacketSignature, OutgoingPacketListener> PACKET = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectArrayMap<OutgoingPacketSignature, OutgoingPacketListener> PACKET = new Object2ObjectArrayMap<>();
 
 	/**
 	 * Executes the specified interface if it's registered.
@@ -35,17 +36,11 @@ public class OutgoingPacketDispatcher {
 	 */
 	@SneakyThrows(Exception.class)
 	public static void execute(Player player, InputStream input, int packetId) {
-		if (packetId == WorldPacketsDecoder.ACTION_BUTTON1_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON2_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON4_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON5_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON6_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON7_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON8_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON3_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON9_PACKET
-				|| packetId == WorldPacketsDecoder.ACTION_BUTTON10_PACKET) 
+		if (IntStream.of(WorldPacketsDecoder.ACTION_BUTTON1_PACKET,WorldPacketsDecoder.ACTION_BUTTON2_PACKET,WorldPacketsDecoder.ACTION_BUTTON3_PACKET,
+				WorldPacketsDecoder.ACTION_BUTTON4_PACKET, WorldPacketsDecoder.ACTION_BUTTON5_PACKET,WorldPacketsDecoder.ACTION_BUTTON6_PACKET,
+				WorldPacketsDecoder.ACTION_BUTTON7_PACKET, WorldPacketsDecoder.ACTION_BUTTON8_PACKET, WorldPacketsDecoder.ACTION_BUTTON9_PACKET, WorldPacketsDecoder.ACTION_BUTTON10_PACKET).anyMatch(id -> packetId == id)) {
 			RSInterfacePluginDispatcher.handleButtons(player, input, packetId);
+		}
 		Optional<OutgoingPacketListener> incomingPacket = getVerifiedPacket(packetId);
 		incomingPacket.ifPresent(packet -> packet.execute(player, input));
 	}

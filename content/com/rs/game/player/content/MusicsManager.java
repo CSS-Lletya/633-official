@@ -93,14 +93,14 @@ public final class MusicsManager {
 	}
 
 	public void addPlayingMusicToPlayList() {
-		addToPlayList((int) ClientScriptMap.getMap(1351).getKeyForValue(
+		addToPlayList((int) ClientScriptMap.getMap((short) 1351).getKeyForValue(
 				playingMusic));
 	}
 
 	public void addToPlayList(int musicIndex) {
 		if (playList.size() == PLAY_LIST_CONFIG_IDS.length * 2)
 			return;
-		int musicId = ClientScriptMap.getMap(1351).getIntValue(musicIndex);
+		int musicId = ClientScriptMap.getMap((short) 1351).getIntValue(musicIndex);
 		if (musicId != -1 && unlockedMusics.contains(musicId)
 				&& !playList.contains(musicId)) {
 			playList.add(musicId);
@@ -124,7 +124,7 @@ public final class MusicsManager {
 	}
 
 	public void removeFromPlayList(int musicIndex) {
-		Integer musicId = ClientScriptMap.getMap(1351).getIntValue(musicIndex);
+		Integer musicId = ClientScriptMap.getMap((short) 1351).getIntValue(musicIndex);
 		if (musicId != -1 && unlockedMusics.contains(musicId)
 				&& playList.contains(musicId)) {
 			playList.remove(musicId);
@@ -145,11 +145,11 @@ public final class MusicsManager {
 					.get(i + 1);
 			if (musicId1 == null && musicId2 == null)
 				break;
-			int musicIndex = (int) ClientScriptMap.getMap(1351).getKeyForValue(
+			int musicIndex = (int) ClientScriptMap.getMap((short) 1351).getKeyForValue(
 					musicId1);
 			int configValue;
 			if (musicId2 != null) {
-				int musicIndex2 = (int) ClientScriptMap.getMap(1351)
+				int musicIndex2 = (int) ClientScriptMap.getMap((short) 1351)
 						.getKeyForValue(musicId2);
 				configValue = musicIndex | musicIndex2 << 15;
 			} else
@@ -166,7 +166,7 @@ public final class MusicsManager {
 	public void refreshListConfigs() {
 		int[] configValues = new int[CONFIG_IDS.length];
 		for (int musicId : unlockedMusics) {
-			int musicIndex = (int) ClientScriptMap.getMap(1351).getKeyForValue(
+			int musicIndex = (int) ClientScriptMap.getMap((short) 1351).getKeyForValue(
 					musicId);
 			if (musicIndex == -1)
 				continue;
@@ -247,7 +247,7 @@ public final class MusicsManager {
 	}
 
 	public void sendHint(int musicIndex) {
-		int musicId = ClientScriptMap.getMap(1351).getIntValue(musicIndex);
+		int musicId = ClientScriptMap.getMap((short) 1351).getIntValue(musicIndex);
 		if (musicId != -1) {
 			player.getPackets()
 					.sendGameMessage(
@@ -267,7 +267,7 @@ public final class MusicsManager {
 	}
 
 	public void playAnotherMusicByIndex(int musicIndex) {
-		int musicId = ClientScriptMap.getMap(1351).getIntValue(musicIndex);
+		int musicId = ClientScriptMap.getMap((short) 1351).getIntValue(musicIndex);
 		if (musicId != -1 && unlockedMusics.contains(musicId)) {
 			settedMusic = true;
 			if (playListOn)
@@ -299,10 +299,10 @@ public final class MusicsManager {
 		player.getPackets().sendMusic(musicId, playingMusic == -1 ? 0 : 100,
 				255);
 		playingMusic = musicId;
-		int musicIndex = (int) ClientScriptMap.getMap(1351).getKeyForValue(
+		int musicIndex = (int) ClientScriptMap.getMap((short) 1351).getKeyForValue(
 				musicId);
 		if (musicIndex != -1) {
-			String musicName = ClientScriptMap.getMap(1345).getStringValue(
+			String musicName = ClientScriptMap.getMap((short) 1345).getStringValue(
 					musicIndex);
 			if (musicName.equals(" "))
 				musicName = Region.getMusicName1(player.getRegionId());

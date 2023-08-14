@@ -7,8 +7,8 @@ import com.alex.io.OutputStream;
 import com.alex.util.crc32.CRC32HGenerator;
 import com.alex.util.gzip.GZipCompressor;
 import com.alex.util.gzip.GZipDecompressor;
-import com.alex.util.whirlpool.Whirlpool;
 import com.alex.utils.CacheConstants;
+import com.alex.utils.Whirlpool;
 
 public class Archive {
 
@@ -97,8 +97,10 @@ public class Archive {
 			}
 			data = new byte[length];
 			checkRevision(compressedLength, archive, stream.getOffset());
-			if (!GZipDecompressor.decompress(stream, data))
+			if (!GZipDecompressor.decompress(stream, data)) {
 				data = null;
+				break;
+			}
 			break;
 		}
 	}

@@ -14,17 +14,17 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 public final class MapArchiveKeys {
 
-	private final static Object2ObjectOpenHashMap<Integer, int[]> keys = new Object2ObjectOpenHashMap<Integer, int[]>();
+	private final static Short2ObjectOpenHashMap<int[]> keys = new Short2ObjectOpenHashMap<>();
 	private final static String PACKED_PATH = "data/map/archiveKeys/packed.mcx";
 
 	public static final int[] getMapKeys(int regionId) {
-		return keys.get(regionId);
+		return keys.get((short) regionId);
 	}
 
 	public static void init() {
@@ -45,7 +45,7 @@ public final class MapArchiveKeys {
 			int[] xteas = new int[4];
 			for (int index = 0; index < 4; index++)
 				xteas[index] = buffer.getInt();
-			keys.put(regionId, xteas);
+			keys.put((short) regionId, xteas);
 		}
 	}
 
@@ -75,7 +75,7 @@ public final class MapArchiveKeys {
 					xteas[index] = Integer.parseInt(in.readLine());
 					out.writeInt(xteas[index]);
 				}
-				keys.put(regionId, xteas);
+				keys.put((short) regionId, xteas);
 			}
 		});
 	}

@@ -32,6 +32,8 @@ public class Region {
 	public static final int OBJECT_SLOT_WALL_DECORATION = 1;
 	public static final int OBJECT_SLOT_FLOOR = 2;
 	public static final int OBJECT_SLOT_FLOOR_DECORATION = 3;
+	
+	public static final int[] MAP_SIZES = { 104, 120, 136, 168, 72 };
 
 	protected int regionId;
 	protected RegionMap map;
@@ -1229,9 +1231,9 @@ public class Region {
 			return 2000;
 		if (musicName.equals("Stronger (What Doesn't Kill You)"))
 			return 2001;
-		int musicIndex = (int) ClientScriptMap.getMap(1345).getKeyForValue(
+		int musicIndex = (int) ClientScriptMap.getMap((short) 1345).getKeyForValue(
 				musicName);
-		return ClientScriptMap.getMap(1351).getIntValue(musicIndex);
+		return ClientScriptMap.getMap((short) 1351).getIntValue(musicIndex);
 	}
 	
 	public void refreshSpawnedItems(Player player) {

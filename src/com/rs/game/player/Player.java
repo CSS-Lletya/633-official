@@ -18,6 +18,7 @@ import com.rs.game.EntityType;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.ScriptDialogueInterpreter;
 import com.rs.game.item.Item;
+import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemsContainer;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
@@ -247,6 +248,16 @@ public class Player extends Entity {
 	private transient int pid;
 	
 	/**
+	 * The current skill action that is going on for this player.
+	 */
+	private Optional<SkillActionTask> skillAction = Optional.empty();
+	
+	/**
+	 * Personal details & information stored for a Player
+	 */
+	private PlayerDetails details;
+	
+	/**
 	 * Represents the Treasure Trails management
 	 */
     private TreasureTrailsManager treasureTrailsManager;
@@ -257,19 +268,9 @@ public class Player extends Entity {
 	private PuzzleBox puzzleBox;
 	
 	/**
-	 * Personal details & information stored for a Player
-	 */
-	private PlayerDetails details;
-	
-	/**
 	 * Represents a Player's Vars management system
 	 */
 	private VarsManager varsManager;
-	
-	/**
-	 * The current skill action that is going on for this player.
-	 */
-	private Optional<SkillActionTask> skillAction = Optional.empty();
 	
 	/**
 	 * Represents a Player's appearance management system
@@ -477,33 +478,6 @@ public class Player extends Entity {
 					+ getDetails().getPassword());
 		getSession().updateIPnPass(this);
 	}
-	
-	/**
-	 * Starts Lobby rendering, etc..
-	 */
-	public void startLobby(Player player) {
-		getFriendsIgnores().setPlayer(this);
-		getFriendsIgnores().init();
-		if (getDetails().getCurrentFriendChatOwner() != null) {
-			FriendChatsManager.joinChat(getUsername(), this);
-			if (getCurrentFriendChat() == null)
-				getDetails().setCurrentFriendChatOwner(null);
-		}
-		player.getPackets().sendFriendsChatChannel();
-		getFriendsIgnores().sendFriendsMyStatus(true);
-	}
-
-	/**
-	 * Starts ingame rendering, etc..
-	 */
-	public void start() {
-		LogUtility.log(LogType.INFO, getDisplayName() + " has logged in from their IP " + getSession().getIP());
-		loadMapRegions();
-		setStarted(true);
-		login();
-		if (isDead())
-			sendDeath(Optional.empty());
-	}
 
 	/**
 	 * Processes the Entities state
@@ -536,12 +510,12 @@ public class Player extends Entity {
 			int delayPassed = (int) ((Utility.currentTimeMillis() - World.get().getExiting_start()) / 1000);
 			getPackets().sendSystemUpdate(World.get().getExiting_delay() - delayPassed);
 		}
-		checkMultiArea();
-		Gravestone.login(this);
-		getDetails().setLastIP(getSession().getIP());
 		getAppearance().generateAppearenceData();
 		getPackets().sendLocalPlayersUpdate();
 		getInterfaceManager().sendInterfaces();
+		checkMultiArea();
+		Gravestone.login(this);
+		getDetails().setLastIP(getSession().getIP());
 		if (GameConstants.isPVPWorld()) {
 			getMapZoneManager().submitMapZone(new GlobalPVPMapZone());
 			dialogue(d -> d.item(11784, "Welcome to " + GameConstants.SERVER_NAME + "'s PVP World. Good luck!"));
@@ -580,7 +554,7 @@ public class Player extends Entity {
 		setUpdateMovementType(true);
 		getMapZoneManager().execute(controller -> controller.login(this));
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
-			GameConstants.STATER_KIT.forEach(getInventory()::addItem);
+			ItemConstants.STATER_KIT.forEach(getInventory()::addItem);
 			HostManager.add(this, HostListType.STARTER_RECEIVED);
 			World.sendWorldMessage("[New Player] " + getDisplayName() + " has just joined " + GameConstants.SERVER_NAME);
 		}

@@ -1379,7 +1379,7 @@ public class WorldPacketsEncoder extends Encoder {
 		 * cene length in chunks. scene tiles length / 16, 8 is a chunk size, 16 because
 		 * the code behind its signed and goes from middle-length to middle+length
 		 */
-		int sceneLength = GameConstants.MAP_SIZES[getPlayer().getMapSize()] >> 4;
+		int sceneLength = Region.MAP_SIZES[getPlayer().getMapSize()] >> 4;
 		// the regionids(maps files) that will be used to load this scene
 		int[] regionIds = new int[4 * sceneLength * sceneLength];
 		int newRegionIdsCount = 0;
@@ -1393,7 +1393,7 @@ public class WorldPacketsEncoder extends Encoder {
 					// rcx / 8 = rx, rcy / 8 = ry, regionid is encoded region x
 					// and y
 					int regionId = (regionX << 8) + regionY;
-					Region region = World.getRegions().get(regionId);
+					Region region = World.getRegions().get((short) regionId);
 					int newChunkX;
 					int newChunkY;
 					int newPlane;
@@ -1595,8 +1595,8 @@ public class WorldPacketsEncoder extends Encoder {
 		if (full) {
 			packet.writeSmart(size);
 			for (int world = 1; world <= WorldList.WORLDS.size(); world++) {
-				packet.writeSmart(WorldList.getWorld(world).getCountryId()); //Country Flag Icon
-				packet.writeGJString(WorldList.getWorld(world).getCountryName());
+				packet.writeSmart(WorldList.getWorld((byte) world).getCountryId()); //Country Flag Icon
+				packet.writeGJString(WorldList.getWorld((byte) world).getCountryName());
 			}
 			packet.writeSmart(0);
 			packet.writeSmart(size + 1);
@@ -1605,11 +1605,11 @@ public class WorldPacketsEncoder extends Encoder {
 				packet.writeSmart(world); 
 				packet.writeByte(0); 
 				int flags = 0;
-				if (WorldList.WORLDS.get(world).isMembers()) flags |= 0x1;
+				if (WorldList.WORLDS.get((byte) world).isMembers()) flags |= 0x1;
 				flags |= 0x8;
 				packet.writeInt(flags); 
-				packet.writeGJString(WorldList.getWorld(world).getActivity());
-				packet.writeGJString(WorldList.WORLDS.get(world).getIp());
+				packet.writeGJString(WorldList.getWorld((byte) world).getActivity());
+				packet.writeGJString(WorldList.WORLDS.get((byte) world).getIp());
 			}
 			packet.writeInt(-1723296702);
 		}

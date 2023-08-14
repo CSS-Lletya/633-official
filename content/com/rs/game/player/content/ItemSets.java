@@ -131,7 +131,7 @@ public class ItemSets {
 			player.getPackets().sendGameMessage("This isn't a set item.");
 			return;
 		}
-		String message = ClientScriptMap.getMap(1088).getStringValue(id);
+		String message = ClientScriptMap.getMap((short) 1088).getStringValue(id);
 		if (message == null)
 			return;
 		player.getPackets().sendGameMessage(message);

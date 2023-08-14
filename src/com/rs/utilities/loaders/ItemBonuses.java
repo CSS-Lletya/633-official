@@ -6,13 +6,13 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 public final class ItemBonuses {
 
-	static Object2ObjectOpenHashMap<Integer, int[]> itemBonuses = new Object2ObjectOpenHashMap<>();
+	static Short2ObjectOpenHashMap<short[]> itemBonuses = new Short2ObjectOpenHashMap<>();
 	private final static String PACKED_PATH = "data/items/bonuses.ib";
 
 	public static final void init() {
@@ -22,7 +22,7 @@ public final class ItemBonuses {
 			throw new RuntimeException("Missing item bonuses.");
 	}
 
-	public static final int[] getItemBonuses(int itemId) {
+	public static final short[] getItemBonuses(short itemId) {
 		return itemBonuses.get(itemId);
 	}
 
@@ -32,10 +32,10 @@ public final class ItemBonuses {
 		RandomAccessFile in = new RandomAccessFile(PACKED_PATH, "r");
 		FileChannel channel = in.getChannel();
 		ByteBuffer buffer = channel.map(MapMode.READ_ONLY, 0, channel.size());
-		itemBonuses = new Object2ObjectOpenHashMap<Integer, int[]>(buffer.remaining() / 38);
+		itemBonuses = new Short2ObjectOpenHashMap<short[]>(buffer.remaining() / 38);
 		while (buffer.hasRemaining()) {
-			int itemId = buffer.getShort() & 0xffff;
-			int[] bonuses = new int[18];
+			short itemId = (short) (buffer.getShort() & 0xffff);
+			short[] bonuses = new short[18];
 			for (int index = 0; index < bonuses.length; index++) {
 				bonuses[index] = buffer.getShort();
 

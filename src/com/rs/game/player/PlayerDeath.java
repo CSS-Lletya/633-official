@@ -49,7 +49,6 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 	@Override
 	public void postDeath() {
 		getActor().getSkills().restoreSkills();
-		getActor().getOverloadEffect().resetOverloadEffect(false);
 		getActor().getInterfaceManager().sendInterface(153);
 		getActor().getPackets().sendMusicEffect(90).sendGameMessage("Oh dear, you have died.");
 		getActor().getDetails().getStatistics().addStatistic("Times_Died");
@@ -115,7 +114,7 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 		getActor().getEquipment().reset();
 		keptItems.stream().filter(item -> item.getId() != 1).forEach(getActor().getInventory()::addItem);
 		for (Item item : containedItems) {
-			for (String string : GameConstants.PROTECT_ON_DEATH) {
+			for (String string : ItemConstants.PROTECT_ON_DEATH) {
 				if (item.getDefinitions().getName().toLowerCase().contains(string)) {
 					containedItems.remove(item);
 				}

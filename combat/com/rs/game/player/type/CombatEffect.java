@@ -7,7 +7,7 @@ import com.rs.game.Entity;
 import com.rs.game.map.World;
 import com.rs.game.task.impl.CombatEffectTask;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 /**
  * Some sort of temporary effect applied to a {@link Actor} during
@@ -21,7 +21,7 @@ public abstract class CombatEffect {
 	 * The map of all of the combat effect types mapped to their respective
 	 * listeners.
 	 */
-	public static final Object2ObjectOpenHashMap<CombatEffectType, CombatEffect> EFFECTS = new Object2ObjectOpenHashMap<>();
+	public static final Object2ObjectArrayMap<CombatEffectType, CombatEffect> EFFECTS = new Object2ObjectArrayMap<>();
 	
 	/**
 	 * The delay for this individual combat effect.

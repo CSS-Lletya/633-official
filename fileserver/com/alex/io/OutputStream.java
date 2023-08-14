@@ -8,12 +8,12 @@ import com.alex.utils.CacheConstants;
 
 public final class OutputStream extends Stream {
 
-	private static final int[] BIT_MASK = new int[32];
+	private static final byte[] BIT_MASK = new byte[32];
 	private int opcodeStart = 0;
 
 	static {
-		for (int i = 0; i < 32; i++)
-			BIT_MASK[i] = (1 << i) - 1;
+		for (byte i = 0; i < 32; i++)
+			BIT_MASK[i] = (byte) ((1 << i) - 1);
 	}
 	
 	public OutputStream(int capacity) {

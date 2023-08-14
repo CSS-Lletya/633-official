@@ -1,6 +1,5 @@
 package com.rs;
 
-import java.util.Arrays;
 import java.util.concurrent.ForkJoinPool;
 
 import com.rs.cache.Cache;
@@ -47,7 +46,6 @@ import com.rs.utilities.loaders.NPCCombatDefinitionsL;
 import com.rs.utilities.loaders.NPCSpawns;
 import com.rs.utilities.loaders.ShopsHandler;
 
-import lombok.SneakyThrows;
 import lombok.val;
 
 /**
@@ -60,32 +58,37 @@ import lombok.val;
  * @author Dennis
  *
  */
-public class GameLoader {
+public final class GameLoader {
 	
-	@SneakyThrows(Exception.class)
 	public static void load() {
-			Cache.init();
+			CoresManager.init();
 			val pool = ForkJoinPool.commonPool();
 			LogUtility.log(LogType.INFO, "Loading #633 Cache, Networking, and Core loaders.");
-			pool.invokeAll(Arrays.asList(
-					Utility.callable(World.get()::init), Utility.callable(CoresManager::init),
-					Utility.callable(ServerChannelHandler::init), Utility.callable(Huffman::init),
-					Utility.callable(MapArchiveKeys::init), Utility.callable(MapBuilder::init),
-					Utility.callable(WorldList::init)
-			));
+			pool.submit(Cache::init);
+			pool.submit(World.get()::init);
+			pool.submit(Huffman::init);
+			pool.submit(MapArchiveKeys::init);
+			pool.submit(WorldList::init);
+			pool.submit(MapBuilder::init);
+			pool.submit(ServerChannelHandler::init);
+
 			LogUtility.log(LogType.INFO, "Loading Plugin handlers.");
-			pool.invokeAll(Arrays.asList(
-					Utility.callable(RSInterfacePluginDispatcher::load), Utility.callable(InventoryPluginDispatcher::load),
-					Utility.callable(ObjectPluginDispatcher::load), Utility.callable(CommandPluginDispatcher::load),
-					Utility.callable(NPCPluginDispatcher::load), Utility.callable(NPCCombatDispatcher::load),
-					Utility.callable(LogicPacketDispatcher::load), Utility.callable(OutgoingPacketDispatcher::load),
-					Utility.callable(GenericNPCDispatcher::load), Utility.callable(PassiveSpellDispatcher::load),
-					Utility.callable(RegionAttributePluginDispatcher::load)
-			));
+			pool.submit(RSInterfacePluginDispatcher::load);
+			pool.submit(InventoryPluginDispatcher::load);
+			pool.submit(ObjectPluginDispatcher::load);
+			pool.submit(CommandPluginDispatcher::load);
+			pool.submit(NPCPluginDispatcher::load);
+			pool.submit(NPCCombatDispatcher::load);
+			pool.submit(LogicPacketDispatcher::load);
+			pool.submit(OutgoingPacketDispatcher::load);
+			pool.submit(GenericNPCDispatcher::load);
+			pool.submit(PassiveSpellDispatcher::load);
+			pool.submit(RegionAttributePluginDispatcher::load);
 			if (GameConstants.SQL_ENABLED) {
-				pool.invokeAll(Arrays.asList(Utility.callable(GameDatabase::initializeWebsiteDatabases),
-						Utility.callable(PassiveDatabaseWorker::initialize)));
+				pool.submit(GameDatabase::initializeWebsiteDatabases);
+				pool.submit(PassiveDatabaseWorker::initialize);
 			}
+			
 			LogUtility.log(LogType.INFO, "Loading other files.");
 			pool.submit(Utility.callable(ScriptManager::load));
 			pool.submit(Utility.callable(AttributeKey::init));
@@ -104,6 +107,7 @@ public class GameLoader {
 			pool.submit(Censor::init);
 			pool.submit(NPCCombatDefinitionsL::init);
 			pool.submit(NPCSpawns::init);
+			
 			LogUtility.log(LogType.INFO, "Loading Player Conditions files.");
 			pool.submit(() -> HostManager.deserialize(HostListType.STARTER_RECEIVED));
 			pool.submit(() -> HostManager.deserialize(HostListType.BANNED_IP));

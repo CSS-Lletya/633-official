@@ -1,14 +1,12 @@
 package com.rs.cache.loaders;
 
-import java.io.IOException;
-
 import com.rs.cache.Cache;
 import com.rs.io.InputStream;
 import com.rs.utilities.TextUtils;
 import com.rs.utilities.Utility;
-import com.rs.utilities.loaders.MusicHints;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 
 public final class ClientScriptMap {
 
@@ -18,36 +16,11 @@ public final class ClientScriptMap {
 	private char aChar6345;
 	private String defaultStringValue;
 	private int defaultIntValue;
-	private Object2ObjectArrayMap<Long, Object> values;
+	private Long2ObjectOpenHashMap<Object> values;
 	
-	static Object2ObjectArrayMap<Integer, ClientScriptMap> interfaceScripts = new Object2ObjectArrayMap<>();
+	static Short2ObjectOpenHashMap<ClientScriptMap> interfaceScripts = new Short2ObjectOpenHashMap<>();
 
-	public static void main(String[] args) throws IOException {
-		// Cache.STORE = new Store("C:/.jagex_cache_32/runescape/");
-		Cache.init();
-		MusicHints.init();
-		ClientScriptMap names = ClientScriptMap.getMap(1345);
-		ClientScriptMap hint1 = ClientScriptMap.getMap(952);
-		// ClientScriptMap hint2 = ClientScriptMap.getMap(1349);
-		System.out.println(hint1);
-		for (Object v : names.values.values()) {
-			int key = (int) ClientScriptMap.getMap(1345).getKeyForValue(v);
-			int id = ClientScriptMap.getMap(1351).getIntValue(key);
-
-			/*
-			 * String text = hint.getStringValue(key); if(text.equals("automatically."))
-			 * System.out.println(id);
-			 */
-			String hint = MusicHints.getHint(id);/*
-													 * hint1.getValues().containsKey ((long) key) ? hint1
-													 * .getStringValue(key) : hint2.getStringValue(key);
-													 */
-
-			System.out.println(id + ", " + v + "; " + hint + ", ");
-		}
-	}
-
-	public static final ClientScriptMap getMap(int scriptId) {
+	public static final ClientScriptMap getMap(short scriptId) {
 		ClientScriptMap script = interfaceScripts.get(scriptId);
 		if (script != null)
 			return script;
@@ -68,7 +41,7 @@ public final class ClientScriptMap {
 		return defaultStringValue;
 	}
 
-	public Object2ObjectArrayMap<Long, Object> getValues() {
+	public Long2ObjectOpenHashMap<Object> getValues() {
 		return values;
 	}
 
@@ -78,6 +51,7 @@ public final class ClientScriptMap {
 		return values.get(key);
 	}
 
+	@SuppressWarnings("deprecation")
 	public long getKeyForValue(Object value) {
 		for (Long key : values.keySet()) {
 			if (values.get(key).equals(value))
@@ -150,7 +124,7 @@ public final class ClientScriptMap {
 			int count = stream.readUnsignedShort();
 			int loop = opcode == 7 || opcode == 8 ? stream.readUnsignedShort() : count;
 			if (values == null)
-				values = new Object2ObjectArrayMap<Long, Object>(Utility.getHashMapSize(count));
+				values = new Long2ObjectOpenHashMap<Object>(Utility.getHashMapSize(count));
 			for (int i = 0; i < loop; i++) {
 				int key = opcode == 7 || opcode == 8 ? stream.readUnsignedShort() : stream.readInt();
 				Object value = opcode == 5 || opcode == 7 ? stream.readString() : stream.readInt();

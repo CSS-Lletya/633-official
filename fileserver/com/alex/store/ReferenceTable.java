@@ -189,13 +189,13 @@ public final class ReferenceTable {
 		for(int index = 0; index < validArchivesCount; index++)
 			archives[validArchiveIds[index]].setRevision(stream.readInt());
 		for(int index = 0; index < validArchivesCount; index++)
-			archives[validArchiveIds[index]].setValidFileIds(new int[protocol >= 7 ? stream.readBigSmart() : stream.readUnsignedShort()]);
+			archives[validArchiveIds[index]].setValidFileIds(new short[protocol >= 7 ? stream.readBigSmart() : stream.readUnsignedShort()]);
 		for(int index = 0; index < validArchivesCount; index++) {
-			int lastFileId = 0;
+			short lastFileId = 0;
 			int biggestFileId = 0;
 			ArchiveReference archive = archives[validArchiveIds[index]];
 			for(int index2 = 0; index2 < archive.getValidFileIds().length; index2++) {
-				int fileId = lastFileId += protocol >= 7 ? stream.readBigSmart() : stream.readUnsignedShort();
+				short fileId = lastFileId += protocol >= 7 ? stream.readBigSmart() : stream.readUnsignedShort();
 				if(fileId > biggestFileId)
 					biggestFileId = fileId;
 				archive.getValidFileIds()[index2] = fileId;

@@ -9,8 +9,8 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.util.Enumeration;
-import java.util.StringTokenizer;
 import java.util.Map.Entry;
+import java.util.StringTokenizer;
 import java.util.concurrent.Callable;
 
 import com.rs.GameConstants;
@@ -22,7 +22,7 @@ import com.rs.game.player.Player;
 import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.SneakyThrows;
 import lombok.Synchronized;
@@ -735,10 +735,10 @@ public final class Utility {
         return newText.toString();
     }
     
-    public static Object2ObjectOpenHashMap<String, Object> cloneMap(Object2ObjectOpenHashMap<String, Object> from) {
+    public static Object2ObjectArrayMap<String, Object> cloneMap(Object2ObjectArrayMap<String, Object> from) {
 		if (from == null)
 			return null;
-		Object2ObjectOpenHashMap<String, Object> newMap = new Object2ObjectOpenHashMap<String, Object>();
+		Object2ObjectArrayMap<String, Object> newMap = new Object2ObjectArrayMap<String, Object>();
 
 		for (Entry<String, Object> entry : from.entrySet()) {
 			newMap.put(entry.getKey(), entry.getValue());

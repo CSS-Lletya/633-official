@@ -21,14 +21,6 @@ public class ScriptManager {
 	public static int amount;
 
 	/**
-	 * Method used to load the script manager.
-	 * @param args the arguments.
-	 */
-	public static void main(String...args) {
-		load();
-	}
-
-	/**
 	 * Runs the script and returns the current script context after executing.
 	 * @param context The script to run.
 	 * @param args The arguments.

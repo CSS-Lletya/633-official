@@ -2,6 +2,7 @@ package com.rs.net;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Optional;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -11,6 +12,7 @@ import org.jboss.netty.channel.ChannelFuture;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
+import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.content.Emotes.Emote;
 import com.rs.game.task.Task;
 import com.rs.io.InputStream;
@@ -259,9 +261,7 @@ public class Session {
 			World.removeLobbyPlayer(player);
 		}
 		player.updateEntityRegion(player);
-		//if (World.containsPlayer(player.getDisplayName()).isPresent()) {
-			World.removePlayer(player);
-		//}
+		World.removePlayer(player);
 		
 	}
 
@@ -284,5 +284,32 @@ public class Session {
 			return null;
 		}
 		return channel.write(outStream);
+	}
+	
+	/**
+	 * Starts Lobby rendering, etc..
+	 */
+	public void startLobby(Player player) {
+		player.getFriendsIgnores().setPlayer(player);
+		player.getFriendsIgnores().init();
+		if (player.getDetails().getCurrentFriendChatOwner() != null) {
+			FriendChatsManager.joinChat(player.getUsername(), player);
+			if (player.getCurrentFriendChat() == null)
+				player.getDetails().setCurrentFriendChatOwner(null);
+		}
+		player.getPackets().sendFriendsChatChannel();
+		player.getFriendsIgnores().sendFriendsMyStatus(true);
+	}
+
+	/**
+	 * Starts ingame rendering, etc..
+	 */
+	public void start(Player player) {
+		LogUtility.log(LogType.INFO, player.getDisplayName() + " has logged in from their IP " + player.getSession().getIP());
+		player.loadMapRegions();
+		player.setStarted(true);
+		player.login();
+		if (player.isDead())
+			player.sendDeath(Optional.empty());
 	}
 }

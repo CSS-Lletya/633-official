@@ -3,9 +3,9 @@ package com.alex.store;
 import com.alex.io.InputStream;
 import com.alex.io.OutputStream;
 import com.alex.util.crc32.CRC32HGenerator;
-import com.alex.util.whirlpool.Whirlpool;
 import com.alex.utils.CacheConstants;
 import com.alex.utils.CacheUtils;
+import com.alex.utils.Whirlpool;
 
 import lombok.SneakyThrows;
 
@@ -85,7 +85,7 @@ public final class Index {
 			return -1;
 		int nameHash = CacheUtils.getNameHash(name);
 		FileReference[] files = table.getArchives()[archiveId].getFiles();
-		int[] validFileIds = table.getArchives()[archiveId].getValidFileIds();
+		short[] validFileIds = table.getArchives()[archiveId].getValidFileIds();
 		for (int index = 0; index < validFileIds.length; index++) {
 			int fileId = validFileIds[index];
 			if (files[fileId].getNameHash() == nameHash)
@@ -180,7 +180,7 @@ public final class Index {
 
 	
 
-	public boolean putFile(int archiveId, int fileId, byte[] data) {
+	public boolean putFile(int archiveId, short fileId, byte[] data) {
 		return putFile(archiveId, fileId, CacheConstants.GZIP_COMPRESSION, data,
 				null, true, true, -1, -1);
 	}
@@ -237,7 +237,7 @@ public final class Index {
 		return true;
 	}
 	
-	public boolean putFile(int archiveId, int fileId, int compression,
+	public boolean putFile(int archiveId, short fileId, int compression,
 			byte[] data, int[] keys, boolean rewriteTable, boolean resetCache,
 			int archiveName, int fileName) {
 		if (!archiveExists(archiveId)) {

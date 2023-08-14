@@ -9,8 +9,8 @@ import com.rs.GameConstants;
 import com.rs.game.npc.NPCSpawn;
 import com.rs.utilities.GSONParser;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 
 public final class NPCSpawns {
 
@@ -18,7 +18,7 @@ public final class NPCSpawns {
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
 	private static final ObjectArrayList<NPCSpawn> ALL_SPAWNS = new ObjectArrayList<>();
-	private static final Object2ObjectOpenHashMap<Integer, ObjectArrayList<NPCSpawn>> NPC_SPAWNS = new Object2ObjectOpenHashMap<>();
+	private static final Short2ObjectOpenHashMap<ObjectArrayList<NPCSpawn>> NPC_SPAWNS = new Short2ObjectOpenHashMap<>();
 	
 	public static final void init() {
 		File[] spawnFiles = new File(PATH).listFiles();
@@ -36,11 +36,11 @@ public final class NPCSpawns {
 	public static void add(NPCSpawn spawn) {
 		if (spawn != null) {
 			ALL_SPAWNS.add(spawn);
-			ObjectArrayList<NPCSpawn> regionSpawns = NPC_SPAWNS.get(spawn.getTile().getRegionId());
+			ObjectArrayList<NPCSpawn> regionSpawns = NPC_SPAWNS.get((short) spawn.getTile().getRegionId());
 			if (regionSpawns == null)
 				regionSpawns = new ObjectArrayList<>();
 			regionSpawns.add(spawn);
-			NPC_SPAWNS.put(spawn.getTile().getRegionId(), regionSpawns);
+			NPC_SPAWNS.put((short) spawn.getTile().getRegionId(), regionSpawns);
 		}
 	}
 
@@ -49,7 +49,7 @@ public final class NPCSpawns {
 	}
 
 	public static void loadNPCSpawns(int regionId) {
-		ObjectArrayList<NPCSpawn> spawns = NPC_SPAWNS.get(regionId);
+		ObjectArrayList<NPCSpawn> spawns = NPC_SPAWNS.get((short) regionId);
 		if (spawns != null)
 			for (NPCSpawn spawn : spawns) {
 				if (!GameConstants.isPVPWorld() && spawn.getNPCId() == 8725) 

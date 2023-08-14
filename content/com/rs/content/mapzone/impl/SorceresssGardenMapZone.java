@@ -21,7 +21,7 @@ import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 import skills.herblore.Herb.GrimyHerb;
-import skills.thieving.impl.sorceresssgarden.SqirkFruitSqueeze.SqirkFruit;
+import skills.thieving.impl.SqirkFruitSqueeze.SqirkFruit;
 
 public class SorceresssGardenMapZone extends MapZone {
 

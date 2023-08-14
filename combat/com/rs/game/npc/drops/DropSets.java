@@ -2,23 +2,18 @@
 package com.rs.game.npc.drops;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
-import com.google.gson.JsonIOException;
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.utilities.GSONParser;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 public class DropSets {
 
 	private final static String PATH = "data/npcs/drops/";
-	public static Object2ObjectOpenHashMap<String, DropSet> DROPS = new Object2ObjectOpenHashMap<>();
-	public static Object2ObjectOpenHashMap<Object, DropSet> NPC_DROPS = new Object2ObjectOpenHashMap<>();
+	public static Object2ObjectArrayMap<String, DropSet> DROPS = new Object2ObjectArrayMap<>();
+	public static Object2ObjectArrayMap<Object, DropSet> NPC_DROPS = new Object2ObjectArrayMap<>();
 	public static final DropSet DEFAULT_DROPSET = new DropSet(new DropTable(0.0, 0.0, false));
-	final static Charset ENCODING = StandardCharsets.UTF_8;
 
 	public static final void init() {
 		loadPackedNPCDrops();
@@ -54,7 +49,7 @@ public class DropSets {
 		}
 	}
 
-	private static void loadFile(File f) throws JsonIOException, IOException {
+	private static void loadFile(File f) {
 		if (f.isDirectory()) {
 			for (File dir : f.listFiles())
 				loadFile(dir);
@@ -75,7 +70,7 @@ public class DropSets {
 		}
 	}
 
-	public Object2ObjectOpenHashMap<Object, DropSet> getDropMap() {
+	public Object2ObjectArrayMap<Object, DropSet> getDropMap() {
 		return NPC_DROPS;
 	}
 }

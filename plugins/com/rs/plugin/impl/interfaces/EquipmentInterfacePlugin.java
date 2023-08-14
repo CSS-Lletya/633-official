@@ -105,9 +105,9 @@ public class EquipmentInterfacePlugin extends RSInterfaceListener {
 
 	public static void sendItemStats(final Player player, Item item) {
 		StringBuilder statString = new StringBuilder();
-		boolean hasBonuses = ItemBonuses.getItemBonuses(item.getId()) != null;
+		boolean hasBonuses = ItemBonuses.getItemBonuses((short) item.getId()) != null;
 		for (int i = 0; i < 18; i++) {
-			int bonus = hasBonuses ? ItemBonuses.getItemBonuses(item.getId())[i] : 0;
+			int bonus = hasBonuses ? ItemBonuses.getItemBonuses((short) item.getId())[i] : 0;
 			String label = CombatDefinitions.BONUS_LABELS[i];
 			String sign = bonus > 0 ? "+" : "";
 			statString.append(label + ": " + (sign + bonus) + ((label == "Magic Damage" || label == "Absorb Melee"

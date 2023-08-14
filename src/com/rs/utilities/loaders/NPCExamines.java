@@ -16,13 +16,13 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 public class NPCExamines {
 
-	private final static Object2ObjectOpenHashMap<Integer, String> npcExamines = new Object2ObjectOpenHashMap<Integer, String>();
+	private final static Short2ObjectOpenHashMap<String> npcExamines = new Short2ObjectOpenHashMap<>();
 	private final static String PACKED_PATH = "data/npcs/packedExamines.e";
 	private final static String UNPACKED_PATH = "data/npcs/unpackedExamines.txt";
 
@@ -34,7 +34,7 @@ public class NPCExamines {
 	}
 
 	public static final String getExamine(NPC npc) {
-		String examine = npcExamines.get(npc.getId());
+		String examine = npcExamines.get((short) npc.getId());
 		if (examine != null)
 			return examine;
 		return "It's a " + npc.getDefinitions().getName() + ".";
@@ -48,7 +48,7 @@ public class NPCExamines {
 		FileChannel channel = in.getChannel();
 		ByteBuffer buffer = channel.map(MapMode.READ_ONLY, 0, channel.size());
 		while (buffer.hasRemaining())
-			npcExamines.put(buffer.getShort() & 0xffff, readAlexString(buffer));
+			npcExamines.put((short) (buffer.getShort() & 0xffff), readAlexString(buffer));
 	}
 
 	private static void loadUnpackedNPCExamines() {
@@ -75,7 +75,7 @@ public class NPCExamines {
 					continue;
 				out.writeShort(npcId);
 				writeAlexString(out, splitedLine[1]);
-				npcExamines.put(npcId, splitedLine[1]);
+				npcExamines.put((short) npcId, splitedLine[1]);
 			}
 		});
 	}

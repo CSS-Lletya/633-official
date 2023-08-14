@@ -5,8 +5,9 @@ public final class CacheConstants {
 	public static final int NO_COMPRESSION = 0;
 	public static final int BZIP2_COMPRESSION = 1;
 	public static final int GZIP_COMPRESSION = 2;
+	public static final int LZMA_COMPRESSION = 3;
 	
-	public static final int MAX_VALID_ARCHIVE_LENGTH = 1000000;
+	public static final int MAX_VALID_ARCHIVE_LENGTH = 0x3b9aca00;
 	
 	public static final int INTERFACE_DEFINITIONS_INDEX = 3;
 	public static final int MAPS_INDEX = 5;

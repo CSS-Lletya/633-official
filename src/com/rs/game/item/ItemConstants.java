@@ -3,12 +3,27 @@ package com.rs.game.item;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+import com.google.common.collect.ImmutableSet;
 import com.rs.GameConstants;
 import com.rs.constants.ItemNames;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 
 public class ItemConstants {
+	
+	/**
+	 * Items that are protected upon a Players death by default in the Wilderness
+	 */
+	public static final String[] PROTECT_ON_DEATH = { "chaotic", "stream", "defender",
+			"fire cape", "farseer kiteshield", "eagle-eye kiteshield", "gravite" };
+	
+	/**
+	 * A Players starter kit when joining the game for the first time.
+	 */
+	public final static ImmutableSet<Item> STATER_KIT = ImmutableSet.of(
+			new Item(ItemNames.COINS_995, 10_000), new Item(ItemNames.BRONZE_SCIMITAR_1321), new Item(ItemNames.STAFF_OF_AIR_1381),
+			new Item(ItemNames.SHORTBOW_841), new Item(ItemNames.BRONZE_ARROW_882, 250)
+	);
 
 	public static boolean canWear(Item item, Player player) {
 		if (player.getDetails().getRights() == Rights.ADMINISTRATOR)

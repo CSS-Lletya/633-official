@@ -14,12 +14,12 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 public final class NPCBonuses {
-	private final static Object2ObjectOpenHashMap<Short, short[]> npcBonuses = new Object2ObjectOpenHashMap<Short, short[]>();
+	private final static Short2ObjectOpenHashMap<short[]> npcBonuses = new Short2ObjectOpenHashMap<>();
 	private static final String PACKED_PATH = "data/npcs/packedBonuses.nb";
 
 	public static void init() {
@@ -30,7 +30,7 @@ public final class NPCBonuses {
 	}
 
 	public static short[] getBonuses(int id) {
-		return npcBonuses.get(id);
+		return npcBonuses.get((short) id);
 	}
 
 	@SneakyThrows(Throwable.class)

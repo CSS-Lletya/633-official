@@ -6,13 +6,14 @@ import com.rs.game.player.Player;
 import com.rs.game.player.content.Shop;
 import com.rs.utilities.GSONParser;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 
 public class ShopsHandler {
 
-	private static final Object2ObjectOpenHashMap<String, Shop> SHOPS = new Object2ObjectOpenHashMap<>();
-	private static final Object2ObjectOpenHashMap<String, ShopDef> SHOP_DEFS = new Object2ObjectOpenHashMap<>();
-	private static final Object2ObjectOpenHashMap<Integer, String> NPC_SHOPS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectArrayMap<String, Shop> SHOPS = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectArrayMap<String, ShopDef> SHOP_DEFS = new Object2ObjectArrayMap<>();
+	private static final Short2ObjectOpenHashMap<String> NPC_SHOPS = new Short2ObjectOpenHashMap<>();
 
 	private static final String PATH = "data/items/shops/";
 
@@ -39,7 +40,7 @@ public class ShopsHandler {
 			addShop(key, new Shop(shop.getName(), shop.getCurrency(), shop.getItems(), shop.isGeneralStore(), shop.isBuyOnly()));
 			if (shop.getNpcIds() != null && shop.getNpcIds().length > 0)
 				for (int npcId : shop.getNpcIds())
-					NPC_SHOPS.put(npcId, key);
+					NPC_SHOPS.put((short) npcId, key);
 		}
 	}
 
@@ -59,7 +60,7 @@ public class ShopsHandler {
 	}
 
 	public static String getShopForNpc(int npcId) {
-		return NPC_SHOPS.get(npcId);
+		return NPC_SHOPS.get((short) npcId);
 	}
 
 	public static void restoreShops() {

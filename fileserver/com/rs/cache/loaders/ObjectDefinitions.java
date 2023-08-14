@@ -1,6 +1,5 @@
 package com.rs.cache.loaders;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
@@ -9,12 +8,13 @@ import com.rs.io.InputStream;
 
 import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Data;
 
 @Data
 public class ObjectDefinitions {
 
-	static Object2ObjectArrayMap<Integer, ObjectDefinitions> objectDefinitions = new Object2ObjectArrayMap<>();
+	static Short2ObjectOpenHashMap<ObjectDefinitions> objectDefinitions = new Short2ObjectOpenHashMap<>();
 
 	private short[] originalColors;
 	int[] toObjectIds;
@@ -112,23 +112,6 @@ public class ObjectDefinitions {
 	private byte[] unknownArray3;
 
 	private int cflag;
-
-	public static void main(String[] args) throws IOException {
-		Cache.init();
-
-		ObjectDefinitions defs = getObjectDefinitions(75089);
-		for (int i = 0; i < defs.options.length; i++)
-			if (defs.options[i] != null)
-				System.out.println("[" + i + "]:" + defs.options[i]);
-		System.out.println(defs.objectAnimation);
-		System.out.println(defs.configId);
-		System.out.println("Var config: " + defs.configFileId);
-		System.out.println(Arrays.toString(defs.toObjectIds));
-		System.out.println(Arrays.toString(defs.modelIds));
-		System.out.println(defs.toObjectIds != null ? defs.toObjectIds.length : 0);
-		System.out.println(Arrays.toString(defs.animations));
-		System.out.println(Arrays.toString(defs.possibleTypes));
-	}
 
 	public String getFirstOption() {
 		if (options == null || options.length < 1)
@@ -673,7 +656,7 @@ public class ObjectDefinitions {
 	}
 
 	public static ObjectDefinitions getObjectDefinitions(int id) {
-		ObjectDefinitions def = objectDefinitions.get(id);
+		ObjectDefinitions def = objectDefinitions.get((short) id);
 		if (def == null) {
 			def = new ObjectDefinitions();
 			def.id = id;
@@ -692,7 +675,7 @@ public class ObjectDefinitions {
 			 * } if (def.notCliped) { def.projectileCliped = false; def.clipType = 0; }
 			 */
 
-			objectDefinitions.put(id, def);
+			objectDefinitions.put((short) id, def);
 		}
 		return def;
 	}

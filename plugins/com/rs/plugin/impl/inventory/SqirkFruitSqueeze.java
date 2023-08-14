@@ -8,7 +8,7 @@ import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 
 import skills.Skills;
-import skills.thieving.impl.sorceresssgarden.SqirkFruitSqueeze.SqirkFruit;
+import skills.thieving.impl.SqirkFruitSqueeze.SqirkFruit;
 
 @InventoryWrapper(itemId = {233, 10844, 10845, 10846, 10847}, itemNames = {  })
 public class SqirkFruitSqueeze extends InventoryListener {

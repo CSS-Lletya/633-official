@@ -11,7 +11,7 @@ public class ArchiveReference {
 	private int crc;
 	private int revision;
 	private FileReference[] files;
-	private int[] validFileIds;
+	private short[] validFileIds;
 	private boolean needsFilesSort;
 	private boolean updatedRevision;
 	
@@ -62,11 +62,11 @@ public class ArchiveReference {
 		this.revision = revision;
 	}
 
-	public int[] getValidFileIds() {
+	public short[] getValidFileIds() {
 		return validFileIds;
 	}
 
-	public void setValidFileIds(int[] validFileIds) {
+	public void setValidFileIds(short[] validFileIds) {
 		this.validFileIds = validFileIds;
 	}
 
@@ -79,9 +79,9 @@ public class ArchiveReference {
 	}
 	
 	public void removeFileReference(int fileId) {
-		int[] newValidFileIds = new int[validFileIds.length-1];
-		int count = 0;
-		for(int id : validFileIds) {
+		short[] newValidFileIds = new short[validFileIds.length-1];
+		byte count = 0;
+		for(short id : validFileIds) {
 			if(id == fileId)
 				continue;
 			newValidFileIds[count++] = id;
@@ -90,9 +90,9 @@ public class ArchiveReference {
 		files[fileId] = null;
 	}
 	
-	public void addEmptyFileReference(int fileId) {
+	public void addEmptyFileReference(short fileId) {
 		needsFilesSort = true;
-		int[] newValidFileIds = Arrays.copyOf(validFileIds, validFileIds.length+1);
+		short[] newValidFileIds = Arrays.copyOf(validFileIds, validFileIds.length+1);
 		newValidFileIds[newValidFileIds.length-1] = fileId;
 		validFileIds = newValidFileIds;
 		if(files.length <= fileId) {
@@ -115,7 +115,7 @@ public class ArchiveReference {
 		nameHash = 0;
 		crc = 0;
 		files = new FileReference[0];
-		validFileIds = new int[0];
+		validFileIds = new short[0];
 		needsFilesSort = false;
 	}
 	
@@ -124,7 +124,7 @@ public class ArchiveReference {
 		setCrc(fromReference.getCRC());
 		setNameHash(fromReference.getNameHash());
 		setWhirpool(fromReference.getWhirpool());
-		int[] validFiles = fromReference.getValidFileIds();
+		short[] validFiles = fromReference.getValidFileIds();
 		setValidFileIds(Arrays.copyOf(validFiles, validFiles.length));
 		FileReference[] files = fromReference.getFiles();
 		setFiles(Arrays.copyOf(files, files.length));
