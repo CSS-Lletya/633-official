@@ -363,6 +363,7 @@ public final class RSInterfacePluginDispatcher {
 				continue;
 			if (sendWear2(player, slotId, item.getId()))
 				worn = true;
+			EquipSounds.executeSound(player, item);
 			switch(item.getId()) {
             case 2890: player.setNextGraphics(new Graphics(244, 0, 90));break;
 	            case 9731: player.setNextGraphics(new Graphics(809, 0, 90));break;

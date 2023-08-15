@@ -14,6 +14,7 @@ import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.RandomUtility;
 
+import lombok.val;
 import skills.HarvestingSkillAction;
 import skills.Skills;
 
@@ -83,14 +84,23 @@ public final class Mining extends HarvestingSkillAction {
 	}
 
 	@Override
-	public double successFactor() {
-		double successFactor = pickaxe.getSpeed() + rock.getSuccess() - RandomUtility.nextDouble(1.0);
-		if(successFactor < 0) {
-			return 0;
-		}
-		return successFactor;
+	public boolean successful() {
+        if (rock.equals(RockData.ESSENCE)) {
+            return true;
+        }
+        assert pickaxe.getSpeed() > 0;
+        int level = player.getSkills().getLevel(Skills.MINING);
+        if (rock == RockData.GEM_ROCK) {
+        	Item necklace = player.getEquipment().getItem(Equipment.SLOT_AMULET);
+			if (necklace != null && (necklace.getId() > 1705 && necklace.getId() < 1713)) {
+				level += 30;
+			}
+        }
+        val advancedLevels = level - pickaxe.getSpeed();
+        val chance = Math.max(Math.min(Math.round(advancedLevels * 0.8F) + 20, 70), 4) * 2;
+        return chance > RandomUtility.random(100);
 	}
-	
+
 	@Override
 	public int getSkillId() {
 		return Skills.MINING;

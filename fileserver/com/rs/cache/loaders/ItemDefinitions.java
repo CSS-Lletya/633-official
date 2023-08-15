@@ -11,9 +11,10 @@ import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.EquipData;
 import com.rs.utilities.loaders.ItemBonuses;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Data;
 import lombok.SneakyThrows;
 import skills.Skills;
@@ -21,9 +22,9 @@ import skills.Skills;
 @Data
 public class ItemDefinitions {
 
-	public static Object2ObjectArrayMap<Integer, ItemDefinitions> itemsDefinitions = new Object2ObjectArrayMap<>();
+	public static Short2ObjectOpenHashMap<ItemDefinitions> itemsDefinitions = new Short2ObjectOpenHashMap<>();
 
-	public int id;
+	public short id;
 	public boolean loaded;
 
 	public int modelId;
@@ -103,16 +104,16 @@ public class ItemDefinitions {
 	public boolean noted;
 	public boolean lended;
 
-	Object2ObjectArrayMap<Integer, Object> clientScriptData;
+	Int2ObjectOpenHashMap<Object> clientScriptData;
 	Object2ObjectOpenHashMap<Integer, Integer> itemRequiriments;
 	public int[] unknownArray5;
 	public int[] unknownArray4;
 	public byte[] unknownArray6;
 
 	public static final ItemDefinitions getItemDefinitions(int itemId) {
-		ItemDefinitions def = itemsDefinitions.get(itemId);
+		ItemDefinitions def = itemsDefinitions.get((short) itemId);
 		if (def == null)
-			itemsDefinitions.put(itemId, def = new ItemDefinitions(itemId));
+			itemsDefinitions.put((short) itemId, def = new ItemDefinitions((short)  itemId));
 		return def;
 	}
 
@@ -120,7 +121,7 @@ public class ItemDefinitions {
 		itemsDefinitions.clear();
 	}
 
-	public ItemDefinitions(int id) {
+	public ItemDefinitions(short id) {
 		this.id = id;
 		setDefaultsVariableValues();
 		setDefaultOptions();
@@ -869,7 +870,7 @@ public class ItemDefinitions {
 		} else if (opcode == 249) {
 			int length = stream.readUnsignedByte();
 			if (clientScriptData == null)
-				clientScriptData = new Object2ObjectArrayMap<Integer, Object>(length);
+				clientScriptData = new Int2ObjectOpenHashMap<>(length);
 			for (int index = 0; index < length; index++) {
 				boolean stringInstance = stream.readUnsignedByte() == 1;
 				int key = stream.read24BitInt();

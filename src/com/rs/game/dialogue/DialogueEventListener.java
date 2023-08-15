@@ -1,7 +1,5 @@
 package com.rs.game.dialogue;
 
-import java.util.ArrayList;
-
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.game.dialogue.type.DialogueDualEntityEvent;
 import com.rs.game.dialogue.type.DialogueEntityEvent;
@@ -17,11 +15,12 @@ import com.rs.game.player.attribute.Attribute;
 import com.rs.utilities.SkillDialogueFeedback;
 import com.rs.utilities.TextWrapping;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.SkillsDialogue;
 
 public abstract class DialogueEventListener implements Mood {
 
-	private ArrayList<DialogueEvent> dialogueEvent = new ArrayList<DialogueEvent>();
+	private ObjectArrayList<DialogueEvent> dialogueEvent = new ObjectArrayList<>();
 
 	private int page, previousOptionPressed;
 
@@ -107,7 +106,6 @@ public abstract class DialogueEventListener implements Mood {
 	public DialogueEventListener(Player player, Object... args) {
 		this.player = player;
 		this.args = args;
-		player.getInterfaceManager().closeInterfaces();
 	}
 
 	public abstract void start();
@@ -129,10 +127,6 @@ public abstract class DialogueEventListener implements Mood {
 		return this;
 	}
 
-	/*
-	 * NOTE: cant cast boolean to dialogue class for attribute. Not sure how to fix
-	 * tbh, however not using it for close interfaces works. sigh. sorry.
-	 */
 	public void complete() {
 		player.getInterfaceManager().closeChatBoxInterface();
 		onClose();
@@ -141,7 +135,6 @@ public abstract class DialogueEventListener implements Mood {
 
 	public void skillDialogue(SkillDialogueFeedback feedback) {
 		player.getAttributes().get(Attribute.SKILL_DIALOGUE).set(feedback);
-		
 	}
 	
 	/**

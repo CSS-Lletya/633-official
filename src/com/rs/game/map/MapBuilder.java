@@ -1,8 +1,5 @@
 package com.rs.game.map;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.rs.cache.Cache;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
@@ -10,6 +7,7 @@ import com.rs.game.npc.other.Pet;
 import com.rs.game.player.Player;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.Synchronized;
 
 public final class MapBuilder {
@@ -32,7 +30,7 @@ public final class MapBuilder {
 	}
 
 	private static final Object ALGORITHM_LOCK = new Object();
-	private static final List<Integer> EXISTING_MAPS = new ArrayList<Integer>();
+	private static final ObjectList<Integer> EXISTING_MAPS = new ObjectArrayList<Integer>();
 
 	private static final int MAX_REGION_X = 127;
 	private static final int MAX_REGION_Y = 255;

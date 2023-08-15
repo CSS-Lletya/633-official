@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import com.rs.cache.loaders.ItemDefinitions;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
+import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 
 public class FileUtilities {
 
@@ -52,8 +52,8 @@ public class FileUtilities {
     } 
 
     public static ItemDefinitions forName(String name) {
-        return ItemDefinitions.itemsDefinitions.object2ObjectEntrySet().stream()
-                .map(Object2ObjectMap.Entry::getValue)
+        return ItemDefinitions.itemsDefinitions.short2ObjectEntrySet().stream()
+                .map(Short2ObjectOpenHashMap.Entry::getValue)
                 .filter(definition -> definition.name.equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);

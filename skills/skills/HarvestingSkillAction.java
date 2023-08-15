@@ -2,13 +2,11 @@ package skills;
 
 import java.util.Optional;
 
-import com.google.common.base.Preconditions;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.utilities.RandomUtility;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,14 +26,6 @@ import lombok.Setter;
  * @see ProducingSkillAction
  */
 public abstract class HarvestingSkillAction extends SkillHandler {
-	
-	/**
-	 * The factor boost that determines the success rate for harvesting based on
-	 * skill level. The higher the number the less frequently harvest will be
-	 * obtained. A value higher than {@code 99} or lower than {@code 0} will
-	 * throw an {@link IllegalStateException}.
-	 */
-	private static final int SUCCESS_FACTOR = 10;
 	
 	/**
 	 * Creates a new {@link HarvestingSkillAction}.
@@ -64,10 +54,7 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 	
 	@Override
 	public void execute(Task t) {
-		Preconditions.checkState(SUCCESS_FACTOR >= 0 && SUCCESS_FACTOR <= 99, "Invalid success factor for harvesting!");
-		int factor = (getPlayer().getSkills().getLevel(getSkillId()) / SUCCESS_FACTOR);
-		double boost = (factor * 0.01);
-		if(RandomUtility.success((successFactor() + boost))) {
+		if(successful()) {
 			Optional<Item[]> removeItems = removeItems();
 			Item[] harvestItems = harvestItems();
 			
@@ -106,13 +93,6 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 	}
 	
 	/**
-	 * The success factor for the harvest. The higher the number means the more
-	 * frequently harvest will be obtained.
-	 * @return the success factor.
-	 */
-	public abstract double successFactor();
-	
-	/**
 	 * The items to be removed upon a successful harvest.
 	 * @return the items to be removed.
 	 */
@@ -134,6 +114,15 @@ public abstract class HarvestingSkillAction extends SkillHandler {
 	
 	@Override
 	public boolean isPrioritized() {
+		return false;
+	}
+	
+	/**
+	 * The success factor for the harvest. The higher the number means the more
+	 * frequently harvest will be obtained.
+	 * @return the success factor.
+	 */
+	public boolean successful() {
 		return false;
 	}
 	

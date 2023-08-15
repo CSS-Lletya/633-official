@@ -17,6 +17,7 @@ import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.RandomUtility;
 
+import lombok.val;
 import skills.HarvestingSkillAction;
 import skills.Skills;
 import skills.TransformableObject;
@@ -55,10 +56,13 @@ public class Woodcutting extends HarvestingSkillAction {
 	}
 	
 	@Override
-	public double successFactor() {
-		return tree.getSuccess() * hatchet.getSpeed();
+	public boolean successful() {
+		assert hatchet.getSpeed() > 0;
+		val level = player.getSkills().getLevel(Skills.WOODCUTTING);
+		val advancedLevels = level - hatchet.getSpeed();
+		return Math.min(Math.round(advancedLevels * 0.8F) + 20, 70) > RandomUtility.random(100);
 	}
-	
+
 	@Override
 	public Optional<Item[]> removeItems() {
 		return Optional.empty();

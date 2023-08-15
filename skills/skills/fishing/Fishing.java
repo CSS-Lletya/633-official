@@ -13,6 +13,7 @@ import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.utilities.RandomUtility;
 
+import lombok.val;
 import skills.HarvestingSkillAction;
 import skills.Skills;
 
@@ -73,9 +74,12 @@ public class Fishing extends HarvestingSkillAction {
 	}
 	
 	@Override
-	public double successFactor() {
-		return tool.success;
-	}
+    public boolean successful() {
+        val fishLevel = tool.level;
+        val level = player.getSkills().getLevel(Skills.FISHING);
+        val advancedLevels =  level - fishLevel;
+        return Math.min(Math.round(advancedLevels * 0.6F) + 30, 70) > RandomUtility.random(100);
+    }
 	
 	@Override
 	public Optional<Item[]> removeItems() {
