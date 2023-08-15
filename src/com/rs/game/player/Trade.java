@@ -3,6 +3,7 @@ package com.rs.game.player;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemsContainer;
+import com.rs.utilities.Colors;
 import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.ItemExamines;
 
@@ -265,6 +266,7 @@ public class Trade {
         player.getInterfaceManager().closeInventory();
 //        player.getPackets().sendHideIComponent(334, 55, !(tradeModified || target.getTrade().tradeModified));
         refreshBothStageMessage(false);
+        writeOffers();
         return true;
     }
 
@@ -364,4 +366,37 @@ public class Trade {
         CANCEL, NO_SPACE, DONE
     }
 
+    private void writeOffers() {
+        ItemsContainer<Item> offer = items;
+        ItemsContainer<Item> other = offer;
+        player.getPackets().sendHideIComponent(334, 37, false);
+        player.getPackets().sendHideIComponent(334, 41, false);
+        player.getPackets().sendHideIComponent(334, 36, false);
+        target.getPackets().sendHideIComponent(334, 37, false);
+        target.getPackets().sendHideIComponent(334, 41, false);
+        target.getPackets().sendHideIComponent(334, 36, false);
+        target.getPackets().sendIComponentText(334, 41, buildString(other));
+        player.getPackets().sendIComponentText(334, 37, buildString(offer));
+    }
+
+    public String buildString(ItemsContainer<Item> offer) {
+        String a = "";
+        if (offer.getUsedSlots() > 0) {
+            for (int i = 0; i < offer.getSize(); i++) {
+                if (offer.get(i) == null)
+                    continue;
+                a = a + "<col=FF9040>" + offer.get(i).getDefinitions().getName();
+                if (offer.get(i).getAmount() > 1) {
+                    a = a + "<col=FFFFFF> x ";
+                    a = a + "<col=" + (offer.get(i).getDefinitions().getId() == 995 ? Colors.white : Colors.yellow )+ ">" + Utility.getFormattedNumber(offer.get(i).getAmount());
+                    a = a + "<br>";
+                } else {
+                    a = a + "<br>";
+                }
+            }
+        } else {
+            a = "<col=FFFFFF>Absolutely nothing!";
+        }
+        return a;
+    }
 }

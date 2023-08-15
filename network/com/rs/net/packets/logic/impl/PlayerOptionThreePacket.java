@@ -29,14 +29,11 @@ public class PlayerOptionThreePacket implements LogicPacketListener {
 				return;
 			}
 			player.getMovement().stopAll();
-			if (player.getInterfaceManager().containsScreenInter() || player.getCurrentMapZone().isPresent()) {
+			if (player.getInterfaceManager().containsScreenInter() || p2.getMovement().isLocked()) {
 				player.getPackets().sendGameMessage("You are busy.");
 				return;
 			}
-			if (p2.getInterfaceManager().containsScreenInter()
-					|| p2.getCurrentMapZone().isPresent()
-
-					|| p2.getMovement().isLocked()) {
+			if (p2.getInterfaceManager().containsScreenInter() || p2.getMovement().isLocked()) {
 				player.getPackets().sendGameMessage("The other player is busy.");
 				return;
 			}
