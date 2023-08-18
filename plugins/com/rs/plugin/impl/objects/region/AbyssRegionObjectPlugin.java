@@ -63,7 +63,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 					player.getPackets().sendGameMessage("You don't have a tinderbox to burn it.");
 					return;
 				}
-				player.setNextAnimation(new Animation(733));
+				player.setNextAnimation(Animations.ATTEMPT_FIRE_LIGHTING);
 				player.getMovement().lock(3);
 				World.get().submit(new Task(1) {
 					int tick;
@@ -97,7 +97,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 						return;
 					}
 				}
-				player.setNextAnimation(new Animation(628));
+				player.setNextAnimation(Animations.BASIC_MINING);
 				player.getMovement().lock(3);
 				World.get().submit(new Task(1) {
 					int tick;
@@ -129,7 +129,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 					player.getPackets().sendGameMessage("You need a hatchet in order to do that.");
 					return;
 				}
-				player.setNextAnimation(new Animation(869));
+				player.setNextAnimation(Animations.BASIC_WOODCUTTING);
 				player.getMovement().lock(3);
 				World.get().submit(new Task(1) {
 					int tick;
@@ -158,7 +158,7 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 		SQUEEZE("squeeze-through", new WorldTile[] { new WorldTile(3048, 4842, 0), new WorldTile(3031, 4842, 0) }, 7148, 7147) {
 			@Override
 			public void handle(final Player player, final GameObject object) {
-				player.setNextAnimation(new Animation(1331));
+				player.setNextAnimation(Animations.BEING_SQUEEZE_THROUGH);
 				player.getMovement().lock(3);
 				player.getMovement().lock(3);
 				World.get().submit(new Task(1) {

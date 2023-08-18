@@ -14,6 +14,7 @@ import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.RouteFinder;
+import com.rs.game.movement.route.strategy.DumbRouteFinder;
 import com.rs.game.movement.route.strategy.FixedTileStrategy;
 import com.rs.game.npc.combat.NPCCombat;
 import com.rs.game.npc.combat.NPCCombatDefinitions;
@@ -131,20 +132,20 @@ public class NPC extends Entity {
 					if (!checkAgressivity()) {
 						if (getMovement().getFreezeDelay() < Utility.currentTimeMillis()) {
 							if (!hasWalkSteps() && (getWalkType() & NORMAL_WALK) != 0) {
-								boolean can = false;
-								for (int i = 0; i < 2; i++) {
-									if (Math.random() * 1000.0 < 100.0) {
-										can = true;
-										break;
-									}
-								}
-								if (can) {
-									int moveX = (int) Math.round(Math.random() * 10.0 - 5.0);
-									int moveY = (int) Math.round(Math.random() * 10.0 - 5.0);
-									resetWalkSteps();
-									addWalkSteps(getRespawnTile().getX() + moveX, getRespawnTile().getY() + moveY, 5,
-											(getWalkType() & FLY_WALK) == 0);
-								}
+								boolean can = Math.random() > 0.9;
+                                if (can) {
+                                    int moveX = RandomUtility.random(getDefinitions().hasAttackOption() ? 4 : 2, getDefinitions().hasAttackOption() ? 8 : 4);
+                                    int moveY = RandomUtility.random(getDefinitions().hasAttackOption() ? 4 : 2, getDefinitions().hasAttackOption() ? 8 : 4);
+                                    if (RandomUtility.random(2) == 0)
+                                        moveX = -moveX;
+                                    if (RandomUtility.random(2) == 0)
+                                        moveY = -moveY;
+                                    resetWalkSteps();
+                                    DumbRouteFinder.addDumbPathfinderSteps(this, respawnTile.transform(moveX, moveY, 0), getDefinitions().hasAttackOption() ? 7 : 3);
+                                    if (Utility.getDistance(this, respawnTile) > 3 && !getDefinitions().hasAttackOption()) {
+                                        DumbRouteFinder.addDumbPathfinderSteps(this, respawnTile, 12);
+                                    }
+                                }
 							}
 						}
 					}

@@ -1,13 +1,13 @@
 package com.rs.plugin.impl.npcs.region;
 
+import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceTalk;
-import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.loaders.ShopsHandler;
@@ -28,8 +28,8 @@ public class WildernessRegionNPCPlugin extends NPCListener {
 					switch (tick++) {
 					case 1:
 						npc.setNextForceTalk(new ForceTalk("Veniens! Sallakar! Rinnesset!"));
-						npc.setNextAnimation(new Animation(1979));
-						npc.setNextGraphics(new Graphics(4));
+						npc.setNextAnimation(Animations.WILDY_ZAMORAK_MAGE_TELEPORT);
+						npc.setNextGraphics(Graphic.WILDY_ZAMORAK_MAGE_TELEPORT);
 						break;
 					case 3:
 						player.getMovement().move(false, new WorldTile(3030, 4856, 0), TeleportType.NORMAL);

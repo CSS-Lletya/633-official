@@ -1,12 +1,12 @@
 package com.rs.plugin.impl.npcs;
 
+import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.NPCListener;
 import com.rs.plugin.wrapper.NPCSignature;
 import com.rs.utilities.RandomUtility;
@@ -35,7 +35,7 @@ public class SheepNPCPlugin extends NPCListener {
 		case 3:
 			if (player.getInventory().addItem(npc.getId() == 8876 ? 15415 : 1737, 1)) {
 				npc.transformIntoNPC(42);
-				player.setNextAnimation(new Animation(893));
+				player.setNextAnimation(Animations.SHEARING_SHEEP);
 				World.get().submit(new Task(15) {
         			@Override
         			protected void execute() {

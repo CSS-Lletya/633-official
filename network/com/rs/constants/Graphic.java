@@ -51,6 +51,7 @@ public final class Graphic {
 	public static final Graphics CHARGE_SPELL = new Graphics(6,0, 96);
 	public static final Graphics SMOKE_APPEARING = new Graphics(74);
 	public static final Graphics THREE_RING_TELEPORTING = new Graphics(110, 0, 100);
+	public static final Graphics SORCERESSS_GARDEN_BROOMSTICK = new Graphics(1866);
 	
 	/**
 	 * Object Based Graphics
@@ -66,4 +67,5 @@ public final class Graphic {
 	 * Other/Tile
 	 */
 	public static final Graphics TELEGRAB_SPELL = new Graphics(144);
+	public static final Graphics WILDY_ZAMORAK_MAGE_TELEPORT = new Graphics(4);
 }

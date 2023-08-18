@@ -1,8 +1,8 @@
 package com.rs.plugin.impl.inventory;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 import com.rs.utilities.RandomUtility;
@@ -33,7 +33,7 @@ public class MorphingRingsItemPlugin extends InventoryListener {
 
 	public static void deactivateTransformation(Player player) {
 		player.getMovement().unlock();
-		player.setNextAnimation(new Animation(14884));
+		player.setNextAnimation(Animations.TRANSFORMING_RING_DEACTIVATION);
 		player.getAppearance().transformIntoNPC(-1);
 		player.getInterfaceManager().removeInventoryInterface();
 	}

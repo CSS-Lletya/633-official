@@ -33,11 +33,11 @@ public class DiangoItemsItemPlugin extends InventoryListener {
 			if (RandomUtility.percentageChance(10)) {
 				player.getAudioManager().sendSound(1, Sounds.PLATE_BREAKING);
 				player.getInventory().deleteItem(new Item(4613));
-				player.setNextAnimation(new Animation(1906));
+				player.setNextAnimation(Animations.SPINNING_DIANGO_PLATE_FAIL);
 				FloorItem.addGroundItem(new Item(4614), player, player, true, 60);
 			} else {
 				player.getAudioManager().sendSound(1, Sounds.PLATE_SPINNING);
-				player.setNextAnimation(new Animation(1902));
+				player.setNextAnimation(Animations.SPINNING_DIANGO_PLATE_SUCCESS);
 			}
 		}
 		if (item.getId() == 12844) {

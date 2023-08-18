@@ -1,6 +1,7 @@
 package com.rs.game.map;
 
 import com.rs.game.movement.route.Flags;
+import com.rs.utilities.Direction;
 import com.rs.utilities.Utility;
 
 public class TileAttributes extends World {
@@ -372,4 +373,13 @@ public class TileAttributes extends World {
 		}
 		return true;
 	}
+
+    public boolean checkWalkStep(WorldTile from, WorldTile to, int size) {
+        Direction dir = Direction.forDelta(to.getX() - from.getX(), to.getY() - from.getY());
+        return checkWalkStep(from.getPlane(), from.getX(), from.getY(), dir, size);
+    }
+    
+    public boolean checkWalkStep(int plane, int x, int y, Direction dir, int size) {
+        return checkWalkStep(plane, x, y, dir.getDx(), dir.getDy(), size);
+    }
 }

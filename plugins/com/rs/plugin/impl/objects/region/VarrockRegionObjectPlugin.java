@@ -7,7 +7,6 @@ import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
@@ -109,7 +108,7 @@ public class VarrockRegionObjectPlugin extends ObjectListener{
 		if (object.getId() == 24071 && item.getId() == 1947) {
 			if (!player.getAttributes().get(Attribute.WHEAT_DEPOSITED).getBoolean()) {
 				player.getInventory().deleteItem(1947, 1);
-				player.setNextAnimation(new Animation(832));
+				player.setNextAnimation(Animations.PLACING_WHEAT_INTO_HOPPER);
 				player.getPackets().sendGameMessage("You put the wheat in the hopper.");
 				player.getAttributes().get(Attribute.WHEAT_DEPOSITED).set(true);
 			} else

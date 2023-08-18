@@ -22,6 +22,7 @@ import com.rs.game.map.Region;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.RouteFinder;
+import com.rs.game.movement.route.strategy.DumbRouteFinder;
 import com.rs.game.movement.route.strategy.EntityStrategy;
 import com.rs.game.movement.route.strategy.FixedTileStrategy;
 import com.rs.game.movement.route.strategy.ObjectStrategy;
@@ -552,85 +553,6 @@ public abstract class Entity extends WorldTile {
 		return size == 1 ? this : new WorldTile(getCoordFaceX(size), getCoordFaceY(size), getPlane());
 	}
 
-	public static boolean findBasicRoute(Entity src, WorldTile dest, int maxStepsCount, boolean calculate) {
-		int[] srcPos = src.getLastWalkTile();
-		int[] destPos = { dest.getX(), dest.getY() };
-		int srcSize = src.getSize();
-		// set destSize to 0 to walk under it else follows
-		int destSize = dest instanceof Entity ? ((Entity) dest).getSize() : 1;
-		int[] destScenePos = { destPos[0] + destSize - 1, destPos[1] + destSize - 1 };// Arrays.copyOf(destPos,
-																						// 2);//destSize == 1 ?
-																						// Arrays.copyOf(destPos, 2) :
-																						// new
-																						// int[]
-																						// {WorldTile.getCoordFaceX(destPos[0],
-																						// destSize, destSize, -1),
-																						// WorldTile.getCoordFaceY(destPos[1],
-																						// destSize, destSize, -1)};
-		while (maxStepsCount-- != 0) {
-			int[] srcScenePos = { srcPos[0] + srcSize - 1, srcPos[1] + srcSize - 1 };// srcSize == 1 ?
-																						// Arrays.copyOf(srcPos, 2) :
-																						// new int[] {
-																						// WorldTile.getCoordFaceX(srcPos[0],
-																						// srcSize, srcSize, -1),
-																						// WorldTile.getCoordFaceY(srcPos[1],
-																						// srcSize, srcSize, -1)};
-			if (!Utility.isOnRange(srcPos[0], srcPos[1], srcSize, destPos[0], destPos[1], destSize, 0)) {
-				if (srcScenePos[0] < destScenePos[0] && srcScenePos[1] < destScenePos[1]
-						&& (!(src.isNPC()) || src.canWalkNPC(srcPos[0] + 1, srcPos[1] + 1))
-						&& src.addWalkStep(srcPos[0] + 1, srcPos[1] + 1, srcPos[0], srcPos[1], true)) {
-					srcPos[0]++;
-					srcPos[1]++;
-					continue;
-				}
-				if (srcScenePos[0] > destScenePos[0] && srcScenePos[1] > destScenePos[1]
-						&& (!(src.isNPC()) || src.canWalkNPC(srcPos[0] - 1, srcPos[1] - 1))
-						&& src.addWalkStep(srcPos[0] - 1, srcPos[1] - 1, srcPos[0], srcPos[1], true)) {
-					srcPos[0]--;
-					srcPos[1]--;
-					continue;
-				}
-				if (srcScenePos[0] < destScenePos[0] && srcScenePos[1] > destScenePos[1]
-						&& (!(src.isNPC()) || src.canWalkNPC(srcPos[0] + 1, srcPos[1] - 1))
-						&& src.addWalkStep(srcPos[0] + 1, srcPos[1] - 1, srcPos[0], srcPos[1], true)) {
-					srcPos[0]++;
-					srcPos[1]--;
-					continue;
-				}
-				if (srcScenePos[0] > destScenePos[0] && srcScenePos[1] < destScenePos[1]
-						&& (!(src.isNPC()) || src.canWalkNPC(srcPos[0] - 1, srcPos[1] + 1))
-						&& src.addWalkStep(srcPos[0] - 1, srcPos[1] + 1, srcPos[0], srcPos[1], true)) {
-					srcPos[0]--;
-					srcPos[1]++;
-					continue;
-				}
-				if (srcScenePos[0] < destScenePos[0] && (!(src.isNPC()) || src.canWalkNPC(srcPos[0] + 1, srcPos[1]))
-						&& src.addWalkStep(srcPos[0] + 1, srcPos[1], srcPos[0], srcPos[1], true)) {
-					srcPos[0]++;
-					continue;
-				}
-				if (srcScenePos[0] > destScenePos[0] && (!(src.isNPC()) || src.canWalkNPC(srcPos[0] - 1, srcPos[1]))
-						&& src.addWalkStep(srcPos[0] - 1, srcPos[1], srcPos[0], srcPos[1], true)) {
-					srcPos[0]--;
-					continue;
-				}
-				if (srcScenePos[1] < destScenePos[1] && (!(src.isNPC()) || src.canWalkNPC(srcPos[0], srcPos[1] + 1))
-						&& src.addWalkStep(srcPos[0], srcPos[1] + 1, srcPos[0], srcPos[1], true)) {
-					srcPos[1]++;
-					continue;
-				}
-				if (srcScenePos[1] > destScenePos[1] && (!(src.isNPC()) || src.canWalkNPC(srcPos[0], srcPos[1] - 1))
-						&& src.addWalkStep(srcPos[0], srcPos[1] - 1, srcPos[0], srcPos[1], true)) {
-					srcPos[1]--;
-					continue;
-				}
-				return false;
-			}
-			break; // for now nothing between break and return
-		}
-		return true;
-	}
-
 	// used for normal npc follow int maxStepsCount, boolean calculate used to
 	// save mem on normal path
 	public boolean calcFollow(WorldTile target, int maxStepsCount, boolean calculate, boolean inteligent) {
@@ -652,7 +574,7 @@ public abstract class Entity extends WorldTile {
 			}
 			return true;
 		}
-		return findBasicRoute(this, target, maxStepsCount, true);
+		return DumbRouteFinder.addDumbPathfinderSteps(this, target);
 	}
 
 	// used for normal npc follow

@@ -1,12 +1,12 @@
 package com.rs.plugin.impl.objects;
 
+import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
@@ -24,7 +24,7 @@ public class LeverPullObjectPlugin extends ObjectListener {
 				switch(tick++) {
 				case 0:
 					player.getAudioManager().sendSound(Sounds.PULLING_LEVER);
-					player.setNextAnimation(new Animation(2140));
+					player.setNextAnimation(Animations.LEVER_PULLING);
 					break;
 				case 2:
 					switch (object.getId()) {

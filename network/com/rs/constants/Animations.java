@@ -6,6 +6,8 @@ import com.rs.net.encoders.other.Animation;
  * A collection of useful type-safe Animations designed to provide better
  * readability and improve code base.
  * 
+ * Skills are typically vast in animations so they'll be ignored.
+ * 
  * TODO: Summoning, Combat/Magic animations (combat needs rework, so it can be left alone)
  * 
  * @author Dennis
@@ -81,7 +83,6 @@ public final class Animations {
 	public static final Animation TELEPORT_NORMAL = new Animation(8939);
 	public static final Animation TELEPORT_ANCIENT = new Animation(9599);
 	public static final Animation TELEPORT_LUNAR = new Animation(9606);
-	public static final Animation TELEPORT_LEVER = new Animation(8939);
 	public static final Animation TELEPORT_NORMAL_RETURN = new Animation(8941);
 	public static final Animation LADDER_CLIMB = new Animation(828);
 	public static final Animation KNOCKING_ON_DOOR = new Animation(9105);
@@ -137,10 +138,27 @@ public final class Animations {
 	public static final Animation FILLING_BUCKET_FROM_GROUND = new Animation(4471);
 	public static final Animation LOCKPICKING = new Animation(537);
 	public static final Animation CHEST_LOOTING = new Animation(536);
-	
 	public static final Animation WALLSAFE_CHECKING = new Animation(2248);
 	public static final Animation WALLSAFE_CHECKING_SHORT = new Animation(2247);
 	public static final Animation WALLSAFE_FAILURE = new Animation(2247);//hopping on one foot holding other foot.
+	public static final Animation EFFIGY_FAILED = new Animation(4067);
+	public static final Animation EFFIGY_SUCCESS = new Animation(4068);
+	public static final Animation SPINNING_DIANGO_PLATE_FAIL = new Animation(1906);
+	public static final Animation SPINNING_DIANGO_PLATE_SUCCESS = new Animation(1902);
+	public static final Animation TRANSFORMING_RING_DEACTIVATION = new Animation(14884);
+	public static final Animation SORCERESSS_GARDEN_BROOMSTICK = new Animation(10532);
+	public static final Animation YO_YO_1 = new Animation(1457);
+	public static final Animation YO_YO_2 = new Animation(1458);
+	public static final Animation YO_YO_3 = new Animation(1459);
+	public static final Animation YO_YO_4 = new Animation(1460);
+	public static final Animation SHEARING_SHEEP = new Animation(893);
+	public static final Animation LEVER_PULLING = new Animation(2140);
+	public static final Animation PLACING_WHEAT_INTO_HOPPER = new Animation(832);
+	public static final Animation PLACING_HAND_ON_DOOR = new Animation(547);//stronghold of security
+	public static final Animation LUMBRIDGE_FLAG_POLE_RAISING = new Animation(9977);
+	public static final Animation BASIC_MINING = new Animation(628);//abyss
+	public static final Animation BASIC_WOODCUTTING = new Animation(869);//abyss
+	public static final Animation BEING_SQUEEZE_THROUGH = new Animation(1331);//abyss
 	
 	/**
 	 * Object Based Animations
@@ -148,6 +166,7 @@ public final class Animations {
 	public static final Animation WILDERNESS_OBELISK = new Animation(2226);
 	public static final Animation SAWMILL_GRINDER_1 = new Animation(12394);
 	public static final Animation SAWMILL_GRINDER_2 = new Animation(12395);
+	public static final Animation LUMBRIDGE_FLAG_POLE = new Animation(9979);
 	
 	/**
 	 * NPC Based Animations
@@ -155,5 +174,7 @@ public final class Animations {
 	public static final Animation NPC_PICKPOCKET_FAIL_RESPONSE = new Animation(422);
 	public static final Animation WIZARD_ESSENCE_MINE_TELEPORT = new Animation(1818);
 	public static final Animation SG_ELEMENTAL_ARM_SWINGING = new Animation(5803);
+	public static final Animation WILDY_ZAMORAK_MAGE_TELEPORT = new Animation(1979);
+	
 
 }

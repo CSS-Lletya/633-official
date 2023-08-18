@@ -382,6 +382,10 @@ public class InterfaceManager {
 				getOpenedinterfaces().remove(key);
 		}
 	}
+	
+	public void removeAllInterfaces() {
+		getOpenedinterfaces().keySet().forEach(inter -> removeInterface(inter));
+	}
 
 	public void removeInterface(int interfaceId) {
 		int parentUID = getInterfaceParentId(interfaceId);

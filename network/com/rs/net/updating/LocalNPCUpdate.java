@@ -209,31 +209,12 @@ public final class LocalNPCUpdate {
 		data.writeString(n.getNextForceTalk().getText());
 	}
 
-	//don't think any npcs used this in this revision?
-	@SuppressWarnings("unused")
-	private void applyForceMovementMask(NPC n, OutputStream data) {
-//		data.write128Byte(n.getNextForceMovement().getFirst().getX()
-//				- n.getX());
-//		data.writeByte(n.getNextForceMovement().getFirst().getY()
-//				- n.getY());
-//		data.writeByteC(n.getNextForceMovement().getSecond() == null ? 0
-//				: n.getNextForceMovement().getSecond().getX() - n.getX());
-//		data.writeByteC(n.getNextForceMovement().getSecond() == null ? 0
-//				: n.getNextForceMovement().getSecond().getY() - n.getY());
-//		data.writeShortLE((n.getNextForceMovement().getFirstSpeed() * 600) / 20);
-//		data.writeShortLE128(n.getNextForceMovement().getSecond() == null ? 0
-//				: ((n.getNextForceMovement().getSecondSpeed() * 600) / 20));
-//		data.writeShort128(n.getNextForceMovement().getDirection().getId());
-	}
-
 	private void applyFaceWorldTileMask(NPC n, OutputStream data) {
 		data.writeShortLE((n.getNextFaceWorldTile().getX() << 1) + 1);
 		data.writeShort128((n.getNextFaceWorldTile().getY() << 1) + 1);
 	}
 
 	private void applyHitMask(NPC n, OutputStream data) {
-		
-		// TODO fix this as this was just for testing
 		Hit hit = n.getNextHits().get(0);
 		data.writeSmart(hit.getDamage());
 		data.writeByte128(hit.getMark(player, n));

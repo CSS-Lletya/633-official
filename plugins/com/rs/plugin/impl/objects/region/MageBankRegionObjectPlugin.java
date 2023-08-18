@@ -12,7 +12,6 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.FadingScreen;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
@@ -100,7 +99,7 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 			protected void execute() {
 				switch (tick++) {
 				case 1:
-					FadingScreen.fade(player, () -> player.setNextAnimation(new Animation(7269)));
+					FadingScreen.fade(player, () -> player.setNextAnimation(Animations.JUMPING_INTO_SOMETHING));
 					break;
 				case 2:
 					player.task(2, p -> p.setNextWorldTile(end));

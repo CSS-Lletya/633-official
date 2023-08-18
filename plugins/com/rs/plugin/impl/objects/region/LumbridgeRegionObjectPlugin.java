@@ -9,7 +9,6 @@ import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 import com.rs.utilities.loaders.ShopsHandler;
@@ -48,8 +47,8 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 		object.doAction(optionId, 36771, "climb-up", () -> player.getMovement().move(true, new WorldTile(3207, 3222, 3), TeleportType.LADDER));
 		object.doAction(optionId, 36772, "climb-down", () -> player.getMovement().move(true, new WorldTile(3207, 3224, 2), TeleportType.LADDER));
 		object.doAction(optionId, 37335, "Raise", () -> {
-			player.setNextAnimation(new Animation(9977));
-			GameObject.sendObjectAnimation(object, new Animation(9979));
+			player.setNextAnimation(Animations.LUMBRIDGE_FLAG_POLE_RAISING);
+			GameObject.sendObjectAnimation(object, Animations.LUMBRIDGE_FLAG_POLE);
 		});
 		//outside stairs
 		object.doAction(optionId, 36768, "climb-up", () -> new StairsLaddersDialogue(object).execute(player, optionId));
@@ -189,7 +188,7 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 		if (object.getId() == 36881 && item.getId() == 1947) {
 			if (!player.getAttributes().get(Attribute.WHEAT_DEPOSITED).getBoolean()) {
 				player.getInventory().deleteItem(1947, 1);
-				player.setNextAnimation(new Animation(832));
+				player.setNextAnimation(Animations.PLACING_WHEAT_INTO_HOPPER);
 				player.getPackets().sendGameMessage("You put the wheat in the hopper.");
 				player.getAttributes().get(Attribute.WHEAT_DEPOSITED).set(true);
 			} else

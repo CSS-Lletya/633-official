@@ -1,12 +1,12 @@
 package com.rs.plugin.impl.objects.region;
 
+import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
@@ -102,7 +102,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 		}
 		if (id == 16043 || id == 16044 || id == 16065 || id == 16066 || id == 16089 || id == 16090 || id == 16124
 				|| id == 16123) {
-			player.setNextAnimation(new Animation(547));
+			player.setNextAnimation(Animations.PLACING_HAND_ON_DOOR);
 			switch (object.getRotation()) {
 			case 0:
 				if (player.getX() < object.getX())

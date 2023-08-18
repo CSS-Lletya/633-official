@@ -3,7 +3,6 @@ package com.rs.plugin.impl.objects.region;
 import com.rs.constants.Animations;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
@@ -23,7 +22,7 @@ public class ThievingGuildRegionObjectPlugin extends ObjectListener{
             switch (id) {
                 case 52317:
                     player.getMovement().lock(2);
-                    player.setNextAnimation(new Animation(881));
+                    player.setNextAnimation(Animations.PICKPOCKET);
                     player.getSkills().addExperience(Skills.THIEVING, 3);
                     break;
                 case 52316:

@@ -1,8 +1,8 @@
 package com.rs.plugin.impl.inventory;
 
+import com.rs.constants.Animations;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 import com.rs.utilities.RandomUtility;
@@ -28,12 +28,12 @@ public class AncientEffigyItemPlugin extends InventoryListener {
 			d.option("Focus on " + Skills.SKILL_NAME[skill1], () -> {
 				if (player.getSkills().getTrueLevel(skill1) < AncientEffigies.getRequiredLevel(item.getId())) {
 					d.mes("The images in your mind fade; the ancient effigy seems to desire knowledge of experiences you have not yet had.");
-					player.setNextAnimation(new Animation(4067));
+					player.setNextAnimation(Animations.EFFIGY_FAILED);
 					player.getPackets().sendGameMessage("You require at lest level " + AncientEffigies.getRequiredLevel(item.getId()) + " " + Skills.SKILL_NAME[skill1] + " to investigate the ancient effigy further.");
 					return;
 				} else {
 					if (item.getId() != 18781)
-						player.setNextAnimation(new Animation(4068));
+						player.setNextAnimation(Animations.EFFIGY_SUCCESS);
 					d.mes("As you focus on your memories, you can almost hear a voice in the back of your mind whispering to you...");
 					d.event(() -> {
 						int xp = AncientEffigies.getExp(item.getId());
@@ -48,12 +48,12 @@ public class AncientEffigyItemPlugin extends InventoryListener {
 			}, "Focus on " + Skills.SKILL_NAME[skill2], () -> {
 				if (player.getSkills().getTrueLevel(skill2) < AncientEffigies.getRequiredLevel(item.getId())) {
 					d.mes("The images in your mind fade; the ancient effigy seems to desire knowledge of experiences you have not yet had.");
-					player.setNextAnimation(new Animation(4067));
+					player.setNextAnimation(Animations.EFFIGY_FAILED);
 					player.getPackets().sendGameMessage("You require at lest level " + AncientEffigies.getRequiredLevel(item.getId()) + " " + Skills.SKILL_NAME[skill2] + " to investigate the ancient effigy further.");
 					return;
 				} else {
 					if (item.getId() != 18781)
-						player.setNextAnimation(new Animation(4068));
+						player.setNextAnimation(Animations.EFFIGY_SUCCESS);
 					d.mes("As you focus on your memories, you can almost hear a voice in the back of your mind whispering to you...");
 					d.event(() -> {
 						int xp = AncientEffigies.getExp(item.getId());
