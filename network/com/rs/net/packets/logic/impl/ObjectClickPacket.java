@@ -10,6 +10,8 @@ import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.plugin.ObjectPluginDispatcher;
 
+import skills.agility.AgilityHandler;
+
 @LogicPacketSignature(packetId = 75, packetSize = 7, description = "First click packet")
 public class ObjectClickPacket implements LogicPacketListener {
 
@@ -49,6 +51,7 @@ public class ObjectClickPacket implements LogicPacketListener {
 				return;
 			if (player.getTreasureTrailsManager().useObject(worldObject))
                 return;
+			AgilityHandler.execute(player, worldObject);
 			ObjectPluginDispatcher.execute(player, worldObject, 1);
 		}, true));
 	}

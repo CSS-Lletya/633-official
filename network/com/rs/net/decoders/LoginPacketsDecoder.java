@@ -149,7 +149,6 @@ public final class LoginPacketsDecoder extends Decoder {
 	public void DecodeLobbySession(InputStream stream) {
 
 		int rsaBlockSize = stream.readUnsignedShort();
-
 		if (rsaBlockSize > stream.getRemaining()) {
 			session.getLoginPackets().sendClientPacket(10);
 			return;

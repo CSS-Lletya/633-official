@@ -20,6 +20,7 @@ public class WorldMapInterfacePlugin extends RSInterfaceListener {
 				if (player.getMovement().isResting())
 					player.getMovement().stopAll();
 				player.setRunState(!player.isRun());
+				player.getInterfaceManager().sendRunButtonConfig();
 			}
 			if (componentId == 1 && packetId == 29) {
 				if (player.getMovement().isResting()) {

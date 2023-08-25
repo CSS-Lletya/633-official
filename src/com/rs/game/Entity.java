@@ -1177,17 +1177,19 @@ public abstract class Entity extends WorldTile {
 		}.submit();
 	}
 	
+	public void setRunHidden(boolean run) {
+		setRun(run);
+		ifPlayer(player -> player.setUpdateMovementType(true));
+	}
+	
 	/**
 	 * Updates a Player's Run (movement) state 
 	 */
 	public void setRunState(boolean run) {
-		setRun(run);
-		ifPlayer(player -> {
-			player.setUpdateMovementType(true);
-			if (run != isRun()) {
-				player.getInterfaceManager().sendRunButtonConfig();
-			}
-		});
+		if (run != isRun()) {
+			setRun(run);
+			ifPlayer(player -> player.setUpdateMovementType(true));
+		}
 	}
 	
     public Vec2 getMiddleWorldTileAsVector() {

@@ -47,6 +47,7 @@ import com.rs.utilities.loaders.NPCSpawns;
 import com.rs.utilities.loaders.ShopsHandler;
 
 import lombok.val;
+import skills.agility.AgilityHandler;
 
 /**
  * Represents the startup loading utilizing the {@link ForkJoinPool} system.
@@ -84,6 +85,7 @@ public final class GameLoader {
 			pool.submit(GenericNPCDispatcher::load);
 			pool.submit(PassiveSpellDispatcher::load);
 			pool.submit(RegionAttributePluginDispatcher::load);
+			pool.submit(AgilityHandler::load);
 			if (GameConstants.SQL_ENABLED) {
 				pool.submit(GameDatabase::initializeWebsiteDatabases);
 				pool.submit(PassiveDatabaseWorker::initialize);
