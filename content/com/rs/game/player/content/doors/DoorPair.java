@@ -17,19 +17,19 @@
 package com.rs.game.player.content.doors;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.utilities.GSONParser;
+
+import it.unimi.dsi.fastutil.shorts.Short2ShortOpenHashMap;
 
 public class DoorPair {
 
 	private static final String PATH = "./data/map/doorPairs.json";
 
 	private static DoorPair[] DOOR_PAIRS;
-	private static Map<Integer, Integer> PAIRING_MAP = new HashMap<>();
+	private static Short2ShortOpenHashMap PAIRING_MAP = new Short2ShortOpenHashMap();
 
 	private int closed;
 	private int open;
@@ -37,13 +37,16 @@ public class DoorPair {
 	public static void loadPairs() {
 		DOOR_PAIRS = (DoorPair[]) GSONParser.loadFile(new File(PATH).getAbsolutePath(), DoorPair[].class);
 		for (DoorPair pair : DOOR_PAIRS) {
-			PAIRING_MAP.put(pair.open, pair.closed);
-			PAIRING_MAP.put(pair.closed, pair.open);
+			PAIRING_MAP.put((short) pair.open, (short)  pair.closed);
+			PAIRING_MAP.put((short) pair.closed, (short) pair.open);
 		}
 	}
 
 	public static int getOpposingDoor(Player player, GameObject door) {
-		return PAIRING_MAP.get(door.getDefinitions().id) != null ? PAIRING_MAP.get(door.getDefinitions().id) : 1532;
+		if (!PAIRING_MAP.containsKey((short) door.getDefinitions().id)) {
+			return 1532;
+		}
+		return PAIRING_MAP.get((short) door.getDefinitions().id);
 	}
 
 	public DoorPair(int closed, int open) {

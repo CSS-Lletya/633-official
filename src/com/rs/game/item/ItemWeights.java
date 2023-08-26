@@ -7,7 +7,7 @@ import java.io.IOException;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.shorts.Short2DoubleOpenHashMap;
 import lombok.SneakyThrows;
 
 /**
@@ -22,7 +22,7 @@ public class ItemWeights {
 	/**
 	 * The Item Weights map
 	 */
-	private final static Object2ObjectArrayMap<Integer, Double> itemWeights = new Object2ObjectArrayMap<Integer, Double>();
+	private final static Short2DoubleOpenHashMap itemWeights = new Short2DoubleOpenHashMap();
 
 	/**
 	 * The path to the item weights file
@@ -45,7 +45,7 @@ public class ItemWeights {
 	 * @return
 	 */
 	public static double getWeight(Item item, boolean equiped) {
-		Double weight = itemWeights.get(item.getId());
+		Double weight = itemWeights.get((short) item.getId());
 		if (weight == null || item.getDefinitions().isNoted())
 			return 0;
 		return weight < 0.0 ? equiped ? weight : 0 : weight;
@@ -72,7 +72,7 @@ public class ItemWeights {
 			}
 			int itemId = Integer.valueOf(splitedLine[0]);
 			double weight = Double.valueOf(splitedLine[1]);
-			itemWeights.put(itemId, weight);
+			itemWeights.put((short) itemId, weight);
 		}
 		in.close();
 	}

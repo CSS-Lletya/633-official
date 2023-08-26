@@ -11,7 +11,7 @@ import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 import lombok.Setter;
 import skills.Skills;
@@ -23,7 +23,7 @@ import skills.Skills;
  */
 public final class PassiveSpellDispatcher {
 
-	private static final Object2ObjectArrayMap<PassiveSpellSignature, PassiveSpellListener> SPELLS = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<PassiveSpellSignature, PassiveSpellListener> SPELLS = new Object2ObjectOpenHashMap<>();
 
 	public void execute(Player player, int spellButton) {
 		Optional<PassiveSpellListener> spell = getVerifiedSpell(spellButton);

@@ -28,7 +28,6 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.AllArgsConstructor;
 import skills.Skills;
@@ -42,7 +41,7 @@ public final class RSInterfacePluginDispatcher {
 	/**
 	 * The object map which contains all the interface on the world.
 	 */
-	private static final Object2ObjectArrayMap<RSInterfaceSignature, RSInterfaceListener> INTERFACES = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<RSInterfaceSignature, RSInterfaceListener> INTERFACES = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Executes the specified interface if it's registered.

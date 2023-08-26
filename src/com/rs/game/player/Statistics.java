@@ -1,6 +1,6 @@
 package com.rs.game.player;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.Getter;
 
 /**
@@ -20,20 +20,20 @@ public final class Statistics {
      * Skilling, Minigames, etc..
      */
     @Getter
-    private Object2ObjectArrayMap<String, Integer> statistics = new Object2ObjectArrayMap<String, Integer>();
+    private Object2ObjectOpenHashMap<String, Integer> statistics = new Object2ObjectOpenHashMap<String, Integer>();
 
     /**
      * A large collection of NPC Killing-based statistics achieved by the Player.
      */
     @Getter
-    private Object2ObjectArrayMap<String, Integer> NPCKillStatistics = new Object2ObjectArrayMap<String, Integer>();
+    private Object2ObjectOpenHashMap<String, Integer> NPCKillStatistics = new Object2ObjectOpenHashMap<String, Integer>();
 
     /**
      * Creates a new instance of the players' statistics if not present.
      */
     public Statistics() {
-        statistics = new Object2ObjectArrayMap<String, Integer>();
-        NPCKillStatistics = new Object2ObjectArrayMap<String, Integer>();
+        statistics = new Object2ObjectOpenHashMap<String, Integer>();
+        NPCKillStatistics = new Object2ObjectOpenHashMap<String, Integer>();
     }
 
     /**

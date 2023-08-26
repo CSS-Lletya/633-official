@@ -6,13 +6,13 @@ import java.io.File;
 import com.rs.cache.loaders.NPCDefinitions;
 import com.rs.utilities.GSONParser;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 public class DropSets {
 
 	private final static String PATH = "data/npcs/drops/";
-	public static Object2ObjectArrayMap<String, DropSet> DROPS = new Object2ObjectArrayMap<>();
-	public static Object2ObjectArrayMap<Object, DropSet> NPC_DROPS = new Object2ObjectArrayMap<>();
+	public static Object2ObjectOpenHashMap<String, DropSet> DROPS = new Object2ObjectOpenHashMap<>();
+	public static Object2ObjectOpenHashMap<Object, DropSet> NPC_DROPS = new Object2ObjectOpenHashMap<>();
 	public static final DropSet DEFAULT_DROPSET = new DropSet(new DropTable(0.0, 0.0, false));
 
 	public static final void init() {
@@ -70,7 +70,7 @@ public class DropSets {
 		}
 	}
 
-	public Object2ObjectArrayMap<Object, DropSet> getDropMap() {
+	public Object2ObjectOpenHashMap<Object, DropSet> getDropMap() {
 		return NPC_DROPS;
 	}
 }

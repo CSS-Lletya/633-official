@@ -6,13 +6,13 @@ import com.rs.game.player.Player;
 import com.rs.game.player.content.Shop;
 import com.rs.utilities.GSONParser;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 
 public class ShopsHandler {
 
-	private static final Object2ObjectArrayMap<String, Shop> SHOPS = new Object2ObjectArrayMap<>();
-	private static final Object2ObjectArrayMap<String, ShopDef> SHOP_DEFS = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<String, Shop> SHOPS = new Object2ObjectOpenHashMap<>();
+	private static final Object2ObjectOpenHashMap<String, ShopDef> SHOP_DEFS = new Object2ObjectOpenHashMap<>();
 	private static final Short2ObjectOpenHashMap<String> NPC_SHOPS = new Short2ObjectOpenHashMap<>();
 
 	private static final String PATH = "data/items/shops/";

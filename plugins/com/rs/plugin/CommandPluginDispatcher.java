@@ -14,7 +14,7 @@ import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.SneakyThrows;
 
 /**
@@ -25,7 +25,7 @@ public final class CommandPluginDispatcher {
 	/**
 	 * The object map which contains all the commands on the world.
 	 */
-	private static final Object2ObjectArrayMap<CommandSignature, CommandListener> COMMANDS = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<CommandSignature, CommandListener> COMMANDS = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Executes the specified {@code string} if it's a command.

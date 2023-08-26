@@ -9,7 +9,7 @@ import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 /**
  * Handles a Player interacting with an Agility {@link Obstacle} to train their
@@ -97,7 +97,7 @@ public class AgilityHandler {
 	/**
 	 * The object map which contains all the Agility {@link Obstacle} in the world.
 	 */
-	private static final Object2ObjectArrayMap<AgilitySignature, Obstacle> AGILITY_COURSES = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<AgilitySignature, Obstacle> AGILITY_COURSES = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Loads all the Agility courses into the {@link #AGILITY_COURSES} list.

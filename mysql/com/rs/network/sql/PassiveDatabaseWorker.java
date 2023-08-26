@@ -6,17 +6,18 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import com.rs.GameConstants;
 import com.rs.network.sql.model.Node;
 
+import lombok.SneakyThrows;
+
 /**
  * Perform passive database operations in the background.
  * Note: Do not use this worker for data that must be immediately inserted into the database.
  * 
+ * @author Dennis
+ * @version 1.3 25/8/23
  * @author Pb600
  * @version 1.2 17/03/13
  */
 public class PassiveDatabaseWorker implements Runnable {
-	
-	/** Cycle time **/
-	private static final int SLEEP_TIMER = 600;
 	
 	/** Singleton **/
 	private static PassiveDatabaseWorker singleton;
@@ -32,22 +33,8 @@ public class PassiveDatabaseWorker implements Runnable {
 	 * throws RuntimeException in case {@code singleton} is already an object instance.
 	 */
 	public PassiveDatabaseWorker() {
-		if (getSingleton() != null) {
+		if (getSingleton() != null)
 			throw new RuntimeException("Background worker is already created.");
-		}
-	}
-	
-	/**
-	 * Initialize singleton and start thread in minimum priority.
-	 */
-	public static void initialize() {
-		if (getSingleton() != null) {
-			throw new RuntimeException("Background worker is already created.");
-		}
-		singleton = new PassiveDatabaseWorker();
-		Thread thread = new Thread(singleton, "Passive database worker thread.");
-		thread.setPriority(Thread.MIN_PRIORITY);
-		thread.start();
 	}
 	
 	/**
@@ -65,27 +52,21 @@ public class PassiveDatabaseWorker implements Runnable {
 		}
 	}
 	
+	@SneakyThrows(Exception.class)
 	@Override
 	public void run() {
 		while (true) {
-			try {
-				if (!databaseModels.isEmpty()) {
-					Node databaseModel = null;
-					while ((databaseModel = databaseModels.poll()) != null) {
-						try {
-							databaseModel.execute();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						} finally {
-							databaseModel = null;
-						}
+			if (!databaseModels.isEmpty()) {
+				Node databaseModel = null;
+				while ((databaseModel = databaseModels.poll()) != null) {
+					try {
+						databaseModel.execute();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						databaseModel = null;
 					}
 				}
-				Thread.sleep(SLEEP_TIMER);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 	}

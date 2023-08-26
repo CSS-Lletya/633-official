@@ -15,7 +15,7 @@ import com.rs.net.decoders.WorldPacketsDecoder;
 import com.rs.plugin.RSInterfacePluginDispatcher;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.SneakyThrows;
 
 /**
@@ -26,7 +26,7 @@ public class OutgoingPacketDispatcher {
 	/**
 	 * The object map which contains all the interface on the world.
 	 */
-	private static final Object2ObjectArrayMap<OutgoingPacketSignature, OutgoingPacketListener> PACKET = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<OutgoingPacketSignature, OutgoingPacketListener> PACKET = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Executes the specified interface if it's registered.

@@ -13,7 +13,7 @@ import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.ProducingSkillAction;
 import skills.Skills;
@@ -43,7 +43,7 @@ public final class Runecrafting extends ProducingSkillAction {
 	/**
 	 * Represents the a mapping for the Pouches
 	 */
-	private static Object2ObjectArrayMap<PouchType, Pouch> pouches = new Object2ObjectArrayMap<>(3);
+	private static Object2ObjectOpenHashMap<PouchType, Pouch> pouches = new Object2ObjectOpenHashMap<>(3);
 
 	/**
 	 * Constructs a new {@link Runecrafting}

@@ -63,8 +63,6 @@ package org.apache.tools.bzip2;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import io.vavr.control.Try;
-
 /**
  * An output stream that compresses into the BZip2 format (without the file
  * header chars) into another stream.
@@ -563,7 +561,7 @@ public class CBZip2OutputStream extends OutputStream implements BZip2Constants {
     private void bsFinishedWithStream() throws IOException {
         while (bsLive > 0) {
             int ch = (bsBuff >> 24);
-            Try.run(() -> bsStream.write(ch));// write 8-bit
+            bsStream.write(ch);// write 8-bit
             bsBuff <<= 8;
             bsLive -= 8;
             bytesOut++;
@@ -573,7 +571,7 @@ public class CBZip2OutputStream extends OutputStream implements BZip2Constants {
     private void bsW(int n, int v) throws IOException {
         while (bsLive >= 8) {
             int ch = (bsBuff >> 24);
-            Try.run(() -> bsStream.write(ch));// write 8-bit
+            bsStream.write(ch);// write 8-bit
             bsBuff <<= 8;
             bsLive -= 8;
             bytesOut++;

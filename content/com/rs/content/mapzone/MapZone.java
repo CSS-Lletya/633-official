@@ -1,5 +1,7 @@
 package com.rs.content.mapzone;
 
+import java.util.Arrays;
+
 import com.rs.game.Entity;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
@@ -8,7 +10,6 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 
-import io.vavr.collection.Array;
 import lombok.Getter;
 import skills.cooking.Foods.Food;
 import skills.herblore.Potions.Potion;
@@ -64,7 +65,7 @@ public class MapZone {
 		this.safety = safety;
 		this.type = type;
 		this.restrictions = restrictions;
-		Array.of(restrictions).forEach(this::addRestriction);
+		Arrays.stream(restrictions).forEach(this::addRestriction);
 	}
 
 	/**

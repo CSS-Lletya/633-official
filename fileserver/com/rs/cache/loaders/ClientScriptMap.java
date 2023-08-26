@@ -5,7 +5,6 @@ import com.rs.io.InputStream;
 import com.rs.utilities.TextUtils;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 
 public final class ClientScriptMap {
@@ -16,7 +15,7 @@ public final class ClientScriptMap {
 	private char aChar6345;
 	private String defaultStringValue;
 	private int defaultIntValue;
-	private Long2ObjectOpenHashMap<Object> values;
+	private Short2ObjectOpenHashMap<Object> values;
 	
 	static Short2ObjectOpenHashMap<ClientScriptMap> interfaceScripts = new Short2ObjectOpenHashMap<>();
 
@@ -41,20 +40,19 @@ public final class ClientScriptMap {
 		return defaultStringValue;
 	}
 
-	public Long2ObjectOpenHashMap<Object> getValues() {
+	public Short2ObjectOpenHashMap<Object> getValues() {
 		return values;
 	}
 
-	public Object getValue(long key) {
+	public Object getValue(short key) {
 		if (values == null)
 			return null;
 		return values.get(key);
 	}
 
-	@SuppressWarnings("deprecation")
 	public long getKeyForValue(Object value) {
-		for (Long key : values.keySet()) {
-			if (values.get(key).equals(value))
+		for (Short key : values.keySet()) {
+			if (values.get((short) key).equals(value))
 				return key;
 		}
 		return -1;
@@ -66,16 +64,16 @@ public final class ClientScriptMap {
 		return values.size();
 	}
 
-	public int getIntValue(long key) {
+	public int getIntValue(int key) {
 		if (values == null)
 			return defaultIntValue;
-		Object value = values.get(key);
+		Object value = values.get((short) key);
 		if (value == null || !(value instanceof Integer))
 			return defaultIntValue;
 		return (Integer) value;
 	}
 
-	public int getKeyIndex(long key) {
+	public int getKeyIndex(short key) {
 		if (values == null)
 			return -1;
 		int i = 0;
@@ -93,10 +91,10 @@ public final class ClientScriptMap {
 		return (int) values.values().toArray()[i];
 	}
 
-	public String getStringValue(long key) {
+	public String getStringValue(int key) {
 		if (values == null)
 			return defaultStringValue;
-		Object value = values.get(key);
+		Object value = values.get((short) key);
 		if (value == null || !(value instanceof String))
 			return defaultStringValue;
 		return (String) value;
@@ -124,11 +122,11 @@ public final class ClientScriptMap {
 			int count = stream.readUnsignedShort();
 			int loop = opcode == 7 || opcode == 8 ? stream.readUnsignedShort() : count;
 			if (values == null)
-				values = new Long2ObjectOpenHashMap<Object>(Utility.getHashMapSize(count));
+				values = new Short2ObjectOpenHashMap<Object>(Utility.getHashMapSize(count));
 			for (int i = 0; i < loop; i++) {
 				int key = opcode == 7 || opcode == 8 ? stream.readUnsignedShort() : stream.readInt();
 				Object value = opcode == 5 || opcode == 7 ? stream.readString() : stream.readInt();
-				values.put((long) key, value);
+				values.put((short) key, value);
 			}
 		}
 	}

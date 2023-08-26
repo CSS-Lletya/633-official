@@ -7,7 +7,7 @@ import java.util.IdentityHashMap;
 
 import com.google.common.base.MoreObjects;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import skills.crafting.DragonhideArmorCrafting;
 import skills.fletching.BowCarving;
 
@@ -30,7 +30,7 @@ public final class AttributeKey<T> {
 	 * added to this tool.mapviewer are forcibly interned so we can compare them by their identity for faster performance.
 	 */
 	@SuppressWarnings("rawtypes")
-	public static final Object2ObjectArrayMap<String, AttributeKey> ALIASES = new Object2ObjectArrayMap<>();
+	public static final Object2ObjectOpenHashMap<String, AttributeKey> ALIASES = new Object2ObjectOpenHashMap<>();
 	
 	/**
 	 * Aliases all attributes that will be used while Main is online. This is called eagerly on startup.

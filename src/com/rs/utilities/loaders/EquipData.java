@@ -18,7 +18,7 @@ public class EquipData {
 
 	public static final byte SLOT = 0, TYPE = 1;
 
-	private final static Short2ObjectOpenHashMap<Short[]> equipData = new Short2ObjectOpenHashMap<>();
+	private final static Short2ObjectOpenHashMap<short[]> equipData = new Short2ObjectOpenHashMap<>();
 	private final static String PACKED_PATH = "data/items/packedEquipData.e";
 	private final static String UNPACKED_PATH = "data/items/unpackedEquipData.txt";
 
@@ -39,7 +39,7 @@ public class EquipData {
 				short id = (short) (buffer.getShort() & 0xffff);
 				short slot = buffer.get();
 				short type = buffer.get();
-				equipData.put(id, new Short[] { slot, type });
+				equipData.put(id, new short[] { slot, type });
 			}
 			channel.close();
 			in.close();
@@ -76,7 +76,7 @@ public class EquipData {
 				out.writeShort(id);
 				out.writeByte(slot);
 				out.writeByte(type);
-				equipData.put(id, new Short[] { slot, type });
+				equipData.put(id, new short[] { slot, type });
 
 			}
 
@@ -91,7 +91,7 @@ public class EquipData {
 	}
 
 	public static boolean canEquip(int id) {
-		if (equipData.get((short) id) != null && equipData.get((short) id)[SLOT] != null)
+		if (equipData.get((short) id) != null)
 			return true;
 		return false;
 	}

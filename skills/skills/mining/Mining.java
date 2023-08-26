@@ -18,7 +18,7 @@ import lombok.val;
 import skills.HarvestingSkillAction;
 import skills.Skills;
 
-public final class Mining extends HarvestingSkillAction {
+public class Mining extends HarvestingSkillAction {
 
 	/**
 	 * The definition of the {@link PickaxeData} being used.

@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import com.google.common.base.Preconditions;
@@ -59,7 +59,7 @@ import skills.prayer.book.Prayer;
 @Setter
 public abstract class Entity extends WorldTile {
 
-	private final static AtomicInteger hashCodeGenerator = new AtomicInteger();
+//	private final static AtomicInteger hashCodeGenerator = new AtomicInteger();
 
 	// transient stuff
 	private transient int index;
@@ -99,6 +99,8 @@ public abstract class Entity extends WorldTile {
 	private transient long findTargetDelay;
 	private transient short hashCode;
 	private transient EntityMovement movement;
+	private String uuid;
+	
 	/**
 	 * An {@link AttributeMap} instance assigned to this {@code Actor}.
 	 */
@@ -122,15 +124,24 @@ public abstract class Entity extends WorldTile {
 	public Entity(WorldTile tile, EntityType type) {
 		super(tile);
 		this.type = requireNonNull(type);
+		this.uuid = UUID.randomUUID().toString();
 	}
 
 	@Override
 	public int hashCode() {
-		return getHashCode();
+		return uuid.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof Entity) {
+			Object entity = (Entity) other;
+			return entity.hashCode() == hashCode();
+		}
+		return false;
 	}
 
 	public final void initEntity() {
-		setHashCode((short) hashCodeGenerator.getAndIncrement());
 		setMapRegionsIds(new CopyOnWriteArrayList<Integer>());
 		setReceivedHits(new ObjectArrayFIFOQueue<Hit>());
 		setReceivedDamage(new ConcurrentHashMap<Entity, Integer>());

@@ -248,14 +248,14 @@ public class Player extends Entity {
 	private transient int pid;
 	
 	/**
-	 * The current skill action that is going on for this player.
-	 */
-	private Optional<SkillActionTask> skillAction = Optional.empty();
-	
-	/**
 	 * Personal details & information stored for a Player
 	 */
 	private PlayerDetails details;
+	
+	/**
+	 * The current skill action that is going on for this player.
+	 */
+	private Optional<SkillActionTask> skillAction = Optional.empty();
 	
 	/**
 	 * Represents the Treasure Trails management

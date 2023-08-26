@@ -19,7 +19,7 @@ import skills.Skills;
 public abstract class MobCombatListener {
 	
 	public int execute(Player target, NPC mob) throws Exception {
-		return 0;
+		return 1;
 	}
 	
 	public static int getRandomMaxHit(NPC npc, int maxHit, int attackStyle, Entity target) {

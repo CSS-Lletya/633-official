@@ -8,12 +8,12 @@ import com.rs.constants.Sounds;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.player.Hit;
-import com.rs.game.player.Player;
 import com.rs.game.player.Hit.HitLook;
+import com.rs.game.player.Player;
 import com.rs.game.player.type.CombatEffect;
 import com.rs.game.player.type.PoisonType;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
 /**
  * The combat effect applied when a character needs to be poisoned.
@@ -26,7 +26,7 @@ public final class CombatPoisonEffect extends CombatEffect {
 	/**
 	 * The collection of weapons mapped to their respective poison types.
 	 */
-	public static final Int2ObjectArrayMap<PoisonType> TYPES = new Int2ObjectArrayMap<>();
+	public static final Int2ObjectOpenHashMap<PoisonType> TYPES = new Int2ObjectOpenHashMap<>();
 
 	/**
 	 * Creates a new {@link CombatPoisonEffect}.

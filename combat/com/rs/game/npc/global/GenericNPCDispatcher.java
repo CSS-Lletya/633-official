@@ -11,11 +11,11 @@ import com.rs.game.player.Hit;
 import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 public class GenericNPCDispatcher {
 
-	private static final Object2ObjectArrayMap<GenericNPCSignature, GenericNPCListener> NPC = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<GenericNPCSignature, GenericNPCListener> NPC = new Object2ObjectOpenHashMap<>();
 	
 	public void process(NPC npc) {
 		getVerifiedNPC(npc.getId()).ifPresent(mob -> mob.process(npc));

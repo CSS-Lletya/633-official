@@ -6,8 +6,7 @@ import java.util.Arrays;
 import com.rs.cache.Cache;
 import com.rs.io.InputStream;
 
-import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Data;
 
@@ -99,7 +98,7 @@ public class ObjectDefinitions {
 	 */
 	private short[] aShortArray3920;
 	int anInt3921;
-	private Object2ObjectArrayMap<Integer, Object> parameters;
+	private Object2ObjectOpenHashMap<Integer, Object> parameters;
 	boolean aBoolean3923;
 	boolean aBoolean3924;
 	int anInt3925;
@@ -374,7 +373,7 @@ public class ObjectDefinitions {
 																																						int length = stream
 																																								.readUnsignedByte();
 																																						if (parameters == null)
-																																							parameters = new Object2ObjectArrayMap<Integer, Object>(
+																																							parameters = new Object2ObjectOpenHashMap<Integer, Object>(
 																																									length);
 																																						for (int i_60_ = 0; i_60_ < length; i_60_++) {
 																																							boolean bool = stream
@@ -684,19 +683,7 @@ public class ObjectDefinitions {
 		objectDefinitions.clear();
 	}
 
-	/**
-	 * Prints all fields in this class.
-	 */
-	public void printFields() {
-		for (Field field : getClass().getDeclaredFields()) {
-			if ((field.getModifiers() & 8) != 0) {
-				continue;
-			}
-			Try.run(() -> System.out.println(field.getName() + ": " + getValue(field)));
-		}
-		System.out.println("-- end of " + getClass().getSimpleName() + " fields --");
-	}
-
+	@SuppressWarnings("unused")
 	private Object getValue(Field field) throws Throwable {
 		field.setAccessible(true);
 		Class<?> type = field.getType();

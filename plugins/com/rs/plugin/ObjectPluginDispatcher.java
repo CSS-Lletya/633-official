@@ -18,7 +18,7 @@ import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
 import io.vavr.control.Try;
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 /**
  * @author Dennis
@@ -28,7 +28,7 @@ public final class ObjectPluginDispatcher {
 	/**
 	 * The object map which contains all the Objects on the world.
 	 */
-	private static final Object2ObjectArrayMap<ObjectSignature, ObjectListener> OBJECTS = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<ObjectSignature, ObjectListener> OBJECTS = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Executes the specified Objects if it's registered.

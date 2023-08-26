@@ -12,7 +12,7 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 
 /**
  * Checks if an entity is in a region/coordinated area to set multi zoning Will
@@ -22,7 +22,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
  */
 public class RegionAttributePluginDispatcher {
 	
-	private static final Object2ObjectArrayMap<RegionAttributeSignature, RegionAttributeListener> REGION_ATTRIBUTES = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<RegionAttributeSignature, RegionAttributeListener> REGION_ATTRIBUTES = new Object2ObjectOpenHashMap<>();
 
 	public static boolean isMulti(Entity entity) {
 		return getRegion(entity, entity.getRegionId()).isPresent();

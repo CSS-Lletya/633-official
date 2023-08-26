@@ -10,7 +10,7 @@ import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.utilities.Utility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import lombok.SneakyThrows;
 
 /**
@@ -21,7 +21,7 @@ public class LogicPacketDispatcher {
 	/**
 	 * The object map which contains all the interface on the world.
 	 */
-	private static final Object2ObjectArrayMap<LogicPacketSignature, LogicPacketListener> PACKET = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<LogicPacketSignature, LogicPacketListener> PACKET = new Object2ObjectOpenHashMap<>();
 
 	/**
 	 * Executes the specified interface if it's registered.

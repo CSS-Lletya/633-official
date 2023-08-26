@@ -24,7 +24,6 @@ import com.rs.net.packets.logic.LogicPacketDispatcher;
 import com.rs.net.packets.outgoing.OutgoingPacketDispatcher;
 import com.rs.net.wordlist.WorldList;
 import com.rs.network.sql.GameDatabase;
-import com.rs.network.sql.PassiveDatabaseWorker;
 import com.rs.plugin.CommandPluginDispatcher;
 import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.plugin.NPCPluginDispatcher;
@@ -86,9 +85,10 @@ public final class GameLoader {
 			pool.submit(PassiveSpellDispatcher::load);
 			pool.submit(RegionAttributePluginDispatcher::load);
 			pool.submit(AgilityHandler::load);
+			
 			if (GameConstants.SQL_ENABLED) {
+				LogUtility.log(LogType.INFO, "Loading MYSQL Database & Services");
 				pool.submit(GameDatabase::initializeWebsiteDatabases);
-				pool.submit(PassiveDatabaseWorker::initialize);
 			}
 			
 			LogUtility.log(LogType.INFO, "Loading other files.");

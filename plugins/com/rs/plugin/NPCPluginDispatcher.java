@@ -23,7 +23,7 @@ import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
 import com.rs.utilities.loaders.ShopsHandler;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import skills.Skills;
 
 /**
@@ -34,7 +34,7 @@ public class NPCPluginDispatcher {
 	/**
 	 * The NPCS map which contains all the NPCS on the world.
 	 */
-	private static final Object2ObjectArrayMap<NPCSignature, NPCListener> MOBS = new Object2ObjectArrayMap<>();
+	private static final Object2ObjectOpenHashMap<NPCSignature, NPCListener> MOBS = new Object2ObjectOpenHashMap<>();
 	
 	/**
 	 * Executes the specified NPCS if it's registered.

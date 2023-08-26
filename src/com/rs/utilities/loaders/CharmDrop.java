@@ -11,13 +11,13 @@ import java.util.Scanner;
 import com.rs.game.npc.drops.DropTable;
 import com.rs.utilities.RandomUtility;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class CharmDrop {
 
 	private final static String PACKED_PATH = "data/npcs/charmDrops.txt";
-	private static Object2ObjectArrayMap<String, int[]> charmDrops;
+	private static Object2ObjectOpenHashMap<String, int[]> charmDrops;
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
 	public static int getCharmAmount(String npcName) {
@@ -89,7 +89,7 @@ public class CharmDrop {
 
 	public static void loadCharmDrops() {
 		try {
-			charmDrops = new Object2ObjectArrayMap<>();
+			charmDrops = new Object2ObjectOpenHashMap<>();
 			Path path = Paths.get(PACKED_PATH);
 			try (Scanner scanner = new Scanner(path, ENCODING.name())) {
 				String npcName = null;
