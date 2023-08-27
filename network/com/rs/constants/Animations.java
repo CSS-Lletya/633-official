@@ -159,6 +159,16 @@ public final class Animations {
 	public static final Animation BASIC_MINING = new Animation(628);//abyss
 	public static final Animation BASIC_WOODCUTTING = new Animation(869);//abyss
 	public static final Animation BEING_SQUEEZE_THROUGH = new Animation(1331);//abyss
+	/*
+	 * Agility (quite a lot so we'll group these together separately
+	 */
+	public static final Animation GNOME_BARRIER_JUMP = new Animation(2923);
+	public static final Animation GNOME_BARRIER_END = new Animation(2924);
+	public static final Animation GNOME_BOARD_RUNNING = new Animation(2922);
+	public static final Animation GNOME_RUNNING_IN_PLACE = new Animation(11784);
+	public static final Animation GNOME_JUMP_TO_PIPE_A = new Animation(11785);
+	public static final Animation GNOME_SWINING_ON_PIPE_A = new Animation(11789);
+	public static final Animation GNOME_PIPE_CRAWLING = new Animation(10580);
 	
 	/**
 	 * Object Based Animations

@@ -2,12 +2,13 @@ package skills.agility.gnome;
 
 import java.util.Optional;
 
+import com.rs.constants.Animations;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
+import com.rs.game.player.Appearance;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceMovement;
 import com.rs.utilities.Direction;
 import com.rs.utilities.MutableNumber;
@@ -37,16 +38,16 @@ public class GnomeBasicPipe implements Obstacle {
 					player.setNextForceMovement(new ForceMovement(player, 1,
 							new WorldTile(objectX, player.getY() + 3, 0), 4, Direction.NORTH));
 				} else if (ticks == 3) {
-					player.setNextAnimation(new Animation(10580));
+					player.setNextAnimation(Animations.GNOME_PIPE_CRAWLING);
 				} else if (ticks == 5) {
-					player.getAppearance().transformIntoNPC(266);
+					player.getAppearance().transformIntoNPC(Appearance.SHADOW_NPC);
 					player.setNextWorldTile(new WorldTile(objectX, player.getY() + 3, 0));
 				} else if (ticks == 7) {
 					player.setNextForceMovement(new ForceMovement(player, 1,
 							new WorldTile(objectX, player.getY() + 4, 0), 5, Direction.NORTH));
 				} else if (ticks == 10) {
-					player.getAppearance().transformIntoNPC(-1);
-					player.setNextAnimation(new Animation(10580));
+					player.getAppearance().transformIntoNPC(Appearance.RESET_AS_NPC);
+					player.setNextAnimation(Animations.GNOME_PIPE_CRAWLING);
 					player.setNextWorldTile(new WorldTile(objectX, player.getY() + 4, 0));
 					cancel();
 				}

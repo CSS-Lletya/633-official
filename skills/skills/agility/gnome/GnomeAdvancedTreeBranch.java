@@ -11,7 +11,7 @@ import skills.agility.AgilitySignature;
 import skills.agility.Obstacle;
 import skills.magic.TeleportType;
 
-@AgilitySignature(info = "Gnome advanced tree branch climbing", stage = 6, object = 43528, duration = 3, levelRequired = 85, completionExperience = 25)
+@AgilitySignature(info = "Gnome advanced tree branch climbing", stage = 4, object = 43528, duration = 3, levelRequired = 85, completionExperience = 25)
 public class GnomeAdvancedTreeBranch implements Obstacle {
 
 	@Override

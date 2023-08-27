@@ -2,12 +2,13 @@ package skills.agility.gnome;
 
 import java.util.Optional;
 
+import com.rs.constants.Animations;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
+import com.rs.game.player.Appearance;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceMovement;
 import com.rs.utilities.Direction;
 import com.rs.utilities.MutableNumber;
@@ -16,7 +17,7 @@ import skills.Skills;
 import skills.agility.AgilitySignature;
 import skills.agility.Obstacle;
 
-@AgilitySignature(info = "Gnome advanced barrier jumping", stage = 9, object = 43539, duration = 6, levelRequired = 85, completionExperience = 25)
+@AgilitySignature(info = "Gnome advanced barrier jumping", stage = 7, object = 43539, duration = 6, levelRequired = 85, completionExperience = 25)
 public class GnomeAdvancedBarrierJumping implements Obstacle {
 
 	@Override
@@ -28,20 +29,20 @@ public class GnomeAdvancedBarrierJumping implements Obstacle {
 			protected void execute() {
 				switch(ticks++) {
 				case 0:
-					player.setNextAnimation(new Animation(2923));
+					player.setNextAnimation(Animations.GNOME_BARRIER_JUMP);
 					break;
 				case 1:
 					player.setNextForceMovement(new ForceMovement(player, 0, toTile, 5, Direction.NORTH));
 					break;
 				case 3:
-					player.getAppearance().transformIntoNPC(266);
+					player.getAppearance().transformIntoNPC(Appearance.SHADOW_NPC);
 					break;
 				case 4:
 					player.setNextWorldTile(toTile);
 					break;
 				case 6:
-					player.getAppearance().transformIntoNPC(-1);
-					player.setNextAnimation(new Animation(2924));
+					player.getAppearance().transformIntoNPC(Appearance.RESET_AS_NPC);
+					player.setNextAnimation(Animations.GNOME_BARRIER_END);
 					break;
 				}
 			}

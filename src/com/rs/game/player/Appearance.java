@@ -31,6 +31,12 @@ public class Appearance {
 
 	private transient Player player;
 
+	/**
+	 * Commonly used to hide the player during an Agility based event, such..
+	 */
+	public static final short SHADOW_NPC = 266;
+	public static final short RESET_AS_NPC = -1;
+	
 	public Appearance() {
 		male = true;
 		renderEmote = -1;

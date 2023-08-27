@@ -2,12 +2,12 @@ package skills.agility.gnome;
 
 import java.util.Optional;
 
+import com.rs.constants.Animations;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.ForceMovement;
 import com.rs.utilities.Direction;
 import com.rs.utilities.MutableNumber;
@@ -15,7 +15,7 @@ import com.rs.utilities.MutableNumber;
 import skills.agility.AgilitySignature;
 import skills.agility.Obstacle;
 
-@AgilitySignature(info = "Gnome advanced pole swinging", stage = 8, object = 43529, duration = 16, levelRequired = 85, completionExperience = 25)
+@AgilitySignature(info = "Gnome advanced pole swinging", stage = 6, object = 43529, duration = 16, levelRequired = 85, completionExperience = 25)
 public class GnomeAdvancedPoleSwinging implements Obstacle {
 
 	@Override
@@ -26,19 +26,19 @@ public class GnomeAdvancedPoleSwinging implements Obstacle {
 			@Override
 			protected void execute() {
 				stage++;
-				if (stage == 0)
+				if (stage == 0) {
+					player.setNextAnimation(Animations.GNOME_RUNNING_IN_PLACE);
 					player.faceObject(object);
-				else if (stage == 1) {
-					player.setNextAnimation(new Animation(11784));
+				} else if (stage == 1) {
 					player.setNextForceMovement(new ForceMovement(player.getTile(), 0,
 							new WorldTile(player.getX(), 3421, 3), 1, Direction.NORTH));
 				} else if (stage == 2) {
-					player.setNextAnimation(new Animation(11785));
+					player.setNextAnimation(Animations.GNOME_JUMP_TO_PIPE_A);
 					player.setNextWorldTile(new WorldTile(player.getX(), 3421, 3));
 					player.setNextForceMovement(new ForceMovement(new WorldTile(player.getX(), 3421, 3), 0,
 							new WorldTile(player.getX(), 3425, 3), 1, Direction.NORTH));
 				} else if (stage == 3) {
-					player.setNextAnimation(new Animation(11789));
+					player.setNextAnimation(Animations.GNOME_SWINING_ON_PIPE_A);
 					player.setNextWorldTile(new WorldTile(player.getX(), 3425, 3));
 				} else if (stage == 6)
 					player.setNextForceMovement(new ForceMovement(new WorldTile(player.getX(), 3425, 3), 1,

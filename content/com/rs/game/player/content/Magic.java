@@ -4,6 +4,7 @@ import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
+import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
@@ -51,28 +52,27 @@ public class Magic {
 	private static final int MUD_RUNE = 4698;
 	@SuppressWarnings("unused")
 	private static final int LAVA_RUNE = 4699;
-	private static final int ARMADYL_RUNE = 21773;
 	private static final int ELEMENTAL_RUNE = 12850;
 	private static final int CATALYTIC_RUNE = 12851;
 
 	public static final boolean hasInfiniteRunes(int runeId, int weaponId, int shieldId) {
 		if (runeId == AIR_RUNE) {
-			if (weaponId == 23044 || weaponId == 1381 || weaponId == 1397 || weaponId == 1405 || weaponId == 21777
+			if (weaponId == 1381 || weaponId == 1397 || weaponId == 1405
 					|| weaponId == 11736 || weaponId == 11738) // air
 				// staff
 				return true;
 		} else if (runeId == WATER_RUNE) {
-			if (weaponId == 23045 || weaponId == 1383 || weaponId == 1395 || weaponId == 1403 || shieldId == 18346
+			if (weaponId == 1383 || weaponId == 1395 || weaponId == 1403 || shieldId == 18346
 					|| weaponId == 6563 || weaponId == 6726) // water
 				// staff
 				return true;
 		} else if (runeId == EARTH_RUNE) {
-			if (weaponId == 23046 || weaponId == 1385 || weaponId == 1399 || weaponId == 1407 || weaponId == 3053
+			if (weaponId == 1385 || weaponId == 1399 || weaponId == 1407 || weaponId == 3053
 					|| weaponId == 3054 || weaponId == 6563 || weaponId == 6726) // earth
 				// staff
 				return true;
 		} else if (runeId == FIRE_RUNE) {
-			if (weaponId == 23047 || weaponId == 1387 || weaponId == 1393 || weaponId == 1401 || weaponId == 3053
+			if (weaponId == 1387 || weaponId == 1393 || weaponId == 1401 || weaponId == 3053
 					|| weaponId == 3054 || weaponId == 11736 || weaponId == 11738) // fire
 				// staff
 				return true;
@@ -86,7 +86,7 @@ public class Magic {
 				return true;
 		}
 		if (player.getInventory().containsItem(CATALYTIC_RUNE, amountRequired)) {
-			if (runeId == ARMADYL_RUNE || runeId == MIND_RUNE || runeId == CHAOS_RUNE || runeId == DEATH_RUNE
+			if (runeId == MIND_RUNE || runeId == CHAOS_RUNE || runeId == DEATH_RUNE
 					|| runeId == BLOOD_RUNE || runeId == BODY_RUNE || runeId == NATURE_RUNE || runeId == ASTRAL_RUNE
 					|| runeId == SOUL_RUNE || runeId == LAW_RUNE)
 				return true;
@@ -97,7 +97,7 @@ public class Magic {
 	public static int getRuneForId(int runeId) {
 		if (runeId == AIR_RUNE || runeId == WATER_RUNE || runeId == EARTH_RUNE || runeId == FIRE_RUNE)
 			return ELEMENTAL_RUNE;
-		else if (runeId == ARMADYL_RUNE || runeId == DEATH_RUNE || runeId == MIND_RUNE || runeId == CHAOS_RUNE
+		else if (runeId == DEATH_RUNE || runeId == MIND_RUNE || runeId == CHAOS_RUNE
 				|| runeId == BLOOD_RUNE || runeId == BODY_RUNE || runeId == NATURE_RUNE || runeId == ASTRAL_RUNE
 				|| runeId == SOUL_RUNE || runeId == LAW_RUNE)
 			return CATALYTIC_RUNE;
@@ -352,10 +352,6 @@ public class Magic {
 				break;
 			case 86: // teleblock
 				if (!checkSpellRequirements(player, 85, delete, CHAOS_RUNE, 1, LAW_RUNE, 1, DEATH_RUNE, 1))
-					return false;
-				break;
-			case 99: // Storm of Armadyl
-				if (!checkSpellRequirements(player, 77, delete, ARMADYL_RUNE, 1))
 					return false;
 				break;
 			default:
@@ -807,8 +803,8 @@ public class Magic {
 	}
 
 	public static void teleControlersCheck(Player player, WorldTile teleTile) {
-//		if (WildernessController.isAtWild(teleTile))
-//			new WildernessController().start(player);
+		if (WildernessMapZone.isAtWild(teleTile))
+			player.getMapZoneManager().submitMapZone(new WildernessMapZone());
 	}
 
 	public static void useEctoPhial(final Player player, Item item) {
