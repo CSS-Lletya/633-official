@@ -46,7 +46,7 @@ public final class CombatDefinitions {
 	private boolean defensiveCasting;
 	private transient boolean instantAttack;
 	private transient boolean dungeonneringSpellBook;
-	private byte spellBook;
+	public byte spellBook;
 	private byte autoCastSpell;
 
 	public int getSpellId() {

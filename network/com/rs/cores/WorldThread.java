@@ -18,8 +18,8 @@ public class WorldThread implements Runnable {
 	public final void run() {
 		lastCycle++;
 		Try.run(() -> {
-			World.players().forEach(player -> player.processEntity());
-			World.npcs().forEach(npc -> npc.processEntity());
+			World.players().forEach(Player::processEntity);
+			World.npcs().forEach(NPC::processEntity);
 
 			World.players().forEach(Player::processEntityUpdate);
 			World.npcs().forEach(NPC::processEntityUpdate);

@@ -124,6 +124,8 @@ public final class RSInterfacePluginDispatcher {
 		}
 		final int slotId2 = stream.readUnsignedShortLE128();// item slot?
 		final int slotId = stream.readUnsignedShortLE128();
+		if (!player.getDetails().getComponentLockTimer().finished())
+			return;
 		RSInterfacePluginDispatcher.execute(player, interfaceId, componentId, packetId, (byte) slotId, slotId2);
 
 		if (GameConstants.DEBUG)

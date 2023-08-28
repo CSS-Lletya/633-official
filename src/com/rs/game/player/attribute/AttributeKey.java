@@ -57,7 +57,6 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.SKILL_DIALOGUE_QUANTITY, 1);
 		AttributeKey.forTransient(Attribute.RECOVER_SPECIAL_POT, -1);
 		AttributeKey.forTransient(Attribute.CURRENT_NOTE, -1);
-		AttributeKey.forTransient(Attribute.LAST_VENG, -1);
 		AttributeKey.forTransient(Attribute.INFUSING_SCROLL, false);
 		AttributeKey.forTransient(Attribute.SHOP, false);
 		AttributeKey.forTransient(Attribute.SHOP_TRANSACTION, 1);
@@ -75,6 +74,7 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.BOW_FLETCHING, false);
 		AttributeKey.forTransient(Attribute.DRAGONHIDE_FLETCHING, false);
 		AttributeKey.forTransient(Attribute.SKILL_DIALOGUE, -1);
+		AttributeKey.forTransient(Attribute.MAGIC_IMBUED, -1);
 		
 		AttributeKey.forPersistent(Attribute.CANOE_CHOPPED, false);
 		AttributeKey.forPersistent(Attribute.CANOE_CONFIG, 0);

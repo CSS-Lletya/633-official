@@ -94,6 +94,10 @@ public final class Inventory {
 		return true;
 	}
 	
+	public boolean addItem(int itemId) {
+		return addItem(new Item(itemId));
+	}
+	
 	public boolean addItem(Item item) {
 		if (item.getId() < 0
 				|| item.getAmount() < 0

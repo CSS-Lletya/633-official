@@ -99,11 +99,6 @@ public interface Attribute {
 	public String CURRENT_NOTE = "CurrentNote";
 	
 	/**
-	 * Represents the last Vengeance timer
-	 */
-	public String LAST_VENG = "LastVeng";
-	
-	/**
 	 * Represents the state of the player infusing to summoning scrolls
 	 */
 	public String INFUSING_SCROLL = "InfusingScroll";
@@ -227,4 +222,9 @@ public interface Attribute {
 	 * Represents the skill dialogue attribute
 	 */
 	public String SKILL_DIALOGUE = "SkillDialogue";
+	
+	/**
+	 * Represents the state of being able to create combined runes
+	 */
+	public String MAGIC_IMBUED = "MagicImbued";
 }

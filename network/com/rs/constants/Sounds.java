@@ -150,6 +150,17 @@ public interface Sounds {
 	int WALLSAFE_CRACKING = 1243;
 	int WALLSAFE_FAILURE = 1383;
 	int WALLSAFE_SUCCESS = 1238;
+	int LUNAR_DREAMING = 3619;
+	int BAKE_PIE_SPELL = 2879;
+	int IMBUE_RUNES = 2888;
+	int SUPERGLASS_MAKE = 2896;
+	int LUNAR_STRING_JEWELRY = 2903;
+	int LUNAR_CHANGE_SPELLBOOK = 3613;
+	int HUMIDIFY = 3614;
+	int HUNTER_KIT = 3615;
+	int HUNTER_KIT_OPENING = 3616;
+	int LUNAR_HEAL_ME = 2884;
+	
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -171,5 +182,4 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
-	
 }

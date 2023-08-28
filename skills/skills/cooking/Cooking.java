@@ -10,6 +10,7 @@ import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
+import com.rs.net.encoders.other.Graphics;
 
 import skills.ProducingSkillAction;
 import skills.Skills;
@@ -52,6 +53,10 @@ public final class Cooking extends ProducingSkillAction {
 				player.getAudioManager().sendSound(Sounds.COOKING_SOUND);
 				player.getDetails().getStatistics().addStatistic(burned ? ItemDefinitions.getItemDefinitions(data.getBurntId()).getName() + "_Burnt" : ItemDefinitions.getItemDefinitions(data.getCookedId()).getName() + "_Cooked").addStatistic("Food_Prepared");
 				player.getPackets().sendGameMessage((burned ? "Oops! You accidently burn the " : "You cook the ").concat(ItemDefinitions.getItemDefinitions(data.getRawId()).getName()));
+			}
+			if(spell) {
+				player.setNextGraphics(new Graphics(746, 0, 100));
+				player.getAudioManager().sendSound(Sounds.BAKE_PIE_SPELL);
 			}
 			counter--;
 			if(counter == 0)

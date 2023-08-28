@@ -1,4 +1,4 @@
-package com.rs.game.player.spells.passive.impl;
+package com.rs.game.player.spells.passive.modern;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
@@ -14,7 +14,7 @@ import com.rs.game.player.spells.passive.PassiveSpellSignature;
  * @author Dennis
  *
  */
-@PassiveSpellSignature(spellButton = 83, spellLevelRequirement = 80)
+@PassiveSpellSignature(spellButton = 83, spellLevelRequirement = 80, spellbookId = 0, experience = 180)
 public class ChargeSpellPlugin implements PassiveSpellListener {
 
 	@Override

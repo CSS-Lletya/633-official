@@ -75,6 +75,7 @@ public final class AmuletStringing extends ProducingSkillAction {
 		if(success && spell) {
 			player.setNextAnimation(new Animation(4412));
 			player.setNextGraphics(new Graphics(728));
+			player.getAudioManager().sendSound(Sounds.LUNAR_STRING_JEWELRY);
 		}
 	}
 	
@@ -134,7 +135,7 @@ public final class AmuletStringing extends ProducingSkillAction {
 		/**
 		 * Caches our enum values.
 		 */
-		private static final ImmutableSet<AmuletData> VALUES = Sets.immutableEnumSet(EnumSet.allOf(AmuletData.class));
+		public static final ImmutableSet<AmuletData> VALUES = Sets.immutableEnumSet(EnumSet.allOf(AmuletData.class));
 		
 		/**
 		 * The item which needs to be stringed.

@@ -2,6 +2,7 @@ package com.rs.plugin.impl.interfaces;
 
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Magic;
+import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
@@ -10,7 +11,7 @@ public class ModernSpellbookInterfacePlugin extends RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
-		player.getSpellDispatcher().execute(player, componentId);
+		PassiveSpellDispatcher.execute(player, componentId);
 		if (componentId == 2)
 			player.getCombatDefinitions().switchDefensiveCasting();
 		else if (componentId == 7)

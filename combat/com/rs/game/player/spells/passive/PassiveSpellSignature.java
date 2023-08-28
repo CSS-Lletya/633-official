@@ -23,4 +23,16 @@ public @interface PassiveSpellSignature {
 	 * @return button
 	 */
 	public int spellButton();
+	
+	/**
+	 * Represents the Spellbook id (0 Modern, 1 Ancient, 2 Lunar)
+	 * @return
+	 */
+	public int spellbookId();
+	
+	/**
+	 * Represents the experience given upon successfully casting the spell
+	 * @return
+	 */
+	public double experience();
 }

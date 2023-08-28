@@ -110,7 +110,12 @@ public final class PlayerDetails {
 	/**
 	 * A collection of Seconds timer
 	 */
-	private SecondsTimer homeDelay = new SecondsTimer(), chargeDelay = new SecondsTimer(), recoverSpecialPotion = new SecondsTimer();
+	private SecondsTimer homeDelay = new SecondsTimer(), chargeDelay = new SecondsTimer(), recoverSpecialPotion = new SecondsTimer(), magicImbue = new SecondsTimer(), lunarHomeTeleport = new SecondsTimer();
+	
+	/**
+	 * A collection of non save-based timers
+	 */
+	private transient SecondsTimer componentLockTimer = new SecondsTimer(), vengTimer = new SecondsTimer();
 	
 	private DynamicBoolean completedFightCaves = new DynamicBoolean(false), experienceLocked = new DynamicBoolean(false), ownsHouse = new DynamicBoolean(false),
 			disableEquip = new DynamicBoolean(false), augPrayerUnlocked = new DynamicBoolean(false), rigourPrayerUnlocked = new DynamicBoolean(false), renewalPrayerUnlocked = new DynamicBoolean(false),

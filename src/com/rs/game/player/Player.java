@@ -38,7 +38,6 @@ import com.rs.game.player.content.pet.PetManager;
 import com.rs.game.player.content.trails.PuzzleBox;
 import com.rs.game.player.content.trails.Puzzles;
 import com.rs.game.player.content.trails.TreasureTrailsManager;
-import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.game.player.type.CombatEffect;
 import com.rs.game.task.impl.CombatEffectTask;
 import com.rs.game.task.impl.OverloadEffectTask;
@@ -201,11 +200,6 @@ public class Player extends Entity {
 	 * Represents a Player's last Emote delay (used for various things)
 	 */
 	private transient long nextEmoteEnd;
-	
-	/**
-	 * Represents a Player's Passive Spell management system
-	 */
-	private transient PassiveSpellDispatcher spellDispatcher;
 	
 	/**
 	 * Represents a Player's queue logic packets listing
@@ -371,7 +365,6 @@ public class Player extends Entity {
 		setFriendsIgnores(new FriendsIgnores());
 		setPetManager(new PetManager());
 		setDetails(new PlayerDetails());
-		setSpellDispatcher(new PassiveSpellDispatcher());
 		getDetails().setPassword(password);
 		setVarsManager(new VarsManager());
 		setQuestManager(new QuestManager());
@@ -431,7 +424,6 @@ public class Player extends Entity {
 		if (getVarsManager() == null)
 			setVarsManager(new VarsManager());
 		getVarsManager().setPlayer(this);
-		setSpellDispatcher(new PassiveSpellDispatcher());
 		getAppearance().setPlayer(this);
 		getInventory().setPlayer(this);
 		getEquipment().setPlayer(this);
@@ -500,6 +492,10 @@ public class Player extends Entity {
 			getMusicsManager().replayMusic();
 		if (getDetails().getChargeDelay().secondsRemaining() == 1)
 			getAudioManager().sendSound(Sounds.CHARGE_SPELL_REMOVED);
+		if (getDetails().getMagicImbue().secondsRemaining() == 4) {
+			getPackets().sendGameMessage("Magic Imbue spell charge is running out...");
+			getAttributes().get(Attribute.MAGIC_IMBUED).set(false);
+		}
 	}
 
 	/**
