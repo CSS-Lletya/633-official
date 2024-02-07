@@ -205,14 +205,14 @@ public final class Runecrafting extends ProducingSkillAction {
 		if (type == PouchType.MEDIUM) {
 			player.getDetails().getMediumRCPouchUses().getAndDecrement();
 			if (player.getDetails().getMediumRCPouchUses().get() == 0) {
-				player.getDetails().getMediumRCPouchUses().set(11);
+				player.getDetails().getMediumRCPouchUses().set(45);
 				player.getInventory().replaceItems(new Item(5510), new Item(5511));
 			}
 		}
 		if (type == PouchType.LARGE) {
 			player.getDetails().getLargeRCPouchUses().getAndDecrement();
 			if (player.getDetails().getLargeRCPouchUses().get() == 0) {
-				player.getDetails().getLargeRCPouchUses().set(11);
+				player.getDetails().getLargeRCPouchUses().set(29);
 				player.getInventory().replaceItems(new Item(5512), new Item(5513));
 			}
 		}
