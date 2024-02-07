@@ -164,8 +164,6 @@ public class Session {
 	 * @param lobby If we're logging out to the lobby.
 	 */
 	public void logout(Player player, boolean lobby) {
-		if (!player.isRunning())
-			return;
 		long currentTime = Utility.currentTimeMillis();
 		if (player.getAttackedByDelay() + 10000 > currentTime) {
 			player.getPackets().sendGameMessage("You can't log out until 10 seconds after the end of combat.");

@@ -293,6 +293,7 @@ public class Bank {
 		refreshTotalSize();
 		player.setCloseInterfacesEvent(() -> {
 			player.getAttributes().get(Attribute.IS_BANKING).set(false);
+			player.getPackets().sendRunScript(571);
 		});
 	}
 

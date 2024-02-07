@@ -54,8 +54,8 @@ public class DialogueContinuePacket implements OutgoingPacketListener {
 		default:
 			if (DialogueEventListener.continueDialogue(player, componentId)) { 
 				return;
-			}
-			player.getDialogueInterpreter().handle(componentId, buttonId);
+			} else
+				player.getDialogueInterpreter().handle(componentId, buttonId);
 			break;
 		}
 	}
