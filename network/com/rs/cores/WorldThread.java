@@ -16,7 +16,7 @@ public class WorldThread implements Runnable {
 
 	@Override
 	public final void run() {
-		lastCycle++;
+		
 		Try.run(() -> {
 			World.players().forEach(Player::processEntity);
 			World.npcs().forEach(NPC::processEntity);
@@ -40,6 +40,7 @@ public class WorldThread implements Runnable {
 			}
 			if (lastCycle % 500 == 0)
 				ServerChannelHandler.cleanMemory(lastCycle % 1000 == 0);
+		lastCycle++;	
 		}).onFailure(Throwable::printStackTrace);
 	}
 }
