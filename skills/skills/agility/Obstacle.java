@@ -113,14 +113,10 @@ public interface Obstacle {
 	 * @param object
 	 */
 	default void checkExperience(Player player, GameObject object) {
-		if (!stageKey(player).isPresent()) {
-			player.getSkills().addExperience(Skills.AGILITY, AgilityHandler.getRewardedExperience(this, object));
-			return;
-		}
+		player.getSkills().addExperience(Skills.AGILITY, AgilityHandler.getRewardedExperience(this, object));
 		stageKey(player).ifPresent(course -> {
 			if (course.get() == AgilityHandler.getStageId(this, object)) {
 				course.getAndIncrement();
-				player.getSkills().addExperience(Skills.AGILITY, AgilityHandler.getRewardedExperience(this, object));
 			}
 		});
 	}
