@@ -476,9 +476,9 @@ public class Player extends Entity {
 	 */
 	@Override
 	public void processEntity() {
+		getSession().processLogicPackets(this);
 		if (isDead())
 			return;
-		getSession().processLogicPackets(this);
 		getDetails().getPlayTime().getAndIncrement();
 		if (getCoordsEvent() != null && getCoordsEvent().processEvent(this))
 			setCoordsEvent(null);
