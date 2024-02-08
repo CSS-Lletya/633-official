@@ -1,18 +1,31 @@
 package com.rs.plugin.impl.inventory;
 
+import java.util.Optional;
+
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
 
+import skills.Skills;
 import skills.runecrafting.PouchType;
 import skills.runecrafting.Runecrafting;
+import skills.runecrafting.RunecraftingPouchDrop.RunePouchDrop;
+
 //now just make the mage check for bad items and give new ones, done
 @InventoryWrapper(itemId = {5509, 5510, 5512, 5514}, itemNames = { })
 public class RunecraftingPouchesItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int slotId, int option) {
+		Optional<RunePouchDrop> pouch = RunePouchDrop.VALUES.stream().filter(id -> id.getPouchId() == item.getId())
+				.filter(drop -> player.getSkills().getLevel(Skills.RUNECRAFTING) < drop.getLevelRequired()).findAny();
+		if (option == 1) {
+			if (pouch.isPresent()) {
+				player.getPackets().sendGameMessage("You need a level of " + pouch.get().getLevelRequired() + " runecrafting to use this pouch.");
+				return;
+			}
+		}
 		switch(item.getId()) {
 		case 5509:
 			if (option == 1)

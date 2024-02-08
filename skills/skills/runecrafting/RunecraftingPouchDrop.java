@@ -28,14 +28,12 @@ public class RunecraftingPouchDrop {
 		
 		public static final ImmutableSet<RunePouchDrop> VALUES = Sets.immutableEnumSet(EnumSet.allOf(RunePouchDrop.class));
 	}
-	
+
 	public static void sendPouchDrop(Player player, NPC npc) {
 		Optional<RunePouchDrop> pouches = RunePouchDrop.VALUES.stream()
-				.filter(drop -> player.getSkills().getLevel(Skills.RUNECRAFTING) >= drop.getLevelRequired()
-						&& !player.ownsItems(new Item(drop.getPouchId())))
-				.findFirst();
-		if (pouches.isPresent() && RandomUtility.random(42) == 0 && !World.getRegion(player.getRegionId()).getGroundItemsSafe()
-				.stream().anyMatch(drop -> drop.getId() == pouches.get().getPouchId())) {
+				.filter(drop -> !player.ownsItems(new Item(drop.getPouchId()))).findFirst();
+		if (pouches.isPresent() && RandomUtility.random(42) == 0 && !World.getRegion(player.getRegionId())
+				.getGroundItemsSafe().stream().anyMatch(drop -> drop.getId() == pouches.get().getPouchId())) {
 			FloorItem.addGroundItem(new Item(pouches.get().getPouchId()), npc.getLastWorldTile(), player, true, 60);
 		}
 	}
