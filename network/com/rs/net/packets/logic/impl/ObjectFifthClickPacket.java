@@ -48,6 +48,6 @@ public class ObjectFifthClickPacket implements LogicPacketListener {
 			if (player.getMapZoneManager().execute(controller -> !controller.processObjectClick4(player, worldObject)))
 				return;
 			ObjectPluginDispatcher.execute(player, worldObject, 5);
-		}, true));
+		}));
 	}
 }

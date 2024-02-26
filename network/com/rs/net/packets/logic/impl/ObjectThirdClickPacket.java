@@ -52,6 +52,6 @@ public class ObjectThirdClickPacket implements LogicPacketListener {
 			if (player.getQuestManager().handleObject(player, worldObject))
 				return;
 			ObjectPluginDispatcher.execute(player, worldObject, 3);
-		}, true));
+		}));
 	}
 }

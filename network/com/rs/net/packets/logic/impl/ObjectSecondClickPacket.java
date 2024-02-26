@@ -51,6 +51,6 @@ public class ObjectSecondClickPacket implements LogicPacketListener {
         	if (player.getTreasureTrailsManager().useObject(worldObject))
                 return;
             ObjectPluginDispatcher.execute(player, worldObject, 2);
-        }, true));
+        }));
     }
 }

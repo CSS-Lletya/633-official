@@ -53,6 +53,6 @@ public class ObjectClickPacket implements LogicPacketListener {
                 return;
 			AgilityHandler.execute(player, worldObject);
 			ObjectPluginDispatcher.execute(player, worldObject, 1);
-		}, true));
+		}));
 	}
 }
