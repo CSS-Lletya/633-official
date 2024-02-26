@@ -22,6 +22,10 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
+		if (object.getId() == 36774 || object.getId() == 36777 && optionId == 5) {
+			player.getMovement().move(true,
+					new WorldTile(player.getX(), player.getY(), player.getPlane() - 1), TeleportType.BLANK);
+		}
 		//chicken area (hatchet specifically)
 		object.doAction(optionId, 36974, "take-hatchet", () -> {
 			if (player.getInventory().addItem(new Item(ItemNames.BRONZE_HATCHET_1351)))
@@ -36,7 +40,6 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 		object.doAction(optionId, 36773, "climb-up", () -> new StairsLaddersDialogue(object).execute(player, optionId));
 		object.doAction(optionId, 36776, "climb-up", () -> new StairsLaddersDialogue(object).execute(player, optionId));
 		object.doAction(optionId, 36774, "climb", () -> new StairsLaddersDialogue(object).execute(player, optionId));
-		object.doAction(optionId, 36774, "climb-down", () -> new StairsLaddersDialogue(object).execute(player, optionId));
 		object.doAction(optionId, 36774, "climb-up", () -> new StairsLaddersDialogue(object).execute(player, optionId));
 		object.doAction(optionId, 36775, "climb-down", () -> new StairsLaddersDialogue(object).execute(player, optionId));
 		object.doAction(optionId, 36777, "climb", () -> new StairsLaddersDialogue(object).execute(player, optionId));

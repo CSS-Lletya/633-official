@@ -15,10 +15,11 @@ public class ObjectFifthClickPacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream input) {
-		int x = input.readShort128();
-		int y = input.readShort128();
-		boolean forceRun = input.readUnsignedByte128() == 1;
-		int id = input.readShort128();
+		int x = input.readUnsignedShort128();
+		int y = input.readUnsignedShort128();
+		boolean forceRun = input.readUnsignedByteC() == 1;
+		int id = input.readUnsignedShort128();
+		
 		if (GameConstants.DEBUG)
 			System.out.println("id " + id + " x " + x + " y " + y + " run? " + forceRun);
 		final WorldTile tile = new WorldTile(x, y, player.getPlane());

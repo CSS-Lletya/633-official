@@ -14,7 +14,6 @@ import com.rs.utilities.RandomUtility;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import skills.Skills;
 
 public class RunecraftingPouchDrop {
 	
