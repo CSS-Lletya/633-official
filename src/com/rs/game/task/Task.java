@@ -69,6 +69,8 @@ public abstract class Task {
 	 * @return {@code true} if this {@code Task} can execute, {@code false} otherwise.
 	 */
 	final boolean needsExecute() {
+		if (instant && running)
+			return true;
 		if(++counter >= delay && running) {
 			counter = 0;
 			return true;

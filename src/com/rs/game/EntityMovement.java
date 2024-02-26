@@ -155,15 +155,24 @@ public class EntityMovement {
 	public void move(boolean instant, WorldTile destination, TeleportType type) {
 		lock();
 		LinkedTaskSequence seq = new LinkedTaskSequence(instant ? 0 : 1, instant);
-		seq.connect(1, () -> {
-			type.getStartAnimation().ifPresent(entity::setNextAnimation);
-			type.getStartGraphic().ifPresent(entity::setNextGraphics);
-		}).connect(type.getEndDelay(), () -> {
-			type.getEndAnimation().ifPresent(entity::setNextAnimation);
-			type.getEndGraphic().ifPresent(entity::setNextGraphics);
-			entity.setNextWorldTile(destination);
-			unlock();
-		}).start();
+		if (instant) {
+			seq.connect(type.getEndDelay(), () -> {
+				type.getEndAnimation().ifPresent(entity::setNextAnimation);
+				type.getEndGraphic().ifPresent(entity::setNextGraphics);
+				entity.setNextWorldTile(destination);
+				unlock();
+			}).start();
+		} else {
+			seq.connect(1, () -> {
+				type.getStartAnimation().ifPresent(entity::setNextAnimation);
+				type.getStartGraphic().ifPresent(entity::setNextGraphics);
+			}).connect(type.getEndDelay(), () -> {
+				type.getEndAnimation().ifPresent(entity::setNextAnimation);
+				type.getEndGraphic().ifPresent(entity::setNextGraphics);
+				entity.setNextWorldTile(destination);
+				unlock();
+			}).start();
+		}
 	}
 	
 	/**
