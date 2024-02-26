@@ -1,4 +1,4 @@
-package com.rs.game.player.spells.passive;
+package skills.magic.spells;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

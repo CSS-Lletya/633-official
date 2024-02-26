@@ -1,16 +1,16 @@
-package com.rs.game.player.spells.passive.lunar;
+package skills.magic.spells.lunar;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.spells.passive.PassiveSpellListener;
-import com.rs.game.player.spells.passive.PassiveSpellSignature;
 
 import skills.cooking.Cooking;
 import skills.cooking.CookingData;
+import skills.magic.spells.PassiveSpellListener;
+import skills.magic.spells.PassiveSpellSignature;
 
-@PassiveSpellSignature(spellButton = 37, spellLevelRequirement = 65, spellbookId = 2, experience = 60)
+@PassiveSpellSignature(spellButton = 37, spellLevelRequirement = 65, spellbookId = PassiveSpellListener.LUNAR, experience = 60)
 public class BakePiesSpellPlugin implements PassiveSpellListener {
 	
 	@Override

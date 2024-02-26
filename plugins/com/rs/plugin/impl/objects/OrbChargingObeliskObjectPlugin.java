@@ -6,10 +6,10 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
-import skills.magic.ChargeAirOrb;
-import skills.magic.ChargeEarthOrb;
-import skills.magic.ChargeFireOrb;
-import skills.magic.ChargeWaterOrb;
+import skills.magic.spells.modern.charge.ChargeAirOrb;
+import skills.magic.spells.modern.charge.ChargeEarthOrb;
+import skills.magic.spells.modern.charge.ChargeFireOrb;
+import skills.magic.spells.modern.charge.ChargeWaterOrb;
 
 @ObjectSignature(objectId = {}, name = {"obelisk of air", "obelisk of water", "obelisk of fire", "obelisk of earth"})
 public class OrbChargingObeliskObjectPlugin extends ObjectListener {

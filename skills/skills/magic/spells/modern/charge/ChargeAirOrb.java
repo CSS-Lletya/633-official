@@ -1,4 +1,4 @@
-package skills.magic;
+package skills.magic.spells.modern.charge;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Sounds;

@@ -1,15 +1,15 @@
-package com.rs.game.player.spells.passive.lunar;
+package skills.magic.spells.lunar;
 
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.spells.passive.PassiveSpellListener;
-import com.rs.game.player.spells.passive.PassiveSpellSignature;
 
 import skills.crafting.AmuletStringing;
 import skills.crafting.AmuletStringing.AmuletData;
+import skills.magic.spells.PassiveSpellListener;
+import skills.magic.spells.PassiveSpellSignature;
 
-@PassiveSpellSignature(spellButton = 44, spellLevelRequirement = 80, spellbookId = 2, experience = 87)
+@PassiveSpellSignature(spellButton = 44, spellLevelRequirement = 80, spellbookId = PassiveSpellListener.LUNAR, experience = 87)
 public class StringJewelrySpellPlugin implements PassiveSpellListener {
 
 	@Override

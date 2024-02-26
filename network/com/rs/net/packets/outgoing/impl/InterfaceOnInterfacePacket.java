@@ -29,7 +29,7 @@ import skills.crafting.SoftClayCreation;
 import skills.firemaking.Firemaking;
 import skills.fletching.BowCarving;
 import skills.fletching.BowCarving.Log;
-import skills.magic.Enchanting;
+import skills.magic.spells.modern.enchanting.Enchanting;
 
 @OutgoingPacketSignature(packetId = 33, description = "Represents an Interface being used on another Interface")
 public class InterfaceOnInterfacePacket implements OutgoingPacketListener {

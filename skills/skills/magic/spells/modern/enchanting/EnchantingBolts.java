@@ -1,4 +1,4 @@
-package skills.magic;
+package skills.magic.spells.modern.enchanting;
 
 import java.util.HashMap;
 import java.util.Map;

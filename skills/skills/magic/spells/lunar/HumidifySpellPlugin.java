@@ -1,4 +1,4 @@
-package com.rs.game.player.spells.passive.lunar;
+package skills.magic.spells.lunar;
 
 import java.util.Arrays;
 
@@ -9,12 +9,12 @@ import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.FillAction.Filler;
-import com.rs.game.player.spells.passive.PassiveSpellListener;
-import com.rs.game.player.spells.passive.PassiveSpellSignature;
 
 import skills.Skills;
+import skills.magic.spells.PassiveSpellListener;
+import skills.magic.spells.PassiveSpellSignature;
 
-@PassiveSpellSignature(spellButton = 29, spellLevelRequirement = 68, spellbookId = 2, experience = 65)
+@PassiveSpellSignature(spellButton = 29, spellLevelRequirement = 68, spellbookId = PassiveSpellListener.LUNAR, experience = 65)
 public class HumidifySpellPlugin implements PassiveSpellListener {
 	
 	@Override

@@ -1,12 +1,13 @@
-package com.rs.game.player.spells.passive.lunar;
+package skills.magic.spells.lunar;
 
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.spells.passive.PassiveSpellListener;
-import com.rs.game.player.spells.passive.PassiveSpellSignature;
 
-@PassiveSpellSignature(spellButton = 26, spellLevelRequirement = 67, spellbookId = 2, experience = 63)
+import skills.magic.spells.PassiveSpellListener;
+import skills.magic.spells.PassiveSpellSignature;
+
+@PassiveSpellSignature(spellButton = 26, spellLevelRequirement = 67, spellbookId = PassiveSpellListener.LUNAR, experience = 63)
 public class NPCContactSpellPlugin implements PassiveSpellListener {
 	
 	@Override

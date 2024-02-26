@@ -1,4 +1,4 @@
-package com.rs.game.player.spells.passive;
+package skills.magic.spells;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,11 +88,10 @@ public class PassiveSpellDispatcher {
 	}
 	
 	public static void load() {
-		List<PassiveSpellListener> modernSpellLoader = Utility.getClassesInDirectory("com.rs.game.player.spells.passive.modern").stream()
+		List<PassiveSpellListener> modernSpellLoader = Utility.getClassesInDirectory("skills.magic.spells.modern").stream()
 				.map(clazz -> (PassiveSpellListener) clazz).collect(Collectors.toList());
 		modernSpellLoader.forEach(spell -> SPELLS.put(spell.getClass().getAnnotation(PassiveSpellSignature.class), spell));
-		
-		List<PassiveSpellListener> lunarSpellLoader = Utility.getClassesInDirectory("com.rs.game.player.spells.passive.lunar").stream()
+		List<PassiveSpellListener> lunarSpellLoader = Utility.getClassesInDirectory("skills.magic.spells.lunar").stream()
 				.map(clazz -> (PassiveSpellListener) clazz).collect(Collectors.toList());
 		lunarSpellLoader.forEach(spell -> SPELLS.put(spell.getClass().getAnnotation(PassiveSpellSignature.class), spell));
 	}

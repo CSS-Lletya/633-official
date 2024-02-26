@@ -1,4 +1,4 @@
-package com.rs.game.player.spells.passive.modern;
+package skills.magic.spells.modern;
 
 import java.util.Arrays;
 
@@ -9,13 +9,13 @@ import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.spells.passive.PassiveSpellListener;
-import com.rs.game.player.spells.passive.PassiveSpellSignature;
 
 import skills.Skills;
+import skills.magic.spells.PassiveSpellListener;
+import skills.magic.spells.PassiveSpellSignature;
 
-@PassiveSpellSignature(spellButton = 65, spellLevelRequirement = 60, spellbookId = 0, experience = 35.5)
-public class BonesToPeachesSpellPlugin implements PassiveSpellListener {
+@PassiveSpellSignature(spellButton = 33, spellLevelRequirement = 15, spellbookId = PassiveSpellListener.MODERN, experience = 25)
+public class BonesToBananasSpellPlugin implements PassiveSpellListener {
 
 	private static final int[] BONES = new int[] {526, 532};
 	
@@ -34,24 +34,24 @@ public class BonesToPeachesSpellPlugin implements PassiveSpellListener {
 			player.getAudioManager().sendSound(Sounds.BONES_TO);
 			player.setNextAnimation(Animations.ITEM_SPELL_CONVERTING);
 			player.setNextGraphics(Graphic.BONES_TO_SPELL);
-			player.getSkills().addExperience(Skills.MAGIC, 35.5);
+			player.getSkills().addExperience(Skills.MAGIC, 25);
 		}
 		Arrays.stream(BONES).filter(bone -> player.getInventory().containsAny(bone)).forEach(bone -> {
 			int amount = player.getInventory().getAmountOf(bone);
 			player.getInventory().deleteItem(new Item(bone, amount));
-			player.getInventory().addItem(new Item(ItemNames.PEACH_6883, amount));
+			player.getInventory().addItem(new Item(ItemNames.BANANA_18199, amount));
 			player.getDetails().getStatistics()
-			.addStatistic(ItemDefinitions.getItemDefinitions(bone).getName() + "_To_Peaches")
-			.addStatistic("To_Peaches_Spell");
+			.addStatistic(ItemDefinitions.getItemDefinitions(bone).getName() + "_To_Banana")
+			.addStatistic("To_Banana_Spell");
 		});
 	}
 
 	@Override
 	public Item[] runes() {
 		return new Item[] {
-				new Item(ItemNames.EARTH_RUNE_557, 4),
-				new Item(ItemNames.WATER_RUNE_555, 4),
-				new Item(ItemNames.NATURE_RUNE_561, 2)
+				new Item(ItemNames.EARTH_RUNE_557, 2),
+				new Item(ItemNames.WATER_RUNE_555, 2),
+				new Item(ItemNames.NATURE_RUNE_561, 1)
 		};
 	}
 	

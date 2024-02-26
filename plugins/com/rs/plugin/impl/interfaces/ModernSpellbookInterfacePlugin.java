@@ -2,9 +2,10 @@ package com.rs.plugin.impl.interfaces;
 
 import com.rs.game.player.Player;
 import com.rs.game.player.content.Magic;
-import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
+
+import skills.magic.spells.PassiveSpellDispatcher;
 
 @RSInterfaceSignature(interfaceId = { 192 })
 public class ModernSpellbookInterfacePlugin extends RSInterfaceListener {

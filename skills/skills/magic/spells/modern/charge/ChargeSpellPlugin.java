@@ -1,4 +1,4 @@
-package com.rs.game.player.spells.passive.modern;
+package skills.magic.spells.modern.charge;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
@@ -6,8 +6,9 @@ import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.spells.passive.PassiveSpellListener;
-import com.rs.game.player.spells.passive.PassiveSpellSignature;
+
+import skills.magic.spells.PassiveSpellListener;
+import skills.magic.spells.PassiveSpellSignature;
 
 /**
  * TODO: Combat relations: https://oldschool.runescape.wiki/w/Charge

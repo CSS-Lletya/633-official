@@ -8,8 +8,8 @@ import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
-import skills.magic.EnchantingBolts;
-import skills.magic.EnchantingBolts.Enchant;
+import skills.magic.spells.modern.enchanting.EnchantingBolts;
+import skills.magic.spells.modern.enchanting.EnchantingBolts.Enchant;
 
 @RSInterfaceSignature(interfaceId = {432})
 public class BoltEnchantingInterfacePlugin extends RSInterfaceListener {

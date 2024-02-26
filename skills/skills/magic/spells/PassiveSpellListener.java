@@ -1,4 +1,4 @@
-package com.rs.game.player.spells.passive;
+package skills.magic.spells;
 
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
@@ -35,4 +35,6 @@ public interface PassiveSpellListener {
 	 * @return runes
 	 */
 	public Item[] runes();
+	
+	int MODERN = 0, ANCIENT = 1, LUNAR = 2;
 }

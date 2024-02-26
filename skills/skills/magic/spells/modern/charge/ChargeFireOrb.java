@@ -1,4 +1,4 @@
-package skills.magic;
+package skills.magic.spells.modern.charge;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
@@ -9,14 +9,14 @@ import com.rs.game.player.content.Magic;
 
 import skills.Skills;
 
-public class ChargeWaterOrb extends Action {
+public class ChargeFireOrb extends Action {
 
     public boolean checkAll(Player player) {
 		if (!player.getInventory().containsItem(567, 1)) {
 			player.getPackets().sendGameMessage("You've ran out of unpowered orbs.", true);
 		    return false;
 		}
-		if (!Magic.checkSpellRequirements(player, 56, false, 555, 30, 564, 3))
+		if (!Magic.checkSpellRequirements(player, 63, false, 554, 30, 564, 3))
 		    return false;
 		return true;
     }
@@ -29,11 +29,11 @@ public class ChargeWaterOrb extends Action {
     @Override
     public int processWithDelay(Player player) {
     	if (checkAll(player)) {
-    		player.getInventory().replaceItems(new Item(567), new Item(571));
-    		player.getAudioManager().sendSound(Sounds.CHARGE_WATER_ORB);
-		    player.getSkills().addExperience(Skills.MAGIC, 66);
+    		player.getInventory().replaceItems(new Item(567), new Item(569));
+    		player.getAudioManager().sendSound(Sounds.CHARGE_FIRE_ORB);
+		    player.getSkills().addExperience(Skills.MAGIC, 73);
 		    player.setNextAnimationNoPriority(Animations.CHARGE_ORB);
-			player.getPackets().sendGameMessage("You fill the orb with the power of Water.", true);
+			player.getPackets().sendGameMessage("You fill the orb with the power of Fire.", true);
 		} else
 			stop(player);
 		return 0;
@@ -41,7 +41,7 @@ public class ChargeWaterOrb extends Action {
 
     @Override
     public boolean start(Player player) {
-		return checkAll(player);
+    	return checkAll(player);
     }
 
     @Override

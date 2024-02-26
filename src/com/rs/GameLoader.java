@@ -14,7 +14,6 @@ import com.rs.game.npc.global.GenericNPCDispatcher;
 import com.rs.game.player.attribute.AttributeKey;
 import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.content.doors.DoorPair;
-import com.rs.game.player.spells.passive.PassiveSpellDispatcher;
 import com.rs.game.system.scripts.ScriptManager;
 import com.rs.net.Huffman;
 import com.rs.net.ServerChannelHandler;
@@ -47,6 +46,7 @@ import com.rs.utilities.loaders.ShopsHandler;
 
 import lombok.val;
 import skills.agility.AgilityHandler;
+import skills.magic.spells.PassiveSpellDispatcher;
 
 /**
  * Represents the startup loading utilizing the {@link ForkJoinPool} system.
@@ -85,7 +85,6 @@ public final class GameLoader {
 			pool.submit(PassiveSpellDispatcher::load);
 			pool.submit(RegionAttributePluginDispatcher::load);
 			pool.submit(AgilityHandler::load);
-			
 			if (GameConstants.SQL_ENABLED) {
 				LogUtility.log(LogType.INFO, "Loading MYSQL Database & Services");
 				pool.submit(GameDatabase::initializeWebsiteDatabases);
