@@ -501,7 +501,7 @@ public class PrayerManager {
 	public PrayerManager() {
 		quickPrays = new CopyOnWriteArraySet<>();
 		quickCurses = new CopyOnWriteArraySet<>();
-		points = 1.0;
+		points = 10.0;
 	}
 
 	public void setPlayer(Player player) {
