@@ -149,7 +149,8 @@ public class NPCPluginDispatcher {
 			return;
 		if (forceRun)
 			player.setRun(true);
-		
+		if (isSpecialDistancedNPC(player, npc, optionId))
+			return;
 		if (player.getTreasureTrailsManager().useNPC(npc))
             return;
 		player.setRouteEvent(new RouteEvent(npc, () -> {
@@ -203,10 +204,28 @@ public class NPCPluginDispatcher {
 					break;
 				}
 			}
-		}, forceReachNPC(npc.getDefinitions().getName())));
+		}, false));
 
 	}
 	
+	private static boolean isSpecialDistancedNPC(Player player, NPC npc, int optionId) {
+		if (npc.getId() == 14707 || npc.getId() == 4296 || npc.getDefinitions().name.toLowerCase().contains("banker")) {
+			player.setRouteEvent(new RouteEvent(npc, new Runnable() {
+				@Override
+				public void run() {
+					player.faceEntity(npc);
+					if (!player.withinDistance(npc, 3))
+						return;
+					npc.faceEntity(player);
+					player.getDetails().setLastNPCInteracted(npc.getId());
+					NPCPluginDispatcher.execute(player, npc, optionId);
+				}
+			}, true));
+			return true;
+		}
+		return false;
+	}
+
 	public static boolean forceReachNPC(String name) {
 		String[] NPC_NAMES = {"banker", "sawmill"};
 		return Arrays.stream(NPC_NAMES).anyMatch(names -> name.toLowerCase().contains(names));
