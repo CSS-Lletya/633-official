@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import com.rs.game.item.Item;
+import com.rs.game.item.ItemsContainer;
 import com.rs.game.player.Player;
 
 /**
@@ -17,13 +18,30 @@ public class InterfaceCreator {
 	/**
 	 * Represents the Player used in this Interface creation.
 	 */
-	private Player player;
+	private final Player player;
 	
 	/**
 	 * Represents the interface being used to be created.
 	 */
 	public final int interfaceId;
 
+	/**
+	 * Represents a collection of items used in a Container.
+	 */
+	private ItemsContainer<Item> items;
+
+	/**
+	 * Creates a new Interface.
+	 * @param player
+	 * @param interfaceId
+	 * @param items
+	 */
+	public InterfaceCreator(Player player, int interfaceId, ItemsContainer<Item> items) {
+		this.interfaceId = interfaceId;
+		this.player = player;
+		this.items = items;
+	}
+	
 	/**
 	 * Creates a new Interface.
 	 * @param player
@@ -32,7 +50,24 @@ public class InterfaceCreator {
 	public InterfaceCreator(Player player, int interfaceId) {
 		this.interfaceId = interfaceId;
 		this.player = player;
+	}
+	
+	/**
+	 * Renders a specific interface as an Overlay
+	 * @return
+	 */
+	public InterfaceCreator renderAsOverlay() {
+		player.getInterfaceManager().sendOverlay(interfaceId);
+		return this;
+	}
+	
+	/**
+	 * Renders a specific interface as a basic interface
+	 * @return
+	 */
+	public InterfaceCreator renderAsInterface() {
 		player.getInterfaceManager().sendInterface(interfaceId);
+		return this;
 	}
 	
 	/**
@@ -206,7 +241,51 @@ public class InterfaceCreator {
 	 */
 	public InterfaceCreator reset() {
 		player.getInterfaceManager().closeInterfaces();
+		if (items != null)
+			items.clear();
 		new InterfaceCreator(player, interfaceId);
+		return this;
+	}
+	
+	
+	/**
+	 * Refreshes the {@link ItemsContainer} and renders the allocated data
+	 * 
+	 * Note: {@link #sendInterSetItemsOptionsScript(int, int, int, int, String...)} is required to display items accordingly
+	 * as well as {@link #sendUnlockIComponentOptionSlots(int, int, int, int...)} is required to render the option context menu
+	 * @param key
+	 * @return
+	 */
+	public InterfaceCreator refreshItemContainer(int key) {
+		player.getPackets().sendItems(key, items.getItemsCopy());
+		player.getPackets().sendUpdateItems(key, items.getItemsCopy(), 2);
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param componentId
+	 * @param key
+	 * @param width
+	 * @param height
+	 * @param options
+	 * @return
+	 */
+	public InterfaceCreator sendInterSetItemsOptionsScript(int componentId, int key, int width, int height, String... options) {
+		player.getPackets().sendInterSetItemsOptionsScript(interfaceId, componentId, key, width, height, options);
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param componentId
+	 * @param fromSlot
+	 * @param toSlot
+	 * @param optionsSlots
+	 * @return
+	 */
+	public InterfaceCreator sendUnlockIComponentOptionSlots(int componentId, int fromSlot, int toSlot, int... optionsSlots) {
+		player.getPackets().sendUnlockIComponentOptionSlots(interfaceId, componentId, fromSlot, toSlot, optionsSlots);
 		return this;
 	}
 }

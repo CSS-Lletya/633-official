@@ -59,8 +59,6 @@ import skills.prayer.book.Prayer;
 @Setter
 public abstract class Entity extends WorldTile {
 
-//	private final static AtomicInteger hashCodeGenerator = new AtomicInteger();
-
 	// transient stuff
 	private transient int index;
 	private transient short lastRegionId;

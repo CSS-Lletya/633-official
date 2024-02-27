@@ -84,7 +84,7 @@ public class InterfaceManager {
 
 	//assuming we're not in fullscreen only
 	public void sendOverlay(int interfaceId) {
-		setWindowInterface(isResizableScreen() ? 6 : 7, interfaceId);
+		sendOverlay(interfaceId, false);
 	}
 	
 	public void sendWildyOverlay() {
