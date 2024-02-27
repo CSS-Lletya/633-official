@@ -97,7 +97,7 @@ public abstract class Entity extends WorldTile {
 	private transient long findTargetDelay;
 	private transient short hashCode;
 	private transient EntityMovement movement;
-	private String uuid;
+	private transient String uuid;
 	
 	/**
 	 * An {@link AttributeMap} instance assigned to this {@code Actor}.
