@@ -44,27 +44,22 @@ public class TrapdoorObjectPlugin extends ObjectListener {
 				}
 				player.getPackets().sendGameMessage("You attempt to picklock the trapdoor..");
 				player.getMovement().lock(3);
-				World.get().submit(new Task(3) {
-					@Override
-					protected void execute() {
-						int thievingLevel = player.getSkills().getLevel(Skills.THIEVING);
-						int increasedChance = (int) (thievingLevel * 0.5);
-						double ratio = RandomUtility.getRandom(100) - increasedChance;
-						if (ratio * thievingLevel < 10) {
-							player.getPackets().sendGameMessage(
-									"You fail to picklock the trapdoor and your hands begin to numb down.");
-							player.getSkills().drainLevel(Skills.THIEVING, 1);
-							player.getSkills().addExperience(Skills.THIEVING, 1);
-							cancel();
-							return;
-						}
-						player.getAudioManager().sendSound(Sounds.OPENING_TRAPDOOR);
-						player.getPackets().sendGameMessage("You successfully picklock the trapdoor.");
-						player.getSkills().addExperience(Skills.THIEVING, 4);
-						new LinkedTaskSequence().connect(1, () -> player.getVarsManager().sendVarBit(235, 1))
-								.connect(15, () -> player.getVarsManager().sendVarBit(235, 0)).start();
-						cancel();
+				player.task(3, thief -> {
+					int thievingLevel = thief.toPlayer().getSkills().getLevel(Skills.THIEVING);
+					int increasedChance = (int) (thievingLevel * 0.5);
+					double ratio = RandomUtility.getRandom(100) - increasedChance;
+					if (ratio * thievingLevel < 10) {
+						thief.toPlayer().getPackets().sendGameMessage(
+								"You fail to picklock the trapdoor and your hands begin to numb down.");
+						thief.toPlayer().getSkills().drainLevel(Skills.THIEVING, 1);
+						thief.toPlayer().getSkills().addExperience(Skills.THIEVING, 1);
+						return;
 					}
+					thief.toPlayer().getAudioManager().sendSound(Sounds.OPENING_TRAPDOOR);
+					thief.toPlayer().getPackets().sendGameMessage("You successfully picklock the trapdoor.");
+					thief.toPlayer().getSkills().addExperience(Skills.THIEVING, 4);
+					new LinkedTaskSequence().connect(1, () -> thief.toPlayer().getVarsManager().sendVarBit(235, 1))
+							.connect(15, () -> thief.toPlayer().getVarsManager().sendVarBit(235, 0)).start();
 				});
 			}	
 		}

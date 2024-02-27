@@ -113,15 +113,11 @@ public class Canoes {
 			hatchet = Hatchet.BRONZE;
 		player.setNextAnimation(new Animation(hatchet.ordinal() + 11594));
 		player.getMovement().lock();
-		World.get().submit(new Task(10) {
-			@Override
-			protected void execute() {
-				player.getAttributes().get(Attribute.CANOE_SHAPED).set(true);
-				player.getMovement().unlock();
-				player.getVarsManager().sendVarBit(player.getAttributes().get(Attribute.CANOE_CONFIG).getInt(),
-						11 + selectedCanoe);
-				cancel();
-			}
+		player.task(10, woodcutter -> {
+			woodcutter.toPlayer().getAttributes().get(Attribute.CANOE_SHAPED).set(true);
+			woodcutter.toPlayer().getMovement().unlock();
+			woodcutter.toPlayer().getVarsManager().sendVarBit(woodcutter.toPlayer().getAttributes().get(Attribute.CANOE_CONFIG).getInt(),
+					11 + selectedCanoe);
 		});
 	}
 

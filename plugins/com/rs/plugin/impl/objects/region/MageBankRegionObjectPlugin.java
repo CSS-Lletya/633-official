@@ -11,6 +11,7 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.FadingScreen;
+import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.listener.ObjectListener;
@@ -47,14 +48,10 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 			player.getMovement().lock(1);
 			final WorldTile destination = POOL_DESTINATIONS[2879 - object.getId()];
 			player.dialogue(d -> d.mes("You step into the pool of sparkling water. You feel energy rush through your veins."));
-			World.get().submit(new Task(4) {
-				@Override
-				protected void execute() {
-					player.getInterfaceManager().closeInterfaces();
-					player.getAudioManager().sendSound(Sounds.JUMP_IN_WATER);
-					handlePool(player, destination, object);
-					cancel();
-				}
+			player.task(4, jumper -> {
+				jumper.toPlayer().getInterfaceManager().closeInterfaces();
+				jumper.toPlayer().getAudioManager().sendSound(Sounds.JUMP_IN_WATER);
+				handlePool(jumper.toPlayer(), destination, object);
 			});
 		}
 	}
@@ -93,20 +90,8 @@ public class MageBankRegionObjectPlugin extends ObjectListener {
 		player.setNextAnimation(Animations.SG_DRINK_FROM_FOUNTAIN);
 		player.getAudioManager().sendSound(Sounds.WATER_SPLASHING);
 		player.task(3, p -> p.toPlayer().getPackets().sendGraphics(new Graphics(68), middle));
-		World.get().submit(new Task(1) {
-			int tick;
-			@Override
-			protected void execute() {
-				switch (tick++) {
-				case 1:
-					FadingScreen.fade(player, () -> player.setNextAnimation(Animations.JUMPING_INTO_SOMETHING));
-					break;
-				case 2:
-					player.task(2, p -> p.setNextWorldTile(end));
-					cancel();
-					break;
-				}
-			}
-		});
+		LinkedTaskSequence seq = new LinkedTaskSequence();
+		seq.connect(1, () -> FadingScreen.fade(player, () -> player.setNextAnimation(Animations.JUMPING_INTO_SOMETHING)));
+		seq.connect(1, () -> player.task(2, p -> p.setNextWorldTile(end))).start();
 	}
 }

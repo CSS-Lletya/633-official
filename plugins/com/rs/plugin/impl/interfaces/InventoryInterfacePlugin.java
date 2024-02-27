@@ -79,19 +79,14 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 					long passedTime = Utility.currentTimeMillis() - Utility.currentWorldCycle();
 					if (player.getSwitchItemCache().isEmpty()) {
 						player.getSwitchItemCache().add(slotId);
-						World.get().submit(new Task(passedTime >= 300 ? 0 : passedTime > 150 ? 1 : 0) {
-
-							@Override
-							protected void execute() {
-								ObjectList<Byte> slots = player.getSwitchItemCache();
-								int[] slot = new int[slots.size()];
-								for (int i = 0; i < slot.length; i++)
-									slot[i] = slots.get(i);
-								player.getSwitchItemCache().clear();
-								RSInterfacePluginDispatcher.sendWear(player, slot);
-								player.getMovement().stopAll(false, true, false);
-								this.cancel();
-							}
+						player.task(passedTime >= 300 ? 0 : passedTime > 150 ? 1 : 0, fighter -> {
+							ObjectList<Byte> slots = fighter.toPlayer().getSwitchItemCache();
+							int[] slot = new int[slots.size()];
+							for (int i = 0; i < slot.length; i++)
+								slot[i] = slots.get(i);
+							fighter.toPlayer().getSwitchItemCache().clear();
+							RSInterfacePluginDispatcher.sendWear(fighter.toPlayer(), slot);
+							fighter.toPlayer().getMovement().stopAll(false, true, false);
 						});
 					} else if (!player.getSwitchItemCache().contains(slotId)) {
 						player.getSwitchItemCache().add(slotId);

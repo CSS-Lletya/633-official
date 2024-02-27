@@ -4,9 +4,7 @@ import java.util.Arrays;
 
 import com.rs.constants.Sounds;
 import com.rs.game.map.GameObject;
-import com.rs.game.map.World;
 import com.rs.game.player.Player;
-import com.rs.game.task.Task;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
@@ -44,16 +42,11 @@ public class MiningOresObjectPlugin extends ObjectListener {
 			.filter(data -> Arrays.stream(data.getObject()).anyMatch(ore -> ore == object.getId())).findFirst()
 			.ifPresent(data -> {
 				String message = data.toString().concat(" ore").replace("_", " ");
-				World.get().submit(new Task(data.getProspectdelay()) {
-					@Override
-					public void execute() {
-						player.getAudioManager().sendSound(Sounds.PROSPECTING);
-						player.getPackets().sendGameMessage("... this rock contains " + message + ".");
-						cancel();
-					}
-				}.attach(player));
+				player.task(data.getProspectdelay(), miner -> {
+					miner.toPlayer().getAudioManager().sendSound(Sounds.PROSPECTING);
+					miner.toPlayer().getPackets().sendGameMessage("... this rock contains " + message + ".");
+				});
 			});
 		}
-
 	}
 }

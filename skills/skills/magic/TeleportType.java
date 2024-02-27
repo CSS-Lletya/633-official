@@ -5,11 +5,10 @@ import java.util.Optional;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
-import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.HomeTeleporting;
-import com.rs.game.task.Task;
+import com.rs.game.task.LinkedTaskSequence;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 
@@ -80,32 +79,19 @@ enum SpecialEvent {
 	TABLET {
 		@Override
 		protected boolean handleSpecialEvent(Player player, WorldTile destination) {
-			World.get().submit(new Task(1) {
-				int tick;
-				@Override
-				protected void execute() {
-					switch(tick++) {
-					case 0:
-						player.setNextAnimation(Animations.BREAK_TELETAB);
-						break;
-					case 1:
-						player.getAudioManager().sendSound(Sounds.TELETAB_BREAKING); 
-						break;
-					case 2:
-						player.setNextAnimation(Animations.TELE_TAB_SINK_INWARDS);
-						player.setNextGraphics(Graphic.TELETAB_BREAKING_PORTAL);
-						break;
-					case 3:
-						player.setNextWorldTile(destination);
-						break;
-					case 4:
-						player.setNextAnimation(Animations.RESET_ANIMATION);
-						player.setNextGraphics(Graphic.RESET_GRAPHICS);
-						cancel();
-						break;
-					}
-				}
+			LinkedTaskSequence seq = new LinkedTaskSequence();
+			seq.connect(1, () -> player.setNextAnimation(Animations.BREAK_TELETAB));
+			seq.connect(1, () -> player.getAudioManager().sendSound(Sounds.TELETAB_BREAKING));
+			seq.connect(1, () -> {
+				player.setNextAnimation(Animations.TELE_TAB_SINK_INWARDS);
+				player.setNextGraphics(Graphic.TELETAB_BREAKING_PORTAL);
 			});
+			seq.connect(1, () -> player.setNextWorldTile(destination));
+			seq.connect(1, () -> {
+				player.setNextAnimation(Animations.RESET_ANIMATION);
+				player.setNextGraphics(Graphic.RESET_GRAPHICS);
+			})
+			.start();
 			return true;
 		}
 	},

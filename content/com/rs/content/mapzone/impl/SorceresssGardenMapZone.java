@@ -62,13 +62,7 @@ public class SorceresssGardenMapZone extends MapZone {
             Magic.sendNormalTeleportSpell(player, 0, 0, MIDDLE);
         else
             Magic.sendTeleportSpell(player, 10538, 10537, -1, -1, 0, 0, MIDDLE, 4, true, Magic.MAGIC_TELEPORT);
-        World.get().submit(new Task(4) {
-        	@Override
-        	protected void execute() {
-        		player.getMapZoneManager().submitMapZone(new SorceresssGardenMapZone());
-        		cancel();
-        	}
-        });
+        player.task(4, thief -> thief.toPlayer().getMapZoneManager().submitMapZone(new SorceresssGardenMapZone()));
     }
     
 
@@ -151,14 +145,10 @@ public class SorceresssGardenMapZone extends MapZone {
         if (object.getId() == 21764) {
             player.getMovement().lock();
             player.setNextAnimation(Animations.SG_DRINK_FROM_FOUNTAIN);
-            World.get().submit(new Task(3) {
-            	@Override
-				protected void execute() {
-					player.getMapZoneManager().endMapZoneSession(player);
-					player.getMovement().unlock();
-					Magic.sendNormalTeleportSpell(player, 0, 0, new WorldTile(3321, 3141, 0));
-					cancel();
-				}
+            player.task(3, thief -> {
+            	thief.toPlayer().getMapZoneManager().endMapZoneSession(thief.toPlayer());
+            	thief.toPlayer().getMovement().unlock();
+				Magic.sendNormalTeleportSpell(thief.toPlayer(), 0, 0, new WorldTile(3321, 3141, 0));
             });
             return false;
         }

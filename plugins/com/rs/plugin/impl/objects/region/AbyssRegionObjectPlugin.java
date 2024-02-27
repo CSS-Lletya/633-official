@@ -5,6 +5,8 @@ import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
+import com.rs.game.player.content.doors.Doors;
+import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.plugin.listener.ObjectListener;
@@ -37,7 +39,6 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
         } else if (id == 7139) { // air rift
             player.setNextWorldTile(new WorldTile(2845, 4832, 0));
         } else if (id == 7137) { // water rift
-        	System.out.println("?");
             player.setNextWorldTile(new WorldTile(3482, 4836, 0));
         } else if (id == 7136) { // death rift
             player.setNextWorldTile(new WorldTile(2207, 4836, 0));
@@ -65,27 +66,18 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 				}
 				player.setNextAnimation(Animations.ATTEMPT_FIRE_LIGHTING);
 				player.getMovement().lock(3);
-				World.get().submit(new Task(1) {
-					int tick;
-					@Override
-					protected void execute() {
-						switch (tick++) {
-						case 1:
-							player.getPackets().sendGameMessage("You attempt to burn your way through..");
-							break;
-						case 4:
-							if (RandomUtility.random(3) != 1) {
-								player.getPackets().sendGameMessage("...and manage to burn it down and get past.");
-								player.setNextWorldTile(getLocations()[getIndex(object)]);
-								player.setNextAnimation(Animations.RESET_ANIMATION);
-								GameObject.removeObjectTemporary(object, 2);
-							} else {
-								player.getPackets().sendGameMessage("You fail to set it on fire.");
-							}
-							cancel();
-						}
+				LinkedTaskSequence seq = new LinkedTaskSequence();
+				seq.connect(1, () -> player.getPackets().sendGameMessage("You attempt to burn your way through.."));
+				seq.connect(3, () -> {
+					if (RandomUtility.random(3) != 1) {
+						player.getPackets().sendGameMessage("...and manage to burn it down and get past.");
+						player.setNextWorldTile(getLocations()[getIndex(object)]);
+						player.setNextAnimation(Animations.RESET_ANIMATION);
+						GameObject.removeObjectTemporary(object, 2);
+					} else {
+						player.getPackets().sendGameMessage("You fail to set it on fire.");
 					}
-				});
+				}).start();
 			}
 		},
 		MINE("mine", new WorldTile[] { new WorldTile(3030, 4821, 0), new WorldTile(3048, 4822, 0) }, 7143, 7153) {
@@ -99,27 +91,18 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 				}
 				player.setNextAnimation(Animations.BASIC_MINING);
 				player.getMovement().lock(3);
-				World.get().submit(new Task(1) {
-					int tick;
-					@Override
-					protected void execute() {
-						switch (tick++) {
-						case 1:
-							player.getPackets().sendGameMessage("You attempt to mine your way through..");
-							break;
-						case 4:
-							if (RandomUtility.random(3) != 1) {
-								player.getPackets().sendGameMessage("...and manage to break through the rock.");
-								player.setNextWorldTile(getLocations()[getIndex(object)]);
-								player.setNextAnimation(Animations.RESET_ANIMATION);
-								GameObject.removeObjectTemporary(object, 2);
-							} else {
-								player.getPackets().sendGameMessage("...but fail to break-up the rock.");
-							}
-							cancel();
-						}
+				LinkedTaskSequence seq = new LinkedTaskSequence();
+				seq.connect(1, () -> player.getPackets().sendGameMessage("You attempt to mine your way through.."));
+				seq.connect(3, () -> {
+					if (RandomUtility.random(3) != 1) {
+						player.getPackets().sendGameMessage("...and manage to break through the rock.");
+						player.setNextWorldTile(getLocations()[getIndex(object)]);
+						player.setNextAnimation(Animations.RESET_ANIMATION);
+						GameObject.removeObjectTemporary(object, 2);
+					} else {
+						player.getPackets().sendGameMessage("...but fail to break-up the rock.");
 					}
-				});
+				}).start();
 			}
 		},
 		CHOP("chop", new WorldTile[] { new WorldTile(3050, 4824, 0), new WorldTile(3028, 4824, 0) }, 7152, 7144) {
@@ -131,28 +114,18 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 				}
 				player.setNextAnimation(Animations.BASIC_WOODCUTTING);
 				player.getMovement().lock(3);
-				World.get().submit(new Task(1) {
-					int tick;
-					@Override
-					public void execute() {
-						switch (tick++) {
-						case 1:
-							player.getPackets().sendGameMessage("You attempt to chop your way through...");
-							break;
-						case 4:
-							if (RandomUtility.random(3) != 1) {
-								player.getPackets().sendGameMessage("...and manage to chop down the tendrils.");
-								player.setNextWorldTile(getLocations()[getIndex(object)]);
-								player.setNextAnimation(Animations.RESET_ANIMATION);
-								GameObject.removeObjectTemporary(object, 2);
-							} else {
-								player.getPackets().sendGameMessage("You fail to cut through the tendrils.");
-							}
-							cancel();
-						}
-						return;
+				LinkedTaskSequence seq = new LinkedTaskSequence();
+				seq.connect(1, () -> player.getPackets().sendGameMessage("You attempt to chop your way through..."));
+				seq.connect(3, () -> {
+					if (RandomUtility.random(3) != 1) {
+						player.getPackets().sendGameMessage("...and manage to chop down the tendrils.");
+						player.setNextWorldTile(getLocations()[getIndex(object)]);
+						player.setNextAnimation(Animations.RESET_ANIMATION);
+						GameObject.removeObjectTemporary(object, 2);
+					} else {
+						player.getPackets().sendGameMessage("You fail to cut through the tendrils.");
 					}
-				});
+				}).start();
 			}
 		},
 		SQUEEZE("squeeze-through", new WorldTile[] { new WorldTile(3048, 4842, 0), new WorldTile(3031, 4842, 0) }, 7148, 7147) {
@@ -160,24 +133,13 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 			public void handle(final Player player, final GameObject object) {
 				player.setNextAnimation(Animations.BEING_SQUEEZE_THROUGH);
 				player.getMovement().lock(3);
-				player.getMovement().lock(3);
-				World.get().submit(new Task(1) {
-					int tick;
-					@Override
-					public void execute() {
-						switch (tick++) {
-						case 1:
-							player.getPackets().sendGameMessage("You attempt to squeeze through the narrow gap...");
-							break;
-						case 2:
-							player.getPackets().sendGameMessage("...and you manage to crawl through.");
-							player.setNextWorldTile(getLocations()[getIndex(object)]);
-							player.setNextAnimation(Animations.RESET_ANIMATION);
-							cancel();
-							break;
-						}
-					}
-				});
+				LinkedTaskSequence seq = new LinkedTaskSequence();
+				seq.connect(1, () -> player.getPackets().sendGameMessage("You attempt to squeeze through the narrow gap..."));
+				seq.connect(1, () -> {
+					player.getPackets().sendGameMessage("...and you manage to crawl through.");
+					player.setNextWorldTile(getLocations()[getIndex(object)]);
+					player.setNextAnimation(Animations.RESET_ANIMATION);
+				}).start();
 			}
 		},
 		DISTRACT("distract", new WorldTile[] { new WorldTile(3029, 4841, 0), new WorldTile(3051, 4838, 0) }, 7146,
@@ -190,27 +152,17 @@ public class AbyssRegionObjectPlugin extends ObjectListener {
 				int index = RandomUtility.random(emotes.length);
 				player.setNextAnimation(new Animation(emotes[index]));
 				player.getMovement().lock(3);
-				World.get().submit(new Task(1) {
-					int tick;
-					@Override
-					public void execute() {
-						switch (tick++) {
-						case 1:
-							player.getPackets()
-									.sendGameMessage("You use your thieving skills to misdirect the eyes...");
-							break;
-						case 4:
-							if (RandomUtility.random(3) != 1) {
-								player.getPackets().sendGameMessage("...and sneak past while they're not looking.");
-								player.setNextWorldTile(getLocations()[getIndex(object)]);
-								player.setNextAnimation(Animations.RESET_ANIMATION);
-							} else {
-								player.getPackets().sendGameMessage("You fail to distract the eyes.");
-							}
-							cancel();
-						}
+				LinkedTaskSequence seq = new LinkedTaskSequence();
+				seq.connect(1, () -> player.getPackets().sendGameMessage("You use your thieving skills to misdirect the eyes..."));
+				seq.connect(3, () -> {
+					if (RandomUtility.random(3) != 1) {
+						player.getPackets().sendGameMessage("...and sneak past while they're not looking.");
+						player.setNextWorldTile(getLocations()[getIndex(object)]);
+						player.setNextAnimation(Animations.RESET_ANIMATION);
+					} else {
+						player.getPackets().sendGameMessage("You fail to distract the eyes.");
 					}
-				});
+				}).start();
 			}
 		},
 		PASSAGE("go-through", new WorldTile[] { new WorldTile(3040, 4844, 0) }, 7154) {

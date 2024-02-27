@@ -5,10 +5,9 @@ import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
-import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Action;
-import com.rs.game.task.Task;
+import com.rs.game.task.LinkedTaskSequence;
 
 import lombok.val;
 import skills.Skills;
@@ -59,13 +58,7 @@ public class ChestThieving extends Action {
             searchForTraps(player);
         } else {
             if (chest.isTrapped()) {
-            	World.get().submit(new Task(1) {
-            		@Override
-            		protected void execute() {
-            			chest.onTriggerTrap(player);
-            			cancel();
-            		}
-            	});
+            	player.task(thief -> chest.onTriggerTrap(thief.toPlayer()));
                 return false;
             }
             open(player);
@@ -92,51 +85,33 @@ public class ChestThieving extends Action {
     
     private void searchForTraps(Player player) {
         player.getPackets().sendGameMessage("You search the chest for traps.");
-        World.get().submit(new Task(1) {
-        	int tick;
-    		@Override
-    		protected void execute() {
-    			switch(tick++) {
-    			case 1:
-    				player.getPackets().sendGameMessage("You find a trap on the chest.");
-    				break;
-    			case 3:
-    				player.getPackets().sendGameMessage("You disable the trap.");
-    				break;
-    			case 4:
-    				open(player);
-    				break;
-    			case 6:
-    				open(player);
-    				val hasLockpick = player.getInventory().containsItem(new Item(ItemNames.LOCKPICK_1523));
-    		        val requirement = Math.max(1, chest.getLevel() - (hasLockpick ? 8 : 0));
-    		    
-    		        if (Thieving.success(player, requirement)) {
-    		            success(player);
-    		        } else {
-    		            failure(player);
-    		        }
-    		        cancel();
-    				break;
-    			}
-    		}
-    	});
+        LinkedTaskSequence seq = new LinkedTaskSequence();
+        seq.connect(1, () -> player.getPackets().sendGameMessage("You find a trap on the chest."));
+        seq.connect(2, () -> player.getPackets().sendGameMessage("You disable the trap."));
+        seq.connect(1, () -> open(player));
+        seq.connect(2, () -> {
+        	open(player);
+			val hasLockpick = player.getInventory().containsItem(new Item(ItemNames.LOCKPICK_1523));
+	        val requirement = Math.max(1, chest.getLevel() - (hasLockpick ? 8 : 0));
+	    
+	        if (Thieving.success(player, requirement)) {
+	            success(player);
+	        } else {
+	            failure(player);
+	        }
+        }).start();
     }
     
     private void success(Player player) {
         player.getPackets().sendGameMessage("You manage to unlock the chest.");
         player.getAudioManager().sendSound(Sounds.FINDING_TREASURE);
         player.setNextAnimation(Animations.CHEST_LOOTING);
-        World.get().submit(new Task(2) {
-    		@Override
-    		protected void execute() {
-    			player.getSkills().addExperience(Skills.THIEVING, chest.getExperience());
-                addLoot(player);
-                spawnEmptyChest();
-                chest.onSuccess(player);
-    			cancel();
-    		}
-    	});
+        player.task(thief -> {
+        	player.getSkills().addExperience(Skills.THIEVING, chest.getExperience());
+            addLoot(thief.toPlayer());
+            spawnEmptyChest();
+            chest.onSuccess(thief.toPlayer());
+        });
     }
     
     private void failure(Player player) {
@@ -161,14 +136,11 @@ public class ChestThieving extends Action {
             player.getInventory().addItems(chest.getLootTable().generateLoot());
         }
         player.getPackets().sendGameMessage("You steal some loot from the chest.");
-        World.get().submit(new Task(1) {
-    		@Override
-    		protected void execute() {
-    	        player.getMovement().unlock();
-    			cancel();
-    			stop(player);
-    		}
-    	});
+        player.task(thief -> {
+        	player.getSkills().addExperience(Skills.THIEVING, chest.getExperience());
+        	stop(player);
+        	player.getMovement().unlock();
+        });
     }
 
 	@Override

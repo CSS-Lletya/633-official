@@ -6,6 +6,7 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.FadingScreen;
+import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
 import com.rs.utilities.TextUtils;
 import com.rs.utilities.Utility;
@@ -241,26 +242,18 @@ public class ShipCharter {
 
 		public void sail(Player player) {
 			player.getMovement().lock();
-			World.get().submit(new Task(1) {
-				int count = 0;
-				@Override
-				protected void execute() {
-					switch(count++) {
-					case 0:
-						player.getPackets().sendBlackOut(2);
-						FadingScreen.fade(player);
-						break;
-					case 5:
-						player.setNextWorldTile(getWorldTile());
-						player.getMovement().unlock();
-						player.getInterfaceManager().closeInterfaces();
-						player.getPackets().sendBlackOut(0);
-						player.getPackets().sendGameMessage("You pay the fare and sail to " + TextUtils.formatEnumNaming(name()) + ".");
-						cancel();
-						break;
-					}
-				}
+			LinkedTaskSequence seq = new LinkedTaskSequence();
+			seq.connect(1, () -> {
+				player.getPackets().sendBlackOut(2);
+				FadingScreen.fade(player);
 			});
+			seq.connect(4, () -> {
+				player.setNextWorldTile(getWorldTile());
+				player.getMovement().unlock();
+				player.getInterfaceManager().closeInterfaces();
+				player.getPackets().sendBlackOut(0);
+				player.getPackets().sendGameMessage("You pay the fare and sail to " + TextUtils.formatEnumNaming(name()) + ".");
+			}).start();
 		}
 	}
 }

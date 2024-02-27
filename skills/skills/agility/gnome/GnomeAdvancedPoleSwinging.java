@@ -4,10 +4,9 @@ import java.util.Optional;
 
 import com.rs.constants.Animations;
 import com.rs.game.map.GameObject;
-import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.task.Task;
+import com.rs.game.task.LinkedTaskSequence;
 import com.rs.net.encoders.other.ForceMovement;
 import com.rs.utilities.Direction;
 import com.rs.utilities.MutableNumber;
@@ -20,40 +19,34 @@ public class GnomeAdvancedPoleSwinging implements Obstacle {
 
 	@Override
 	public void start(Player player, GameObject object) {
-		World.get().submit(new Task(1) {
-			int stage;
-
-			@Override
-			protected void execute() {
-				stage++;
-				if (stage == 0) {
-					player.setNextAnimation(Animations.GNOME_RUNNING_IN_PLACE);
-					player.faceObject(object);
-				} else if (stage == 1) {
-					player.setNextForceMovement(new ForceMovement(player.getTile(), 0,
-							new WorldTile(player.getX(), 3421, 3), 1, Direction.NORTH));
-				} else if (stage == 2) {
-					player.setNextAnimation(Animations.GNOME_JUMP_TO_PIPE_A);
-					player.setNextWorldTile(new WorldTile(player.getX(), 3421, 3));
-					player.setNextForceMovement(new ForceMovement(new WorldTile(player.getX(), 3421, 3), 0,
-							new WorldTile(player.getX(), 3425, 3), 1, Direction.NORTH));
-				} else if (stage == 3) {
-					player.setNextAnimation(Animations.GNOME_SWINING_ON_PIPE_A);
-					player.setNextWorldTile(new WorldTile(player.getX(), 3425, 3));
-				} else if (stage == 6)
-					player.setNextForceMovement(new ForceMovement(new WorldTile(player.getX(), 3425, 3), 1,
-							new WorldTile(player.getX(), 3429, 3), 2, Direction.NORTH));
-				else if (stage == 10) {
-					player.setNextWorldTile(new WorldTile(player.getX(), 3429, 3));
-				} else if (stage == 11) {
-					player.setNextForceMovement(new ForceMovement(new WorldTile(player.getX(), 3429, 3), 1,
-							new WorldTile(player.getX(), 3432, 3), 2, Direction.NORTH));
-				} else if (stage == 13) {
-					player.setNextWorldTile(new WorldTile(player.getX(), 3432, 3));
-					cancel();
-				}
-			}
+		LinkedTaskSequence seq = new LinkedTaskSequence();
+		seq.connect(1, () -> {
+			player.setNextAnimation(Animations.GNOME_RUNNING_IN_PLACE);
+			player.faceObject(object);
 		});
+		seq.connect(1, () -> player.setNextForceMovement(new ForceMovement(player.getTile(), 0,
+				new WorldTile(player.getX(), 3421, 3), 1, Direction.NORTH)));
+		seq.connect(2, () -> {
+			player.setNextAnimation(Animations.GNOME_JUMP_TO_PIPE_A);
+			player.setNextWorldTile(new WorldTile(player.getX(), 3421, 3));
+			player.setNextForceMovement(new ForceMovement(new WorldTile(player.getX(), 3421, 3), 0,
+					new WorldTile(player.getX(), 3425, 3), 1, Direction.NORTH));
+		});
+		seq.connect(1, () -> {
+			player.setNextAnimation(Animations.GNOME_SWINING_ON_PIPE_A);
+			player.setNextWorldTile(new WorldTile(player.getX(), 3425, 3));
+		});
+		seq.connect(3, () -> {
+			player.setNextForceMovement(new ForceMovement(new WorldTile(player.getX(), 3425, 3), 1,
+					new WorldTile(player.getX(), 3429, 3), 2, Direction.NORTH));
+		});
+		seq.connect(4, () -> player.setNextWorldTile(new WorldTile(player.getX(), 3429, 3)));
+		seq.connect(1, () -> {
+			player.setNextForceMovement(new ForceMovement(new WorldTile(player.getX(), 3429, 3), 1,
+					new WorldTile(player.getX(), 3432, 3), 2, Direction.NORTH));
+		});
+		seq.connect(2, () -> player.setNextWorldTile(new WorldTile(player.getX(), 3432, 3)))
+		.start();
 	}
 
 	@Override

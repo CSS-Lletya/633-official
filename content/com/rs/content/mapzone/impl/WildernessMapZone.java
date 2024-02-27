@@ -287,108 +287,85 @@ public class WildernessMapZone extends MapZone {
 	}
 	
 	public static void GateNorthOut(final Player player, final GameObject object) {
-		World.get().submit(new Task(1) {
-			@Override
-			protected void execute() {
-				player.getMovement().lock(2);
-				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-						object.getX(), object.getY() - 1, object.getPlane());
-				if (GameObject.removeObjectTemporary(object, 2))
-					GameObject.spawnObjectTemporary(openedDoor, 2);
-				player.addWalkSteps(object.getX(), object.getY(), -1, false);
-			}
+		player.task(thief -> {
+			thief.toPlayer().getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX(), object.getY() - 1, object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			thief.toPlayer().addWalkSteps(object.getX(), object.getY(), -1, false);
 		});
-
 	}
 
 	public static void GateSouthOut(final Player player, final GameObject object) {
-		World.get().submit(new Task(1) {
-			@Override
-			protected void execute() {
-				player.getMovement().lock(2);
-				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-						object.getX(), object.getY() + 1, object.getPlane());
-				if (GameObject.removeObjectTemporary(object, 2))
-					GameObject.spawnObjectTemporary(openedDoor, 2);
-				player.addWalkSteps(object.getX(), object.getY(), -1, false);
-			}
+		player.task(thief -> {
+			thief.toPlayer().getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX(), object.getY() + 1, object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			thief.toPlayer().addWalkSteps(object.getX(), object.getY(), -1, false);
 		});
 	}
 
 	public static void GateNorth(final Player player, final GameObject object) {
 		player.addWalkSteps(object.getX(), object.getY(), -1, false);
-		World.get().submit(new Task(1) {
-			@Override
-			protected void execute() {
-				player.getMovement().lock(2);
-				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-						object.getX(), object.getY() - 1, object.getPlane());
-				if (GameObject.removeObjectTemporary(object, 2))
-					GameObject.spawnObjectTemporary(openedDoor, 2);
-				player.addWalkSteps(object.getX(), object.getY() - 1, -1, false);
-			}
+		player.task(thief -> {
+			thief.toPlayer().getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX(), object.getY() - 1, object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			thief.toPlayer().addWalkSteps(object.getX(), object.getY() - 1, -1, false);
 		});
 	}
 
 	public static void GateSouth(final Player player, final GameObject object) {
 		player.addWalkSteps(object.getX(), object.getY(), -1, false);
-		World.get().submit(new Task(1) {
-			@Override
-			protected void execute() {
-				player.getMovement().lock(2);
-				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-						object.getX(), object.getY() + 1, object.getPlane());
-				if (GameObject.removeObjectTemporary(object, 2))
-					GameObject.spawnObjectTemporary(openedDoor, 2);
-				player.addWalkSteps(object.getX(), object.getY() + 1, -1, false);
-			}
+		player.task(thief -> {
+			thief.toPlayer().getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX(), object.getY() + 1, object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			thief.toPlayer().addWalkSteps(object.getX(), object.getY() + 1, -1, false);
 		});
 	}
 	
 	public static void LeaveEastDoor(final Player player, final GameObject object) {
 		player.addWalkSteps(object.getX(), object.getY(), -1, false);
-		World.get().submit(new Task(1) {
-			@Override
-			protected void execute() {
-				player.getMovement().lock(2);
-				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-						object.getX() + 1, object.getY(), object.getPlane());
-				if (GameObject.removeObjectTemporary(object, 2))
-					GameObject.spawnObjectTemporary(openedDoor, 2);
-				player.addWalkSteps(object.getX() + 1, object.getY(), 1, false);
-			}
+		player.task(thief -> {
+			thief.toPlayer().getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX() + 1, object.getY(), object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			thief.toPlayer().addWalkSteps(object.getX() + 1, object.getY(), 1, false);
 		});
 	}
 
 	public static void LeaveWestDoor(final Player player, final GameObject object) {
 		player.addWalkSteps(object.getX(), object.getY(), -1, false);
-		World.get().submit(new Task(1) {
-			@Override
-			protected void execute() {
-				player.getMovement().lock(2);
-				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-						object.getX() - 1, object.getY(), object.getPlane());
-				if (GameObject.removeObjectTemporary(object, 2))
-					GameObject.spawnObjectTemporary(openedDoor, 2);
-				player.addWalkSteps(object.getX() - 1, object.getY(), 1, false);
-			}
+		player.task(thief -> {
+			thief.toPlayer().getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX() - 1, object.getY(), object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			thief.toPlayer().addWalkSteps(object.getX() - 1, object.getY(), 1, false);
 		});
 	}
 
 	public static void LeaveNorthDoor(final Player player, final GameObject object) {
 		player.addWalkSteps(object.getX(), object.getY(), -1, false);
-		World.get().submit(new Task(1) {
-			@Override
-			protected void execute() {
-				player.getMovement().lock(2);
-				GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
-						object.getX(), object.getY() + 1, object.getPlane());
-				if (GameObject.removeObjectTemporary(object, 2))
-					GameObject.spawnObjectTemporary(openedDoor, 2);
-				player.addWalkSteps(object.getX(), object.getY() + 1, 1, false);
-			}
+		player.task(thief -> {
+			thief.toPlayer().getMovement().lock(2);
+			GameObject openedDoor = new GameObject(object.getId(), object.getType(), object.getRotation() + 1,
+					object.getX(), object.getY() + 1, object.getPlane());
+			if (GameObject.removeObjectTemporary(object, 2))
+				GameObject.spawnObjectTemporary(openedDoor, 2);
+			thief.toPlayer().addWalkSteps(object.getX(), object.getY() + 1, 1, false);
 		});
-
 	}
 
 	public static void EnterEastDoor(final Player player, final GameObject object) {

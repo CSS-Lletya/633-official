@@ -4,11 +4,10 @@ import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
 import com.rs.game.dialogue.impl.StairsLaddersDialogue;
 import com.rs.game.map.GameObject;
-import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.doors.Doors;
-import com.rs.game.task.Task;
+import com.rs.game.task.LinkedTaskSequence;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
@@ -32,21 +31,9 @@ public class ArdougneRegionObjectPlugin extends ObjectListener {
 				return;
 			}
 			player.faceObject(object);
-			World.get().submit(new Task(1) {
-				int tick;
-				@Override
-				protected void execute() {
-					switch (tick++) {
-					case 1:
-						player.setNextAnimation(Animations.LOCKPICKING);
-						break;
-					case 3:
-						Doors.handleClosedDoor(player, object);
-						break;
-					}
-				}
-			});
+			LinkedTaskSequence seq = new LinkedTaskSequence();
+			seq.connect(1, () -> player.setNextAnimation(Animations.LOCKPICKING));
+			seq.connect(2, () -> Doors.handleClosedDoor(player, object)).start();
 		});
 	}
-
 }

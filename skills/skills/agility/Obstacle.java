@@ -3,9 +3,7 @@ package skills.agility;
 import java.util.Optional;
 
 import com.rs.game.map.GameObject;
-import com.rs.game.map.World;
 import com.rs.game.player.Player;
-import com.rs.game.task.Task;
 import com.rs.utilities.MutableNumber;
 
 import skills.Skills;
@@ -82,15 +80,11 @@ public interface Obstacle {
 		if (getStartMessage() != null)
 			player.getPackets().sendGameMessage(getStartMessage());
 		start(player, object);
-		World.get().submit(new Task(AgilityHandler.getDuration(this, object)) {
-			@Override
-			protected void execute() {
-				finish(player, object);
-				player.setRunHidden(run);
-				checkExperience(player, object);
-				end(player, object);
-				cancel();
-			}
+		player.task(AgilityHandler.getDuration(this, object), jumper -> {
+			finish(jumper.toPlayer(), object);
+			player.setRunHidden(run);
+			checkExperience(jumper.toPlayer(), object);
+			end(jumper.toPlayer(), object);
 		});
 	}
 

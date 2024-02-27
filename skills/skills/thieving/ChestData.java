@@ -27,29 +27,21 @@ public enum ChestData {
     BLOOD_RUNE_CHEST(59, 225, 250, true, 2569, 2604, new Item(995, 500), new Item(565, 2)) {
         @Override
         public void onSuccess(Player player) {
-        	World.get().submit(new Task(1) {
-        		@Override
-        		protected void execute() {
-        			player.getPackets().sendGameMessage("Suddenly a second magical trap triggers.");
-                     player.setNextAnimation(Animations.RESET_ANIMATION);
-                     player.setNextWorldTile(new WorldTile(2584, 3337));
-        			cancel();
-        		}
+        	player.task(thief -> {
+        		player.getPackets().sendGameMessage("Suddenly a second magical trap triggers.");
+                player.setNextAnimation(Animations.RESET_ANIMATION);
+                player.setNextWorldTile(new WorldTile(2584, 3337));
         	});
         }
     },
     
     PALADIN_CHEST(72, 667, 500, true, 2570, 2604, new Item(995, 1000), new Item(383), new Item(449), new Item(1623)) {
         @Override
-        public void onSuccess(Player player) {
-        	World.get().submit(new Task(1) {
-        		@Override
-        		protected void execute() {
-        			player.getPackets().sendGameMessage("Suddenly a second magical trap triggers.");
-                    player.setNextAnimation(Animations.RESET_ANIMATION);
-                    player.setNextWorldTile(new WorldTile(2696, 3281));
-        			cancel();
-        		}
+        public void onSuccess(Player player) { //refactor all this stuff from search. try to use linked when available
+        	player.task(thief -> {
+        		player.getPackets().sendGameMessage("Suddenly a second magical trap triggers.");
+                player.setNextAnimation(Animations.RESET_ANIMATION);
+                player.setNextWorldTile(new WorldTile(2696, 3281));
         	});
         }
     },
