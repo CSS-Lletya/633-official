@@ -26,7 +26,7 @@ public class SawmillMapZone extends MapZone {
 	public static final int OVERSEER = 8904;
 
 	public SawmillMapZone() {
-		super("Sawmill", MapZoneSafetyCondition.SAFE, MapZoneType.NORMAL, ZoneRestriction.FIRES,
+		super("Sawmill MapZone", MapZoneSafetyCondition.SAFE, MapZoneType.NORMAL, ZoneRestriction.FIRES,
 				ZoneRestriction.CANNON);
 	}
 

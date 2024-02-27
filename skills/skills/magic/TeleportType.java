@@ -71,7 +71,7 @@ public enum TeleportType {
 }
 
 /**
- * Executes a special event that contains specific time-based occurances within the single event
+ * Executes a special event that contains specific time-based occurrences within the single event
  * @author Dennis
  *
  */

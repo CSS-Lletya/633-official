@@ -18,7 +18,7 @@ import skills.Skills;
 public class GlobalPVPMapZone extends MapZone {
 
 	public GlobalPVPMapZone() {
-		super("GLOBAL_PVP", MapZoneSafetyCondition.DANGEROUS, MapZoneType.NORMAL);
+		super("Global PVP MapZone", MapZoneSafetyCondition.DANGEROUS, MapZoneType.NORMAL);
 	}
 
 	@Override

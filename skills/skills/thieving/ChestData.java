@@ -2,12 +2,10 @@ package skills.thieving;
 
 import com.rs.constants.Animations;
 import com.rs.game.item.Item;
-import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.Player;
-import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtility;
 
 import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
@@ -37,7 +35,7 @@ public enum ChestData {
     
     PALADIN_CHEST(72, 667, 500, true, 2570, 2604, new Item(995, 1000), new Item(383), new Item(449), new Item(1623)) {
         @Override
-        public void onSuccess(Player player) { //refactor all this stuff from search. try to use linked when available
+        public void onSuccess(Player player) {
         	player.task(thief -> {
         		player.getPackets().sendGameMessage("Suddenly a second magical trap triggers.");
                 player.setNextAnimation(Animations.RESET_ANIMATION);

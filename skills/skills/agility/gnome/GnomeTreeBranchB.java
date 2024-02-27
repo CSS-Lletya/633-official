@@ -16,12 +16,13 @@ public class GnomeTreeBranchB implements Obstacle {
 
 	@Override
 	public void start(Player player, GameObject object) {
+		player.getMovement().move(false, new WorldTile(2486, 3419, 0), TeleportType.LADDER);
 	}
 
 	@Override
 	public void end(Player player, GameObject object) {
 		player.getPackets().sendGameMessage("You land on the ground.");
-		player.getMovement().move(false, new WorldTile(2486, 3419, 0), TeleportType.LADDER);
+		
 	}
 	
 	@Override

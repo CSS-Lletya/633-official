@@ -7,7 +7,7 @@ import com.rs.game.player.Player;
 public class TestMapZone extends MapZone {
 
 	public TestMapZone() {
-		super("TEST", MapZoneSafetyCondition.SAFE, MapZoneType.NORMAL, ZoneRestriction.FIRES, ZoneRestriction.CANNON);
+		super("Test MapZone", MapZoneSafetyCondition.SAFE, MapZoneType.NORMAL, ZoneRestriction.FIRES, ZoneRestriction.CANNON);
 	}
 
 	@Override

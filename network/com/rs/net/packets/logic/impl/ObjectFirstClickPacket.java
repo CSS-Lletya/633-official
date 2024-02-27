@@ -13,7 +13,7 @@ import com.rs.plugin.ObjectPluginDispatcher;
 import skills.agility.AgilityHandler;
 
 @LogicPacketSignature(packetId = 75, packetSize = 7, description = "First click packet")
-public class ObjectClickPacket implements LogicPacketListener {
+public class ObjectFirstClickPacket implements LogicPacketListener {
 
 	@Override
 	public void execute(Player player, InputStream input) {
@@ -46,6 +46,9 @@ public class ObjectClickPacket implements LogicPacketListener {
 		player.getMovement().stopAll();
 		if (forceRun)
 			player.setRun(forceRun);
+		if (isSpecialDistancedObject(player, worldObject)) {
+			return;
+		}
 		player.setRouteEvent(new RouteEvent(worldObject, () -> {
 			if (player.getMapZoneManager().execute(controller -> !controller.processObjectClick1(player, worldObject)))
 				return;
@@ -54,5 +57,24 @@ public class ObjectClickPacket implements LogicPacketListener {
 			AgilityHandler.execute(player, worldObject);
 			ObjectPluginDispatcher.execute(player, worldObject, 1);
 		}));
+	}
+
+	private boolean isSpecialDistancedObject(Player player, GameObject worldObject) {
+		int id = worldObject.getId();
+		switch(id) {
+		case 43581:
+			player.setRouteEvent(new RouteEvent(worldObject, () -> {
+				if (player.withinDistance(worldObject, 1))
+					AgilityHandler.execute(player, worldObject);
+			}, true));
+			return true;
+		case 43529:
+			player.setRouteEvent(new RouteEvent(worldObject, () -> {
+				if (player.withinDistance(worldObject, 5))
+					AgilityHandler.execute(player, worldObject);
+			}, true));
+			return true;
+		}
+		return false;
 	}
 }

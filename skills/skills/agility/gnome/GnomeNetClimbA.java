@@ -17,11 +17,12 @@ public class GnomeNetClimbA implements Obstacle {
 	@Override
 	public void start(Player player, GameObject object) {
 		player.getPackets().sendGameMessage("You climb the netting.");
+		player.getMovement().move(false, new WorldTile(player.getX(), 3424, 1), TeleportType.LADDER);
 	}
 
 	@Override
 	public void end(Player player, GameObject object) {
-		player.getMovement().move(false, new WorldTile(player.getX(), 3424, 1), TeleportType.LADDER);
+		
 	}
 	
 	@Override

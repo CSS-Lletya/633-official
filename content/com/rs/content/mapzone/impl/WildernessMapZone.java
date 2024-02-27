@@ -6,13 +6,11 @@ import com.rs.constants.Sounds;
 import com.rs.content.mapzone.MapZone;
 import com.rs.game.Entity;
 import com.rs.game.map.GameObject;
-import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Player;
 import com.rs.game.player.type.CombatEffectType;
-import com.rs.game.task.Task;
 import com.rs.utilities.Utility;
 
 import skills.Skills;
@@ -20,7 +18,7 @@ import skills.Skills;
 public class WildernessMapZone extends MapZone {
 
 	public WildernessMapZone() {
-		super("WILDERNESS", MapZoneSafetyCondition.DANGEROUS, MapZoneType.NORMAL);
+		super("Wilderness MapZone", MapZoneSafetyCondition.DANGEROUS, MapZoneType.NORMAL);
 	}
 
 	@Override

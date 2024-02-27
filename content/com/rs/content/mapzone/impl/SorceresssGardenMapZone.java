@@ -10,13 +10,11 @@ import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
-import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.FadingScreen;
 import com.rs.game.player.content.Magic;
-import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
@@ -26,7 +24,7 @@ import skills.thieving.impl.SqirkFruitSqueeze.SqirkFruit;
 public class SorceresssGardenMapZone extends MapZone {
 
 	public SorceresssGardenMapZone() {
-		super("TEST", MapZoneSafetyCondition.SAFE, MapZoneType.NORMAL);
+		super("Sorceresss Garden MapZone", MapZoneSafetyCondition.SAFE, MapZoneType.NORMAL);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ public class GnomeAdvancedPoleSwinging implements Obstacle {
 	@Override
 	public void start(Player player, GameObject object) {
 		LinkedTaskSequence seq = new LinkedTaskSequence();
+		System.out.println("?");
 		seq.connect(1, () -> {
 			player.setNextAnimation(Animations.GNOME_RUNNING_IN_PLACE);
 			player.faceObject(object);
