@@ -354,4 +354,8 @@ public class World {
             World.AVAILABLE_PIDS.add(pidB);
         }
     }
+
+    public static final boolean containsObjectWithId(WorldTile tile, int id) {
+        return getRegion(tile.getRegionId()).containsObjectWithId(tile.getPlane(), tile.getXInRegion(), tile.getYInRegion(), id);
+    }
 }

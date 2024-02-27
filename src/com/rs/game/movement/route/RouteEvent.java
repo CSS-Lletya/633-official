@@ -3,6 +3,7 @@ package com.rs.game.movement.route;
 import com.rs.game.Entity;
 import com.rs.game.item.FloorItem;
 import com.rs.game.map.GameObject;
+import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.strategy.EntityStrategy;
 import com.rs.game.movement.route.strategy.FixedTileStrategy;
@@ -107,9 +108,10 @@ public class RouteEvent {
 
 	private boolean simpleCheck(Player player) {
 		if (object instanceof Entity) {
-			return player.getPlane() == ((Entity) object).getPlane();
+			return player.getPlane() == ((Entity) object).getPlane() && !((Entity) object).isFinished();
 		} else if (object instanceof GameObject) {
-			return player.getPlane() == ((GameObject) object).getPlane();
+			return player.getPlane() == ((GameObject) object).getPlane()
+					&& World.containsObjectWithId(((GameObject) object), ((GameObject) object).getId());
 		} else if (object instanceof FloorItem) {
 			return player.getPlane() == ((FloorItem) object).getTile().getPlane();
 		} else {
