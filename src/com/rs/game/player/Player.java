@@ -550,6 +550,7 @@ public class Player extends Entity {
 		setUpdateMovementType(true);
 		getMapZoneManager().execute(controller -> controller.login(this));
 		if (!HostManager.contains(getUsername(), HostListType.STARTER_RECEIVED)) {
+			getBank().addItem(new Item(995, 25), false);
 			ItemConstants.STATER_KIT.forEach(getInventory()::addItem);
 			HostManager.add(this, HostListType.STARTER_RECEIVED);
 			World.sendWorldMessage("[New Player] " + getDisplayName() + " has just joined " + GameConstants.SERVER_NAME);

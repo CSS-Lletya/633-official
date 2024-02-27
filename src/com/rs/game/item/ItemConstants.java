@@ -21,8 +21,12 @@ public class ItemConstants {
 	 * A Players starter kit when joining the game for the first time.
 	 */
 	public final static ImmutableSet<Item> STATER_KIT = ImmutableSet.of(
-			new Item(ItemNames.COINS_995, 10_000), new Item(ItemNames.BRONZE_SCIMITAR_1321), new Item(ItemNames.STAFF_OF_AIR_1381),
-			new Item(ItemNames.SHORTBOW_841), new Item(ItemNames.BRONZE_ARROW_882, 250)
+			new Item(ItemNames.BRONZE_HATCHET_1351, 1), new Item(ItemNames.TINDERBOX_590), new Item(ItemNames.SMALL_FISHING_NET_303),
+			new Item(ItemNames.SHRIMPS_315), new Item(ItemNames.EMPTY_BUCKET_3727), new Item(ItemNames.EMPTY_POT_1931)
+			, new Item(ItemNames.BREAD_2309), new Item(ItemNames.BRONZE_PICKAXE_1265), new Item(ItemNames.BRONZE_DAGGER_1205)
+			, new Item(ItemNames.BRONZE_SWORD_1277), new Item(ItemNames.WOODEN_SHIELD_1171), new Item(ItemNames.SHORTBOW_841)
+			, new Item(ItemNames.BRONZE_ARROW_882, 25), new Item(ItemNames.AIR_RUNE_556, 25), new Item(ItemNames.MIND_RUNE_558,15)
+			, new Item(ItemNames.WATER_RUNE_555,6), new Item(ItemNames.EARTH_RUNE_557, 4), new Item(ItemNames.MIND_RUNE_558, 2)
 	);
 
 	public static boolean canWear(Item item, Player player) {
