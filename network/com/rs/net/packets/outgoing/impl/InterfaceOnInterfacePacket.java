@@ -1,6 +1,5 @@
 package com.rs.net.packets.outgoing.impl;
 
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 import com.rs.GameConstants;
@@ -24,7 +23,7 @@ import com.rs.utilities.Utility;
 
 import skills.SkillsDialogue;
 import skills.cooking.DoughCreation;
-import skills.cooking.DoughCreation.DoughData;
+import skills.cooking.FoodSlicing;
 import skills.crafting.SoftClayCreation;
 import skills.firemaking.Firemaking;
 import skills.fletching.BowCarving;
@@ -168,6 +167,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				});
 			});
 		});
+		
 		new UseWith(new Item(1513), new Item(946)).execute(itemUsed, usedWith, () -> {
 			player.dialogue(d -> {
 				BowCarving fletching = new BowCarving(player, Log.MAGIC, false);
@@ -189,20 +189,32 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				.forEach(waterSource -> new UseWith(new Item(waterSource), new Item(ItemNames.CLAY_434)).execute(usedWith, itemUsed,
 						() -> new SoftClayCreation(player, Filler.values()).start()));
 		 
+		IntStream.of(2307, 11332, 5980, 2102, 2108, 2114, 11328, 11330, 1963, 7572, 3692, 5982)
+				.filter(id -> fromItemId == id || toItemId == id)
+				.forEach(slices -> new UseWith(new Item(slices), new Item(946)).execute(usedWith, itemUsed, () -> {
+					player.dialogue(d -> {
+						d.skillsMenu(FoodSlicing.getDefinition(usedWith.getId(), itemUsed.getId()).get().produced);
+						d.skillDialogue(new SkillDialogueFeedback() {
+							@Override
+							public void handle(int button) {
+								FoodSlicing.create(player, usedWith, itemUsed);
+							}
+						});
+					});
+				}));
+
 		IntStream.of(227, 1761, 1921, 1929, 3735, 19994, 1937, 5340, 5340, 5340, 5340, 5340, 5340, 5340, 5340, 7690)
 		.filter(id -> fromItemId == id || toItemId == id)
 		.forEach(waterSource -> new UseWith(new Item(waterSource), new Item(1933)).execute(usedWith, itemUsed,
 				() -> {
 					player.dialogue(d -> {
-						Arrays.stream(DoughData.values()).forEach(dough -> {
-							d.skillsMenu(dough.produced);
+						d.skillsMenu(DoughCreation.getDefinition(usedWith.getId(), itemUsed.getId()).get().produced);
 							d.skillDialogue(new SkillDialogueFeedback() {
 								@Override
 								public void handle(int button) {
-									new DoughCreation(player, dough, new Item(waterSource), new Item(1993)).start();
+									DoughCreation.create(player, usedWith, itemUsed, waterSource);
 								}
 							});
-						});
 					});
 				}));
 		 
