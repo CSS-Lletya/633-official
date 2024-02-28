@@ -516,7 +516,7 @@ public class Player extends Entity {
 			getMapZoneManager().submitMapZone(new GlobalPVPMapZone());
 			dialogue(d -> d.item(11784, "Welcome to " + GameConstants.SERVER_NAME + "'s PVP World. Good luck!"));
 		} else {
-			if (getCurrentMapZone().isPresent() && getCurrentMapZone().get() instanceof GlobalPVPMapZone && !GameConstants.isPVPWorld()) {
+			if (getMapZoneManager().isValidInstance(GlobalPVPMapZone.class) && !GameConstants.isPVPWorld()) {
 				getMapZoneManager().endMapZoneSession(this);
 			} else
 				getCurrentMapZone().ifPresent(getMapZoneManager()::submitMapZone);

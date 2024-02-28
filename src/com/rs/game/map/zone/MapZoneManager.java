@@ -8,29 +8,31 @@ import com.rs.GameConstants;
 import com.rs.game.player.Player;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.MapZoneAdapter;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * A modernized Map Zone handling system, formally known as "Controller" it operates the same.
+ * As we save the {@link Player} data into json format we needed to make a {@link MapZoneAdapter} accordingly.
  * @author Dennis
  */
 public class MapZoneManager {
 	
+	/**
+	 * Represents the {@link Player} in the {@link MapZone}
+	 */
 	@Getter
 	@Setter
 	public Player player;
 	
 	/**
-	 * Submits a new Map Zone for the Player to enter.
+	 * Submits a new {@link MapZone} for the {@link Player} to enter.
 	 * @param player
 	 * @param zone
 	 */
 	public void submitMapZone(MapZone zone) {
-		player.getCurrentMapZone().ifPresent(currentZone -> {
-			currentZone.finish(player);
-			player.setCurrentMapZone(Optional.empty());
-		});
 		player.setCurrentMapZone(Optional.of(zone));
 		player.getCurrentMapZone().ifPresent(newZone -> newZone.start(player));
 	}
@@ -41,9 +43,7 @@ public class MapZoneManager {
 	 * @param action the backed controller action to execute.
 	 */
 	public void executeVoid(Consumer<MapZone> action) {
-		if (getMapZone().isPresent()) {
-			action.accept(player.getCurrentMapZone().get());
-		}
+		getMapZone().ifPresent(action::accept);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class MapZoneManager {
 	}
 	
 	/**
-	 * Force ends a map zone session
+	 * Force ends a map zone session.
 	 * @param player
 	 */
 	public void endMapZoneSession(Player player) {
@@ -87,9 +87,21 @@ public class MapZoneManager {
 		});
 	}
 	
+	/**
+	 * Checks if the inherited class is a valid instance of {@link MapZone}.
+	 * This updates the "instanceof" condition and removes the exclusive Casting before executing inherited class code.
+	 * @param <T>
+	 * @param zoneClass
+	 * @return
+	 */
+	public <T extends MapZone> boolean isValidInstance(Class<T> zoneClass) {
+	    return getMapZone()
+	            .map(zoneClass::isInstance)
+	            .orElse(false);
+	}
 	
 	/**
-	 * Checks to see if the current {@link MapZone} is a valid instance of the {@link MapZone}, then executes the supplied consumer
+	 * Checks to see if the current {@link MapZone} is a valid instance of the {@link MapZone}, then executes the supplied consumer.
 	 * @param <T>
 	 * @param zoneClass
 	 * @param consumer

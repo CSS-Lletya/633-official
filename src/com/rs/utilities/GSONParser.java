@@ -12,6 +12,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rs.content.quests.Quest;
+import com.rs.game.map.zone.MapZone;
 import com.rs.game.player.Player;
 
 import lombok.SneakyThrows;
@@ -27,7 +28,9 @@ public class GSONParser {
 	private static Gson GSON;
 
 	static {
-		GSON = new GsonBuilder().disableHtmlEscaping().registerTypeAdapter(Quest.class, new QuestJsonAdapter())
+		GSON = new GsonBuilder().disableHtmlEscaping()
+				.registerTypeAdapter(Quest.class, new QuestJsonAdapter())
+				.registerTypeAdapter(MapZone.class, new MapZoneAdapter())
                 .setPrettyPrinting().disableInnerClassSerialization().enableComplexMapKeySerialization()
                 .setDateFormat(DateFormat.LONG).setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
 	}

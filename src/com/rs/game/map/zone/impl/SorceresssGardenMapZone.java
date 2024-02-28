@@ -51,7 +51,7 @@ public class SorceresssGardenMapZone extends MapZone {
     }
     
     public static void teleportToSocreressGarden(final Player player, boolean broomstick) {
-        if (player.getCurrentMapZone().isPresent() && player.getCurrentMapZone().get() instanceof SorceresssGardenMapZone) {
+        if (player.getMapZoneManager().isValidInstance(SorceresssGardenMapZone.class)) {
             player.getPackets().sendGameMessage(
                     "You can't teleport to the Sorceress's Garden whilst you're in the Sorceress's Garden!");
             return;
