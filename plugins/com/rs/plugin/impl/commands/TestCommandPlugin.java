@@ -1,8 +1,8 @@
 package com.rs.plugin.impl.commands;
 
-import com.rs.game.map.zone.impl.GlobalPVPMapZone;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
+import com.rs.game.player.content.InterfaceCreator;
 import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
@@ -17,6 +17,6 @@ public class TestCommandPlugin implements CommandListener {
 
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		player.getMapZoneManager().submitMapZone(new GlobalPVPMapZone());
+		new InterfaceCreator(player, 468).renderAsInterface().onClose(() -> System.out.println("hi"));
 	}
 }

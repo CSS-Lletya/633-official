@@ -263,7 +263,7 @@ public class InterfaceCreator {
 	}
 	
 	/**
-	 * 
+	 * Sends the items to the container with specified instructions.
 	 * @param componentId
 	 * @param key
 	 * @param width
@@ -277,7 +277,7 @@ public class InterfaceCreator {
 	}
 	
 	/**
-	 * 
+	 * Unlocks the components in context menu
 	 * @param componentId
 	 * @param fromSlot
 	 * @param toSlot
@@ -286,6 +286,16 @@ public class InterfaceCreator {
 	 */
 	public InterfaceCreator sendUnlockIComponentOptionSlots(int componentId, int fromSlot, int toSlot, int... optionsSlots) {
 		player.getPackets().sendUnlockIComponentOptionSlots(interfaceId, componentId, fromSlot, toSlot, optionsSlots);
+		return this;
+	}
+	
+	/**
+	 * Represents a runnable action event that occurs when the interface is being closed.
+	 * @param run
+	 * @return
+	 */
+	public InterfaceCreator onClose(Runnable run) {
+		player.setCloseInterfacesEvent(run);
 		return this;
 	}
 }
