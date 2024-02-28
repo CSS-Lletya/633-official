@@ -1,7 +1,7 @@
 package com.rs.game.dialogue.impl;
 
-import com.rs.content.mapzone.impl.SawmillMapZone;
 import com.rs.game.dialogue.DialogueEventListener;
+import com.rs.game.map.zone.impl.SawmillMapZone;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 

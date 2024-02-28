@@ -1,16 +1,16 @@
-package com.rs.content.mapzone.impl;
+package com.rs.game.map.zone.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import com.rs.constants.Animations;
-import com.rs.content.mapzone.MapZone;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
+import com.rs.game.map.zone.MapZone;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.FadingScreen;

@@ -1,4 +1,4 @@
-package com.rs.content.mapzone;
+package com.rs.game.map.zone;
 
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -41,7 +41,7 @@ public class MapZoneManager {
 	 * @param action the backed controller action to execute.
 	 */
 	public void executeVoid(Consumer<MapZone> action) {
-		if (getMapZone(player).isPresent()) {
+		if (getMapZone().isPresent()) {
 			action.accept(player.getCurrentMapZone().get());
 		}
 	}
@@ -53,8 +53,8 @@ public class MapZoneManager {
 	 * @param defaultValue the default value to return if the player isn't in a map zone.
 	 * @param function the function to execute that returns a result.
 	 */
-	public boolean execute(Function<MapZone, Boolean> function) {
-		return getMapZone(player).isPresent() ? function.apply(player.getCurrentMapZone().get()) : false;
+	public boolean execute(Function<MapZone, Boolean> function) { 
+		return getMapZone().isPresent() ? function.apply(getMapZone().get()) : false;
 	}
 	
 	/**
@@ -62,20 +62,18 @@ public class MapZoneManager {
 	 * @param player the player to determine the map zone for.
 	 * @return the map zone that the player is currently in.
 	 */
-	public Optional<MapZone> getMapZone(Player player) {
-		MapZone mapZone = player.getCurrentMapZone().orElse(null);
-		if (mapZone == null)
-			return Optional.empty();
-		if(!mapZone.contains(player)) {
+	public Optional<MapZone> getMapZone() {
+		Optional<MapZone> mapZone = player.getCurrentMapZone();
+		mapZone.filter(zone -> !zone.contains(player)).ifPresent(zone -> {
 			if (GameConstants.DEBUG)
 				LogUtility.log(LogType.ERROR,
 						"[Map Zone Error] Player: " + player.getUsername() + "'s current map zone is: "
-								+ mapZone.getClass().getSimpleName() + " but wasn't inside, ending their map zone session.");
-			mapZone.finish(player);
+								+ mapZone.getClass().getSimpleName()
+								+ " but wasn't inside, ending their map zone session.");
+			zone.finish(player);
 			player.setCurrentMapZone(Optional.empty());
-			return Optional.empty();
-		}
-		return Optional.of(mapZone);
+		});
+		return mapZone == null ? Optional.empty() : mapZone;
 	}
 	
 	/**
@@ -87,5 +85,21 @@ public class MapZoneManager {
 			currentZone.finish(player);
 			player.setCurrentMapZone(Optional.empty());
 		});
+	}
+	
+	
+	/**
+	 * Checks to see if the current {@link MapZone} is a valid instance of the {@link MapZone}, then executes the supplied consumer
+	 * @param <T>
+	 * @param zoneClass
+	 * @param consumer
+	 * @return
+	 */
+	public <T extends MapZone> boolean doWithin(Class<T> zoneClass, Consumer<T> consumer) {
+	    return getMapZone()
+	    		.map(zoneClass::cast)
+	            .filter(zoneClass::isInstance)
+	            .map(zone -> { consumer.accept(zone); return true; })
+	            .orElse(false);
 	}
 }

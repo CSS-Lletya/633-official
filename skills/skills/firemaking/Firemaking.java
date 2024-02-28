@@ -5,12 +5,12 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
-import com.rs.content.mapzone.ZoneRestriction;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.Region;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
+import com.rs.game.map.zone.ZoneRestriction;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -152,7 +152,7 @@ public class Firemaking extends DestructionSkillAction {
             player.getPackets().sendGameMessage("You can't light a fire here.");
             return false;
         }
-        if (player.getCurrentMapZone().isPresent() && player.getMapZoneManager().getMapZone(player).get().isRestricted(ZoneRestriction.FIRES)) {
+        if (player.getCurrentMapZone().isPresent() && player.getMapZoneManager().getMapZone().get().isRestricted(ZoneRestriction.FIRES)) {
         	 player.getPackets().sendGameMessage("You can't light a fire here.");
         	 return false;
         }

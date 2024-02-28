@@ -188,7 +188,7 @@ public class NPCPluginDispatcher {
 				npc.doAction(optionId, "trade", () -> ShopsHandler.openShop(player, key));
 				npc.doAction(optionId, "shop", () -> ShopsHandler.openShop(player, key));
 			}
-			if (player.getMapZoneManager().getMapZone(player).isPresent()) {
+			player.getMapZoneManager().getMapZone().ifPresent(zone -> {
 				switch(optionId) {
 				case 1:
 					player.getMapZoneManager().execute(controller -> !controller.processNPCClick1(player, npc));
@@ -203,7 +203,7 @@ public class NPCPluginDispatcher {
 					player.getMapZoneManager().execute(controller -> !controller.processNPCClick4(player, npc));
 					break;
 				}
-			}
+			});
 		}, false));
 
 	}

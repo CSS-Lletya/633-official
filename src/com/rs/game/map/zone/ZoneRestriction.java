@@ -1,4 +1,4 @@
-package com.rs.content.mapzone;
+package com.rs.game.map.zone;
 
 /**
  * The zone restrictions.

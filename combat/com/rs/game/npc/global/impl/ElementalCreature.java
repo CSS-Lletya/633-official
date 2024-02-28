@@ -2,9 +2,9 @@ package com.rs.game.npc.global.impl;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
-import com.rs.content.mapzone.impl.SorceresssGardenMapZone;
 import com.rs.game.Entity;
 import com.rs.game.map.WorldTile;
+import com.rs.game.map.zone.impl.SorceresssGardenMapZone;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.global.GenericNPCListener;
 import com.rs.game.npc.global.GenericNPCSignature;

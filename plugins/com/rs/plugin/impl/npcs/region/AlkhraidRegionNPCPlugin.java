@@ -1,8 +1,8 @@
 package com.rs.plugin.impl.npcs.region;
 
-import com.rs.content.mapzone.impl.SorceresssGardenMapZone;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
+import com.rs.game.map.zone.impl.SorceresssGardenMapZone;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.NPCListener;

@@ -1,12 +1,12 @@
-package com.rs.content.mapzone.impl;
+package com.rs.game.map.zone.impl;
 
 import java.util.Optional;
 
 import com.rs.constants.Sounds;
-import com.rs.content.mapzone.MapZone;
 import com.rs.game.Entity;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
+import com.rs.game.map.zone.MapZone;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Player;
@@ -36,7 +36,7 @@ public class GlobalPVPMapZone extends MapZone {
 
 	@Override
 	public boolean keepCombating(Player player,Entity target) {
-		if (target instanceof NPC)
+		if (target.isNPC())
 			return true;
 		if (!canAttack(player, target))
 			return false;
@@ -52,7 +52,7 @@ public class GlobalPVPMapZone extends MapZone {
 
 	@Override
 	public boolean canAttack(Player player, Entity target) {
-		if (target instanceof Player) {
+		if (target.isPlayer()) {
 			Player p2 = (Player) target;
 			if (player.getDetails().getCanPvp().isTrue() && p2.getDetails().getCanPvp().isFalse()) {
 				player.getPackets().sendGameMessage("That player is not in the wilderness.");
@@ -71,7 +71,7 @@ public class GlobalPVPMapZone extends MapZone {
 
 	@Override
 	public boolean canHit(Player player, Entity target) {
-		if (target instanceof NPC)
+		if (target.isNPC())
 			return true;
 		Player p2 = (Player) target;
 		if (Math.abs(player.getSkills().getCombatLevel() - p2.getSkills().getCombatLevel()) > getWildLevel(player))

@@ -1,10 +1,10 @@
 package com.rs.plugin.impl.objects.region;
 
 import com.rs.constants.Animations;
-import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
+import com.rs.game.map.zone.impl.WildernessMapZone;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.plugin.listener.ObjectListener;

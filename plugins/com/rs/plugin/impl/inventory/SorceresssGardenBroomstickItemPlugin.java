@@ -1,8 +1,8 @@
 package com.rs.plugin.impl.inventory;
 
 import com.rs.constants.Animations;
-import com.rs.content.mapzone.impl.SorceresssGardenMapZone;
 import com.rs.game.item.Item;
+import com.rs.game.map.zone.impl.SorceresssGardenMapZone;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.plugin.listener.InventoryListener;

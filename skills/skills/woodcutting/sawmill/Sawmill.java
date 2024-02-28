@@ -1,11 +1,11 @@
 package skills.woodcutting.sawmill;
 
 import com.rs.constants.Sounds;
-import com.rs.content.mapzone.impl.SawmillMapZone;
 import com.rs.game.Entity;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
+import com.rs.game.map.zone.impl.SawmillMapZone;
 import com.rs.game.player.Player;
 import com.rs.utilities.IntegerInputAction;
 

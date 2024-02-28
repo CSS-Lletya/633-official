@@ -3,7 +3,7 @@ package com.rs.game.task.impl;
 import java.util.stream.IntStream;
 
 import com.rs.constants.Animations;
-import com.rs.content.mapzone.impl.WildernessMapZone;
+import com.rs.game.map.zone.impl.WildernessMapZone;
 import com.rs.game.player.Hit;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.Player;

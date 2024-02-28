@@ -1,14 +1,14 @@
-package com.rs.content.mapzone.impl;
+package com.rs.game.map.zone.impl;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
-import com.rs.content.mapzone.MapZone;
-import com.rs.content.mapzone.ZoneRestriction;
 import com.rs.game.Entity;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.impl.OverseerDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
+import com.rs.game.map.zone.MapZone;
+import com.rs.game.map.zone.ZoneRestriction;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.utilities.Utility;

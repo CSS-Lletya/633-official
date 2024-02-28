@@ -5,12 +5,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.rs.GameConstants;
 import com.rs.constants.Animations;
-import com.rs.content.mapzone.MapZone.MapZoneSafetyCondition;
-import com.rs.content.mapzone.impl.WildernessMapZone;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.map.WorldTile;
+import com.rs.game.map.zone.MapZone.MapZoneSafetyCondition;
+import com.rs.game.map.zone.impl.WildernessMapZone;
 import com.rs.game.npc.other.Gravestone;
 import com.rs.game.task.impl.ActorDeathTask;
 import com.rs.net.host.HostManager;
@@ -63,7 +63,7 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 		getActor().getMovement().setRunEnergy(100);
 		getActor().setNextWorldTile(new WorldTile(GameConstants.START_PLAYER_LOCATION));
 		new Gravestone(getActor(), getActor());
-		if (getActor().getMapZoneManager().getMapZone(getActor()).isPresent() && getActor().getMapZoneManager().getMapZone(getActor()).get().getSafety() == MapZoneSafetyCondition.SAFE)
+		if (getActor().getMapZoneManager().getMapZone().isPresent() && getActor().getMapZoneManager().getMapZone().get().getSafety() == MapZoneSafetyCondition.SAFE)
 			return;
 		if (getActor().isPlayer()) {
 			Player killer = (Player) getActor();
@@ -73,8 +73,8 @@ public class PlayerDeath extends ActorDeathTask<Player> {
 						+ getActor().getDisplayName() + " are connected from the same network.");
 				return;
 			}
-			sendItemsOnDeath(getActor().getMapZoneManager().getMapZone(getActor()).isPresent()
-					&& getActor().getMapZoneManager().getMapZone(getActor()).get() instanceof WildernessMapZone ? killer
+			sendItemsOnDeath(getActor().getMapZoneManager().getMapZone().isPresent()
+					&& getActor().getMapZoneManager().getMapZone().get() instanceof WildernessMapZone ? killer
 							: getActor());
 		}
 	}

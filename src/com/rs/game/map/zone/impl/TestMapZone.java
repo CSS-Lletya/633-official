@@ -1,7 +1,7 @@
-package com.rs.content.mapzone.impl;
+package com.rs.game.map.zone.impl;
 
-import com.rs.content.mapzone.MapZone;
-import com.rs.content.mapzone.ZoneRestriction;
+import com.rs.game.map.zone.MapZone;
+import com.rs.game.map.zone.ZoneRestriction;
 import com.rs.game.player.Player;
 
 public class TestMapZone extends MapZone {

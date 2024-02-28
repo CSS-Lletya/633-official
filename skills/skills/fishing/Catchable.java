@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.rs.content.mapzone.impl.WildernessMapZone;
+import com.rs.game.map.zone.impl.WildernessMapZone;
 import com.rs.game.player.Player;
 
 public enum Catchable {
