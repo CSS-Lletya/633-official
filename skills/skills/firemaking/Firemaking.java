@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.Region;
@@ -135,11 +136,11 @@ public class Firemaking extends DestructionSkillAction {
 	
 	@Override
 	public Optional<Animation> animation() {
-		return Optional.of(Animations.ATTEMPT_FIRE_LIGHTING);
+		return Optional.empty();
 	}
 	
 	private boolean checkFiremaking() {
-		if (!player.getInventory().containsItem(590, 1)) {
+		if (!player.getInventory().containsItem(ItemNames.TINDERBOX_590, 1)) {
             player.getPackets().sendGameMessage("You don't have any tinderbox.");
             return false;
         }

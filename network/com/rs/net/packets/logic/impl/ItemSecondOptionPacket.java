@@ -1,14 +1,17 @@
 package com.rs.net.packets.logic.impl;
 
+import com.rs.constants.ItemNames;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.RouteEvent;
+import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
+import com.rs.plugin.NPCPluginDispatcher;
 
 import skills.firemaking.Firemaking;
 
@@ -37,7 +40,10 @@ public class ItemSecondOptionPacket implements LogicPacketListener {
 		final FloorItem item = World.getRegion(regionId).getGroundItem(id, tile, player);
 
 		player.setRouteEvent(new RouteEvent(item, () -> {
-			if (Firemaking.execute(player, new Item(590), new Item(item.getId()), false, true, tile))
+			if (!player.getInventory().contains(new Item(ItemNames.TINDERBOX_590))) {
+				player.getPackets().sendGameMessage("You don't have any tinderbox.");
+				return;
+			} else if (Firemaking.execute(player, new Item(590), new Item(item.getId()), false, true, tile))
 				return;
 		}));
 		
