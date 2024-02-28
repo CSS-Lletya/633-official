@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.FillAction.Filler;
@@ -14,11 +15,7 @@ import com.rs.game.task.Task;
 import skills.ProducingSkillAction;
 import skills.Skills;
 
-/**
- * Holds functionality for creating unbaked pies.
- * @author <a href="http://www.rune-server.org/members/stand+up/">Stand Up</a>
- */
-public final class DoughCreation extends ProducingSkillAction {
+public class DoughCreation extends ProducingSkillAction {
 
 	/**
 	 * The data this skill action is dependent of.
@@ -29,16 +26,19 @@ public final class DoughCreation extends ProducingSkillAction {
 	
 	private Item used, onto;
 
+	private int waterSource;
+	
 	/**
 	 * Constructs a new {@link DoughCreation}.
 	 * @param player {@link #getPlayer()}.
 	 * @param data {@link #data}.
 	 */
-	public DoughCreation(Player player, DoughData data, Item used, Item onto) {
+	public DoughCreation(Player player, DoughData data, Item used, Item onto, int waterSource) {
 		super(player, Optional.empty());
 		this.data = data;
 		this.used = used;
 		this.onto = onto;
+		this.waterSource = waterSource;
 	}
 
 	/**
@@ -48,11 +48,9 @@ public final class DoughCreation extends ProducingSkillAction {
 	 * @param usedOn the item used on.
 	 * @return {@code true} if the skill action got started, {@code false} otherwise.
 	 */
-	public static boolean create(Player player, Item used, Item usedOn) {
-		DoughData data = DoughData.getDefinition(used.getId(), usedOn.getId()).orElse(null);
-		if (data == null)
-			return false;
-		DoughCreation creation = new DoughCreation(player, data,used,usedOn);
+	public static boolean create(Player player, Item used, Item usedOn, int waterSource) {
+		DoughData data = getDefinition(used.getId(), usedOn.getId()).orElse(null);
+		DoughCreation creation = new DoughCreation(player, data,used,usedOn, waterSource);
 		creation.start();
 		return true;
 	}
@@ -60,11 +58,9 @@ public final class DoughCreation extends ProducingSkillAction {
 	@Override
 	public void onProduce(Task t, boolean success) {
 		if(success) {
-			getDefinition(used.getId(), onto.getId()).ifPresent(filled -> {
-				player.getInventory().deleteItem(filled.getFilled());
-				player.getInventory().addItem(filled.getEmpty());
-				player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced.getId()).getName()+"_Created").addStatistic("Food_Prepared");
-			});
+			Filler.VALUES.stream().filter(water -> water.getFilled().getId() == waterSource)
+			.forEach(water -> player.getInventory().replaceItems(new Item(water.getFilled()), new Item(water.getEmpty())));
+			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(data.produced.getId()).getName()+"_Created").addStatistic("Food_Prepared");
 			counter--;
 			if(counter == 0)
 				t.cancel(); 
@@ -73,7 +69,7 @@ public final class DoughCreation extends ProducingSkillAction {
 
 	@Override
 	public Optional<Item[]> removeItem() {
-		return Optional.of(new Item[]{new Item(1933)});
+		return Optional.of(new Item[]{new Item(ItemNames.POT_OF_FLOUR_1933)});
 	}
 
 	@Override
@@ -90,10 +86,6 @@ public final class DoughCreation extends ProducingSkillAction {
 	public boolean instant() {
 		return false;
 	}
-
-	public static Optional<Filler> getDefinition(int ingredient, int secondIngredient) {
-		return Filler.VALUES.stream().filter(i -> i.getFilled().getId() == ingredient || i.getFilled().getId() == secondIngredient).findAny();
-	}
 	
 	@Override
 	public boolean initialize() {
@@ -103,7 +95,7 @@ public final class DoughCreation extends ProducingSkillAction {
 	@Override
 	public boolean canExecute() {
 		return getDefinition(used.getId(), onto.getId())
-	            .map(filled -> player.getInventory().containsItem(filled.getFilled()))
+	            .map(filled -> player.getInventory().containsAny(ItemNames.POT_OF_FLOUR_1933))
 	            .orElse(false);
 	}
 
@@ -115,6 +107,11 @@ public final class DoughCreation extends ProducingSkillAction {
 	@Override
 	public int getSkillId() {
 		return Skills.COOKING;
+	}
+	
+	public static Optional<DoughData> getDefinition(int ingredient, int secondIngredient) {
+		return DoughData.VALUES.stream().filter(originals -> ItemNames.POT_OF_FLOUR_1933 == ingredient
+				|| ItemNames.POT_OF_FLOUR_1933 == secondIngredient).findAny();
 	}
 
 	/**
@@ -132,7 +129,7 @@ public final class DoughCreation extends ProducingSkillAction {
 		/**
 		 * Caches our enum values.
 		 */
-		private static final ImmutableSet<DoughData> VALUES = Sets.immutableEnumSet(EnumSet.allOf(DoughData.class));
+		public static final ImmutableSet<DoughData> VALUES = Sets.immutableEnumSet(EnumSet.allOf(DoughData.class));
 
 		/**
 		 * The item produced.
@@ -147,16 +144,6 @@ public final class DoughCreation extends ProducingSkillAction {
 		 */
 		DoughData(Item produced) {
 			this.produced = new Item(produced);
-		}
-
-		/**
-		 * Gets the definition for this pie data.
-		 * @param ingredient the ingredient to check for.
-		 * @return an optional holding the {@link DoughData} value found,
-		 * {@link Optional#empty} otherwise.
-		 */
-		public static Optional<DoughData> getDefinition(int ingredient, int secondIngredient) {
-			return VALUES.stream().filter(pie -> 1933 == ingredient ||  1933 == secondIngredient).findAny();
 		}
 	}
 }
