@@ -103,6 +103,7 @@ public class StrongholdOfSecurityDungeonRegionObjectPugin extends ObjectListener
 		if (id == 16043 || id == 16044 || id == 16065 || id == 16066 || id == 16089 || id == 16090 || id == 16124
 				|| id == 16123) {
 			player.setNextAnimation(Animations.PLACING_HAND_ON_DOOR);
+			player.getAudioManager().sendSound(Sounds.STRONGHOLD_OF_SECURITY_DOOR_PASS);
 			switch (object.getRotation()) {
 			case 0:
 				if (player.getX() < object.getX())

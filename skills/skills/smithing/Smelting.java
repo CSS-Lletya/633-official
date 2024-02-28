@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Equipment;
 import com.rs.game.player.Player;
@@ -76,6 +77,7 @@ public class Smelting extends ProducingSkillAction {
 				player.getSkills().addExperience(Skills.SMITHING, definition.experience);
 				player.getInventory().removeItems(removeItem().get());
 				player.getInventory().addItems(new Item(definition.produced));
+				player.getAudioManager().sendSound(Sounds.SMELTING);
 			} else {
 				player.getInventory().removeItems(removeItem().get());
 				player.getPackets().sendGameMessage("The ore is too impure and you fail to refine it.");

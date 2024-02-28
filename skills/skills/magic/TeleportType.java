@@ -29,7 +29,7 @@ public enum TeleportType {
 	BOSS_PORTAL(3, Optional.of(Animations.FADE_AWAY), Optional.of(Animations.FADE_BACK_IN), Optional.of(Graphic.RED_WHITE_BEAMS_COVERING_PLAYER_RAPIDLY), Optional.empty(), Optional.empty()),
 	PVP_PORTAL(5, Optional.of(Animations.LEAP_INTO_AIR), Optional.of(Animations.FADE_BACK_IN), Optional.empty(), Optional.empty(), Optional.empty()),
 	BLANK(1, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()),
-	MODERN_HOME(1, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(SpecialEvent.HOME)),
+	MODERN_HOME(-1, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(SpecialEvent.HOME)),
 	;
 	
 	/**
@@ -78,7 +78,7 @@ public enum TeleportType {
 enum SpecialEvent {
 	TABLET {
 		@Override
-		protected boolean handleSpecialEvent(Player player, WorldTile destination) {
+		protected void handleSpecialEvent(Player player, WorldTile destination) {
 			LinkedTaskSequence seq = new LinkedTaskSequence();
 			seq.connect(1, () -> player.setNextAnimation(Animations.BREAK_TELETAB));
 			seq.connect(1, () -> player.getAudioManager().sendSound(Sounds.TELETAB_BREAKING));
@@ -92,14 +92,12 @@ enum SpecialEvent {
 				player.setNextGraphics(Graphic.RESET_GRAPHICS);
 			})
 			.start();
-			return true;
 		}
 	},
 	HOME {
 		@Override
-		protected boolean handleSpecialEvent(Player player, WorldTile destination) {
+		protected void handleSpecialEvent(Player player, WorldTile destination) {
 			player.getAction().setAction(new HomeTeleporting());
-			return true;
 		}
 	}
 	;
@@ -110,7 +108,6 @@ enum SpecialEvent {
 	 * @param destination
 	 * @return
 	 */
-	protected boolean handleSpecialEvent(Player player, WorldTile destination) {
-		return false;
+	protected void handleSpecialEvent(Player player, WorldTile destination) {
 	}
 }

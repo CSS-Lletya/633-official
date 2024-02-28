@@ -3,6 +3,7 @@ package skills.thieving.impl;
 import java.util.Optional;
 
 import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Hit;
@@ -37,6 +38,7 @@ public class WallSafes extends ProducingSkillAction {
 				player.getAudioManager().sendSound(Sounds.WALLSAFE_SUCCESS);
 			} else {
 				player.setNextAnimation(Animations.WALLSAFE_FAILURE);
+				player.setNextGraphics(Graphic.STUN_GRAPHIC);
 				player.getPackets().sendGameMessage("You slip and trigger a trap!");
 				player.getAudioManager().sendSound(Sounds.WALLSAFE_FAILURE);
 				player.applyHit(new Hit(player, RandomUtility.random(20, 60), Hit.HitLook.REGULAR_DAMAGE));

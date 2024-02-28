@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
+import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.npc.NPC;
@@ -93,11 +94,6 @@ public class Pickpocketing extends Thieving {
 			 * The quadruple loot gfx.
 			 */
 			QUADRUPLE_LOOT_GFX = new Graphics(875);
-
-	/**
-	 * The graphic id when player is stunned
-	 */
-	private static final Graphics STUN_GRAPHIC = new Graphics(80, 100, 50);
 
 	/**
 	 * Constructs a new {@link Pickpocketing}.
@@ -190,7 +186,7 @@ public class Pickpocketing extends Thieving {
 			int hit = RandomUtility.inclusive(1, definition.damage);
 			getPlayer().applyHit(new Hit(player, hit, HitLook.MELEE_DAMAGE));
 			getPlayer().setNextAnimation(STUN_ANIMATION);
-			getPlayer().setNextGraphics(STUN_GRAPHIC);
+			getPlayer().setNextGraphics(Graphic.STUN_GRAPHIC);
 			getPlayer().getMovement().lock(definition.seconds);
 			getPlayer().getDetails().getStatistics().addStatistic("Failed_Pickpockets");
 			player.getAudioManager().sendSound(1, Sounds.PLAYER_STUNNED);

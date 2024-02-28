@@ -69,14 +69,6 @@ public class ScriptManager {
 	}
 
 	/**
-	 * Method used to load a script by its path.
-	 * @param path the path.
-	 */
-	private static void load(final String path) {
-		load(new File(path));
-	}
-
-	/**
 	 * Loads scripts from a directory.
 	 * @param directory the directory. 
 	 * @throws Throwable the throwable.

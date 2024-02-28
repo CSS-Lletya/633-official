@@ -12,7 +12,6 @@ public class ExperienceGivingItemsItemPlugin extends InventoryListener {
 	@Override
 	public void execute(Player player, Item item, int slotId, int option) {
 		ExperienceLampInterfacePlugin.setLamp(item.getId());
-		player.getInterfaceManager().closeInterfaces();
 		player.getInterfaceManager().sendInterface(134);
 	}
 }

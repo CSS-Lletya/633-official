@@ -2,12 +2,13 @@
 package com.rs.game.npc.other;
 
 import com.rs.constants.InterfaceVars;
+import com.rs.constants.Sounds;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.familiar.Familiar;
-import com.rs.game.player.Player;
 import com.rs.game.player.InterfaceManager.Tabs;
+import com.rs.game.player.Player;
 import com.rs.game.player.content.pet.PetDetails;
 import com.rs.game.player.content.pet.Pets;
 import com.rs.utilities.Utility;
@@ -109,6 +110,9 @@ public class Pet extends NPC {
 	 * Grows into the next stage of this pet (if any).
 	 */
 	public void growNextStage() {
+		if (details.getStage() == 3 && owner.getPetManager().getNpcId() == Pets.HELLCAT.getGrownNpcId()) {
+			owner.getAudioManager().sendSound(Sounds.HELLCAT_GROWING);
+		}
 		if (details.getStage() == 3) {
 			return;
 		}

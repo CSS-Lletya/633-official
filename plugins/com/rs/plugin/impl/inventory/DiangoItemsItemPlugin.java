@@ -18,6 +18,8 @@ public class DiangoItemsItemPlugin extends InventoryListener {
 
 	@Override
 	public void execute(Player player, Item item, int slotId, int option) {
+		if (player.getMovement().isLocked())
+			return;
 		IntStream.of(2520,2521,2522,2523,2524,2525,2526).filter(horse -> horse == item.getId())
 		.forEach(horse -> {
 			if (option == 1) {
@@ -30,6 +32,7 @@ public class DiangoItemsItemPlugin extends InventoryListener {
 			}
 		});
 		if (item.getId() == 4613) {
+			player.getMovement().lock(3);
 			if (RandomUtility.percentageChance(10)) {
 				player.getAudioManager().sendSound(1, Sounds.PLATE_BREAKING);
 				player.getInventory().deleteItem(new Item(4613));

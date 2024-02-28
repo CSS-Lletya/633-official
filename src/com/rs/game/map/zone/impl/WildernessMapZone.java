@@ -86,6 +86,7 @@ public class WildernessMapZone extends MapZone {
 			return false;
 		}
 		if (player.getDetails().getTeleBlockDelay().get() > 0) {
+			player.getAudioManager().sendSound(Sounds.TELEBLOCKED);
 			player.getPackets().sendGameMessage("A mysterious force prevents you from teleporting.");
 			return false;
 		}

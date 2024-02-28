@@ -6,12 +6,10 @@ import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.movement.route.RouteEvent;
-import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
-import com.rs.plugin.NPCPluginDispatcher;
 
 import skills.firemaking.Firemaking;
 

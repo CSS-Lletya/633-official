@@ -7,6 +7,7 @@ import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.ItemNames;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Inventory;
@@ -65,6 +66,7 @@ public final class Runecrafting extends ProducingSkillAction {
 		if(success) {
 			getPlayer().setNextAnimation(Animations.RUNECRAFTING);
 			getPlayer().setNextGraphics(Graphic.RUNECRAFTING);
+			getPlayer().getAudioManager().sendSound(Sounds.RUNECRAFTING);
 			player.getDetails().getStatistics()
 			.addStatistic(ItemDefinitions.getItemDefinitions(altar.getRune().getItem().getId()).getName() + "_Runecrafted")
 			.addStatistic("Runes_Crafted");

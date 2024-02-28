@@ -62,7 +62,7 @@ public final class Graphic {
 	public static final Graphics LUNAR_VENG = new Graphics(726, 0, 96);
 	public static final Graphics LUNAR_VENG_OTHER = new Graphics(725, 0, 96);
 	public static final Graphics SPELLBOOK_SWAP = new Graphics(1062);
-	
+	public static final Graphics STUN_GRAPHIC = new Graphics(80, 100, 50);
 	/**
 	 * Object Based Graphics
 	 */

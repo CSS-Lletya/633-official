@@ -2,12 +2,14 @@ package com.rs.constants;
 
 /**
  * A collection of useful type-safe Sounds designed to provide better
- * readability and code base flow.
+ * readability and code base flow. All the Sounds listed are in use, therefor not all newly found sounds exist on this list.
  * 
  * Note-worthy lists:
  * https://oldschool.runescape.wiki/w/List_of_in-game_sound_IDs
  * https://github.com/JesseGuerrero/DarkanTools/blob/windows/static/essentialIgnored/effectsSolved.txt
  * 
+ * (slightly inaccurate)
+ * https://rune-server.org/runescape-development/rs-503-client-and-server/configuration/672002-667-soundlist.html
  * @author Dennis
  *
  */
@@ -65,7 +67,7 @@ public interface Sounds {
 	int EXPERIENCE_LAMP_USED = 1270;
 	int DESTOY_ITEM = 4500;
 	int BURY_OR_PICK = 2738;
-	int COOKING_SOUND = 65;
+	int COOKING_SOUND = 5471; //evil bob un-cooking 2322
 	int REMOVE_WORN_ITEM = 2238;
 	int DOOR_CLOSING = 60;
 	int DOOR_OPENING = 62;
@@ -148,7 +150,7 @@ public interface Sounds {
 	int PLATE_BREAKING = 2251;
 	int GLASS_BLOWING = 2724; //not used, archived
 	int WALLSAFE_CRACKING = 1243;
-	int WALLSAFE_FAILURE = 1383;
+	int WALLSAFE_FAILURE = 3309;//1383 doesnt seem accurate
 	int WALLSAFE_SUCCESS = 1238;
 	int LUNAR_DREAMING = 3619;
 	int BAKE_PIE_SPELL = 2879;
@@ -160,7 +162,13 @@ public interface Sounds {
 	int HUNTER_KIT = 3615;
 	int HUNTER_KIT_OPENING = 3616;
 	int LUNAR_HEAL_ME = 2884;
-	
+	int RUNECRAFTING = 2710;
+	int SMELTING = 2725;
+	int STRONGHOLD_OF_SECURITY_DOOR_PASS = 2858;
+	int TELEBLOCKED = 5376;
+	int CREATED_FIRE = 130;
+	int INTERFACE_CLICK = 2266;
+	int HELLCAT_GROWING = 2293;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -182,4 +190,6 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
+	
+	
 }

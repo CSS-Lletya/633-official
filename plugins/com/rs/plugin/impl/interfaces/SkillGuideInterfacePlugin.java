@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.interfaces;
 
 import com.rs.constants.InterfaceVars;
+import com.rs.constants.Sounds;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.plugin.listener.RSInterfaceListener;
@@ -14,6 +15,7 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
+		player.getAudioManager().sendSound(Sounds.INTERFACE_CLICK);
 		if (interfaceId == 320) {
 			if (packetId == 11)
 				sendSkillGuide(player, componentId);
