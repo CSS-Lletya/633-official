@@ -72,7 +72,7 @@ public class ScriptManager {
 	 * Method used to load a script by its path.
 	 * @param path the path.
 	 */
-	public static void load(final String path) {
+	private static void load(final String path) {
 		load(new File(path));
 	}
 
@@ -81,7 +81,7 @@ public class ScriptManager {
 	 * @param directory the directory. 
 	 * @throws Throwable the throwable.
 	 */
-	public static void load(final File directory)  {
+	private static void load(final File directory)  {
 		try {
 			for (File file : directory.listFiles()) {
 				if (file.getName().equals(".DS_Store")) {

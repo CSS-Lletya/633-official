@@ -7,7 +7,6 @@ import com.rs.game.Entity;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.WorldTile;
 import com.rs.game.map.zone.MapZone;
-import com.rs.game.npc.NPC;
 import com.rs.game.player.Combat;
 import com.rs.game.player.Player;
 import com.rs.game.player.type.CombatEffectType;

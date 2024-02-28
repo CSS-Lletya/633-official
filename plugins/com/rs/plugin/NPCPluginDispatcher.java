@@ -149,10 +149,13 @@ public class NPCPluginDispatcher {
 			return;
 		if (forceRun)
 			player.setRun(true);
+		
+		player.getMovement().stopAll();
 		if (isSpecialDistancedNPC(player, npc, optionId))
 			return;
 		if (player.getTreasureTrailsManager().useNPC(npc))
             return;
+		
 		player.setRouteEvent(new RouteEvent(npc, () -> {
 			player.getDetails().setLastNPCInteracted(npc.getId());
 			NPCPluginDispatcher.execute(player, npc, optionId);

@@ -91,8 +91,7 @@ public final class GameLoader {
 			}
 			
 			LogUtility.log(LogType.INFO, "Loading other files.");
-			pool.submit(Utility.callable(ScriptManager::load));
-			pool.submit(Utility.callable(AttributeKey::init));
+			pool.submit(ScriptManager::load);
 			pool.submit(MusicHints::init);
 			pool.submit(FriendChatsManager::init);
 			pool.submit(QuestManager::load);
@@ -113,6 +112,7 @@ public final class GameLoader {
 			pool.submit(() -> HostManager.deserialize(HostListType.STARTER_RECEIVED));
 			pool.submit(() -> HostManager.deserialize(HostListType.BANNED_IP));
 			pool.submit(() -> HostManager.deserialize(HostListType.MUTED_IP));
+			pool.submit(Utility.callable(AttributeKey::init));
 			pool.shutdown();
 	}
 }

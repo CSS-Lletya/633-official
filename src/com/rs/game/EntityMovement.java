@@ -217,16 +217,19 @@ public class EntityMovement {
 	public void stopAll(boolean stopWalk, boolean stopInterfaces,
 			boolean stopActions) {
 		getEntity().toPlayer().setRouteEvent(null);
-		if (stopInterfaces)
+		if (stopInterfaces) {
 			getEntity().toPlayer().getInterfaceManager().closeInterfaces();
+			getEntity().toPlayer().getInterfaceManager().closeChatBoxInterface();
+			getEntity().toPlayer().getDialogueInterpreter().close();
+			getEntity().toPlayer().getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
+		}
 		if (stopWalk) {
 			getEntity().toPlayer().setCoordsEvent(null);
 			getEntity().toPlayer().resetWalkSteps();
 		}
 		if (stopActions && !(getEntity().toPlayer().getAction().getAction().isPresent() && getEntity().toPlayer().getAction().getAction().get() instanceof WineTask))
 			getEntity().toPlayer().getAction().forceStop();
-		getEntity().toPlayer().getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
-		getEntity().toPlayer().getDialogueInterpreter().close();
+		
 		getEntity().toPlayer().getCombatDefinitions().resetSpells(false);
 	}
 	
