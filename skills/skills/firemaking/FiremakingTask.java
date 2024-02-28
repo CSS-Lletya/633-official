@@ -1,11 +1,13 @@
 package skills.firemaking;
 
+import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.task.Task;
+import com.rs.utilities.RandomUtility;
 
 /**
  * Represents the task for creating and deregistering fires.
@@ -35,13 +37,14 @@ public class FiremakingTask extends Task {
 	@Override
 	public void onSubmit() {
 		GameObject object = new GameObject(new GameObject(firemaking.getFireLighter().getObjectId(), 10, 0, tile));
-		GameObject.spawnTempGroundObject(object, 60, () -> FloorItem.addGroundItem(new Item(592), object, firemaking.getPlayer(), true, 60));
+		GameObject.spawnTempGroundObject(object, RandomUtility.inclusive(60, 120), () -> FloorItem.addGroundItem(new Item(592), object, firemaking.getPlayer(), true, 60));
 		
 		final FloorItem item = World.getRegion(firemaking.getPlayer().getRegionId()).getGroundItem(firemaking.getLogType().getLog().getId(), tile, firemaking.getPlayer());
 		if (item == null)
 			return;
 		if (firemaking.isGroundLog)
 			FloorItem.removeGroundItem(firemaking.getPlayer(), item, false);
+		firemaking.getPlayer().getAudioManager().sendSound(Sounds.CREATED_FIRE);
 	}
 
 	@Override
