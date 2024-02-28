@@ -3,6 +3,7 @@ package com.rs.game.player.actions;
 import com.rs.GameConstants;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
+import com.rs.constants.Sounds;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
@@ -23,7 +24,7 @@ public class HomeTeleporting extends Action {
 			player.getPackets().sendGameMessage("You need to wait another " + minutes  + " " + (minutes == 1 ? "minute" : "minutes") + " to cast this spell.");
 			return false;
 		}
-		if (!player.getMapZoneManager().execute(zone -> zone.processMagicTeleport(player, GameConstants.START_PLAYER_LOCATION))) {
+		if (player.getMapZoneManager().execute(zone -> !zone.processMagicTeleport(player, GameConstants.START_PLAYER_LOCATION))) {
 			return false;
 		}
 		return process(player);
@@ -79,10 +80,12 @@ public class HomeTeleporting extends Action {
 		} else if (ticks == 15) {
 			player.setNextGraphics(new Graphics(GRAPHICS[12]));
 			player.setNextAnimation(new Animation(ANIMATIONS[15]));
+			player.getAudioManager().sendSound(Sounds.TELEPORING_WARPING);
 		} else if (ticks == 15) {
 			player.setNextGraphics(new Graphics(GRAPHICS[13]));
 			player.setNextAnimation(new Animation(ANIMATIONS[16]));
-		} else if (ticks == 16) {
+			
+		} else if (ticks == 17) {
 			player.setNextWorldTile(GameConstants.START_PLAYER_LOCATION);
 			player.setNextGraphics(Graphic.RESET_GRAPHICS);
 			player.setNextAnimation(Animations.RESET_ANIMATION);
