@@ -2,6 +2,7 @@ package com.rs.game.player.actions;
 
 
 
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.net.encoders.other.Animation;
@@ -77,6 +78,7 @@ public class CreateAction extends Action {
             player.getPackets().sendGameMessage("You don't have enough inventory space.");
             return -1;
         } else {
+        	player.getAudioManager().sendSound(Sounds.DAIRY_CHURNING);
             if (anims != null)
                 player.setNextAnimation(new Animation(anims[choice]));
             for (int i = 0; i < materials[choice].length; i++)

@@ -69,9 +69,8 @@ public class GemCutting extends ProducingSkillAction {
 
 	@Override
 	public void onProduce(Task t, boolean success) {
-		if (success)
-			player.getPackets().sendGameMessage((crushed ? "You miss-hit the chisel and smash the "+data.gem.getName()+" to pieces!" :"You cut the " + data.gem.getName()));
-		player.getAudioManager().sendSound(Sounds.CHISELING);
+		player.getPackets().sendGameMessage(crushed ? "You miss-hit the chisel and smash the "+data.gem.getName()+" to pieces!" :"You cut the " + data.gem.getName());
+		player.getAudioManager().sendSound(crushed ? Sounds.GEM_SMASHING : Sounds.CHISELING);
 		player.setNextAnimation(data.animation);
 	}
 

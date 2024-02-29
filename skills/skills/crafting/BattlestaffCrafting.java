@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.ItemNames;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
@@ -62,6 +63,7 @@ public final class BattlestaffCrafting extends ProducingSkillAction {
 	
 	@Override
 	public void onProduce(Task t, boolean success) {
+		player.getAudioManager().sendSound(Sounds.ATTACH_ORB);
 	}
 	
 	@Override

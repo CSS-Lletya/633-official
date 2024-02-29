@@ -69,7 +69,7 @@ public interface Sounds {
 	int BURY_OR_PICK = 2738;
 	int COOKING_SOUND = 5471; //evil bob un-cooking 2322
 	int REMOVE_WORN_ITEM = 2238;
-	int DOOR_CLOSING = 60;
+	int DOOR_CLOSING = 3921; //60 door unknown
 	int DOOR_OPENING = 62;
 	int GATE_CLOSING = 66;
 	int GATE_OPENING = 67;
@@ -177,6 +177,10 @@ public interface Sounds {
 	int ROLL_CANOE = 2731;
 	int SINK_CANOE = 2732;
 	int LEVEL_UP = 4860;
+	int NOT_TRADABLE = 4168;
+	int ATTACH_ORB = 2585;
+	int DAIRY_CHURNING = 2574;
+	
 	
 	
 	//combat specials, rest of combat will be defined after rework

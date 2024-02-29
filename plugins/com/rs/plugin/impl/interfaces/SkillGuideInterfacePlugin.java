@@ -15,6 +15,7 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
+		player.getDetails().setLastSkillMenu(componentId);
 		player.getAudioManager().sendSound(Sounds.INTERFACE_CLICK);
 		if (interfaceId == 320) {
 			if (packetId == 11)
@@ -79,7 +80,7 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 	 * @param buttonId The button id.
 	 * @return {@code True}.
 	 */
-	private boolean sendSkillGuide(Player player, int buttonId) {
+	public static boolean sendSkillGuide(Player player, int buttonId) {
 		int slot = 0;
 		for (slot = 0; slot < SKILL_GUIDE_DATA.length; slot++) {
 			if (SKILL_GUIDE_DATA[slot][0] == buttonId) {
@@ -92,13 +93,13 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 			player.getInterfaceManager().sendFullscreenInterface(5, 741);
 			player.getSkills().getLeveledUp()[slot] = false;
 			LevelUp.sendFlashIcons(player);
-			return true;
+		} else {
+			int value = SKILL_GUIDE_DATA[slot][2];
+			player.getSkills().getLeveledUp()[slot] = false;
+			player.getVarsManager().sendVar(InterfaceVars.SKILL_SKILL_GUIDE_DATA, value);
+			player.getInterfaceManager().sendFullscreenInterface(5, 499);
+			player.getAttributes().get(Attribute.SKILL_GUIDE_MENU).set(value);
 		}
-		int value = SKILL_GUIDE_DATA[slot][2];
-		player.getSkills().getLeveledUp()[slot] = false;
-		player.getVarsManager().sendVar(InterfaceVars.SKILL_SKILL_GUIDE_DATA, value);
-		player.getInterfaceManager().sendFullscreenInterface(5, 499);
-		player.getAttributes().get(Attribute.SKILL_GUIDE_MENU).set(value);
 		return true;
 	}
 

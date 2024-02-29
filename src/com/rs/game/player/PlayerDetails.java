@@ -84,6 +84,11 @@ public final class PlayerDetails {
 	 * Represents the last known npc interacted with. Useful for dialogues that aren't aligned normally. (Example: Pet puppy picking)
 	 */
 	private int lastNPCInteracted;
+	
+	/**
+	 * Represents the last known skill menu opened, used to enter the full skill guide interface from the level up interface.
+	 */
+	private int lastSkillMenu;
 	 
 	/**
 	 * Mutable values stored for specified uses It's more ideal to use this system

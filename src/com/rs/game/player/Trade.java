@@ -1,5 +1,6 @@
 package com.rs.game.player;
 
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.item.ItemsContainer;
@@ -100,6 +101,7 @@ public class Trade {
                 if (item == null)
                     return;
                 if (!ItemConstants.isTradeable(item)) {
+                	player.getAudioManager().sendSound(Sounds.NOT_TRADABLE);
                     player.getPackets().sendGameMessage("That item isn't tradeable.");
                     return;
                 }
