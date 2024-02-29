@@ -133,6 +133,9 @@ public class PassiveSpellDispatcher {
 		List<PassiveSpellListener> lunarSpellLoader = Utility.getClassesInDirectory("skills.magic.spells.lunar").stream()
 				.map(clazz -> (PassiveSpellListener) clazz).collect(Collectors.toList());
 		lunarSpellLoader.forEach(spell -> SPELLS.put(spell.getClass().getAnnotation(PassiveSpellSignature.class), spell));
+		List<PassiveSpellListener> lunarTeleportSpellLoader = Utility.getClassesInDirectory("skills.magic.spells.lunar.teleports").stream()
+				.map(clazz -> (PassiveSpellListener) clazz).collect(Collectors.toList());
+		lunarTeleportSpellLoader.forEach(spell -> SPELLS.put(spell.getClass().getAnnotation(PassiveSpellSignature.class), spell));
 	}
 
 	private static final Object2ObjectOpenHashMap<PassiveSpellSignature, PassiveSpellListener> SPELLS = new Object2ObjectOpenHashMap<>();

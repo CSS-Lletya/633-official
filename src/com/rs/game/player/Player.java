@@ -494,7 +494,6 @@ public class Player extends Entity {
 			getAudioManager().sendSound(Sounds.CHARGE_SPELL_REMOVED);
 		if (getDetails().getMagicImbue().secondsRemaining() == 4) {
 			getPackets().sendGameMessage("Magic Imbue spell charge is running out...");
-			getAttributes().get(Attribute.MAGIC_IMBUED).set(false);
 		}
 		if (getDetails().getMagicImbue().secondsRemaining() == 1) {
 			getPackets().sendGameMessage("Magic Imbue charge has ended.");

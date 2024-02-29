@@ -26,9 +26,11 @@ public class Magic {
 
 	public static final int MAGIC_TELEPORT = 0, ITEM_TELEPORT = 1, OBJECT_TELEPORT = 2;
 
-	private static final int AIR_RUNE = 556, WATER_RUNE = 555;
+	private static final int AIR_RUNE = 556;
+
+	public static final int WATER_RUNE = 555;
 	public static final int EARTH_RUNE = 557;
-	private static final int FIRE_RUNE = 554;
+	public static final int FIRE_RUNE = 554;
 	private static final int BODY_RUNE = 559;
 	private static final int MIND_RUNE = 558;
 	private static final int NATURE_RUNE = 561;
@@ -37,7 +39,7 @@ public class Magic {
 	private static final int BLOOD_RUNE = 565;
 	private static final int SOUL_RUNE = 566;
 	public static final int ASTRAL_RUNE = 9075;
-	private static final int LAW_RUNE = 563;
+	public static final int LAW_RUNE = 563;
 	@SuppressWarnings("unused")
 	private static final int STEAM_RUNE = 4694;
 	@SuppressWarnings("unused")
@@ -406,115 +408,6 @@ public class Magic {
 		}
 	}
 
-	public static final void processLunarSpell(Player player, int spellId, int packetId) {
-		switch (spellId) {
-//		case 37:
-//			if (player.getSkills().getLevel(Skills.MAGIC) < 94) {
-//				player.getPackets().sendGameMessage("Your Magic level is not high enough for this spell.");
-//				return;
-//			} else if (player.getSkills().getLevel(Skills.DEFENCE) < 40) {
-//				player.getPackets().sendGameMessage("You need a Defence level of 40 for this spell");
-//				return;
-//			}
-//			Long lastVeng = (Long) player.getAttributes().get(Attribute.LAST_VENG).get();
-//			if (lastVeng != null && lastVeng + 30000 > Utility.currentTimeMillis()) {
-//				player.getPackets().sendGameMessage("Players may only cast vengeance once every 30 seconds.");
-//				return;
-//			}
-//			if (!checkRunes(player, true, ASTRAL_RUNE, 4, DEATH_RUNE, 2, EARTH_RUNE, 10))
-//				return;
-//			player.setNextGraphics(new Graphics(726, 0, 100));
-//			player.setNextAnimation(new Animation(4410));
-////			player.setCastVeng(true);
-//			player.getAttributes().get(Attribute.LAST_VENG).set(Utility.currentTimeMillis());
-//			player.getPackets().sendGameMessage("You cast a vengeance.");
-//			break;
-//		case 38:
-//			player.getMovement().move(false, GameConstants.START_PLAYER_LOCATION, TeleportType.LUNAR);
-//			break;
-//		case 74: // vegeance group
-//			if (player.getSkills().getLevel(Skills.MAGIC) < 95) {
-//				player.getPackets().sendGameMessage("Your Magic level is not high enough for this spell.");
-//				return;
-//			}
-//			lastVeng = (Long) player.getAttributes().get(Attribute.LAST_VENG).get();
-//			if (lastVeng != null && lastVeng + 30000 > Utility.currentTimeMillis()) {
-//				player.getPackets().sendGameMessage("Players may only cast vengeance once every 30 seconds.");
-//				return;
-//			}
-//			if (!checkRunes(player, true, ASTRAL_RUNE, 4, DEATH_RUNE, 3, EARTH_RUNE, 11))
-//				return;
-//			player.getMapRegionsIds().parallelStream().filter(regionalPlayer -> regionalPlayer != null).forEach(regionalPlayer -> {
-//				ObjectArrayList<Short> playersIndexes = World.getRegion(regionalPlayer).getPlayersIndexes();
-//				playersIndexes.iterator().forEachRemaining(p -> {
-//					World.players().filter(
-//							playerIndex -> playerIndex.withinDistance(player, 4) || player.getMapZoneManager().execute(controller -> controller.canHit(player, playerIndex)))
-//							.forEach(worldPlayer -> {
-//								if (worldPlayer.getDetails().getAcceptAid().isFalse()) {
-//									player.getPackets().sendGameMessage(worldPlayer.getDisplayName() + " is not accepting aid");
-//									return;
-//								}
-//								worldPlayer.setNextGraphics(new Graphics(725, 0, 100));
-////								p2.setCastVeng(true);
-//								worldPlayer.getPackets().sendGameMessage("You have the power of vengeance!");
-//							});
-//				});
-//			});
-//			player.setNextAnimation(new Animation(4411));
-//			player.getAttributes().get(Attribute.LAST_VENG).set(Utility.currentTimeMillis());
-//			break;
-		case 38:
-		case 42: // moonclan teleport
-			if (spellId == 38) {
-				if (!player.getDetails().getLunarHomeTeleport().finished()) {
-					int minutes = player.getDetails().getLunarHomeTeleport().getMinutes();
-					player.getPackets().sendGameMessage("You need to wait another " + minutes  + " " + (minutes == 1 ? "minute" : "minutes") + " to cast this spell.");
-					return;
-				}
-				player.getDetails().getLunarHomeTeleport().start(60 * 30);
-			}
-			sendLunarTeleportSpell(player, 69, 66, new WorldTile(2114, 3914, 0), ASTRAL_RUNE, 2, LAW_RUNE, 1,
-					EARTH_RUNE, 2);
-			break;
-		case 53: // ourania teleport
-			sendLunarTeleportSpell(player, 71, 69, new WorldTile(2467, 3247, 0), ASTRAL_RUNE, 2, LAW_RUNE, 1,
-					EARTH_RUNE, 6);
-			break;
-		case 67: // south falador teleport
-			sendLunarTeleportSpell(player, 72, 70, new WorldTile(3006, 3327, 0), ASTRAL_RUNE, 2, LAW_RUNE, 1, AIR_RUNE,
-					2);
-			break;
-		case 46: // waterbirth teleport
-			sendLunarTeleportSpell(player, 72, 71, new WorldTile(2546, 3758, 0), ASTRAL_RUNE, 2, LAW_RUNE, 1,
-					WATER_RUNE, 1);
-			break;
-		case 22: // barbarian teleport
-			sendLunarTeleportSpell(player, 75, 76, new WorldTile(2635, 3166, 0), ASTRAL_RUNE, 2, LAW_RUNE, 1, FIRE_RUNE,
-					3);
-			break;
-		case 69: // North Ardroudge teleport
-			sendLunarTeleportSpell(player, 76, 76, new WorldTile(2613, 3349, 0), ASTRAL_RUNE, 2, LAW_RUNE, 1,
-					WATER_RUNE, 5);
-			break;
-		case 40: // Khazard teleport
-			sendLunarTeleportSpell(player, 78, 80, new WorldTile(2635, 3166, 0), ASTRAL_RUNE, 2, LAW_RUNE, 2,
-					WATER_RUNE, 4);
-			break;
-		case 39: // Fishing guild teleport
-			sendLunarTeleportSpell(player, 85, 89, new WorldTile(2612, 3383, 0), ASTRAL_RUNE, 3, LAW_RUNE, 3,
-					WATER_RUNE, 8);
-			break;
-		case 43: // Catherbay teleport
-			sendLunarTeleportSpell(player, 87, 92, new WorldTile(2800, 3451, 0), ASTRAL_RUNE, 3, LAW_RUNE, 3,
-					WATER_RUNE, 10);
-			break;
-		case 50: // Ice Plateau teleport
-			sendLunarTeleportSpell(player, 89, 96, new WorldTile(2974, 3940, 0), ASTRAL_RUNE, 3, LAW_RUNE, 3,
-					WATER_RUNE, 8);
-			break;
-		}
-	}
-
 	public static final void processAncientSpell(Player player, int spellId, int packetId) {
 		switch (spellId) {
 		case 28:
@@ -768,6 +661,8 @@ public class Magic {
 		if (teleType == MAGIC_TELEPORT)
 			player.getPackets().sendSound(5527, 0, 2);
 		player.getMovement().lock(3 + delay);
+		if (xp != 0)
+			player.getSkills().addExperience(Skills.MAGIC, xp);
 		player.getDetails().getStatistics().addStatistic("Teleports_Completed");
 		World.get().submit(new Task(delay) {
 			boolean removeDamage;
@@ -789,8 +684,7 @@ public class Magic {
 					player.getMapZoneManager().executeVoid(controller -> controller.magicTeleported(player, teleType));
 					if (!player.getCurrentMapZone().isPresent())
 						teleControlersCheck(player, teleTile);
-					if (xp != 0)
-						player.getSkills().addExperience(Skills.MAGIC, xp);
+					
 					if (downEmoteId != -1)
 						player.setNextAnimation(new Animation(downEmoteId == -2 ? -1 : downEmoteId));
 					if (downGraphicId != -1)

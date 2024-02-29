@@ -1,7 +1,6 @@
 package com.rs.plugin.impl.interfaces;
 
 import com.rs.game.player.Player;
-import com.rs.game.player.content.Magic;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
 
@@ -23,7 +22,5 @@ public class LunarSpellbookInterfacePlugin extends RSInterfaceListener {
 			player.getCombatDefinitions().setSortSpellBook(componentId - 11);
 		else if (componentId == 20)
 			player.getCombatDefinitions().switchDefensiveCasting();
-		else
-			Magic.processLunarSpell(player, componentId, packetId);
 	}
 }
