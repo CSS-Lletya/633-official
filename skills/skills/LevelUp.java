@@ -26,13 +26,12 @@ public class LevelUp extends Skills {
 		player.getPackets().sendIComponentText(740, 1, "You have now reached level " + player.getSkills().getLevel(skill) + "!");
 		player.getPackets().sendIComponentText(740, 0, "Congratulations, you've advanced " + 
 		(gainedLevels == 1? "a" : gainedLevels) + " " +Skills.SKILL_NAME[skill] + (gainedLevels == 1 ? " level!" : " levels!"));
+		player.getAudioManager().sendSound(currentLevel == 99 ? Sounds.MASTERED_SKILL : Sounds.LEVEL_UP);
 		player.setNextGraphics(Graphic.LEVEL_UP);
+		player.task(3, p -> player.getPackets().sendMusicEffect(currentLevel > 50 ? musicId.getId2() : musicId.getId()));
 		if (currentLevel == 99) {
 			player.getSkills().trimCapes();
-			player.getAudioManager().sendSound(Sounds.MASTERED_SKILL);
-			player.task(1, p -> player.getPackets().sendMusicEffect(musicId.getId2()));
-		} else
-			player.getPackets().sendMusicEffect(currentLevel > 50 ? musicId.getId2() : musicId.getId());
+		}
 		player.getPackets().sendGameMessage("Congratulations, you've advanced " + 
 				(gainedLevels == 1? "a" : gainedLevels) + " "+Skills.SKILL_NAME[skill] + (gainedLevels == 1 ? " level!" : " levels!"));
 		player.getInterfaceManager().sendChatBoxInterface(740);

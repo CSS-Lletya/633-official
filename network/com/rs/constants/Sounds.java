@@ -176,6 +176,8 @@ public interface Sounds {
 	int BUILD_CANOE = 2729;
 	int ROLL_CANOE = 2731;
 	int SINK_CANOE = 2732;
+	int LEVEL_UP = 4860;
+	
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -197,4 +199,5 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
+	
 }
