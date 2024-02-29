@@ -69,7 +69,7 @@ public class SawmillMapZone extends MapZone {
 	@Override
 	public boolean processNPCClick1(Player player, NPC npc) {
 		if (npc.getId() == OVERSEER) {
-			player.dialogue(new OverseerDialogue(player, npc, this));
+			player.dialogue(new OverseerDialogue(player, npc));
 			return false;
 		}
 		return true;
