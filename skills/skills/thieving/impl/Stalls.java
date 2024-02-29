@@ -111,15 +111,10 @@ public final class Stalls extends Thieving {
 		player.getDetails().getStatistics()
 		.addStatistic(ItemDefinitions.getItemDefinitions(loot.getId()).getName() + "_Taken_From_Stall")
 		.addStatistic("Stalls_Thieved");
+		World.get().submit(new StallTask(this, object));
 		t.cancel();
 	}
-
-	@Override
-	public void onStop(boolean success) {
-		if(success)
-			World.get().submit(new StallTask(this, object));
-	}
-
+	
 	@Override
 	public Item loot() {
 		return loot;

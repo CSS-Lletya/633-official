@@ -110,20 +110,6 @@ public class Pickpocketing extends Thieving {
 	}
 
 	@Override
-	public boolean failure() {
-		if (getPlayer().getSkills().getLevel(Skills.THIEVING) == 1) {
-			return false;
-		}
-		if (mob.getDefinitions().getName().contains("Master")) {
-			return !RandomUtility.success(
-					((((double) 5 / 833) * getPlayer().getSkills().getLevel(Skills.THIEVING)) + ((double) 17 / 49)));
-		}
-		return (RandomUtility.inclusive(getPlayer().getSkills().getLevel(Skills.THIEVING)
-				+ RandomUtility.inclusive(5)) < (RandomUtility.inclusive(definition.requirement)
-						+ RandomUtility.inclusive((5))));
-	}
-
-	@Override
 	public int requirement() {
 		return definition.requirement;
 	}
@@ -174,7 +160,7 @@ public class Pickpocketing extends Thieving {
 
 	@Override
 	public void onExecute(Task t) {
-		if (failure()) {
+		if (!Thieving.success(player, definition.requirement)) {
 			if (definition == PickpocketData.FARMER || definition == PickpocketData.MASTER_FARMER)
 				mob.setNextForceTalk(new ForceTalk("Cor blimey mate, what are ye doing in me pockets?"));
 			else
@@ -224,6 +210,10 @@ public class Pickpocketing extends Thieving {
 
 	@Override
 	public boolean canExecute() {
+		if (player.getCombatDefinitions().isUnderCombat()) {
+			player.getPackets().sendGameMessage("You can't do this while in combat.");
+			return false;
+		}
 		return true;
 	}
 

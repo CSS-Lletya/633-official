@@ -45,27 +45,11 @@ public abstract class Thieving extends SkillHandler {
 	public abstract void onExecute(Task t);
 	
 	/**
-	 * The method which gets executed as soon as the skill action is stopped.
-	 * @param success determines whether the theft was a success or not.
-	 */
-	public void onStop(boolean success) {
-
-	}
-	
-	/**
 	 * The method which identifies if this player can initialise the theft.
 	 * @return <true> if the player can, <false> otherwise.
 	 */
 	public boolean canInit() {
 		return true;
-	}
-	
-	/**
-	 * Indicates if this player failed to thief.
-	 * @return <true> if the player did, <false> otherwise.
-	 */
-	public boolean failure() {
-		return false;
 	}
 	
 	@Override
@@ -80,30 +64,36 @@ public abstract class Thieving extends SkillHandler {
 	
 	@Override
 	public void onStop() {
-		if(!failure() && canExecute()) {
-			onStop(true);
-			if(!failure()) {
-				getPlayer().getInventory().addItem(loot());
-				getPlayer().getSkills().addExperience(Skills.THIEVING, experience());
-			}
+		if(success(player, requirement())) {
+			getPlayer().getInventory().addItem(loot());
+			getPlayer().getSkills().addExperience(Skills.THIEVING, experience());
 		}
-		onStop(false);
+	}
+	
+	/**
+
+	 * @author Kris | 21. okt 2017 : 14:46.17
+
+	 * @see <a href="https://www.rune-server.ee/members/kris/">Rune-Server profile</a>}
+
+	 */
+
+	public static boolean success(final Player player, final int requirement) {
+
+		val level = player.getSkills().getLevel(Skills.THIEVING);
+
+		val baseChance = 5d / 833 * level;
+
+		val reqChance = 0.49 - (requirement * 0.0032) - 0.02;
+
+		double chance = baseChance + reqChance;
+
+		return RandomUtility.randomDouble() < chance;
+
 	}
 	
 	@Override
 	public boolean isPrioritized() {
 		return false;
-	}
-	
-	/**
-	 * @author Kris | 21. okt 2017 : 14:46.17
-	 * @see <a href="https://www.rune-server.ee/members/kris/">Rune-Server profile</a>}
-	 */
-	public static boolean success(final Player player, final int requirement) {
-		val level = player.getSkills().getLevel(Skills.THIEVING);
-		val baseChance = 5d / 833 * level;
-		val reqChance = 0.49 - (requirement * 0.0032) - 0.02;
-		double chance = baseChance + reqChance;
-		return RandomUtility.randomDouble() < chance;
 	}
 }
