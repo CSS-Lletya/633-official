@@ -12,6 +12,8 @@ import skills.magic.TeleportType;
  * actions in classes for example "Lumbridge" as the action takes place there,
  * etc..
  * 
+ * Some objectshave null option it seems (lumby second floor stairs, 3rd option (go-down)).
+ * 
  * @author Dennis
  *
  */

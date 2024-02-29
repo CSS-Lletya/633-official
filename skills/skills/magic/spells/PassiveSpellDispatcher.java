@@ -52,6 +52,9 @@ public class PassiveSpellDispatcher {
 	        player.getPackets().sendGameMessage("You don't have the required amount of Runes to cast this spell.");
 	        return false;
 	    }
+	    
+	    if (player.getMovement().isLocked())
+	    	return false;
 
 	    return true;
 	}
