@@ -477,9 +477,10 @@ public class Player extends Entity {
 	@Override
 	public void processEntity() {
 		getSession().processLogicPackets(this);
+		getDetails().getPlayTime().getAndIncrement();
+		getDayOfWeekManager().process();
 		if (isDead())
 			return;
-		getDetails().getPlayTime().getAndIncrement();
 		if (getCoordsEvent() != null && getCoordsEvent().processEvent(this))
 			setCoordsEvent(null);
 		if (getRouteEvent() != null && getRouteEvent().processEvent(this))
@@ -487,15 +488,14 @@ public class Player extends Entity {
 		getAction().process();
 		getPrayer().processPrayer();
 		getMapZoneManager().executeVoid(zone -> zone.process(this));
-		getDayOfWeekManager().process();
 		if (getMusicsManager().musicEnded())
 			getMusicsManager().replayMusic();
-		if (getDetails().getChargeDelay().secondsRemaining() == 1)
+		if (getDetails().getChargeDelay().ticksRemaining() == 1)
 			getAudioManager().sendSound(Sounds.CHARGE_SPELL_REMOVED);
-		if (getDetails().getMagicImbue().secondsRemaining() == 4) {
+		if (getDetails().getMagicImbue().ticksRemaining() == 6) {
 			getPackets().sendGameMessage("Magic Imbue spell charge is running out...");
 		}
-		if (getDetails().getMagicImbue().secondsRemaining() == 1) {
+		if (getDetails().getMagicImbue().ticksRemaining() == 1) {
 			getPackets().sendGameMessage("Magic Imbue charge has ended.");
 			getAttributes().get(Attribute.MAGIC_IMBUED).set(false);
 		}

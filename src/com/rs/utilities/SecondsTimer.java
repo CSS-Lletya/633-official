@@ -81,6 +81,15 @@ public class SecondsTimer {
         return seconds - secondsElapsed();
     }
     
+    /**
+     * Gets the amount of ticks remaining
+     * before this timer has reached 0.
+     * @return The ticks remaining.
+     */
+    public int ticksRemaining() {
+    	return seconds - ticksElapsed();
+    }
+    
     public int getMinutes() {
     	return secondsRemaining() / 60;
     }
@@ -93,5 +102,15 @@ public class SecondsTimer {
      */
     public int secondsElapsed() {
         return (int) stopwatch.elapsed(TimeUnit.MILLISECONDS) / 1000;
+    }
+    
+    /**
+     * Gets the amount of ticks that have elapsed
+     * since the timer was started.
+     *
+     * @return The ticks elapsed.
+     */
+    public int ticksElapsed() {
+        return (int) stopwatch.elapsed(TimeUnit.MILLISECONDS) / 600;
     }
 }
