@@ -7,7 +7,6 @@ import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
-import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -24,6 +23,11 @@ public class Fishing extends HarvestingSkillAction {
 	public Fishing(Player player, Tool tool, WorldTile position) {
 		super(player, Optional.of(position));
 		this.tool = tool;
+	}
+	
+	@Override
+	public boolean isIgnoreResourceGather() {
+		return false;
 	}
 
 	@Override
@@ -76,7 +80,7 @@ public class Fishing extends HarvestingSkillAction {
 	@Override
     public boolean successful() {
         val fishLevel = tool.level;
-        val level = player.getSkills().getLevel(Skills.FISHING);
+        val level = player.getSkills().getTrueLevel(Skills.FISHING);
         val advancedLevels =  level - fishLevel;
         return Math.min(Math.round(advancedLevels * 0.6F) + 30, 70) > RandomUtility.random(100);
     }
@@ -100,7 +104,7 @@ public class Fishing extends HarvestingSkillAction {
 	public boolean initialize() {
 		if(!checkFishing())
 			return false;
-		getPackets().sendGameMessage("You begin to fish...");
+		getPackets().sendGameMessage("You cast out your " +ItemDefinitions.getItemDefinitions(tool.id).getName() +"...");
 		return true;
 	}
 	
@@ -123,7 +127,7 @@ public class Fishing extends HarvestingSkillAction {
 			return false;
 		}
 		if(getPlayer().getInventory().getFreeSlots() < 1) {
-			getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
+			player.dialogue(d -> d.mes("You can't carry any more fish."));
 			return false;
 		}
 		if (hasBarbtailHarpoon()) {

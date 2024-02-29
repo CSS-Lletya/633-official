@@ -58,7 +58,7 @@ public final class Runecrafting extends ProducingSkillAction {
 
 	@Override
 	public Optional<String> message() {
-		return Optional.of(altar.isDiverse() ? "You do not have any essence left." : "You do not have any pure essence left.");
+		return Optional.of("You do not have any essence to craft this rune.");
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public final class Runecrafting extends ProducingSkillAction {
 			return false;
 		}
 		if(getPlayer().getSkills().getLevel(Skills.RUNECRAFTING) < altar.getRequirement()) {
-			getPlayer().getPackets().sendGameMessage("You need a level of " + altar.getRequirement() + " to use this altar!");
+			getPlayer().getPackets().sendGameMessage("You need a Runecrafting level of "+altar.getRequirement() + " to craft this rune.");
 			return false;
 		}
 		return true;

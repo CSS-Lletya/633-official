@@ -36,6 +36,7 @@ public class FiremakingTask extends Task {
 
 	@Override
 	public void onSubmit() {
+		firemaking.getPlayer().getPackets().sendGameMessage("The fire catches and the logs begin to burn.");
 		GameObject object = new GameObject(new GameObject(firemaking.getFireLighter().getObjectId(), 10, 0, tile));
 		GameObject.spawnTempGroundObject(object, RandomUtility.inclusive(60, 120), () -> FloorItem.addGroundItem(new Item(592), object, firemaking.getPlayer(), true, 60));
 		

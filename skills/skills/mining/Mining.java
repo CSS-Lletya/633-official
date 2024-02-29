@@ -2,13 +2,13 @@ package skills.mining;
 
 import java.util.Optional;
 
+import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Equipment;
-import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -64,10 +64,16 @@ public class Mining extends HarvestingSkillAction {
 	}
 
 	@Override
+	public boolean harvestMessage() {
+		return false;
+	}
+	
+	@Override
 	public void onHarvest(Task t, Item[] items, boolean success) {
 		if (rock == RockData.LRC_COAL || rock == RockData.LRC_GOLD || rock == RockData.LRC_MINERALS || rock == RockData.ESSENCE || rock == RockData.PURE_ESSENCE)
 			return;
 		if (success) {
+			getPlayer().getPackets().sendGameMessage("You manage to mine some " + ItemDefinitions.getItemDefinitions(rock.getItem()[0].getId()).getName());
 			randomEvent();
 			object.setLife(object.getLife() - 1);
 			canFindGem(player);
@@ -129,7 +135,7 @@ public class Mining extends HarvestingSkillAction {
 		if(object.getLife() <= 0) {
 			object.setLife(rock.getOreCount());
 		}
-		getPlayer().getPackets().sendGameMessage("You begin to mine the rock...");
+		getPlayer().getPackets().sendGameMessage("You swing your pick at the rock.");
 		getPlayer().setNextAnimation(pickaxe.getAnimation());
 		return true;
 	}
@@ -183,20 +189,16 @@ public class Mining extends HarvestingSkillAction {
 		if(rock == null) {
 			return false;
 		}
-		if(PickaxeData.getDefinition(getPlayer()).orElse(null) == null) {
-			getPlayer().getPackets().sendGameMessage("You don't have a pickaxe.");
-			return false;
-		}
 		if(getPlayer().getSkills().getLevel(Skills.MINING) < rock.getRequirement()) {
-			getPlayer().getPackets().sendGameMessage("You need a level of " + rock.getRequirement() + " to mine this rock!");
+			getPlayer().dialogue(d -> d.mes("You need a Mining level of "+ rock.getRequirement() + " to mine this rock."));
 			return false;
 		}
-		if(getPlayer().getSkills().getLevel(Skills.MINING) < pickaxe.getRequirement()) {
-			getPlayer().getPackets().sendGameMessage("You need a level of " + pickaxe.getRequirement() + " to use this pickaxe!");
+		if(PickaxeData.getDefinition(getPlayer()).orElse(null) == null || getPlayer().getSkills().getLevel(Skills.MINING) < pickaxe.getRequirement()) {
+			getPlayer().dialogue(d -> d.mes("You need a pickaxe to mine this rock. You do not have a pickaxe which you have the Mining level to use."));
 			return false;
 		}
 		if(getPlayer().getInventory().getFreeSlots() < 1) {
-			getPlayer().getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
+			getPlayer().dialogue(d -> d.mes("Your inventory is too full to hold any more " + ItemDefinitions.getItemDefinitions(rock.getItem()[0].getId()).getName()+"."));
 			return false;
 		}
 		return true;

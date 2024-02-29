@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Action;
@@ -46,14 +47,14 @@ public class Canoes {
 						}
 					}
 				}
+				if (player.getSkills().getLevel(Skills.WOODCUTTING) < 12) {
+					player.getPackets().sendGameMessage("You need a woodcutting level of at least 12 to make a canoe.");
+					return false;
+				}
 				if (hatchet == null) {
 					hatchet = Hatchet.BRONZE;
 					player.getPackets()
 							.sendGameMessage("A nearby overseer hands you a bronze hatchet to temporarily use.");
-				}
-				if (player.getSkills().getLevel(Skills.WOODCUTTING) < 12) {
-					player.getPackets().sendGameMessage("You need a woodcutting level of at least 12 to make a canoe.");
-					return false;
 				}
 				return true;
 			}
@@ -69,6 +70,7 @@ public class Canoes {
 				player.getAttributes().get(Attribute.CANOE_CHOPPED).set(true);
 				player.getAttributes().get(Attribute.CANOE_CONFIG).set(1839 + configIndex);
 				player.getVarsManager().sendVarBit(1839 + configIndex, 10);
+				player.getAudioManager().sendSound(Sounds.FALLING_TREE);
 				isComplete = true;
 				stop(player);
 				return 4;
@@ -111,7 +113,9 @@ public class Canoes {
 			hatchet = Hatchet.BRONZE;
 		player.setNextAnimation(new Animation(hatchet.ordinal() + 11594));
 		player.getMovement().lock();
-		player.task(10, woodcutter -> {
+		player.getAudioManager().sendSound(Sounds.BUILD_CANOE);
+		player.task(6, woodcutter -> {
+			player.getAudioManager().sendSound(Sounds.ROLL_CANOE);
 			woodcutter.toPlayer().getAttributes().get(Attribute.CANOE_SHAPED).set(true);
 			woodcutter.toPlayer().getMovement().unlock();
 			woodcutter.toPlayer().getVarsManager().sendVarBit(woodcutter.toPlayer().getAttributes().get(Attribute.CANOE_CONFIG).getInt(),
@@ -143,7 +147,10 @@ public class Canoes {
 				player.getVarsManager().sendVarBit(player.getAttributes().get(Attribute.CANOE_CONFIG).getInt(), 0);
 				CanoeDestinations.VALUES.stream().filter(area -> area.areaId == selectedArea)
 						.forEach(travel -> FadingScreen.fade(player,
-								() -> player.setNextWorldTile(new WorldTile(travel.destination))));
+								() -> {
+									player.getAudioManager().sendSound(Sounds.SINK_CANOE);
+									player.setNextWorldTile(new WorldTile(travel.destination));
+								}));
 			}
 		} else
 			player.getPackets().sendGameMessage("You are already at this location!");

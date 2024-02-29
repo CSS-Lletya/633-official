@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.objects;
 
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
@@ -14,10 +15,13 @@ public class CowsObjectPlugin extends ObjectListener {
 
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
+		if (player.getMovement().isLocked())
+			return;
 		if (object.getId() == 12111) {
 			if (optionId == 2) {
 				if (player.getInventory().containsAny(1925)) {
 					player.getMovement().lock(8);
+					player.getAudioManager().sendSound(Sounds.COW_INTERACT);
 					player.setNextAnimation(Animations.COW_MILKING);
 					player.getInventory().replaceItems(new Item(1925), new Item(1927));
 					player.getPackets().sendGameMessage("You milk the cow.");

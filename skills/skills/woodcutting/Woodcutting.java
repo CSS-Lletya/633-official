@@ -10,7 +10,6 @@ import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Equipment;
-import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
@@ -165,7 +164,7 @@ public class Woodcutting extends HarvestingSkillAction {
 			return false;
 		}
 		if(Hatchet.getDefinition(player).orElse(null) == null) {
-			getPlayer().getPackets().sendGameMessage("You don't have a hatchet.");
+			getPlayer().getPackets().sendGameMessage("You need an axe to chop down this tree.");
 			return false;
 		}
 		if(player.getSkills().getLevel(Skills.WOODCUTTING) < tree.getRequirement()) {
@@ -173,11 +172,11 @@ public class Woodcutting extends HarvestingSkillAction {
 			return false;
 		}
 		if(player.getSkills().getLevel(Skills.WOODCUTTING) < hatchet.getRequirement()) {
-			getPlayer().getPackets().sendGameMessage("You need a level of " + hatchet.getRequirement() + " to use this hatchet!");
+			getPlayer().getPackets().sendGameMessage("You do not have an axe which you have the woodcutting level to use.");
 			return false;
 		}
 		if(getPlayer().getInventory().getFreeSlots() < 1 && !tree.isObstacle()) {
-			getPlayer().getPackets().sendGameMessage(Inventory.INVENTORY_FULL_MESSAGE);
+			getPlayer().getPackets().sendGameMessage("Your inventory is too full to hold any more logs.");
 			return false;
 		}
 		

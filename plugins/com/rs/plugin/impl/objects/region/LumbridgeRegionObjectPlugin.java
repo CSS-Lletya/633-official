@@ -3,6 +3,7 @@ package com.rs.plugin.impl.objects.region;
 import com.rs.GameConstants;
 import com.rs.constants.Animations;
 import com.rs.constants.ItemNames;
+import com.rs.constants.Sounds;
 import com.rs.game.dialogue.impl.StairsLaddersDialogue;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
@@ -28,8 +29,10 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 		}
 		//chicken area (hatchet specifically)
 		object.doAction(optionId, 36974, "take-hatchet", () -> {
-			if (player.getInventory().addItem(new Item(ItemNames.BRONZE_HATCHET_1351)))
+			if (player.getInventory().addItem(new Item(ItemNames.BRONZE_HATCHET_1351))) {
+				player.getAudioManager().sendSound(Sounds.REMOVE_AXE);
 				GameObject.spawnTempGroundObject(new GameObject(36975, 10, 0, object), 30);
+			}
 		});/*.doAction(option, objectId, searchedOption, action);*/
 		//basement
 		object.doAction(optionId, 12309, "bank", () -> player.getBank().openBank());

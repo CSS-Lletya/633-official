@@ -42,7 +42,7 @@ public class BankInterfacePlugin extends RSInterfaceListener {
 				if (componentId == 117) {
 					RSInterfacePluginDispatcher.openEquipmentBonuses(player, true);
 				}
-				if (componentId == 39 && option == 11)
+				if (componentId == 37 && option == 11)
 					player.getBank().depositAllBob(true);
 				if (componentId == 15)
 					player.getBank().switchInsertItems();
@@ -53,7 +53,7 @@ public class BankInterfacePlugin extends RSInterfaceListener {
 					player.getBank().switchWithdrawNotes();
 				else if (componentId == 33)
 					player.getBank().depositAllInventory(true);
-				else if (componentId == 37) {
+				else if (componentId == 35) {
 					player.getBank().depositAllEquipment(true);
 				} else if (componentId == 44) {
 					player.getInterfaceManager().closeInterfaces();

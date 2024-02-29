@@ -36,7 +36,7 @@ public class FishingSpotNPCPlugin extends NPCListener {
 				new Fishing(player, Tool.NET_MONKFISH, mob).start();
 				break;
 			case 322:
-				new Fishing(player, Tool.FISHING_ROD, mob).start();
+				new Fishing(player, Tool.FISHING_ROD_, mob).start();
 				break;
 			case 8841:
 			case 8842:// rocktails
@@ -47,6 +47,9 @@ public class FishingSpotNPCPlugin extends NPCListener {
 				break;
 			case 1174:
 				new Fishing(player, Tool.NET_KARAMBWANJI, mob).start();
+				break;
+			case 327:
+				new Fishing(player, Tool.NET, mob).start();
 				break;
 			}
 			
@@ -59,6 +62,11 @@ public class FishingSpotNPCPlugin extends NPCListener {
 			}
 			if (IntStream.of(329, 322, 330, 323,318).anyMatch(id -> mob.getId() == id))
 				new Fishing(player, Tool.FISHING_ROD, mob).start();
+			switch(mob.getId()) {
+			case 327:
+				new Fishing(player, Tool.FISHING_ROD, mob).start();
+				break;
+			}
 		}
 	}
 }

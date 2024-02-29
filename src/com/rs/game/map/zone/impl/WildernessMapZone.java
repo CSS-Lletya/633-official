@@ -87,7 +87,7 @@ public class WildernessMapZone extends MapZone {
 		}
 		if (player.getDetails().getTeleBlockDelay().get() > 0) {
 			player.getAudioManager().sendSound(Sounds.TELEBLOCKED);
-			player.getPackets().sendGameMessage("A mysterious force prevents you from teleporting.");
+			player.getPackets().sendGameMessage("A mysterious force blocks your teleport spell!");
 			return false;
 		}
 		return true;
@@ -97,11 +97,11 @@ public class WildernessMapZone extends MapZone {
 	@Override
 	public boolean processItemTeleport(Player player, WorldTile toTile) {
 		if (getWildLevel(player) > 30) {
-			player.getPackets().sendGameMessage("A mysterious force prevents you from teleporting.");
+			player.getPackets().sendGameMessage("A mysterious force blocks your teleport spell!");
 			return false;
 		}
 		if (player.getDetails().getTeleBlockDelay().get() > 0) {
-			player.getPackets().sendGameMessage("A mysterious force prevents you from teleporting.");
+			player.getPackets().sendGameMessage("A mysterious force blocks your teleport spell!");
 			return false;
 		}
 		return true;

@@ -4,7 +4,6 @@ import com.rs.constants.Graphic;
 import com.rs.constants.InterfaceVars;
 import com.rs.constants.Sounds;
 import com.rs.game.player.Player;
-import com.rs.utilities.Colors;
 
 public class LevelUp extends Skills {
 
@@ -25,8 +24,8 @@ public class LevelUp extends Skills {
         }
         player.getVarsManager().sendVar(InterfaceVars.LEVEL_UP_AND_FLASH, spriteConfig << 26 | flashingConfig);
 		player.getPackets().sendIComponentText(740, 1, "You have now reached level " + player.getSkills().getLevel(skill) + "!");
-		player.getPackets().sendIComponentText(740, 0, Colors.color(Colors.blue, "Congratulations, you've advanced " + gainedLevels
-				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + "."));
+		player.getPackets().sendIComponentText(740, 0, "Congratulations, you've advanced " + 
+		(gainedLevels == 1? "a" : gainedLevels) + " " +Skills.SKILL_NAME[skill] + (gainedLevels == 1 ? " level!" : " levels!"));
 		player.setNextGraphics(Graphic.LEVEL_UP);
 		if (currentLevel == 99) {
 			player.getSkills().trimCapes();
@@ -34,8 +33,8 @@ public class LevelUp extends Skills {
 			player.task(1, p -> player.getPackets().sendMusicEffect(musicId.getId2()));
 		} else
 			player.getPackets().sendMusicEffect(currentLevel > 50 ? musicId.getId2() : musicId.getId());
-		player.getPackets().sendGameMessage("Congratulations, you've advanced " + gainedLevels
-				+ (gainedLevels == 1 ? " level" : " levels") + " in " + SKILL_NAME[skill] + ".");
+		player.getPackets().sendGameMessage("Congratulations, you've advanced " + 
+				(gainedLevels == 1? "a" : gainedLevels) + " "+Skills.SKILL_NAME[skill] + (gainedLevels == 1 ? " level!" : " levels!"));
 		player.getInterfaceManager().sendChatBoxInterface(740);
 	}
 

@@ -22,7 +22,7 @@ public final class Inventory {
 	public static final int INVENTORY_INTERFACE = 149;
 	
 	
-	public static String INVENTORY_FULL_MESSAGE = "You need some more free inventory space to do this.";
+	public static String INVENTORY_FULL_MESSAGE = "You do not have any more free space in your inventory.";
 
 	public Inventory() {
 		items = new ItemsContainer<Item>(28, false);
@@ -197,6 +197,10 @@ public final class Inventory {
 
 	public int getFreeSlots() {
 		return items.getFreeSlots();
+	}
+	
+	public int getSlotsSlotsRemainig() {
+		return 28 - items.getFreeSlots();
 	}
 
 	public int getAmountOf(int itemId) {

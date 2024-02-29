@@ -64,7 +64,7 @@ public class DoorsGatesObjectPlugin extends ObjectListener {
 		}
 		if (object.getId() == 1804) {
 			if (!player.getInventory().containsAny(983) && player.matches(new WorldTile(3115, 3449))) {
-				player.getAudioManager().sendSound(Sounds.LOCKED);
+				player.getAudioManager().sendSound(Sounds.LOCKED_DOOR);
 				player.getPackets().sendGameMessage("This door is locked.");
 				return;
 			}

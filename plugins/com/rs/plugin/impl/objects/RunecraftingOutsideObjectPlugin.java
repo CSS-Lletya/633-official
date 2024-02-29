@@ -19,7 +19,7 @@ public class RunecraftingOutsideObjectPlugin extends ObjectListener {
 		Arrays.stream(Altar.values()).filter(altar -> altar.getOutisdeObject() == object.getId())
 		.forEach(altar -> {
 			player.getMovement().move(true, altar.getWorldTile(), TeleportType.BLANK);
-			player.getPackets().sendGameMessage("A mysterious force grabs hold of you.");
+			player.getPackets().sendGameMessage("You feel a powerful force take hold of you...");
 		});
 	}
 	
@@ -28,7 +28,7 @@ public class RunecraftingOutsideObjectPlugin extends ObjectListener {
 		Arrays.stream(Altar.values()).filter(altar -> altar.getTalisman() == item.getId() && altar.getOutisdeObject() == object.getId())
 		.forEach(altar -> {
 			player.getMovement().move(true, altar.getWorldTile(), TeleportType.BLANK);
-			player.getPackets().sendGameMessage("A mysterious force grabs hold of you.");
+			player.getPackets().sendGameMessage("You feel a powerful force take hold of you...");
 		});
 	}
 }

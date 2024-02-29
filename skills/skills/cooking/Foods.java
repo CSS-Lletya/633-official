@@ -612,7 +612,7 @@ public class Foods {
 		player.getInventory().refresh(slot);
 		int hp = player.getHitpoints();
 		player.heal(food.getHeal() * 10, food.getExtraHP() * 10);
-		if (player.getHitpoints() > hp)
+		if (hp < player.getMaxHitpoints())
 			player.getPackets().sendGameMessage("It heals some health.");
 		player.getInterfaceManager().refreshHitPoints();
 		player.getInventory().refresh();

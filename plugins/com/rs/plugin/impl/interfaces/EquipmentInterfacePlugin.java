@@ -3,6 +3,7 @@ package com.rs.plugin.impl.interfaces;
 import java.util.stream.IntStream;
 
 import com.rs.constants.Animations;
+import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.map.GameObject;
 import com.rs.game.map.World;
@@ -84,6 +85,7 @@ public class EquipmentInterfacePlugin extends RSInterfaceListener {
                 player.getPrayer().drainPrayer(6);
                 player.getMovement().lock(2);
                 player.setNextAnimation(Animations.CAST_BLOOM);
+                player.getAudioManager().sendSound(Sounds.CASTING_BLOOM);
                 for (GameObject object : World.getRegion(player.getRegionId()).getAllObjects()) {
                     if (object.withinDistance(player, 2)) {
                         switch (object.getId()) {

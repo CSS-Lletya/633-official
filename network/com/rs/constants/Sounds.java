@@ -19,7 +19,7 @@ public interface Sounds {
 	 * Player Based Animations
 	 */
 	int BEING_TELEPORTED = 195;
-	int CUTTING_GEMS = 2586;
+	int USING_CHISEL = 2586;
 	int CANCELING_PIN = 1042;
 	int HIGH_ALCHEMY_SPELL = 97;
 	int LOW_ALCHEMY_SPELL = 98;//invalid, use h.a instead
@@ -29,7 +29,7 @@ public interface Sounds {
 	int VENGEANCE_SPELL = 2908;
 	int VENGEANCE_OTHER_SPELL = 2907;
 	int SUPERHEAT_SPELL = 117;
-	int BIRDS_NEST = 1997;
+	int BIRDS_NEST = 1516; //1997 bird whistling
 	int NPC_CONTACT_SPELL = 3618;
 	int FLOUR_HOPPER_OPERATING = 3189;
 	int WILDERNESS_OBELISK_TELEPORING = 204;
@@ -131,7 +131,7 @@ public interface Sounds {
 	int HOPPER_LEVER_PULLING = 2575;
 	int FANFARE = 2930; //funny TADA! sound effect. kek.
 	int UNLOCK_AND_MOVE = 1473;
-	int WATER_SPLASHING = 2496; //linked to JUMPING_INTO, or anything relevant too.
+	int WATER_SPLASHING = 2496; //linked to JUMPING_INTO, or anything relevant too. 1658 is quieter
 	int LOOM_WEAVING = 2587;
 	int POTTERY = 2588;
 	int POTTERY_OVEN = 2580;
@@ -169,6 +169,13 @@ public interface Sounds {
 	int CREATED_FIRE = 130;
 	int INTERFACE_CLICK = 2266;
 	int HELLCAT_GROWING = 2293;
+	int COW_INTERACT = 1170;
+	int CASTING_BLOOM = 1493;
+	int LOCKED_DOOR = 1631;
+	int REMOVE_AXE = 3775;
+	int BUILD_CANOE = 2729;
+	int ROLL_CANOE = 2731;
+	int SINK_CANOE = 2732;
 	
 	//combat specials, rest of combat will be defined after rework
 	int ICE_CLEAVE_SPECIAL = 3846;
@@ -190,6 +197,4 @@ public interface Sounds {
 	 */
 	//npc combat-based sounds will be added after combat rework
 	int SHEEP_FAILED_SHEERING = 755;
-	
-	
 }

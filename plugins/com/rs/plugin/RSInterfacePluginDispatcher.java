@@ -507,8 +507,10 @@ public final class RSInterfacePluginDispatcher {
 	
 	@AllArgsConstructor
 	public enum EquipSounds {
+		WOODEN(2250, new String[]{"wooden"}),
 	    AXE(2229, new String[]{"hatchet"}),
-	    STAFF(2247, new String[] {"staff"}),//hmm - 2230
+	    ELEMENTAL_STAFF(2230, new String[] {"staff of"}),
+	    STAFF(2247, new String[] {"staff"}),
 	    BANNER(2231, new String[] {"banner"}),
 	    BATTLEAXE(2232, new String[] {"battleaxe"}),
 	    BLUNT(2233, new String[] {"mace", "hammer", "halberd", "maul", "balmung", "ket-om", "club", "adze", "anchor", "-ak", "-ek", "-tal", "greataxe"}),
@@ -526,10 +528,10 @@ public final class RSInterfacePluginDispatcher {
 	    SHIELD(2245, new String[]{"shield", "sq", "defender", "deflector", "xil", "kiteshield", "throwing", "chinchompa", "-ul"}),
 	    CLAWS(1003, new String[]{"claw"}),
 	    SPIKED(2246, new String[]{"spike", "climbing"}),
-	    SWORD(2247, new String[]{"sword", "scimitar", "dagger", "longsword", "spear", "mjolnir", "excalibur", "blade", "sabre", "rapier", "keris", "godsword"}),
-	    WHIP(2248, new String[]{"whip"}),
-	    WOODEN(2249, new String[]{"wooden"}),
-	    DARK_BOW(3738, new String[]{"darkbow"}),
+	    SWORD(2248, new String[]{"sword", "scimitar", "dagger", "longsword", "spear", "mjolnir", "excalibur", "blade", "sabre", "rapier", "keris", "godsword"}),
+	    WHIP(2249, new String[]{"whip"}),
+	    
+	    DARK_BOW(3738, new String[]{"dark bow"}),
 	    WAND(3738, new String[]{"wand"}),
 	    HWEEN(3227, new String[]{"h'ween mask"}),
 	    SILVERLIGHT(2990, new String[]{"silverlight"}),

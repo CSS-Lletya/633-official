@@ -37,8 +37,14 @@ public class Firemaking extends DestructionSkillAction {
 	 */
 	public final FireLighter lighter;
 	
+	/**
+	 * Represents a state of the Log condition. Is this log found from ground or not.
+	 */
 	public final boolean isGroundLog;
 	
+	/**
+	 * Gets the tile of the Log, used for Ground Item Firemaking.
+	 */
 	public final WorldTile toTile;
 	
 	/**
@@ -66,6 +72,7 @@ public class Firemaking extends DestructionSkillAction {
 			return false;
 		}
 		if(firstItem.getId() == firemaking.lighter.getItem() && secondItem.equals(firemaking.log.getLog()) || firstItem.equals(firemaking.log.getLog()) && secondItem.getId() == firemaking.lighter.getItem()) {
+			player.getPackets().sendGameMessage("You attempt to light the logs.");
 			player.setNextAnimation(Animations.ATTEMPT_FIRE_LIGHTING);
 			firemaking.start();
 			return true;
@@ -141,11 +148,11 @@ public class Firemaking extends DestructionSkillAction {
 	
 	private boolean checkFiremaking() {
 		if (!player.getInventory().containsItem(ItemNames.TINDERBOX_590, 1)) {
-            player.getPackets().sendGameMessage("You don't have any tinderbox.");
+            player.getPackets().sendGameMessage("You do not have the required items to light this.");
             return false;
         }
         if (player.getSkills().getLevel(Skills.FIREMAKING) < log.getRequirement()) {
-            player.getPackets().sendGameMessage("You need a firemaking level of " + log.getRequirement() + " to light this log.");
+            player.getPackets().sendGameMessage("You do not have the required level to light this.");
             return false;
         }
         if (!isGroundLog && !World.getTileAttributes().isTileFree(player.getPlane(), player.getX(), player.getY(), 1) 

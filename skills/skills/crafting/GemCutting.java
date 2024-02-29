@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.constants.ItemNames;
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
@@ -28,6 +27,8 @@ public class GemCutting extends ProducingSkillAction {
 	 * Determines if the underlying skill action is a fletching skill.
 	 */
 	private final boolean fletching;
+	
+	private boolean crushed = false;
 
 	/**
 	 * Constructs a new {@link GemCutting}.
@@ -68,11 +69,15 @@ public class GemCutting extends ProducingSkillAction {
 
 	@Override
 	public void onProduce(Task t, boolean success) {
+		if (success)
+			player.getPackets().sendGameMessage((crushed ? "You miss-hit the chisel and smash the "+data.gem.getName()+" to pieces!" :"You cut the " + data.gem.getName()));
 		player.getAudioManager().sendSound(Sounds.CHISELING);
+		player.setNextAnimation(data.animation);
 	}
 
 	@Override
 	public boolean canExecute() {
+		crushed = RandomUtility.success(calculateCrushingChance(player.getSkills().getLevel(Skills.CRAFTING)));
 		return checkCrafting();
 	}
 
@@ -88,7 +93,7 @@ public class GemCutting extends ProducingSkillAction {
 
 	@Override
 	public Optional<Item[]> produceItem() {
-		return Optional.of(new Item[] { (RandomUtility.success(calculateCrushingChance(player.getSkills().getLevel(Skills.CRAFTING)))) ? new Item(ItemNames.CRUSHED_GEM_1633) :  data.produce });
+		return Optional.of(new Item[] { crushed ? new Item(ItemNames.CRUSHED_GEM_1633) :  data.produce });
 	}
 
 	@Override
@@ -119,11 +124,10 @@ public class GemCutting extends ProducingSkillAction {
 	private boolean checkCrafting() {
 		if (player.getSkills().getLevel(Skills.CRAFTING) < data.requirement) {
 			player.getPackets()
-					.sendGameMessage("You need a Crafting level of " + data.requirement + " to continue this action.");
+					.sendGameMessage("You need a Crafting level of "+data.requirement+" to cut this gem.");
 			return false;
 		}
 		if (!player.getInventory().containsAny(data.gem.getId())) {
-			player.getPackets().sendGameMessage("You do not have enough " + ItemDefinitions.getItemDefinitions(data.gem.getId()).getName() + " to make a " + ItemDefinitions.getItemDefinitions(data.produce.getId()).getName() + ".");
 			return false;
 		}
 		return true;

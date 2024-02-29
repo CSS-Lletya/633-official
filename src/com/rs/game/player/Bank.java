@@ -119,12 +119,16 @@ public class Bank {
 					"Not enough space in your bank.");
 			return;
 		}
+		if (player.getInventory().getFreeSlots() == 28) {
+			player.getPackets().sendGameMessage("You have no items in your backpack.");
+			return;
+		}
 		for (int i = 0; i < 28; i++)
 			depositItem(i, Integer.MAX_VALUE, false);
 		refreshTab(currentTab);
 		refreshItems();
-		 if (banking)
-	            refreshTotalSize();
+		if (banking)
+			refreshTotalSize();
 		 player.getDetails().getStatistics().addStatistic("Items_Deposited");
 	}
 
@@ -132,6 +136,10 @@ public class Bank {
 		Familiar familiar = player.getFamiliar();
 		if (familiar == null || familiar.getBob() == null)
 			return;
+		if (familiar.getBob().getBeastItems().isEmpty()) {
+			player.getPackets().sendGameMessage("You have no items in your beast of burden.");
+			return;
+		}
 		int space = addItems(familiar.getBob().getBeastItems().getItems(),
 				banking);
 		if (space != 0) {
@@ -157,6 +165,10 @@ public class Bank {
 				player.getEquipment().getItems().set(i, null);
 			player.getEquipment().init();
 			player.getAppearance().generateAppearenceData();
+		}
+		if (player.getEquipment().getItems().isEmpty()) {
+			player.getPackets().sendGameMessage("You have no items in your equipment.");
+			return;
 		}
 		if (space < player.getEquipment().getItems().getSize()) {
 			player.getPackets().sendGameMessage(
@@ -456,12 +468,16 @@ public class Bank {
 	}
 
 	public void depositItem(int invSlot, int quantity, boolean refresh) {
-		if (quantity < 1 || invSlot < 0 || invSlot > 27)
+		if (quantity < 1 || invSlot < 0 || invSlot > 27) {
 			return;
+		}
 		Item item = player.getInventory().getItem(invSlot);
-		if (item == null)
+		if (item == null) {
 			return;
+		}
+		
 		int amt = player.getInventory().getItems().getNumberOf(item);
+
 		if (amt < quantity)
 			item = new Item(item.getId(), amt);
 		else

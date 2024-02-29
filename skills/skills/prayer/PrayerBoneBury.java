@@ -25,6 +25,7 @@ public final class PrayerBoneBury extends DestructionSkillAction {
 	
 	@Override
 	public boolean canExecute() {
+		getPlayer().getPackets().sendGameMessage("You dig a hole in the ground...");
 		return true;
 	}
 	
@@ -38,7 +39,7 @@ public final class PrayerBoneBury extends DestructionSkillAction {
 		if(success) {
 			getPlayer().setNextAnimation(Animations.TOUCH_GROUND);
 			getPlayer().getAudioManager().sendSound(Sounds.BURY_OR_PICK);
-			getPlayer().getPackets().sendGameMessage("You bury the " + ItemDefinitions.getItemDefinitions(bone.getId()).getName() + ".");
+			getPlayer().getPackets().sendGameMessage("You bury the bones.");
 			player.getDetails().getStatistics().addStatistic(ItemDefinitions.getItemDefinitions(itemId).getName() + "_Buried").addStatistic("Bones_Buried");
 			getPlayer().getDetails().getBoneBury().reset();
 		}
@@ -47,12 +48,12 @@ public final class PrayerBoneBury extends DestructionSkillAction {
 	
 	@Override
 	public int delay() {
-		return 0;
+		return 1;
 	}
 	
 	@Override
 	public boolean instant() {
-		return true;
+		return false;
 	}
 	
 	@Override
