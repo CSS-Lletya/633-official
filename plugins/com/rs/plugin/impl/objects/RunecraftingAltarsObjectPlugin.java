@@ -9,6 +9,7 @@ import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 
 import skills.runecrafting.Altar;
+import skills.runecrafting.CombinationRunes;
 import skills.runecrafting.Runecrafting;
 import skills.runecrafting.TiaraEnchantment;
 import skills.runecrafting.TiaraEnchantment.RunecraftingTiara;
@@ -26,5 +27,21 @@ public class RunecraftingAltarsObjectPlugin extends ObjectListener {
 	public void executeItemOnObject(Player player, GameObject object, Item item) throws Exception {
 		RunecraftingTiara.VALUES.stream().filter(tali -> tali.talisman == item.getId() && object.getId() == tali.altarId)
 				.forEach(tiara -> TiaraEnchantment.enchant(player, tiara.talisman));
+		
+		for (CombinationRunes.CombinationRunesStore data : CombinationRunes.CombinationRunesStore.values()) {
+            if (data != null) {
+                if ((item.getId() == data.itemId || item.getId() == data.talisman)
+                        && object.getId() == data.objectId2) {
+                    CombinationRunes.craftComboRune(player, data.itemId, data.level, data.exp, data.finalItem,
+                            data.talisman);
+                    return;
+                } else if ((item.getId() == data.itemId2 || item.getId() == data.talisman2)
+                        && object.getId() == data.objectId) {
+                    CombinationRunes.craftComboRune(player, data.itemId2, data.level, data.exp2, data.finalItem,
+                            data.talisman2);
+                    return;
+                }
+            }
+        }
 	}
 }

@@ -19,7 +19,7 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.ProducingSkillAction;
 import skills.Skills;
 
-public final class Runecrafting extends ProducingSkillAction {
+public class Runecrafting extends ProducingSkillAction {
 
 	/**
 	 * The altar this player is producing his runes from.
@@ -34,12 +34,12 @@ public final class Runecrafting extends ProducingSkillAction {
 	/**
 	 * Represents the pure essence item identification.
 	 */
-	private static final Item PURE_ESSENCE = new Item(ItemNames.PURE_ESSENCE_7936);
+	protected static final Item PURE_ESSENCE = new Item(ItemNames.PURE_ESSENCE_7936);
 
 	/**
 	 * Represents the rune essence item identification.
 	 */
-	private static final Item RUNE_ESSENCE = new Item(ItemNames.RUNE_ESSENCE_1436);
+	protected static final Item RUNE_ESSENCE = new Item(ItemNames.RUNE_ESSENCE_1436);
 
 	/**
 	 * Represents the a mapping for the Pouches
