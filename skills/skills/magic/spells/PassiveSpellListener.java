@@ -20,11 +20,11 @@ public class PassiveSpellListener {
 	 * @return state
 	 */
 	public boolean canExecute(Player player) {
-		return false;
+		return true;
 	}
 	
 	public boolean canExecute(Player player, Item item) {
-		return false;
+		return true;
 	}
 
 	/**

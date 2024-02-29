@@ -18,6 +18,8 @@ import skills.magic.spells.lunar.PlankMakeSpellPlugin;
  * @author Dennis
  * Since this is Player specific, need to create an instance of this class 
  * instead of static so it won't affect other players.
+ * 
+ * Enchanting would be here but is handled elsewhere.
  */
 public class PassiveSpellDispatcher {
 
@@ -72,8 +74,7 @@ public class PassiveSpellDispatcher {
 	        player.getPackets().sendGameMessage("You don't have the required amount of Runes to cast this spell.");
 	        return false;
 	    }
-	    
-	    if (!verifiedSpell.get().canExecute(player) && getSpellBook(player, caster) == PassiveSpellListener.MODERN) {
+	    if (!verifiedSpell.get().canExecute(player)) {
 	    	return false;
 	    }
 	    if (!verifiedSpell.get().canExecute(player, item) && getSpellBook(player, caster) == PassiveSpellListener.LUNAR) {

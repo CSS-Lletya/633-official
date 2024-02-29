@@ -25,18 +25,22 @@ public class PlankMakeSpellPlugin extends PassiveSpellListener {
 				player.setNextAnimation(Animations.LUNAR_PLANK_MAKE);
 				player.setNextGraphics(Graphic.LUNAR_PLANK_MAKE);
 				player.getInventory().replaceItems(new Item(plank.getBaseId()), new Item(plank.getNewId()));
-				player.getInterfaceManager().sendTab(Tabs.MAGIC);
-			} else {
-	            player.getPackets().sendGameMessage("You need at least " + plank.getCost() + " coins to cast this spell on this log.");
-	        }
+			}
 		});
 	}
 	
 	@Override
 	public boolean canExecute(Player player, Item item) {
-		if (!Planks.VALUES.stream().anyMatch(log -> log.getBaseId() == item.getId())) {
-			player.getPackets().sendGameMessage("You can only convert: plain, oak, teak and mahogany logs into planks.");
-			return false;
+		player.getInterfaceManager().sendTab(Tabs.MAGIC);
+		for (Planks plank : Planks.values()) {
+			if (plank.getBaseId() != item.getId()) {
+				player.getPackets().sendGameMessage("You can only convert: plain, oak, teak and mahogany logs into planks.");
+				return false;
+			}
+			if (!player.getInventory().canPay(plank.cost)) {
+				player.getPackets().sendGameMessage("You need at least " + plank.getCost() + " coins to cast this spell on this log.");
+				return false;
+			}
 		}
 		return true;
 	}

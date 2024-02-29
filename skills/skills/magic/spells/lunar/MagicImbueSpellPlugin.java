@@ -12,9 +12,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 /**
- * TODO: Combination runes
  * @author Dennis
- *
  */
 @PassiveSpellSignature(spellButton = 35, spellLevelRequirement = 82, spellbookId = PassiveSpellListener.LUNAR, experience = 86)
 public class MagicImbueSpellPlugin extends PassiveSpellListener {
@@ -25,7 +23,7 @@ public class MagicImbueSpellPlugin extends PassiveSpellListener {
 			player.getPackets().sendGameMessage("You already have this activated.");
 			return false;
 		}
-		return player.getDetails().getMagicImbue().finished();
+		return true;
 	}
 
 	@Override
@@ -35,7 +33,7 @@ public class MagicImbueSpellPlugin extends PassiveSpellListener {
 		player.setNextAnimation(Animations.LUNAR_MAGIC_IMBUE);
 		player.setNextGraphics(Graphic.LUNAR_MAGIC_IMBUE);
 		player.getAttributes().get(Attribute.MAGIC_IMBUED).set(true);
-		player.getDetails().getMagicImbue().start(12);
+		player.getDetails().getMagicImbue().start(16);
 		player.getPackets().sendGameMessage("You are charged to combine runes!");
 	}
 
@@ -43,7 +41,8 @@ public class MagicImbueSpellPlugin extends PassiveSpellListener {
 	public Item[] runes() {
 		return new Item[] {
 				new Item(ItemNames.ASTRAL_RUNE_9075, 2),
-				new Item(ItemNames.EARTH_RUNE_557, 2),
+				new Item(ItemNames.FIRE_RUNE_554, 7),
+				new Item(ItemNames.WATER_RUNE_555, 7),
 		};
 	}
 }
