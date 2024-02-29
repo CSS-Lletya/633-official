@@ -9,7 +9,7 @@ import com.rs.game.player.Player;
  * @author Dennis
  *
  */
-public interface PassiveSpellListener {
+public class PassiveSpellListener {
 
 	/**
 	 * Checks if the Player can execute the Spell. In advance this can be used for
@@ -19,7 +19,13 @@ public interface PassiveSpellListener {
 	 * @param player
 	 * @return state
 	 */
-	public boolean canExecute(Player player);
+	public boolean canExecute(Player player) {
+		return false;
+	}
+	
+	public boolean canExecute(Player player, Item item) {
+		return false;
+	}
 
 	/**
 	 * Executes the Spell
@@ -27,14 +33,20 @@ public interface PassiveSpellListener {
 	 * @param player
 	 * @param entity
 	 */
-	public void execute(Player player);
+	public void execute(Player player) {
+	}
+	
+	public void execute(Player player, Item item, int slot) {
+	}
 
 	/**
 	 * A collection of Runes required to cast the Magic Spell
 	 * 
 	 * @return runes
 	 */
-	public Item[] runes();
+	public Item[] runes() {
+		return null;
+	}
 	
-	int MODERN = 0, ANCIENT = 1, LUNAR = 2;
+	public static final int MODERN = 0, ANCIENT = 1, LUNAR = 2;
 }

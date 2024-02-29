@@ -17,7 +17,7 @@ import skills.magic.spells.PassiveSpellSignature;
  *
  */
 @PassiveSpellSignature(spellButton = 47, spellLevelRequirement = 77, spellbookId = PassiveSpellListener.LUNAR, experience = 78)
-public class SuperGlassMakeSpellPlugin implements PassiveSpellListener {
+public class SuperGlassMakeSpellPlugin extends PassiveSpellListener {
 	
 	/**
 	 * The set of items to be used with sand.
@@ -47,8 +47,8 @@ public class SuperGlassMakeSpellPlugin implements PassiveSpellListener {
 	public void execute(Player player) {
 		player.getMovement().lock(4);
 		player.getDetails().getComponentLockTimer().start(3);
-		player.setNextAnimation(Animations.SUPERGLASS_MAKE);
-		player.setNextGraphics(Graphic.SUPERGLASS_MAKE);
+		player.setNextAnimation(Animations.LUNAR_SUPERGLASS_MAKE);
+		player.setNextGraphics(Graphic.LUNAR_SUPERGLASS_MAKE);
 		player.getAudioManager().sendSound(Sounds.SUPERGLASS_MAKE);
 		
 		int setIndex = getSetIndex(player);

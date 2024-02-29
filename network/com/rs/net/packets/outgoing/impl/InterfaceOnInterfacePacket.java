@@ -28,6 +28,7 @@ import skills.crafting.SoftClayCreation;
 import skills.firemaking.Firemaking;
 import skills.fletching.BowCarving;
 import skills.fletching.BowCarving.Log;
+import skills.magic.spells.PassiveSpellDispatcher;
 import skills.magic.spells.modern.enchanting.Enchanting;
 
 @OutgoingPacketSignature(packetId = 33, description = "Represents an Interface being used on another Interface")
@@ -59,6 +60,11 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 		}
 		Item usedWith = player.getInventory().getItem(toSlotId);
 		Item itemUsed = player.getInventory().getItem(fromSlotId);
+		
+		if (GameConstants.DEBUG)
+			LogUtility.log(LogType.INFO, "ItemOnItem " + fromInterfaceId + ", " + fromButtonId + ", " + fromSlotId
+					+ ", " + fromItemId + ", " + toInterfaceId + ", " + toButtonId + ", " + toSlotId + ", " + toItemId);
+		
 		if (fromInterfaceId == Inventory.INVENTORY_INTERFACE && fromInterfaceId == toInterfaceBitmap
 				&& !player.getInterfaceManager().containsInventoryInter()) {
 			if (fromSlotId >= 28 || toSlotId >= 28 || fromSlotId == toSlotId)
@@ -74,6 +80,9 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				return;
 			}
 		}
+		
+		PassiveSpellDispatcher.executeSpellOnItem(player, fromButtonId, new Item(toItemId), toItemId);
+		
 		if (Enchanting.cast(player, new Item(toItemId), fromButtonId, toItemId)) {
 			return;
 		}
@@ -219,8 +228,5 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				}));
 		 
 		InventoryPluginDispatcher.execute(player, new Item(fromItemId), new Item(toItemId), toSlotId, fromSlotId);
-		if (GameConstants.DEBUG)
-			LogUtility.log(LogType.INFO, "ItemOnItem " + fromInterfaceId + ", " + fromButtonId + ", " + fromSlotId
-					+ ", " + fromItemId + ", " + toInterfaceId + ", " + toButtonId + ", " + toSlotId + ", " + toItemId);
 	}
 }

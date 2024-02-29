@@ -8,7 +8,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 26, spellLevelRequirement = 67, spellbookId = PassiveSpellListener.LUNAR, experience = 63)
-public class NPCContactSpellPlugin implements PassiveSpellListener {
+public class NPCContactSpellPlugin extends PassiveSpellListener {
 	
 	@Override
 	public boolean canExecute(Player player) {

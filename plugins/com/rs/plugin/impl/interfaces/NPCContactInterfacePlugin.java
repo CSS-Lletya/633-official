@@ -20,8 +20,8 @@ public class NPCContactInterfacePlugin extends RSInterfaceListener {
 		if (contact == null) {
 			return;
 		}
-		player.setNextAnimation(Animations.NPC_CONTACT);
-		player.setNextGraphics(Graphic.NPC_CONTACT);
+		player.setNextAnimation(Animations.LUNAR_NPC_CONTACT);
+		player.setNextGraphics(Graphic.LUNAR_NPC_CONTACT);
 		player.getAudioManager().sendSound(Sounds.NPC_CONTACT_SPELL);
 		player.getInterfaceManager().closeInterfaces();
 		player.getPackets().sendGameMessage("This npc is unable to be contacted at this moment.");

@@ -11,7 +11,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 34, spellLevelRequirement = 96, spellbookId = PassiveSpellListener.LUNAR, experience = 130)
-public class SpellbookSwapSpellPlugin implements PassiveSpellListener {
+public class SpellbookSwapSpellPlugin extends PassiveSpellListener {
 	
 	@Override
 	public boolean canExecute(Player player) {
@@ -22,8 +22,8 @@ public class SpellbookSwapSpellPlugin implements PassiveSpellListener {
 	public void execute(Player player) {
 		player.getMovement().lock(9);
 		player.getDetails().getComponentLockTimer().start(7);
-		player.setNextGraphics(Graphic.SPELLBOOK_SWAP);
-		player.setNextAnimation(Animations.SPELLBOOK_SWAP);
+		player.setNextGraphics(Graphic.LUNAR_SPELLBOOK_SWAP);
+		player.setNextAnimation(Animations.LUNAR_SPELLBOOK_SWAP);
 		player.getAudioManager().sendSound(Sounds.LUNAR_CHANGE_SPELLBOOK);
 		player.getCombatDefinitions().setAutoCastSpell(0);
 		player.dialogue(d -> {

@@ -12,6 +12,7 @@ import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import skills.Skills;
+import skills.magic.spells.lunar.PlankMakeSpellPlugin;
 
 /**
  * @author Dennis
@@ -20,12 +21,29 @@ import skills.Skills;
  */
 public class PassiveSpellDispatcher {
 
+	/**
+	 * Executes a standard button click spell.
+	 * @param player
+	 * @param spellButton
+	 */
 	public static void execute(Player player, int spellButton) {
 		Optional<PassiveSpellListener> spell = getVerifiedSpell(player, spellButton);
-		spell.filter(caster -> canCast(player, spell, spellButton)).ifPresent(caster -> executeCast(player, spellButton));
+		spell.filter(caster -> canCast(player, spell, spellButton, null)).ifPresent(caster -> executeCast(player, spellButton));
 	}
 
-	private static boolean canCast(Player player, Optional<PassiveSpellListener> spell, int spellButton) {
+	/**
+	 * Executes a Interface on Interface spell. (Magic interface on Inventory, like {@link PlankMakeSpellPlugin}).
+	 * @param player
+	 * @param spellButton
+	 * @param item
+	 * @param slot
+	 */
+	public static void executeSpellOnItem(Player player, int spellButton, Item item, int slot) {
+		Optional<PassiveSpellListener> spell = getVerifiedSpell(player, spellButton);
+		spell.filter(caster -> canCast(player, spell, spellButton, item)).ifPresent(caster -> executeCast(player, spellButton, item, slot));
+	}
+	
+	private static boolean canCast(Player player, Optional<PassiveSpellListener> spell, int spellButton, Item item) {
 	    if (!spell.isPresent()) {
 	        return false;
 	    }
@@ -33,13 +51,15 @@ public class PassiveSpellDispatcher {
 	    PassiveSpellListener caster = spell.get();
 	    Optional<PassiveSpellListener> verifiedSpell = getVerifiedSpell(player, spellButton);
 
-	    if (!verifiedSpell.isPresent() || !verifiedSpell.get().canExecute(player)) {
-	        return false;
-	    }
+	    if (!verifiedSpell.isPresent())
+	    	return false;
 
 	    int requiredMagicLevel = getSpellLevelRequirement(caster);
 	    int playerMagicLevel = player.getSkills().getLevel(Skills.MAGIC);
 
+	    if (player.getMovement().isLocked())
+	    	return false;
+	    
 	    if (playerMagicLevel < requiredMagicLevel) {
 	        player.getPackets().sendGameMessage("You don't have the required Magic level to cast this spell.");
 	        return false;
@@ -53,12 +73,14 @@ public class PassiveSpellDispatcher {
 	        return false;
 	    }
 	    
-	    if (player.getMovement().isLocked())
+	    if (!verifiedSpell.get().canExecute(player) && getSpellBook(player, caster) == PassiveSpellListener.MODERN) {
 	    	return false;
-
+	    }
+	    if (!verifiedSpell.get().canExecute(player, item) && getSpellBook(player, caster) == PassiveSpellListener.LUNAR) {
+	    	return false;
+	    }
 	    return true;
 	}
-
 
 	private static void executeCast(Player player, int spellButton) {
 		getVerifiedSpell(player, spellButton).ifPresent(caster -> {
@@ -68,6 +90,14 @@ public class PassiveSpellDispatcher {
 		});
 	}
 
+	private static void executeCast(Player player, int spellButton, Item item, int slot) {
+		getVerifiedSpell(player, spellButton).ifPresent(caster -> {
+			Arrays.stream(caster.runes()).forEach(rune -> player.getInventory().deleteItem(new Item(rune.getId(), rune.getAmount())));
+			player.getSkills().addExperience(Skills.MAGIC, getExperienceGiven(player, caster));
+			caster.execute(player, item, slot);
+		});
+	}
+	
 	private static int getSpellLevelRequirement(PassiveSpellListener spell) {
 		PassiveSpellSignature signature = spell.getClass().getAnnotation(PassiveSpellSignature.class);
 		return signature.spellLevelRequirement();
@@ -83,6 +113,11 @@ public class PassiveSpellDispatcher {
 	private static boolean isSpellButton(Player player, PassiveSpellListener spell, int spellButton) {
 		PassiveSpellSignature signature = spell.getClass().getAnnotation(PassiveSpellSignature.class);
 		return signature.spellButton() == spellButton && player.getCombatDefinitions().spellBook == signature.spellbookId();
+	}
+	
+	private static int getSpellBook(Player player, PassiveSpellListener spell) {
+		PassiveSpellSignature signature = spell.getClass().getAnnotation(PassiveSpellSignature.class);
+		return player.getCombatDefinitions().spellBook == signature.spellbookId() ? signature.spellbookId() : -1;
 	}
 
 	private static double getExperienceGiven(Player player, PassiveSpellListener spell) {

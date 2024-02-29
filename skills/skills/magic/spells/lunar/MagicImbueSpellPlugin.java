@@ -17,7 +17,7 @@ import skills.magic.spells.PassiveSpellSignature;
  *
  */
 @PassiveSpellSignature(spellButton = 35, spellLevelRequirement = 82, spellbookId = PassiveSpellListener.LUNAR, experience = 86)
-public class MagicImbueSpellPlugin implements PassiveSpellListener {
+public class MagicImbueSpellPlugin extends PassiveSpellListener {
 	
 	@Override
 	public boolean canExecute(Player player) {
@@ -32,8 +32,8 @@ public class MagicImbueSpellPlugin implements PassiveSpellListener {
 	public void execute(Player player) {
 		player.getMovement().lock(2);
 		player.getAudioManager().sendSound(Sounds.IMBUE_RUNES);
-		player.setNextAnimation(Animations.MAGIC_IMBUE);
-		player.setNextGraphics(Graphic.MAGIC_IMBUE);
+		player.setNextAnimation(Animations.LUNAR_MAGIC_IMBUE);
+		player.setNextGraphics(Graphic.LUNAR_MAGIC_IMBUE);
 		player.getAttributes().get(Attribute.MAGIC_IMBUED).set(true);
 		player.getDetails().getMagicImbue().start(12);
 		player.getPackets().sendGameMessage("You are charged to combine runes!");

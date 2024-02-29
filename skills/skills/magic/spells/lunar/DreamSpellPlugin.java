@@ -13,7 +13,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 32, spellLevelRequirement = 79, spellbookId = PassiveSpellListener.LUNAR, experience = 82)
-public class DreamSpellPlugin implements PassiveSpellListener {
+public class DreamSpellPlugin extends PassiveSpellListener {
 	
 	@Override
 	public boolean canExecute(Player player) {
@@ -29,10 +29,10 @@ public class DreamSpellPlugin implements PassiveSpellListener {
 	@Override
 	public void execute(Player player) {
 		player.getMovement().lock();
-		player.setNextAnimation(Animations.DREAM_START);
+		player.setNextAnimation(Animations.LUNAR_DREAM_START);
 		player.task(4, p -> {
-			player.setNextAnimation(Animations.DREAMING);
-			player.setNextGraphics(Graphic.DREAM);
+			player.setNextAnimation(Animations.LUNAR_DREAMING);
+			player.setNextGraphics(Graphic.LUNAR_DREAM);
 			player.getMovement().unlock();
 		});
 		World.get().submit(new Task(1) {
@@ -45,16 +45,16 @@ public class DreamSpellPlugin implements PassiveSpellListener {
 				}
 				if (player.getHitpoints() == player.getMaxHitpoints()) {
 					player.setNextGraphics(Graphic.RESET_GRAPHICS);
-					player.setNextAnimation(Animations.DREAM_END);
+					player.setNextAnimation(Animations.LUNAR_DREAM_END);
 					cancel();
 				}
 				if (tick == 18) {
 					player.setNextGraphics(Graphic.RESET_GRAPHICS);
-					player.setNextAnimation(Animations.DREAM_END);
+					player.setNextAnimation(Animations.LUNAR_DREAM_END);
 					cancel();
 				} else {
 					player.setHitpoints(player.getHitpoints() + 1);
-					player.setNextGraphics(Graphic.DREAM);
+					player.setNextGraphics(Graphic.LUNAR_DREAM);
 					
 				}
 				player.getInterfaceManager().refreshHitPoints();

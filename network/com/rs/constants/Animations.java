@@ -159,18 +159,19 @@ public final class Animations {
 	public static final Animation BASIC_MINING = new Animation(628);//abyss
 	public static final Animation BASIC_WOODCUTTING = new Animation(869);//abyss
 	public static final Animation BEING_SQUEEZE_THROUGH = new Animation(1331);//abyss
-	public static final Animation HUMIDIFY_SPELL = new Animation(6294);
-	public static final Animation HUNTER_KIT = new Animation(6303);
-	public static final Animation DREAM_START = new Animation(6295);
-	public static final Animation DREAMING = new Animation(6295);
-	public static final Animation DREAM_END = new Animation(6297);
-	public static final Animation NPC_CONTACT = new Animation(4413);
-	public static final Animation SUPERGLASS_MAKE = new Animation(4413);
-	public static final Animation MAGIC_IMBUE = new Animation(722);
+	public static final Animation LUNAR_HUMIDIFY_SPELL = new Animation(6294);
+	public static final Animation LUNAR_HUNTER_KIT = new Animation(6303);
+	public static final Animation LUNAR_DREAM_START = new Animation(6295);
+	public static final Animation LUNAR_DREAMING = new Animation(6295);
+	public static final Animation LUNAR_DREAM_END = new Animation(6297);
+	public static final Animation LUNAR_NPC_CONTACT = new Animation(4413);
+	public static final Animation LUNAR_SUPERGLASS_MAKE = new Animation(4413);
+	public static final Animation LUNAR_MAGIC_IMBUE = new Animation(722);
 	public static final Animation LUNAR_CURE_ME = new Animation(4411);
 	public static final Animation LUANR_VENG = new Animation(4410);
 	public static final Animation LUANR_VENG_OTHER = new Animation(4411);
-	public static final Animation SPELLBOOK_SWAP = new Animation(6299);
+	public static final Animation LUNAR_SPELLBOOK_SWAP = new Animation(6299);
+	public static final Animation LUNAR_PLANK_MAKE = new Animation(6298);
 	
 	/*
 	 * Agility (quite a lot so we'll group these together separately

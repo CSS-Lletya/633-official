@@ -15,7 +15,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 65, spellLevelRequirement = 60, spellbookId = PassiveSpellListener.MODERN, experience = 35.5)
-public class BonesToPeachesSpellPlugin implements PassiveSpellListener {
+public class BonesToPeachesSpellPlugin extends PassiveSpellListener {
 
 	private static final int[] BONES = new int[] {526, 532};
 	

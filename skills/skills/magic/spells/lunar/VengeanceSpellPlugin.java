@@ -11,7 +11,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 36, spellLevelRequirement = 94, spellbookId = PassiveSpellListener.LUNAR, experience = 112)
-public class VengeanceSpellPlugin implements PassiveSpellListener {
+public class VengeanceSpellPlugin extends PassiveSpellListener {
 
 	@Override
 	public boolean canExecute(Player player) {

@@ -11,7 +11,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 37, spellLevelRequirement = 65, spellbookId = PassiveSpellListener.LUNAR, experience = 60)
-public class BakePiesSpellPlugin implements PassiveSpellListener {
+public class BakePiesSpellPlugin extends PassiveSpellListener {
 	
 	@Override
 	public boolean canExecute(Player player) {

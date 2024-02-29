@@ -52,17 +52,19 @@ public final class Graphic {
 	public static final Graphics SMOKE_APPEARING = new Graphics(74);
 	public static final Graphics THREE_RING_TELEPORTING = new Graphics(110, 0, 100);
 	public static final Graphics SORCERESSS_GARDEN_BROOMSTICK = new Graphics(1866);
-	public static final Graphics HUMIDIFY_SPELL = new Graphics(1061);
-	public static final Graphics HUNTER_KIT = new Graphics(1074);
-	public static final Graphics DREAM = new Graphics(1056);
-	public static final Graphics NPC_CONTACT = new Graphics(730, 0, 130);
-	public static final Graphics SUPERGLASS_MAKE = new Graphics(729, 0, 120);
-	public static final Graphics MAGIC_IMBUE = new Graphics(141, 0, 96);
+	public static final Graphics STUN_GRAPHIC = new Graphics(80, 100, 50);
+	public static final Graphics LUNAR_HUMIDIFY_SPELL = new Graphics(1061);
+	public static final Graphics LUNAR_HUNTER_KIT = new Graphics(1074);
+	public static final Graphics LUNAR_DREAM = new Graphics(1056);
+	public static final Graphics LUNAR_NPC_CONTACT = new Graphics(730, 0, 130);
+	public static final Graphics LUNAR_SUPERGLASS_MAKE = new Graphics(729, 0, 120);
+	public static final Graphics LUNAR_MAGIC_IMBUE = new Graphics(141, 0, 96);
 	public static final Graphics LUNAR_CURE_ME = new Graphics(731, 0, 90);
 	public static final Graphics LUNAR_VENG = new Graphics(726, 0, 96);
 	public static final Graphics LUNAR_VENG_OTHER = new Graphics(725, 0, 96);
-	public static final Graphics SPELLBOOK_SWAP = new Graphics(1062);
-	public static final Graphics STUN_GRAPHIC = new Graphics(80, 100, 50);
+	public static final Graphics LUNAR_SPELLBOOK_SWAP = new Graphics(1062);
+	public static final Graphics LUNAR_PLANK_MAKE = new Graphics(1063);
+	
 	/**
 	 * Object Based Graphics
 	 */

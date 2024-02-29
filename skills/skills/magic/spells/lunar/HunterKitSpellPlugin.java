@@ -12,7 +12,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 30, spellLevelRequirement = 71, spellbookId = PassiveSpellListener.LUNAR, experience = 70)
-public class HunterKitSpellPlugin implements PassiveSpellListener {
+public class HunterKitSpellPlugin extends PassiveSpellListener {
 	
 	@Override
 	public boolean canExecute(Player player) {
@@ -25,8 +25,8 @@ public class HunterKitSpellPlugin implements PassiveSpellListener {
 	public void execute(Player player) {
 		player.getMovement().lock(5);
 		player.getAudioManager().sendSound(Sounds.HUNTER_KIT);
-		player.setNextAnimation(Animations.HUNTER_KIT);
-		player.setNextGraphics(Graphic.HUNTER_KIT);
+		player.setNextAnimation(Animations.LUNAR_HUNTER_KIT);
+		player.setNextGraphics(Graphic.LUNAR_HUNTER_KIT);
 		player.getInventory().addItem(new Item(ItemNames.HUNTER_KIT_11159));
 	}
 

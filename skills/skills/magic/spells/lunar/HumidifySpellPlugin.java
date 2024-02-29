@@ -15,7 +15,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 29, spellLevelRequirement = 68, spellbookId = PassiveSpellListener.LUNAR, experience = 65)
-public class HumidifySpellPlugin implements PassiveSpellListener {
+public class HumidifySpellPlugin extends PassiveSpellListener {
 	
 	@Override
 	public boolean canExecute(Player player) {
@@ -30,8 +30,8 @@ public class HumidifySpellPlugin implements PassiveSpellListener {
 	public void execute(Player player) {
 		player.getMovement().lock(5);
 		player.getAudioManager().sendSound(Sounds.HUMIDIFY_SPELL);
-		player.setNextAnimation(Animations.HUMIDIFY_SPELL);
-		player.setNextGraphics(Graphic.HUMIDIFY_SPELL);
+		player.setNextAnimation(Animations.LUNAR_HUMIDIFY_SPELL);
+		player.setNextGraphics(Graphic.LUNAR_HUMIDIFY_SPELL);
 		player.getSkills().addExperience(Skills.MAGIC, 65);
 		Arrays.stream(Filler.values()).filter(empty -> hasEmpty(player)).forEach(empty -> {
 			int amount = player.getInventory().getAmountOf(empty.getEmpty().getId());

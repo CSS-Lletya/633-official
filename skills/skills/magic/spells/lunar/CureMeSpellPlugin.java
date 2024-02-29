@@ -12,7 +12,7 @@ import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
 @PassiveSpellSignature(spellButton = 45, spellLevelRequirement = 71, spellbookId = PassiveSpellListener.LUNAR, experience = 69)
-public class CureMeSpellPlugin implements PassiveSpellListener {
+public class CureMeSpellPlugin extends PassiveSpellListener {
 
 	@Override
 	public boolean canExecute(Player player) {

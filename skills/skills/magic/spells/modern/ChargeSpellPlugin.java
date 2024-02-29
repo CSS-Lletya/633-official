@@ -1,4 +1,4 @@
-package skills.magic.spells.modern.charge;
+package skills.magic.spells.modern;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
@@ -15,8 +15,8 @@ import skills.magic.spells.PassiveSpellSignature;
  * @author Dennis
  *
  */
-@PassiveSpellSignature(spellButton = 83, spellLevelRequirement = 80, spellbookId = 0, experience = 180)
-public class ChargeSpellPlugin implements PassiveSpellListener {
+@PassiveSpellSignature(spellButton = 83, spellLevelRequirement = 80, spellbookId = PassiveSpellListener.MODERN, experience = 180)
+public class ChargeSpellPlugin extends PassiveSpellListener {
 
 	@Override
 	public boolean canExecute(Player player) {
