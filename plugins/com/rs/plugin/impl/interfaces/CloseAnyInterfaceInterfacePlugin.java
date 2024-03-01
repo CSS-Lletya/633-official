@@ -11,16 +11,12 @@ import com.rs.plugin.wrapper.RSInterfaceSignature;
  *
  */
 
-@RSInterfaceSignature(interfaceId = { 429, 982, 398 })
+@RSInterfaceSignature(interfaceId = { 982, 398 })
 public class CloseAnyInterfaceInterfacePlugin extends RSInterfaceListener {
 
 	@Override
 	public void execute(Player player, int interfaceId, int componentId, int packetId, byte slotId, int slotId2) {
 		switch (interfaceId) {
-		case 429:
-			if (componentId == 18)
-				player.getInterfaceManager().sendSettings();
-			break;
 		case 982:
 			if (componentId == 5)
 				player.getInterfaceManager().sendSettings();
