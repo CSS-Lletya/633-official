@@ -1209,12 +1209,21 @@ public abstract class Entity extends WorldTile {
     }
     
     /**
-	 * Find a non-player character.
+	 * Find a non-player character local to the region ID specified
+	 * TODO: Find a way to to get any region
 	 * @param npcId The non-player character's id.
 	 * @return The non-player character's node.
 	 */
-	public static NPC findNPC(int npcId) {
-		return World.npcs().filter(npc -> npc.getId() == npcId).findFirst().orElse(null);
+	public NPC findLocalNPC(int npcId) {
+		ObjectArrayList<Short> npcsIndexes = World.getRegion(getRegionId()).getNpcsIndexes();
+        if (npcsIndexes != null) {
+            for (int npcIndex : npcsIndexes) {
+                NPC npc = World.getNPCs().get(npcIndex);
+            	if (npcId == npc.getId())
+            		return npc;
+            }
+        }
+        return null;
 	}
 	
     public WorldTile getTile() {

@@ -121,12 +121,6 @@ public abstract class DialogueEventListener implements Mood {
 		return this;
 	}
 
-	public DialogueEventListener beginBlank() {
-		setPlayer(player);
-		start();
-		return this;
-	}
-
 	public void complete() {
 		player.getInterfaceManager().closeChatBoxInterface();
 		onClose();
@@ -189,7 +183,7 @@ public abstract class DialogueEventListener implements Mood {
 		case 1: {
 			DialogueEntityEvent event = (DialogueEntityEvent) dialogue;
 
-			NPC npc = args.length > 0 ? (NPC) args[0] : null;
+			int npc = (int) args[0];
 			
 			if (event.isPlayer()) {
 				interfaceId = 63 + dialogue.getTexts().length;
@@ -206,7 +200,7 @@ public abstract class DialogueEventListener implements Mood {
 					player.getPackets().sendIComponentText(interfaceId, 4 + line, dialogue.getTexts()[line]);
 				player.getInterfaceManager().sendChatBoxInterface(interfaceId);
 				player.getPackets().sendIComponentText(interfaceId, 3, header(npc));
-				player.getPackets().sendNPCOnIComponent(interfaceId, 2, npc.getId());
+				player.getPackets().sendNPCOnIComponent(interfaceId, 2, npc);
 				player.getPackets().sendIComponentAnimation(event.getFace(), interfaceId, 2);
 			}
 
@@ -283,9 +277,9 @@ public abstract class DialogueEventListener implements Mood {
 		}
 	}
 
-	private String header(NPC npc) {
-		NPCDefinitions defs = npc.getDefinitions();
-		if (npc.getId() == 3820) {
+	private String header(int npc) {
+		NPCDefinitions defs = NPCDefinitions.getNPCDefinitions(npc);
+		if (defs.getId() == 3820) {
 			return "Wise Old man";
 		} else
 			return defs.name;

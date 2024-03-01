@@ -3,6 +3,7 @@ package com.rs.plugin.impl.interfaces;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
@@ -23,8 +24,9 @@ public class NPCContactInterfacePlugin extends RSInterfaceListener {
 		player.setNextAnimation(Animations.LUNAR_NPC_CONTACT);
 		player.setNextGraphics(Graphic.LUNAR_NPC_CONTACT);
 		player.getAudioManager().sendSound(Sounds.NPC_CONTACT_SPELL);
-		player.getInterfaceManager().closeInterfaces();
-		player.getPackets().sendGameMessage("This npc is unable to be contacted at this moment.");
+		player.getInterfaceManager().closeInterfaces(); 
+		player.dialogue(contact.npc, d -> d.npc(Mood.evil_laugh,
+				"I'm sorry but we aren't added into open633 yet.. Leave a message after the beeps? *BEEP*"));
 	}
 
 	/**

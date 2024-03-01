@@ -11,14 +11,12 @@ import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.npc.combat.NPCCombatDefinitions;
-import com.rs.game.player.Player;
 import com.rs.game.player.InterfaceManager.Tabs;
+import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
-import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
-import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 
 import skills.summoning.Summoning;
@@ -366,6 +364,7 @@ public abstract class Familiar extends NPC {
 			return;
 		dead = true;
 		removeFamiliar();
+		@SuppressWarnings("unused")
 		final NPCCombatDefinitions defs = getCombatDefinitions();
 		resetWalkSteps();
 //		getCombat().removeTarget();//

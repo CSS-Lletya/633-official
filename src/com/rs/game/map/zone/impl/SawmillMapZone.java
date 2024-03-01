@@ -2,7 +2,6 @@ package com.rs.game.map.zone.impl;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Sounds;
-import com.rs.game.Entity;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.impl.OverseerDialogue;
 import com.rs.game.item.Item;
@@ -148,7 +147,7 @@ public class SawmillMapZone extends MapZone {
 		}
 		if (object.getId() == 46307 && object.getX() == 3311 && object.getY() == 3491) {
 			if (Sawmill.hasPlanksOrLogs(player)) {
-				player.dialogue(new DialogueEventListener(player, Entity.findNPC(SawmillMapZone.OVERSEER)) {
+				player.dialogue(new DialogueEventListener(player, SawmillMapZone.OVERSEER) {
 					@Override
 					public void start() {
 						npc(angry_2, "Oi! That's our wood you've got there! Give it  back!");

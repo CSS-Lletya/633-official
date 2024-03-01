@@ -638,7 +638,7 @@ public class Player extends Entity {
 	 * @param listener
 	 */
 	public void dialogue(int npcId, Consumer<DialogueEventListener> listener) {
-		dialogue(new DialogueEventListener(this, Entity.findNPC(npcId)) {
+		dialogue(new DialogueEventListener(this, npcId) {
 			@Override
 			public void start() {
 				listener.accept(this);
