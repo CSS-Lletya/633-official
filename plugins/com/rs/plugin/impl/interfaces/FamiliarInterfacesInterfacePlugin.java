@@ -1,5 +1,7 @@
 package com.rs.plugin.impl.interfaces;
 
+import java.util.Optional;
+
 import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.npc.familiar.Familiar.SpecialAttack;
 import com.rs.game.player.Player;
@@ -39,7 +41,7 @@ public class FamiliarInterfacesInterfacePlugin extends RSInterfaceListener {
 									if (player.getPet() != null)
 										player.getPet().pickup();
 									else
-										player.getFamiliar().dissmissFamiliar(false);
+										player.getFamiliar().sendDeath(Optional.of(player));
 								},
 								"Nevermind", () -> player.getInterfaceManager().closeChatBoxInterface()
 								);
@@ -55,7 +57,7 @@ public class FamiliarInterfacesInterfacePlugin extends RSInterfaceListener {
 								if (player.getPet() != null)
 									player.getPet().pickup();
 								else
-									player.getFamiliar().dissmissFamiliar(false);
+									player.getFamiliar().sendDeath(Optional.of(player));
 							},
 							"Nevermind", () -> player.getInterfaceManager().closeChatBoxInterface()
 							);

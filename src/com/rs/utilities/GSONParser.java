@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rs.content.quests.Quest;
 import com.rs.game.map.zone.MapZone;
+import com.rs.game.npc.familiar.Familiar;
 import com.rs.game.player.Player;
 
 import lombok.SneakyThrows;
@@ -31,6 +32,7 @@ public class GSONParser {
 		GSON = new GsonBuilder().disableHtmlEscaping()
 				.registerTypeAdapter(Quest.class, new QuestJsonAdapter())
 				.registerTypeAdapter(MapZone.class, new MapZoneAdapter())
+				.registerTypeAdapter(Familiar.class, new FamiliarAdapter())
                 .setPrettyPrinting().disableInnerClassSerialization().enableComplexMapKeySerialization()
                 .setDateFormat(DateFormat.LONG).setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create();
 	}

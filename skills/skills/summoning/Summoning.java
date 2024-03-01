@@ -1,5 +1,8 @@
 package skills.summoning;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.rs.cache.loaders.ClientScriptMap;
 import com.rs.cache.loaders.ItemDefinitions;
 import com.rs.cache.loaders.NPCDefinitions;
@@ -11,9 +14,7 @@ import com.rs.game.player.attribute.Attribute;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import lombok.SneakyThrows;
 import skills.Skills;
 
 public class Summoning {
@@ -24,23 +25,16 @@ public class Summoning {
 			return;
 		}
 		if (player.getMapZoneManager().execute(controller -> !controller.canSummonFamiliar(player))
-				|| player.getSkills().getLevel(Skills.SUMMONING) < pouch.getSummoningCost())
+				|| player.getSkills().getLevel(Skills.SUMMONING) < pouch.getSummoningCost()) {
 			return;
+		}
 		int levelReq = getRequiredLevel(pouch.getRealPouchId());
 		if (player.getSkills().getTrueLevel(Skills.SUMMONING) < levelReq) {
 			player.getPackets()
 					.sendGameMessage("You need a summoning level of " + levelReq + " in order to use this pouch.");
 			return;
 		}
-//	if (player.getCurrentFriendChat() != null) {
-//	    ClanWars war = player.getCurrentFriendChat().getClanWars();
-//	    if (war != null) {
-//		if (war.get(Rules.NO_FAMILIARS) && (war.getFirstPlayers().contains(player) || war.getSecondPlayers().contains(player))) {
-//		    player.getPackets().sendGameMessage("You can't summon familiars during this war.");
-//		    return;
-//		}
-//	    }
-//	}
+		//issue below
 		final Familiar npc = createFamiliar(player, pouch);
 		if (npc == null) {
 			player.getPackets().sendGameMessage("This familiar is not added yet.");
@@ -51,16 +45,21 @@ public class Summoning {
 		player.setFamiliar(npc);
 	}
 
-	@SneakyThrows(Throwable.class)
 	public static Familiar createFamiliar(Player player, Pouch pouch) {
-		return (Familiar) Class
-				.forName("com.rs.game.npc.familiar."
-						+ (NPCDefinitions.getNPCDefinitions(getNPCId(pouch.getRealPouchId()))).getName()
-								.replace(" ", "").replace("-", "").replace("(", "").replace(")", ""))
-				.getConstructor(Player.class, Pouch.class, WorldTile.class, int.class, boolean.class)
-				.newInstance(player, pouch, player, -1, true);
+		try {
+			return (Familiar) Class.forName("com.rs.game.npc.familiar." + (NPCDefinitions.getNPCDefinitions(getNPCId(pouch.getRealPouchId()))).getName()
+					.replace(" ", "")
+					.replace("ï", "i")
+					.replace("-", "")
+					.replace("(", "")
+					.replace(")", ""))
+					.getConstructor(Player.class, Pouch.class, WorldTile.class, boolean.class).newInstance(player, pouch, player, false);
+		} catch (Throwable e) {
+				e.printStackTrace();
+			return null;
+		}
 	}
-
+	
 	public static boolean hasPouch(Player player) {
 		for (Pouch pouch : Pouch.values())
 			if (player.getInventory().containsOneItem(pouch.getRealPouchId()))
@@ -147,7 +146,7 @@ public class Summoning {
 
 		SPIRIT_JELLY(123, 12027, 5.5, 100, 2580000, 6),
 
-		STEEL_MINOTAUR(149, 12077, 5.6, 142.8, 2760000, 9),
+		STEEL_MINOTAUR(149, 12077, 5.6, 492.8, 2760000, 9),
 
 		IBIS(85, 12531, 1.1, 98.8, 2280000, 6),
 
@@ -229,17 +228,87 @@ public class Summoning {
 
 		STEEL_TITAN(163, 12790, 4.9, 435.2, 3840000, 10),
 
+		/**
+		 * Dungeoneering
+		 */
+
+		CUB_BLOODRAGER(-1, 17935, 0.5, 5.0, 2700000, 1),
+		CUB_DEATHSLINGER(-1, 17985, 1, 5.7, 2700000, 1),
+		CUB_STORMBRINGER(-1, 17945, .6, 6.4, 2700000, 1),
+		CUB_HOARDSTALKER(-1, 17955, 0.7, 7.1, 2700000, 1),
+		CUB_WORLDBEARER(-1, 17975, 0.9, 7.8, 2700000, 1),
+		CUB_SKINWEAVER(-1, 17965, 0.8, 8.5, 2700000, 1),
+
+		LITTLE_BLOODRAGER(-1, 17936, 1, 19.5, 2700000, 2),
+		LITTLE_DEATHSLINGER(-1, 17986, 1.5, 20.5, 2700000, 2),
+		LITTLE_STORMBRINGER(-1, 17946, 1.1, 21.5, 2700000, 2),
+		LITTLE_HOARDSTALKER(-1, 17956, 1.2, 22.5, 2700000, 2),
+		LITTLE_WORLDBEARER(-1, 17976, 1.4, 23.5, 2700000, 2),
+		LITTLE_SKINWEAVER(-1, 17966, 1.3, 24.5, 2700000, 2),
+
+		NAIVE_BLOODRAGER(-1, 17937, 1.5, 43, 2700000, 3),
+		NAIVE_DEATHSLINGER(-1, 17987, 2, 44.4, 2700000, 3),
+		NAIVE_STORMBRINGER(-1, 17947, 1.6, 45.8, 2700000, 3),
+		NAIVE_HOARDSTALKER(-1, 17957, 1.7, 47.2, 2700000, 3),
+		NAIVE_WORLDBEARER(-1, 17977, 1.9, 48.6, 2700000, 3),
+		NAIVE_SKINWEAVER(-1, 17967, 1.8, 50, 2700000, 3),
+
+		KEEN_BLOODRAGER(-1, 17938, 2, 68.5, 2700000, 4),
+		KEEN_DEATHSLINGER(-1, 17988, 2.5, 70.4, 2700000, 4),
+		KEEN_STORMBRINGER(-1, 17948, 2.1, 72.3, 2700000, 4),
+		KEEN_HOARDSTALKER(-1, 17958, 2.2, 74.2, 2700000, 4),
+		KEEN_WORLDBEARER(-1, 17978, 2.4, 76.1, 2700000, 4),
+		KEEN_SKINWEAVER(-1, 17968, 2.3, 78, 2700000, 4),
+
+		BRAVE_BLOODRAGER(-1, 17939, 2.5, 99.5, 2700000, 5),
+		BRAVE_DEATHSLINGER(-1, 17989, 3, 102, 2700000, 5),
+		BRAVE_STORMBRINGER(-1, 17949, 2.6, 104.5, 2700000, 5),
+		BRAVE_HOARDSTALKER(-1, 17959, 2.7, 107, 2700000, 5),
+		BRAVE_WORLDBEARER(-1, 17979, 2.9, 109.5, 2700000, 5),
+		BRAVE_SKINWEAVER(-1, 17969, 2.8, 112, 2700000, 5),
+
+		BRAH_BLOODRAGER(-1, 17940, 3, 157, 2700000, 6),
+		BRAH_DEATHSLINGER(-1, 17990, 3.5, 160.5, 2700000, 6),
+		BRAH_STORMBRINGER(-1, 17950, 3.1, 164, 2700000, 6),
+		BRAH_HOARDSTALKER(-1, 17960, 3.2, 167.5, 2700000, 6),
+		BRAH_WORLDBEARER(-1, 17980, 3.4, 171, 2700000, 6),
+		BRAH_SKINWEAVER(-1, 17970, 3.3, 174.5, 2700000, 6),
+
+		NAABE_BLOODRAGER(-1, 17941, 3.5, 220, 2700000, 7),
+		NAABE_DEATHSLINGER(-1, 17991, 4, 224.6, 2700000, 7),
+		NAABE_STORMBRINGER(-1, 17951, 3.6, 229.2, 2700000, 7),
+		NAABE_HOARDSTALKER(-1, 17961, 3.7, 233.8, 2700000, 7),
+		NAABE_WORLDBEARER(-1, 17981, 3.9, 238.4, 2700000, 7),
+		NAABE_SKINWEAVER(-1, 17971, 3.8, 243, 2700000, 7),
+
+		WISE_BLOODRAGER(-1, 17942, 4, 325, 2700000, 8),
+		WISE_DEATHSLINGER(-1, 17992, 4.5, 330.8, 2700000, 8),
+		WISE_STORMBRINGER(-1, 17952, 4.1, 336.6, 2700000, 8),
+		WISE_HOARDSTALKER(-1, 17962, 4.2, 342.4, 2700000, 8),
+		WISE_WORLDBEARER(-1, 17982, 4.4, 348.2, 2700000, 8),
+		WISE_SKINWEAVER(-1, 17972, 4.3, 354, 2700000, 8),
+
+		ADEPT_BLOODRAGER(-1, 17943, 4.5, 517.5, 2700000, 10),
+		ADEPT_DEATHSLINGER(-1, 17993, 5, 524.6, 2700000, 10),
+		ADEPT_STORMBRINGER(-1, 17953, 4.6, 531.7, 2700000, 10),
+		ADEPT_HOARDSTALKER(-1, 17963, 4.7, 538.8, 2700000, 10),
+		ADEPT_WORLDBEARER(-1, 17983, 4.9, 545.9, 2700000, 10),
+		ADEPT_SKINWEAVER(-1, 17973, 4.8, 553, 2700000, 10),
+
+		SACHEM_BLOODRAGER(-1, 17944, 5, 810, 2700000, 10),
+		SACHEM_DEATHSLINGER(-1, 17994, 5.5, 818.5, 2700000, 10),
+		SACHEM_STORMBRINGER(-1, 17954, 5.1, 827, 2700000, 10),
+		SACHEM_HOARDSTALKER(-1, 17964, 5.2, 835.5, 2700000, 10),
+		SACHEM_WORLDBEARER(-1, 17984, 5.4, 844, 2700000, 10),
+		SACHEM_SKINWEAVER(-1, 17974, 5.3, 852.5, 2700000, 10),
+
 		CLAY_BEAST1(-1, 14422, 0, 0, 1800000, 1),
-
 		CLAY_BEAST2(-1, 14424, 0, 0, 1800000, 3),
-
 		CLAY_BEAST3(-1, 14426, 0, 0, 1800000, 5),
-
 		CLAY_BEAST4(-1, 14428, 0, 0, 1800000, 7),
-
 		CLAY_BEAST5(-1, 14430, 0, 0, 1800000, 10);
 
-		private static final Object2ObjectOpenHashMap<Integer, Pouch> pouches = new Object2ObjectOpenHashMap<Integer, Pouch>();
+		private static final Map<Integer, Pouch> pouches = new HashMap<Integer, Pouch>();
 
 		static {
 			for (Pouch pouch : Pouch.values()) {
@@ -258,8 +327,7 @@ public class Summoning {
 		private int pouchSetting;
 		private long pouchTime;
 
-		private Pouch(int pouchSetting, int realPouchId, double minorExperience, double experience, long pouchTime,
-				int summoningCost) {
+		private Pouch(int pouchSetting, int realPouchId, double minorExperience, double experience, long pouchTime, int summoningCost) {
 			this.pouchSetting = pouchSetting;
 			this.realPouchId = realPouchId;
 			this.minorExperience = minorExperience;
@@ -306,7 +374,7 @@ public class Summoning {
 	}
 
 	public static int getNPCId(int id) {
-		return ClientScriptMap.getMap((short) 1320).getIntValue(id);
+		return ClientScriptMap.getMap( (short) 1320).getIntValue(id);
 	}
 
 	public static String getRequirementsMessage(int id) {

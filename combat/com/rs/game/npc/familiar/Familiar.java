@@ -3,6 +3,7 @@ package com.rs.game.npc.familiar;
 import java.util.Optional;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.Animations;
 import com.rs.constants.InterfaceVars;
 import com.rs.game.Entity;
 import com.rs.game.item.Item;
@@ -13,6 +14,7 @@ import com.rs.game.npc.combat.NPCCombatDefinitions;
 import com.rs.game.player.Player;
 import com.rs.game.player.InterfaceManager.Tabs;
 import com.rs.game.player.attribute.Attribute;
+import com.rs.game.task.LinkedTaskSequence;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
@@ -103,6 +105,7 @@ public abstract class Familiar extends NPC {
 	public void processNPC() {
 		if (isDead())
 			return;
+		
 		unlockOrb();
 		trackTimer++;
 		if (trackTimer == 50) {
@@ -136,14 +139,15 @@ public abstract class Familiar extends NPC {
 			call(false);
 			return;
 		}
-		if (!getCombat().process()) {
-			if (isAgressive() && owner.getAttackedBy() != null
-					&& owner.getAttackedByDelay() > Utility.currentTimeMillis() && canAttack(owner.getAttackedBy())
-					&& RandomUtility.inclusive(25) == 0)
-				getCombat().setTarget(owner.getAttackedBy());
-			else
-				sendFollow();
-		}
+//		if (!getCombat().process()) {
+//			if (isAgressive() && owner.getAttackedBy() != null
+//					&& owner.getAttackedByDelay() > Utility.currentTimeMillis() && canAttack(owner.getAttackedBy())
+//					&& RandomUtility.inclusive(25) == 0)
+//				getCombat().setTarget(owner.getAttackedBy());
+//			else
+//				sendFollow();
+//		}
+		sendFollow();
 	}
 
 	public boolean canAttack(Entity target) {
@@ -196,7 +200,8 @@ public abstract class Familiar extends NPC {
 		owner.getVarsManager().sendVar(InterfaceVars.SUMMONING_SPECIAL_AMOUNT, getSpecialAmount() << 23);// check
 		owner.getPackets().sendGlobalString(204, getSpecialName());
 		owner.getPackets().sendGlobalString(205, getSpecialDescription());
-		owner.getPackets().sendGlobalConfig(1436, getSpecialAttack() == SpecialAttack.CLICK ? 1 : 0);
+		//out of bounds, need to find proper id
+//		owner.getPackets().sendGlobalConfig(1436, getSpecialAttack() == SpecialAttack.CLICK ? 1 : 0);
 		unlockOrb(); // temporary
 	}
 
@@ -347,17 +352,13 @@ public abstract class Familiar extends NPC {
 			owner.getInterfaceManager()
 					.removeWindowInterface(owner.getInterfaceManager().isResizableScreen() ? 95 : 188);
 			owner.getPackets().sendIComponentSettings(747, 18, 0, 0, 0);
+			owner.getInterfaceManager().sendTab(Tabs.INVENTORY);
 			if (bob != null)
 				bob.dropBob();
 		}
 	}
 
 	private transient boolean dead;
-
-	@Override
-	public boolean isDead() {
-		return dead || super.isDead();
-	}
 
 	@Override
 	public void sendDeath(Optional<Entity> source) {
@@ -367,25 +368,14 @@ public abstract class Familiar extends NPC {
 		removeFamiliar();
 		final NPCCombatDefinitions defs = getCombatDefinitions();
 		resetWalkSteps();
-		setCantInteract(true);
-		getCombat().removeTarget();
-		setNextAnimation(null);
-		World.get().submit(new Task(1) {
-			int loop;
-
-			@Override
-			protected void execute() {
-				if (loop == 0) {
-					setNextAnimation(new Animation(defs.getDeathAnim()));
-					owner.getPackets().sendGameMessage("Your familiar slowly begins to fade away..");
-				} else if (loop >= defs.getDeathDelay()) {
-					dissmissFamiliar(false);
-					this.cancel();
-				}
-				loop++;
-				this.cancel();
-			}
-		});
+//		getCombat().removeTarget();//
+		setNextAnimation(Animations.RESET_ANIMATION);
+		LinkedTaskSequence seq = new LinkedTaskSequence();
+		seq.connect(1, () -> {
+			//anims overall aren't correct, some reason the world isn't deregistering the npc unless relogged.
+//			setNextAnimation(new Animation(defs.getDeathAnim()));
+			dissmissFamiliar(false);
+		}).start();
 	}
 
 	public void respawnFamiliar(Player owner) {
@@ -455,6 +445,11 @@ public abstract class Familiar extends NPC {
 		refreshSpecialEnergy();
 	}
 
+	@Override
+	public boolean isDead() {
+		return dead || super.isDead();
+	}
+	
 	public boolean hasSpecialOn() {
 		if (owner.getAttributes().get("FamiliarSpec").get() != null) {
 			int scrollId = Summoning.getScrollId(pouch.getRealPouchId());
