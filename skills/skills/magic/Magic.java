@@ -1,4 +1,4 @@
-package com.rs.game.player.content;
+package skills.magic;
 
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
@@ -17,7 +17,6 @@ import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
-import skills.magic.TeleportType;
 
 /*
  * content package used for static stuff

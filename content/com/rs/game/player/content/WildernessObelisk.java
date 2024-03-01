@@ -12,6 +12,7 @@ import com.rs.game.task.Task;
 import com.rs.utilities.RandomUtility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import skills.magic.Magic;
 
 public class WildernessObelisk {
 
@@ -49,7 +50,7 @@ public class WildernessObelisk {
 					for (Short i : playerIndexes) {
 						Player p = World.getPlayers().get(i);
 						if (p == null || (p.getX() < center.getX() + 1 || p.getX() > center.getX() + 3
-								|| p.getY() < center.getY() + 1 || p.getY() > center.getY() + 3))
+								|| p.getY() < center.getY() + 1 || p.getY() > center.getY() + 3) || !p.withinDistance(player, 3))
 							continue;
 						int offsetX = p.getX() - center.getX();
 						int offsetY = p.getY() - center.getY();

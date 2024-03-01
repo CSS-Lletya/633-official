@@ -5,6 +5,8 @@ import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 
+import skills.magic.Magic;
+
 public class FairyRing {
 
     private final static String[][] LETTERS = new String[][]

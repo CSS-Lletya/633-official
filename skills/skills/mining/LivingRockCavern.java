@@ -1,4 +1,4 @@
-package com.rs.game.player.content;
+package skills.mining;
 
 import com.rs.game.map.GameObject;
 import com.rs.utilities.RandomUtility;

@@ -16,7 +16,6 @@ import com.rs.game.npc.familiar.Steeltitan;
 import com.rs.game.player.Hit.HitLook;
 import com.rs.game.player.actions.Action;
 import com.rs.game.player.attribute.Attribute;
-import com.rs.game.player.content.Magic;
 import com.rs.game.player.type.CombatEffectType;
 import com.rs.game.player.type.PoisonType;
 import com.rs.game.task.Task;
@@ -27,6 +26,7 @@ import com.rs.utilities.Utility;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import skills.Skills;
+import skills.magic.Magic;
 import skills.prayer.book.Prayer;
 
 public class PlayerCombat extends Action {

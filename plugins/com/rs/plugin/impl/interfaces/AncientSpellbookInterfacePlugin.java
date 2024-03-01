@@ -1,9 +1,10 @@
 package com.rs.plugin.impl.interfaces;
 
 import com.rs.game.player.Player;
-import com.rs.game.player.content.Magic;
 import com.rs.plugin.listener.RSInterfaceListener;
 import com.rs.plugin.wrapper.RSInterfaceSignature;
+
+import skills.magic.Magic;
 
 @RSInterfaceSignature(interfaceId = { 193 })
 public class AncientSpellbookInterfacePlugin extends RSInterfaceListener {

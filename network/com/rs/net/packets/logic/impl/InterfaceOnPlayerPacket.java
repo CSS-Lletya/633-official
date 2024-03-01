@@ -13,11 +13,12 @@ import com.rs.game.player.Inventory;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
 import com.rs.game.player.content.ChrismasCracker;
-import com.rs.game.player.content.Magic;
 import com.rs.io.InputStream;
 import com.rs.net.packets.logic.LogicPacketListener;
 import com.rs.net.packets.logic.LogicPacketSignature;
 import com.rs.utilities.Utility;
+
+import skills.magic.Magic;
 
 @LogicPacketSignature(packetId = 34, packetSize = 11, description = "An Interface that's used onto a Player (Magic, etc..)")
 public class InterfaceOnPlayerPacket implements LogicPacketListener {

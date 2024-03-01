@@ -4,7 +4,8 @@ import java.util.stream.IntStream;
 
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.Magic;
+
+import skills.magic.Magic;
 
 public class SpiritTree {
 

@@ -3,8 +3,8 @@ package skills.magic.spells.lunar.teleports;
 import com.rs.game.item.Item;
 import com.rs.game.map.WorldTile;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.Magic;
 
+import skills.magic.Magic;
 import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 

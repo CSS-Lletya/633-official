@@ -2,11 +2,11 @@ package skills.dungeoneering;
 
 import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.Magic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import skills.Skills;
+import skills.magic.Magic;
 
 public class ResourceDungeons {
 

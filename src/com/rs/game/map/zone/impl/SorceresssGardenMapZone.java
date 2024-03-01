@@ -14,11 +14,11 @@ import com.rs.game.map.zone.MapZone;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 import com.rs.game.player.content.FadingScreen;
-import com.rs.game.player.content.Magic;
 import com.rs.utilities.RandomUtility;
 
 import skills.Skills;
 import skills.herblore.Herb.GrimyHerb;
+import skills.magic.Magic;
 import skills.thieving.impl.SqirkFruitSqueeze.SqirkFruit;
 
 public class SorceresssGardenMapZone extends MapZone {

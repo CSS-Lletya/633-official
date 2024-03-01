@@ -5,9 +5,9 @@ import com.rs.constants.Sounds;
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.game.player.actions.Action;
-import com.rs.game.player.content.Magic;
 
 import skills.Skills;
+import skills.magic.Magic;
 
 public class ChargeFireOrb extends Action {
 

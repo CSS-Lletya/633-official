@@ -1,5 +1,5 @@
 // This program is free software: you can redistribute it and/or modify
-package com.rs.game.player.content;
+package skills.firemaking;
 
 import com.rs.constants.Sounds;
 import com.rs.game.item.Item;

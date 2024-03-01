@@ -13,7 +13,6 @@ import com.rs.game.item.Item;
 import com.rs.game.item.ItemConstants;
 import com.rs.game.player.InterfaceManager.Tabs;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.MagicStaff;
 import com.rs.game.task.Task;
 import com.rs.net.encoders.other.Animation;
 import com.rs.net.encoders.other.Graphics;
@@ -21,6 +20,7 @@ import com.rs.net.encoders.other.Graphics;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import skills.ProducingSkillAction;
 import skills.Skills;
+import skills.magic.MagicStaff;
 import skills.smithing.Smelting;
 import skills.smithing.Smelting.SmeltingData;
 

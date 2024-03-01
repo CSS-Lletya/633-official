@@ -1,5 +1,8 @@
 package com.rs.plugin.impl.commands;
 
+import com.rs.game.Entity;
+import com.rs.game.dialogue.DialogueEventListener;
+import com.rs.game.dialogue.Mood;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.game.player.content.InterfaceCreator;
@@ -17,6 +20,14 @@ public class TestCommandPlugin implements CommandListener {
 
 	@Override
 	public void execute(Player player, String[] cmd, String command) throws Exception {
-		new InterfaceCreator(player, 468).renderAsInterface().onClose(() -> System.out.println("hi"));
+		player.dialogue(6970, d -> d.npc(Mood.happy, "I'm sorry but we aren't added into open633 yet.. Leave a message after the beeps? *BEEP*"));
+//		player.dialogue(new DialogueEventListener(player, Entity.findNPC(2)) {
+//			
+//			@Override
+//			public void start() {
+//				npc(Mood.happy, "zzz");
+//			}
+//		});
+//		player.dialogue(6970, d -> d.npc(Mood.happy, "zz"));
 	}
 }

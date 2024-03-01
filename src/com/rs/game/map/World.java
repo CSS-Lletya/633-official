@@ -14,7 +14,6 @@ import com.rs.game.Entity;
 import com.rs.game.EntityList;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.LivingRockCavern;
 import com.rs.game.task.Task;
 import com.rs.game.task.TaskManager;
 import com.rs.game.task.impl.BonusExperienceTimerTask;
@@ -42,6 +41,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.val;
+import skills.mining.LivingRockCavern;
 
 public class World {
 

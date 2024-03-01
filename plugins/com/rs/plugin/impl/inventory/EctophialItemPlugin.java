@@ -2,9 +2,10 @@ package com.rs.plugin.impl.inventory;
 
 import com.rs.game.item.Item;
 import com.rs.game.player.Player;
-import com.rs.game.player.content.Magic;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
+
+import skills.magic.Magic;
 
 @InventoryWrapper(itemId = {4251}, itemNames = {  })
 public class EctophialItemPlugin extends InventoryListener {
