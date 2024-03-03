@@ -9,8 +9,8 @@ import skills.magic.Magic;
 import skills.magic.spells.PassiveSpellListener;
 import skills.magic.spells.PassiveSpellSignature;
 
-@PassiveSpellSignature(spellButton = 46, spellLevelRequirement = 72, spellbookId = PassiveSpellListener.LUNAR, experience = 71)
-public class WaterbirthTeleportSpellPlugin extends PassiveSpellListener {
+@PassiveSpellSignature(spellButton = 50, spellLevelRequirement = 89, spellbookId = PassiveSpellListener.LUNAR, experience = 96)
+public class IcePlateauTeleportSpellPlugin extends PassiveSpellListener {
 	
 	@Override
 	public boolean canExecute(Player player) {
@@ -19,15 +19,15 @@ public class WaterbirthTeleportSpellPlugin extends PassiveSpellListener {
 
 	@Override
 	public void execute(Player player) {
-		Magic.sendLunarTeleportSpell(player, 0, 0, new WorldTile(2546, 3758, 0));
+		Magic.sendLunarTeleportSpell(player, 0, 0, new WorldTile(2974, 3940, 0));
 	}
 
 	@Override
 	public Item[] runes() {
 		return new Item[] {
-				new Item(ItemNames.ASTRAL_RUNE_9075, 2), 
-				new Item(ItemNames.LAW_RUNE_563, 1),
-				new Item(ItemNames.WATER_RUNE_555, 1),
+				new Item(ItemNames.ASTRAL_RUNE_9075, 3), 
+				new Item(ItemNames.LAW_RUNE_563, 3),
+				new Item(ItemNames.WATER_RUNE_555, 8),
 		};
 	}
 }

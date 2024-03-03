@@ -123,7 +123,7 @@ public class PassiveSpellDispatcher {
 
 	private static double getExperienceGiven(Player player, PassiveSpellListener spell) {
 		PassiveSpellSignature signature = spell.getClass().getAnnotation(PassiveSpellSignature.class);
-		return signature.experience();
+		return signature.experience() /2; //not sure why its x2 experience..
 	}
 	
 	public static void load() {
