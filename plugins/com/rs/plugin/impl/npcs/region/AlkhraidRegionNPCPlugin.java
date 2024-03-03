@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.npcs.region;
 
+import com.rs.constants.NPCNames;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
 import com.rs.game.map.zone.impl.SorceresssGardenMapZone;
@@ -20,7 +21,7 @@ public class AlkhraidRegionNPCPlugin extends NPCListener {
 				SorceresssGardenMapZone.teleportToSorceressGardenNPC(npc, player);
 				return;
 			}
-			player.dialogue(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, NPCNames.APPRENTICE_5532) {
 				@Override
 				public void start() {
 					player(Mood.happy, "Hey apprentice, do you want to try out your teleport skills again?");

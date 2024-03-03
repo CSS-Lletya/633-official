@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.npcs.region;
 
 import com.rs.constants.ItemNames;
+import com.rs.constants.NPCNames;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
@@ -18,7 +19,7 @@ public class DraynorVillageRegionNPCPlugin extends NPCListener {
 	@Override
 	public void execute(Player player, NPC npc, int option) {
 		if (npc.getId() == 3820) {
-			player.dialogue(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, NPCNames.NULL_3820) {
 				@Override
 				public void start() {
 					npc(Mood.question, "Greetings! What can I do for you?");

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.rs.constants.Animations;
+import com.rs.constants.NPCNames;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
@@ -127,7 +128,7 @@ public class SorceresssGardenMapZone extends MapZone {
     @Override
 	public boolean processNPCClick1(Player player, NPC npc) {
 		if (npc.getId() == 5563)
-			player.dialogue(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, NPCNames.DEL_MONTY_5563) {
 				@Override
 				public void start() {
 					player(Mood.afraid, "Hey kitty!");

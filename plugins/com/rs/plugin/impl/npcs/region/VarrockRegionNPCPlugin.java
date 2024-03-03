@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.npcs.region;
 
 import com.rs.cache.loaders.ItemDefinitions;
+import com.rs.constants.NPCNames;
 import com.rs.content.quests.ScrollInterface;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
@@ -21,7 +22,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 	public void execute(Player player, NPC npc, int option) {
 		if (npc.getId() == 4250) {
 			if (option == 1) {
-				player.dialogue(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, NPCNames.SAWMILL_OPERATOR_4250) {
 					@Override
 					public void start() {
 						npc(happy, "If you bring'em, i'll mill them! ..get it? no okay.");
@@ -39,7 +40,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 		}
 		if (npc.getId() == 6524) {
 			if (option == 1) {
-				player.dialogue(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, NPCNames.BOB_BARTER__HERBS__6524) {
 					@Override
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
@@ -71,7 +72,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 		}
 		if (npc.getId() == 6526) {
 			if (option == 1) {
-				player.dialogue(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, NPCNames.RELOBO_BLINYO__LOGS__6526) {
 					@Override
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
@@ -108,7 +109,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 			}
 		}
 		if (npc.getId() == 6527) {
-			player.dialogue(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, NPCNames.HOFUTHAND__ARMOUR_AND_WEAPONS__6527) {
 				@Override
 				public void start() {
 					npc(happy, "Good day, I'm quite busy right now.<br>Maybe we can chat later");
@@ -118,7 +119,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 		}
 		if (npc.getId() == 6523) {
 			if (option == 1) {
-				player.dialogue(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, NPCNames.FARID_MORRISANE__ORES__6523) {
 					@Override
 					public void start() {
 						npc(happy, "Good day, how can I help you?");
@@ -152,7 +153,7 @@ public class VarrockRegionNPCPlugin extends NPCListener {
 		
 		if (npc.getId() == 6525) {
 			if (option == 1) {
-				player.dialogue(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, NPCNames.MURKY_MATT__RUNES__6525) {
 					@Override
 					public void start() {
 						npc(happy, "Good day, how can I help you?");

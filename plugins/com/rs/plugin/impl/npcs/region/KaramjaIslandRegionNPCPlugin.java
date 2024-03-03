@@ -2,6 +2,7 @@ package com.rs.plugin.impl.npcs.region;
 
 import java.util.stream.IntStream;
 
+import com.rs.constants.NPCNames;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
 import com.rs.game.item.Item;
@@ -17,7 +18,7 @@ public class KaramjaIslandRegionNPCPlugin extends NPCListener {
 	public void execute(Player player, NPC npc, int option) {
 		if (npc.getDefinitions().getName().equalsIgnoreCase("stiles")) {
 			if (option == 1) {
-				player.dialogue(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, NPCNames.STILES_11267) {
 					@Override
 					public void start() {
 						npc(happy, "Ay-uh, 'tis a grand day for the fishin'. Will ye wantin' to exchange yer fish for banknotes?");

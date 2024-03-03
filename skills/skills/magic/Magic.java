@@ -25,8 +25,7 @@ public class Magic {
 
 	public static final int MAGIC_TELEPORT = 0, ITEM_TELEPORT = 1, OBJECT_TELEPORT = 2;
 
-	private static final int AIR_RUNE = 556;
-
+	public static final int AIR_RUNE = 556;
 	public static final int WATER_RUNE = 555;
 	public static final int EARTH_RUNE = 557;
 	public static final int FIRE_RUNE = 554;
@@ -494,48 +493,6 @@ public class Magic {
 		case 67:
 		case 68:
 			setCombatSpell(player, spellId);
-			break;
-		case 27: // crossbow bolt enchant
-			if (player.getSkills().getLevel(Skills.MAGIC) < 4) {
-				player.getPackets().sendGameMessage("Your Magic level is not high enough for this spell.");
-				return;
-			}
-			player.getMovement().stopAll();
-			player.getInterfaceManager().sendInterface(432);
-			break;
-		case 24:
-			TeleportType.MODERN_HOME.checkSpecialCondition(player, GameConstants.START_PLAYER_LOCATION);
-			break;
-		case 37: // mobi
-			sendNormalTeleportSpell(player, 10, 19, new WorldTile(2413, 2848, 0), LAW_RUNE, 1, WATER_RUNE, 1, AIR_RUNE,
-					1);
-			break;
-		case 40: // varrock
-			sendNormalTeleportSpell(player, 25, 19, new WorldTile(3212, 3424, 0), FIRE_RUNE, 1, AIR_RUNE, 3, LAW_RUNE,
-					1);
-			break;
-		case 43: // lumby
-			player.getMovement().move(false, GameConstants.START_PLAYER_LOCATION, TeleportType.NORMAL);
-			break;
-		case 46: // fally
-			sendNormalTeleportSpell(player, 37, 48, new WorldTile(2964, 3379, 0), WATER_RUNE, 1, AIR_RUNE, 3, LAW_RUNE,
-					1);
-			break;
-		case 51: // camelot
-			sendNormalTeleportSpell(player, 45, 55.5, new WorldTile(2757, 3478, 0), AIR_RUNE, 5, LAW_RUNE, 1);
-			break;
-		case 57: // ardy
-			sendNormalTeleportSpell(player, 51, 61, new WorldTile(2664, 3305, 0), WATER_RUNE, 2, LAW_RUNE, 2);
-			break;
-		case 62: // watch
-			sendNormalTeleportSpell(player, 58, 68, new WorldTile(2547, 3113, 2), EARTH_RUNE, 2, LAW_RUNE, 2);
-			break;
-		case 69: // troll
-			sendNormalTeleportSpell(player, 61, 68, new WorldTile(2888, 3674, 0), FIRE_RUNE, 2, LAW_RUNE, 2);
-			break;
-		case 72: // ape
-			sendNormalTeleportSpell(player, 64, 76, new WorldTile(2776, 9103, 0), FIRE_RUNE, 2, WATER_RUNE, 2, LAW_RUNE,
-					2, 1963, 1);
 			break;
 		}
 	}

@@ -130,6 +130,10 @@ public class PassiveSpellDispatcher {
 		List<PassiveSpellListener> modernSpellLoader = Utility.getClassesInDirectory("skills.magic.spells.modern").stream()
 				.map(clazz -> (PassiveSpellListener) clazz).collect(Collectors.toList());
 		modernSpellLoader.forEach(spell -> SPELLS.put(spell.getClass().getAnnotation(PassiveSpellSignature.class), spell));
+		List<PassiveSpellListener> modernTeleportsSpellLoader = Utility.getClassesInDirectory("skills.magic.spells.modern.teleports").stream()
+				.map(clazz -> (PassiveSpellListener) clazz).collect(Collectors.toList());
+		modernTeleportsSpellLoader.forEach(spell -> SPELLS.put(spell.getClass().getAnnotation(PassiveSpellSignature.class), spell));
+		
 		List<PassiveSpellListener> lunarSpellLoader = Utility.getClassesInDirectory("skills.magic.spells.lunar").stream()
 				.map(clazz -> (PassiveSpellListener) clazz).collect(Collectors.toList());
 		lunarSpellLoader.forEach(spell -> SPELLS.put(spell.getClass().getAnnotation(PassiveSpellSignature.class), spell));

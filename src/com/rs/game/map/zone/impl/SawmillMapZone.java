@@ -83,14 +83,14 @@ public class SawmillMapZone extends MapZone {
 			}
 			if (isOrderCompleted(player)) {
 				finishJob(player);
-				player.dialogue(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, OVERSEER) {
 					@Override
 					public void start() {
 						npc(happy, "Good job! I'll fill in the paperwork and send them on their way.");
 					}
 				});
 			} else {
-				player.dialogue(new DialogueEventListener(player, npc) {
+				player.dialogue(new DialogueEventListener(player, OVERSEER) {
 					@Override
 					public void start() {
 						npc(happy, "I don't think you've got all the planks you need for this order. Come back when you're done.");

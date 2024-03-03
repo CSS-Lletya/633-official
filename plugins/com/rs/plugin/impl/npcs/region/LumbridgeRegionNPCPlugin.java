@@ -38,7 +38,7 @@ public class LumbridgeRegionNPCPlugin extends NPCListener {
 			val hours = (seconds / 3600) - (days * 24);
 			val minutes = (seconds / 60) - (days * 1440) - (hours * 60);
 			
-			player.dialogue(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, NPCNames.HANS_7935) {
 				@Override
 				public void start() {
 					npc(Mood.happy, "Hello. What are you doing here?");

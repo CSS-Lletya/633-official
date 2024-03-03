@@ -1,6 +1,7 @@
 package com.rs.plugin.impl.npcs.region;
 
 import com.rs.constants.Animations;
+import com.rs.constants.NPCNames;
 import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
@@ -19,7 +20,7 @@ public class ThievingGuildRegionNPCPlugin extends NPCListener {
 	@Override
 	public void execute(Player player, NPC npc, int option) {
 		if (option == 1) {
-			player.dialogue(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, NPCNames.PICKPOCKETING_TRAINER_11281) {
 				@Override
 				public void start() {
 					npc(hearty_laugh, "Go ahead... attempt to pick my pockets.");
@@ -31,7 +32,7 @@ public class ThievingGuildRegionNPCPlugin extends NPCListener {
 			player.getSkills().addExperience(Skills.THIEVING, RandomUtility.random(2, 3));
 			timesPickedSession++;
 		} else if (option == 3) {
-			player.dialogue(new DialogueEventListener(player, npc) {
+			player.dialogue(new DialogueEventListener(player, NPCNames.PICKPOCKETING_TRAINER_11281) {
 				@Override
 				public void start() {
 					npc(hearty_laugh, "So far you've successfully completed "
