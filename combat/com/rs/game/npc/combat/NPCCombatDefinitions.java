@@ -52,9 +52,9 @@ public class NPCCombatDefinitions {
 	public void handleIngoingHit(NPC npc, final Hit hit) {
 		if (npc.getCapDamage() != -1 && hit.getDamage() > npc.getCapDamage())
 			hit.setDamage(npc.getCapDamage());
-		if (hit.getLook() != HitLook.MELEE_DAMAGE && hit.getLook() != HitLook.RANGE_DAMAGE
-				&& hit.getLook() != HitLook.MAGIC_DAMAGE)
-			return;
+//		if (hit.getLook() != HitLook.MELEE_DAMAGE && hit.getLook() != HitLook.RANGE_DAMAGE
+//				&& hit.getLook() != HitLook.MAGIC_DAMAGE)
+//			return;
 		Entity source = hit.getSource();
 		if (source.isPlayer()) {
 			@SuppressWarnings("unused")

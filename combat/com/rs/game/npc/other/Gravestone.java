@@ -197,7 +197,7 @@ public class Gravestone extends NPC {
 	}
 
 	public Player getPlayer() {
-		return World.getPlayer(username).get();
+		return World.getPlayer(username).orElse(null);
 	}
 
 	public static final int getMaximumTicks(int gravestone) {

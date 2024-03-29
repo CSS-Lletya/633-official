@@ -57,7 +57,6 @@ public class AttackNPCPacket implements LogicPacketListener {
 				}
 			}
 		}
-		//bugged..hmmm
 		player.getAction().setAction(new PlayerCombat(Optional.of(npc)));
 	}
 }

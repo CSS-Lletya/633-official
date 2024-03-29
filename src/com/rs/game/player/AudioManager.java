@@ -64,7 +64,7 @@ public class AudioManager {
 	}
 	
 	/**
-	 * Sends the index 2 sound version. This is complately different, and don't think it'll be used.
+	 * Sends the index 2 sound version. This is completely different, and don't think it'll be used.
 	 * @param soundId
 	 * @return
 	 */

@@ -56,10 +56,12 @@ public class NPC extends Entity {
 	private WorldTile respawnTile;
 	private boolean canBeAttackFromOutOfArea;
 	private byte walkType;
-	private short[] bonuses = NPCBonuses.getBonuses(id);
+	private double[] bonuses;
 	private boolean spawned;
 	private transient NPCCombat combat;
 	public WorldTile forceWalk;
+	
+	private int combatLevel;
 
 	private long lastAttackedByTarget;
 	private boolean cantInteract;
@@ -103,6 +105,8 @@ public class NPC extends Entity {
 		setLureDelay((short) 12000);
 		setGenericNPC(new GenericNPCDispatcher());
 		getGenericNPC().setAttributes(this);
+		combatLevel = -1;
+		setBonuses();
 		initEntity();
 		World.addNPC(this);
 		updateEntityRegion(this);
@@ -495,6 +499,34 @@ public class NPC extends Entity {
 			action.run();
 	}
 
+	public int getCombatLevel() {
+		return combatLevel >= 0 ? combatLevel : getDefinitions().combatLevel;
+	}
+	
+	public void setBonuses() {
+		bonuses = getDefaultBonuses();
+	}
+	
+	public double[] getDefaultBonuses() {
+		double[] b = NPCBonuses.getBonuses(id);
+		if (b == null) {
+			b = new double[10];
+			int level = getCombatLevel();
+			for (int i = 0; i < b.length; i++) {
+				b[i] = i >= 5 ?  level : (level / 2);
+			}
+		} else {
+			b = b.clone();
+		}
+		return b;
+	}
+	
+	
+	public void setNPC(int id) {
+		this.id = id;
+		setBonuses();
+	}
+	
     public WorldTile getWorldTile() {
         return new WorldTile(getX(), getY(), getPlane());
     }

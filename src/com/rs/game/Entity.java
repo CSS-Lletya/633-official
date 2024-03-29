@@ -46,6 +46,7 @@ import com.rs.utilities.MutableNumber;
 import com.rs.utilities.RandomUtility;
 import com.rs.utilities.Utility;
 import com.rs.utilities.Vec2;
+import com.rs.utilities.loaders.NPCBonuses;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayFIFOQueue;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -196,6 +197,7 @@ public abstract class Entity extends WorldTile {
 			npc.setDirection(npc.getRespawnDirection());
 			npc.getCombat().reset();
 			npc.setForceWalk(null);
+			npc.setBonuses(NPCBonuses.getBonuses(npc.getId())); // back to real bonuses
 		});
 	}
 

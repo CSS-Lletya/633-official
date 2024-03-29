@@ -14,12 +14,14 @@ import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
+import it.unimi.dsi.fastutil.doubles.Double2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 public final class NPCBonuses {
-	private final static Short2ObjectOpenHashMap<short[]> npcBonuses = new Short2ObjectOpenHashMap<>();
+	
+	private final static Double2ObjectOpenHashMap<double[]> npcBonuses = new Double2ObjectOpenHashMap<>();
 	private static final String PACKED_PATH = "data/npcs/packedBonuses.nb";
 
 	public static void init() {
@@ -29,8 +31,8 @@ public final class NPCBonuses {
 			loadUnpackedNPCBonuses();
 	}
 
-	public static short[] getBonuses(int id) {
-		return npcBonuses.get((short) id);
+	public static double[] getBonuses(int id) {
+		return npcBonuses.get(id);
 	}
 
 	@SneakyThrows(Throwable.class)
@@ -60,12 +62,12 @@ public final class NPCBonuses {
 					out.close();
 					throw new RuntimeException("Invalid NPC Bonuses line: " + line);
 				}
-				short[] bonuses = new short[10];
-				out.writeShort(npcId);
-				for (int i = 0; i < bonuses.length; i++) {
-					bonuses[i] = Short.parseShort(splitedLine2[i]);
-					out.writeShort(bonuses[i]);
-				}
+				double[] bonuses = new double[10];
+				//	out.writeShort(npcId);
+					for (int i = 0; i < bonuses.length; i++) {
+						bonuses[i] = Integer.parseInt(splitedLine2[i]);
+						//out.writeShort(bonuses[i]);
+					}
 				npcBonuses.put(npcId, bonuses);
 			}
 		});
@@ -79,7 +81,7 @@ public final class NPCBonuses {
 			ByteBuffer buffer = channel.map(MapMode.READ_ONLY, 0, channel.size());
 			while (buffer.hasRemaining()) {
 				short npcId = (short) (buffer.getShort() & 0xffff);
-				short[] bonuses = new short[10];
+				double[] bonuses = new double[10];
 				for (int i = 0; i < bonuses.length; i++)
 					bonuses[i] = buffer.getShort();
 				npcBonuses.put(npcId, bonuses);

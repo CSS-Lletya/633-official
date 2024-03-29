@@ -21,7 +21,7 @@ public abstract class MobCombatListener {
 	public abstract int execute(NPC npc, Player target);
 	
 	public static int getRandomMaxHit(NPC npc, int maxHit, int attackStyle, Entity target) {
-		double[] bonuses = npc.getBonuses();
+		double[] bonuses = npc.getDefaultBonuses();
 		double attack = bonuses == null ? 0
 				: attackStyle == NPCCombatDefinitions.RANGE ? bonuses[CombatDefinitions.RANGE_ATTACK]
 						: attackStyle == NPCCombatDefinitions.MAGE ? bonuses[CombatDefinitions.MAGIC_ATTACK]
