@@ -10,7 +10,8 @@ import com.rs.net.encoders.other.Animation;
 @MobCombatSignature(mobId = {8832, 8833,8834}, mobName = {})
 public class LivingRockCreatureCombat extends MobCombatListener {
 
-	public int execute(Player target, NPC npc) throws Exception {
+	@Override
+	public int execute(NPC npc, Player target) {
 		final NPCCombatDefinitions defs = npc.getCombatDefinitions();
 		int distanceX = target.getX() - npc.getX();
 		int distanceY = target.getY() - npc.getY();

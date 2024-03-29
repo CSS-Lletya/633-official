@@ -17,7 +17,7 @@ import skills.prayer.book.Prayer;
 public class DragonCombat extends MobCombatListener {
 
 	@Override
-	public int execute(Player target, NPC npc) throws Exception {
+	public int execute( NPC npc, Player target) {
 		final NPCCombatDefinitions defs = npc.getCombatDefinitions();
 		int attackStyle = RandomUtility.inclusive(5);
 		int size = npc.getSize();

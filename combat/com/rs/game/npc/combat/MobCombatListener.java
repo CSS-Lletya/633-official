@@ -18,12 +18,10 @@ import skills.Skills;
 
 public abstract class MobCombatListener {
 	
-	public int execute(Player target, NPC mob) throws Exception {
-		return 1;
-	}
+	public abstract int execute(NPC npc, Player target);
 	
 	public static int getRandomMaxHit(NPC npc, int maxHit, int attackStyle, Entity target) {
-		short[] bonuses = npc.getBonuses();
+		double[] bonuses = npc.getBonuses();
 		double attack = bonuses == null ? 0
 				: attackStyle == NPCCombatDefinitions.RANGE ? bonuses[CombatDefinitions.RANGE_ATTACK]
 						: attackStyle == NPCCombatDefinitions.MAGE ? bonuses[CombatDefinitions.MAGIC_ATTACK]

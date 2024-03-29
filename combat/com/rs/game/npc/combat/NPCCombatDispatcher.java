@@ -41,10 +41,10 @@ public class NPCCombatDispatcher {
 		Optional<MobCombatListener> mobCombat = getMobCombatant(npc);
 		if (!mobCombat.isPresent()) {
 			DefaultCombat defaultScript = new DefaultCombat();
-			return defaultScript.execute(player, npc);
+			return defaultScript.execute(npc, player);
 		}
 		mobCombat.ifPresent(value -> {
-			Try.run(() -> mobValue = value.execute(player, npc));
+			Try.run(() -> mobValue = value.execute(npc, player));
 		});
 		return (mobValue == -1 ? npc.getCombatDefinitions().getAttackDelay() : mobValue);
 	}
