@@ -28,7 +28,7 @@ public class SkillcapeMastersNPCPlugin extends NPCListener {
 					SkillcapeMasters.Runecrafting, SkillcapeMasters.Hunter, SkillcapeMasters.Dungeoneering };
 
 			IntStream.range(0, npcIds.length).filter(i -> npc.getId() == npcIds[i]).findFirst()
-					.ifPresent(index -> player.dialogue(new SkillMasterDialogue(player, npc, skillcapeMasters[index])));
+					.ifPresent(index -> player.dialogue(new SkillMasterDialogue(player, skillcapeMasters[index], npcIds[index])));
 		}
 	}
 }

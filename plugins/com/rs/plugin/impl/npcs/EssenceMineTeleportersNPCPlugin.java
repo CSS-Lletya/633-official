@@ -2,6 +2,7 @@ package com.rs.plugin.impl.npcs;
 
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
+import com.rs.constants.NPCNames;
 import com.rs.game.map.WorldTile;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
@@ -23,7 +24,7 @@ public class EssenceMineTeleportersNPCPlugin extends NPCListener {
 			//dialogue
 			break;
 		case 2:
-			if (npc.getId() == 300) {
+			if (npc.getId() == NPCNames.SEDRIDOR_300) {
 				execute(player, npc, 3);
 				return;
 			}

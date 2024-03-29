@@ -2,10 +2,7 @@ package skills.magic;
 
 import com.rs.GameConstants;
 import com.rs.cache.loaders.ItemDefinitions;
-import com.rs.constants.Animations;
-import com.rs.constants.Graphic;
 import com.rs.game.Entity;
-import com.rs.game.item.Item;
 import com.rs.game.map.World;
 import com.rs.game.map.WorldTile;
 import com.rs.game.map.zone.impl.WildernessMapZone;
@@ -400,7 +397,6 @@ public class Magic {
 			player.setNextAnimation(new Animation(4411));
 			player.getDetails().getVengTimer().start(30);
 			((Player) target).setNextGraphics(new Graphics(725, 0, 100));
-//			((Player) target).setCastVeng(true);
 			((Player) target).getPackets().sendGameMessage("You have the power of vengeance!");
 			break;
 		}
@@ -666,20 +662,6 @@ public class Magic {
 	public static void teleControlersCheck(Player player, WorldTile teleTile) {
 		if (WildernessMapZone.isAtWild(teleTile))
 			player.getMapZoneManager().submitMapZone(new WildernessMapZone());
-	}
-
-	public static void useEctoPhial(final Player player, Item item) {
-		player.getInventory().deleteItem(item);
-		player.setNextGraphics(Graphic.ECTOPHIAL_LIQUID);
-		player.setNextAnimation(Animations.EMPTY_ECTOPHIAL);
-		World.get().submit(new Task(6) {
-			@Override
-			protected void execute() {
-				sendTeleportSpell(player, 8939, 8941, 1678, 1679, 0, 0, new WorldTile(3662, 3518, 0), 4, true,
-						ITEM_TELEPORT);
-				this.cancel();
-			}
-		});
 	}
 	
 	 public static void resourcesTeleport(final Player player, final int x, final int y, final int h) {

@@ -22,6 +22,7 @@ public final class GameConstants {
 	public static final short NPCS_LIMIT = GameProperties.getGameProperties().getShort("npc_limit");
 	public static final byte LOCAL_NPCS_LIMIT = GameProperties.getGameProperties().getByte("local_npcs");
 	public static final int MIN_FREE_MEM_ALLOWED = 30000000;//30mb
+	public static final String MEMBERS_ONLY_MESSAGE = "You need to be on a members' server to use this feature.";
 	
 	/**
 	 * Player settings

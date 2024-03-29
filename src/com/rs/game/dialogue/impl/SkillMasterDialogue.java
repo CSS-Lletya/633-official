@@ -1,7 +1,6 @@
 package com.rs.game.dialogue.impl;
 
 import com.rs.game.dialogue.DialogueEventListener;
-import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
 
 import skills.SkillcapeMasters;
@@ -10,8 +9,8 @@ public class SkillMasterDialogue extends DialogueEventListener {
 
 	private final SkillcapeMasters master;
 
-	public SkillMasterDialogue(Player player, NPC npc, SkillcapeMasters master) {
-		super(player, npc);
+	public SkillMasterDialogue(Player player, SkillcapeMasters master, int npcIds) {
+		super(player, npcIds);
 		this.master = master;
 	}
 
