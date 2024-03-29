@@ -52,8 +52,8 @@ import skills.magic.spells.PassiveSpellDispatcher;
  * Represents the startup loading utilizing the {@link ForkJoinPool} system.
  * Best known startup benchmark:
  * 
- * 2023-08-06 11:54:19 [main] com.rs.utilities.LogUtility.log()
- * INFO: Server took 504 milli seconds to launch.
+ * 2024-03-19 13:41:47 [main] com.rs.utilities.LogUtility.log()
+ * INFO: Server took 174 milli seconds to launch.
  * 
  * @author Dennis
  *

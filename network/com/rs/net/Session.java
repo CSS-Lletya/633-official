@@ -9,11 +9,12 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 
+import com.rs.cores.PlayerHandlerThread;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.game.player.PlayerCombat;
-import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.player.content.Emotes.Emote;
+import com.rs.game.player.content.FriendChatsManager;
 import com.rs.game.task.Task;
 import com.rs.io.InputStream;
 import com.rs.io.OutputStream;
@@ -251,10 +252,11 @@ public class Session {
 		else if (player.getPet() != null)
 			player.getPet().deregister();
 		player.setFinished(true);
+		
 		player.getAction().forceStop();
 		player.getSkillAction().ifPresent(skill -> skill.cancel());
 		player.getSession().setDecoder(-1);
-		AccountCreation.savePlayer(player);
+		PlayerHandlerThread.addLogout(player);
 		if (World.containsLobbyPlayer(player.getDisplayName())) {
 			World.removeLobbyPlayer(player);
 		}

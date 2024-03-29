@@ -598,7 +598,7 @@ public class Player extends Entity {
 	 * @param packet
 	 */
 	public void addLogicPacketToQueue(LogicPacket packet) {
-		getLogicPackets().stream().filter(type -> type.getId() == packet.getId()).forEach(getLogicPackets()::remove);
+		getLogicPackets().removeIf(logicPacket -> logicPacket.getId() == packet.getId());
 		getLogicPackets().add(packet);
 	}
 	

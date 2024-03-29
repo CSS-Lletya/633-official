@@ -90,8 +90,11 @@ import lombok.val;
 public final class CoresManager {
 
 	protected static volatile boolean shutdown;
+	
 	public static ExecutorService serverWorkerChannelExecutor;
 	public static ExecutorService serverBossChannelExecutor;
+	public static ScheduledExecutorService playerHandlerThread;
+	
 	public static ScheduledExecutorService slowExecutor;
 	public static int serverWorkersCount;
 	public static ScheduledExecutorService worldThread;
@@ -116,6 +119,14 @@ public final class CoresManager {
 			});
 			worldThread.scheduleAtFixedRate(new PassiveDatabaseWorker(), 0, 600, TimeUnit.MILLISECONDS);
 		}
+		
+		playerHandlerThread = Executors.newSingleThreadScheduledExecutor(r -> {
+			val thread = new Thread(r);
+			thread.setPriority(Thread.MIN_PRIORITY);
+			thread.setName("Player Handler Thread");
+			return thread;
+		});
+		playerHandlerThread.scheduleAtFixedRate(new PlayerHandlerThread(), 0, 600, TimeUnit.MILLISECONDS);
 
 		int availableProcessors = Runtime.getRuntime().availableProcessors();
 		serverWorkersCount = availableProcessors >= 6 ? availableProcessors - (availableProcessors >= 12 ? 6 : 4) : 2;

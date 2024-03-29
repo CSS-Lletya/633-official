@@ -1,5 +1,8 @@
 package com.rs.cores;
 
+import java.util.Calendar;
+
+import com.rs.Launcher;
 import com.rs.game.map.World;
 import com.rs.game.npc.NPC;
 import com.rs.game.player.Player;
@@ -40,7 +43,10 @@ public class WorldThread implements Runnable {
 			}
 			if (lastCycle % 500 == 0)
 				ServerChannelHandler.cleanMemory(lastCycle % 1000 == 0);
-		lastCycle++;	
+		lastCycle++;
+		
+		Calendar day = Calendar.getInstance();
+		Launcher.getCalendar().setDay(day.get(Calendar.DAY_OF_WEEK));
 		}).onFailure(Throwable::printStackTrace);
 	}
 }
