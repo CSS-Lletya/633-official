@@ -1,8 +1,11 @@
 package com.rs;
 
+import com.rs.game.GameCalendar;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
 import com.rs.utilities.Utility;
+
+import lombok.Getter;
 
 /**
  * The Runnable source of open633 This is where we start our start-up services,
@@ -29,4 +32,11 @@ public class Launcher {
 		LogUtility.log(LogType.INFO,
 				"Server took " + (Utility.currentTimeMillis() - currentTime) + " milli seconds to launch.");
 	}
+	
+	/**
+	 * Represents the state of the current calendar.
+	 */
+	@Getter
+	public static GameCalendar calendar = new GameCalendar();
+	
 }
