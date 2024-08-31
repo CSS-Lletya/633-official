@@ -38,6 +38,7 @@ import com.rs.game.player.content.pet.PetManager;
 import com.rs.game.player.content.trails.PuzzleBox;
 import com.rs.game.player.content.trails.Puzzles;
 import com.rs.game.player.content.trails.TreasureTrailsManager;
+import com.rs.game.player.queue.PlayerScriptQueue;
 import com.rs.game.player.type.CombatEffect;
 import com.rs.game.task.impl.CombatEffectTask;
 import com.rs.game.task.impl.OverloadEffectTask;
@@ -59,6 +60,8 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import skills.Skills;
 import skills.prayer.book.PrayerManager;
 
@@ -242,14 +245,14 @@ public class Player extends Entity {
 	private transient int pid;
 	
 	/**
+	 * The current skill action that is going on for this player.
+	 */
+	private transient Optional<SkillActionTask> skillAction = Optional.empty();
+	
+	/**
 	 * Personal details & information stored for a Player
 	 */
 	private PlayerDetails details;
-	
-	/**
-	 * The current skill action that is going on for this player.
-	 */
-	private Optional<SkillActionTask> skillAction = Optional.empty();
 	
 	/**
 	 * Represents the Treasure Trails management
@@ -329,7 +332,7 @@ public class Player extends Entity {
 	/**
 	 * The current Controller this Player is in.
 	 */
-	private Optional<MapZone> currentMapZone = Optional.empty();
+	private Optional<MapZone> currentMapZone;
 	
 	/**
 	 * A collection of mapzone attributes
@@ -346,6 +349,9 @@ public class Player extends Entity {
 	 */
 	private DayOfWeekManager dayOfWeekManager;
 
+	@Getter
+	private transient PlayerScriptQueue scripts;
+	
 	/**
 	 * Constructs a new Player
 	 * @param password
@@ -376,6 +382,7 @@ public class Player extends Entity {
 		setDayOfWeekManager(new DayOfWeekManager());
 		setMapZoneManager(new MapZoneManager());
 		setCurrentMapZone(Optional.empty());
+		this.scripts = new PlayerScriptQueue(this);
 	}
 	
 	/**
@@ -425,9 +432,9 @@ public class Player extends Entity {
 			setVarsManager(new VarsManager());
 		getVarsManager().setPlayer(this);
 		getAppearance().setPlayer(this);
-		getInventory().setPlayer(this);
 		getEquipment().setPlayer(this);
 		getSkills().setPlayer(this);
+		getInventory().setPlayer(this);
 		getCombatDefinitions().setPlayer(this);
 		getPrayer().setPlayer(this);
 		getBank().setPlayer(this);
@@ -462,6 +469,7 @@ public class Player extends Entity {
         	setDayOfWeekManager(new DayOfWeekManager());
         getDayOfWeekManager().setPlayer(this);
         getMapZoneManager().setPlayer(this);
+        this.scripts = new PlayerScriptQueue(this);
 		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
@@ -477,10 +485,12 @@ public class Player extends Entity {
 	@Override
 	public void processEntity() {
 		getSession().processLogicPackets(this);
+		
 		getDetails().getPlayTime().getAndIncrement();
 		getDayOfWeekManager().process();
 		if (isDead())
 			return;
+		getScripts().process();
 		if (getCoordsEvent() != null && getCoordsEvent().processEvent(this))
 			setCoordsEvent(null);
 		if (getRouteEvent() != null && getRouteEvent().processEvent(this))

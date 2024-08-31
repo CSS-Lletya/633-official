@@ -15,7 +15,6 @@ import com.rs.utilities.LogUtility.LogType;
 
 import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.doubles.Double2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.shorts.Short2ObjectOpenHashMap;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 

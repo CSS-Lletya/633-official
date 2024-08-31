@@ -3,11 +3,11 @@ package com.rs.game.player.content;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.rs.GameConstants;
+import com.rs.cores.PlayerHandlerThread;
 import com.rs.game.map.World;
 import com.rs.game.player.FriendsIgnores;
 import com.rs.game.player.Player;
 import com.rs.io.OutputStream;
-import com.rs.net.AccountCreation;
 import com.rs.net.encoders.other.ChatMessage;
 import com.rs.net.encoders.other.QuickChatMessage;
 import com.rs.utilities.Utility;
@@ -337,11 +337,11 @@ public class FriendChatsManager {
 				if (owner == null)
 					owner = World.getLobbyPlayerByDisplayName(ownerName);
 				if (owner == null) {
-					if (!AccountCreation.exists(formatedName)) {
+					if (!PlayerHandlerThread.exists(formatedName)) {
 						player.getPackets().sendGameMessage("The channel you tried to join does not exist.");
 						return;
 					}
-					owner = AccountCreation.loadPlayer(formatedName);
+					owner = PlayerHandlerThread.loadPlayer(formatedName);
 					if (owner == null) {
 						player.getPackets().sendGameMessage("The channel you tried to join does not exist.");
 						return;

@@ -55,9 +55,9 @@ public class VarsManager {
 	public VarsManager() {
 		values = new int[Cache.STORE.getIndexes()[2].getLastFileId(16) + 1];
 		if (varMap == null)
-			varMap  = new HashMap<Integer,Integer>();
+			varMap  = new HashMap<>();
 		if (varBitMap == null)
-			varBitMap  = new HashMap<Integer,Integer>();
+			varBitMap  = new HashMap<>();
 	}
 	
 	public void setPlayer(Player player) {

@@ -1,10 +1,10 @@
 package com.rs.net.decoders;
 
 import com.rs.GameConstants;
+import com.rs.cores.PlayerHandlerThread;
 import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.io.InputStream;
-import com.rs.net.AccountCreation;
 import com.rs.net.IsaacKeyPair;
 import com.rs.net.Session;
 import com.rs.net.host.HostListType;
@@ -12,8 +12,8 @@ import com.rs.net.host.HostManager;
 import com.rs.utilities.AntiFlood;
 import com.rs.utilities.BlowFishCryptService;
 import com.rs.utilities.LogUtility;
-import com.rs.utilities.Utility;
 import com.rs.utilities.LogUtility.LogType;
+import com.rs.utilities.Utility;
 
 import lombok.Synchronized;
 
@@ -123,10 +123,10 @@ public final class LoginPacketsDecoder extends Decoder {
 			session.getLoginPackets().sendClientPacket(9);
 			return;
 		}
-		if (!AccountCreation.exists(username)) {
+		if (!PlayerHandlerThread.exists(username)) {
 			player = new Player(password);
 		} else {
-			player = AccountCreation.loadPlayer(username);
+			player = PlayerHandlerThread.loadPlayer(username);
 			if (player == null) {
 				session.getLoginPackets().sendClientPacket(20);
 				return;
@@ -207,10 +207,10 @@ public final class LoginPacketsDecoder extends Decoder {
 			session.getLoginPackets().sendClientPacket(9);
 			return;
 		}
-		if (!AccountCreation.exists(username)) {
+		if (!PlayerHandlerThread.exists(username)) {
 			player = new Player(password);
 		} else {
-			player = AccountCreation.loadPlayer(username);
+			player = PlayerHandlerThread.loadPlayer(username);
 			if (player == null) {
 				session.getLoginPackets().sendClientPacket(20);
 				return;
@@ -226,6 +226,5 @@ public final class LoginPacketsDecoder extends Decoder {
 		session.setDecoder(3, player);
 		session.setEncoder(2, player);
 		player.getSession().startLobby(player);
-		AccountCreation.savePlayer(player);
 	}
 }

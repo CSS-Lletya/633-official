@@ -3,6 +3,7 @@ package com.rs.game.player.content.trails;
 import java.io.Serializable;
 
 import com.rs.cache.loaders.NPCDefinitions;
+import com.rs.cores.PlayerHandlerThread;
 import com.rs.game.dialogue.Mood;
 import com.rs.game.item.FloorItem;
 import com.rs.game.item.Item;
@@ -17,7 +18,6 @@ import com.rs.game.player.Player;
 import com.rs.game.player.content.Emotes;
 import com.rs.game.player.content.Emotes.Emote;
 import com.rs.game.task.Task;
-import com.rs.net.AccountCreation;
 import com.rs.net.encoders.other.ForceTalk;
 import com.rs.net.encoders.other.Graphics;
 import com.rs.utilities.RandomUtility;
@@ -172,7 +172,7 @@ public class TreasureTrailsManager {
     }
 
     public void setNextClue(int source) {
-    	AccountCreation.savePlayer(player);
+    	PlayerHandlerThread.savePlayer(player);
         int lastPhase = (currentClue.details.type == COORDINATE && currentClue.dificulty >= HARD) ? 2
                 : (currentClue.details.type == EMOTE ? 5 : 0); // last phase(5) get's set by the dialog
 

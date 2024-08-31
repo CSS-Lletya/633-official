@@ -1,8 +1,8 @@
 package com.rs.game.task.impl;
 
+import com.rs.cores.PlayerHandlerThread;
 import com.rs.game.map.World;
 import com.rs.game.task.Task;
-import com.rs.net.AccountCreation;
 
 public class GlobalPlayerSavingTask extends Task {
 
@@ -15,7 +15,7 @@ public class GlobalPlayerSavingTask extends Task {
 
 	@Override
 	public void execute() {
-		World.players().forEach(AccountCreation::savePlayer);
+		World.players().forEach(PlayerHandlerThread::savePlayer);
 	}
 
 	@Override
