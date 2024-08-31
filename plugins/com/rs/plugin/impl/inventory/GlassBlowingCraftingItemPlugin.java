@@ -5,7 +5,6 @@ import com.rs.game.item.Item;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
-import com.rs.utilities.SkillDialogueFeedback;
 
 import skills.SkillsDialogue;
 import skills.crafting.MoltenGlassBlowing;
@@ -20,13 +19,7 @@ public class GlassBlowingCraftingItemPlugin extends InventoryListener {
 			int[] ids = new int[GlassData.values().length];
 			for (int i = 0; i < ids.length; i++)
 				ids[i] = GlassData.values()[i].item;
-			d.skillsMenu(ids);
-			d.skillDialogue(new SkillDialogueFeedback() {
-				@Override
-				public void handle(int button) {
-					new MoltenGlassBlowing(player, GlassData.values()[SkillsDialogue.getItemSlot(button)], 28).start();
-				}
-			});
+			d.skillsMenu((input) -> new MoltenGlassBlowing(player, GlassData.values()[SkillsDialogue.getItemSlot(input)], 28).start(), ids);
 		});
 	}
 }

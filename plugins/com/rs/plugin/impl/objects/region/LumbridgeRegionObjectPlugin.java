@@ -14,6 +14,7 @@ import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
 import com.rs.utilities.loaders.ShopsHandler;
 
+import experimental.Demo;
 import skills.magic.TeleportType;
 
 @ObjectSignature(objectId = { 36974, 29355, 12309, 36773, 36774, 36775, 36776, 36777, 36778, 12348, 36984, 36985,
@@ -32,6 +33,7 @@ public class LumbridgeRegionObjectPlugin extends ObjectListener {
 			if (player.getInventory().addItem(new Item(ItemNames.BRONZE_HATCHET_1351))) {
 				player.getAudioManager().sendSound(Sounds.REMOVE_AXE);
 				GameObject.spawnTempGroundObject(new GameObject(36975, 10, 0, object), 30);
+				Demo.demo.demo(player, object);
 			}
 		});/*.doAction(option, objectId, searchedOption, action);*/
 		//basement

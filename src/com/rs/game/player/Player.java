@@ -383,6 +383,7 @@ public class Player extends Entity {
 		setMapZoneManager(new MapZoneManager());
 		setCurrentMapZone(Optional.empty());
 		this.scripts = new PlayerScriptQueue(this);
+		skillAction = Optional.empty();
 	}
 	
 	/**
@@ -470,7 +471,8 @@ public class Player extends Entity {
         getDayOfWeekManager().setPlayer(this);
         getMapZoneManager().setPlayer(this);
         this.scripts = new PlayerScriptQueue(this);
-		initEntity();
+        skillAction = Optional.empty();
+        initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
 		if (GameConstants.DEBUG)

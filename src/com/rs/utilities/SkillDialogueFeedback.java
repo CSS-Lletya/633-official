@@ -5,12 +5,12 @@ package com.rs.utilities;
  * @author Dennis
  *
  */
-public abstract class SkillDialogueFeedback {
+public interface SkillDialogueFeedback {
 
 	/**
 	 * Handles a specific interaction upon button selection
 	 * @param button
 	 */
-	public abstract void handle(int button);
+	public void run(int input);
 
 }

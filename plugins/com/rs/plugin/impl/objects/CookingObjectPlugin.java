@@ -7,7 +7,6 @@ import com.rs.game.map.World;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.SkillDialogueFeedback;
 
 import skills.SkillsDialogue;
 import skills.cooking.Cooking;
@@ -35,15 +34,9 @@ public class CookingObjectPlugin extends ObjectListener {
 		}
 		CookingData.VALUES.stream().filter(raw -> raw.getRawId() == item.getId())
 		.forEach(cookable -> {
-			player.dialogue(d -> {
-				d.skillsMenu(item);
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						new Cooking(player, object, cookable, true, SkillsDialogue.getQuantity(player)).start();
-					}
-				});
-			});
+			player.dialogue(d -> 
+				d.skillsMenu((input) -> new Cooking(player, object, cookable, true, SkillsDialogue.getQuantity(player)).start(), item)
+			);
 		});
 	}
 }

@@ -37,13 +37,15 @@ public abstract class DialogueEventListener implements Mood {
 		return this;
 	}
 	
-	public DialogueEventListener skillsMenu(Item... items) {
+	public DialogueEventListener skillsMenu(SkillDialogueFeedback feedback, Item... items) {
 		dialogueEvent.add(new DialogueSkillsEvent(items));
+		player.getAttributes().get(Attribute.SKILL_DIALOGUE).set(feedback);
 		return this;
 	}
 	
-	public DialogueEventListener skillsMenu(int... items) {
+	public DialogueEventListener skillsMenu(SkillDialogueFeedback feedback, int... items) {
 		dialogueEvent.add(new DialogueSkillsEvent(items));
+		player.getAttributes().get(Attribute.SKILL_DIALOGUE).set(feedback);
 		return this;
 	}
 	
@@ -125,10 +127,6 @@ public abstract class DialogueEventListener implements Mood {
 		player.getInterfaceManager().closeChatBoxInterface();
 		onClose();
 		player.getAttributes().get(Attribute.DIALOGUE_EVENT).set(null);
-	}
-
-	public void skillDialogue(SkillDialogueFeedback feedback) {
-		player.getAttributes().get(Attribute.SKILL_DIALOGUE).set(feedback);
 	}
 	
 	/**
@@ -287,8 +285,9 @@ public abstract class DialogueEventListener implements Mood {
 
 	public static void executeSkillDialogueAction(Player player, int button) {
 		SkillDialogueFeedback action = (SkillDialogueFeedback) player.getAttributes().get(Attribute.SKILL_DIALOGUE).get();
+		System.out.println(action == null);
 		if (action != null)
-			action.handle(button);
+			action.run(button);
 	}
 	
 	public static boolean continueDialogue(Player player, int i) {

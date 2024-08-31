@@ -6,7 +6,6 @@ import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.SkillDialogueFeedback;
 
 import skills.SkillsDialogue;
 import skills.crafting.MoltenGlassCrafting;
@@ -20,15 +19,9 @@ public class FurnaceObjectPlugin extends ObjectListener {
 	@Override
 	public void execute(Player player, GameObject object, int optionId) throws Exception {
 		player.faceObject(object);
-		player.dialogue(d -> {
-			d.skillsMenu(2349, 2351, 2355, 2353, 2357, 2359, 2361, 2363);
-			d.skillDialogue(new SkillDialogueFeedback() {
-				@Override
-				public void handle(int button) {
-					new Smelting(player, SmeltingData.values()[SkillsDialogue.getItemSlot(button)], false).start();
-				}
-			});
-		});
+		player.dialogue(d -> 
+			d.skillsMenu((input) -> new Smelting(player, SmeltingData.values()[SkillsDialogue.getItemSlot(input)], false).start(), 2349, 2351, 2355, 2353, 2357, 2359, 2361, 2363)
+		);
 	}
 	
 	@Override

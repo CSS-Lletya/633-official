@@ -4,7 +4,6 @@ import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.SkillDialogueFeedback;
 
 import skills.SkillsDialogue;
 import skills.crafting.PotteryOven;
@@ -20,13 +19,7 @@ public class PotteryOvenObjectPlugin extends ObjectListener {
 			int[] ids = new int[PotteryData.values().length];
 			for (int i = 0; i < ids.length; i++)
 				ids[i] = PotteryData.values()[i].produced;
-			d.skillsMenu(ids);
-			d.skillDialogue(new SkillDialogueFeedback() {
-				@Override
-				public void handle(int button) {
-					new PotteryOven(player, PotteryData.values()[SkillsDialogue.getItemSlot(button)], 28).start();
-				}
-			});
+			d.skillsMenu((input) -> new PotteryOven(player, PotteryData.values()[SkillsDialogue.getItemSlot(input)], 28).start(), ids);
 		});
 	}
 }

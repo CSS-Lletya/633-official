@@ -7,7 +7,6 @@ import com.rs.game.player.Player;
 import com.rs.game.player.attribute.Attribute;
 import com.rs.plugin.listener.InventoryListener;
 import com.rs.plugin.wrapper.InventoryWrapper;
-import com.rs.utilities.SkillDialogueFeedback;
 
 import skills.SkillsDialogue;
 import skills.crafting.DragonhideArmorCrafting;
@@ -34,13 +33,7 @@ public class LeatherCraftingItemPlugin extends InventoryListener {
 		});
 		new UseWith(new Item(ItemNames.NEEDLE_1733), new Item(ItemNames.SNAKESKIN_6289)).execute(firstItem, secondItem, () -> {
 			player.dialogue(d -> {
-				d.skillsMenu(6322,6324,6326,6328,6330);
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						new SnakeskinArmorCrafting(player, SnakeData.values()[SkillsDialogue.getItemSlot(button)]).start();
-					}
-				});
+				d.skillsMenu((input) -> new SnakeskinArmorCrafting(player, SnakeData.values()[SkillsDialogue.getItemSlot(input)]).start(), 6322,6324,6326,6328,6330);
 			});
 		});
 		new UseWith(new Item(ItemNames.NEEDLE_1733), new Item(1745)).execute(firstItem, secondItem, () -> {
@@ -48,15 +41,9 @@ public class LeatherCraftingItemPlugin extends InventoryListener {
 				DragonhideArmorCrafting fletching = new DragonhideArmorCrafting(player, DragonHideData.GREEN);
 				player.getAttributes().get(Attribute.DRAGONHIDE_TYPE).set(fletching);
 				player.getAttributes().get(Attribute.DRAGONHIDE_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> DragonhideArmorCrafting.craft(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						DragonhideArmorCrafting.craft(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 		new UseWith(new Item(ItemNames.NEEDLE_1733), new Item(2505)).execute(firstItem, secondItem, () -> {
@@ -64,16 +51,9 @@ public class LeatherCraftingItemPlugin extends InventoryListener {
 				DragonhideArmorCrafting fletching = new DragonhideArmorCrafting(player, DragonHideData.BLUE);
 				player.getAttributes().get(Attribute.DRAGONHIDE_TYPE).set(fletching);
 				player.getAttributes().get(Attribute.DRAGONHIDE_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> DragonhideArmorCrafting.craft(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						System.out.println(fletching.definition.producibles[0].hideRequired);
-						DragonhideArmorCrafting.craft(player, SkillsDialogue.getItemSlot(button));
-					}
-				}); 
 			});
 		});
 		new UseWith(new Item(ItemNames.NEEDLE_1733), new Item(2507)).execute(firstItem, secondItem, () -> {
@@ -81,15 +61,9 @@ public class LeatherCraftingItemPlugin extends InventoryListener {
 				DragonhideArmorCrafting fletching = new DragonhideArmorCrafting(player, DragonHideData.RED);
 				player.getAttributes().get(Attribute.DRAGONHIDE_TYPE).set(fletching);
 				player.getAttributes().get(Attribute.DRAGONHIDE_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> DragonhideArmorCrafting.craft(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						DragonhideArmorCrafting.craft(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 		new UseWith(new Item(ItemNames.NEEDLE_1733), new Item(2509)).execute(firstItem, secondItem, () -> {
@@ -97,15 +71,9 @@ public class LeatherCraftingItemPlugin extends InventoryListener {
 				DragonhideArmorCrafting fletching = new DragonhideArmorCrafting(player, DragonHideData.BLACK);
 				player.getAttributes().get(Attribute.DRAGONHIDE_TYPE).set(fletching);
 				player.getAttributes().get(Attribute.DRAGONHIDE_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> DragonhideArmorCrafting.craft(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						DragonhideArmorCrafting.craft(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 	}

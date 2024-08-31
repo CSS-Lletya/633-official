@@ -5,7 +5,6 @@ import com.rs.game.map.GameObject;
 import com.rs.game.player.Player;
 import com.rs.plugin.listener.ObjectListener;
 import com.rs.plugin.wrapper.ObjectSignature;
-import com.rs.utilities.SkillDialogueFeedback;
 
 import skills.SkillsDialogue;
 import skills.crafting.SpinningWheel;
@@ -20,13 +19,7 @@ public class SpinningWheelObjectPlugin extends ObjectListener {
 			int[] ids = new int[SpinningData.values().length];
 			for (int i = 0; i < ids.length; i++)
 				ids[i] = SpinningData.values()[i].item.getId();
-			d.skillsMenu(ids);
-			d.skillDialogue(new SkillDialogueFeedback() {
-				@Override
-				public void handle(int button) {
-					new SpinningWheel(player, SpinningData.values()[SkillsDialogue.getItemSlot(button)], 28).start();
-				}
-			});
+			d.skillsMenu((input) -> new SpinningWheel(player, SpinningData.values()[SkillsDialogue.getItemSlot(input)], 28).start(), ids);
 		});
 	}
 
@@ -36,13 +29,7 @@ public class SpinningWheelObjectPlugin extends ObjectListener {
 			int[] ids = new int[SpinningData.values().length];
 			for (int i = 0; i < ids.length; i++)
 				ids[i] = SpinningData.values()[i].item.getId();
-			d.skillsMenu(ids);
-			d.skillDialogue(new SkillDialogueFeedback() {
-				@Override
-				public void handle(int button) {
-					new SpinningWheel(player, SpinningData.values()[SkillsDialogue.getItemSlot(button)], 28).start();
-				}
-			});
+			d.skillsMenu((input) -> new SpinningWheel(player, SpinningData.values()[SkillsDialogue.getItemSlot(input)], 28).start(), ids);
 		});
 	}
 }

@@ -18,7 +18,6 @@ import com.rs.net.packets.outgoing.OutgoingPacketSignature;
 import com.rs.plugin.InventoryPluginDispatcher;
 import com.rs.utilities.LogUtility;
 import com.rs.utilities.LogUtility.LogType;
-import com.rs.utilities.SkillDialogueFeedback;
 import com.rs.utilities.Utility;
 
 import skills.SkillsDialogue;
@@ -96,16 +95,10 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				BowCarving fletching = new BowCarving(player, Log.NORMAL, false);
 				player.getAttributes().get(Attribute.BOW_FLETCHING_CARVING).set(fletching);
 				player.getAttributes().get(Attribute.BOW_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> BowCarving.fletch(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId(),
 						fletching.definition.producibles[3].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						BowCarving.fletch(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 		new UseWith(new Item(1521), new Item(946)).execute(itemUsed, usedWith, () -> {
@@ -113,16 +106,10 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				BowCarving fletching = new BowCarving(player, Log.OAK, false);
 				player.getAttributes().get(Attribute.BOW_FLETCHING_CARVING).set(fletching);
 				player.getAttributes().get(Attribute.BOW_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> BowCarving.fletch(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId(),
 						fletching.definition.producibles[3].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						BowCarving.fletch(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 		new UseWith(new Item(1519), new Item(946)).execute(itemUsed, usedWith, () -> {
@@ -130,16 +117,10 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				BowCarving fletching = new BowCarving(player, Log.WILLOW, false);
 				player.getAttributes().get(Attribute.BOW_FLETCHING_CARVING).set(fletching);
 				player.getAttributes().get(Attribute.BOW_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> BowCarving.fletch(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId(),
 						fletching.definition.producibles[3].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						BowCarving.fletch(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 		new UseWith(new Item(1517), new Item(946)).execute(itemUsed, usedWith, () -> {
@@ -147,16 +128,10 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				BowCarving fletching = new BowCarving(player, Log.MAPLE, false);
 				player.getAttributes().get(Attribute.BOW_FLETCHING_CARVING).set(fletching);
 				player.getAttributes().get(Attribute.BOW_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> BowCarving.fletch(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId(),
 						fletching.definition.producibles[3].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						BowCarving.fletch(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 		new UseWith(new Item(1515), new Item(946)).execute(itemUsed, usedWith, () -> {
@@ -164,16 +139,10 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				BowCarving fletching = new BowCarving(player, Log.YEW, false);
 				player.getAttributes().get(Attribute.BOW_FLETCHING_CARVING).set(fletching);
 				player.getAttributes().get(Attribute.BOW_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> BowCarving.fletch(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId(),
 						fletching.definition.producibles[3].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						BowCarving.fletch(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 		
@@ -182,15 +151,9 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				BowCarving fletching = new BowCarving(player, Log.MAGIC, false);
 				player.getAttributes().get(Attribute.BOW_FLETCHING_CARVING).set(fletching);
 				player.getAttributes().get(Attribute.BOW_FLETCHING).set(true);
-				d.skillsMenu(fletching.definition.producibles[0].producible.getId(),
+				d.skillsMenu((input) -> BowCarving.fletch(player, SkillsDialogue.getItemSlot(input)), fletching.definition.producibles[0].producible.getId(),
 						fletching.definition.producibles[1].producible.getId(),
 						fletching.definition.producibles[2].producible.getId());
-				d.skillDialogue(new SkillDialogueFeedback() {
-					@Override
-					public void handle(int button) {
-						BowCarving.fletch(player, SkillsDialogue.getItemSlot(button));
-					}
-				});
 			});
 		});
 		IntStream.of(227, 1761, 1921, 1929, 3735, 19994, 1937, 5340, 5340, 5340, 5340, 5340, 5340, 5340, 5340, 7690)
@@ -202,13 +165,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 				.filter(id -> fromItemId == id || toItemId == id)
 				.forEach(slices -> new UseWith(new Item(slices), new Item(946)).execute(usedWith, itemUsed, () -> {
 					player.dialogue(d -> {
-						d.skillsMenu(FoodSlicing.getDefinition(usedWith.getId(), itemUsed.getId()).get().produced);
-						d.skillDialogue(new SkillDialogueFeedback() {
-							@Override
-							public void handle(int button) {
-								FoodSlicing.create(player, usedWith, itemUsed);
-							}
-						});
+						d.skillsMenu((input) -> FoodSlicing.create(player, usedWith, itemUsed), FoodSlicing.getDefinition(usedWith.getId(), itemUsed.getId()).get().produced);
 					});
 				}));
 
@@ -217,13 +174,7 @@ public class InterfaceOnInterfacePacket implements OutgoingPacketListener {
 		.forEach(waterSource -> new UseWith(new Item(waterSource), new Item(1933)).execute(usedWith, itemUsed,
 				() -> {
 					player.dialogue(d -> {
-						d.skillsMenu(DoughCreation.getDefinition(usedWith.getId(), itemUsed.getId()).get().produced);
-							d.skillDialogue(new SkillDialogueFeedback() {
-								@Override
-								public void handle(int button) {
-									DoughCreation.create(player, usedWith, itemUsed, waterSource);
-								}
-							});
+						d.skillsMenu((input) -> DoughCreation.create(player, usedWith, itemUsed, waterSource), DoughCreation.getDefinition(usedWith.getId(), itemUsed.getId()).get().produced);
 					});
 				}));
 		 
