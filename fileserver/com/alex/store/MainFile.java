@@ -5,6 +5,8 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import com.rs.GameConstants;
+
 import lombok.SneakyThrows;
 import lombok.Synchronized;
 
@@ -65,7 +67,8 @@ public final class MainFile {
 			int headerLen = !newProtocol || archiveId <= 0xffff ? HEADER_LEN : EXPANDED_HEADER_LEN;
 			while (remaining > 0) {
 				if (block == 0) {
-					System.out.println(archiveId + ", " + newProtocol);
+					if (GameConstants.DEBUG)
+						System.out.println(archiveId + ", " + newProtocol);
 					return null;
 				}
 				int blockSize = remaining > blockLen ? blockLen : remaining;

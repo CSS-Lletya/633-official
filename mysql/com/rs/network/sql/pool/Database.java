@@ -3,6 +3,8 @@ package com.rs.network.sql.pool;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.rs.GameConstants;
+
 /**
  * Server database manager, provide services based on connection pools.
  * The connection pool allows to use already opened connections,
@@ -105,7 +107,8 @@ public class Database {
 	}
 	
 	public void debug() {
-		System.out.println("Total connections in the pool: " + connectionPool.totalConnection());
+		if (GameConstants.DEBUG)
+			System.out.println("Total connections in the pool: " + connectionPool.totalConnection());
 	}
 	
 }

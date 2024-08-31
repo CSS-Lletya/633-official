@@ -196,7 +196,8 @@ public class Bank {
 		if (toSlot == 65535) {
 			int toTab = toComponentId >= 74 ? 10 - (84 - toComponentId)
 					: 8 - ((toComponentId - 46) / 2);
-			System.out.println("BankLength: " + (bankTabs.length) + " toTab: " + toTab);
+			if (GameConstants.DEBUG)
+				System.out.println("BankLength: " + (bankTabs.length) + " toTab: " + toTab);
 			if (toTab < 0 || toTab > 9)
 				return;
 			if (bankTabs.length  == toTab) {

@@ -285,7 +285,6 @@ public abstract class DialogueEventListener implements Mood {
 
 	public static void executeSkillDialogueAction(Player player, int button) {
 		SkillDialogueFeedback action = (SkillDialogueFeedback) player.getAttributes().get(Attribute.SKILL_DIALOGUE).get();
-		System.out.println(action == null);
 		if (action != null)
 			action.run(button);
 	}

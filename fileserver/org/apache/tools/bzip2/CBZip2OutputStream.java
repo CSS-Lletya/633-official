@@ -63,6 +63,8 @@ package org.apache.tools.bzip2;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.rs.GameConstants;
+
 /**
  * An output stream that compresses into the BZip2 format (without the file
  * header chars) into another stream.
@@ -90,8 +92,8 @@ public class CBZip2OutputStream extends OutputStream implements BZip2Constants {
     protected static final int QSORT_STACK_SIZE = 1000;
 
     private static void panic() {
-        System.out.println("panic");
-        //throw new CError();
+    	if (GameConstants.DEBUG)
+    		System.out.println("panic");
     }
 
     private void makeMaps() {

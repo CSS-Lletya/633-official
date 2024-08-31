@@ -46,7 +46,6 @@ public class FoodSlicing extends ProducingSkillAction {
 	 * @return {@code true} if the skill action got started, {@code false} otherwise.
 	 */
 	public static boolean create(Player player, Item used, Item usedOn) {
-		System.out.println("?");
 		SliceData data = getDefinition(used.getId(), usedOn.getId()).orElse(null);
 		FoodSlicing creation = new FoodSlicing(player, data,used,usedOn);
 		creation.start();

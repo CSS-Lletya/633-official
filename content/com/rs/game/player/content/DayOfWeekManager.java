@@ -3,6 +3,7 @@ package com.rs.game.player.content;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import com.rs.GameConstants;
 import com.rs.game.player.Player;
 import com.rs.net.host.HostListType;
 import com.rs.net.host.HostManager;
@@ -84,13 +85,15 @@ public class DayOfWeekManager {
 				HostManager.remove(player.getDisplayName(), HostListType.MUTED_IP);
 			}
 		}
-		System.out.println("new day");
+		if (GameConstants.DEBUG)
+			System.out.println("new day");
 	}
 
 	/**
 	 * Handles a new week event
 	 */
 	private void handleNewWeek() {
-		System.out.println("new week");
+		if (GameConstants.DEBUG)
+			System.out.println("new week");
 	}
 }

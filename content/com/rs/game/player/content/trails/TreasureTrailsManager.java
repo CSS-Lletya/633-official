@@ -357,7 +357,6 @@ public class TreasureTrailsManager {
             return;
         else if (id != ((int[]) currentClue.details.parameters[0])[cluePhase == 3 ? 1 : 0])
             return;
-        System.out.println(tile.getX() + " " + tile.getY());
         if (!player.withinDistance(tile, 8)) {
             player.getPackets().sendGameMessage("You are not close enough to your destination.");
             locate(player, tile.getX(), tile.getY());

@@ -50,7 +50,6 @@ public class SkillGuideInterfacePlugin extends RSInterfaceListener {
 											.getLevel(player.getSkills().getSkillIdByTargetId(skillId))) {
 										return;
 									}
-									System.out.println("id: " + input);
 									player.getSkills().setSkillTarget(true, skillId, input);
 								} else {
 									int xpTarget = input;

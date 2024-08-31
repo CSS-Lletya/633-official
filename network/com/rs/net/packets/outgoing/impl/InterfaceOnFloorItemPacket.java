@@ -1,5 +1,6 @@
 package com.rs.net.packets.outgoing.impl;
 
+import com.rs.GameConstants;
 import com.rs.constants.Animations;
 import com.rs.constants.Graphic;
 import com.rs.constants.Sounds;
@@ -83,8 +84,8 @@ public class InterfaceOnFloorItemPacket implements OutgoingPacketListener {
 	            
 	        }));
         }
-        
-		System.out.println("Unhandled Inter on floor item packet; component: " + interfaceId + ", " + buttonId + ", " + slotId + ", " + componentItemId +
+        if (GameConstants.DEBUG)
+        	System.out.println("Unhandled Inter on floor item packet; component: " + interfaceId + ", " + buttonId + ", " + slotId + ", " + componentItemId +
 				", -> item: " + floorItemId + ", coords[" + xCoord + ", " + yCoord + "], forceRun " + forceRun);
 	}
 	

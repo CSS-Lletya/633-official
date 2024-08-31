@@ -76,7 +76,7 @@ public class FillAction extends Action {
 
 	@Override
 	public int processWithDelay(Player player) {
-		amount--;
+		
 		Filler.VALUES.stream().filter(id -> player.getInventory().containsAny(id.empty.getId())).forEach(fillable -> {
 			player.getAudioManager().sendSound(Sounds.FILL_FROM_WATER_SOURCE);
 			player.setNextAnimation(Animations.LEANING_FORWARD_USING_BOTH_HANDS);
@@ -85,6 +85,7 @@ public class FillAction extends Action {
 			player.getDetails().getStatistics()
 					.addStatistic(ItemDefinitions.getItemDefinitions(fillable.getFilled().getId()).getName() + "_Filled")
 					.addStatistic("Items_Filled");
+			amount--;
 		});
 		return amount > 0 ? 1 : -1;
 	}

@@ -3,6 +3,7 @@ package com.rs.cache.io;
 import java.math.BigInteger;
 
 import com.alex.utils.CacheConstants;
+import com.rs.GameConstants;
 
 
 
@@ -218,7 +219,8 @@ public final class OutputStream extends Stream {
 			writeShort(32768 + i);
 			return;
 		} else {
-			System.out.println("Error psmarts out of range:");
+			if (GameConstants.DEBUG)
+				System.out.println("Error psmarts out of range:");
 			return;
 		}
 	}

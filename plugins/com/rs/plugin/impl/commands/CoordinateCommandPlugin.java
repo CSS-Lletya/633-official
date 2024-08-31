@@ -1,5 +1,6 @@
 package com.rs.plugin.impl.commands;
 
+import com.rs.GameConstants;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
 import com.rs.plugin.listener.CommandListener;
@@ -19,6 +20,7 @@ public final class CoordinateCommandPlugin implements CommandListener {
 		final String msg = "x: "+ player.getX() + " y: " + player.getY() + " h: " + player.getPlane()
 				+ " region: " + player.getRegionId() + " cx: " + player.getChunkX() + " cy: " + player.getChunkY();
 		player.getPackets().sendGameMessage(msg);
-		System.out.println(msg);
+		if (GameConstants.DEBUG)
+			System.out.println(msg);
 	}
 }

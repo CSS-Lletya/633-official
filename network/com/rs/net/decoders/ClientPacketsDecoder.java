@@ -43,7 +43,8 @@ public final class ClientPacketsDecoder extends Decoder {
 
 	private final void decodeGrab(InputStream stream) {
 		if (stream.getRemaining() != 4) {
-			System.out.println("Stream: " + stream.getRemaining());
+			if (GameConstants.DEBUG)
+				System.out.println("Stream: " + stream.getRemaining());
 			session.getChannel().close();
 			return;
 		}

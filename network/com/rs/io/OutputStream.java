@@ -1,5 +1,6 @@
 package com.rs.io;
 
+import com.rs.GameConstants;
 import com.rs.game.player.Player;
 import com.rs.utilities.Utility;
 
@@ -207,7 +208,8 @@ public final class OutputStream extends Stream {
 			writeShort(32768 + i);
 			return;
 		} else {
-			System.out.println("Error psmarts out of range:");
+			if (GameConstants.DEBUG)
+				System.out.println("Error psmarts out of range:");
 			return;
 		}
 	}
