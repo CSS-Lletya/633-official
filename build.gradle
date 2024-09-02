@@ -7,8 +7,8 @@ apply plugin: 'eclipse'
 /*
 	The target runtime for our JVM
 */
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 
 /*
