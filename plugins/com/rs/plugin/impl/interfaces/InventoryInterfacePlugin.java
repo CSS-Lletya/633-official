@@ -74,7 +74,7 @@ public class InventoryInterfacePlugin extends RSInterfaceListener {
 				if (InventoryPluginDispatcher.execute(player, item, slotId, 2))
 					return;
 				if (item.getDefinitions().containsOption("Wield") || item.getDefinitions().containsOption("Wear")) {
-					long passedTime = Utility.currentTimeMillis() - Utility.currentWorldCycle();
+					long passedTime = Utility.currentTimeMillis() - Utility.getCurrentWorldTick();
 					if (player.getSwitchItemCache().isEmpty()) {
 						player.getSwitchItemCache().add(slotId);
 						player.task(passedTime >= 300 ? 0 : passedTime > 150 ? 1 : 0, fighter -> {

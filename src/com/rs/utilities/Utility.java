@@ -747,8 +747,8 @@ public final class Utility {
 		return newMap;
 	}
 
-    public static long currentWorldCycle() {
-        return WorldThread.lastCycle;
+    public static long getCurrentWorldTick() {
+        return WorldThread.getTicks();
     }
     
 	public static int IPAddressToNumber(String ipAddress) {

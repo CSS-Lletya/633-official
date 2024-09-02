@@ -282,8 +282,8 @@ public class SawmillMapZone extends MapZone {
 	}
 
 	private void refreshConveyorAnimation(Player player) {
-		if (Utility.currentWorldCycle() > lastLogAnimation + 5) {
-			lastLogAnimation = Utility.currentWorldCycle();
+		if (Utility.getCurrentWorldTick() > lastLogAnimation + 5) {
+			lastLogAnimation = Utility.getCurrentWorldTick();
 			GameObject.sendObjectAnimation(player, CONVEYOR_BELT, Animations.SAWMILL_GRINDER_1);
 			GameObject.sendObjectAnimation(player, CONVEYOR_BELT, Animations.SAWMILL_GRINDER_2);
 		}
