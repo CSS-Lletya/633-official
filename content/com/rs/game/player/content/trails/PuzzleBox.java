@@ -89,4 +89,8 @@ public class PuzzleBox {
             pieces.shift();
         }
     }
+    
+	public void setPuzzleBox(int puzzleId) {
+		player.setPuzzleBox(new PuzzleBox(player, puzzleId));
+	}
 }

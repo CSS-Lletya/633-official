@@ -220,7 +220,11 @@ public final class LoginPacketsDecoder extends Decoder {
 			session.getLoginPackets().sendClientPacket(4);
 			return;
 		}
-		player.init(session, username, new IsaacKeyPair(isaacKeys));
+		player.setUsername(username);
+		player.setSession(session);
+		player.setIsaacKeyPair(new IsaacKeyPair(isaacKeys));
+		World.addLobbyPlayer(player);
+
 		session.setEncoder(1, player);
 		session.getLoginPackets().sendLobbyDetails(player);
 		session.setDecoder(3, player);

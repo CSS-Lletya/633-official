@@ -15,7 +15,7 @@ public class ClueScrollPuzzleItemPlugin extends InventoryListener {
 		for (Puzzles puzzle : Puzzles.values()) {
 			if (item.getId() == puzzle.getUnsolvedPuzzleId()) {
 				if (player.getPuzzleBox() == null)
-					player.setPuzzleBox(puzzle.getFirstTileId());
+					player.getPuzzleBox().setPuzzleBox(puzzle.getFirstTileId());
 				player.getPuzzleBox().openPuzzle();
 			} else if (item.getId() == puzzle.getSolvedPuzzleId()) {
 				if (player.getPuzzleBox() != null)//just in case.

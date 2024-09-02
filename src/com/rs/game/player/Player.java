@@ -61,299 +61,302 @@ import it.unimi.dsi.fastutil.objects.ObjectList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import skills.Skills;
 import skills.prayer.book.PrayerManager;
 
 /**
  * Represents a Player & all of their attributes
+ * 
  * @author Dennis
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class Player extends Entity {
 
 	/**
-	 * The Player's Username
+	 * The Player's Username.
 	 */
 	private transient String username;
-	
+
 	/**
-	 * The Player's Session
+	 * The Player's Session.
 	 */
 	private transient Session session;
-	
+
 	/**
-	 * The Client Region Map Loading state
+	 * The Client Region Map Loading state.
 	 */
 	private transient boolean clientLoadedMapRegion;
-	
+
 	/**
-	 * Display Mode Type (Fixed, Resize, Fullscreen)
+	 * Display Mode Type (Fixed, Resize, Fullscreen).
 	 */
 	private transient byte displayMode;
-	
+
 	/**
-	 * Client Screen Width
+	 * Client Screen Width.
 	 */
 	private transient short screenWidth;
-	
+
 	/**
-	 * Client Screen Height
+	 * Client Screen Height.
 	 */
 	private transient short screenHeight;
-	
+
 	/**
-	 * Represents a Movement type
+	 * Represents a Movement type.
 	 */
 	private transient byte temporaryMovementType;
-	
+
 	/**
-	 * Should we update the Movement state
+	 * Should we update the Movement state.
 	 */
 	private transient boolean updateMovementType;
-	
+
 	/**
-	 * Has the Player started their {@link #session}
+	 * Has the Player started their {@link #session}.
 	 */
 	private transient boolean started;
-	
+
 	/**
-	 * Is the Player's {@link #session} currently Running
+	 * Is the Player's {@link #session} currently Running.
 	 */
 	private transient boolean running;
-	
+
 	/**
-	 * The type of Resting state of a Player
-	 * Example: Not, Sitting, idle
+	 * The type of Resting state of a Player Example: Not, Sitting, idle.
 	 */
 	private transient byte resting;
-	
+
 	/**
-	 * Represents a Runnable event that takes place when closing an interface
+	 * Represents a Runnable event that takes place when closing an interface.
 	 */
 	private transient Runnable closeInterfacesEvent;
-	
+
 	/**
-	 * The last known time length of the last message a Player sends
+	 * The last known time length of the last message a Player sends.
 	 */
 	private transient long lastPublicMessage;
-	
+
 	/**
-	 * The Item switching cache (Switches for PVE/PVP)
+	 * The Item switching cache (Switches for PVE/PVP).
 	 */
 	private transient ObjectList<Byte> switchItemCache;
-	
+
 	/**
-	 * Is the Player finishing their {@link #session}
+	 * Is the Player finishing their {@link #session}.
 	 */
 	private transient boolean finishing;
-	
+
 	/**
-	 * Represents a Player's Interface management system
+	 * Represents a Player's Interface management system.
 	 */
 	private transient InterfaceManager interfaceManager;
-	
+
 	/**
-	 * Represents a Player's Hint Icon management system
+	 * Represents a Player's Hint Icon management system.
 	 */
 	private transient HintIconsManager hintIconsManager;
-	
+
 	/**
-	 * Represents a Player's Price Checker's system
+	 * Represents a Player's Price Checker's system.
 	 */
 	private transient PriceCheckManager priceCheckManager;
-	
-	/**
-	 * Represents a Player's Route (movement) management system
+
+	/**.=
+	 * Represents a Player's Route (movement) management system.
 	 */
 	private transient RouteEvent routeEvent;
-	
+
 	/**
-	 * Represents a Player's current Friends Chat (FC)
+	 * Represents a Player's current Friends Chat (FC).
 	 */
 	private transient FriendChatsManager currentFriendChat;
-	
+
 	/**
-	 * Represents a Player's Trade system
+	 * Represents a Player's Trade system.
 	 */
 	private transient Trade trade;
-	
+
 	/**
-	 * Designed to help prevent Packet Injection
+	 * Designed to help prevent Packet Injection.
 	 */
 	private transient IsaacKeyPair isaacKeyPair;
-	
+
 	/**
-	 * Represents a Player's Pet
+	 * Represents a Player's Pet.
 	 */
 	private transient Pet pet;
-	
+
 	/**
-	 * Represents a Player's coordinate (movement) management system
+	 * Represents a Player's coordinate (movement) management system.
 	 */
 	private transient CoordsEvent coordsEvent;
-	
+
 	/**
-	 * Represents a Player's current Region
+	 * Represents a Player's current Region.
 	 */
 	private transient Region region;
-	
+
 	/**
-	 * Represents a Player's last Emote delay (used for various things)
+	 * Represents a Player's last Emote delay (used for various things).
 	 */
 	private transient long nextEmoteEnd;
-	
+
 	/**
-	 * Represents a Player's queue logic packets listing
+	 * Represents a Player's queue logic packets listing.
 	 */
 	private transient Queue<LogicPacket> logicPackets;
-	
+
 	/**
-	 * Represents a Action management system
+	 * Represents a Action management system.
 	 */
 	private transient ActionManager action = new ActionManager(this);
-	
+
 	/**
-	 * Represents the Map Zone Manager
+	 * Represents the Map Zone Manager.
 	 */
 	private transient MapZoneManager mapZoneManager;
-	
+
 	/**
 	 * The dialogue interpreter.
 	 */
 	private transient ScriptDialogueInterpreter dialogueInterpreter;
-	
+
 	/**
-	 * Represents a transient Clue scroll rewards item container
+	 * Represents a transient Clue scroll rewards item container.
 	 */
 	private transient ItemsContainer<Item> clueScrollRewards;
 
 	/**
-	 * Represents the Audio manager for sending Sounds
+	 * Represents the Audio manager for sending Sounds.
 	 */
 	private transient AudioManager audioManager;
-	
+
 	/**
-	 * Represents an instance of the Overload effects task
+	 * Represents an instance of the Overload effects task.
 	 */
 	private transient OverloadEffectTask overloadEffect;
-	
+
 	/**
-	 * Represents the players current PID
+	 * Represents the players current PID.
 	 */
 	private transient int pid;
-	
+
 	/**
 	 * The current skill action that is going on for this player.
 	 */
 	private transient Optional<SkillActionTask> skillAction = Optional.empty();
 	
 	/**
-	 * Personal details & information stored for a Player
+	 * Represents a Player-based script.
+	 */
+	@Getter
+	private transient PlayerScriptQueue scripts;
+
+	/**
+	 * Personal details & information stored for a Player.
 	 */
 	private PlayerDetails details;
-	
-	/**
-	 * Represents the Treasure Trails management
-	 */
-    private TreasureTrailsManager treasureTrailsManager;
 
-    /**
-	 * Represents the Treasure Trails Puzzle Box management
+	/**
+	 * Represents the Treasure Trails management.
+	 */
+	private TreasureTrailsManager treasureTrailsManager;
+
+	/**
+	 * Represents the Treasure Trails Puzzle Box management.
 	 */
 	private PuzzleBox puzzleBox;
-	
+
 	/**
-	 * Represents a Player's Vars management system
+	 * Represents a Player's Vars management system.
 	 */
 	private VarsManager varsManager;
-	
+
 	/**
-	 * Represents a Player's appearance management system
+	 * Represents a Player's appearance management system.
 	 */
 	private Appearance appearance;
-	
+
 	/**
-	 * Represents a Player's inventory management system
+	 * Represents a Player's inventory management system.
 	 */
 	private Inventory inventory;
-	
+
 	/**
-	 * Represents a Player's Equipment management system
+	 * Represents a Player's Equipment management system.
 	 */
 	private Equipment equipment;
-	
+
 	/**
-	 * Represents a Player's Skills management system
+	 * Represents a Player's Skills management system.
 	 */
 	private Skills skills;
-	
+
 	/**
-	 * Represents a Player's Combat Definitions management system
+	 * Represents a Player's Combat Definitions management system.
 	 */
 	private CombatDefinitions combatDefinitions;
-	
+
 	/**
-	 * Represents a Player's Prayer management system
+	 * Represents a Player's Prayer management system.
 	 */
 	private PrayerManager prayer;
-	
+
 	/**
-	 * Represents a Player's Bank management system
+	 * Represents a Player's Bank management system.
 	 */
 	private Bank bank;
-	
+
 	/**
-	 * Represents a Player's Music management system
+	 * Represents a Player's Music management system.
 	 */
 	private MusicsManager musicsManager;
-	
+
 	/**
-	 * Represents a Player's Notes management system
+	 * Represents a Player's Notes management system.
 	 */
 	private Notes notes;
-	
+
 	/**
-	 * Represents a Player's Friends Ignore management system
+	 * Represents a Player's Friends Ignore management system.
 	 */
 	private FriendsIgnores friendsIgnores;
-	
+
 	/**
-	 * Represents a Player's Familiar (Summoning) management system
+	 * Represents a Player's Familiar (Summoning) management system.
 	 */
 	private Familiar familiar;
-	
+
 	/**
-	 * Represents a Player's Pet management system
+	 * Represents a Player's Pet management system.
 	 */
 	private PetManager petManager;
-	
+
 	/**
 	 * The current Controller this Player is in.
 	 */
 	private Optional<MapZone> currentMapZone;
-	
+
 	/**
-	 * A collection of mapzone attributes
+	 * A collection of mapzone attributes.
 	 */
 	private Object[] mapZoneAttributes;
-	
+
 	/**
-	 * Represents a Quest Manager
+	 * Represents a Quest Manager.
 	 */
 	private QuestManager questManager;
-	
+
 	/**
-	 * Represents Days of the Week management
+	 * Represents Days of the Week management.
 	 */
 	private DayOfWeekManager dayOfWeekManager;
 
-	@Getter
-	private transient PlayerScriptQueue scripts;
-	
 	/**
-	 * Constructs a new Player
+	 * Constructs a new Player.
+	 * 
 	 * @param password
 	 */
 	public Player(String password) {
@@ -385,24 +388,10 @@ public class Player extends Entity {
 		this.scripts = new PlayerScriptQueue(this);
 		skillAction = Optional.empty();
 	}
-	
-	/**
-	 * Logs the Player into the lobby
-	 * @param session
-	 * @param user
-	 * @param isaacKeyPair
-	 */
-	public void init(Session session, String user, IsaacKeyPair isaacKeyPair) {
-		setUsername(user);
-		setSession(session);
-		setIsaacKeyPair(isaacKeyPair);
-		World.addLobbyPlayer(this);
-		if (GameConstants.DEBUG)
-			LogUtility.log(LogType.INFO, "Initiated Lobby player: " + getUsername() + ", pass: " + getDetails().getPassword());
-	}
 
 	/**
 	 * Logs In & creates a session with the game server
+	 * 
 	 * @param session
 	 * @param username
 	 * @param displayMode
@@ -410,28 +399,28 @@ public class Player extends Entity {
 	 * @param screenHeight
 	 * @param isaacKeyPair
 	 */
-	public void init(Session session, String username, byte displayMode,
-			short screenWidth, short screenHeight, IsaacKeyPair isaacKeyPair) {
-		if (getDetails() == null)
-			setDetails(new PlayerDetails());
-		if (getPetManager() == null)
-			setPetManager(new PetManager());
-		if (getNotes() == null)
-			setNotes(new Notes());
+	public void init(Session session, String username, byte displayMode, short screenWidth, short screenHeight,
+			IsaacKeyPair isaacKeyPair) {
 		setSession(session);
 		setUsername(username);
 		setDisplayMode(displayMode);
 		setScreenWidth(screenWidth);
 		setScreenHeight(screenHeight);
 		setIsaacKeyPair(isaacKeyPair);
+
+		setDetails(Optional.ofNullable(getDetails()).orElseGet(PlayerDetails::new));
+		setPetManager(Optional.ofNullable(getPetManager()).orElseGet(PetManager::new));
+		setNotes(Optional.ofNullable(getNotes()).orElseGet(Notes::new));
+
 		setHintIconsManager(new HintIconsManager(this));
 		setPriceCheckManager(new PriceCheckManager(this));
 		setLocalPlayerUpdate(new LocalPlayerUpdate(this));
 		setLocalNPCUpdate(new LocalNPCUpdate(this));
 		setTrade(new Trade(this));
-		if (getVarsManager() == null)
-			setVarsManager(new VarsManager());
+
+		setVarsManager(Optional.ofNullable(getVarsManager()).orElseGet(VarsManager::new));
 		getVarsManager().setPlayer(this);
+
 		getAppearance().setPlayer(this);
 		getEquipment().setPlayer(this);
 		getSkills().setPlayer(this);
@@ -439,45 +428,51 @@ public class Player extends Entity {
 		getCombatDefinitions().setPlayer(this);
 		getPrayer().setPlayer(this);
 		getBank().setPlayer(this);
-		if (getClueScrollRewards() == null)
-			setClueScrollRewards(new ItemsContainer<>(10, true));
+
+		setClueScrollRewards(
+				Optional.ofNullable(getClueScrollRewards()).orElseGet(() -> new ItemsContainer<>(10, true)));
+
 		Arrays.stream(Puzzles.values()).forEach(puzzle -> puzzleBox = new PuzzleBox(this, puzzle.getFirstTileId()));
-		if (getTreasureTrailsManager() == null)
-			setTreasureTrailsManager(new TreasureTrailsManager());
-        getTreasureTrailsManager().setPlayer(this);
-		if (getQuestManager() == null)
-			setQuestManager(new QuestManager());
+
+		setTreasureTrailsManager(Optional.ofNullable(getTreasureTrailsManager()).orElseGet(TreasureTrailsManager::new));
+		getTreasureTrailsManager().setPlayer(this);
+
+		setQuestManager(Optional.ofNullable(getQuestManager()).orElseGet(QuestManager::new));
+
 		getMusicsManager().setPlayer(this);
 		getNotes().setPlayer(this);
 		getCombatDefinitions().setPlayer(this);
 		getFriendsIgnores().setPlayer(this);
 		getPetManager().setPlayer(this);
+
 		setDirection((byte) Utility.getFaceDirection(0, -1));
 		setTemporaryMovementType((byte) -1);
 		setLogicPackets(new LinkedList<LogicPacket>());
 		setSwitchItemCache(new ObjectArrayList<Byte>());
-		if (getAction() == null)
-			setAction(new ActionManager(this));
-		if (getMapZoneManager() == null)
-			setMapZoneManager(new MapZoneManager());
-        getQuestManager().setPlayer(this);
-        setInterfaceManager(new InterfaceManager(this));
-        if (getDialogueInterpreter() == null)
-        	setDialogueInterpreter(new ScriptDialogueInterpreter(this));
-        if (getAudioManager() == null)
-        	setAudioManager(new AudioManager(this));
-        if (getDayOfWeekManager() == null)
-        	setDayOfWeekManager(new DayOfWeekManager());
-        getDayOfWeekManager().setPlayer(this);
-        getMapZoneManager().setPlayer(this);
-        this.scripts = new PlayerScriptQueue(this);
-        skillAction = Optional.empty();
-        initEntity();
+
+		setAction(Optional.ofNullable(getAction()).orElseGet(() -> new ActionManager(this)));
+		setMapZoneManager(Optional.ofNullable(getMapZoneManager()).orElseGet(MapZoneManager::new));
+
+		getQuestManager().setPlayer(this);
+		setInterfaceManager(new InterfaceManager(this));
+
+		setDialogueInterpreter(
+				Optional.ofNullable(getDialogueInterpreter()).orElseGet(() -> new ScriptDialogueInterpreter(this)));
+		setAudioManager(Optional.ofNullable(getAudioManager()).orElse(new AudioManager(this)));
+		setDayOfWeekManager(Optional.ofNullable(getDayOfWeekManager()).orElseGet(DayOfWeekManager::new));
+
+		getDayOfWeekManager().setPlayer(this);
+		getMapZoneManager().setPlayer(this);
+
+		this.scripts = new PlayerScriptQueue(this);
+		skillAction = Optional.empty();
+		initEntity();
 		World.addPlayer(this);
 		updateEntityRegion(this);
+
 		if (GameConstants.DEBUG)
-			LogUtility.log(LogType.INFO, "Initiated player: " + username + ", pass: "
-					+ getDetails().getPassword());
+			LogUtility.log(LogType.INFO, "Initiated player: " + username + ", pass: " + getDetails().getPassword());
+
 		getSession().updateIPnPass(this);
 	}
 
@@ -487,16 +482,20 @@ public class Player extends Entity {
 	@Override
 	public void processEntity() {
 		getSession().processLogicPackets(this);
-		
+
 		getDetails().getPlayTime().getAndIncrement();
 		getDayOfWeekManager().process();
 		if (isDead())
 			return;
 		getScripts().process();
-		if (getCoordsEvent() != null && getCoordsEvent().processEvent(this))
-			setCoordsEvent(null);
-		if (getRouteEvent() != null && getRouteEvent().processEvent(this))
-			setRouteEvent(null);
+		Optional.ofNullable(getCoordsEvent())
+        .filter(event -> event.processEvent(this))
+        .ifPresent(event -> setCoordsEvent(null));
+
+		Optional.ofNullable(getRouteEvent())
+        .filter(event -> event.processEvent(this))
+        .ifPresent(event -> setRouteEvent(null));
+
 		getAction().process();
 		getPrayer().processPrayer();
 		getMapZoneManager().executeVoid(zone -> zone.process(this));
@@ -504,9 +503,8 @@ public class Player extends Entity {
 			getMusicsManager().replayMusic();
 		if (getDetails().getChargeDelay().ticksRemaining() == 1)
 			getAudioManager().sendSound(Sounds.CHARGE_SPELL_REMOVED);
-		if (getDetails().getMagicImbue().ticksRemaining() == 6) {
+		if (getDetails().getMagicImbue().ticksRemaining() == 6)
 			getPackets().sendGameMessage("Magic Imbue spell charge is running out...");
-		}
 		if (getDetails().getMagicImbue().ticksRemaining() == 1) {
 			getPackets().sendGameMessage("Magic Imbue charge has ended.");
 			getAttributes().get(Attribute.MAGIC_IMBUED).set(false);
@@ -536,16 +534,19 @@ public class Player extends Entity {
 			} else
 				getCurrentMapZone().ifPresent(getMapZoneManager()::submitMapZone);
 		}
-		getPackets().sendRunEnergy().sendGameBarStages().sendGameMessage("Welcome to " + GameConstants.SERVER_NAME + ".");
-		CombatEffect.values().stream().filter(effects -> effects.onLogin(this)).forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
-		GameConstants.STAFF.entrySet().stream().filter(p -> getUsername().equalsIgnoreCase(p.getKey())).forEach(staff -> getDetails().setRights(staff.getValue()));
-		getVarsManager().getVarMap().forEach((k, v) -> getVarsManager().sendVar(k, v));
-		getVarsManager().getVarBitMap().forEach((k, v) -> getVarsManager().sendVarBit(k, v));
+		getPackets().sendRunEnergy().sendGameBarStages()
+				.sendGameMessage("Welcome to " + GameConstants.SERVER_NAME + ".");
+		CombatEffect.values().stream().filter(effects -> effects.onLogin(this))
+				.forEach(effect -> World.get().submit(new CombatEffectTask(this, effect)));
+		GameConstants.STAFF.entrySet().stream().filter(p -> getUsername().equalsIgnoreCase(p.getKey()))
+				.forEach(staff -> getDetails().setRights(staff.getValue()));
+		getVarsManager().getVarMap().forEach(getVarsManager()::sendVar);
+		getVarsManager().getVarBitMap().forEach(getVarsManager()::sendVarBit);
 		getVarsManager().loadDefaultVars();
 		if (getDetails().getCurrentFriendChatOwner() != null) {
 			FriendChatsManager.joinChat(getUsername(), this);
 			if (getCurrentFriendChat() == null)
-				getDetails().setCurrentFriendChatOwner(null);;
+				getDetails().setCurrentFriendChatOwner(null);
 		}
 		getInventory().init();
 		getEquipment().checkItems();
@@ -568,7 +569,8 @@ public class Player extends Entity {
 			getBank().addItem(new Item(995, 25), false);
 			ItemConstants.STATER_KIT.forEach(getInventory()::addItem);
 			HostManager.add(this, HostListType.STARTER_RECEIVED);
-			World.sendWorldMessage("[New Player] " + getDisplayName() + " has just joined " + GameConstants.SERVER_NAME);
+			World.sendWorldMessage(
+					"[New Player] " + getDisplayName() + " has just joined " + GameConstants.SERVER_NAME);
 		}
 	}
 
@@ -582,6 +584,7 @@ public class Player extends Entity {
 
 	/**
 	 * Gets the Player's Encoder Packets
+	 * 
 	 * @return
 	 */
 	public WorldPacketsEncoder getPackets() {
@@ -595,10 +598,9 @@ public class Player extends Entity {
 	public void handleIngoingHit(final Hit hit) {
 		PlayerCombat.handleIncomingHit(this, hit);
 	}
-	
+
 	/**
-	 * Represents a Player's Death by various sources
-	 * (Player, NPC, or neither)
+	 * Represents a Player's Death by various sources (Player, NPC, or neither)
 	 */
 	@Override
 	public void sendDeath(Optional<Entity> source) {
@@ -607,32 +609,36 @@ public class Player extends Entity {
 
 	/**
 	 * Adds Logic Packets to a queue
+	 * 
 	 * @param packet
 	 */
 	public void addLogicPacketToQueue(LogicPacket packet) {
 		getLogicPackets().removeIf(logicPacket -> logicPacket.getId() == packet.getId());
 		getLogicPackets().add(packet);
 	}
-	
+
 	/**
 	 * Formats the Player's username for a nicer display use
+	 * 
 	 * @return
 	 */
 	public String getDisplayName() {
 		return Utility.formatPlayerNameForDisplay(getUsername());
 	}
-	
+
 	/**
 	 * Submits & executes a Dialogue event
+	 * 
 	 * @param listener
 	 */
-	public void dialogue(DialogueEventListener listener){
+	public void dialogue(DialogueEventListener listener) {
 		getAttributes().get(Attribute.DIALOGUE_EVENT).set(listener.begin());
-		
+
 	}
-	
+
 	/**
 	 * A cleaner simpler way to do quick easy dialogues!
+	 * 
 	 * @param listener
 	 */
 	public void dialogue(Consumer<DialogueEventListener> listener) {
@@ -643,10 +649,11 @@ public class Player extends Entity {
 			}
 		});
 	}
-	
+
 	/**
-	 * A cleaner simpler way to do quick easy dialogues!
-	 * This method supports NPC dialogues
+	 * A cleaner simpler way to do quick easy dialogues! This method supports NPC
+	 * dialogues
+	 * 
 	 * @param listener
 	 */
 	public void dialogue(int npcId, Consumer<DialogueEventListener> listener) {
@@ -659,28 +666,26 @@ public class Player extends Entity {
 	}
 
 	/**
-	 * Checks to see if the player owns the item (if exists in Bank, Inventory, or Equipment).
+	 * Checks to see if the player owns the item (if exists in Bank, Inventory, or
+	 * Equipment).
+	 * 
 	 * @param items
 	 * @return
 	 */
-    public boolean ownsItems(Item... items) {
-        return Arrays.stream(items)
-                .anyMatch(item -> getBank().getItem(item.getId()) != null
-                        || getEquipment().containsAny(item.getId())
-                        || getInventory().containsAny(item.getId()));
-    }
-    
-    /**
-	 * Checks to see if the player is carrying the item (if exists in Inventory, or Equipment).
+	public boolean ownsItems(Item... items) {
+		return Arrays.stream(items).anyMatch(item -> getBank().getItem(item.getId()) != null
+				|| getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId()));
+	}
+
+	/**
+	 * Checks to see if the player is carrying the item (if exists in Inventory, or
+	 * Equipment).
+	 * 
 	 * @param items
 	 * @return
 	 */
-    public boolean carryingItems(Item... items) {
-        return Arrays.stream(items)
-                .anyMatch(item -> getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId()));
-    }
-    
-    public void setPuzzleBox(int puzzleId) {
-		this.puzzleBox = new PuzzleBox(this, puzzleId);
+	public boolean carryingItems(Item... items) {
+		return Arrays.stream(items)
+				.anyMatch(item -> getEquipment().containsAny(item.getId()) || getInventory().containsAny(item.getId()));
 	}
 }
