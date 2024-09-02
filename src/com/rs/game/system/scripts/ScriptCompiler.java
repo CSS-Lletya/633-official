@@ -72,7 +72,7 @@ public final class ScriptCompiler {
 				continue;
 			}
 			Class<?> context = Class.forName("com.rs.game.system.scripts.context." + name.replace(".class", ""));
-			Object object = context.newInstance();
+			Object object = context.getDeclaredConstructor().newInstance();
 			if (object instanceof ScriptContext) {
 				ScriptContext script = (ScriptContext) object;
 				instructions.put(script.getName(), script);

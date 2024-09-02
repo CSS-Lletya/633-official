@@ -1,11 +1,8 @@
 package com.rs.plugin.impl.commands;
 
-import com.rs.game.Entity;
-import com.rs.game.dialogue.DialogueEventListener;
 import com.rs.game.dialogue.Mood;
 import com.rs.game.player.Player;
 import com.rs.game.player.Rights;
-import com.rs.game.player.content.InterfaceCreator;
 import com.rs.plugin.listener.CommandListener;
 import com.rs.plugin.wrapper.CommandSignature;
 
