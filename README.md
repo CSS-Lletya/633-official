@@ -22,7 +22,7 @@ We have our own community discord server where you can join in and recieve lates
 [Official Rune-Server Project thread](https://www.rune-server.ee/runescape-development/rs-503-client-server/projects/698925-open633-new-revision-development.html)
 
 # 🗨️ Our Trello Board 🗨️
-To maintain easier workflow and project management we have now officially launched our very own [Trello Board](https://trello.com/b/HHcJ6zq8/open-633). You'll need to DM Zed ([Via Discord - click here])(https://discord.gg/zuqCZhHQaG) to gain access to this board firstly. Once granted access you'll be able to see what's needed to be done, being worked on, finished task, such.. with much more ease.
+To maintain easier workflow and project management we have now officially launched our very own [Trello Board](https://trello.com/b/HHcJ6zq8/open-633). You'll need to DM Zed [via Discord - click here](https://discord.gg/zuqCZhHQaG) to gain access to this board firstly. Once granted access you'll be able to see what's needed to be done, being worked on, finished task, such.. with much more ease.
 # 🛠️ Installation 🛠️
 There's a few ways to begin development (or testing). Follow any of the applicable options below to get started! It's recommended to use [Intelij](https://www.jetbrains.com/idea/) over [Eclipse](https://www.eclipse.org/ide/), however it's your choice in the end!
 
@@ -62,10 +62,10 @@ You'll need to ad Gradle to your project. Refer to your specified IDE for setup 
 > [Vavr](https://www.vavr.io/)
 
 # ⬇️ Client download ⬇️
-ou can download the Client  by [clicking here](https://mega.nz/file/Q45y0AzT#3XGhBwujEsH4dhA-FfP9FNRC0Rh7KKcXlvCLEG7JBow), or by joining the official Discord. Should the cache link become dead notify any contributor or Zed directly.
+ou can download the Client  by [clicking here](https://mega.nz/file/RjcxjbzK#hFn4HV_C1cv7KbG2bAO1FCOQwyMDAR7W1I1VfMsBo_k), or by joining the official Discord. Should the cache link become dead notify any contributor or Zed directly.
 
 # ⬇️ Cache Download ⬇️
-You can download the Cache by [clicking here](https://mega.nz/file/l5ZhDI6L#k1fXD0Byr59AsPlUkc0OKlLopMSRiaNSLzB-vYkT2qg), or by joining the official Discord. Should the cache link become dead notify any contributor or Zed directly.
+You can download the Cache by [clicking here](https://mega.nz/file/Zi8XBRgY#uqZXhMasFpdkr-5_qCL_rSHM6k3OBAUcZguabL9e4_E), or by joining the official Discord. Should the cache link become dead notify any contributor or Zed directly.
 
 # ❤️ Credits ❤️
 - [Darkan Development](https://github.com/DarkanRS). Without the talents behind Darkan development may be at a slower pace than desired. Darkan is an open source #727 development (where we are 633), Go check them out and support and join the development if you'd like to as well!
